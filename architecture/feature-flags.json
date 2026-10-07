@@ -1,0 +1,1165 @@
+{
+  "schemaVersion": 1,
+  "flags": [
+    {
+      "id": "feature.trn-05",
+      "requirement": "TRN-05",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-06",
+      "requirement": "TRN-06",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-20",
+      "requirement": "TRN-20",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-21",
+      "requirement": "TRN-21",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-22",
+      "requirement": "TRN-22",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-23",
+      "requirement": "TRN-23",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-34",
+      "requirement": "TRN-34",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-35",
+      "requirement": "TRN-35",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-36",
+      "requirement": "TRN-36",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-42",
+      "requirement": "TRN-42",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-43",
+      "requirement": "TRN-43",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-44",
+      "requirement": "TRN-44",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-45",
+      "requirement": "TRN-45",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-46",
+      "requirement": "TRN-46",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-47",
+      "requirement": "TRN-47",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-52",
+      "requirement": "TRN-52",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-53",
+      "requirement": "TRN-53",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-54",
+      "requirement": "TRN-54",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-64",
+      "requirement": "TRN-64",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-65",
+      "requirement": "TRN-65",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-73",
+      "requirement": "TRN-73",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-74",
+      "requirement": "TRN-74",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-80",
+      "requirement": "TRN-80",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-81",
+      "requirement": "TRN-81",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-82",
+      "requirement": "TRN-82",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.trn-93",
+      "requirement": "TRN-93",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-t3",
+      "requirement": "VZ-T3",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-t6",
+      "requirement": "VZ-T6",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-t8",
+      "requirement": "VZ-T8",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-t9",
+      "requirement": "VZ-T9",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-t10",
+      "requirement": "VZ-T10",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w5",
+      "requirement": "VZ-W5",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w6",
+      "requirement": "VZ-W6",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w7",
+      "requirement": "VZ-W7",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w8",
+      "requirement": "VZ-W8",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w11",
+      "requirement": "VZ-W11",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w14",
+      "requirement": "VZ-W14",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w15",
+      "requirement": "VZ-W15",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w16",
+      "requirement": "VZ-W16",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w17",
+      "requirement": "VZ-W17",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w18",
+      "requirement": "VZ-W18",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w20",
+      "requirement": "VZ-W20",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w21",
+      "requirement": "VZ-W21",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w22",
+      "requirement": "VZ-W22",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w23",
+      "requirement": "VZ-W23",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w24",
+      "requirement": "VZ-W24",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w25",
+      "requirement": "VZ-W25",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-w27",
+      "requirement": "VZ-W27",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-f4",
+      "requirement": "VZ-F4",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-f6",
+      "requirement": "VZ-F6",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-f8",
+      "requirement": "VZ-F8",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-f9",
+      "requirement": "VZ-F9",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-f11",
+      "requirement": "VZ-F11",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-f12",
+      "requirement": "VZ-F12",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-f13",
+      "requirement": "VZ-F13",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-f14",
+      "requirement": "VZ-F14",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-f15",
+      "requirement": "VZ-F15",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-f16",
+      "requirement": "VZ-F16",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-f17",
+      "requirement": "VZ-F17",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-b2",
+      "requirement": "VZ-B2",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-b3",
+      "requirement": "VZ-B3",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-b4",
+      "requirement": "VZ-B4",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-b5",
+      "requirement": "VZ-B5",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-b6",
+      "requirement": "VZ-B6",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-b7",
+      "requirement": "VZ-B7",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-b8",
+      "requirement": "VZ-B8",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-s3",
+      "requirement": "VZ-S3",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-s4",
+      "requirement": "VZ-S4",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-s5",
+      "requirement": "VZ-S5",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-s8",
+      "requirement": "VZ-S8",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-s10",
+      "requirement": "VZ-S10",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-s11",
+      "requirement": "VZ-S11",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-s12",
+      "requirement": "VZ-S12",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-x1",
+      "requirement": "VZ-X1",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-x2",
+      "requirement": "VZ-X2",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-x3",
+      "requirement": "VZ-X3",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-x4",
+      "requirement": "VZ-X4",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-x5",
+      "requirement": "VZ-X5",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-x7",
+      "requirement": "VZ-X7",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-x8",
+      "requirement": "VZ-X8",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.vz-x9",
+      "requirement": "VZ-X9",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.fuel-10",
+      "requirement": "FUEL-10",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.fuel-11",
+      "requirement": "FUEL-11",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.fuel-12",
+      "requirement": "FUEL-12",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.fuel-13",
+      "requirement": "FUEL-13",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.fuel-22",
+      "requirement": "FUEL-22",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.fuel-23",
+      "requirement": "FUEL-23",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.fuel-24",
+      "requirement": "FUEL-24",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.fuel-25",
+      "requirement": "FUEL-25",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.fuel-26",
+      "requirement": "FUEL-26",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.fuel-28",
+      "requirement": "FUEL-28",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.stk-10",
+      "requirement": "STK-10",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.stk-11",
+      "requirement": "STK-11",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.stk-12",
+      "requirement": "STK-12",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.stk-13",
+      "requirement": "STK-13",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.stk-14",
+      "requirement": "STK-14",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.stk-15",
+      "requirement": "STK-15",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.stk-20",
+      "requirement": "STK-20",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.body-03",
+      "requirement": "BODY-03",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.body-04",
+      "requirement": "BODY-04",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.ai-01",
+      "requirement": "AI-01",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.ai-02",
+      "requirement": "AI-02",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.ai-03",
+      "requirement": "AI-03",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.ai-06",
+      "requirement": "AI-06",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.ai-07",
+      "requirement": "AI-07",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.plat-05",
+      "requirement": "PLAT-05",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.plat-06",
+      "requirement": "PLAT-06",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.plat-07",
+      "requirement": "PLAT-07",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.plat-08",
+      "requirement": "PLAT-08",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.plat-09",
+      "requirement": "PLAT-09",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.fuel-04_photo_recipe",
+      "requirement": "FUEL-04.PHOTO_RECIPE",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.stk-01_references",
+      "requirement": "STK-01.REFERENCES",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.stk-07_gs1",
+      "requirement": "STK-07.GS1",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.plat-04_importers",
+      "requirement": "PLAT-04.IMPORTERS",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.fuel-int-02",
+      "requirement": "FUEL-INT-02",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    },
+    {
+      "id": "feature.fuel-int-04",
+      "requirement": "FUEL-INT-04",
+      "default": false,
+      "conditions": [
+        "implemented-and-verified",
+        "privacy-consent",
+        "store-region-eligibility"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "status": "Specified vectors; pure Swift engines are later-phase work, not implemented or certified here.",
+  "notice": "Arithmetic tests only; not dosing guidance or usable protocol presets.",
+  "fixtures": [
+    {
+      "id": "epley-100x5",
+      "engine": "e1rm",
+      "input": {
+        "formula": "Epley",
+        "weightKg": 100,
+        "reps": 5
+      },
+      "expected": 116.67,
+      "tolerance": 0.01
+    },
+    {
+      "id": "brzycki-100x5",
+      "engine": "e1rm",
+      "input": {
+        "formula": "Brzycki",
+        "weightKg": 100,
+        "reps": 5
+      },
+      "expected": 112.5,
+      "tolerance": 0.01
+    },
+    {
+      "id": "oconner-100x5",
+      "engine": "e1rm",
+      "input": {
+        "formula": "OConner",
+        "weightKg": 100,
+        "reps": 5
+      },
+      "expected": 112.5,
+      "tolerance": 0.01
+    },
+    {
+      "id": "lombardi-100x5",
+      "engine": "e1rm",
+      "input": {
+        "formula": "Lombardi",
+        "weightKg": 100,
+        "reps": 5
+      },
+      "expected": 117.46,
+      "tolerance": 0.01
+    },
+    {
+      "id": "draw-5mg-2ml",
+      "engine": "draw",
+      "input": {
+        "vialUg": 5000,
+        "doseUg": 250,
+        "syringeUnitsPerML": 100,
+        "finalSolutionVolumeUL": 2000
+      },
+      "expected": {
+        "concentrationMgPerML": "2.5",
+        "drawUL": 100,
+        "syringeUnits": "10",
+        "fullDoses": 20
+      }
+    },
+    {
+      "id": "draw-10mg-1ml",
+      "engine": "draw",
+      "input": {
+        "vialUg": 10000,
+        "doseUg": 2500,
+        "syringeUnitsPerML": 100,
+        "finalSolutionVolumeUL": 1000
+      },
+      "expected": {
+        "concentrationMgPerML": "10",
+        "drawUL": 250,
+        "syringeUnits": "25",
+        "fullDoses": 4
+      }
+    },
+    {
+      "id": "draw-2mg-2ml",
+      "engine": "draw",
+      "input": {
+        "vialUg": 2000,
+        "doseUg": 300,
+        "syringeUnitsPerML": 100,
+        "finalSolutionVolumeUL": 2000
+      },
+      "expected": {
+        "concentrationMgPerML": "1",
+        "drawUL": 300,
+        "syringeUnits": "30",
+        "fullDoses": 6
+      }
+    },
+    {
+      "id": "blend-equal",
+      "engine": "blend",
+      "input": {
+        "componentUg": [
+          5000,
+          5000
+        ],
+        "drawUL": 100,
+        "finalSolutionVolumeUL": 2000
+      },
+      "expected": {
+        "componentUg": [
+          250,
+          250
+        ]
+      }
+    }
+  ],
+  "volumeAssumption": "The supplied brief arithmetic assumes added diluent equals final solution volume. Fixtures use label-confirmed final solution volume; the app must never infer this equivalence."
+}

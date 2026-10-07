@@ -1,0 +1,445 @@
+{
+  "schemaVersion": 1,
+  "events": [
+    {
+      "id": "workout",
+      "domain": "train",
+      "glyph": "dumbbell",
+      "sourceEntity": "workouts",
+      "sourceQuery": "events.workout",
+      "requirements": [
+        "TRN-10"
+      ],
+      "colorToken": "train",
+      "privacy": "health-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": true,
+      "sourceStore": "core",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "setPR",
+      "domain": "train",
+      "glyph": "star",
+      "sourceEntity": "pr_records",
+      "sourceQuery": "events.setPR",
+      "requirements": [
+        "TRN-50"
+      ],
+      "colorToken": "train",
+      "privacy": "health-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": true,
+      "sourceStore": "core",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "mesocycle",
+      "domain": "train",
+      "glyph": "calendar",
+      "sourceEntity": "events",
+      "sourceQuery": "events.mesocycle",
+      "requirements": [
+        "VZ-W18"
+      ],
+      "colorToken": "train",
+      "privacy": "health-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": true,
+      "sourceStore": "core",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "deload",
+      "domain": "train",
+      "glyph": "arrow.down.right",
+      "sourceEntity": "events",
+      "sourceQuery": "events.deload",
+      "requirements": [
+        "VZ-W18"
+      ],
+      "colorToken": "train",
+      "privacy": "health-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": true,
+      "sourceStore": "core",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "meal",
+      "domain": "fuel",
+      "glyph": "fork.knife",
+      "sourceEntity": "food_logs",
+      "sourceQuery": "events.meal",
+      "requirements": [
+        "FUEL-01"
+      ],
+      "colorToken": "fuel",
+      "privacy": "health-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": true,
+      "sourceStore": "core",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "dietPhase",
+      "domain": "fuel",
+      "glyph": "calendar",
+      "sourceEntity": "diet_phases",
+      "sourceQuery": "events.dietPhase",
+      "requirements": [
+        "FUEL-21"
+      ],
+      "colorToken": "fuel",
+      "privacy": "health-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": true,
+      "sourceStore": "core",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "weighIn",
+      "domain": "body",
+      "glyph": "scalemass",
+      "sourceEntity": "weigh_ins",
+      "sourceQuery": "events.weighIn",
+      "requirements": [
+        "BODY-01"
+      ],
+      "colorToken": "body",
+      "privacy": "health-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": true,
+      "sourceStore": "core",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "measurement",
+      "domain": "body",
+      "glyph": "ruler",
+      "sourceEntity": "measurements",
+      "sourceQuery": "events.measurement",
+      "requirements": [
+        "BODY-02"
+      ],
+      "colorToken": "body",
+      "privacy": "health-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": true,
+      "sourceStore": "core",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "photo",
+      "domain": "body",
+      "glyph": "photo",
+      "sourceEntity": "attachments",
+      "sourceQuery": "events.photo",
+      "requirements": [
+        "BODY-03"
+      ],
+      "colorToken": "body",
+      "privacy": "health-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": true,
+      "sourceStore": "core",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "injury",
+      "domain": "body",
+      "glyph": "bandage",
+      "sourceEntity": "events",
+      "sourceQuery": "events.injury",
+      "requirements": [
+        "TRN-47"
+      ],
+      "colorToken": "body",
+      "privacy": "health-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": true,
+      "sourceStore": "core",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "illness",
+      "domain": "body",
+      "glyph": "cross.case",
+      "sourceEntity": "events",
+      "sourceQuery": "events.illness",
+      "requirements": [
+        "BODY-01"
+      ],
+      "colorToken": "body",
+      "privacy": "health-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": true,
+      "sourceStore": "core",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "travel",
+      "domain": "body",
+      "glyph": "airplane",
+      "sourceEntity": "events",
+      "sourceQuery": "events.travel",
+      "requirements": [
+        "BODY-01"
+      ],
+      "colorToken": "body",
+      "privacy": "health-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": true,
+      "sourceStore": "core",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "note",
+      "domain": "body",
+      "glyph": "note.text",
+      "sourceEntity": "events",
+      "sourceQuery": "events.note",
+      "requirements": [
+        "FUEL-07"
+      ],
+      "colorToken": "body",
+      "privacy": "health-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": true,
+      "sourceStore": "core",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "protocolStart",
+      "domain": "stack",
+      "glyph": "calendar",
+      "sourceEntity": "protocol_revisions",
+      "sourceQuery": "events.protocolStart",
+      "requirements": [
+        "STK-02"
+      ],
+      "colorToken": "stack",
+      "privacy": "stack-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": false,
+      "sourceStore": "stack",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "protocolStop",
+      "domain": "stack",
+      "glyph": "pause.circle",
+      "sourceEntity": "protocol_revisions",
+      "sourceQuery": "events.protocolStop",
+      "requirements": [
+        "STK-02"
+      ],
+      "colorToken": "stack",
+      "privacy": "stack-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": false,
+      "sourceStore": "stack",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "protocolChange",
+      "domain": "stack",
+      "glyph": "arrow.triangle.2.circlepath",
+      "sourceEntity": "protocol_revisions",
+      "sourceQuery": "events.protocolChange",
+      "requirements": [
+        "STK-02"
+      ],
+      "colorToken": "stack",
+      "privacy": "stack-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": false,
+      "sourceStore": "stack",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "dose",
+      "domain": "stack",
+      "glyph": "checkmark.circle",
+      "sourceEntity": "dose_logs",
+      "sourceQuery": "events.dose",
+      "requirements": [
+        "STK-04"
+      ],
+      "colorToken": "stack",
+      "privacy": "stack-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": false,
+      "sourceStore": "stack",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "skippedDose",
+      "domain": "stack",
+      "glyph": "minus.circle",
+      "sourceEntity": "dose_occurrences",
+      "sourceQuery": "events.skippedDose",
+      "requirements": [
+        "STK-03"
+      ],
+      "colorToken": "stack",
+      "privacy": "stack-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": false,
+      "sourceStore": "stack",
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "labDraw",
+      "domain": "stack",
+      "glyph": "testtube.2",
+      "sourceEntity": "lab_results",
+      "sourceQuery": "events.labDraw",
+      "requirements": [
+        "STK-11"
+      ],
+      "colorToken": "stack",
+      "privacy": "stack-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": false,
+      "sourceStore": "stack",
+      "schemaAvailability": "future-P1"
+    },
+    {
+      "id": "symptom",
+      "domain": "stack",
+      "glyph": "waveform.path",
+      "sourceEntity": "symptom_logs",
+      "sourceQuery": "events.symptom",
+      "requirements": [
+        "STK-09"
+      ],
+      "colorToken": "stack",
+      "privacy": "stack-private",
+      "timeFields": [
+        "occurred_at",
+        "tz",
+        "local_date"
+      ],
+      "allowsAnnotation": true,
+      "hiddenWhenLocked": true,
+      "persistInCore": false,
+      "sourceStore": "stack",
+      "schemaAvailability": "v1"
+    }
+  ]
+}

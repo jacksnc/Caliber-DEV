@@ -1,0 +1,62 @@
+Executed 2026-10-07; Python 3.9.6; SQLite 3.54.0
+Command: python3 scripts/validate_phase0.py
+Exit status: 0
+
+PASS: 211 explicit + 12 derived IDs; 81 P0 table/screen/test mappings; 116 default-off P1 flags; 26 P2 backlog items.
+PASS: 107 table contracts; 53 series and 20 events with valid store bindings.
+PASS: 49 local Markdown file links resolve. External URL freshness is a separate review.
+core: 72 tables, stack: 35 tables
+PASS: schema generator reproduces all four SQL files and table manifest byte-for-byte.
+PASS: eight supplied arithmetic fixture values independently reconciled; app engines remain unimplemented.
+PASS: 54 text/essential-mark contrast pairs; minimum 5.94:1, border ≥3:1, 48pt targets, motion and redundant symbols.
+Scratch-only migration tests; SQLite 3.54.0
+PASS: Phase 0 static contracts, token checks and disposable SQL suite. Runtime features remain planned.
+
+test_01_up_down_up_empty_stores (__main__.SchemaTests) ... ok
+test_02_down_refuses_populated_store (__main__.SchemaTests) ... ok
+test_03_every_table_has_metadata_ownership_and_strict_types (__main__.SchemaTests) ... ok
+test_04_uuid_format_version_and_variant_are_enforced (__main__.SchemaTests) ... ok
+test_05_cross_account_references_are_rejected (__main__.SchemaTests) ... ok
+test_06_identity_and_ownership_cannot_be_reassigned (__main__.SchemaTests) ... ok
+test_07_utc_timestamp_retains_logging_timezone_and_local_day (__main__.SchemaTests) ... ok
+test_08_mutation_and_outbox_commit_or_rollback_together (__main__.SchemaTests) ... ok
+test_09_outbox_payload_and_tombstone_are_preserved (__main__.SchemaTests) ... ok
+test_10_logical_clock_prevents_stale_replacement (__main__.SchemaTests) ... ok
+test_11_conflict_keeps_both_candidates (__main__.SchemaTests) ... ok
+test_12_cursor_rolls_back_with_failed_pull (__main__.SchemaTests) ... ok
+test_13_sets_are_append_only_including_replace (__main__.SchemaTests) ... ok
+test_14_set_branches_preserved_and_head_selected_explicitly (__main__.SchemaTests) ... ok
+test_15_revision_parent_and_head_must_match_log (__main__.SchemaTests) ... ok
+test_16_set_tombstone_and_undo_keep_original_revision (__main__.SchemaTests) ... ok
+test_17_dose_fixed_point_units_and_no_float_storage (__main__.SchemaTests) ... ok
+test_18_dose_audit_immutable_and_separate_from_core (__main__.SchemaTests) ... ok
+test_19_inventory_reversal_is_exact_immutable_and_idempotent (__main__.SchemaTests) ... ok
+test_20_inventory_dimensions_never_mix_mass_and_activity (__main__.SchemaTests) ... ok
+test_21_atomic_dose_inventory_and_outbox (__main__.SchemaTests) ... ok
+test_22_no_clinical_seed_rows (__main__.SchemaTests) ... ok
+test_23_core_registry_rejects_stack_domain (__main__.SchemaTests) ... ok
+test_24_attachment_owner_must_be_same_store_and_account (__main__.SchemaTests) ... ok
+test_25_target_floor_override_requires_explicit_valid_ack (__main__.SchemaTests) ... ok
+test_26_bmi_and_rate_safety_constraints (__main__.SchemaTests) ... ok
+test_27_nutrition_snapshots_aggregate_by_local_day_and_ignore_plan (__main__.SchemaTests) ... ok
+test_28_recipe_yield_must_match_raw_and_cooked_mass (__main__.SchemaTests) ... ok
+test_29_measurement_dimension_guard (__main__.SchemaTests) ... ok
+test_30_health_identity_deduplicates_without_losing_entered_weight (__main__.SchemaTests) ... ok
+test_31_account_delete_deadline_is_zero_to_thirty_days (__main__.SchemaTests) ... ok
+test_32_daily_rollup_upsert_is_idempotent_and_missing_stays_missing (__main__.SchemaTests) ... ok
+test_33_program_day_foreign_key_is_concrete (__main__.SchemaTests) ... ok
+test_34_legacy_identity_mapping_preserves_original_without_uuid4_rewrite (__main__.SchemaTests) ... ok
+test_35_every_foreign_key_and_integrity_check_is_clean (__main__.SchemaTests) ... ok
+test_36_low_bmi_cannot_hide_deficit_in_another_mode (__main__.SchemaTests) ... ok
+test_37_pen_requires_all_calibration_dimensions (__main__.SchemaTests) ... ok
+test_38_initial_head_cannot_duplicate_another_dose_or_set (__main__.SchemaTests) ... ok
+test_39_dose_compound_changes_require_audited_replacement (__main__.SchemaTests) ... ok
+test_40_completeness_is_explicit_and_zero_can_be_complete (__main__.SchemaTests) ... ok
+test_41_remote_apply_does_not_echo_and_context_rolls_back (__main__.SchemaTests) ... ok
+test_42_calculator_requires_explicit_final_volume_evidence (__main__.SchemaTests) ... ok
+test_43_unlogged_rir_uses_logged_rpe_for_hard_set_filter (__main__.SchemaTests) ... ok
+
+----------------------------------------------------------------------
+Ran 43 tests in 0.622s
+
+OK

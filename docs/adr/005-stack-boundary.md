@@ -1,0 +1,15 @@
+# ADR-005 — Stack is an independently gated private module
+
+Status: architecture proposed; clinical/store release eligibility unresolved.
+
+A compile-time product variant excludes the Stack target, routes, deep links, schemas, seed data, notifications and resources. Standard app dependencies cannot import Stack. Runtime availability is build support AND adult consent AND explicit opt-in AND jurisdiction/store flag AND privacy unlock AND feature maturity; entitlement is an additional gate only for optional analytics.
+
+Use an independent encrypted store and attachment root, a distinct Keychain key and separate sync authorization. When locked or disabled, remove all Stack DTOs from memory, hide counts/names in search/Today/exports/app-switcher snapshots, clear temporary report images, and cancel detailed notifications. Shared timeline receives ephemeral authorized projections only; no dose/event/compound identifiers persist in core. A signed kill-switch hides functionality without deleting existing logs; authenticated private export remains available through the approved recovery flow. Offline first use with unknown region/gate status defaults disabled; previously enabled logging follows signed last-known policy with a documented expiry and neutral availability notice.
+
+Notifications default to neutral text. If the private key is locked, Log requires authentication; no lock-screen bypass. Only an explicitly configured, unambiguous user-confirmed occurrence may support a quick action; ambiguous/double-dose cases open review. Background scheduling uses occurrence identifiers and generic labels. Do not promise repeat-until-logged delivery on iOS as an absolute guarantee; use bounded local scheduling and reconcile permission/capacity changes. Store actual user confirmation time, not notification fire time.
+
+Calculator: user supplies amount/label dilution/target amount. Pure dimensioned fixed-point math emits one result object consumed by text, ticks and export. U-100/U-40 graduation units differ from pharmaceutical IU. Pen clicks require explicit product-specific calibration; an arbitrary IU↔mass conversion is forbidden. Results outside barrel capacity, below resolution or with mismatched units are blocked/clearly warned; never round a displayed number without updating the graphic. No default dose or dilution. Reverse dilution *recommendation* is disabled; any future comparison needs qualified review under §11.
+
+Apple's drug-dosage-calculator policy requires a human eligibility decision; 'math only' copy does not remove that gate. The base app can ship without this module. Region/store flags never imply legal approval or provide instructions to evade review. See COMPLIANCE.md for the checked primary text and open sign-offs.
+
+Demo mode uses separate fake accounts/files/keys. Fictional protocols are explicitly labeled simulation, carry no real compound or suggested regimen, cannot be copied into a real protocol, and never schedule real reminders. No benefit/dosing fields in reference catalogs.

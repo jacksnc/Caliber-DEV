@@ -1,0 +1,3448 @@
+{
+  "core": [
+    {
+      "name": "accounts",
+      "description": "Local account root; an offline account works without a remote identity.",
+      "columns": [
+        "id",
+        "external_subject",
+        "auth_provider",
+        "age_verified_at",
+        "region",
+        "sync_enabled",
+        "deletion_requested_at",
+        "deletion_due_at",
+        "birth_date",
+        "height_cm",
+        "entered_height_value",
+        "entered_height_unit",
+        "bmr_sex",
+        "experience",
+        "onboarding_completed_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "devices",
+      "description": "Per-account sync writer identity; never a hardware advertising identifier.",
+      "columns": [
+        "id",
+        "account_id",
+        "label",
+        "platform",
+        "last_seen_at",
+        "retired_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "settings",
+      "description": "Typed preferences; key material belongs in Keychain, never this table.",
+      "columns": [
+        "id",
+        "account_id",
+        "language",
+        "locale",
+        "week_start",
+        "theme",
+        "quiet_start_minute",
+        "quiet_end_minute",
+        "notifications_enabled",
+        "reduce_motion",
+        "weight_unit",
+        "length_unit",
+        "energy_unit",
+        "volume_unit",
+        "temperature_unit",
+        "count_mode",
+        "e1rm_formula",
+        "rest_compound_seconds",
+        "rest_isolation_seconds",
+        "count_both_hands",
+        "train_enabled",
+        "fuel_enabled",
+        "ai_enabled",
+        "hide_numbers",
+        "streaks_opt_in",
+        "fasting_opt_in",
+        "ed_risk_flag",
+        "default_chart_range",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "consents",
+      "description": "Append-only grant/revoke acknowledgements and permission history.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "scope",
+        "policy_version",
+        "action",
+        "expires_at",
+        "acknowledgement_text",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": true,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "sync_outbox",
+      "description": "Atomic, idempotent outbound mutation envelopes; health values stay in this store.",
+      "columns": [
+        "id",
+        "account_id",
+        "entity_table",
+        "entity_id",
+        "revision_id",
+        "operation",
+        "payload_json",
+        "status",
+        "attempts",
+        "next_attempt_at",
+        "acknowledged_at",
+        "last_error_code",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "sync_cursors",
+      "description": "Opaque cursor advances only in the same transaction as all applied pull changes.",
+      "columns": [
+        "id",
+        "account_id",
+        "stream",
+        "cursor",
+        "server_sequence",
+        "last_success_at",
+        "export_checkpoint",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "sync_conflicts",
+      "description": "Keep both remote and local candidates until an explicit deterministic or user resolution.",
+      "columns": [
+        "id",
+        "account_id",
+        "entity_table",
+        "entity_id",
+        "local_revision_id",
+        "remote_revision_id",
+        "local_payload_json",
+        "remote_payload_json",
+        "resolution",
+        "resolution_revision_id",
+        "resolved_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "attachments",
+      "description": "Encrypted-file manifest with a same-store typed owner; no image bytes in sync logs.",
+      "columns": [
+        "id",
+        "account_id",
+        "owner_table",
+        "owner_id",
+        "local_locator",
+        "remote_object_key",
+        "media_type",
+        "byte_count",
+        "sha256",
+        "width_px",
+        "height_px",
+        "duration_ms",
+        "pose",
+        "sort_order",
+        "metadata_stripped",
+        "biometric_required",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "series_registry",
+      "description": "Allowlisted query key and unit contract, never arbitrary executable SQL.",
+      "columns": [
+        "id",
+        "account_id",
+        "metric_key",
+        "domain",
+        "unit",
+        "kind",
+        "aggregation",
+        "value_storage",
+        "color_token",
+        "source_query_key",
+        "method_version",
+        "is_estimate",
+        "priority",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "event_registry",
+      "description": "Allowlisted event types for charts and the shared in-memory timeline.",
+      "columns": [
+        "id",
+        "account_id",
+        "event_key",
+        "domain",
+        "label_key",
+        "shape_token",
+        "color_token",
+        "source_query_key",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "events",
+      "description": "Typed annotations; Stack events are never copied to the core database.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "event_type_id",
+        "owner_table",
+        "owner_id",
+        "title",
+        "notes",
+        "end_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "event_type_id",
+          "table": "event_registry"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "daily_rollups",
+      "description": "Rebuildable per-series, local-day, dimension aggregates; missing values remain missing.",
+      "columns": [
+        "id",
+        "account_id",
+        "series_id",
+        "local_date",
+        "dimension_key",
+        "real_value",
+        "value_coefficient",
+        "value_scale",
+        "sample_count",
+        "expected_count",
+        "coverage",
+        "input_digest",
+        "method_version",
+        "rebuilt_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "series_id",
+          "table": "series_registry"
+        }
+      ],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "chart_preferences",
+      "description": "Independent per-chart range, transforms, hidden numbers and marker preferences.",
+      "columns": [
+        "id",
+        "account_id",
+        "chart_key",
+        "range_key",
+        "from_date",
+        "to_date",
+        "comparison_enabled",
+        "trend",
+        "show_absolute_values",
+        "marker_keys_json",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "notification_jobs",
+      "description": "Local schedule state; fixed IDs allow cancel/reschedule without duplicate alerts.",
+      "columns": [
+        "id",
+        "account_id",
+        "kind",
+        "owner_table",
+        "owner_id",
+        "due_at",
+        "tz",
+        "request_identifier",
+        "status",
+        "repeat_seconds",
+        "snoozed_until",
+        "neutral_text_key",
+        "last_action",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "muscles",
+      "description": "Body-map region taxonomy and original/license metadata.",
+      "columns": [
+        "id",
+        "account_id",
+        "code",
+        "display_name",
+        "parent_id",
+        "body_side",
+        "svg_region_key",
+        "citation",
+        "license_key",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "parent_id",
+          "table": "muscles"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "equipment",
+      "description": "Searchable equipment and bar definition; masses are canonical kg.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "kind",
+        "bar_mass_kg",
+        "entered_value",
+        "entered_unit",
+        "is_custom",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "gyms",
+      "description": "Gym profile and active plate calculator context.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "notes",
+        "is_active",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "plate_inventory",
+      "description": "Integer plate counts per gym; matched pairs and fractional plates remain exact entered values.",
+      "columns": [
+        "id",
+        "account_id",
+        "gym_id",
+        "mass_kg",
+        "entered_value",
+        "entered_unit",
+        "count",
+        "color_token",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "gym_id",
+          "table": "gyms"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "exercises",
+      "description": "Original/licensed exercise definitions plus private custom records; merge preserves old IDs.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "normalized_name",
+        "movement_pattern",
+        "mechanics",
+        "metric_type",
+        "unilateral",
+        "per_side",
+        "is_custom",
+        "is_favorite",
+        "cues",
+        "common_mistakes",
+        "pinned_note",
+        "increment_kg",
+        "entered_increment_value",
+        "entered_increment_unit",
+        "default_rest_seconds",
+        "default_bar_id",
+        "merged_into_id",
+        "license_key",
+        "citation",
+        "external_key",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "default_bar_id",
+          "table": "equipment"
+        },
+        {
+          "column": "merged_into_id",
+          "table": "exercises"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "exercise_aliases",
+      "description": "Indexed aliases include user names without rewriting historical exercise IDs.",
+      "columns": [
+        "id",
+        "account_id",
+        "exercise_id",
+        "alias",
+        "normalized_alias",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "exercise_id",
+          "table": "exercises"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "exercise_muscles",
+      "description": "Fractional muscle attribution used by set counting and swap ranking.",
+      "columns": [
+        "id",
+        "account_id",
+        "exercise_id",
+        "muscle_id",
+        "role",
+        "contribution",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "exercise_id",
+          "table": "exercises"
+        },
+        {
+          "column": "muscle_id",
+          "table": "muscles"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "exercise_equipment",
+      "description": "Equipment requirements and optional per-gym setup notes.",
+      "columns": [
+        "id",
+        "account_id",
+        "exercise_id",
+        "equipment_id",
+        "gym_id",
+        "setup_note",
+        "available",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "exercise_id",
+          "table": "exercises"
+        },
+        {
+          "column": "equipment_id",
+          "table": "equipment"
+        },
+        {
+          "column": "gym_id",
+          "table": "gyms"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "set_types",
+      "description": "User-defined set labels and independent volume/hard-set/PR inclusion switches.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "glyph",
+        "color_token",
+        "counts_volume",
+        "counts_hard_sets",
+        "counts_pr",
+        "default_rest_seconds",
+        "is_warmup",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "routine_folders",
+      "description": "Routine organization without deleting archived history.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "position",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "routines",
+      "description": "Reusable routine definition; program position can use these routine days before P1 programming.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "folder_id",
+        "notes",
+        "archived_at",
+        "share_format_version",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "folder_id",
+          "table": "routine_folders"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "routine_exercises",
+      "description": "Ordered routine steps, superset/circuit groups and per-exercise defaults.",
+      "columns": [
+        "id",
+        "account_id",
+        "routine_id",
+        "exercise_id",
+        "position",
+        "group_key",
+        "group_kind",
+        "rest_after_round",
+        "notes",
+        "warmup_template_name",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "routine_id",
+          "table": "routines"
+        },
+        {
+          "column": "exercise_id",
+          "table": "exercises"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "routine_sets",
+      "description": "Editable target sets and warm-up ramps, expressed without programme prose.",
+      "columns": [
+        "id",
+        "account_id",
+        "routine_exercise_id",
+        "set_type_id",
+        "position",
+        "reps_min",
+        "reps_max",
+        "target_load_kg",
+        "entered_value",
+        "entered_unit",
+        "percent_top_load",
+        "target_rpe",
+        "target_rir",
+        "rest_seconds",
+        "tempo",
+        "duration_seconds",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "routine_exercise_id",
+          "table": "routine_exercises"
+        },
+        {
+          "column": "set_type_id",
+          "table": "set_types"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "training_schedule",
+      "description": "Calendar plan, rest days, RRULE, missed handling and automatic programme position.",
+      "columns": [
+        "id",
+        "account_id",
+        "routine_id",
+        "schedule_name",
+        "rrule",
+        "tz",
+        "anchor_date",
+        "local_time",
+        "is_rest_day",
+        "missed_policy",
+        "program_position",
+        "next_local_date",
+        "reminder_minutes",
+        "paused_at",
+        "program_day_id",
+        "program_id",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "routine_id",
+          "table": "routines"
+        },
+        {
+          "column": "program_day_id",
+          "table": "program_days"
+        },
+        {
+          "column": "program_id",
+          "table": "programs"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "workouts",
+      "description": "Durable resumable session identity and subjective finish summary.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "routine_id",
+        "gym_id",
+        "repeated_workout_id",
+        "status",
+        "ended_at",
+        "paused_seconds",
+        "bodyweight_kg",
+        "bodyweight_log_id",
+        "notes",
+        "soreness",
+        "energy",
+        "mood",
+        "current_exercise_position",
+        "current_round",
+        "start_origin",
+        "program_day_id",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "routine_id",
+          "table": "routines"
+        },
+        {
+          "column": "gym_id",
+          "table": "gyms"
+        },
+        {
+          "column": "repeated_workout_id",
+          "table": "workouts"
+        },
+        {
+          "column": "bodyweight_log_id",
+          "table": "weigh_ins"
+        },
+        {
+          "column": "program_day_id",
+          "table": "program_days"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "workout_exercises",
+      "description": "Session exercise ordering and grouping; swapping records both original and selected exercise.",
+      "columns": [
+        "id",
+        "account_id",
+        "workout_id",
+        "exercise_id",
+        "original_exercise_id",
+        "position",
+        "group_key",
+        "group_kind",
+        "skipped",
+        "notes",
+        "equipment_id",
+        "rest_after_round",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "workout_id",
+          "table": "workouts"
+        },
+        {
+          "column": "exercise_id",
+          "table": "exercises"
+        },
+        {
+          "column": "original_exercise_id",
+          "table": "exercises"
+        },
+        {
+          "column": "equipment_id",
+          "table": "equipment"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "workout_sets",
+      "description": "Stable set identity; the selected immutable revision is the current projection.",
+      "columns": [
+        "id",
+        "account_id",
+        "workout_exercise_id",
+        "current_revision_id",
+        "position",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "workout_exercise_id",
+          "table": "workout_exercises"
+        },
+        {
+          "column": "current_revision_id",
+          "table": "set_revisions"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "set_revisions",
+      "description": "Append-only complete set snapshots. Branches are preserved rather than silently overwriting.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "set_id",
+        "parent_revision_id",
+        "writer_device_id",
+        "action",
+        "set_type_id",
+        "load_kg",
+        "entered_load_value",
+        "entered_load_unit",
+        "reps",
+        "rpe",
+        "rir",
+        "duration_seconds",
+        "distance_cm",
+        "entered_distance_value",
+        "entered_distance_unit",
+        "bodyweight_kg",
+        "added_kg",
+        "assistance_kg",
+        "side",
+        "tempo",
+        "rest_actual_seconds",
+        "planned_rest_seconds",
+        "percent_1rm",
+        "counts_both_hands",
+        "completed",
+        "notes",
+        "edit_reason",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "set_id",
+          "table": "workout_sets"
+        },
+        {
+          "column": "parent_revision_id",
+          "table": "set_revisions"
+        },
+        {
+          "column": "writer_device_id",
+          "table": "devices"
+        },
+        {
+          "column": "set_type_id",
+          "table": "set_types"
+        }
+      ],
+      "immutable": true,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "rest_timers",
+      "description": "Persisted timer deadlines survive app termination; notifications schedule from ends_at.",
+      "columns": [
+        "id",
+        "account_id",
+        "workout_id",
+        "set_id",
+        "started_at",
+        "ends_at",
+        "finished_at",
+        "target_seconds",
+        "actual_seconds",
+        "state",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "workout_id",
+          "table": "workouts"
+        },
+        {
+          "column": "set_id",
+          "table": "workout_sets"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "pr_records",
+      "description": "Rebuildable records linked to the exact set revision and documented calculation method.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "exercise_id",
+        "workout_id",
+        "set_revision_id",
+        "record_kind",
+        "rep_threshold",
+        "value",
+        "unit",
+        "formula",
+        "confidence",
+        "computed_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "exercise_id",
+          "table": "exercises"
+        },
+        {
+          "column": "workout_id",
+          "table": "workouts"
+        },
+        {
+          "column": "set_revision_id",
+          "table": "set_revisions"
+        }
+      ],
+      "immutable": false,
+      "synced": false,
+      "timed": true
+    },
+    {
+      "name": "muscle_targets",
+      "description": "User-set weekly neutral target bands, not clinical recommendations.",
+      "columns": [
+        "id",
+        "account_id",
+        "muscle_id",
+        "valid_from",
+        "min_sets",
+        "max_sets",
+        "mev",
+        "mav",
+        "mrv",
+        "method_label",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "muscle_id",
+          "table": "muscles"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "food_sources",
+      "description": "Dataset licensing, attribution, provenance and freshness.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "source_kind",
+        "license_identifier",
+        "attribution",
+        "terms_url",
+        "version",
+        "verified_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "restaurants",
+      "description": "Preserves the current restaurant library identity during shadow copy.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "citation",
+        "verified_at",
+        "is_custom",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "foods",
+      "description": "Canonical per-100g food definitions; private corrections link to the original food.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "normalized_name",
+        "brand",
+        "source_id",
+        "source_external_key",
+        "barcode",
+        "quality_rank",
+        "density_g_per_ml",
+        "restaurant_id",
+        "menu_category",
+        "corrected_from_id",
+        "correction_reason",
+        "error_report_status",
+        "is_favorite",
+        "is_custom",
+        "kind",
+        "notes",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "source_id",
+          "table": "food_sources"
+        },
+        {
+          "column": "restaurant_id",
+          "table": "restaurants"
+        },
+        {
+          "column": "corrected_from_id",
+          "table": "foods"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "food_servings",
+      "description": "Household measures, default serving and exact input display units.",
+      "columns": [
+        "id",
+        "account_id",
+        "food_id",
+        "label",
+        "grams",
+        "entered_value",
+        "entered_unit",
+        "is_default",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "food_id",
+          "table": "foods"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "nutrients",
+      "description": "Versioned nutrient identifiers with their actual canonical dimension and reference source.",
+      "columns": [
+        "id",
+        "account_id",
+        "code",
+        "name",
+        "canonical_unit",
+        "citation",
+        "reference_version",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "food_nutrients",
+      "description": "Per-100g values with source units retained; missing is not zero.",
+      "columns": [
+        "id",
+        "account_id",
+        "food_id",
+        "nutrient_id",
+        "value",
+        "entered_value",
+        "entered_unit",
+        "precision_digits",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "food_id",
+          "table": "foods"
+        },
+        {
+          "column": "nutrient_id",
+          "table": "nutrients"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "food_component_groups",
+      "description": "Existing customizable restaurant builder groups; unrelated to dose units.",
+      "columns": [
+        "id",
+        "account_id",
+        "food_id",
+        "name",
+        "selection_mode",
+        "required",
+        "position",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "food_id",
+          "table": "foods"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "food_components",
+      "description": "Restaurant options/modifier references and explicit portion capabilities.",
+      "columns": [
+        "id",
+        "account_id",
+        "parent_food_id",
+        "child_food_id",
+        "group_id",
+        "name",
+        "grams",
+        "is_removal",
+        "supports_double",
+        "position",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "parent_food_id",
+          "table": "foods"
+        },
+        {
+          "column": "child_food_id",
+          "table": "foods"
+        },
+        {
+          "column": "group_id",
+          "table": "food_component_groups"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "meal_slots",
+      "description": "Four initial slots plus unlimited private slots and local times.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "position",
+        "default_local_time",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "meal_logs",
+      "description": "Meal-level notes, photos, hunger/mood, planned/eaten state and clone provenance.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "meal_slot_id",
+        "state",
+        "notes",
+        "hunger",
+        "mood",
+        "copied_from_id",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "meal_slot_id",
+          "table": "meal_slots"
+        },
+        {
+          "column": "copied_from_id",
+          "table": "meal_logs"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "food_logs",
+      "description": "Immutable-source nutrition snapshot editable only for this log; preserves exact serving entry.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "meal_log_id",
+        "food_id",
+        "food_name",
+        "serving_id",
+        "grams",
+        "entered_value",
+        "entered_unit",
+        "multiplier",
+        "calories_kcal",
+        "protein_g",
+        "carbs_g",
+        "fat_g",
+        "alcohol_g",
+        "adjusted",
+        "confirmed_at",
+        "notes",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "meal_log_id",
+          "table": "meal_logs"
+        },
+        {
+          "column": "food_id",
+          "table": "foods"
+        },
+        {
+          "column": "serving_id",
+          "table": "food_servings"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "food_log_nutrients",
+      "description": "Micronutrient and supplement snapshots for diary totals independent of future catalog edits.",
+      "columns": [
+        "id",
+        "account_id",
+        "food_log_id",
+        "nutrient_id",
+        "value",
+        "entered_value",
+        "entered_unit",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "food_log_id",
+          "table": "food_logs"
+        },
+        {
+          "column": "nutrient_id",
+          "table": "nutrients"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "recipes",
+      "description": "Recipe provenance, portions and explicit raw/cooked mass yield.",
+      "columns": [
+        "id",
+        "account_id",
+        "food_id",
+        "name",
+        "servings",
+        "raw_mass_g",
+        "cooked_mass_g",
+        "yield_factor",
+        "import_url",
+        "instructions",
+        "parser_version",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "food_id",
+          "table": "foods"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "recipe_ingredients",
+      "description": "Ordered ingredient mass and entered units for deterministic recipe totals.",
+      "columns": [
+        "id",
+        "account_id",
+        "recipe_id",
+        "food_id",
+        "grams",
+        "entered_value",
+        "entered_unit",
+        "position",
+        "notes",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "recipe_id",
+          "table": "recipes"
+        },
+        {
+          "column": "food_id",
+          "table": "foods"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "meal_templates",
+      "description": "Saved meal identity, independent from logs or originals.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "notes",
+        "preferred_slot_id",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "preferred_slot_id",
+          "table": "meal_slots"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "meal_template_items",
+      "description": "Reusable ordered meal portions.",
+      "columns": [
+        "id",
+        "account_id",
+        "meal_template_id",
+        "food_id",
+        "grams",
+        "entered_value",
+        "entered_unit",
+        "position",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "meal_template_id",
+          "table": "meal_templates"
+        },
+        {
+          "column": "food_id",
+          "table": "foods"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "hydration_logs",
+      "description": "Water, caffeine and alcohol quick logs with canonical volume/mass and beverage calories.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "kind",
+        "volume_ml",
+        "caffeine_g",
+        "alcohol_g",
+        "calories_kcal",
+        "entered_value",
+        "entered_unit",
+        "notes",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "supplement_logs",
+      "description": "Non-peptide supplement log; amounts are food mass and optional nutrients, not injection protocols.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "food_id",
+        "food_log_id",
+        "grams",
+        "entered_value",
+        "entered_unit",
+        "notes",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "food_id",
+          "table": "foods"
+        },
+        {
+          "column": "food_log_id",
+          "table": "food_logs"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "safety_acknowledgements",
+      "description": "Immutable explicit acknowledgements; no silent floor overrides.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "kind",
+        "policy_version",
+        "acknowledgement_text",
+        "expires_at",
+        "clinician_override_confirmed",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": true,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "nutrition_targets",
+      "description": "Calculated/default target snapshots with safety inputs, BMR method and entered goal rate.",
+      "columns": [
+        "id",
+        "account_id",
+        "goal_mode",
+        "calories_kcal",
+        "protein_g",
+        "carbs_g",
+        "fat_g",
+        "fiber_g",
+        "assessed_bmi",
+        "weekly_loss_fraction",
+        "safety_floor_kcal",
+        "clinician_ack_id",
+        "method_version",
+        "valid_from",
+        "valid_until",
+        "activity_multiplier",
+        "bmr_kcal",
+        "bmr_method",
+        "macro_preset",
+        "entered_rate_value",
+        "entered_rate_unit",
+        "day_type",
+        "nutrient_id",
+        "nutrient_target_value",
+        "reference_citation",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "clinician_ack_id",
+          "table": "safety_acknowledgements"
+        },
+        {
+          "column": "nutrient_id",
+          "table": "nutrients"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "target_overrides",
+      "description": "Per-day or weekday targets and weekly flex budget with the same safety gates.",
+      "columns": [
+        "id",
+        "account_id",
+        "goal_mode",
+        "calories_kcal",
+        "protein_g",
+        "carbs_g",
+        "fat_g",
+        "fiber_g",
+        "assessed_bmi",
+        "weekly_loss_fraction",
+        "safety_floor_kcal",
+        "clinician_ack_id",
+        "method_version",
+        "base_target_id",
+        "local_date",
+        "weekday",
+        "weekly_budget_kcal",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "base_target_id",
+          "table": "nutrition_targets"
+        },
+        {
+          "column": "clinician_ack_id",
+          "table": "safety_acknowledgements"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "diet_phases",
+      "description": "Cut/bulk/maintenance, refeed and diet-break schedule; no dose references.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "kind",
+        "starts_on",
+        "ends_on",
+        "target_id",
+        "notes",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "target_id",
+          "table": "nutrition_targets"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "weigh_ins",
+      "description": "Canonical kg and original entered representation, including Health source identity.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "weight_kg",
+        "entered_value",
+        "entered_unit",
+        "health_external_key",
+        "tags",
+        "notes",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "measurements",
+      "description": "Named/custom circumference or composition measurement with method and location.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "kind",
+        "landmark",
+        "side",
+        "value",
+        "canonical_unit",
+        "entered_value",
+        "entered_unit",
+        "method",
+        "uncertainty",
+        "notes",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "check_ins",
+      "description": "Current progress notes/photos and subjective recovery scores; optional weight linkage.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "weigh_in_id",
+        "notes",
+        "sleep_quality",
+        "soreness",
+        "stress",
+        "motivation",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "weigh_in_id",
+          "table": "weigh_ins"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "health_samples",
+      "description": "Deduplicated provider observations for weight/steps P0 and recovery P1.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "provider",
+        "external_key",
+        "sample_type",
+        "value",
+        "unit",
+        "end_at",
+        "device_label",
+        "provider_modified_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "health_anchors",
+      "description": "Per-type incremental Health cursor; saved atomically with samples/deletions.",
+      "columns": [
+        "id",
+        "account_id",
+        "provider",
+        "sample_type",
+        "anchor_blob",
+        "last_success_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "goals",
+      "description": "Cross-domain goal lines and dated targets; core accepts no Stack domain data.",
+      "columns": [
+        "id",
+        "account_id",
+        "domain",
+        "metric_key",
+        "exercise_id",
+        "muscle_id",
+        "target_value",
+        "canonical_unit",
+        "entered_value",
+        "entered_unit",
+        "target_date",
+        "starts_on",
+        "archived_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "exercise_id",
+          "table": "exercises"
+        },
+        {
+          "column": "muscle_id",
+          "table": "muscles"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "notes",
+      "description": "Dated private annotations with typed references to core entities only.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "text",
+        "owner_table",
+        "owner_id",
+        "tags",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "import_batches",
+      "description": "Dry-run/reconciliation manifest for external formats and non-destructive SwiftData shadow copies.",
+      "columns": [
+        "id",
+        "account_id",
+        "format",
+        "file_digest",
+        "status",
+        "total_rows",
+        "accepted_rows",
+        "rejected_rows",
+        "error_report_locator",
+        "source_schema_version",
+        "validation_digest",
+        "completed_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "legacy_id_map",
+      "description": "Stable UUIDv4/SwiftData identity to UUIDv7 translation, without changing the source store.",
+      "columns": [
+        "id",
+        "account_id",
+        "batch_id",
+        "source_entity",
+        "legacy_identifier",
+        "destination_table",
+        "destination_id",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "batch_id",
+          "table": "import_batches"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "export_jobs",
+      "description": "Private full-fidelity JSON/CSV bundle manifests and deletion-request handoff status.",
+      "columns": [
+        "id",
+        "account_id",
+        "format",
+        "status",
+        "output_locator",
+        "sha256",
+        "row_count",
+        "expires_at",
+        "include_attachments",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "programs",
+      "description": "Program identity needed to start/resume a programme day; generic user-authored structure only.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "notes",
+        "current_day_position",
+        "archived_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "program_days",
+      "description": "Ordered programme day points to its routine without copying authored programme text.",
+      "columns": [
+        "id",
+        "account_id",
+        "program_id",
+        "routine_id",
+        "week_number",
+        "day_number",
+        "position",
+        "is_rest_day",
+        "name",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "program_id",
+          "table": "programs"
+        },
+        {
+          "column": "routine_id",
+          "table": "routines"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "cached_insights",
+      "description": "Rebuildable deterministic insight facts with exact input provenance for the Why sheet.",
+      "columns": [
+        "id",
+        "account_id",
+        "metric_key",
+        "template_key",
+        "method_version",
+        "window_start",
+        "window_end",
+        "sample_count",
+        "coverage",
+        "slope",
+        "delta",
+        "noise_mad",
+        "gate_passed",
+        "input_digest",
+        "input_refs_json",
+        "rendered_text",
+        "computed_at",
+        "expires_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "nutrition_days",
+      "description": "Explicit day-completeness status; a food entry alone does not establish a complete day.",
+      "columns": [
+        "id",
+        "account_id",
+        "local_date",
+        "status",
+        "confirmed_at",
+        "notes",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "sync_context",
+      "description": "Private transaction-scoped remote-apply suppression; must reset before commit.",
+      "columns": [
+        "id",
+        "account_id",
+        "mode",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    }
+  ],
+  "stack": [
+    {
+      "name": "accounts",
+      "description": "Local account root; an offline account works without a remote identity.",
+      "columns": [
+        "id",
+        "external_subject",
+        "auth_provider",
+        "age_verified_at",
+        "region",
+        "sync_enabled",
+        "deletion_requested_at",
+        "deletion_due_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "devices",
+      "description": "Per-account sync writer identity; never a hardware advertising identifier.",
+      "columns": [
+        "id",
+        "account_id",
+        "label",
+        "platform",
+        "last_seen_at",
+        "retired_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "settings",
+      "description": "Typed preferences; key material belongs in Keychain, never this table.",
+      "columns": [
+        "id",
+        "account_id",
+        "language",
+        "locale",
+        "week_start",
+        "theme",
+        "quiet_start_minute",
+        "quiet_end_minute",
+        "notifications_enabled",
+        "reduce_motion",
+        "module_opt_in_at",
+        "disclaimer_version",
+        "discreet_mode",
+        "biometric_lock",
+        "app_switcher_blur",
+        "region_gate_version",
+        "region_gate_checked_at",
+        "module_disabled_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "consents",
+      "description": "Append-only grant/revoke acknowledgements and permission history.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "scope",
+        "policy_version",
+        "action",
+        "expires_at",
+        "acknowledgement_text",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": true,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "sync_outbox",
+      "description": "Atomic, idempotent outbound mutation envelopes; health values stay in this store.",
+      "columns": [
+        "id",
+        "account_id",
+        "entity_table",
+        "entity_id",
+        "revision_id",
+        "operation",
+        "payload_json",
+        "status",
+        "attempts",
+        "next_attempt_at",
+        "acknowledged_at",
+        "last_error_code",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "sync_cursors",
+      "description": "Opaque cursor advances only in the same transaction as all applied pull changes.",
+      "columns": [
+        "id",
+        "account_id",
+        "stream",
+        "cursor",
+        "server_sequence",
+        "last_success_at",
+        "export_checkpoint",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "sync_conflicts",
+      "description": "Keep both remote and local candidates until an explicit deterministic or user resolution.",
+      "columns": [
+        "id",
+        "account_id",
+        "entity_table",
+        "entity_id",
+        "local_revision_id",
+        "remote_revision_id",
+        "local_payload_json",
+        "remote_payload_json",
+        "resolution",
+        "resolution_revision_id",
+        "resolved_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "attachments",
+      "description": "Encrypted-file manifest with a same-store typed owner; no image bytes in sync logs.",
+      "columns": [
+        "id",
+        "account_id",
+        "owner_table",
+        "owner_id",
+        "local_locator",
+        "remote_object_key",
+        "media_type",
+        "byte_count",
+        "sha256",
+        "width_px",
+        "height_px",
+        "duration_ms",
+        "pose",
+        "sort_order",
+        "metadata_stripped",
+        "biometric_required",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "series_registry",
+      "description": "Allowlisted query key and unit contract, never arbitrary executable SQL.",
+      "columns": [
+        "id",
+        "account_id",
+        "metric_key",
+        "domain",
+        "unit",
+        "kind",
+        "aggregation",
+        "value_storage",
+        "color_token",
+        "source_query_key",
+        "method_version",
+        "is_estimate",
+        "priority",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "event_registry",
+      "description": "Allowlisted event types for charts and the shared in-memory timeline.",
+      "columns": [
+        "id",
+        "account_id",
+        "event_key",
+        "domain",
+        "label_key",
+        "shape_token",
+        "color_token",
+        "source_query_key",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "events",
+      "description": "Typed annotations; Stack events are never copied to the core database.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "event_type_id",
+        "owner_table",
+        "owner_id",
+        "title",
+        "notes",
+        "end_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "event_type_id",
+          "table": "event_registry"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "daily_rollups",
+      "description": "Rebuildable per-series, local-day, dimension aggregates; missing values remain missing.",
+      "columns": [
+        "id",
+        "account_id",
+        "series_id",
+        "local_date",
+        "dimension_key",
+        "real_value",
+        "value_coefficient",
+        "value_scale",
+        "sample_count",
+        "expected_count",
+        "coverage",
+        "input_digest",
+        "method_version",
+        "rebuilt_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "series_id",
+          "table": "series_registry"
+        }
+      ],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "chart_preferences",
+      "description": "Independent per-chart range, transforms, hidden numbers and marker preferences.",
+      "columns": [
+        "id",
+        "account_id",
+        "chart_key",
+        "range_key",
+        "from_date",
+        "to_date",
+        "comparison_enabled",
+        "trend",
+        "show_absolute_values",
+        "marker_keys_json",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "notification_jobs",
+      "description": "Local schedule state; fixed IDs allow cancel/reschedule without duplicate alerts.",
+      "columns": [
+        "id",
+        "account_id",
+        "kind",
+        "owner_table",
+        "owner_id",
+        "due_at",
+        "tz",
+        "request_identifier",
+        "status",
+        "repeat_seconds",
+        "snoozed_until",
+        "neutral_text_key",
+        "last_action",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "compounds",
+      "description": "Private user-created compound identity; no benefit, suggested dose or sourcing fields.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "aliases",
+        "class_label",
+        "permitted_routes",
+        "dosage_form",
+        "default_dimension",
+        "notes",
+        "storage_label_text",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "compound_references",
+      "description": "Optional cited neutral reference facts. This migration inserts none.",
+      "columns": [
+        "id",
+        "account_id",
+        "compound_id",
+        "fact_kind",
+        "value_text",
+        "unit",
+        "region",
+        "citation_url",
+        "citation_date",
+        "reviewed_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "compound_id",
+          "table": "compounds"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "protocols",
+      "description": "Protocol/template identity with an explicit selected immutable revision.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "is_template",
+        "reminder_group_key",
+        "color_token",
+        "current_revision_id",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "current_revision_id",
+          "table": "protocol_revisions"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "protocol_revisions",
+      "description": "Append-only history of protocol edits, pause/resume and user-authored step plans.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "protocol_id",
+        "parent_revision_id",
+        "writer_device_id",
+        "status",
+        "starts_on",
+        "ends_on",
+        "notes",
+        "edit_reason",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "protocol_id",
+          "table": "protocols"
+        },
+        {
+          "column": "parent_revision_id",
+          "table": "protocol_revisions"
+        },
+        {
+          "column": "writer_device_id",
+          "table": "devices"
+        }
+      ],
+      "immutable": true,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "protocol_steps",
+      "description": "User-entered compound amount and route at a date/position in a protocol revision.",
+      "columns": [
+        "id",
+        "account_id",
+        "amount_value",
+        "amount_unit",
+        "amount_scale",
+        "entered_value",
+        "entered_unit",
+        "protocol_revision_id",
+        "compound_id",
+        "position",
+        "effective_on",
+        "route",
+        "food_note",
+        "notes",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "protocol_revision_id",
+          "table": "protocol_revisions"
+        },
+        {
+          "column": "compound_id",
+          "table": "compounds"
+        }
+      ],
+      "immutable": true,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "schedule_rules",
+      "description": "User schedules and DST/travel policy; rule generation belongs to the tested schedule engine.",
+      "columns": [
+        "id",
+        "account_id",
+        "protocol_step_id",
+        "kind",
+        "rrule",
+        "interval_days",
+        "times_per_week",
+        "weekdays_mask",
+        "on_days",
+        "off_days",
+        "month_day",
+        "anchor_date",
+        "end_date",
+        "tz",
+        "time_policy",
+        "dst_gap_policy",
+        "dst_fold_policy",
+        "late_window_seconds",
+        "paused_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "protocol_step_id",
+          "table": "protocol_steps"
+        }
+      ],
+      "immutable": true,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "schedule_times",
+      "description": "Multiple chosen local times per schedule, independent of UTC offsets.",
+      "columns": [
+        "id",
+        "account_id",
+        "schedule_rule_id",
+        "hour",
+        "minute",
+        "position",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "schedule_rule_id",
+          "table": "schedule_rules"
+        }
+      ],
+      "immutable": true,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "dose_occurrences",
+      "description": "Materialized expected occurrence and notification state; no inferred recommended amount.",
+      "columns": [
+        "id",
+        "account_id",
+        "protocol_step_id",
+        "schedule_rule_id",
+        "occurrence_key",
+        "due_at",
+        "late_after_at",
+        "expires_at",
+        "tz",
+        "local_date",
+        "state",
+        "snoozed_until",
+        "state_reason",
+        "resolved_dose_id",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "protocol_step_id",
+          "table": "protocol_steps"
+        },
+        {
+          "column": "schedule_rule_id",
+          "table": "schedule_rules"
+        },
+        {
+          "column": "resolved_dose_id",
+          "table": "dose_logs"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "dose_logs",
+      "description": "Stable logged-dose identity; all edits/deletions are new immutable revisions.",
+      "columns": [
+        "id",
+        "account_id",
+        "compound_id",
+        "occurrence_id",
+        "current_revision_id",
+        "duplicate_guard_ack_at",
+        "duplicate_guard_reason",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "compound_id",
+          "table": "compounds"
+        },
+        {
+          "column": "occurrence_id",
+          "table": "dose_occurrences"
+        },
+        {
+          "column": "current_revision_id",
+          "table": "dose_revisions"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "dose_revisions",
+      "description": "Exact user-confirmed dose snapshots, site/reaction/check-in and audit history.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "amount_value",
+        "amount_unit",
+        "amount_scale",
+        "entered_value",
+        "entered_unit",
+        "dose_log_id",
+        "parent_revision_id",
+        "writer_device_id",
+        "action",
+        "route",
+        "vial_id",
+        "site_id",
+        "syringe_id",
+        "draw_volume_ul",
+        "needle_description",
+        "lot_snapshot",
+        "notes",
+        "edit_reason",
+        "energy",
+        "appetite",
+        "mood",
+        "sleep",
+        "pain",
+        "redness",
+        "bruise",
+        "user_confirmed_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "dose_log_id",
+          "table": "dose_logs"
+        },
+        {
+          "column": "parent_revision_id",
+          "table": "dose_revisions"
+        },
+        {
+          "column": "writer_device_id",
+          "table": "devices"
+        },
+        {
+          "column": "vial_id",
+          "table": "vials"
+        },
+        {
+          "column": "site_id",
+          "table": "injection_sites"
+        },
+        {
+          "column": "syringe_id",
+          "table": "syringes"
+        }
+      ],
+      "immutable": true,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "vials",
+      "description": "Vial/pen/container lifecycle and label-entered dates. Remaining inventory is ledger-derived.",
+      "columns": [
+        "id",
+        "account_id",
+        "label",
+        "form",
+        "lifecycle",
+        "lot",
+        "supplier_note",
+        "price_minor",
+        "currency",
+        "storage",
+        "received_at",
+        "opened_at",
+        "reconstituted_at",
+        "beyond_use_at",
+        "label_expiry_at",
+        "diluent_ul",
+        "final_solution_ul",
+        "volume_basis",
+        "volume_label_evidence",
+        "notes",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "vial_components",
+      "description": "Per-component initial exact amount supports blends without converting IU into mass.",
+      "columns": [
+        "id",
+        "account_id",
+        "amount_value",
+        "amount_unit",
+        "amount_scale",
+        "entered_value",
+        "entered_unit",
+        "vial_id",
+        "compound_id",
+        "ratio_value",
+        "ratio_scale",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "vial_id",
+          "table": "vials"
+        },
+        {
+          "column": "compound_id",
+          "table": "compounds"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "inventory_ledger",
+      "description": "Immutable signed inventory movements; corrections reverse old movements then append replacements.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "vial_id",
+        "compound_id",
+        "dose_revision_id",
+        "reverses_entry_id",
+        "transaction_id",
+        "movement",
+        "amount_value",
+        "amount_unit",
+        "amount_scale",
+        "entered_value",
+        "entered_unit",
+        "reason",
+        "writer_device_id",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "vial_id",
+          "table": "vials"
+        },
+        {
+          "column": "compound_id",
+          "table": "compounds"
+        },
+        {
+          "column": "dose_revision_id",
+          "table": "dose_revisions"
+        },
+        {
+          "column": "reverses_entry_id",
+          "table": "inventory_ledger"
+        },
+        {
+          "column": "writer_device_id",
+          "table": "devices"
+        }
+      ],
+      "immutable": true,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "injection_sites",
+      "description": "User-managed body-map zones, side, route tags and avoid-zone notes.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "body_region",
+        "side",
+        "surface",
+        "route_tag",
+        "avoid",
+        "notes",
+        "map_x",
+        "map_y",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "symptom_logs",
+      "description": "Symptom severity/onset and optional dose relationship; descriptive log only.",
+      "columns": [
+        "id",
+        "account_id",
+        "occurred_at",
+        "tz",
+        "local_date",
+        "name",
+        "severity",
+        "dose_log_id",
+        "ended_at",
+        "notes",
+        "user_red_flag_ack_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "dose_log_id",
+          "table": "dose_logs"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": true
+    },
+    {
+      "name": "symptom_protocols",
+      "description": "Many-to-many symptom/protocol association.",
+      "columns": [
+        "id",
+        "account_id",
+        "symptom_id",
+        "protocol_id",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "symptom_id",
+          "table": "symptom_logs"
+        },
+        {
+          "column": "protocol_id",
+          "table": "protocols"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "syringes",
+      "description": "User-confirmed syringe/pen calibration; no assumed activity-to-mass equivalence.",
+      "columns": [
+        "id",
+        "account_id",
+        "name",
+        "kind",
+        "capacity_ul",
+        "units_per_ml_coefficient",
+        "units_per_ml_scale",
+        "per_click_value",
+        "per_click_unit",
+        "per_click_scale",
+        "label_confirmation_at",
+        "citation_or_label",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "calculator_presets",
+      "description": "User-saved math inputs linked to one vial; calculation is rerun rather than storing authoritative advice.",
+      "columns": [
+        "id",
+        "account_id",
+        "amount_value",
+        "amount_unit",
+        "amount_scale",
+        "entered_value",
+        "entered_unit",
+        "vial_id",
+        "syringe_id",
+        "compound_id",
+        "diluent_ul",
+        "final_solution_ul",
+        "volume_basis",
+        "volume_label_evidence",
+        "method_version",
+        "label_verified_at",
+        "notes",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "vial_id",
+          "table": "vials"
+        },
+        {
+          "column": "syringe_id",
+          "table": "syringes"
+        },
+        {
+          "column": "compound_id",
+          "table": "compounds"
+        }
+      ],
+      "immutable": false,
+      "synced": true,
+      "timed": false
+    },
+    {
+      "name": "export_jobs",
+      "description": "Separately consented private Stack export; never included implicitly in a core export.",
+      "columns": [
+        "id",
+        "account_id",
+        "format",
+        "status",
+        "output_locator",
+        "sha256",
+        "row_count",
+        "expires_at",
+        "consent_id",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [
+        {
+          "column": "consent_id",
+          "table": "consents"
+        }
+      ],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "cached_insights",
+      "description": "Rebuildable deterministic insight facts with exact input provenance for the Why sheet.",
+      "columns": [
+        "id",
+        "account_id",
+        "metric_key",
+        "template_key",
+        "method_version",
+        "window_start",
+        "window_end",
+        "sample_count",
+        "coverage",
+        "slope",
+        "delta",
+        "noise_mad",
+        "gate_passed",
+        "input_digest",
+        "input_refs_json",
+        "rendered_text",
+        "computed_at",
+        "expires_at",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    },
+    {
+      "name": "sync_context",
+      "description": "Private transaction-scoped remote-apply suppression; must reset before commit.",
+      "columns": [
+        "id",
+        "account_id",
+        "mode",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "source",
+        "logical_clock",
+        "origin_device_id"
+      ],
+      "references": [],
+      "immutable": false,
+      "synced": false,
+      "timed": false
+    }
+  ]
+}

@@ -1,0 +1,1559 @@
+{
+  "schemaVersion": 1,
+  "status": "Phase 0 query contracts; no runtime engines installed",
+  "series": [
+    {
+      "id": "fuel.energy",
+      "domain": "fuel",
+      "unit": "kcal",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.energy",
+      "requirements": [
+        "VZ-T1",
+        "VZ-F1",
+        "VZ-F2"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.food_logs",
+        "core.food_log_nutrients"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.protein",
+      "domain": "fuel",
+      "unit": "g",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.protein",
+      "requirements": [
+        "VZ-T1",
+        "VZ-F1",
+        "VZ-F3"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.food_logs",
+        "core.food_log_nutrients"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.carbohydrate",
+      "domain": "fuel",
+      "unit": "g",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.carbohydrate",
+      "requirements": [
+        "VZ-T1",
+        "VZ-F1"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.food_logs",
+        "core.food_log_nutrients"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.fat",
+      "domain": "fuel",
+      "unit": "g",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.fat",
+      "requirements": [
+        "VZ-T1",
+        "VZ-F1"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.food_logs",
+        "core.food_log_nutrients"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.water",
+      "domain": "fuel",
+      "unit": "mL",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.water",
+      "requirements": [
+        "VZ-T7",
+        "FUEL-06"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.hydration_logs"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.caffeine",
+      "domain": "fuel",
+      "unit": "mg",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.caffeine",
+      "requirements": [
+        "VZ-F12"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-f12",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.hydration_logs"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.alcohol",
+      "domain": "fuel",
+      "unit": "g",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.alcohol",
+      "requirements": [
+        "VZ-F12"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-f12",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.hydration_logs"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.fiber",
+      "domain": "fuel",
+      "unit": "g",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.fiber",
+      "requirements": [
+        "VZ-F13"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-f13",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.food_logs",
+        "core.food_log_nutrients"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.sugar",
+      "domain": "fuel",
+      "unit": "g",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.sugar",
+      "requirements": [
+        "VZ-F13"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-f13",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.food_logs",
+        "core.food_log_nutrients"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.saturatedFat",
+      "domain": "fuel",
+      "unit": "g",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.saturatedFat",
+      "requirements": [
+        "VZ-F13"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-f13",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.food_logs",
+        "core.food_log_nutrients"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.sodium",
+      "domain": "fuel",
+      "unit": "mg",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.sodium",
+      "requirements": [
+        "VZ-F13"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-f13",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.food_logs",
+        "core.food_log_nutrients"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.nutrients",
+      "domain": "fuel",
+      "unit": "nutrient-defined",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.nutrient",
+      "requirements": [
+        "VZ-F8",
+        "FUEL-24"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-f8",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "nutrient",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.food_logs",
+        "core.food_log_nutrients"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.expenditure",
+      "domain": "fuel",
+      "unit": "kcal",
+      "kind": "daily",
+      "aggregation": "last",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.expenditure",
+      "requirements": [
+        "VZ-F6",
+        "FUEL-22"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-f6",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": true,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.food_logs",
+        "core.food_log_nutrients",
+        "core.nutrition_days",
+        "core.weigh_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.energyBalance",
+      "domain": "fuel",
+      "unit": "kcal",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.balance",
+      "requirements": [
+        "VZ-F4"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-f4",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": true,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.food_logs",
+        "core.food_log_nutrients",
+        "core.nutrition_days",
+        "core.weigh_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.targetEnergy",
+      "domain": "fuel",
+      "unit": "kcal",
+      "kind": "daily",
+      "aggregation": "last",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.target",
+      "requirements": [
+        "FUEL-20",
+        "FUEL-21",
+        "VZ-F2"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.nutrition_targets",
+        "core.target_overrides"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.loggingCoverage",
+      "domain": "fuel",
+      "unit": "ratio",
+      "kind": "daily",
+      "aggregation": "last",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.coverage",
+      "requirements": [
+        "VZ-F7"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.food_logs",
+        "core.food_log_nutrients",
+        "core.nutrition_days",
+        "core.weigh_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "fuel.healthScore",
+      "domain": "fuel",
+      "unit": "score-0-10",
+      "kind": "daily",
+      "aggregation": "last",
+      "colorToken": "fuel",
+      "sourceQuery": "nutrition.score",
+      "requirements": [
+        "VZ-F16",
+        "FUEL-28"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-f16",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": true,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.food_logs",
+        "core.food_log_nutrients"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "body.weight",
+      "domain": "body",
+      "unit": "kg",
+      "kind": "instant",
+      "aggregation": "last",
+      "colorToken": "body",
+      "sourceQuery": "body.weighIns",
+      "requirements": [
+        "BODY-01",
+        "VZ-B1"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.weigh_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "body.weightTrend",
+      "domain": "body",
+      "unit": "kg",
+      "kind": "daily",
+      "aggregation": "last",
+      "colorToken": "body",
+      "sourceQuery": "body.ewma",
+      "requirements": [
+        "BODY-01",
+        "VZ-T4",
+        "VZ-B1"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": true,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.weigh_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "body.weightRate",
+      "domain": "body",
+      "unit": "kg/week",
+      "kind": "daily",
+      "aggregation": "last",
+      "colorToken": "body",
+      "sourceQuery": "body.weightRate",
+      "requirements": [
+        "VZ-B7"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-b7",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": true,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.weigh_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "body.measurement",
+      "domain": "body",
+      "unit": "cm",
+      "kind": "instant",
+      "aggregation": "last",
+      "colorToken": "body",
+      "sourceQuery": "body.measurements",
+      "requirements": [
+        "BODY-02",
+        "VZ-B3"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "landmark",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.measurements",
+        "core.weigh_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "body.bodyFat",
+      "domain": "body",
+      "unit": "percent",
+      "kind": "instant",
+      "aggregation": "last",
+      "colorToken": "body",
+      "sourceQuery": "body.bodyFat",
+      "requirements": [
+        "BODY-02",
+        "VZ-B2"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": true,
+      "dimension": "method",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.measurements",
+        "core.weigh_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "body.leanMass",
+      "domain": "body",
+      "unit": "kg",
+      "kind": "instant",
+      "aggregation": "last",
+      "colorToken": "body",
+      "sourceQuery": "body.leanMass",
+      "requirements": [
+        "VZ-B2",
+        "VZ-B8"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-b2",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": true,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.measurements",
+        "core.weigh_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "body.sleep",
+      "domain": "body",
+      "unit": "min",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "body",
+      "sourceQuery": "body.health.sleep",
+      "requirements": [
+        "VZ-B5"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-b5",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.health_samples",
+        "core.check_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "body.hrv",
+      "domain": "body",
+      "unit": "ms",
+      "kind": "daily",
+      "aggregation": "mean",
+      "colorToken": "body",
+      "sourceQuery": "body.health.hrv",
+      "requirements": [
+        "VZ-B5"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-b5",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.health_samples",
+        "core.check_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "body.restingHeartRate",
+      "domain": "body",
+      "unit": "bpm",
+      "kind": "daily",
+      "aggregation": "mean",
+      "colorToken": "body",
+      "sourceQuery": "body.health.restingHeartRate",
+      "requirements": [
+        "VZ-B5"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-b5",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.health_samples",
+        "core.check_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "body.steps",
+      "domain": "body",
+      "unit": "count",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "body",
+      "sourceQuery": "body.health.steps",
+      "requirements": [
+        "VZ-B6"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-b6",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.health_samples",
+        "core.check_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "body.activeEnergy",
+      "domain": "body",
+      "unit": "kcal",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "body",
+      "sourceQuery": "body.health.activeEnergy",
+      "requirements": [
+        "VZ-B6"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-b6",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.health_samples",
+        "core.check_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "body.readiness",
+      "domain": "body",
+      "unit": "score-0-100",
+      "kind": "daily",
+      "aggregation": "last",
+      "colorToken": "body",
+      "sourceQuery": "body.readiness",
+      "requirements": [
+        "VZ-T8",
+        "BODY-04"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-t8",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": true,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.health_samples",
+        "core.check_ins"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.volume",
+      "domain": "train",
+      "unit": "kg-repetitions",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "train",
+      "sourceQuery": "training.volume",
+      "requirements": [
+        "TRN-62",
+        "VZ-W3"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.sets",
+      "domain": "train",
+      "unit": "sets",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "train",
+      "sourceQuery": "training.countedSets",
+      "requirements": [
+        "TRN-61",
+        "VZ-W3"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.muscleSets",
+      "domain": "train",
+      "unit": "fractional-sets",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "train",
+      "sourceQuery": "training.muscleSets",
+      "requirements": [
+        "VZ-W12",
+        "VZ-W13",
+        "TRN-61"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "muscle",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.hardSets",
+      "domain": "train",
+      "unit": "sets",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "train",
+      "sourceQuery": "training.hardSets",
+      "requirements": [
+        "TRN-61",
+        "VZ-W3"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "muscle",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.e1rm",
+      "domain": "train",
+      "unit": "kg",
+      "kind": "event",
+      "aggregation": "max",
+      "colorToken": "train",
+      "sourceQuery": "training.bestE1rm",
+      "requirements": [
+        "VZ-W1",
+        "TRN-33"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": true,
+      "dimension": "exercise",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.repRecord",
+      "domain": "train",
+      "unit": "kg",
+      "kind": "event",
+      "aggregation": "max",
+      "colorToken": "train",
+      "sourceQuery": "training.repRecords",
+      "requirements": [
+        "VZ-W4",
+        "TRN-50"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "exercise-reps",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.setPerformance",
+      "domain": "train",
+      "unit": "kg",
+      "kind": "event",
+      "aggregation": "max",
+      "colorToken": "train",
+      "sourceQuery": "training.setPerformance",
+      "requirements": [
+        "VZ-W2",
+        "VZ-W10"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "exercise",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.duration",
+      "domain": "train",
+      "unit": "min",
+      "kind": "event",
+      "aggregation": "sum",
+      "colorToken": "train",
+      "sourceQuery": "training.duration",
+      "requirements": [
+        "VZ-W9"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.sessionCount",
+      "domain": "train",
+      "unit": "count",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "train",
+      "sourceQuery": "training.sessionCount",
+      "requirements": [
+        "VZ-W19",
+        "TRN-70"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.rest",
+      "domain": "train",
+      "unit": "s",
+      "kind": "event",
+      "aggregation": "mean",
+      "colorToken": "train",
+      "sourceQuery": "training.rest",
+      "requirements": [
+        "TRN-30",
+        "VZ-W8"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.rpe",
+      "domain": "train",
+      "unit": "rpe",
+      "kind": "event",
+      "aggregation": "mean",
+      "colorToken": "train",
+      "sourceQuery": "training.rpe",
+      "requirements": [
+        "TRN-11",
+        "VZ-W7"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.density",
+      "domain": "train",
+      "unit": "kg-repetitions/min",
+      "kind": "event",
+      "aggregation": "last",
+      "colorToken": "train",
+      "sourceQuery": "training.density",
+      "requirements": [
+        "VZ-W11"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-w11",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": null,
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.frequency",
+      "domain": "train",
+      "unit": "sessions/week",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "train",
+      "sourceQuery": "training.uniqueFrequency",
+      "requirements": [
+        "VZ-W15"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-w15",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "muscle",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.relativeStrength",
+      "domain": "train",
+      "unit": "ratio",
+      "kind": "event",
+      "aggregation": "max",
+      "colorToken": "train",
+      "sourceQuery": "training.relativeStrength",
+      "requirements": [
+        "VZ-W23"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-w23",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": true,
+      "dimension": "exercise",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "train.recovery",
+      "domain": "train",
+      "unit": "score-0-100",
+      "kind": "daily",
+      "aggregation": "last",
+      "colorToken": "train",
+      "sourceQuery": "training.recovery",
+      "requirements": [
+        "TRN-64"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.trn-64",
+      "privacy": "health-private",
+      "methodVersion": 1,
+      "estimate": true,
+      "dimension": "muscle",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "core",
+      "rollupTable": "core.daily_rollups",
+      "sourceTables": [
+        "core.workouts",
+        "core.workout_exercises",
+        "core.workout_sets",
+        "core.set_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "stack.dose",
+      "domain": "stack",
+      "unit": "compound-dimension",
+      "kind": "event",
+      "aggregation": "sum",
+      "colorToken": "stack",
+      "sourceQuery": "stack.dose",
+      "requirements": [
+        "VZ-S1",
+        "STK-04"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "stack-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "compound",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "stack",
+      "rollupTable": "stack.daily_rollups",
+      "sourceTables": [
+        "stack.dose_logs",
+        "stack.dose_revisions",
+        "stack.dose_occurrences"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "stack.adherence",
+      "domain": "stack",
+      "unit": "ratio",
+      "kind": "daily",
+      "aggregation": "last",
+      "colorToken": "stack",
+      "sourceQuery": "stack.adherence",
+      "requirements": [
+        "VZ-S2"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "stack-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "protocol",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "stack",
+      "rollupTable": "stack.daily_rollups",
+      "sourceTables": [
+        "stack.dose_logs",
+        "stack.dose_revisions",
+        "stack.dose_occurrences"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "stack.inventory",
+      "domain": "stack",
+      "unit": "uL",
+      "kind": "instant",
+      "aggregation": "last",
+      "colorToken": "stack",
+      "sourceQuery": "stack.inventory",
+      "requirements": [
+        "VZ-S7",
+        "STK-07"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "stack-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "vial",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "stack",
+      "rollupTable": "stack.daily_rollups",
+      "sourceTables": [
+        "stack.vials",
+        "stack.inventory_ledger"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "stack.siteRecency",
+      "domain": "stack",
+      "unit": "days",
+      "kind": "instant",
+      "aggregation": "last",
+      "colorToken": "stack",
+      "sourceQuery": "stack.siteRecency",
+      "requirements": [
+        "VZ-S6",
+        "STK-08"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "stack-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "site",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "stack",
+      "rollupTable": "stack.daily_rollups",
+      "sourceTables": [
+        "stack.injection_sites",
+        "stack.dose_revisions"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "stack.symptom",
+      "domain": "stack",
+      "unit": "severity-1-5",
+      "kind": "daily",
+      "aggregation": "max",
+      "colorToken": "stack",
+      "sourceQuery": "stack.symptoms",
+      "requirements": [
+        "VZ-S9",
+        "STK-09"
+      ],
+      "priority": "P0",
+      "featureFlag": null,
+      "privacy": "stack-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "symptom",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "stack",
+      "rollupTable": "stack.daily_rollups",
+      "sourceTables": [
+        "stack.symptom_logs"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "stack.activeLevel",
+      "domain": "stack",
+      "unit": "relative-amount",
+      "kind": "instant",
+      "aggregation": "last",
+      "colorToken": "stack",
+      "sourceQuery": "stack.activeLevel",
+      "requirements": [
+        "VZ-S3",
+        "STK-10"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-s3",
+      "privacy": "stack-private",
+      "methodVersion": 1,
+      "estimate": true,
+      "dimension": "compound",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "stack",
+      "rollupTable": "stack.daily_rollups",
+      "sourceTables": [
+        "stack.dose_revisions",
+        "stack.compound_references"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "stack.cost",
+      "domain": "stack",
+      "unit": "currency-minor-units",
+      "kind": "daily",
+      "aggregation": "sum",
+      "colorToken": "stack",
+      "sourceQuery": "stack.cost",
+      "requirements": [
+        "VZ-S8",
+        "STK-13"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-s8",
+      "privacy": "stack-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "currency",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "stack",
+      "rollupTable": "stack.daily_rollups",
+      "sourceTables": [
+        "stack.vials",
+        "stack.inventory_ledger"
+      ],
+      "schemaAvailability": "v1"
+    },
+    {
+      "id": "stack.biomarker",
+      "domain": "stack",
+      "unit": "lab-defined",
+      "kind": "instant",
+      "aggregation": "last",
+      "colorToken": "stack",
+      "sourceQuery": "stack.labs",
+      "requirements": [
+        "VZ-S10",
+        "STK-11"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-s10",
+      "privacy": "stack-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "biomarker-method-unit",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "stack",
+      "rollupTable": "stack.daily_rollups",
+      "sourceTables": [
+        "stack.lab_results"
+      ],
+      "schemaAvailability": "future-P1"
+    },
+    {
+      "id": "stack.checkIn",
+      "domain": "stack",
+      "unit": "score-1-5",
+      "kind": "daily",
+      "aggregation": "last",
+      "colorToken": "stack",
+      "sourceQuery": "stack.checkIns",
+      "requirements": [
+        "VZ-S12",
+        "STK-15"
+      ],
+      "priority": "P1",
+      "featureFlag": "feature.vz-s12",
+      "privacy": "stack-private",
+      "methodVersion": 1,
+      "estimate": false,
+      "dimension": "metric",
+      "missingPolicy": "null-with-coverage",
+      "sourceResolution": "full",
+      "registeredNotImplemented": true,
+      "store": "stack",
+      "rollupTable": "stack.daily_rollups",
+      "sourceTables": [
+        "stack.dose_logs",
+        "stack.dose_revisions",
+        "stack.dose_occurrences"
+      ],
+      "schemaAvailability": "v1"
+    }
+  ]
+}

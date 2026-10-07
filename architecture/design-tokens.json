@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "defaultTheme": "dark",
+  "themes": {
+    "dark": {
+      "background": "#101318",
+      "surface": "#191E26",
+      "text": "#F3F6FA",
+      "secondaryText": "#B4BFCC",
+      "border": "#7C8C9C",
+      "accent": "#70AFFF",
+      "train": "#70AFFF",
+      "fuel": "#FFC66D",
+      "stack": "#DCA7FF",
+      "body": "#66D5C2",
+      "success": "#88D5A1",
+      "warning": "#FFD27D",
+      "danger": "#FF9999"
+    },
+    "light": {
+      "background": "#F4F6FA",
+      "surface": "#FFFFFF",
+      "text": "#16212C",
+      "secondaryText": "#4B5B6B",
+      "border": "#718293",
+      "accent": "#0058AD",
+      "train": "#0058AD",
+      "fuel": "#835000",
+      "stack": "#6F329C",
+      "body": "#006B5F",
+      "success": "#246438",
+      "warning": "#805600",
+      "danger": "#AD2020"
+    },
+    "oled": {
+      "background": "#000000",
+      "surface": "#101318",
+      "text": "#F3F6FA",
+      "secondaryText": "#B4BFCC",
+      "border": "#7C8C9C",
+      "accent": "#70AFFF",
+      "train": "#70AFFF",
+      "fuel": "#FFC66D",
+      "stack": "#DCA7FF",
+      "body": "#66D5C2",
+      "success": "#88D5A1",
+      "warning": "#FFD27D",
+      "danger": "#FF9999"
+    }
+  },
+  "typography": {
+    "family": "system",
+    "numericDesign": "monospacedDigits",
+    "dynamicType": true,
+    "roles": [
+      "largeTitle",
+      "title",
+      "title2",
+      "title3",
+      "headline",
+      "body",
+      "callout",
+      "subheadline",
+      "footnote",
+      "caption"
+    ]
+  },
+  "space": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32,
+    48
+  ],
+  "cornerRadius": {
+    "control": 12,
+    "card": 18,
+    "sheet": 24
+  },
+  "minInteractiveSizePt": 48,
+  "motion": {
+    "chartDrawMs": 300,
+    "reduceMotion": "none"
+  },
+  "chart": {
+    "categoricalTokens": [
+      "train",
+      "fuel",
+      "stack",
+      "body",
+      "secondaryText",
+      "success",
+      "warning",
+      "text"
+    ],
+    "symbols": [
+      "circle",
+      "square",
+      "triangle",
+      "diamond",
+      "plus",
+      "cross",
+      "pentagon",
+      "star"
+    ],
+    "linePatterns": [
+      "solid",
+      "dash",
+      "dot",
+      "dashDot"
+    ],
+    "magnitudeRamp": "domain accent at 0.15/0.35/0.6/0.8/1.0 with numeric labels",
+    "diverging": "domain accent / neutral / secondaryText; never safety red for goal status"
+  }
+}

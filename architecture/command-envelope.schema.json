@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Caliber mutation envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "operationID",
+    "entityID",
+    "accountID",
+    "deviceID",
+    "schemaVersion",
+    "logicalClock",
+    "baseRevision",
+    "source",
+    "occurredAt",
+    "timeZone",
+    "localDate",
+    "commandType",
+    "payload"
+  ],
+  "properties": {
+    "operationID": {
+      "$ref": "#/$defs/id"
+    },
+    "entityID": {
+      "$ref": "#/$defs/id"
+    },
+    "accountID": {
+      "$ref": "#/$defs/id"
+    },
+    "deviceID": {
+      "$ref": "#/$defs/id"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "logicalClock": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "baseRevision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source": {
+      "enum": [
+        "manual",
+        "import",
+        "health",
+        "ai"
+      ]
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "timeZone": {
+      "type": "string",
+      "minLength": 1
+    },
+    "localDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "commandType": {
+      "enum": [
+        "create",
+        "revise",
+        "tombstone",
+        "resolveConflict"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "description": "Validated a second time against the allowlisted command-specific schema. An envelope alone never authorizes a write."
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    }
+  }
+}

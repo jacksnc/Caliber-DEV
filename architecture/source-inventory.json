@@ -1,0 +1,408 @@
+{
+  "root": "/Users/jcrock/Documents/Caliber (DEV) - Project/Caliber (DEV)",
+  "audit_method": "Source inventory and targeted code inspection; no user database inspected. A separate fresh iOS baseline was executed; see docs/VERIFICATION.md.",
+  "files": [
+    {
+      "path": "Caliber (DEV)/App/Caliber__DEV_App.swift",
+      "bytes": 1087,
+      "lines": 44,
+      "sha256": "73de2322797fa6547a543386b23146db084db86469f9c2bc197c1ad55d106900"
+    },
+    {
+      "path": "Caliber (DEV)/Models/BuildComponentCategory.swift",
+      "bytes": 910,
+      "lines": 31,
+      "sha256": "9a769b932a71ff186b10ed52e77437d4c81edb7fa83297b3784f4d74b2cbdd0d"
+    },
+    {
+      "path": "Caliber (DEV)/Models/BuildComponentOption.swift",
+      "bytes": 1067,
+      "lines": 34,
+      "sha256": "5ec097f1c3c52749f8274378d6aeda7c07360d6196405501647a9b20c24c4266"
+    },
+    {
+      "path": "Caliber (DEV)/Models/BuildableItemTemplate.swift",
+      "bytes": 639,
+      "lines": 25,
+      "sha256": "6f8b3e040a9f7126d33d31b5ac66832117bfe20aba49202d47760e04d9a072c2"
+    },
+    {
+      "path": "Caliber (DEV)/Models/DiaryEntry.swift",
+      "bytes": 1128,
+      "lines": 41,
+      "sha256": "368f0e4b9074dedcb272e547bc18d4aee44233517ebb60896bc3fcce9b977220"
+    },
+    {
+      "path": "Caliber (DEV)/Models/Enums.swift",
+      "bytes": 2538,
+      "lines": 95,
+      "sha256": "de524dedac55af2c61e8b1c454960ee0a510dc552c942ae872be4a8a7f048994"
+    },
+    {
+      "path": "Caliber (DEV)/Models/FoodItem.swift",
+      "bytes": 1462,
+      "lines": 49,
+      "sha256": "7bd048d4290a54b79cefd70c02d38402779f75b1e1f2493dbc45aca07eda55a9"
+    },
+    {
+      "path": "Caliber (DEV)/Models/MenuItem.swift",
+      "bytes": 1247,
+      "lines": 46,
+      "sha256": "05522441f84d388ddfed836245d35db8a8dfd5fe75df7ae42aaa4f58a586e6d7"
+    },
+    {
+      "path": "Caliber (DEV)/Models/MenuItemModifier.swift",
+      "bytes": 880,
+      "lines": 36,
+      "sha256": "eeaae38c09a1ec90e520b97c7324858c03245ba2287640e1746f8609568a5545"
+    },
+    {
+      "path": "Caliber (DEV)/Models/Note.swift",
+      "bytes": 487,
+      "lines": 23,
+      "sha256": "d915784fe9ba7900f88ac738c6e3ee7432a0299d81288c88137b988f6b3c5248"
+    },
+    {
+      "path": "Caliber (DEV)/Models/ProgressEntry.swift",
+      "bytes": 986,
+      "lines": 32,
+      "sha256": "49d2c40b716a7b3e352e8900bc06c6872206a437ff3839175ef783857c706af4"
+    },
+    {
+      "path": "Caliber (DEV)/Models/ProgressPhoto.swift",
+      "bytes": 737,
+      "lines": 28,
+      "sha256": "999dae981e651b0dd3514217e105c31d7c31a1498773296313e88997df11a6d7"
+    },
+    {
+      "path": "Caliber (DEV)/Models/Restaurant.swift",
+      "bytes": 680,
+      "lines": 27,
+      "sha256": "2d44afd13a2723123e45e5f4ed50cf0be5809de339d8efe505d6dc1b7a3498cf"
+    },
+    {
+      "path": "Caliber (DEV)/Models/SavedMeal.swift",
+      "bytes": 494,
+      "lines": 23,
+      "sha256": "8bb8e837e597d6f2d6bc885d87d3b11ba563d42509ffd77e52d31b8025019554"
+    },
+    {
+      "path": "Caliber (DEV)/Models/SavedMealItem.swift",
+      "bytes": 742,
+      "lines": 28,
+      "sha256": "7507da495b4b9d8de6cfa9a774e36b7b8d86e5f4bdb0082b90483ddc1dc779a2"
+    },
+    {
+      "path": "Caliber (DEV)/Models/UserProfile.swift",
+      "bytes": 1029,
+      "lines": 40,
+      "sha256": "f2a4ba52518b241f7b3b88f4f57474e581afe99e91cd21bfe4fb732ff1593429"
+    },
+    {
+      "path": "Caliber (DEV)/Models/WeightEntry.swift",
+      "bytes": 525,
+      "lines": 23,
+      "sha256": "3c6213211eb9fedfae7d7959239af1f44c98e7bf355534a4866d02a1d3ca0f8a"
+    },
+    {
+      "path": "Caliber (DEV)/Services/AIScannerService.swift",
+      "bytes": 639,
+      "lines": 16,
+      "sha256": "ccdf154a479621e50b7782a51d3ac20530b8f14a1f9873f14e2c175312e6d5bb"
+    },
+    {
+      "path": "Caliber (DEV)/Services/BarcodeService.swift",
+      "bytes": 286,
+      "lines": 12,
+      "sha256": "2012a8c210bfce61fac4d786e70ac81c40211de360e2c20f27970decae3aacf2"
+    },
+    {
+      "path": "Caliber (DEV)/Services/FoodSearchService.swift",
+      "bytes": 1221,
+      "lines": 28,
+      "sha256": "3dae043e16de9cc9602c3204609edd2a66d3d5be93692958ef3723d9edaaef76"
+    },
+    {
+      "path": "Caliber (DEV)/Services/RestaurantCatalogSeeder.swift",
+      "bytes": 3139,
+      "lines": 75,
+      "sha256": "8214cb1578021c904d7e413589a990e968b20fd6c07515bd4fad002e894b58bd"
+    },
+    {
+      "path": "Caliber (DEV)/Services/RestaurantLibraryService.swift",
+      "bytes": 8573,
+      "lines": 140,
+      "sha256": "28031d1486c25d6fb908d087e2a0697358b1320dfc7772a601a9173787f3f31c"
+    },
+    {
+      "path": "Caliber (DEV)/Utilities/CustomMenuItemEditor.swift",
+      "bytes": 5233,
+      "lines": 130,
+      "sha256": "253765eb2fed1a650e70bc344eda007c5f54120f5cb5cd84056b22dc9e14f8c2"
+    },
+    {
+      "path": "Caliber (DEV)/Utilities/DiaryEntryEditor.swift",
+      "bytes": 2578,
+      "lines": 71,
+      "sha256": "13907e55e00fea15f7a1b50f38669747f8770d1f6ce1042fa45befc002efa1a6"
+    },
+    {
+      "path": "Caliber (DEV)/Utilities/MacroCalculator.swift",
+      "bytes": 1224,
+      "lines": 40,
+      "sha256": "68e1fbfda4d0cc81a1eb466857cd6db7e21c6be0df4eff3570d45e4be4f4962d"
+    },
+    {
+      "path": "Caliber (DEV)/Utilities/NutritionInput.swift",
+      "bytes": 1873,
+      "lines": 43,
+      "sha256": "46bccf0f5da8a49eb832412275245396b582497a50992f4cda5fb27a714732ea"
+    },
+    {
+      "path": "Caliber (DEV)/Utilities/ProgressEntryEditor.swift",
+      "bytes": 4928,
+      "lines": 120,
+      "sha256": "25a64fd4743063a451ae61dbb4c96d2e11c9daf09bc57c413bd4b8ebe2926640"
+    },
+    {
+      "path": "Caliber (DEV)/Utilities/ProgressPhotoImporter.swift",
+      "bytes": 2825,
+      "lines": 69,
+      "sha256": "ae865372074e21975dfe8014375d9dd1adcc354be4099217b56540163ddaf4f3"
+    },
+    {
+      "path": "Caliber (DEV)/Utilities/WeightProgressSummary.swift",
+      "bytes": 829,
+      "lines": 23,
+      "sha256": "0c848986701b7fa9665dd096d8555812870eb6e0611443459e98bc55f5b13e43"
+    },
+    {
+      "path": "Caliber (DEV)/Utilities/WeightUnit.swift",
+      "bytes": 662,
+      "lines": 21,
+      "sha256": "396177786b51afdcceca040bab15a2b4aad3878862d5dd375f9a04a3107b6c0f"
+    },
+    {
+      "path": "Caliber (DEV)/ViewModels/BuildYourOwnViewModel.swift",
+      "bytes": 3976,
+      "lines": 101,
+      "sha256": "ef5fd9f6b744f12d14ae0c4e00c2194294ed5bcb4c1c607ee2f3ac4c18f9fd60"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Components/MacroOverrideSection.swift",
+      "bytes": 2637,
+      "lines": 71,
+      "sha256": "c72336801ce8a32058fc157adf4c0be9c09d637cc6e2c72b2cb1369ffc2b49e3"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Diary/AddFoodView.swift",
+      "bytes": 4897,
+      "lines": 139,
+      "sha256": "fdd8f4c6c97e186a25a8d6477c0dfc0bb710c2efb72a908e3d722435d105c56b"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Diary/DiaryView.swift",
+      "bytes": 4400,
+      "lines": 121,
+      "sha256": "658960309f586ddadb9cb89375d765039d9f99e51b0a88224e366ee708d23aab"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Diary/EditDiaryEntryView.swift",
+      "bytes": 5770,
+      "lines": 140,
+      "sha256": "8428ef6e25c17dc8c82d90ca9415e6e1608b096230bbdeae43561e26a1678ebb"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Diary/FoodSearchView.swift",
+      "bytes": 9411,
+      "lines": 243,
+      "sha256": "f1e03f3beb87abf78da816bab25317231c4ca22ba2aead895bfd5f66de791c7c"
+    },
+    {
+      "path": "Caliber (DEV)/Views/FoodLibrary/FoodLibraryView.swift",
+      "bytes": 1209,
+      "lines": 43,
+      "sha256": "f39e17475f1dddc444281867f866d83846e0131664b1fe5e53a076dc13f0713b"
+    },
+    {
+      "path": "Caliber (DEV)/Views/MyFoods/MyFoodsView.swift",
+      "bytes": 1692,
+      "lines": 48,
+      "sha256": "f2f36fb70bcdaa7624c7f39ab8929f787867fd19d4877e5cb07cfc284c1c940b"
+    },
+    {
+      "path": "Caliber (DEV)/Views/MyFoods/SavedFoodDetailView.swift",
+      "bytes": 5605,
+      "lines": 142,
+      "sha256": "49509ab44aa9f0291f7f06819a48df331aca14ddbf2de3e1955ccf31946b824c"
+    },
+    {
+      "path": "Caliber (DEV)/Views/MyMeals/MyMealsView.swift",
+      "bytes": 1668,
+      "lines": 48,
+      "sha256": "0df20da10e27b133f78f4ebed0da52da8a27c657dd4f121b21cb5b034fb513f2"
+    },
+    {
+      "path": "Caliber (DEV)/Views/MyMeals/SavedMealDetailView.swift",
+      "bytes": 6417,
+      "lines": 149,
+      "sha256": "31795ccbad7e18207f12c1667335c0402cbc97ed90c6242072692b4dc4e0057a"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Profile/ProfilePlaceholderView.swift",
+      "bytes": 484,
+      "lines": 23,
+      "sha256": "e87dd2e041a6a26bd29edc08d479d0d95f564d1328445e85fdb0264a9504abf3"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Progress/ProgressDashboardView.swift",
+      "bytes": 8386,
+      "lines": 182,
+      "sha256": "23818805209e1f39bcf664e21b1ae86ad81fb08377f9876498250b818340d064"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Progress/ProgressEntryForm.swift",
+      "bytes": 10761,
+      "lines": 262,
+      "sha256": "1dce40b692955192299f876ef0f8bb011865d5d13b2ea601a8a4aba90545f373"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Progress/ProgressTimelineRow.swift",
+      "bytes": 5939,
+      "lines": 135,
+      "sha256": "0527a8d1d9f7440d6e6effc04f55731ffdce5df3e576173465d23f23443f54c2"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Progress/WeightTrendChart.swift",
+      "bytes": 4737,
+      "lines": 116,
+      "sha256": "96b45eb9e9d0c9163cd48ea227452965873b1b78b86e0e9cbcd32438d994ccf8"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Restaurants/AddMenuItemView.swift",
+      "bytes": 4606,
+      "lines": 115,
+      "sha256": "5e2ecade9a35f31881cfcda178f851ab8235f66f748c36263918dbcc5e1a4136"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Restaurants/BuildYourOwnView.swift",
+      "bytes": 10235,
+      "lines": 241,
+      "sha256": "ce7c6f35663df6be54b2651e41a7f475fee40870cd814d33dd8a09761dd5b2da"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Restaurants/MenuItemDetailView.swift",
+      "bytes": 8151,
+      "lines": 207,
+      "sha256": "7f40073f30c0a0eadb439bf4f9e13e1e410e94d35b621562e60563728c6631a3"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Restaurants/RestaurantDetailView.swift",
+      "bytes": 6754,
+      "lines": 160,
+      "sha256": "befca8524ae8bb6394b567abc10eb81805accd303c7477fbea40b850a726cf77"
+    },
+    {
+      "path": "Caliber (DEV)/Views/Restaurants/RestaurantListView.swift",
+      "bytes": 2568,
+      "lines": 78,
+      "sha256": "193cadb006a5abab93d971a932b5f37ad4352b12adafa56536fd445284d2d401"
+    },
+    {
+      "path": "Caliber (DEV)/Views/RootTabView.swift",
+      "bytes": 1060,
+      "lines": 35,
+      "sha256": "bca1c077659494e571403e629d28c7b3e89d4a02f7ad09594f1e470a202abc49"
+    },
+    {
+      "path": "Caliber (DEV).xcodeproj/project.pbxproj",
+      "bytes": 22708,
+      "lines": 581,
+      "sha256": "9ae01403c60fe30405c960a75cfb856ad00fb6785033f8522f898adec4c87367"
+    },
+    {
+      "path": "Caliber (DEV)Tests/BuildYourOwnTests.swift",
+      "bytes": 8823,
+      "lines": 166,
+      "sha256": "78e7336774e24d0f1fd4808edfe81ce884df778cb3b3a2287551a27eb36ce247"
+    },
+    {
+      "path": "Caliber (DEV)Tests/Caliber__DEV_Tests.swift",
+      "bytes": 1304,
+      "lines": 37,
+      "sha256": "6b0b6190add45ace345bc111811e94574746c81ba7da361889c4317e27a65b29"
+    },
+    {
+      "path": "Caliber (DEV)Tests/CustomMenuItemEditorTests.swift",
+      "bytes": 14024,
+      "lines": 303,
+      "sha256": "dbb4ca628109a506f99a6ec28c8af2d86f6778ab87757266356e78c54c2f9f96"
+    },
+    {
+      "path": "Caliber (DEV)Tests/DiaryEntryEditorTests.swift",
+      "bytes": 6354,
+      "lines": 148,
+      "sha256": "88bf6e41590cc45c404170ca5757b3a76cd5b6944020e8711d3e72701d749724"
+    },
+    {
+      "path": "Caliber (DEV)Tests/MacroCalculatorTests.swift",
+      "bytes": 2861,
+      "lines": 85,
+      "sha256": "f60c1c176c99b9a818add4b935f457f4b0afac28964a77b11687a2d0faa7019d"
+    },
+    {
+      "path": "Caliber (DEV)Tests/NutritionInputTests.swift",
+      "bytes": 1606,
+      "lines": 39,
+      "sha256": "ac68bd98e9b8b05af55f9afbaf25c858b16eca7b06c7e02374425585524d10d0"
+    },
+    {
+      "path": "Caliber (DEV)Tests/ProgressEntryEditorTests.swift",
+      "bytes": 18905,
+      "lines": 356,
+      "sha256": "26ee336e47b4ceebc451256386f1a4eb419d9b718413125875102ef63d7840fd"
+    },
+    {
+      "path": "Caliber (DEV)Tests/ProgressPhotoImporterTests.swift",
+      "bytes": 4935,
+      "lines": 92,
+      "sha256": "30223014e6caafb621c931ff5171766eac4fc2d5117bfd3cebf96294fd3ffc10"
+    },
+    {
+      "path": "Caliber (DEV)Tests/RestaurantCatalogSeederTests.swift",
+      "bytes": 13295,
+      "lines": 265,
+      "sha256": "55938eb9198452a552d840bf610970a51e81a6a04e6dffe175152ae26479bb4c"
+    },
+    {
+      "path": "Caliber (DEV)Tests/WeightProgressSummaryTests.swift",
+      "bytes": 1819,
+      "lines": 44,
+      "sha256": "fc583c8d953e2a7a66dcb26714612b901358f6ccd8b5ab426304c3382c4f049f"
+    },
+    {
+      "path": "Caliber (DEV)Tests/WeightUnitTests.swift",
+      "bytes": 1271,
+      "lines": 33,
+      "sha256": "a17be64586f7830046b617f379b7dd2b188b0b59073bccc2092297e72f017db4"
+    },
+    {
+      "path": "Caliber (DEV)UITests/Caliber__DEV_UITests.swift",
+      "bytes": 1434,
+      "lines": 43,
+      "sha256": "170dd9943c0f88481ac7f83393d3a011ecbdf8a14f7ed741a57559ac89d4dcfe"
+    },
+    {
+      "path": "Caliber (DEV)UITests/ProgressUITests.swift",
+      "bytes": 3708,
+      "lines": 82,
+      "sha256": "b067abf0512e8a2f5466806c903d9a4b69adc7d12c6a4d506dbaf6540c0ce448"
+    },
+    {
+      "path": "Caliber (DEV)UITests/RestaurantCustomizationUITests.swift",
+      "bytes": 4019,
+      "lines": 96,
+      "sha256": "7b48b42c6a697504a83199ebca72b6f06230863f5fa61c80b2a08c366f3dc437"
+    }
+  ]
+}
