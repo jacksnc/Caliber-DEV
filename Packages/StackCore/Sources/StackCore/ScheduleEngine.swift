@@ -1,5 +1,5 @@
 import Foundation
-import CaliberTime
+import HeliosTime
 
 // Schedule engine (brief STK-03): turns a protocol's recurrence into concrete dose occurrences,
 // handling daylight-saving changes and travel (floating vs fixed time anchors), and classifies each

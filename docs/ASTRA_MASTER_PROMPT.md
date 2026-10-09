@@ -1,6 +1,6 @@
-# Caliber — Master Build Brief for GPT-6 Astra
+# Helios — Master Build Brief for GPT-6 Astra
 
-**Version:** v1 · 2026-10-07 · working name "Caliber" · repo `jacksnc/Caliber-DEV`
+**Version:** v1 · 2026-10-07 · name "Helios" (pending trademark clearance) · repo `jacksnc/Caliber-DEV`
 
 ## For you, the owner — not part of the prompt
 
@@ -20,7 +20,7 @@
 - The visuals layer is the differentiator: one timeline, cross-domain overlays, correlations (§3).
 
 **Heads-ups**
-- **Name clash:** "Caliber: Strength Training" is an existing, well-reviewed fitness app on the App Store. Clear the name (trademark + store) before you brand anything "Caliber".
+- **Name clearance:** "Helios" is a very common name. A search found no nutrition, strength-tracker or peptide-tracker app called Helios on the App Store, but the nearest neighbours are Helios Sports' hockey performance app and sensor, a Dutch gym member app called "Helios Sport & Performance", and Amazfit's "Helio" ring and strap. Run the USPTO trademark search (classes 9, 41, 42, 44), check domains and handles, and get an attorney's clearance opinion before you spend money on branding. The App Store bundle ID is permanent once published, so settle the name before the first TestFlight build.
 - **Store risk:** Apple (App Review Guidelines §1.4 Physical Harm, §5.1.3 Health data) and Google Play (Unapproved Substances, Health apps declaration) both scrutinise this category. §11 is written to pass review, but get a human policy/legal read before submitting.
 - **Research limits:** competitor pages (App Store, vendor sites) were blocked from direct fetch in the environment this was written in, so feature lists come from search summaries. The brief tells Astra to verify competitor facts before relying on them. Sources are listed at the bottom.
 
@@ -28,7 +28,7 @@
 
 <!-- PROMPT START -->
 
-# CALIBER — MASTER BUILD BRIEF
+# HELIOS — MASTER BUILD BRIEF
 
 You are **Astra**, working as principal mobile engineer, data-visualization engineer, product designer and sports-nutrition-aware implementer. This brief is your complete spec. §0 is the operating contract. §1–§8 are requirements, each with a stable ID and a priority tag. §9 holds the data model and the exact math. §10–§11 are architecture and guardrails. §12 is the delivery plan. §13 tells you what to do right now. §14 lists recommended defaults.
 
@@ -37,7 +37,7 @@ Priority tags: **P0** = ships in v1 · **P1** = built in v1 behind a feature fla
 ## 0. Operating contract
 
 ### 0.1 Goal
-Build **Caliber** (codename), one mobile app that replaces four:
+Build **Helios** (name pending trademark clearance), one mobile app that replaces four:
 1. **Fuel** — calorie, macro and micronutrient tracking (benchmarks: MyFitnessPal, Cal AI, MacroFactor).
 2. **Stack** — peptide, injectable-protocol and GLP-1 logbook (benchmarks: STACKR, Shotsy).
 3. **Train** — weight-training log and programming (benchmarks: StrengthLog, Strong, Hevy, Alpha Progression).
@@ -47,7 +47,7 @@ Success test: a lifter on a cut, a bulk, or a GLP-1/peptide protocol can log a s
 
 ### 0.2 Context
 - The owner already has a macro tracker and a peptide-injection tracker in progress. This brief (a) adds a full weight-training module, (b) adds the unified chart/insight layer, and (c) raises the macro and peptide modules to best-in-class parity.
-- Repo `jacksnc/Caliber-DEV` is empty (README only). Treat it as greenfield unless the owner pastes existing code. If they do, gap-analyse it against §2–§8 first and evolve it; don't rewrite working code without a written reason.
+- Repo `jacksnc/Caliber-DEV` (it keeps its original name for now) holds this brief, a macOS CI workflow and five tested, UI-free Swift engine packages under `Packages/`: `HeliosTime`, `TrainingCore` (e1RM, plates, warm-ups, PRs, volume, progression, mesocycles), `NutritionCore` (targets with safety rails, weight trend, adaptive expenditure), `StackCore` (reconstitution calculator, active-level model, schedule engine) and `InsightsCore` (trend gate, correlation, stall detection, insight sentences). The iOS app itself lives in the owner's separate Xcode project. Reuse these packages instead of re-implementing the math, and gap-analyse any app code the owner pastes against §2–§8 first; evolve it, and don't rewrite working code without a written reason.
 - Benchmarks are for feature parity and UX lessons only. Never copy their branding, copy, icons, media, proprietary datasets or program text. Verify any competitor fact against current store listings before relying on it.
 - Users: gym-goers who count macros; a growing subset run GLP-1 or peptide protocols and want accurate, discreet logging. Stack is adults-only.
 - Real-world use: one hand, sweaty, weak signal, between sets. Design for that first.
@@ -512,7 +512,7 @@ Implement as pure functions in `packages/core` with 100% branch coverage. The ve
 
 ## 11. Safety, compliance and privacy guardrails (highest priority)
 
-1. **Scope and disclaimers.** Caliber is a logging, calculation and education tool — not medical advice, diagnosis or treatment. Show this at onboarding, in Settings, and on every Stack screen that shows a calculation. Encourage consulting a licensed clinician for any medical decision.
+1. **Scope and disclaimers.** Helios is a logging, calculation and education tool — not medical advice, diagnosis or treatment. Show this at onboarding, in Settings, and on every Stack screen that shows a calculation. Encourage consulting a licensed clinician for any medical decision.
 2. **Age.** v1 is 18+ (age gate at onboarding), which also reduces exposure under COPPA and age-appropriate-design rules (counsel to confirm). Revisit before opening to teens.
 3. **Stack module.** Everything in §5.1, plus: explicit opt-in, hideable, remote-killable by region/store, buildable without the module. No dose recommendations, no efficacy claims.
 4. **No facilitation of sales or sourcing** of any drug or peptide: no vendor listings, affiliate links or marketplace; no public sharing of protocols or doses.
@@ -580,12 +580,12 @@ Do not wait for permission. In this order:
 3. **Deterministic-first AI.** The model identifies, parses and narrates; databases and code compute; show ranges; measure error on every model change (AI-07).
 4. **Own the GLP-1 lean-mass niche.** GLP-1 mode (FUEL-25) + resistance-training prompts + body-composition tracking (VZ-B8) address a fast-growing, well-evidenced need. Add the clinician report (VZ-X8) to build trust.
 5. **Decouple Stack.** A separate, flag-gated package with its own privacy store, so a build without it can ship if a store objects. Get a clinician advisor to review Stack copy, and a policy/legal read before submission.
-6. **Cut switching friction on day one.** Importers for Strong, Hevy, StrengthLog and MyFitnessPal, and a "Switch to Caliber" flow.
+6. **Cut switching friction on day one.** Importers for Strong, Hevy, StrengthLog and MyFitnessPal, and a "Switch to Helios" flow.
 7. **Close the loop with readiness.** Sleep/HRV/soreness → a suggested session intensity, shown as a suggestion with its drivers, never as an order.
 8. **Test like a lifter.** Test in a real gym with chalky, sweaty hands: rest-timer-first, big numerals, one-hand reach. This is where Strong and Hevy win loyalty.
 9. **Trust through transparency.** Publish "How we calculate", cite standards and landmarks, and have a sports-science advisor review the defaults (volume landmarks, standards, e1RM, protein ranges).
 10. **Measure the master-app thesis** (privacy-safe): time to first log per domain; % of users active in ≥ 2 domains by day 30; D1/D7/D30 retention; AI edit rate; paywall conversion.
-11. **Clear the name.** "Caliber: Strength Training" already exists on the App Store. Check trademark and store availability before branding.
+11. **Clear the name.** Helios is crowded across categories (hockey sensors, gym member apps, wearables with a near-identical name). Run the USPTO search and an attorney clearance before branding, and keep the word "peptide" out of the app name and subtitle.
 12. **Run a real beta.** 20-30 testers across lifters, cutters and GLP-1 users; dogfood for 4 weeks before submission.
 13. **After v1.** CGM overlay, Garmin/Whoop/Oura, barbell-velocity sensors, meal planner, web app, Wear OS, coach dashboard, gym/team plans.
 
@@ -610,5 +610,5 @@ Competitor features were gathered from search summaries of the pages below (dire
 - GLP-1, protein and resistance training: [IDEA](https://www.ideafit.com/glp-1-medications-and-lean-mass-why-resistance-training-matters/) · [Clinical Nutrition Center](https://www.clinicalnutritioncenter.com/research/resistance-training-glp1-therapy-muscle-preservation)
 - GPT-6 Astra and how to prompt it: [GitHub changelog](https://github.blog/changelog/2026-09-04-gpt-6-astra-is-generally-available-in-github-copilot) · [prompting guide](https://promptessor.com/blog/gpt-6-astra-prompting-guide) · [CometAPI guide](https://www.cometapi.com/gpt-6-astra-prompting-guide/) · [Elser guide](https://www.elser.ai/blog/gpt-6-astra-prompt-guide)
 - Store policies: [Apple guideline changes for health/medical apps](https://www.healthcaredive.com/news/apple-raises-entry-bar-for-medical-health-apps/425810/) · [Apple 1.4 rejection thread](https://developer.apple.com/forums/thread/134169) · [Google Play policy](https://support.google.com/googleplay/android-developer/answer/9878878)
-- Name clash: [Caliber: Strength Training](https://apps.apple.com/app/id1482405410)
+- Name neighbours checked: [HELIOS App (hockey sensor)](https://apps.apple.com/us/app/helios-app/id1517234886) · [Helios Sport & Performance (gym app)](https://apps.apple.com/md/app/helios-sport-performance/id1168628055) · [Amazfit Helio ring](https://www.tomsguide.com/news/look-out-oura-amazfit-launches-its-own-helio-smart-ring)
 

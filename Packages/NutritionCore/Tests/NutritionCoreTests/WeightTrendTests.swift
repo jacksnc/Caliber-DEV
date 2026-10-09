@@ -1,5 +1,5 @@
 import XCTest
-import CaliberTime
+import HeliosTime
 @testable import NutritionCore
 
 final class WeightTrendTests: XCTestCase {

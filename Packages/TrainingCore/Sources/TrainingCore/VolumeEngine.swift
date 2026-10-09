@@ -1,5 +1,5 @@
 import Foundation
-import CaliberTime
+import HeliosTime
 
 /// Muscle regions (brief TRN-60, 21 regions).
 public enum Muscle: String, CaseIterable, Hashable, Sendable {

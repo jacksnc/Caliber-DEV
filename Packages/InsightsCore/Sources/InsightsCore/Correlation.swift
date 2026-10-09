@@ -1,5 +1,5 @@
 import Foundation
-import CaliberTime
+import HeliosTime
 
 public struct CorrelationResult: Equatable, Sendable {
     public let rho: Double

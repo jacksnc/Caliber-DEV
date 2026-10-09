@@ -1,5 +1,5 @@
 import Foundation
-import CaliberTime
+import HeliosTime
 
 public struct DayIntake: Equatable, Sendable {
     public let date: LocalDate

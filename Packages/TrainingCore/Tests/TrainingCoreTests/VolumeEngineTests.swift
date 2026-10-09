@@ -1,6 +1,6 @@
 import XCTest
 @testable import TrainingCore
-import CaliberTime
+import HeliosTime
 
 final class VolumeEngineTests: XCTestCase {
     private let bench: [MuscleInvolvement] = [.primary(.chest), .secondary(.triceps), .secondary(.frontDelts)]

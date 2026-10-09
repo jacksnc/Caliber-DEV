@@ -8,18 +8,18 @@ let package = Package(
         .library(name: "NutritionCore", targets: ["NutritionCore"]),
     ],
     dependencies: [
-        .package(path: "../CaliberTime"),
+        .package(path: "../HeliosTime"),
     ],
     targets: [
         .target(
             name: "NutritionCore",
-            dependencies: [.product(name: "CaliberTime", package: "CaliberTime")]
+            dependencies: [.product(name: "HeliosTime", package: "HeliosTime")]
         ),
         .testTarget(
             name: "NutritionCoreTests",
             dependencies: [
                 "NutritionCore",
-                .product(name: "CaliberTime", package: "CaliberTime"),
+                .product(name: "HeliosTime", package: "HeliosTime"),
             ]
         ),
     ]

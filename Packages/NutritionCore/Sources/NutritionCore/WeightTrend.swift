@@ -1,5 +1,5 @@
 import Foundation
-import CaliberTime
+import HeliosTime
 
 public struct WeightEntry: Equatable, Sendable {
     public let date: LocalDate
