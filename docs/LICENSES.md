@@ -26,3 +26,10 @@ Food-source records remain distinct from editable personal log snapshots. Design
 - Keep attribution accessible in-app and in exports where applicable. Include license notices in release packaging; verify obligations for modified media and data separately.
 
 Release evidence: approved manifest, generated acknowledgements, package lockfile/license scan, asset audit, source update test and owner/legal sign-off. All are planned; none is certified complete here. See [COMPLIANCE](COMPLIANCE.md), gate 11.10.
+
+## Adopted Foundation dependencies — 2026-10-08
+
+- GRDB.swift **7.9.0**, exact version and commit locked in both Package.resolved files; MIT. The checked-out release's full license is bundled as `Resources/ThirdPartyNotices.txt` and accessible from Settings. Source: https://github.com/groue/GRDB.swift/tree/v7.9.0 . No encryption capability is implied by plain GRDB/SQLite.
+- PGlite **0.3.14**, development-only npm dependency pinned by deno.lock. Its package metadata declares Apache-2.0; its embedded PostgreSQL components carry their own upstream notices. We redistribute no PGlite binary in the mobile app or delivery source archive. Official documentation: https://pglite.dev/docs/ . Review transitive notices if redistributing the test runtime.
+- Deno **2.9.7** is a local/CI development tool, not an app dependency. No runtime binary is included in the source delivery.
+- The new demo generator and UI/chart copy are original; no third-party restaurant/exercise/compound dataset was added. Existing restaurant provenance gates remain open.

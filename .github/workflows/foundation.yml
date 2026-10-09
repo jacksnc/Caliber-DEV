@@ -1,0 +1,46 @@
+name: Foundation
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+concurrency:
+  group: foundation-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  ios:
+    runs-on: macos-15
+    timeout-minutes: 30
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_16.4.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: xcodebuild -version && swift --version
+      - name: Contracts and migration fixtures
+        run: python3 scripts/verify_phase1.py
+      - name: Foundation Swift style
+        run: python3 scripts/lint_foundation.py
+      - name: Package tests
+        run: swift test --package-path Packages/CaliberFoundation --scratch-path "$RUNNER_TEMP/CaliberSwift"
+      - name: App and isolated UI tests
+        run: python3 scripts/test_ios.py --output "$RUNNER_TEMP/CaliberIOS"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: simulator-results
+          path: ${{ runner.temp }}/CaliberIOS/Checks.xcresult
+          if-no-files-found: ignore
+  backend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.9.7
+      - name: Format, lint, typecheck and Postgres RLS tests
+        working-directory: backend
+        run: |
+          deno fmt --check
+          deno lint
+          deno task check
+          deno task test

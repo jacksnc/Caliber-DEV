@@ -1,6 +1,6 @@
 # ADR-001 — Preserve the native iOS application
 
-Status: proposed for Phase 1 approval. Scope amendment: Android Phase-1 acceptance remains pending.
+Status: accepted by the owner’s “Go” after Phase 0. Native iOS Foundation is approved; Android is deferred to the later client. The original Phase-0 compatibility proposal below is retained as history; current evidence is in PHASE_1_VERIFICATION.md.
 
 ## Context and decision
 The source tree is a working SwiftUI/SwiftData app, despite the brief's README-only repository assumption. Keep its Xcode app and evolve features in-place. Create local Swift packages gradually: Core, Database, DesignSystem, Charts, Train, Fuel, Body, Stack, Integrations and SeedData. Core has no SwiftUI/SwiftData/HealthKit dependency. App composition owns navigation, dependency injection, settings and feature availability. Repository protocols, DTOs and value types isolate the current persistence layer.

@@ -253,3 +253,14 @@ All listed acceptance tests are planned. Full P0 table/screen/test mappings are 
 - FUEL-INT-04 priority is an explicit proposal for an untagged clause; phase-4 Health writing scope still needs confirmation before implementation.
 - P0 ports and account flows have planned contracts; backend provisioning, auth entitlements, RLS and live multi-device verification remain Phase 1 gates.
 - Release of the calculator requires qualified policy eligibility; no public release, entitlement or approved medical status is claimed.
+
+## Foundation follow-through (P0 dependencies, not deferred to P2)
+
+- PLAT-03: configure owner-approved Supabase project/region; wire consent, hosted login/logout/revocation, account recovery/delete, live domain adapters, uploads and foreground/background sync. Verify two actual clients, conflicts, interruption/retry, region and encrypted backup recovery.
+- PLAT-03: finish normalized SwiftData→GRDB mapping and photo-vault protections; restore rehearsal and approval before irreversible cutover. Current archive proves lossless rehearsal only.
+- PLAT-02: audit every dynamic string and accessibility phrase; translate only when reviewed. Verify chosen decimal formats in existing entry forms as well as new package parsing.
+- PLAT-02 / §10.2: execute iOS17 runtime/device checks, largest Dynamic Type/VoiceOver, every-chart image baselines and required physical-device performance/coverage budgets.
+- §12 Phase1: run hosted CI after connecting the intended remote; local Xcode27 verification does not establish the Xcode16.4 CI result.
+- §11: encrypted Stack store, private attachment vault, consent/lock/region/store gates and qualified policy review precede real Stack capture. Simulation markers do not satisfy these requirements.
+
+These entries preserve the existing requirement priorities. They are unfinished Foundation/release gates, not completed or newly optional features.

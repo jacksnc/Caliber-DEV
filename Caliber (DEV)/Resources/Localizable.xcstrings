@@ -1,0 +1,1356 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "About": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About"
+          }
+        }
+      }
+    },
+    "Add Check-In": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add Check-In"
+          }
+        }
+      }
+    },
+    "Add Custom Item": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add Custom Item"
+          }
+        }
+      }
+    },
+    "Add Food": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add Food"
+          }
+        }
+      }
+    },
+    "Add a Photo or Note": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add a Photo or Note"
+          }
+        }
+      }
+    },
+    "Add a photo, weight, or note to save your progress.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add a photo, weight, or note to save your progress."
+          }
+        }
+      }
+    },
+    "Add a weight to any daily check-in to start your graph. Photos and notes are always optional.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add a weight to any daily check-in to start your graph. Photos and notes are always optional."
+          }
+        }
+      }
+    },
+    "Add to Diary": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add to Diary"
+          }
+        }
+      }
+    },
+    "Adjust Nutrition (per serving)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adjust Nutrition (per serving)"
+          }
+        }
+      }
+    },
+    "Adjust macros for this log": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adjust macros for this log"
+          }
+        }
+      }
+    },
+    "Appearance and Privacy": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Appearance and Privacy"
+          }
+        }
+      }
+    },
+    "Browse": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Browse"
+          }
+        }
+      }
+    },
+    "Browse Restaurants": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Browse Restaurants"
+          }
+        }
+      }
+    },
+    "Build Your Own": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Build Your Own"
+          }
+        }
+      }
+    },
+    "Build a Restaurant Meal": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Build a Restaurant Meal"
+          }
+        }
+      }
+    },
+    "Caliber is a logging and education tool, not medical advice, diagnosis, or treatment. Consult a licensed clinician for medical decisions.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caliber is a logging and education tool, not medical advice, diagnosis, or treatment. Consult a licensed clinician for medical decisions."
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
+          }
+        }
+      }
+    },
+    "Category": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Category"
+          }
+        }
+      }
+    },
+    "Choose up to six photos. Photos are saved with this check-in when you tap Save.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose up to six photos. Photos are saved with this check-in when you tap Save."
+          }
+        }
+      }
+    },
+    "Custom": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Custom"
+          }
+        }
+      }
+    },
+    "Customize": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Customize"
+          }
+        }
+      }
+    },
+    "Dark": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dark"
+          }
+        }
+      }
+    },
+    "Date": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date"
+          }
+        }
+      }
+    },
+    "Delete": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete"
+          }
+        }
+      }
+    },
+    "Demo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo"
+          }
+        }
+      }
+    },
+    "Device Format": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Device Format"
+          }
+        }
+      }
+    },
+    "Diary": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diary"
+          }
+        }
+      }
+    },
+    "Diary Total": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diary Total"
+          }
+        }
+      }
+    },
+    "Diary date": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diary date"
+          }
+        }
+      }
+    },
+    "Dismiss Photo Message": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dismiss Photo Message"
+          }
+        }
+      }
+    },
+    "Double": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Double"
+          }
+        }
+      }
+    },
+    "Each dot is a recorded weigh-in. Dates run from oldest to newest.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Each dot is a recorded weigh-in. Dates run from oldest to newest."
+          }
+        }
+      }
+    },
+    "Edit": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit"
+          }
+        }
+      }
+    },
+    "Edit Food": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit Food"
+          }
+        }
+      }
+    },
+    "Energy": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Energy"
+          }
+        }
+      }
+    },
+    "English (United Kingdom)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "English (United Kingdom)"
+          }
+        }
+      }
+    },
+    "English (United States)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "English (United States)"
+          }
+        }
+      }
+    },
+    "Enter Food Manually": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter Food Manually"
+          }
+        }
+      }
+    },
+    "Enter a food name, nonnegative nutrition values, and a quantity greater than zero.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a food name, nonnegative nutrition values, and a quantity greater than zero."
+          }
+        }
+      }
+    },
+    "Enter a quantity above zero and valid, nonnegative nutrition values.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a quantity above zero and valid, nonnegative nutrition values."
+          }
+        }
+      }
+    },
+    "Enter a weight greater than zero, or leave it blank.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a weight greater than zero, or leave it blank."
+          }
+        }
+      }
+    },
+    "Enter valid nutrition and a quantity greater than zero to see the total.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter valid nutrition and a quantity greater than zero to see the total."
+          }
+        }
+      }
+    },
+    "Existing logs continue using their original store. Foundation migration tests run on separate copies.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Existing logs continue using their original store. Foundation migration tests run on separate copies."
+          }
+        }
+      }
+    },
+    "Exit Demo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exit Demo"
+          }
+        }
+      }
+    },
+    "Explore": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explore"
+          }
+        }
+      }
+    },
+    "Explore Demo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explore Demo"
+          }
+        }
+      }
+    },
+    "Fictional data lives in separate storage. Your diary and photos stay as they are.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fictional data lives in separate storage. Your diary and photos stay as they are."
+          }
+        }
+      }
+    },
+    "Food": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Food"
+          }
+        }
+      }
+    },
+    "Food Library": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Food Library"
+          }
+        }
+      }
+    },
+    "Foods you save while adding them in the Diary's \\": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Foods you save while adding them in the Diary's \\"
+          }
+        }
+      }
+    },
+    "Formatting": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formatting"
+          }
+        }
+      }
+    },
+    "French (France)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "French (France)"
+          }
+        }
+      }
+    },
+    "German (Germany)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "German (Germany)"
+          }
+        }
+      }
+    },
+    "Goals, TDEE calculator, and settings are coming soon.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goals, TDEE calculator, and settings are coming soon."
+          }
+        }
+      }
+    },
+    "Hide Calories and Weight": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hide Calories and Weight"
+          }
+        }
+      }
+    },
+    "Hosted sign-in and sync are not configured. No diary, photo, or health value is uploaded.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hosted sign-in and sync are not configured. No diary, photo, or health value is uploaded."
+          }
+        }
+      }
+    },
+    "Includes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Includes"
+          }
+        }
+      }
+    },
+    "Includes quantity and any macro adjustment. Swipe left on eligible proteins for Double or Regular. Tap an optional ingredient again to remove it.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Includes quantity and any macro adjustment. Swipe left on eligible proteins for Double or Regular. Tap an optional ingredient again to remove it."
+          }
+        }
+      }
+    },
+    "Interface language is English. These settings change formatting, not the entered values.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interface language is English. These settings change formatting, not the entered values."
+          }
+        }
+      }
+    },
+    "Item": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Item"
+          }
+        }
+      }
+    },
+    "Keep a photo or note without showing calories or weight.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep a photo or note without showing calories or weight."
+          }
+        }
+      }
+    },
+    "Keep daily photos, weigh-ins, and notes together. Add any combination that works for you.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep daily photos, weigh-ins, and notes together. Add any combination that works for you."
+          }
+        }
+      }
+    },
+    "Length": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Length"
+          }
+        }
+      }
+    },
+    "Light": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Light"
+          }
+        }
+      }
+    },
+    "Log This Meal": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log This Meal"
+          }
+        }
+      }
+    },
+    "Log Weight": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log Weight"
+          }
+        }
+      }
+    },
+    "Macro adjustments are for one assembled item; quantity multiplies them. Changing ingredients resets the adjustment.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Macro adjustments are for one assembled item; quantity multiplies them. Changing ingredients resets the adjustment."
+          }
+        }
+      }
+    },
+    "Macros (per serving)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Macros (per serving)"
+          }
+        }
+      }
+    },
+    "Macros per serving": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Macros per serving"
+          }
+        }
+      }
+    },
+    "Meal": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meal"
+          }
+        }
+      }
+    },
+    "Monday": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monday"
+          }
+        }
+      }
+    },
+    "My Foods": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My Foods"
+          }
+        }
+      }
+    },
+    "My Meals": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My Meals"
+          }
+        }
+      }
+    },
+    "No food logged today": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No food logged today"
+          }
+        }
+      }
+    },
+    "No items yet": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No items yet"
+          }
+        }
+      }
+    },
+    "Notes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notes"
+          }
+        }
+      }
+    },
+    "Notes (optional)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notes (optional)"
+          }
+        }
+      }
+    },
+    "Number and Date Format": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Number and Date Format"
+          }
+        }
+      }
+    },
+    "Number-free mode keeps photos and notes available and hides numerical editors, charts, and their accessibility labels.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Number-free mode keeps photos and notes available and hides numerical editors, charts, and their accessibility labels."
+          }
+        }
+      }
+    },
+    "Numbers are hidden": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Numbers are hidden"
+          }
+        }
+      }
+    },
+    "Nutrition for this log": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nutrition for this log"
+          }
+        }
+      }
+    },
+    "Nutrition for this meal": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nutrition for this meal"
+          }
+        }
+      }
+    },
+    "Nutrition per item": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nutrition per item"
+          }
+        }
+      }
+    },
+    "OK": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        }
+      }
+    },
+    "OLED Black": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OLED Black"
+          }
+        }
+      }
+    },
+    "One serving is this entire meal. Your adjusted meal will appear as one diary entry.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One serving is this entire meal. Your adjusted meal will appear as one diary entry."
+          }
+        }
+      }
+    },
+    "Photos": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photos"
+          }
+        }
+      }
+    },
+    "Profile": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Profile"
+          }
+        }
+      }
+    },
+    "Progress": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Progress"
+          }
+        }
+      }
+    },
+    "Progress Check-In": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Progress Check-In"
+          }
+        }
+      }
+    },
+    "Progress photo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Progress photo"
+          }
+        }
+      }
+    },
+    "Quantity": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quantity"
+          }
+        }
+      }
+    },
+    "Quick Log": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick Log"
+          }
+        }
+      }
+    },
+    "Remove": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove"
+          }
+        }
+      }
+    },
+    "Restaurant Menu Items": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurant Menu Items"
+          }
+        }
+      }
+    },
+    "Restaurants": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurants"
+          }
+        }
+      }
+    },
+    "Retry Food Search": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retry Food Search"
+          }
+        }
+      }
+    },
+    "Retry Restaurant Loading": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retry Restaurant Loading"
+          }
+        }
+      }
+    },
+    "Sample Foods": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sample Foods"
+          }
+        }
+      }
+    },
+    "Sample menus for now. These are not complete, verified restaurant menus.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sample menus for now. These are not complete, verified restaurant menus."
+          }
+        }
+      }
+    },
+    "Saturday": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saturday"
+          }
+        }
+      }
+    },
+    "Save": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save"
+          }
+        }
+      }
+    },
+    "Save to My Foods": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save to My Foods"
+          }
+        }
+      }
+    },
+    "Saved combinations of foods will show up here.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved combinations of foods will show up here."
+          }
+        }
+      }
+    },
+    "Search your saved foods and meals, plus the available sample foods and restaurant menus. A full food database will come later.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search your saved foods and meals, plus the available sample foods and restaurant menus. A full food database will come later."
+          }
+        }
+      }
+    },
+    "See your weight over time": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See your weight over time"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Settings"
+          }
+        }
+      }
+    },
+    "Stack is disabled. Advanced feature flags remain off until their implementations and release checks pass.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stack is disabled. Advanced feature flags remain off until their implementations and release checks pass."
+          }
+        }
+      }
+    },
+    "Storage and Sync": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Storage and Sync"
+          }
+        }
+      }
+    },
+    "Sunday": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunday"
+          }
+        }
+      }
+    },
+    "System": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "System"
+          }
+        }
+      }
+    },
+    "Tap + to add a custom item to this restaurant.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap + to add a custom item to this restaurant."
+          }
+        }
+      }
+    },
+    "Tap an item to review servings and edit your macros. Swipe left on a custom item to edit or delete it. Built-in nutrition is sample data until verified menus are available.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap an item to review servings and edit your macros. Swipe left on a custom item to edit or delete it. Built-in nutrition is sample data until verified menus are available."
+          }
+        }
+      }
+    },
+    "Temperature": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temperature"
+          }
+        }
+      }
+    },
+    "Theme": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theme"
+          }
+        }
+      }
+    },
+    "These changes apply only to this diary entry. Saved foods and restaurant menus stay the same.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "These changes apply only to this diary entry. Saved foods and restaurant menus stay the same."
+          }
+        }
+      }
+    },
+    "This removes this check-in's photos, weight, and notes from the app. Your photo library is unchanged.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This removes this check-in's photos, weight, and notes from the app. Your photo library is unchanged."
+          }
+        }
+      }
+    },
+    "Today": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today"
+          }
+        }
+      }
+    },
+    "Total for this entry": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total for this entry"
+          }
+        }
+      }
+    },
+    "Try Again": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try Again"
+          }
+        }
+      }
+    },
+    "Try another name or enter your food manually.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try another name or enter your food manually."
+          }
+        }
+      }
+    },
+    "Unit": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unit"
+          }
+        }
+      }
+    },
+    "Units": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Units"
+          }
+        }
+      }
+    },
+    "Use numbers of zero or greater for calories and macros, and a quantity greater than zero.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use numbers of zero or greater for calories and macros, and a quantity greater than zero."
+          }
+        }
+      }
+    },
+    "Volume": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volume"
+          }
+        }
+      }
+    },
+    "Week Starts": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Week Starts"
+          }
+        }
+      }
+    },
+    "Weight": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weight"
+          }
+        }
+      }
+    },
+    "Weight (optional)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weight (optional)"
+          }
+        }
+      }
+    },
+    "Weight applies to Progress; energy applies to Today. Original diary entries retain their labeled calorie units. Other preferences are saved for the modules that use them.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weight applies to Progress; energy applies to Today. Original diary entries retain their labeled calorie units. Other preferences are saved for the modules that use them."
+          }
+        }
+      }
+    },
+    "Weight trend": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weight trend"
+          }
+        }
+      }
+    },
+    "Weight unit": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weight unit"
+          }
+        }
+      }
+    },
+    "Your Journal": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your Journal"
+          }
+        }
+      }
+    },
+    "Your Progress": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your Progress"
+          }
+        }
+      }
+    },
+    "Your first weigh-in is on the graph. Add another to start seeing a trend.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your first weigh-in is on the graph. Add another to start seeing a trend."
+          }
+        }
+      }
+    },
+    "Your logs are on this device": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your logs are on this device"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

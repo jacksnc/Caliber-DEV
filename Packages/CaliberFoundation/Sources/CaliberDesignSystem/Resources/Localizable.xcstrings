@@ -1,0 +1,476 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "%@ %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@"
+          }
+        }
+      }
+    },
+    "%@: %@ %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: %@ %@"
+          }
+        }
+      }
+    },
+    "%lld of %lld days logged": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld of %lld days logged"
+          }
+        }
+      }
+    },
+    "%lld recorded observations. Exact values are in the data table.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld recorded observations. Exact values are in the data table."
+          }
+        }
+      }
+    },
+    "1M": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1M"
+          }
+        }
+      }
+    },
+    "1W": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1W"
+          }
+        }
+      }
+    },
+    "1Y": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1Y"
+          }
+        }
+      }
+    },
+    "3M": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3M"
+          }
+        }
+      }
+    },
+    "Arbitrary units only. No substance, human dose, prescription, or real reminder is represented.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arbitrary units only. No substance, human dose, prescription, or real reminder is represented."
+          }
+        }
+      }
+    },
+    "Body weight": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Body weight"
+          }
+        }
+      }
+    },
+    "Continuous segment": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continuous segment"
+          }
+        }
+      }
+    },
+    "Cut": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cut"
+          }
+        }
+      }
+    },
+    "Date": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date"
+          }
+        }
+      }
+    },
+    "Date range": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date range"
+          }
+        }
+      }
+    },
+    "Deload": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deload"
+          }
+        }
+      }
+    },
+    "Demo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo"
+          }
+        }
+      }
+    },
+    "Demo timeline": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo timeline"
+          }
+        }
+      }
+    },
+    "Explore a year with a cut phase, deloads, noisy weigh-ins, and missed logs.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explore a year with a cut phase, deloads, noisy weigh-ins, and missed logs."
+          }
+        }
+      }
+    },
+    "Explore the timeline": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explore the timeline"
+          }
+        }
+      }
+    },
+    "Fictional demo • Separate from your logs": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fictional demo • Separate from your logs"
+          }
+        }
+      }
+    },
+    "Fictional simulation": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fictional simulation"
+          }
+        }
+      }
+    },
+    "First-to-last change subtracts the first recorded value in the selected range from the last. It is descriptive, not a forecast or a claim about cause.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First-to-last change subtracts the first recorded value in the selected range from the last. It is descriptive, not a forecast or a claim about cause."
+          }
+        }
+      }
+    },
+    "First-to-last change: %@ %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First-to-last change: %@ %@"
+          }
+        }
+      }
+    },
+    "Food energy": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Food energy"
+          }
+        }
+      }
+    },
+    "Food logged": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Food logged"
+          }
+        }
+      }
+    },
+    "How this chart works": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How this chart works"
+          }
+        }
+      }
+    },
+    "How we calculate": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How we calculate"
+          }
+        }
+      }
+    },
+    "Maintenance": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maintenance"
+          }
+        }
+      }
+    },
+    "Missing logs stay empty. Add an entry to begin.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Missing logs stay empty. Add an entry to begin."
+          }
+        }
+      }
+    },
+    "No observations": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No observations"
+          }
+        }
+      }
+    },
+    "Not logged": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not logged"
+          }
+        }
+      }
+    },
+    "Numbers hidden": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Numbers hidden"
+          }
+        }
+      }
+    },
+    "One month": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One month"
+          }
+        }
+      }
+    },
+    "One week": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One week"
+          }
+        }
+      }
+    },
+    "One year": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One year"
+          }
+        }
+      }
+    },
+    "Periods end on the latest date in the series. A month or year uses calendar dates, and coverage counts distinct days with a recorded value.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Periods end on the latest date in the series. A month or year uses calendar dates, and coverage counts distinct days with a recorded value."
+          }
+        }
+      }
+    },
+    "Protein": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protein"
+          }
+        }
+      }
+    },
+    "Selected date": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selected date"
+          }
+        }
+      }
+    },
+    "Show fictional private-track simulation": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show fictional private-track simulation"
+          }
+        }
+      }
+    },
+    "The data table exposes every value in the selected range. Demo values are fictional and are not recommended targets.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The data table exposes every value in the selected range. Demo values are fictional and are not recommended targets."
+          }
+        }
+      }
+    },
+    "This chart shows recorded values. Empty days remain gaps; no missing value is replaced with zero.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This chart shows recorded values. Empty days remain gaps; no missing value is replaced with zero."
+          }
+        }
+      }
+    },
+    "Three months": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Three months"
+          }
+        }
+      }
+    },
+    "Training logged": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Training logged"
+          }
+        }
+      }
+    },
+    "Training volume": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Training volume"
+          }
+        }
+      }
+    },
+    "Unit: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unit: %@"
+          }
+        }
+      }
+    },
+    "View data table": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "View data table"
+          }
+        }
+      }
+    },
+    "Weigh-in logged": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weigh-in logged"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

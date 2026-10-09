@@ -1,0 +1,4 @@
+project_id = "caliber-foundation"
+# Sign-in has no JWT yet; sync still validates every JWT with auth.uid()/RLS upstream.
+[functions.caliber-gateway]
+verify_jwt = false

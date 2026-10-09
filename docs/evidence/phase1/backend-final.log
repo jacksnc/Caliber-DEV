@@ -1,0 +1,7 @@
+Execution summary recorded from the final local tool results on 2026-10-08; this is a summary, not raw terminal output.
+Deno 2.9.7, PGlite 0.3.14. No configured hosted Supabase project.
+deno lint: exit 0, Checked 4 files.
+deno task check: exit 0, index.ts and both test files typechecked in strict mode.
+deno task test: exit 0, 6 passed, 0 failed (5 gateway + 1 expanded PostgreSQL integration test).
+Gateway tests: insecure/unconfigured endpoints, session contract, unauthenticated sync, sanitized upstream errors, invalid routes/methods/body/batch.
+PostgreSQL assertions: RLS ownership, immutable permissions, idempotency/collision, conflicts including historical resolution, causal parent/cross-entity/clock validation, atomic rollback, cursor paging and anonymous denial.

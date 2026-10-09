@@ -95,3 +95,13 @@ The explicit §9 numeric goldens are arithmetically consistent. This does not va
 | M12 | Official coefficient editions, categories/units and licensed worked examples for DOTS/IPF GL/Wilks/Sinclair; source and review dates for every reference estimate. |
 
 Named future formulas here reproduce the owner's specification. Original publication/reference selection and clinical suitability have **not** been fully validated in Phase 0. Approved method/source versions must replace these pending entries before publishing the corresponding user feature. See [TEST_PLAN](TEST_PLAN.md).
+
+## Foundation charts and conversions — implemented 2026-10-08
+
+The demo contains fictional observations and never estimates the user's food, training or dose. Its simulation levels are arbitrary units with no compound, regimen or clinical interpretation.
+
+Chart ranges use the dataset's local calendar: the last week, month, three months or year, ending on the latest observation day. Missing days stay missing and break the line. Coverage counts distinct days with a finite observation divided by the displayed calendar-day count; multiple observations on a day do not increase coverage. A measured zero is valid. Tables show unlogged days explicitly. First-to-last change is the final valid observation minus the first valid observation in the window; it is descriptive, not a smoothed trend, causal explanation or forecast. The padded vertical scale is labeled and may exclude zero to make changes readable. No clinical confidence interval is implied.
+
+New unit helpers use 1 lb = 0.45359237 kg, 1 inch = 2.54 cm, 1 kcal = 4.184 kJ and 1 US fl oz = 29.5735295625 mL; °F = °C × 9/5 + 32. Original entered text and unit are preserved separately. Grouping/partial numeric strings, negative mass and nonfinite values are rejected by the new strict parser. Existing food/Progress input adapters retain their prior behavior until their focused locale audit is completed.
+
+The existing Progress graph remains a raw reading graph. Foundation does not yet implement the EWMA, expenditure, strength or dose engines in §9.3. Demo training volume is synthetic seeded data, not a verified live Train calculation.

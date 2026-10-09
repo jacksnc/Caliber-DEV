@@ -32,3 +32,9 @@ No clinical reference records, exercise dataset, user account or sample dose reg
 The down scripts refuse a populated store and are exclusively for disposable schema tests. Production rollback restores a verified snapshot/replays acknowledged operations; it is not DROP TABLE. Account erasure is a separate authenticated workflow that purges both local stores, keys, files, server records and retention-controlled backups; append-only audit is not an exception to an approved erasure request. No account is erased by Phase0.
 
 Full JSON/CSV export retains schema/source/method versions and original units; attachments are a referenced protected bundle. Stack needs separate unlock and explicit inclusion. Import validates in a scratch store and shows a dry-run before a transaction touches real records.
+
+## Phase 1 implementation status
+
+GRDB executes bundled v1 core/Stack SQL plus `v2_foundation` and `v3_journal_indexes` on explicitly supplied fixture/demo paths. Reopen and populated v2→v3 tests pass; migration failure is transactional. The demo seed uses a checkpoint across the two stores and emits no sync outbox entries.
+
+A public-property SwiftData adapter covers the existing 15 model types. The lossless rehearsal archive stores stable ID mappings, bytes/checksums, relationships, exact photo bytes and original entered pounds. Copy/read/reopen/retry/failure tests run on fixtures. This archive is not a normalized canonical mapping or a live cutover. The original ModelContainer/schema stays active and no private SwiftData SQLite internals are accessed. Production rollback still means restoring a verified snapshot, not dropping populated tables.

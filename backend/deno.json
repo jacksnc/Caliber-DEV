@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "check": "deno check supabase/functions/caliber-gateway/index.ts tests/*.ts",
+    "test": "deno test --allow-read --allow-env tests"
+  },
+  "compilerOptions": { "strict": true },
+  "imports": { "@electric-sql/pglite": "npm:@electric-sql/pglite@0.3.14" },
+  "nodeModulesDir": "none"
+}

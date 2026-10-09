@@ -52,3 +52,22 @@ These are engineering conventions for deterministic tests, not clinical clearanc
 | M12 | Official coefficients and category definitions remain unimplemented until a pinned, dated source plus worked examples is approved. No fabricated strength percentiles or medication reference values. |
 
 The target schema must retain an explicit complete-day nutrition status for M04; presence of a food row alone cannot establish a fully logged day. Confidence and statistical defaults are inspectable, versioned assumptions, not efficacy claims.
+
+## Phase 1 implementation decisions — 2026-10-08
+
+The owner's “Go” accepted ADR-001's native iOS / later Android amendment. Phase 1 implementation proceeds under that approval; hosted services remain unconfigured.
+
+| ID | Choice | Reason / consequence |
+|---|---|---|
+| D23 | Six targets/products in one local Swift package. | Independent boundaries without six separate resolver manifests; ADR-006. |
+| D24 | iOS deployment target 17; Xcode project format 77. | Compile-time availability verified with current SDK; actual iOS17 execution remains a gate. |
+| D25 | Keep live SwiftData; test lossless copy archive on fixtures only. | Avoid unapproved irreversible conversion; canonical mapping/cutover remains future work. |
+| D26 | Separate deterministic fictional store, fixed 12-month endpoint and resumable seed checkpoint. | Demo cannot mix with personal diary; retry produces identical records. |
+| D27 | Journal-first local/server sync, immutable branches and causal resolution. | Historical resolutions preserve unknown newer branches; domain adapters are not implicitly implemented. |
+| D28 | No hosted activation until provider/region/account configuration. | Required setup question remains pending; no cloud account, key or upload was created. |
+| D29 | Ephemeral HTTP session, no redirects/cookies/cache; Keychain credentials; typed safe diagnostic vocabulary. | Reduce credential persistence and prevent arbitrary health text in new diagnostics. |
+| D30 | Calendar-based chart windows and distinct-day coverage, no interpolation across missing days. | Sparse records cannot stretch “1W” to several months. |
+| D31 | English string catalogs with explicit regional formatting choices. | No false translation claim; complete localization audit remains required. |
+| D32 | Checkpoint the exact existing app before the Foundation commit. | Hash-verified baseline preserves owner work and makes the Foundation diff reproducible. |
+| D33 | CI runs fixture-only UI suites; existing restaurant UI scripts excluded until isolated. | Those older scripts can use the personal persistent store. Unit tests still exercise restaurant editing. |
+| D34 | Minimum-OS, hosted CI/cloud, chart image baselines and device budgets stay open. | Local test success cannot establish production or physical-device acceptance. |

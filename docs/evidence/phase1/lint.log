@@ -1,0 +1,2 @@
+Swift Foundation strict formatting: PASS (exit 0, no diagnostics)
+Deno fmt --check: Checked 6 files

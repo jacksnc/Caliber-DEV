@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-08",
+  "toolchain": "Xcode 27.0\nBuild version 27A266a",
+  "simulator": "iPhone17 / iOS27",
+  "packageTestFunctions": 44,
+  "appSwiftTestingFunctions": 60,
+  "appTemplateXCTestFunctions": 2,
+  "uiTestFunctions": 4,
+  "backendTests": 6,
+  "proposalSQLTests": 43,
+  "hostedCI": "unverified",
+  "hostedAuthSync": "unconfigured",
+  "phaseComplete": false
+}

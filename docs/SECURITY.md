@@ -44,3 +44,11 @@ Before launch, assign named incident commander, security contact, privacy/counse
 5. Repair, verify recovery and deletion behavior, document root cause and preventive tests, and review vendor access.
 
 Run a tabletop covering accidental analytics disclosure, leaked credentials and cross-user storage access before real-user release. Store the dated report with [COMPLIANCE](COMPLIANCE.md) evidence; never place private incident data in a public repository.
+
+## Foundation implementation evidence and limits
+
+New diagnostics accept an enum event and UUID only. Cloud requests default off; configured requests use HTTPS, ephemeral sessions, no cookies/cache, no redirects and generic errors. Tokens use a ThisDeviceOnly/WhenUnlocked Keychain item. Supabase keys remain server-side. Authenticated subject/owner binding, immutable operations, finite bounded payloads, causal relationships and RLS/RPC ownership are tested locally. Delayed auth responses must not resurrect a signed-out session.
+
+The edge function has JWT verification disabled only at its outer entry because sign-in/refresh precede JWT issuance. Sync routes require a bearer token and invoke Postgres RPCs using that user's token; RPCs require `auth.uid()`. No service-role credential is used. Hosted end-to-end verification, rate limiting, upstream revocation and account lifecycle are required before activation.
+
+Legacy photos/logs remain in their existing SwiftData store. File protection and separate demo files do not constitute the proposed encrypted Stack/attachment vault. No real Stack capture, telemetry provider, analytics SDK, AI upload or production cloud service is enabled by this phase. This is not an OWASP certification or legal sign-off.

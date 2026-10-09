@@ -1,0 +1,176 @@
+.github/workflows/foundation.yml
+.gitignore
+Caliber (DEV).xcodeproj/project.pbxproj
+Caliber (DEV).xcodeproj/project.xcworkspace/contents.xcworkspacedata
+Caliber (DEV).xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+Caliber (DEV)/App/Caliber__DEV_App.swift
+Caliber (DEV)/App/FoundationRuntime.swift
+Caliber (DEV)/Assets.xcassets/AccentColor.colorset/Contents.json
+Caliber (DEV)/Assets.xcassets/AppIcon.appiconset/Contents.json
+Caliber (DEV)/Assets.xcassets/Contents.json
+Caliber (DEV)/Models/BuildComponentCategory.swift
+Caliber (DEV)/Models/BuildComponentOption.swift
+Caliber (DEV)/Models/BuildableItemTemplate.swift
+Caliber (DEV)/Models/DiaryEntry.swift
+Caliber (DEV)/Models/Enums.swift
+Caliber (DEV)/Models/FoodItem.swift
+Caliber (DEV)/Models/MenuItem.swift
+Caliber (DEV)/Models/MenuItemModifier.swift
+Caliber (DEV)/Models/Note.swift
+Caliber (DEV)/Models/ProgressEntry.swift
+Caliber (DEV)/Models/ProgressPhoto.swift
+Caliber (DEV)/Models/Restaurant.swift
+Caliber (DEV)/Models/SavedMeal.swift
+Caliber (DEV)/Models/SavedMealItem.swift
+Caliber (DEV)/Models/UserProfile.swift
+Caliber (DEV)/Models/WeightEntry.swift
+Caliber (DEV)/Resources/Localizable.xcstrings
+Caliber (DEV)/Resources/ThirdPartyNotices.txt
+Caliber (DEV)/Services/AIScannerService.swift
+Caliber (DEV)/Services/BarcodeService.swift
+Caliber (DEV)/Services/FoodSearchService.swift
+Caliber (DEV)/Services/LegacySnapshotAdapter.swift
+Caliber (DEV)/Services/RestaurantCatalogSeeder.swift
+Caliber (DEV)/Services/RestaurantLibraryService.swift
+Caliber (DEV)/Utilities/CustomMenuItemEditor.swift
+Caliber (DEV)/Utilities/DiaryEntryEditor.swift
+Caliber (DEV)/Utilities/MacroCalculator.swift
+Caliber (DEV)/Utilities/NutritionInput.swift
+Caliber (DEV)/Utilities/ProgressEntryEditor.swift
+Caliber (DEV)/Utilities/ProgressPhotoImporter.swift
+Caliber (DEV)/Utilities/WeightProgressSummary.swift
+Caliber (DEV)/Utilities/WeightUnit.swift
+Caliber (DEV)/ViewModels/BuildYourOwnViewModel.swift
+Caliber (DEV)/Views/Components/MacroOverrideSection.swift
+Caliber (DEV)/Views/Diary/AddFoodView.swift
+Caliber (DEV)/Views/Diary/DiaryView.swift
+Caliber (DEV)/Views/Diary/EditDiaryEntryView.swift
+Caliber (DEV)/Views/Diary/FoodSearchView.swift
+Caliber (DEV)/Views/FoodLibrary/FoodLibraryView.swift
+Caliber (DEV)/Views/Foundation/FoundationSettingsView.swift
+Caliber (DEV)/Views/Foundation/TodayFoundationView.swift
+Caliber (DEV)/Views/MyFoods/MyFoodsView.swift
+Caliber (DEV)/Views/MyFoods/SavedFoodDetailView.swift
+Caliber (DEV)/Views/MyMeals/MyMealsView.swift
+Caliber (DEV)/Views/MyMeals/SavedMealDetailView.swift
+Caliber (DEV)/Views/Profile/ProfilePlaceholderView.swift
+Caliber (DEV)/Views/Progress/ProgressDashboardView.swift
+Caliber (DEV)/Views/Progress/ProgressEntryForm.swift
+Caliber (DEV)/Views/Progress/ProgressTimelineRow.swift
+Caliber (DEV)/Views/Progress/WeightTrendChart.swift
+Caliber (DEV)/Views/Restaurants/AddMenuItemView.swift
+Caliber (DEV)/Views/Restaurants/BuildYourOwnView.swift
+Caliber (DEV)/Views/Restaurants/MenuItemDetailView.swift
+Caliber (DEV)/Views/Restaurants/RestaurantDetailView.swift
+Caliber (DEV)/Views/Restaurants/RestaurantListView.swift
+Caliber (DEV)/Views/RootTabView.swift
+Caliber (DEV)Tests/BuildYourOwnTests.swift
+Caliber (DEV)Tests/Caliber__DEV_Tests.swift
+Caliber (DEV)Tests/CustomMenuItemEditorTests.swift
+Caliber (DEV)Tests/DiaryEntryEditorTests.swift
+Caliber (DEV)Tests/LegacySnapshotTests.swift
+Caliber (DEV)Tests/MacroCalculatorTests.swift
+Caliber (DEV)Tests/NutritionInputTests.swift
+Caliber (DEV)Tests/ProgressEntryEditorTests.swift
+Caliber (DEV)Tests/ProgressPhotoImporterTests.swift
+Caliber (DEV)Tests/RestaurantCatalogSeederTests.swift
+Caliber (DEV)Tests/WeightProgressSummaryTests.swift
+Caliber (DEV)Tests/WeightUnitTests.swift
+Caliber (DEV)UITests/Caliber__DEV_UITests.swift
+Caliber (DEV)UITests/FoundationUITests.swift
+Caliber (DEV)UITests/ProgressUITests.swift
+Caliber (DEV)UITests/RestaurantCustomizationUITests.swift
+Packages/CaliberFoundation/Package.resolved
+Packages/CaliberFoundation/Package.swift
+Packages/CaliberFoundation/Sources/CaliberCharts/CalendarChartWindow.swift
+Packages/CaliberFoundation/Sources/CaliberCharts/ChartCard.swift
+Packages/CaliberFoundation/Sources/CaliberCore/DemoDomain.swift
+Packages/CaliberFoundation/Sources/CaliberCore/FoundationFlags.swift
+Packages/CaliberFoundation/Sources/CaliberCore/FoundationSettings.swift
+Packages/CaliberFoundation/Sources/CaliberCore/Resources/feature-flags.json
+Packages/CaliberFoundation/Sources/CaliberDatabase/DatabaseSchema.swift
+Packages/CaliberFoundation/Sources/CaliberDatabase/FoundationStore.swift
+Packages/CaliberFoundation/Sources/CaliberDatabase/LegacyShadowArchive.swift
+Packages/CaliberFoundation/Sources/CaliberDatabase/Resources/core_v1.sql
+Packages/CaliberFoundation/Sources/CaliberDatabase/Resources/stack_v1.sql
+Packages/CaliberFoundation/Sources/CaliberDatabase/SyncJournal.swift
+Packages/CaliberFoundation/Sources/CaliberDesignSystem/CaliberTheme.swift
+Packages/CaliberFoundation/Sources/CaliberDesignSystem/Resources/Localizable.xcstrings
+Packages/CaliberFoundation/Sources/CaliberDesignSystem/Resources/design-tokens.json
+Packages/CaliberFoundation/Sources/CaliberIntegrations/CloudGateway.swift
+Packages/CaliberFoundation/Sources/CaliberSeedData/DemoGenerator.swift
+Packages/CaliberFoundation/Tests/CaliberChartsTests/CalendarChartWindowTests.swift
+Packages/CaliberFoundation/Tests/CaliberCoreTests/FoundationTests.swift
+Packages/CaliberFoundation/Tests/CaliberDatabaseTests/FoundationDatabaseTests.swift
+Packages/CaliberFoundation/Tests/CaliberIntegrationsTests/GatewayTests.swift
+Packages/CaliberFoundation/Tests/CaliberSeedDataTests/DemoGeneratorTests.swift
+architecture/command-envelope.schema.json
+architecture/design-tokens.json
+architecture/event-registry.json
+architecture/feature-flags.json
+architecture/golden-vectors.json
+architecture/requirements.json
+architecture/schema/TABLES.json
+architecture/schema/core/001_v1.down.sql
+architecture/schema/core/001_v1.up.sql
+architecture/schema/generate_schema.py
+architecture/schema/stack/001_v1.down.sql
+architecture/schema/stack/001_v1.up.sql
+architecture/schema/tests/test_migrations.py
+architecture/series-registry.json
+architecture/source-inventory.json
+backend/deno.json
+backend/deno.lock
+backend/supabase/config.toml
+backend/supabase/functions/caliber-gateway/handler.ts
+backend/supabase/functions/caliber-gateway/index.ts
+backend/supabase/migrations/001_foundation.sql
+backend/tests/gateway_test.ts
+backend/tests/rls_test.ts
+docs/BACKLOG.md
+docs/CHANGELOG.md
+docs/COMPLIANCE.md
+docs/DECISIONS.md
+docs/DESIGN_SYSTEM.md
+docs/ERD.md
+docs/ERD_CORE.md
+docs/ERD_STACK.md
+docs/GAP_ANALYSIS.md
+docs/HOW_WE_CALCULATE.md
+docs/LICENSES.md
+docs/MASTER_BUILD_BRIEF.md
+docs/MIGRATIONS.md
+docs/PACKAGE_LAYOUT.md
+docs/PHASE_0.md
+docs/PHASE_1.md
+docs/PHASE_1_FILES.txt
+docs/PHASE_1_VERIFICATION.md
+docs/REQUIREMENTS.md
+docs/RISK_REGISTER.md
+docs/SECURITY.md
+docs/SERIES_AND_EVENTS.md
+docs/TEST_PLAN.md
+docs/VERIFICATION.md
+docs/adr/001-native-ios.md
+docs/adr/002-storage-sync.md
+docs/adr/003-chart-kit.md
+docs/adr/004-ai-gateway.md
+docs/adr/005-stack-boundary.md
+docs/adr/006-foundation-implementation.md
+docs/evidence/ios-baseline.log
+docs/evidence/phase0-validation.log
+docs/evidence/phase1/README.md
+docs/evidence/phase1/RESULTS.json
+docs/evidence/phase1/backend-final.log
+docs/evidence/phase1/contracts.log
+docs/evidence/phase1/demo-chart.png
+docs/evidence/phase1/ios-build-final.log
+docs/evidence/phase1/ios-final.log
+docs/evidence/phase1/lint.log
+docs/evidence/phase1/swift-test-final.log
+docs/evidence/preservation-baseline.json
+scripts/check_tokens.py
+scripts/lint_foundation.py
+scripts/test_ios.py
+scripts/validate_phase0.py
+scripts/verify_phase1.py

@@ -6,6 +6,15 @@
 	objectVersion = 110;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F10000000000000000000001 /* CaliberCore in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000001 /* CaliberCore */; };
+		F10000000000000000000002 /* CaliberDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000002 /* CaliberDatabase */; };
+		F10000000000000000000003 /* CaliberDesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000003 /* CaliberDesignSystem */; };
+		F10000000000000000000004 /* CaliberCharts in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000004 /* CaliberCharts */; };
+		F10000000000000000000005 /* CaliberSeedData in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000005 /* CaliberSeedData */; };
+		F10000000000000000000006 /* CaliberIntegrations in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000006 /* CaliberIntegrations */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		3E24D9A83075DFA50059733A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -51,6 +60,12 @@
 		3E24D9973075DFA40059733A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
+				F10000000000000000000001 /* CaliberCore in Frameworks */,
+				F10000000000000000000002 /* CaliberDatabase in Frameworks */,
+				F10000000000000000000003 /* CaliberDesignSystem in Frameworks */,
+				F10000000000000000000004 /* CaliberCharts in Frameworks */,
+				F10000000000000000000005 /* CaliberSeedData in Frameworks */,
+				F10000000000000000000006 /* CaliberIntegrations in Frameworks */,
 			);
 		};
 		3E24D9A43075DFA50059733A /* Frameworks */ = {
@@ -103,6 +118,14 @@
 				3E24D99C3075DFA40059733A /* Caliber (DEV) */,
 			);
 			name = "Caliber (DEV)";
+			packageProductDependencies = (
+				F20000000000000000000001 /* CaliberCore */,
+				F20000000000000000000002 /* CaliberDatabase */,
+				F20000000000000000000003 /* CaliberDesignSystem */,
+				F20000000000000000000004 /* CaliberCharts */,
+				F20000000000000000000005 /* CaliberSeedData */,
+				F20000000000000000000006 /* CaliberIntegrations */,
+			);
 			productName = "Caliber (DEV)";
 			productReference = 3E24D99A3075DFA40059733A /* Caliber (DEV).app */;
 			productType = "com.apple.product-type.application";
@@ -181,6 +204,9 @@
 			);
 			mainGroup = 3E24D9913075DFA40059733A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F30000000000000000000001 /* XCLocalSwiftPackageReference "Packages/CaliberFoundation" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3E24D99B3075DFA40059733A /* Products */;
 			projectDirPath = "";
@@ -378,7 +404,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 27.0;
@@ -420,7 +446,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 27.0;
@@ -448,7 +474,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "CAL.Caliber--DEV-Tests";
@@ -473,7 +499,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "CAL.Caliber--DEV-Tests";
@@ -497,7 +523,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "CAL.Caliber--DEV-UITests";
@@ -521,7 +547,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "CAL.Caliber--DEV-UITests";
@@ -575,6 +601,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		F30000000000000000000001 /* XCLocalSwiftPackageReference "Packages/CaliberFoundation" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/CaliberFoundation;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F20000000000000000000001 /* CaliberCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CaliberCore;
+		};
+		F20000000000000000000002 /* CaliberDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CaliberDatabase;
+		};
+		F20000000000000000000003 /* CaliberDesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CaliberDesignSystem;
+		};
+		F20000000000000000000004 /* CaliberCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CaliberCharts;
+		};
+		F20000000000000000000005 /* CaliberSeedData */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CaliberSeedData;
+		};
+		F20000000000000000000006 /* CaliberIntegrations */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CaliberIntegrations;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3E24D9923075DFA40059733A /* Project object */;
 	validationLevel = 1;

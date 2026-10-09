@@ -1,35 +1,29 @@
-//
-//  RootTabView.swift
-//  Caliber (DEV)
-//
-
 import SwiftUI
-import SwiftData
+import CaliberCore
+import CaliberCharts
 
-/// The app's main tab bar. Each tab's real screen lives in its own file;
-/// tabs we haven't built yet show a simple placeholder.
+/// Existing logging screens stay live while Foundation adds Today and settings.
 struct RootTabView: View {
+    @EnvironmentObject private var runtime: FoundationRuntime
+    @State private var selection = "today"
     var body: some View {
-        TabView {
-            DiaryView()
-                .tabItem { Label("Diary", systemImage: "fork.knife") }
-
-            FoodSearchView()
-                .tabItem { Label("Add", systemImage: "plus.circle.fill") }
-
-            FoodLibraryView()
-                .tabItem { Label("Food Library", systemImage: "books.vertical") }
-
-            ProgressDashboardView()
-                .tabItem { Label("Progress", systemImage: "chart.line.uptrend.xyaxis") }
-
-            ProfilePlaceholderView()
-                .tabItem { Label("Profile", systemImage: "person.crop.circle") }
+        Group {
+            if runtime.isDemoMode, let dataset = runtime.demo {
+                NavigationStack {
+                    DemoDashboard(dataset:dataset,hidesNumbers:runtime.settings.hideNumbers)
+                        .toolbar { ToolbarItem(placement:.topBarTrailing) { Button("Exit Demo") { runtime.isDemoMode = false }.accessibilityIdentifier("exitDemo") } }
+                }
+            } else if runtime.settings.hideNumbers {
+                NumberFreeHomeView()
+            } else {
+                TabView(selection:$selection) {
+                    TodayFoundationView().tabItem { Label("Today",systemImage:"sun.max") }.tag("today")
+                    DiaryView().tabItem { Label("Diary",systemImage:"fork.knife") }.tag("diary")
+                    FoodLibraryView().tabItem { Label("Food Library",systemImage:"books.vertical") }.tag("library")
+                    ProgressDashboardView().tabItem { Label("Progress",systemImage:"chart.line.uptrend.xyaxis") }.tag("progress")
+                    FoundationSettingsView().tabItem { Label("Settings",systemImage:"gearshape") }.tag("settings")
+                }
+            }
         }
     }
-}
-
-#Preview {
-    RootTabView()
-        .modelContainer(for: [FoodItem.self, DiaryEntry.self, Restaurant.self, SavedMeal.self, ProgressEntry.self, WeightEntry.self, ProgressPhoto.self], inMemory: true)
 }

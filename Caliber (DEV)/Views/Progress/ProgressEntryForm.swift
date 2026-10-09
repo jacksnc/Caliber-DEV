@@ -11,6 +11,7 @@ struct ProgressEntryForm: View {
     @AppStorage("progressWeightUnit") private var weightUnitRawValue = WeightUnit.pounds.rawValue
 
     private let entry: ProgressEntry?
+    private let hidesWeight: Bool
     @State private var selectedDate: Date
     @State private var photos: [ProgressPhotoDraft]
     @State private var weightText = ""
@@ -23,7 +24,8 @@ struct ProgressEntryForm: View {
     @State private var photoError: String?
     @State private var saveError: String?
 
-    init(entry: ProgressEntry? = nil, date: Date = Date()) {
+    init(entry: ProgressEntry? = nil, date: Date = Date(), hidesWeight: Bool = false) {
+        self.hidesWeight = hidesWeight
         self.entry = entry
         _selectedDate = State(initialValue: entry?.date ?? date)
         _notes = State(initialValue: entry?.notes ?? "")
@@ -41,6 +43,7 @@ struct ProgressEntryForm: View {
     }
 
     private var weightInPounds: Double? {
+        if hidesWeight { return entry?.weightEntry?.weightInPounds }
         guard let value = NutritionInput.quantity(weightText) else { return nil }
         let pounds = unit.toPounds(value)
         return pounds.isFinite && pounds > 0 ? pounds : nil
@@ -63,6 +66,7 @@ struct ProgressEntryForm: View {
                         .accessibilityIdentifier("progressDate")
                 }
 
+                if !hidesWeight {
                 Section {
                     LabeledContent("Weight") {
                         TextField("Optional", text: $weightText)
@@ -85,6 +89,8 @@ struct ProgressEntryForm: View {
                     }
                 } header: {
                     Text("Weight (optional)")
+                }
+
                 }
 
                 Section("Notes (optional)") {
@@ -191,7 +197,7 @@ struct ProgressEntryForm: View {
     private func loadWeightOnce() {
         guard !didLoadWeight else { return }
         selectedUnit = WeightUnit(rawValue: weightUnitRawValue) ?? .pounds
-        if let pounds = entry?.weightEntry?.weightInPounds {
+        if !hidesWeight, let pounds = entry?.weightEntry?.weightInPounds {
             weightText = NutritionInput.format(unit.fromPounds(pounds))
         }
         didLoadWeight = true
