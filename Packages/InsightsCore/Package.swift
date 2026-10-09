@@ -2,23 +2,23 @@
 import PackageDescription
 
 let package = Package(
-    name: "StackCore",
+    name: "InsightsCore",
     platforms: [.iOS(.v17), .macOS(.v14)],
     products: [
-        .library(name: "StackCore", targets: ["StackCore"]),
+        .library(name: "InsightsCore", targets: ["InsightsCore"]),
     ],
     dependencies: [
         .package(path: "../CaliberTime"),
     ],
     targets: [
         .target(
-            name: "StackCore",
+            name: "InsightsCore",
             dependencies: [.product(name: "CaliberTime", package: "CaliberTime")]
         ),
         .testTarget(
-            name: "StackCoreTests",
+            name: "InsightsCoreTests",
             dependencies: [
-                "StackCore",
+                "InsightsCore",
                 .product(name: "CaliberTime", package: "CaliberTime"),
             ]
         ),

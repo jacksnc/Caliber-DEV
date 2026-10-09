@@ -76,6 +76,13 @@ public enum OneRepMax {
         return oneRepMax * fraction
     }
 
+    /// Weight for a (possibly fractional) number of effective reps, e.g. 5 reps at RPE 8 is 7 effective reps.
+    public static func weight(forEffectiveReps reps: Double, oneRepMax: Double, formula: OneRepMaxFormula = .epley) -> Double? {
+        guard oneRepMax > 0, reps >= 1, reps <= maxSupportedReps else { return nil }
+        if reps == 1 { return oneRepMax }
+        return oneRepMax / apply(formula, weight: 1, reps: reps)
+    }
+
     private static func apply(_ formula: OneRepMaxFormula, weight w: Double, reps r: Double) -> Double {
         switch formula {
         case .epley:
