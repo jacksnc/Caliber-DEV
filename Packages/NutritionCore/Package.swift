@@ -2,23 +2,23 @@
 import PackageDescription
 
 let package = Package(
-    name: "TrainingCore",
+    name: "NutritionCore",
     platforms: [.iOS(.v17), .macOS(.v14)],
     products: [
-        .library(name: "TrainingCore", targets: ["TrainingCore"]),
+        .library(name: "NutritionCore", targets: ["NutritionCore"]),
     ],
     dependencies: [
         .package(path: "../CaliberTime"),
     ],
     targets: [
         .target(
-            name: "TrainingCore",
+            name: "NutritionCore",
             dependencies: [.product(name: "CaliberTime", package: "CaliberTime")]
         ),
         .testTarget(
-            name: "TrainingCoreTests",
+            name: "NutritionCoreTests",
             dependencies: [
-                "TrainingCore",
+                "NutritionCore",
                 .product(name: "CaliberTime", package: "CaliberTime"),
             ]
         ),

@@ -1,5 +1,5 @@
 import XCTest
-@testable import TrainingCore
+@testable import CaliberTime
 
 final class LocalDateTests: XCTestCase {
     func testKnownEpochDays() {
