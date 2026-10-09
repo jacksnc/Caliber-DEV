@@ -36,9 +36,13 @@ jobs:
           echo "--- available iPhone simulators ---"; xcrun simctl list devices available | grep -i iphone | head -40 || true
 
   swift-packages:
-    name: Swift packages (macos-latest)
-    runs-on: macos-latest
+    name: Swift packages (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, macos-latest]
     steps:
       - uses: actions/checkout@v4
       - name: swift test for every Package.swift
