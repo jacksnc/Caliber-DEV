@@ -1,0 +1,55 @@
+name: iOS CI
+
+# Discovery-based on purpose: it adapts to whatever Swift packages / Xcode projects exist,
+# so it can run before and after the app code lands. Tighten it once the project layout is known.
+
+on:
+  push:
+    branches: [main, 'astra/**', 'claude/**']
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ios-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  recon:
+    name: Runner recon (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, macos-15, macos-latest]
+    steps:
+      - name: Xcode, Swift and simulator runtimes
+        run: |
+          echo "--- runner ---"; sw_vers
+          echo "--- selected Xcode ---"; xcode-select -p; xcodebuild -version
+          echo "--- Swift ---"; swift --version
+          echo "--- installed Xcodes ---"; ls /Applications | grep -i '^Xcode' || true
+          echo "--- simulator runtimes ---"; xcrun simctl list runtimes
+          echo "--- available iPhone simulators ---"; xcrun simctl list devices available | grep -i iphone | head -40 || true
+
+  swift-packages:
+    name: Swift packages (macos-latest)
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: swift test for every Package.swift
+        run: |
+          set -u
+          found=0; failed=0
+          while IFS= read -r -d '' manifest; do
+            dir=$(dirname "$manifest"); found=$((found + 1))
+            echo "::group::swift test in $dir"
+            if ! (cd "$dir" && swift test); then failed=$((failed + 1)); echo "::error::swift test failed in $dir"; fi
+            echo "::endgroup::"
+          done < <(find . -name Package.swift -not -path '*/.build/*' -not -path '*/.swiftpm/*' -not -path '*/SourcePackages/*' -print0)
+          echo "packages found: $found, failed: $failed"
+          [ "$failed" -eq 0 ]
