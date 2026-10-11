@@ -15,6 +15,11 @@ from http_smoke import NoRedirect
 
 EMAILS = ('caliber.qa.a@caliber.invalid', 'caliber.qa.b@caliber.invalid')
 OWNERS = ('0199b100-1000-7000-8000-000000000001', '0199b100-1000-7000-8000-000000000002')
+FIXTURES = {
+    'foundation': (EMAILS, OWNERS),
+    'auth-guard': (('caliber.qa.guard.a@caliber.invalid', 'caliber.qa.guard.b@caliber.invalid'),
+                   ('0199b200-1000-7000-8000-000000000001', '0199b200-1000-7000-8000-000000000002')),
+}
 
 
 class SafeFailure(Exception):
@@ -36,7 +41,8 @@ def valid_session(data):
         return False
 
 
-def run(endpoint, region, output):
+def run(endpoint, region, output, fixture_set='foundation'):
+    emails, owners = FIXTURES[fixture_set]
     results, sessions = [], []
     opener = build_opener(NoRedirect)
 
@@ -84,16 +90,16 @@ def run(endpoint, region, output):
     try:
         print('Use only the two confirmed fictional DEV accounts shown below.')
         print('This test writes one fictional note per account. No diary/photo data is read or uploaded.')
-        password = getpass.getpass(EMAILS[0] + ' password (hidden): ')
-        first = signin(EMAILS[0], password, 'Account A first session')
-        other = signin(EMAILS[0], password, 'Account A second session')
+        password = getpass.getpass(emails[0] + ' password (hidden): ')
+        first = signin(emails[0], password, 'Account A first session')
+        other = signin(emails[0], password, 'Account A second session')
         del password
-        password = getpass.getpass(EMAILS[1] + ' password (hidden): ')
-        second = signin(EMAILS[1], password, 'Account B session')
+        password = getpass.getpass(emails[1] + ' password (hidden): ')
+        second = signin(emails[1], password, 'Account B session')
         del password
         check('Sessions bind to distinct authenticated accounts',
               first['subject'] == other['subject'] and first['subject'] != second['subject'])
-        for owner, session, suffix in ((OWNERS[0], first, '5'), (OWNERS[1], second, '6')):
+        for owner, session, suffix in ((owners[0], first, '5'), (owners[1], second, '6')):
             op = operation(owner, suffix)
             body = {'ownerID': owner, 'operations': [op]}
             status, initial = request('/sync/push', body, session)
@@ -101,16 +107,16 @@ def run(endpoint, region, output):
                   len(initial) == 1 and initial[0].get('operationID') == op['operationID'])
             status, repeated = request('/sync/push', body, session)
             check('Owner ' + suffix + ' idempotent retry', status == 200 and initial == repeated)
-            status, page = pull(owner, other if owner == OWNERS[0] else session)
+            status, page = pull(owner, other if owner == owners[0] else session)
             check('Owner ' + suffix + ' authenticated pull', status == 200 and isinstance(page, dict) and
                   page.get('ownerID') == owner and any(
                       row.get('operation') == op for row in page.get('changes', [])))
-        for owner, session in ((OWNERS[0], second), (OWNERS[1], first)):
+        for owner, session in ((owners[0], second), (owners[1], first)):
             status, data = pull(owner, session)
             check('Cross-owner pull denied for ' + owner[-1],
                   status == 409 and data == {'error': 'request_rejected'})
-        status, data = request('/sync/push', {'ownerID': OWNERS[0],
-            'operations': [operation(OWNERS[0], '5')]}, second)
+        status, data = request('/sync/push', {'ownerID': owners[0],
+            'operations': [operation(owners[0], '5')]}, second)
         check('Cross-owner push denied', status == 409 and data == {'error': 'request_rejected'})
         status, data = request('/auth/sign-out', {}, first)
         check('Current-session logout', status == 200 and data == {'signedOut': True})
@@ -122,8 +128,8 @@ def run(endpoint, region, output):
         if isinstance(renewed, dict) and isinstance(renewed.get('accessToken'), str):
             sessions[sessions.index(other)] = renewed
         check('Other session refreshes after local-scope logout', valid)
-        status, page = pull(OWNERS[0], renewed)
-        check('Refreshed session remains authorized', status == 200 and page.get('ownerID') == OWNERS[0])
+        status, page = pull(owners[0], renewed)
+        check('Refreshed session remains authorized', status == 200 and page.get('ownerID') == owners[0])
     except SafeFailure as error:
         failure = str(error)  # Fixed check name only.
     except (Exception, KeyboardInterrupt):
@@ -138,7 +144,7 @@ def run(endpoint, region, output):
                 cleanup_ok = False
         results.append({'criterion': 'Remaining issued sessions logged out', 'passed': cleanup_ok})
         report = {'checkedAt': datetime.now(timezone.utc).isoformat(), 'endpoint': endpoint,
-                  'fictionalFixtureOwners': list(OWNERS), 'results': results,
+                  'fixtureSet': fixture_set, 'fictionalFixtureOwners': list(owners), 'results': results,
                   'passed': failure is None and cleanup_ok, 'failure': failure,
                   'scope': 'Fictional DEV accounts only; note rows remain until fixture-account cleanup. Access JWTs may remain valid until expiry.'}
         output.parent.mkdir(parents=True, exist_ok=True)
@@ -150,10 +156,11 @@ def run(endpoint, region, output):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--fixture-set', choices=FIXTURES, default='foundation')
     args = parser.parse_args()
     config = json.loads((Path(__file__).resolve().parents[2] /
                          'Caliber (DEV)/Resources/CloudDeployment.json').read_text())
     endpoint = config['projectURL'].rstrip('/') + '/functions/v1/caliber-gateway'
     if not endpoint.startswith('https://'):
         raise ValueError('HTTPS is required')
-    raise SystemExit(run(endpoint, config['region'], args.output))
+    raise SystemExit(run(endpoint, config['region'], args.output, args.fixture_set))

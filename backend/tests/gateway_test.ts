@@ -1,4 +1,8 @@
 import { gateway } from "../supabase/functions/caliber-gateway/handler.ts";
+import type { AuthBudget } from "../supabase/functions/caliber-gateway/auth_budget.ts";
+const approvedBudget: AuthBudget = {
+  consume: () => Promise.resolve({ allowed: true, retryAfter: 0 }),
+};
 function assert(value: unknown, message = "assertion failed"): asserts value {
   if (!value) throw new Error(message);
 }
@@ -38,6 +42,7 @@ Deno.test("sign-in forwards secrets only upstream and returns the session contra
         ),
       );
     }) as typeof fetch,
+    approvedBudget,
   );
   const response = await handler(
     new Request("https://gateway.invalid/auth/sign-in", {

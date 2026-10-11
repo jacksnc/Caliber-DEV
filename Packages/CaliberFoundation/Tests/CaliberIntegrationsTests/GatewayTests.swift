@@ -36,6 +36,17 @@ private struct FailureClient: GatewayHTTPClient {
   }
 }
 
+@Test func throttledResponseHasSafeTypedErrorAndCannotSaveASession() async throws {
+  let storage = MemorySessionStorage()
+  let gateway = CloudGateway(
+    configuration: try CloudConfiguration(endpoint: URL(string: "https://example.invalid/api")!),
+    http: FailureClient(status: 429), vault: storage)
+  await #expect(throws: GatewayError.rateLimited) {
+    try await gateway.signIn(email: "fixture@example.invalid", password: "fixture")
+  }
+  #expect(await storage.load() == nil)
+}
+
 private actor MemorySessionStorage: SessionStorage {
   var session: AuthSession?
   init(_ session: AuthSession? = nil) { self.session = session }

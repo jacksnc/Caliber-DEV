@@ -1,3 +1,5 @@
+import { type AuthBudget, unavailableAuthBudget } from "./auth_budget.ts";
+
 export interface GatewayConfig {
   supabaseURL: string;
   publishableKey: string;
@@ -7,8 +9,35 @@ const headers = {
   "content-type": "application/json",
   "cache-control": "no-store",
 };
-const reply = (body: unknown, status = 200) =>
-  new Response(JSON.stringify(body), { status, headers });
+const reply = (body: unknown, status = 200, extraHeaders = {}) =>
+  new Response(JSON.stringify(body), {
+    status,
+    headers: { ...headers, ...extraHeaders },
+  });
+
+class BodyTooLarge extends Error {}
+// Stop reading oversized streams before allocating their complete bodies.
+async function boundedBody(request: Request, limit: number): Promise<string> {
+  const reader = request.body?.getReader();
+  if (!reader) return "";
+  const decoder = new TextDecoder("utf-8", { fatal: true });
+  let bytes = 0, result = "";
+  try {
+    while (true) {
+      const chunk = await reader.read();
+      if (chunk.done) break;
+      bytes += chunk.value.byteLength;
+      if (bytes > limit) {
+        await reader.cancel();
+        throw new BodyTooLarge();
+      }
+      result += decoder.decode(chunk.value, { stream: true });
+    }
+    return result + decoder.decode();
+  } finally {
+    reader.releaseLock();
+  }
+}
 
 // This checks only the shape needed to avoid Supabase's legacy no-session global fallback.
 // Supabase Auth, not this decoded payload, authenticates the token and verifies its signature.
@@ -38,7 +67,11 @@ function hasSessionClaim(authorization: string): boolean {
 }
 
 // The app receives session tokens, never a Supabase API key or a service-role credential.
-export function gateway(config: GatewayConfig, http: HTTP = fetch) {
+export function gateway(
+  config: GatewayConfig,
+  http: HTTP = fetch,
+  authBudget: AuthBudget = unavailableAuthBudget,
+) {
   const base = new URL(config.supabaseURL);
   if (base.protocol !== "https:" || base.username || base.password) {
     throw new Error("invalid_configuration");
@@ -48,17 +81,29 @@ export function gateway(config: GatewayConfig, http: HTTP = fetch) {
       if (request.method !== "POST") {
         return reply({ error: "method_not_allowed" }, 405);
       }
-      const text = await request.text();
-      if (new TextEncoder().encode(text).length > 9_000_000) {
-        return reply({ error: "request_too_large" }, 413);
-      }
-      const body = JSON.parse(text);
-      if (!body || typeof body !== "object" || Array.isArray(body)) {
-        return reply({ error: "invalid_request" }, 400);
-      }
       const route = new URL(request.url).pathname.split("/").slice(-2).join(
         "/",
       );
+      if (
+        ![
+          "auth/sign-in",
+          "auth/refresh",
+          "auth/sign-out",
+          "sync/push",
+          "sync/pull",
+        ].includes(route)
+      ) {
+        return reply({ error: "not_found" }, 404);
+      }
+      const body = JSON.parse(
+        await boundedBody(
+          request,
+          route.startsWith("auth/") ? 8192 : 9_000_000,
+        ),
+      );
+      if (!body || typeof body !== "object" || Array.isArray(body)) {
+        return reply({ error: "invalid_request" }, 400);
+      }
       const upstreamHeaders: Record<string, string> = {
         apikey: config.publishableKey,
         "content-type": "application/json",
@@ -90,6 +135,30 @@ export function gateway(config: GatewayConfig, http: HTTP = fetch) {
         ) return reply({ error: "invalid_request" }, 400);
         if (JSON.stringify(body).length > 8192) {
           return reply({ error: "invalid_request" }, 400);
+        }
+        if (
+          refresh
+            ? body.refreshToken.length < 1
+            : body.email.trim().length < 1 ||
+              body.email.length > 254 || body.password.length < 1
+        ) {
+          return reply({ error: "invalid_request" }, 400);
+        }
+        // Count eligible attempts before calling Auth; successful and failed passwords
+        // share a budget. A failed guard cannot fall through to an unprotected login.
+        let budget;
+        try {
+          budget = await authBudget.consume(
+            refresh ? "refresh" : "sign-in",
+            refresh ? body.refreshToken : body.email.trim().toLowerCase(),
+          );
+        } catch {
+          return reply({ error: "temporarily_unavailable" }, 503);
+        }
+        if (!budget.allowed) {
+          return reply({ error: "rate_limited" }, 429, {
+            "retry-after": String(budget.retryAfter),
+          });
         }
         url = new URL(
           "/auth/v1/token?grant_type=" +
@@ -134,6 +203,10 @@ export function gateway(config: GatewayConfig, http: HTTP = fetch) {
         signal: AbortSignal.timeout(15000),
       });
       if (!response.ok) {
+        if (response.status === 429) {
+          // Use a fixed safe interval rather than copying an arbitrary provider header/body.
+          return reply({ error: "rate_limited" }, 429, { "retry-after": "60" });
+        }
         return reply({
           error: response.status === 401 || response.status === 403
             ? "unauthorized"
@@ -164,7 +237,10 @@ export function gateway(config: GatewayConfig, http: HTTP = fetch) {
         });
       }
       return reply(data);
-    } catch {
+    } catch (error) {
+      if (error instanceof BodyTooLarge) {
+        return reply({ error: "request_too_large" }, 413);
+      }
       return reply({ error: "request_failed" }, 400);
     }
   };

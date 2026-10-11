@@ -1,0 +1,138 @@
+Browser tab: 1247605044, Title: "Untitled query | SQL Editor | Caliber DEV | jacksnc's rummage | Supabase", URL: "https://supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/965935a0-4cb4-4aa5-be3c-490286519759".
+0 AXWebArea Untitled query | SQL Editor | Caliber DEV | jacksnc's rummage | Supabase, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/965935a0-4cb4-4aa5-be3c-490286519759
+	1 container
+		287 link Description: Skip to content, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/965935a0-4cb4-4aa5-be3c-490286519759#main
+		288 container
+			289 link Description: Supabase Back to organization home, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			290 link Description: jacksnc's rummage FREE, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			291 pop up button (collapsed) Description: Show organizations, Secondary Actions: Expand
+			292 link Description: Caliber DEV, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			293 pop up button (collapsed) Description: Show organization projects, Secondary Actions: Expand
+			294 link Description: main PRODUCTION, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			295 pop up button (collapsed) Description: Show project branches, Secondary Actions: Expand
+			296 button Connect
+			297 pop up button (collapsed) Feedback, Secondary Actions: Expand
+			298 pop up button (collapsed) Search..., Secondary Actions: Expand
+				299 image
+				300 text Search...
+			301 button Help, ID: help-dropdown-button
+				302 image
+				303 text Help
+			304 button Advisor Center, ID: advisor-center-trigger
+				305 image
+				306 text Advisor Center
+			307 button SQL Editor, ID: editor-trigger
+				308 image
+				309 text SQL Editor
+			310 button AI Assistant, ID: assistant-trigger
+				311 text AI Assistant
+			312 pop up button (collapsed) jacksnc, ID: radix-_r_2v_, Secondary Actions: Expand
+				313 image jacksnc
+		314 container
+			315 container
+				316 content list
+					317 link Description: Project Overview, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+					318 link Description: Table Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/editor
+					319 link Description: SQL Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql
+				320 content list
+					321 link Description: Database, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/database/schemas
+					322 link Description: Authentication, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+					323 link Description: Storage, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/storage/files
+					324 link Description: Edge Functions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions
+					325 link Description: Compute NEW, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/compute
+					326 link Description: Realtime, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/realtime/inspector
+				327 content list
+					328 link Description: Advisors, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/advisors/security
+					329 link Description: Observability, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/observability
+					330 link Description: Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/logs
+					331 link Description: Integrations, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/integrations
+				332 content list
+					333 link Description: Project Settings, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/settings/general
+			334 pop up button (collapsed) Description: Sidebar control, ID: radix-_r_3f_, Secondary Actions: Expand
+		335 container
+			336 container spec-click-target
+				337 heading SQL Editor, Value: 4
+					338 text SQL Editor
+				339 container
+					340 text Search queries
+					341 text field (settable) Search queries...
+					342 pop up button (collapsed) ID: radix-_r_5p_, Secondary Actions: Expand
+						343 image
+					344 image
+				345 pop up button (collapsed) Description: Create a new query, ID: radix-_r_5s_, Secondary Actions: Expand
+				346 button (collapsed) SHARED, Help: Shared, Secondary Actions: Expand
+					347 image
+					348 text SHARED
+				349 button (collapsed) FAVORITES, Help: Favorites, Secondary Actions: Expand
+					350 image
+					351 text FAVORITES
+				352 button (expanded) PRIVATE, Secondary Actions: Collapse
+					353 image
+					354 text PRIVATE
+				355 outline private-snippets
+					356 container
+						357 image
+						358 text Untitled query
+				359 button (collapsed) LOGS, Help: Logs, Secondary Actions: Expand
+					360 image
+					361 text LOGS
+				362 button (expanded) REFERENCE, Help: Reference, Secondary Actions: Collapse
+					363 image
+					364 text REFERENCE
+				365 container radix-_r_62_
+					366 link Description: Templates, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/templates
+					367 link Description: Examples, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/examples
+				368 link Description: View running queries, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/observability/connections
+			369 splitter 18.01499938964844
+			370 container
+				371 button Collapse sidebar
+					372 image
+					373 text Collapse sidebar
+				374 tab group
+					375 container
+						376 tab (selected, settable, boolean) Untitled query, ID: radix-_r_6o_-trigger-sql-965935a0-4cb4-4aa5-be3c-490286519759, Value: 1
+Untitled query
+						377 button Close tab
+							378 image
+					379 button
+						380 image
+				381 text Unsaved edits
+				382 pop up button (collapsed) Description: More actions, ID: radix-_r_91_, Secondary Actions: Expand
+				383 pop up button (collapsed) Description: Query source: Database, ID: radix-_r_99_, Secondary Actions: Expand
+				384 button Save
+				385 button Run
+				386 container
+					387 editor (settable) Description: Editor content, Value: BEGIN;
+-- Keep retention cleanup under the route lock already held by this transaction.
+-- Prevent cross-route lock cycles after an idle period; preserve existing grants.
+CREATE OR REPLACE FUNCTION public.caliber_auth_budget(p_route text,p_identity_hash text,p_guard text)
+RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path = '' AS $budget$
+DECLARE
+  checked_at timestamptz;
+  global_capacity numeric; identity_capacity numeric;
+  global_tokens numeric; identity_tokens numeric;
+  global
+				388 splitter 50
+				389 container
+					390 tab group
+						391 tab (selected, settable, boolean) Results, Value: 1, ID: radix-_r_9g_-trigger-results
+						392 tab (selectable, settable, boolean) Chart, Value: 0, ID: radix-_r_9g_-trigger-chart
+						393 button 0 rows
+							394 container
+								395 text 0  row s
+						396 pop up button (disabled, collapsed) Export, ID: radix-_r_9o_, Secondary Actions: Expand
+					397 text Success. No rows returned
+		82 text SQL Editor | Caliber DEV | jacksnc's rummage | Supabase
+	170 container grammarly-integration
+		286 text {"mode":"full","isActive":true,"isUserDisabled":false}
+
+The focused UI element is 387 editor (settable) Description: Editor content, Value: BEGIN;
+-- Keep retention cleanup under the route lock already held by this transaction.
+-- Prevent cross-route lock cycles after an idle period; preserve existing grants.
+CREATE OR REPLACE FUNCTION public.caliber_auth_budget(p_route text,p_identity_hash text,p_guard text)
+RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path = '' AS $budget$
+DECLARE
+  checked_at timestamptz;
+  global_capacity numeric; identity_capacity numeric;
+  global_tokens numeric; identity_tokens numeric;
+  global

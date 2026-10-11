@@ -65,10 +65,14 @@ final class HostedAccountModel: ObservableObject {
       restoreFailed = false
       message = "Signed in. Your logs remain on this device; cloud backup is not active yet."
     } catch {
-      message =
-        error as? GatewayError == .unauthorized
-        ? "Sign-in was not accepted. Check your email and password."
-        : "Could not sign in. Check your connection and try again."
+      switch error as? GatewayError {
+      case .unauthorized:
+        message = "Sign-in was not accepted. Check your email and password."
+      case .rateLimited:
+        message = String(localized: "Too many sign-in attempts. Wait a few minutes and try again.")
+      default:
+        message = "Could not sign in. Check your connection and try again."
+      }
     }
   }
   func signOut() async {

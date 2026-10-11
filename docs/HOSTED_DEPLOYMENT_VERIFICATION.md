@@ -1,5 +1,7 @@
 # Hosted Foundation deployment — 2026-10-10
 
+Historical checkpoint. The October 11 gateway/registration update is verified in [DEV authentication safeguards](AUTH_HARDENING_VERIFICATION.md); its source hash and guard configuration supersede this deployment's bundle metadata.
+
 **DEV database and gateway deployed; positive hosted authentication and account isolation verified.** The owner approved the concrete permission and gateway changes with “you have my persmision,” then explicitly authorized creation of the two fictional test accounts with “you do it.” The atomic migration committed and the gateway's relay JWT setting was saved off. App activation remains disabled pending registration and provider safeguards; Step 2's activation gates and the broader Phase 1 acceptance are not claimed complete.
 
 ## Plan

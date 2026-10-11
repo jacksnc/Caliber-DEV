@@ -1,0 +1,32 @@
+Task test deno test --allow-read --allow-env tests
+Check tests/auth_guard_test.ts
+Check tests/deployment_test.ts
+Check tests/gateway_test.ts
+Check tests/rls_test.ts
+running 8 tests from ./tests/auth_guard_test.ts
+login budget is checked on the normalized identifier before Auth ... ok (10ms)
+exhausted and failed guards never call Auth and return safe retry responses ... ok (1ms)
+private keyed buckets omit raw email and ignore forwarded IP headers ... ok (4ms)
+invalid guard configuration or RPC results fail closed ... ok (513µs)
+upstream throttling is sanitized without reflecting provider details ... ok (151µs)
+oversized auth streams are cancelled before Auth or budget work ... ok (333µs)
+logout remains available without spending a pre-login budget ... ok (683µs)
+database budgets enforce private grants, capacities, refill and retention ... ok (608ms)
+running 2 tests from ./tests/deployment_test.ts
+deployment catalog checks detect disabled RLS and public RPC access ... ok (515ms)
+hosted owner fixture checks run twice and leave no fixture rows ... ok (331ms)
+running 9 tests from ./tests/gateway_test.ts
+unconfigured insecure hosts are rejected ... ok (448µs)
+sign-in forwards secrets only upstream and returns the session contract ... ok (11ms)
+unauthenticated sync never reaches upstream ... ok (172µs)
+SQL and provider error bodies are discarded ... ok (191µs)
+methods, malformed JSON, unknown routes, and oversized batches are denied ... ok (360µs)
+sign-out revokes only the current session and sanitizes the empty upstream response ... ok (398µs)
+sign-out denies absent, malformed, and legacy sessionless tokens without an upstream call ... ok (658µs)
+sign-out does not accept scope or session selection from the client ... ok (242µs)
+sign-out delegates authentication and discards provider failures and unexpected success bodies ... ok (360µs)
+running 1 test from ./tests/rls_test.ts
+Postgres RLS, idempotency, conflict preservation, and cursor contracts ... ok (752ms)
+
+ok | 20 passed | 0 failed (2s)
+

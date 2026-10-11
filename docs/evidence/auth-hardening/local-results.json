@@ -1,0 +1,25 @@
+{
+  "backendFormat": 0,
+  "backendLint": 0,
+  "backendTypecheck": 0,
+  "backendTestExitCode": 0,
+  "backendTestFunctions": 20,
+  "verifierTestExitCode": 0,
+  "verifierTestFunctions": 3,
+  "swiftPackageExitCode": 0,
+  "swiftPackageTestFunctions": 60,
+  "swiftPackageBreakdown": {
+    "Core": 8,
+    "Database": 14,
+    "SeedData": 3,
+    "Integrations": 26,
+    "Charts": 9
+  },
+  "swiftPackageCommand": "swift test --package-path Packages/CaliberFoundation --scratch-path /private/tmp/caliber-auth-guard-swift",
+  "swiftPackageEvidence": "Fresh build/test stdout observed; full package stdout was not saved.",
+  "iosUnitExitCode": 0,
+  "iosSwiftTestingFunctions": 66,
+  "iosTemplateXCTestCases": 2,
+  "iosUnitLog": "ios-unit.log",
+  "swiftLintExitCode": 0
+}

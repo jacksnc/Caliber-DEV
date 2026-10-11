@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-10-11T04:42:40.458160+00:00",
+  "endpoint": "https://tuvbdozxtkcxnojxbvlh.supabase.co/functions/v1/caliber-gateway",
+  "results": [
+    {
+      "criterion": "Auth byte limit",
+      "passed": true
+    },
+    {
+      "criterion": "Empty credentials denied",
+      "passed": true
+    },
+    {
+      "criterion": "No gateway signup route",
+      "passed": true
+    },
+    {
+      "criterion": "Six simultaneous attempts forward at most five and throttle the sixth",
+      "passed": true
+    },
+    {
+      "criterion": "Case, whitespace and spoofed forwarding cannot reset the bucket",
+      "passed": true
+    },
+    {
+      "criterion": "Another identifier retains its own budget",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "failure": null,
+  "scope": "Fictional nonexistent accounts only; no account creation, email or health upload. Do not immediately rerun an exhausted identifier."
+}

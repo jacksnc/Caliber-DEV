@@ -1,0 +1,86 @@
+{
+  "checkedAt": "2026-10-11T04:45:15.046837+00:00",
+  "endpoint": "https://tuvbdozxtkcxnojxbvlh.supabase.co/functions/v1/caliber-gateway",
+  "fixtureSet": "auth-guard",
+  "fictionalFixtureOwners": [
+    "0199b200-1000-7000-8000-000000000001",
+    "0199b200-1000-7000-8000-000000000002"
+  ],
+  "results": [
+    {
+      "criterion": "Account A first session",
+      "passed": true
+    },
+    {
+      "criterion": "Account A second session",
+      "passed": true
+    },
+    {
+      "criterion": "Account B session",
+      "passed": true
+    },
+    {
+      "criterion": "Sessions bind to distinct authenticated accounts",
+      "passed": true
+    },
+    {
+      "criterion": "Owner 5 authenticated push",
+      "passed": true
+    },
+    {
+      "criterion": "Owner 5 idempotent retry",
+      "passed": true
+    },
+    {
+      "criterion": "Owner 5 authenticated pull",
+      "passed": true
+    },
+    {
+      "criterion": "Owner 6 authenticated push",
+      "passed": true
+    },
+    {
+      "criterion": "Owner 6 idempotent retry",
+      "passed": true
+    },
+    {
+      "criterion": "Owner 6 authenticated pull",
+      "passed": true
+    },
+    {
+      "criterion": "Cross-owner pull denied for 1",
+      "passed": true
+    },
+    {
+      "criterion": "Cross-owner pull denied for 2",
+      "passed": true
+    },
+    {
+      "criterion": "Cross-owner push denied",
+      "passed": true
+    },
+    {
+      "criterion": "Current-session logout",
+      "passed": true
+    },
+    {
+      "criterion": "Logged-out refresh token rejected",
+      "passed": true
+    },
+    {
+      "criterion": "Other session refreshes after local-scope logout",
+      "passed": true
+    },
+    {
+      "criterion": "Refreshed session remains authorized",
+      "passed": true
+    },
+    {
+      "criterion": "Remaining issued sessions logged out",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "failure": null,
+  "scope": "Fictional DEV accounts only; note rows remain until fixture-account cleanup. Access JWTs may remain valid until expiry."
+}

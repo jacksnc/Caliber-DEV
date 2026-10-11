@@ -1181,6 +1181,16 @@
         }
       }
     },
+    "Too many sign-in attempts. Wait a few minutes and try again.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Too many sign-in attempts. Wait a few minutes and try again."
+          }
+        }
+      }
+    },
     "Total for this entry": {
       "localizations": {
         "en": {

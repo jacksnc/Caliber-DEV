@@ -1,0 +1,8 @@
+test_current_session_logout_passes (test_auth_runner.RunnerTests) ... ok
+test_global_logout_cannot_pass (test_auth_runner.RunnerTests) ... ok
+test_provider_echo_is_not_saved (test_auth_runner.RunnerTests) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.004s
+
+OK

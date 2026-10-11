@@ -3,7 +3,8 @@ import Foundation
 import Security
 
 public enum GatewayError: Error, Equatable, Sendable {
-  case unconfigured, insecureEndpoint, invalidResponse, unauthorized, unavailable, keychain
+  case unconfigured, insecureEndpoint, invalidResponse, unauthorized, rateLimited, unavailable,
+    keychain
 }
 public struct CloudConfiguration: Sendable {
   public let endpoint: URL
@@ -322,6 +323,7 @@ public actor CloudGateway: SyncTransport {
     do { response = try await http.send(request) } catch { throw GatewayError.unavailable }
     guard response.0.count <= 10_000_000 else { throw GatewayError.invalidResponse }
     if response.1 == 401 || response.1 == 403 { throw GatewayError.unauthorized }
+    if response.1 == 429 { throw GatewayError.rateLimited }
     guard (200..<300).contains(response.1) else { throw GatewayError.unavailable }
     guard let result = try? JSONDecoder().decode(Output.self, from: response.0) else {
       throw GatewayError.invalidResponse

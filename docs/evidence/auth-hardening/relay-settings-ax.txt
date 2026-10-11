@@ -1,0 +1,140 @@
+Browser tab: 1247605047, Title: "caliber-gateway | Settings | Edge Functions | Caliber DEV | jacksnc's rummage | Supabase", URL: "https://supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions/caliber-gateway/details".
+1 AXWebArea caliber-gateway | Settings | Edge Functions | Caliber DEV | jacksnc's rummage | Supabase, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions/caliber-gateway/details
+	2 container
+		3 link Description: Skip to content, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions/caliber-gateway/details#main
+		4 container
+			5 link Description: Supabase Back to organization home, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			6 link Description: jacksnc's rummage FREE, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			7 pop up button (collapsed) Description: Show organizations, Secondary Actions: Expand
+			8 link Description: Caliber DEV, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			9 pop up button (collapsed) Description: Show organization projects, Secondary Actions: Expand
+			10 link Description: main PRODUCTION, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			11 pop up button (collapsed) Description: Show project branches, Secondary Actions: Expand
+			12 button Connect
+			13 pop up button (collapsed) Feedback, Secondary Actions: Expand
+			14 pop up button (collapsed) Search..., Secondary Actions: Expand
+				15 image
+				16 text Search...
+			17 button Help, ID: help-dropdown-button
+				18 image
+				19 text Help
+			20 button Advisor Center, ID: advisor-center-trigger
+				21 image
+				22 text Advisor Center
+			23 button SQL Editor, ID: editor-trigger
+				24 image
+				25 text SQL Editor
+			26 button AI Assistant, ID: assistant-trigger
+				27 text AI Assistant
+			28 pop up button (collapsed) jacksnc, ID: radix-_r_2p_, Secondary Actions: Expand
+				29 image jacksnc
+		30 container
+			31 container
+				32 content list
+					33 link Description: Project Overview, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+					34 link Description: Table Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/editor
+					35 link Description: SQL Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql
+				36 content list
+					37 link Description: Database, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/database/schemas
+					38 link Description: Authentication, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+					39 link Description: Storage, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/storage/files
+					40 link Description: Edge Functions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions
+					41 link Description: Compute NEW, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/compute
+					42 link Description: Realtime, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/realtime/inspector
+				43 content list
+					44 link Description: Advisors, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/advisors/security
+					45 link Description: Observability, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/observability
+					46 link Description: Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/logs
+					47 link Description: Integrations, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/integrations
+				48 content list
+					49 link Description: Project Settings, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/settings/general
+			50 pop up button (collapsed) Description: Sidebar control, ID: radix-_r_39_, Secondary Actions: Expand
+		51 container
+			52 container spec-click-target
+				53 heading Edge Functions, Value: 4
+					54 text Edge Functions
+				55 menu Sidebar
+					56 content list
+						57 text MANAGE
+						58 link Description: Functions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions
+						59 link Description: Secrets, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions/secrets
+			60 container
+				61 container breadcrumb
+					62 content list
+						63 link Description: Edge Functions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions
+						64 link Description: caliber-gateway, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions/caliber-gateway
+				65 link Description: Docs, Value: supabase.com/docs/guides/functions
+				66 pop up button (collapsed) Download, Secondary Actions: Expand
+				67 button Test
+				68 heading caliber-gateway, Value: 1
+					69 text caliber-gateway
+				70 text https://tuvbdozxtkcxnojxbvlh.supabase.co/functions/v1/caliber-gateway
+				71 button
+				72 button 3 minutes ago
+					73 image
+					74 text 3 minutes ago
+				75 container
+					76 link Description: Overview, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions/caliber-gateway
+					77 link Description: Invocations, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions/caliber-gateway/invocations
+					78 link Description: Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions/caliber-gateway/logs
+					79 link Description: Code, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions/caliber-gateway/code
+					80 link Description: Settings, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions/caliber-gateway/details
+				94 heading Function configuration, Value: 2
+					95 text Function configuration
+				96 container
+					97 text field (settable) Name, Value: caliber-gateway
+					98 text Name Your slug and endpoint URL will remain the same
+				99 container
+					100 switch Description: Verify JWT with legacy secret, Value: 0
+					101 text Verify JWT with legacy secret
+					102 container
+						103 text Requires a JWT signed only by the legacy secret in the Authorization header. The  anon  key satisfies this.
+					104 text Recommended: OFF with JWT and custom auth logic in your function code.
+				105 button (disabled) Save changes
+				106 heading Invoke function, Value: 2
+					107 text Invoke function
+				108 tab group
+					109 tab (selected, settable, boolean) cURL, Value: 1, ID: radix-_r_5o_-trigger-curl
+					110 tab (selectable, settable, boolean) JavaScript, Value: 0, ID: radix-_r_5o_-trigger-supabase-js
+					111 tab (selectable, settable, boolean) Swift, Value: 0, ID: radix-_r_5o_-trigger-swift
+					112 tab (selectable, settable, boolean) Flutter, Value: 0, ID: radix-_r_5o_-trigger-flutter
+					113 tab (selectable, settable, boolean) Python, Value: 0, ID: radix-_r_5o_-trigger-python
+					114 button Show anon key
+						115 text Show
+						116 text  anon key
+				117 container Description: cURL, ID: radix-_r_5o_-content-curl
+					118 container
+						119 container curl -L -X POST 'https://tuvbdozxtkcxnojxbvlh.supabase.co/functions/v1/caliber-gateway' \
+  -H 'Authorization: Bearer SUPABASE_PUBLISHABLE_KEY' \
+  -H 'apikey: SUPABASE_PUBLISHABLE_KEY' \
+  -H 'Content-Type: application/json' \
+  --data '{"name":"Functions"}'
+							120 container
+								121 text curl -L -X POST  'https://tuvbdozxtkcxnojxbvlh.supabase.co/functions/v1/caliber-gateway'  \
+   -H  'Authorization: Bearer SUPABASE_PUBLISHABLE_KEY'  \
+   -H  'apikey: SUPABASE_PUBLISHABLE_KEY'  \
+   -H  'Content-Type: application/json'  \
+   --data  '{"name":"Functions"}'
+						122 button Copy
+				123 heading Develop locally, Value: 2
+					124 text Develop locally
+				125 text > 1. Download the function $ supabase  functions download caliber-gateway
+				126 button
+					127 image
+				128 text > Deploy a new version $ supabase  functions deploy  caliber-gateway
+				129 button
+					130 image
+				131 text > Delete the function $ supabase  functions delete  caliber-gateway
+				132 button
+					133 image
+				134 heading Delete function, Value: 2
+					135 text Delete function
+				136 image
+				137 text Once your function is deleted, it can no longer be restored
+				138 text Make sure you have made a backup if you want to restore your edge function
+				139 button Delete edge function
+		91 text caliber-gateway | Settings | Edge Functions | Caliber DEV | jacksnc's rummage | Supabase
+	92 container grammarly-integration
+		140 text {"mode":"full","isActive":true,"isUserDisabled":false}
+
+The focused UI element is 80 link Description: Settings, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions/caliber-gateway/details

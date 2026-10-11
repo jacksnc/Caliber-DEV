@@ -1,0 +1,144 @@
+Browser tab: 1247605044, Title: "Untitled query | SQL Editor | Caliber DEV | jacksnc's rummage | Supabase", URL: "https://supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/965935a0-4cb4-4aa5-be3c-490286519759".
+0 AXWebArea Untitled query | SQL Editor | Caliber DEV | jacksnc's rummage | Supabase, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/965935a0-4cb4-4aa5-be3c-490286519759
+	1 container
+		2 link Description: Skip to content, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/965935a0-4cb4-4aa5-be3c-490286519759#main
+		3 container
+			4 link Description: Supabase Back to organization home, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			83 link Description: jacksnc's rummage FREE, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			84 pop up button (collapsed) Description: Show organizations, Secondary Actions: Expand
+			85 link Description: Caliber DEV, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			86 pop up button (collapsed) Description: Show organization projects, Secondary Actions: Expand
+			87 link Description: main PRODUCTION, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			88 pop up button (collapsed) Description: Show project branches, Secondary Actions: Expand
+			89 button Connect
+			6 pop up button (collapsed) Feedback, Secondary Actions: Expand
+			7 pop up button (collapsed) Search..., Secondary Actions: Expand
+				8 image
+				9 text Search...
+			10 button Help, ID: help-dropdown-button
+				11 image
+				12 text Help
+			13 button Advisor Center, ID: advisor-center-trigger
+				14 image
+				15 text Advisor Center
+			16 button SQL Editor, ID: editor-trigger
+				17 image
+				18 text SQL Editor
+			19 button AI Assistant, ID: assistant-trigger
+				20 text AI Assistant
+			21 pop up button (collapsed) jacksnc, ID: radix-_r_2v_, Secondary Actions: Expand
+				90 image jacksnc
+		23 container
+			24 container
+				25 content list
+					26 link Description: Project Overview, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+					91 link Description: Table Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/editor
+					92 link Description: SQL Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql
+				33 content list
+					93 link Description: Database, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/database/schemas
+					94 link Description: Authentication, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+					95 link Description: Storage, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/storage/files
+					43 link Description: Edge Functions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions
+					96 link Description: Compute NEW, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/compute
+					97 link Description: Realtime, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/realtime/inspector
+				47 content list
+					98 link Description: Advisors, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/advisors/security
+					99 link Description: Observability, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/observability
+					54 link Description: Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/logs
+					100 link Description: Integrations, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/integrations
+				58 content list
+					59 link Description: Project Settings, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/settings/general
+			60 pop up button (collapsed) Description: Sidebar control, ID: radix-_r_3f_, Secondary Actions: Expand
+		61 container
+			101 container spec-click-target
+				102 heading SQL Editor, Value: 4
+					103 text SQL Editor
+				104 container
+					105 text Search queries
+					106 text field (settable) Search queries...
+					107 pop up button (collapsed) ID: radix-_r_5p_, Secondary Actions: Expand
+						108 image
+					109 image
+				110 pop up button (collapsed) Description: Create a new query, ID: radix-_r_5s_, Secondary Actions: Expand
+				111 button (collapsed) SHARED, Help: Shared, Secondary Actions: Expand
+					112 image
+					113 text SHARED
+				114 button (collapsed) FAVORITES, Help: Favorites, Secondary Actions: Expand
+					115 image
+					116 text FAVORITES
+				117 button (expanded) PRIVATE, Secondary Actions: Collapse
+					118 image
+					119 text PRIVATE
+				172 outline private-snippets
+					173 container
+						174 image
+						175 text Untitled query
+				137 button (collapsed) LOGS, Help: Logs, Secondary Actions: Expand
+					138 image
+					139 text LOGS
+				140 button (expanded) REFERENCE, Help: Reference, Secondary Actions: Collapse
+					141 image
+					142 text REFERENCE
+				143 container radix-_r_62_
+					144 link Description: Templates, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/templates
+					145 link Description: Examples, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/examples
+				146 link Description: View running queries, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/observability/connections
+			62 splitter 18.01499938964844
+			63 container
+				147 button Collapse sidebar
+					148 image
+					149 text Collapse sidebar
+				150 tab group
+					176 container
+						177 tab (selected, settable, boolean) Untitled query, ID: radix-_r_6o_-trigger-sql-965935a0-4cb4-4aa5-be3c-490286519759, Value: 1
+Untitled query
+						178 button Close tab
+							179 image
+					180 button
+						181 image
+				182 text Unsaved edits
+				155 pop up button (collapsed) Description: More actions, ID: radix-_r_91_, Secondary Actions: Expand
+				156 pop up button (collapsed) Description: Query source: Database, ID: radix-_r_99_, Secondary Actions: Expand
+				157 button Save
+				158 button Run
+				159 container
+					160 editor (settable) Description: Editor content, Value: -- Read-only prerequisites for migration 002. Require every boolean to be true.
+SELECT
+  to_regclass('public.caliber_auth_guard') IS NULL AS configuration_name_available,
+  to_regclass('public.caliber_auth_buckets') IS NULL AS budget_name_available,
+  to_regclass('public.caliber_auth_bucket_expiry') IS NULL AS index_name_available,
+  to_regprocedure('public.caliber_auth_budget(text,text,text)') IS NULL AS command_name_available,
+  length(encode(sha256(convert_to('fictional readiness fixture','UT
+				162 splitter 50
+				163 container
+					164 tab group
+						165 tab (selected, settable, boolean) Results, Value: 1, ID: radix-_r_9g_-trigger-results
+						166 tab (selectable, settable, boolean) Chart, Value: 0, ID: radix-_r_9g_-trigger-chart
+						183 button 1 row
+							184 container
+								185 text 1  row
+						186 pop up button (collapsed) Export, ID: radix-_r_9o_, Secondary Actions: Expand
+					187 table
+						188 row configuration_name_available budget_name_available index_name_available command_name_available builtin_digest_available
+							189 cell (selectable) configuration_name_available
+							190 cell (selectable) budget_name_available
+							191 cell (selectable) index_name_available
+							192 cell (selectable) command_name_available
+							193 cell (selectable) builtin_digest_available
+						194 row true true true true true
+							195 cell (selectable) true
+							196 cell (selectable) true
+							197 cell (selectable) true
+							198 cell (selectable) true
+							199 cell (selectable) true
+		82 text SQL Editor | Caliber DEV | jacksnc's rummage | Supabase
+	170 container grammarly-integration
+		171 text {"mode":"full","isActive":true,"isUserDisabled":false}
+
+The focused UI element is 160 editor (settable) Description: Editor content, Value: -- Read-only prerequisites for migration 002. Require every boolean to be true.
+SELECT
+  to_regclass('public.caliber_auth_guard') IS NULL AS configuration_name_available,
+  to_regclass('public.caliber_auth_buckets') IS NULL AS budget_name_available,
+  to_regclass('public.caliber_auth_bucket_expiry') IS NULL AS index_name_available,
+  to_regprocedure('public.caliber_auth_budget(text,text,text)') IS NULL AS command_name_available,
+  length(encode(sha256(convert_to('fictional readiness fixture','UT

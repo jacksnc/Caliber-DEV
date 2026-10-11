@@ -8,6 +8,8 @@ private actor RetryAccountGateway: AccountGateway {
   private var failures = 1
   private(set) var restoreCount = 0
   private(set) var signOutCount = 0
+  private let signInError: GatewayError
+  init(signInError: GatewayError = .unauthorized) { self.signInError = signInError }
   func restoredSession() throws -> AuthSession? {
     restoreCount += 1
     if failures > 0 {
@@ -19,7 +21,7 @@ private actor RetryAccountGateway: AccountGateway {
       subject: "00000000-0000-4000-8000-000000000001", expiresAt: .now.addingTimeInterval(3600))
   }
   func signIn(email: String, password: String) throws -> AuthSession {
-    throw GatewayError.unauthorized
+    throw signInError
   }
   func signOutOnThisDevice() -> DeviceSignOutResult {
     signOutCount += 1
@@ -64,4 +66,15 @@ private actor RetryAccountGateway: AccountGateway {
   await model.signIn(email: "fictional@example.invalid", password: "fixture")
   #expect(await gateway.restoreCount == 0)
   #expect(!model.isAvailable && !model.isSignedIn)
+}
+
+@MainActor @Test func rateLimitedAccountShowsWaitMessageAndLeavesLocalLogsUsable() async throws {
+  let project = try HostedProject(
+    projectURL: URL(string: "https://aaaaaaaaaaaaaaaaaaaa.supabase.co")!, region: "us-east-1",
+    gatewayDeployed: true)
+  let model = HostedAccountModel(
+    project: project, gateway: RetryAccountGateway(signInError: .rateLimited))
+  await model.signIn(email: "fictional@example.invalid", password: "fixture")
+  #expect(!model.isSignedIn && !model.isBusy)
+  #expect(model.message == "Too many sign-in attempts. Wait a few minutes and try again.")
 }

@@ -1,0 +1,6 @@
+Task check deno check supabase/functions/caliber-gateway/index.ts tests/*.ts
+Check supabase/functions/caliber-gateway/index.ts
+Check tests/auth_guard_test.ts
+Check tests/deployment_test.ts
+Check tests/gateway_test.ts
+Check tests/rls_test.ts
