@@ -29,4 +29,3 @@ running 1 test from ./tests/rls_test.ts
 Postgres RLS, idempotency, conflict preservation, and cursor contracts ... ok (752ms)
 
 ok | 20 passed | 0 failed (2s)
-
