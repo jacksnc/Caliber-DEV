@@ -10,6 +10,33 @@ const headers = {
 const reply = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers });
 
+// This checks only the shape needed to avoid Supabase's legacy no-session global fallback.
+// Supabase Auth, not this decoded payload, authenticates the token and verifies its signature.
+function hasSessionClaim(authorization: string): boolean {
+  try {
+    const pieces = authorization.slice(7).split(".");
+    if (
+      pieces.length !== 3 ||
+      pieces.some((piece) => !/^[A-Za-z0-9_-]+$/.test(piece))
+    ) return false;
+    const encoded = pieces[1].replaceAll("-", "+").replaceAll("_", "/");
+    const binary = atob(
+      encoded.padEnd(encoded.length + (4 - encoded.length % 4) % 4, "="),
+    );
+    const payload = JSON.parse(
+      new TextDecoder("utf-8", { fatal: true }).decode(
+        Uint8Array.from(binary, (c) => c.charCodeAt(0)),
+      ),
+    );
+    return typeof payload?.session_id === "string" &&
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        payload.session_id,
+      );
+  } catch {
+    return false;
+  }
+}
+
 // The app receives session tokens, never a Supabase API key or a service-role credential.
 export function gateway(config: GatewayConfig, http: HTTP = fetch) {
   const base = new URL(config.supabaseURL);
@@ -38,7 +65,22 @@ export function gateway(config: GatewayConfig, http: HTTP = fetch) {
       };
       let url: URL;
       let payload: unknown;
-      if (route === "auth/sign-in" || route === "auth/refresh") {
+      if (route === "auth/sign-out") {
+        const authorization = request.headers.get("authorization");
+        if (
+          !authorization?.startsWith("Bearer ") ||
+          authorization.length > 16384 || !hasSessionClaim(authorization)
+        ) {
+          return reply({ error: "unauthorized" }, 401);
+        }
+        // Scope is fixed here. The client cannot request global logout or target another session.
+        if (Object.keys(body).length !== 0) {
+          return reply({ error: "invalid_request" }, 400);
+        }
+        upstreamHeaders.authorization = authorization;
+        url = new URL("/auth/v1/logout?scope=local", base);
+        payload = undefined;
+      } else if (route === "auth/sign-in" || route === "auth/refresh") {
         const refresh = route === "auth/refresh";
         if (
           refresh
@@ -97,6 +139,13 @@ export function gateway(config: GatewayConfig, http: HTTP = fetch) {
             ? "unauthorized"
             : "request_rejected",
         }, response.status === 401 || response.status === 403 ? 401 : 409);
+      }
+      if (route === "auth/sign-out") {
+        // Supabase Auth returns an empty 204. Never parse or return an upstream logout body.
+        if (response.status !== 204) {
+          return reply({ error: "invalid_response" }, 502);
+        }
+        return reply({ signedOut: true });
       }
       const data = await response.json();
       if (route.startsWith("auth/")) {

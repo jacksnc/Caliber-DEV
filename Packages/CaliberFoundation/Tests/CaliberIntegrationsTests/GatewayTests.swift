@@ -245,3 +245,245 @@ private actor PausedLoadStorage: SessionStorage {
   await #expect(throws: GatewayError.unauthorized) { try await pull.value }
   #expect(await client.count == 0)
 }
+
+private func namedSession(_ name: String, expiresAt: Date = Date().addingTimeInterval(3600))
+  -> AuthSession
+{
+  AuthSession(
+    accessToken: name + "-access", refreshToken: name + "-refresh",
+    subject: "00000000-0000-4000-8000-000000000001", expiresAt: expiresAt)
+}
+private actor SessionLifecycleClient: GatewayHTTPClient {
+  let result: AuthSession
+  let logoutStatus: Int
+  private(set) var requests: [URLRequest] = []
+  init(result: AuthSession = namedSession("new"), logoutStatus: Int = 200) {
+    self.result = result
+    self.logoutStatus = logoutStatus
+  }
+  func send(_ request: URLRequest) throws -> (Data, Int) {
+    requests.append(request)
+    if request.url?.path.hasSuffix("auth/sign-out") == true {
+      return (Data("{\"signedOut\":true}".utf8), logoutStatus)
+    }
+    return (try JSONEncoder().encode(result), 200)
+  }
+}
+@Test func absentAndCurrentSessionsRestoreWithoutNetwork() async throws {
+  let client = SessionLifecycleClient()
+  let empty = CloudGateway(configuration: nil, http: client, vault: MemorySessionStorage())
+  #expect(try await empty.restoredSession() == nil)
+  let saved = namedSession("saved")
+  let gateway = CloudGateway(
+    configuration: try CloudConfiguration(endpoint: URL(string: "https://example.invalid/api")!),
+    http: client, vault: MemorySessionStorage(saved))
+  #expect(try await gateway.restoredSession() == saved)
+  #expect(await client.requests.isEmpty)
+}
+@Test func restoringExpiredSessionRefreshesAndPersistsTheSameIdentity() async throws {
+  let expired = namedSession("expired", expiresAt: Date().addingTimeInterval(-60))
+  let next = namedSession("refreshed")
+  let client = SessionLifecycleClient(result: next)
+  let storage = MemorySessionStorage(expired)
+  let gateway = CloudGateway(
+    configuration: try CloudConfiguration(endpoint: URL(string: "https://example.invalid/api")!),
+    http: client, vault: storage)
+  #expect(try await gateway.restoredSession() == next)
+  #expect(await storage.load() == next)
+  let requests = await client.requests
+  #expect(requests.count == 1)
+  let request = try #require(requests.first)
+  #expect(request.url?.path == "/api/auth/refresh")
+  let requestBody = try #require(request.httpBody)
+  let body = try #require(try JSONSerialization.jsonObject(with: requestBody) as? [String: String])
+  #expect(body == ["refreshToken": expired.refreshToken])
+}
+@Test func deviceSignOutClearsLocallyAndRevokesOnlyCapturedSession() async throws {
+  let saved = namedSession("saved")
+  let client = SessionLifecycleClient()
+  let storage = MemorySessionStorage(saved)
+  let gateway = CloudGateway(
+    configuration: try CloudConfiguration(endpoint: URL(string: "https://example.invalid/api")!),
+    http: client, vault: storage)
+  #expect(try await gateway.signOutOnThisDevice() == .remoteRevoked)
+  #expect(await storage.load() == nil)
+  #expect(try await gateway.restoredSession() == nil)
+  let request = try #require(await client.requests.first)
+  #expect(request.url?.path == "/api/auth/sign-out")
+  #expect(request.value(forHTTPHeaderField: "Authorization") == "Bearer " + saved.accessToken)
+  let requestBody = try #require(request.httpBody)
+  let body = try #require(try JSONSerialization.jsonObject(with: requestBody) as? [String: String])
+  #expect(body.isEmpty)
+}
+@Test(arguments: [401, 500]) func failedRemoteRevocationStillClearsDevice(status: Int) async throws
+{
+  let storage = MemorySessionStorage(namedSession("saved"))
+  let gateway = CloudGateway(
+    configuration: try CloudConfiguration(endpoint: URL(string: "https://example.invalid/api")!),
+    http: SessionLifecycleClient(logoutStatus: status), vault: storage)
+  #expect(try await gateway.signOutOnThisDevice() == .localOnly)
+  #expect(await storage.load() == nil)
+  #expect(try await gateway.restoredSession() == nil)
+}
+private struct OfflineClient: GatewayHTTPClient {
+  func send(_ request: URLRequest) throws -> (Data, Int) { throw URLError(.notConnectedToInternet) }
+}
+@Test func offlineSignOutAndUnconfiguredSignOutKeepLocalClearingAvailable() async throws {
+  for configuration in [
+    nil, try CloudConfiguration(endpoint: URL(string: "https://example.invalid/api")!),
+  ] {
+    let storage = MemorySessionStorage(namedSession("saved"))
+    let gateway = CloudGateway(configuration: configuration, http: OfflineClient(), vault: storage)
+    #expect(try await gateway.signOutOnThisDevice() == .localOnly)
+    #expect(await storage.load() == nil)
+  }
+}
+private actor DelayedLogoutClient: GatewayHTTPClient {
+  private var response: CheckedContinuation<(Data, Int), Never>?
+  private var started: CheckedContinuation<Void, Never>?
+  private var logoutStarted = false
+  private(set) var revokedAuthorization: String?
+  func send(_ request: URLRequest) async throws -> (Data, Int) {
+    if request.url?.path.hasSuffix("auth/sign-out") == true {
+      revokedAuthorization = request.value(forHTTPHeaderField: "Authorization")
+      logoutStarted = true
+      return await withCheckedContinuation { continuation in
+        response = continuation
+        started?.resume()
+        started = nil
+      }
+    }
+    return (try JSONEncoder().encode(namedSession("newer")), 200)
+  }
+  func waitForLogout() async {
+    if logoutStarted { return }
+    await withCheckedContinuation { started = $0 }
+  }
+  func finishLogout() {
+    response?.resume(returning: (Data("{\"signedOut\":true}".utf8), 200))
+    response = nil
+  }
+}
+@Test(.timeLimit(.minutes(1))) func remoteLogoutCompletionDoesNotClearOrRevokeNewerLogin()
+  async throws
+{
+  let old = namedSession("old")
+  let storage = MemorySessionStorage(old)
+  let client = DelayedLogoutClient()
+  let gateway = CloudGateway(
+    configuration: try CloudConfiguration(endpoint: URL(string: "https://example.invalid/api")!),
+    http: client, vault: storage)
+  let logout = Task { try await gateway.signOutOnThisDevice() }
+  await client.waitForLogout()
+  #expect(await storage.load() == nil)
+  let newer = try await gateway.signIn(email: "newer@example.invalid", password: "fixture")
+  await client.finishLogout()
+  #expect(try await logout.value == .remoteRevoked)
+  #expect(await storage.load() == newer)
+  #expect(try await gateway.restoredSession() == newer)
+  #expect(await client.revokedAuthorization == "Bearer " + old.accessToken)
+}
+@Test(.timeLimit(.minutes(1))) func captureAndClearAreOrderedBeforeNewerSessionSave() async throws {
+  let storage = PausedLoadStorage()
+  let client = SessionLifecycleClient(result: namedSession("newer"))
+  let gateway = CloudGateway(
+    configuration: try CloudConfiguration(endpoint: URL(string: "https://example.invalid/api")!),
+    http: client, vault: storage)
+  let logout = Task { try await gateway.signOutOnThisDevice() }
+  await storage.waitUntilLoadStarted()
+  let login = Task { try await gateway.signIn(email: "newer@example.invalid", password: "fixture") }
+  for _ in 0..<100 { await Task.yield() }
+  await storage.finishLoad()
+  #expect(try await logout.value == .remoteRevoked)
+  let newer = try await login.value
+  #expect(await storage.load() == newer)
+  let logoutRequest = try #require(
+    await client.requests.first { $0.url?.path.hasSuffix("auth/sign-out") == true })
+  #expect(logoutRequest.value(forHTTPHeaderField: "Authorization") == "Bearer fictional-access")
+}
+private struct UnclearableStorage: SessionStorage {
+  func save(_ session: AuthSession) throws {}
+  func load() -> AuthSession? { namedSession("saved") }
+  func clear() throws { throw GatewayError.keychain }
+}
+@Test func keychainClearFailureIsNotReportedAsSuccessfulSignOut() async throws {
+  let client = SessionLifecycleClient()
+  let gateway = CloudGateway(
+    configuration: try CloudConfiguration(endpoint: URL(string: "https://example.invalid/api")!),
+    http: client, vault: UnclearableStorage())
+  await #expect(throws: GatewayError.keychain) { try await gateway.signOutOnThisDevice() }
+  #expect(await client.requests.isEmpty)
+}
+@Test(.timeLimit(.minutes(1))) func signOutInvalidatesRestorationPausedOnStorage() async throws {
+  let storage = PausedLoadStorage()
+  let client = SessionLifecycleClient()
+  let gateway = CloudGateway(
+    configuration: try CloudConfiguration(endpoint: URL(string: "https://example.invalid/api")!),
+    http: client, vault: storage)
+  let restore = Task { try await gateway.restoredSession() }
+  await storage.waitUntilLoadStarted()
+  try await gateway.signOut()
+  await storage.finishLoad()
+  await #expect(throws: GatewayError.unauthorized) { try await restore.value }
+  #expect(await client.requests.isEmpty)
+}
+
+@Test(arguments: [
+  "", "us-east-1\r\nx-api-key: injected", "us-east-1\n", "us-east-1\r", "US-EAST-1", "us east 1",
+  "us-east", "arbitrary",
+])
+func invocationRegionRejectsMalformedOrHeaderLikeValues(_ region: String) {
+  #expect(throws: GatewayError.insecureEndpoint) {
+    try CloudConfiguration(endpoint: URL(string: "https://example.invalid/api")!, region: region)
+  }
+}
+@Test func requestedInvocationRegionIsSentWithoutAnyClientAPIKey() async throws {
+  let client = SessionLifecycleClient()
+  let storage = MemorySessionStorage()
+  let gateway = CloudGateway(
+    configuration: try CloudConfiguration(
+      endpoint: URL(string: "https://example.invalid/api")!, region: "us-east-1"),
+    http: client, vault: storage)
+  _ = try await gateway.signIn(email: "fixture@example.invalid", password: "fixture")
+  _ = try await gateway.refresh()
+  _ = try await gateway.signOutOnThisDevice()
+  let requests = await client.requests
+  #expect(requests.count == 3)
+  for request in requests {
+    #expect(request.value(forHTTPHeaderField: "x-region") == "us-east-1")
+    #expect(request.value(forHTTPHeaderField: "apikey") == nil)
+    #expect(request.value(forHTTPHeaderField: "x-api-key") == nil)
+  }
+}
+@Test func unspecifiedInvocationRegionDoesNotAddAnEmptyHeader() async throws {
+  let client = SessionLifecycleClient()
+  let gateway = CloudGateway(
+    configuration: try CloudConfiguration(endpoint: URL(string: "https://example.invalid/api")!),
+    http: client, vault: MemorySessionStorage())
+  _ = try await gateway.signIn(email: "fixture@example.invalid", password: "fixture")
+  #expect(await client.requests.first?.value(forHTTPHeaderField: "x-region") == nil)
+}
+
+@Test(.timeLimit(.minutes(1))) func deviceSignOutCapturesSessionOnlyAfterEarlierSaveFinishes()
+  async throws
+{
+  let storage = PausedSaveStorage()
+  let saved = namedSession("pending")
+  let client = SessionLifecycleClient(result: saved)
+  let gateway = CloudGateway(
+    configuration: try CloudConfiguration(endpoint: URL(string: "https://example.invalid/api")!),
+    http: client, vault: storage)
+  let login = Task {
+    try await gateway.signIn(email: "fixture@example.invalid", password: "fixture")
+  }
+  await storage.waitUntilSaveStarted()
+  let logout = Task { try await gateway.signOutOnThisDevice() }
+  for _ in 0..<100 { await Task.yield() }
+  await storage.finishSave()
+  await #expect(throws: GatewayError.unauthorized) { try await login.value }
+  #expect(try await logout.value == .remoteRevoked)
+  #expect(await storage.load() == nil)
+  let request = try #require(
+    await client.requests.first { $0.url?.path.hasSuffix("auth/sign-out") == true })
+  #expect(request.value(forHTTPHeaderField: "Authorization") == "Bearer " + saved.accessToken)
+}

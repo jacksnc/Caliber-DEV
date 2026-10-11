@@ -16,6 +16,7 @@ public struct ChartCard: View {
   @Environment(\.timeZone) private var timeZone
   @Environment(\.colorScheme) private var scheme
   @Environment(\.dynamicTypeSize) private var dynamicType
+  @ScaledMetric(relativeTo: .body) private var chartHeight: CGFloat = 180
 
   public init(
     title: String, unit: String, observations: [ChartObservation], color: Color,
@@ -58,7 +59,8 @@ public struct ChartCard: View {
           method
         } label: {
           Image(systemName: "info.circle").frame(minWidth: 48, minHeight: 48)
-        }.accessibilityLabel(copy("How this chart works"))
+        }.accessibilityLabel(copy("How \(title) is calculated"))
+          .accessibilityIdentifier("chartInfo-" + title)
       }
       if hidesNumbers {
         Label(copy("Numbers hidden"), systemImage: "eye.slash").foregroundStyle(
@@ -76,8 +78,17 @@ public struct ChartCard: View {
           summary(window)
         }
         if !window.days.isEmpty {
-          NavigationLink(copy("View data table")) { dataTable }
-            .frame(minHeight: CaliberTheme.minimumInteractiveSize)
+          NavigationLink {
+            dataTable
+          } label: {
+            Text(copy("View data table"))
+              .fixedSize(horizontal: false, vertical: true)
+              .frame(maxWidth: .infinity, alignment: .leading)
+              .frame(minHeight: CaliberTheme.minimumInteractiveSize)
+              .contentShape(Rectangle())
+          }
+          .accessibilityLabel(copy("View \(title) data table"))
+          .accessibilityIdentifier("chartTable-" + title)
         }
       }
     }
@@ -127,7 +138,21 @@ public struct ChartCard: View {
     }
     .chartXScale(domain: window.dateDomain ?? Date.distantPast...Date.distantFuture)
     .chartYScale(domain: .automatic(includesZero: false))
-    .frame(height: dynamicType.isAccessibilitySize ? 220 : 180)
+    .chartXAxis {
+      AxisMarks(values: .automatic(desiredCount: dynamicType.isAccessibilitySize ? 2 : 4)) {
+        AxisGridLine()
+        AxisTick()
+        AxisValueLabel()
+      }
+    }
+    .chartYAxis {
+      AxisMarks(values: .automatic(desiredCount: dynamicType.isAccessibilitySize ? 3 : 5)) {
+        AxisGridLine()
+        AxisTick()
+        AxisValueLabel()
+      }
+    }
+    .frame(height: chartHeight)
     .chartXSelection(value: $selected)
     // No draw animation: stable first paint and no extra motion under Reduce Motion.
     .transaction { $0.animation = nil }
@@ -161,19 +186,30 @@ public struct ChartCard: View {
         Label(copy("Numbers hidden"), systemImage: "eye.slash")
       } else {
         ForEach(window.days) { day in
-          Section(dateLabel(day.date)) {
+          Section {
             if day.observations.isEmpty {
               Text(copy("Not logged")).foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityLabel(copy("\(dateLabel(day.date)): Not logged"))
             } else {
               ForEach(day.observations) { point in
                 if let value = point.value, value.isFinite {
                   Text(copy("\(UnitFormatting.number(value, locale: locale)) \(unit)"))
                     .monospacedDigit()
+                    .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityLabel(
+                      copy(
+                        "\(dateLabel(day.date)): \(UnitFormatting.number(value, locale: locale)) \(unit)"
+                      ))
                 } else {
                   Text(copy("Not logged")).foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityLabel(copy("\(dateLabel(day.date)): Not logged"))
                 }
               }
             }
+          } header: {
+            Text(dateLabel(day.date)).fixedSize(horizontal: false, vertical: true)
           }
         }
       }
@@ -181,23 +217,29 @@ public struct ChartCard: View {
   }
   private var method: some View {
     List {
+      Text(copy("How we calculate")).font(.title2)
+        .fixedSize(horizontal: false, vertical: true)
       Text(
         copy(
           "This chart shows recorded values. Empty days remain gaps; no missing value is replaced with zero."
-        ))
+        )
+      ).fixedSize(horizontal: false, vertical: true)
       Text(
         copy(
           "Periods end on the latest date in the series. A month or year uses calendar dates, and coverage counts distinct days with a recorded value."
-        ))
+        )
+      ).fixedSize(horizontal: false, vertical: true)
       Text(
         copy(
           "First-to-last change subtracts the first recorded value in the selected range from the last. It is descriptive, not a forecast or a claim about cause."
-        ))
+        )
+      ).fixedSize(horizontal: false, vertical: true)
       Text(
         copy(
           "The data table exposes every value in the selected range. Demo values are fictional and are not recommended targets."
-        ))
-    }.navigationTitle(copy("How we calculate"))
+        )
+      ).fixedSize(horizontal: false, vertical: true)
+    }.navigationTitle(copy("Method"))
   }
 }
 
@@ -231,6 +273,7 @@ public struct DemoDashboard: View {
           .headline)
         Text(copy("Explore a year with a cut phase, deloads, noisy weigh-ins, and missed logs."))
           .foregroundStyle(palette.secondaryText)
+          .fixedSize(horizontal: false, vertical: true)
         ChartCard(
           title: copy("Body weight"), unit: "kg", observations: observations(\.weightKG),
           color: palette.body, hidesNumbers: hidesNumbers)
@@ -244,7 +287,7 @@ public struct DemoDashboard: View {
           title: copy("Training volume"), unit: "kg",
           observations: observations(\.trainingVolumeKG), color: palette.train,
           hidesNumbers: hidesNumbers)
-        NavigationLink(copy("Explore the timeline")) {
+        NavigationLink {
           List(dataset.days.reversed()) { day in
             VStack(alignment: .leading) {
               Text(day.date, format: .dateTime.month().day().year()).font(.headline)
@@ -255,15 +298,26 @@ public struct DemoDashboard: View {
               if day.weightKG != nil { Label(copy("Weigh-in logged"), systemImage: "scalemass") }
             }.accessibilityElement(children: .combine)
           }.navigationTitle(copy("Demo timeline"))
-        }.frame(minHeight: CaliberTheme.minimumInteractiveSize)
-        Toggle(copy("Show fictional private-track simulation"), isOn: $showSimulation).frame(
-          minHeight: CaliberTheme.minimumInteractiveSize)
+        } label: {
+          Text(copy("Explore the timeline"))
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(minHeight: CaliberTheme.minimumInteractiveSize)
+            .contentShape(Rectangle())
+        }
+        .accessibilityIdentifier("demoTimeline")
+        Toggle(isOn: $showSimulation) {
+          Text(copy("Show fictional private-track simulation"))
+            .fixedSize(horizontal: false, vertical: true)
+        }
+        .frame(minHeight: CaliberTheme.minimumInteractiveSize)
+        .accessibilityIdentifier("demoSimulation")
         if showSimulation {
           Text(
             copy(
               "Arbitrary units only. No substance, human dose, prescription, or real reminder is represented."
             )
-          ).font(.footnote)
+          ).font(.footnote).fixedSize(horizontal: false, vertical: true)
           ChartCard(
             title: copy("Fictional simulation"), unit: "a.u.",
             observations: dataset.simulation.map {

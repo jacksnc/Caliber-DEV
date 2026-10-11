@@ -76,7 +76,11 @@ struct NumberFreeHomeView: View {
         Section {
           Label("Numbers are hidden", systemImage: "eye.slash")
           Text("Keep a photo or note without showing calories or weight.")
-          Button("Add a Photo or Note") { checkIn = true }.frame(minHeight: 48)
+          Button {
+            checkIn = true
+          } label: {
+            Text("Add a Photo or Note").frame(minHeight: 48)
+          }
         }
         ForEach(entries) { entry in
           VStack(alignment: .leading) {
@@ -88,7 +92,11 @@ struct NumberFreeHomeView: View {
             }
           }
         }
-        NavigationLink("Settings") { FoundationSettingsView() }
+        NavigationLink {
+          FoundationSettingsView()
+        } label: {
+          Text("Settings").frame(minHeight: 48)
+        }
       }.navigationTitle("Your Journal")
         .sheet(isPresented: $checkIn) {
           ProgressEntryForm(

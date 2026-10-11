@@ -72,16 +72,22 @@ public struct CaliberEmptyState: View {
   private let title: String
   private let message: String
   private let symbol: String
+  @Environment(\.colorScheme) private var scheme
   public init(title: String, message: String, symbol: String = "chart.xyaxis.line") {
     self.title = title
     self.message = message
     self.symbol = symbol
   }
   public var body: some View {
+    let palette = CaliberTheme.palette(scheme: scheme)
     VStack(spacing: 12) {
       Image(systemName: symbol).font(.title).accessibilityHidden(true)
-      Text(title).font(.headline)
-      Text(message).font(.body).foregroundStyle(.secondary).multilineTextAlignment(.center)
+      Text(title).font(.headline).foregroundStyle(palette.text)
+        .fixedSize(horizontal: false, vertical: true)
+      Text(message).font(.body).foregroundStyle(palette.secondaryText).multilineTextAlignment(
+        .center
+      )
+      .fixedSize(horizontal: false, vertical: true)
     }
     .frame(maxWidth: .infinity).padding(24).accessibilityElement(children: .combine)
   }

@@ -10,6 +10,7 @@ import SwiftData
 /// can be logged together in one tap. Starts empty until a meal is saved —
 /// there's no "create a meal" flow yet, so this just lists whatever exists.
 struct MyMealsView: View {
+    @Environment(\.locale) private var locale
     @Query(sort: \SavedMeal.name) private var savedMeals: [SavedMeal]
 
     var body: some View {
@@ -28,7 +29,7 @@ struct MyMealsView: View {
                         let totals = MacroCalculator.totals(for: meal.items)
                         VStack(alignment: .leading, spacing: 2) {
                             Text(meal.name)
-                            Text("\(NutritionInput.format(totals.calories)) cal · \(meal.items.count) item\(meal.items.count == 1 ? "" : "s")")
+                            Text("\(NutritionInput.format(totals.calories, locale: locale)) cal · \(meal.items.count) item\(meal.items.count == 1 ? "" : "s")")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }

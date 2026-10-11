@@ -105,3 +105,8 @@ Chart ranges use the dataset's local calendar: the last week, month, three month
 New unit helpers use 1 lb = 0.45359237 kg, 1 inch = 2.54 cm, 1 kcal = 4.184 kJ and 1 US fl oz = 29.5735295625 mL; °F = °C × 9/5 + 32. Original entered text and unit are preserved separately. Grouping/partial numeric strings, negative mass and nonfinite values are rejected by the new strict parser. Existing food/Progress input adapters retain their prior behavior until their focused locale audit is completed.
 
 The existing Progress graph remains a raw reading graph. Foundation does not yet implement the EWMA, expenditure, strength or dose engines in §9.3. Demo training volume is synthetic seeded data, not a verified live Train calculation.
+
+
+## Editable decimal inputs
+
+Use the decimal separator selected in Settings. We accept a complete nonnegative decimal, trim surrounding spaces, and reject grouping separators, partial parses, scientific notation, infinity and NaN. Serving quantities and logged weight must be greater than zero. Switching display formats replaces only the separator; it does not change or round stored nutrition or weight. Existing nutrition drafts preserve the full finite value, including very small quantities. These parsing rules are input validation, not a nutrition estimate.

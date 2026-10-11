@@ -36,4 +36,29 @@ struct NutritionInputTests {
     func overflow() {
         #expect(!MacroTotals(calories: .greatestFiniteMagnitude).scaled(by: 2).isValid)
     }
+    @Test("Locale changes keep every finite nutrition value intact")
+    func preciseLocaleRoundTrips() {
+        for locale in [Locale(identifier: "en_US"), Locale(identifier: "fr_FR"), Locale(identifier: "de_DE")] {
+            for value in [0, 3.625, 0.00000001, Double.leastNonzeroMagnitude, Double.greatestFiniteMagnitude] {
+                let text = NutritionInput.format(value, locale: locale)
+                #expect(!text.contains("e"))
+                #expect(NutritionInput.number(text, locale: locale) == value)
+            }
+        }
+        #expect(NutritionInput.format(.nan).isEmpty)
+        #expect(NutritionInput.format(.infinity).isEmpty)
+        #expect(NutritionInput.reformatted("3.625", from: Locale(identifier: "en_US"), to: Locale(identifier: "de_DE")) == "3,625")
+        #expect(NutritionInput.reformatted("invalid", from: Locale(identifier: "en_US"), to: Locale(identifier: "de_DE")) == "invalid")
+    }
+
+    @Test("The selected decimal format controls quantities and all macro fields")
+    func selectedLocale() {
+        let locale = Locale(identifier: "de_DE")
+        #expect(NutritionInput.quantity("1,5", locale: locale) == 1.5)
+        #expect(NutritionInput.quantity("1.5", locale: locale) == nil)
+        #expect(NutritionInput.number("1.000", locale: locale) == nil)
+        #expect(NutritionInput.number("1e3", locale: locale) == nil)
+        #expect(NutritionInput.totals(calories: "100,5", protein: "10,25", carbs: "5,5", fat: "3,625", locale: locale) == MacroTotals(calories: 100.5, protein: 10.25, carbs: 5.5, fat: 3.625))
+    }
+
 }

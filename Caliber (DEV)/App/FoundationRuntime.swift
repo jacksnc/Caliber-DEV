@@ -12,7 +12,9 @@ final class FoundationRuntime: ObservableObject {
   @Published private(set) var isLoadingDemo = false
   @Published var isDemoMode = false
   @Published var message: String?
+  let account: HostedAccountModel
   let testing: Bool
+  var preferenceStore: UserDefaults { defaults }
   private let defaults: UserDefaults
   private let directory: URL
 
@@ -21,6 +23,7 @@ final class FoundationRuntime: ObservableObject {
       testing =
         ProcessInfo.processInfo.arguments.contains("--progress-ui-testing")
         || ProcessInfo.processInfo.arguments.contains("--foundation-ui-testing")
+        || ProcessInfo.processInfo.arguments.contains("--account-ui-testing")
     #else
       testing = false
     #endif
@@ -49,6 +52,7 @@ final class FoundationRuntime: ObservableObject {
       loaded.massUnit = prior == "kilograms" ? .kilograms : .pounds
     }
     settings = loaded
+    account = HostedAccountModel.configured(testing: testing)
     let base =
       testing
       ? FileManager.default.temporaryDirectory.appendingPathComponent("CaliberUITestFoundation")
@@ -68,10 +72,8 @@ final class FoundationRuntime: ObservableObject {
       defaults.set(data, forKey: "foundation.settings.v1")
     }
     // The legacy screen reads this key. A unit preference never rewrites stored pounds.
-    if !testing {
-      UserDefaults.standard.set(
-        settings.massUnit == .kilograms ? "kilograms" : "pounds", forKey: "progressWeightUnit")
-    }
+    defaults.set(
+      settings.massUnit == .kilograms ? "kilograms" : "pounds", forKey: "progressWeightUnit")
   }
   func showDemo() async {
     guard !isLoadingDemo else { return }
@@ -140,6 +142,8 @@ struct FoundationRootView: View {
         ProgressView("Opening Caliber…").task { open() }
       }
     }
+    .environmentObject(runtime.account)
+    .defaultAppStorage(runtime.preferenceStore)
     .preferredColorScheme(runtime.colorScheme)
     .environment(\.locale, Locale(identifier: runtime.settings.localeIdentifier))
     .environment(\.calendar, runtime.settings.calendar)

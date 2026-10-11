@@ -1,0 +1,208 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 648]
+[Planning deferred tasks]
+[1 / 5]
+[3 / 7] CaliberDesignSystem
+[4 / 8] CaliberDesignSystem
+[8 / 12] CaliberCharts
+[9 / 13] CaliberCharts
+[17 / 21] CaliberCharts
+[18 / 21] CaliberCharts
+[23 / 24] CaliberChartsTests-product
+[25 / 26] CaliberSeedData-product
+Build complete! (3.61 sec)
+Test Suite 'All tests' started at 2026-10-10 21:10:01.068.
+Test Suite 'All tests' passed at 2026-10-10 21:10:01.071.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.003) seconds
+Test Suite 'All tests' started at 2026-10-10 21:10:01.173.
+Test Suite 'All tests' passed at 2026-10-10 21:10:01.174.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'All tests' started at 2026-10-10 21:10:01.243.
+Test Suite 'All tests' passed at 2026-10-10 21:10:01.243.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'All tests' started at 2026-10-10 21:10:01.309.
+Test Suite 'All tests' passed at 2026-10-10 21:10:01.309.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'All tests' started at 2026-10-10 21:10:01.544.
+Test Suite 'All tests' passed at 2026-10-10 21:10:01.544.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test deterministicYearHasGapsAndPhases() started.
+◇ Test nonFiniteDateIsRejected() started.
+◇ Test civilDaysSurviveDST(_:) started.
+◇ Test case passing 1 argument zone → "Pacific/Auckland" to civilDaysSurviveDST(_:) started.
+◇ Test case passing 1 argument zone → "America/New_York" to civilDaysSurviveDST(_:) started.
+◇ Test case passing 1 argument zone → "Asia/Kolkata" to civilDaysSurviveDST(_:) started.
+✔ Test nonFiniteDateIsRejected() passed after 0.001 seconds.
+✔ Test civilDaysSurviveDST(_:) with 3 test cases passed after 0.008 seconds.
+✔ Test deterministicYearHasGapsAndPhases() passed after 0.012 seconds.
+✔ Test run with 3 tests in 0 suites passed after 0.012 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test signOutCannotBeUndoneByInFlightRefresh() started.
+◇ Test failedRemoteRevocationStillClearsDevice(status:) started.
+◇ Test selectedProjectRemainsOfflineUntilDeployed() started.
+◇ Test remoteLogoutCompletionDoesNotClearOrRevokeNewerLogin() started.
+◇ Test suspendedTokenLoadCannotStartRequestAfterSignOut() started.
+◇ Test invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test refreshRequestsShareOneTokenRotation() started.
+◇ Test invalidProjectMetadataFailsClosed(_:) started.
+◇ Test signOutCannotBeUndoneByInFlightSignIn() started.
+◇ Test unspecifiedInvocationRegionDoesNotAddAnEmptyHeader() started.
+◇ Test missingConfigurationMakesNoNetworkRequest() started.
+◇ Test absentAndCurrentSessionsRestoreWithoutNetwork() started.
+◇ Test keychainClearFailureIsNotReportedAsSuccessfulSignOut() started.
+◇ Test captureAndClearAreOrderedBeforeNewerSessionSave() started.
+◇ Test responseBodiesNeverEscapeAsErrors() started.
+◇ Test gatewayDeclinesRedirects() started.
+◇ Test deviceSignOutCapturesSessionOnlyAfterEarlierSaveFinishes() started.
+◇ Test requestedInvocationRegionIsSentWithoutAnyClientAPIKey() started.
+◇ Test deviceSignOutClearsLocallyAndRevokesOnlyCapturedSession() started.
+◇ Test insecureConfigurationFailsClosed(_:) started.
+◇ Test signOutInvalidatesRestorationPausedOnStorage() started.
+◇ Test restoringExpiredSessionRefreshesAndPersistsTheSameIdentity() started.
+◇ Test offlineSignOutAndUnconfiguredSignOutKeepLocalClearingAvailable() started.
+◇ Test signOutOrdersClearAfterSuspendedSessionSave() started.
+◇ Test staleSaveCompletionDoesNotClearNewerLogin() started.
+◇ Test case passing 1 argument status → 401 to failedRemoteRevocationStillClearsDevice(status:) started.
+◇ Test case passing 1 argument status → 500 to failedRemoteRevocationStillClearsDevice(status:) started.
+◇ Test case passing 1 argument region → "" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument url → "http://tuvbdozxtkcxnojxbvlh.supabase.co" to invalidProjectMetadataFailsClosed(_:) started.
+◇ Test case passing 1 argument region → "us-east-1
+" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument region → "us-east-1\r" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument region → "us-east-1\r
+x-api-key: injected" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument url → "https://tuvbdozxtkcxnojxbvlh.supabase.co.attacker.invalid" to invalidProjectMetadataFailsClosed(_:) started.
+◇ Test case passing 1 argument region → "US-EAST-1" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument url → "https://secret@tuvbdozxtkcxnojxbvlh.supabase.co" to invalidProjectMetadataFailsClosed(_:) started.
+◇ Test case passing 1 argument url → "https://tuvbdozxtkcxnojxbvlh.supabase.co?key=x" to invalidProjectMetadataFailsClosed(_:) started.
+◇ Test case passing 1 argument region → "us-east" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument region → "us east 1" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument url → "https://tuvbdozxtkcxnojxbvlh.supabase.co/auth" to invalidProjectMetadataFailsClosed(_:) started.
+◇ Test case passing 1 argument url → "https://tuvbdozxtkcxnojxbvlh.supabase.co:8443" to invalidProjectMetadataFailsClosed(_:) started.
+◇ Test case passing 1 argument region → "arbitrary" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument value → "http://example.com" to insecureConfigurationFailsClosed(_:) started.
+◇ Test case passing 1 argument value → "https://example.com?secret=x" to insecureConfigurationFailsClosed(_:) started.
+◇ Test case passing 1 argument value → "https://example.com#key" to insecureConfigurationFailsClosed(_:) started.
+◇ Test case passing 1 argument value → "https://name:pass@example.com" to insecureConfigurationFailsClosed(_:) started.
+✔ Test selectedProjectRemainsOfflineUntilDeployed() passed after 0.001 seconds.
+✔ Test absentAndCurrentSessionsRestoreWithoutNetwork() passed after 0.001 seconds.
+✔ Test invalidProjectMetadataFailsClosed(_:) with 6 test cases passed after 0.001 seconds.
+✔ Test insecureConfigurationFailsClosed(_:) with 4 test cases passed after 0.001 seconds.
+✔ Test invocationRegionRejectsMalformedOrHeaderLikeValues(_:) with 8 test cases passed after 0.001 seconds.
+✔ Test keychainClearFailureIsNotReportedAsSuccessfulSignOut() passed after 0.003 seconds.
+✔ Test responseBodiesNeverEscapeAsErrors() passed after 0.003 seconds.
+✔ Test failedRemoteRevocationStillClearsDevice(status:) with 2 test cases passed after 0.003 seconds.
+✔ Test restoringExpiredSessionRefreshesAndPersistsTheSameIdentity() passed after 0.003 seconds.
+✔ Test signOutInvalidatesRestorationPausedOnStorage() passed after 0.003 seconds.
+✔ Test signOutCannotBeUndoneByInFlightSignIn() passed after 0.003 seconds.
+✔ Test suspendedTokenLoadCannotStartRequestAfterSignOut() passed after 0.003 seconds.
+✔ Test signOutCannotBeUndoneByInFlightRefresh() passed after 0.003 seconds.
+✔ Test signOutOrdersClearAfterSuspendedSessionSave() passed after 0.003 seconds.
+✔ Test deviceSignOutClearsLocallyAndRevokesOnlyCapturedSession() passed after 0.003 seconds.
+✔ Test unspecifiedInvocationRegionDoesNotAddAnEmptyHeader() passed after 0.003 seconds.
+✔ Test refreshRequestsShareOneTokenRotation() passed after 0.003 seconds.
+✔ Test captureAndClearAreOrderedBeforeNewerSessionSave() passed after 0.003 seconds.
+✔ Test requestedInvocationRegionIsSentWithoutAnyClientAPIKey() passed after 0.003 seconds.
+✔ Test deviceSignOutCapturesSessionOnlyAfterEarlierSaveFinishes() passed after 0.003 seconds.
+✔ Test remoteLogoutCompletionDoesNotClearOrRevokeNewerLogin() passed after 0.004 seconds.
+✔ Test staleSaveCompletionDoesNotClearNewerLogin() passed after 0.003 seconds.
+✔ Test offlineSignOutAndUnconfiguredSignOutKeepLocalClearingAvailable() passed after 0.004 seconds.
+✔ Test missingConfigurationMakesNoNetworkRequest() passed after 0.006 seconds.
+✔ Test gatewayDeclinesRedirects() passed after 0.007 seconds.
+✔ Test run with 25 tests in 0 suites passed after 0.007 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test wrongOwnerOrInvalidPageRollsBackAllChangesAndCursor() started.
+◇ Test differentDemoCannotOverwriteExistingData() started.
+◇ Test simultaneousMergeRevisionsHaveNoArbitraryCommonWinner() started.
+◇ Test syntheticFixtureMatchesSQLColumnContract() started.
+◇ Test populatedDemoSurvivesV2ToV3IndexMigration() started.
+◇ Test unsafeJSONIntegersAndCursorCollisionsAreRejectedAtomically() started.
+◇ Test historicalRemoteResolutionPreservesNewOfflineBranchAndFindsDAGAncestor() started.
+◇ Test operationIDReuseAndAccountRebindingAreRejected() started.
+◇ Test pulledEchoAcknowledgesDurableOperationAfterLostPushResponse() started.
+◇ Test syncRetryDoesNotEchoOrLoseIndependentLogs() started.
+◇ Test migrationFailureRollsBackAndCanRetry() started.
+◇ Test durableDivergenceIsVisibleAndResolutionIsExplicit() started.
+◇ Test resolutionCannotConsumeAnAncestorOrUnrelatedBase() started.
+◇ Test demoSurvivesBothMigrationsAndReopenWithoutPrivateLeakage() started.
+✔ Test syncRetryDoesNotEchoOrLoseIndependentLogs() passed after 0.117 seconds.
+✔ Test unsafeJSONIntegersAndCursorCollisionsAreRejectedAtomically() passed after 0.117 seconds.
+✔ Test simultaneousMergeRevisionsHaveNoArbitraryCommonWinner() passed after 0.117 seconds.
+✔ Test historicalRemoteResolutionPreservesNewOfflineBranchAndFindsDAGAncestor() passed after 0.117 seconds.
+✔ Test operationIDReuseAndAccountRebindingAreRejected() passed after 0.117 seconds.
+✔ Test pulledEchoAcknowledgesDurableOperationAfterLostPushResponse() passed after 0.117 seconds.
+✔ Test wrongOwnerOrInvalidPageRollsBackAllChangesAndCursor() passed after 0.118 seconds.
+✔ Test durableDivergenceIsVisibleAndResolutionIsExplicit() passed after 0.192 seconds.
+✔ Test resolutionCannotConsumeAnAncestorOrUnrelatedBase() passed after 0.193 seconds.
+✔ Test migrationFailureRollsBackAndCanRetry() passed after 0.199 seconds.
+✔ Test syntheticFixtureMatchesSQLColumnContract() passed after 5.713 seconds.
+✔ Test differentDemoCannotOverwriteExistingData() passed after 6.110 seconds.
+✔ Test demoSurvivesBothMigrationsAndReopenWithoutPrivateLeakage() passed after 6.292 seconds.
+✔ Test populatedDemoSurvivesV2ToV3IndexMigration() passed after 6.548 seconds.
+✔ Test run with 14 tests in 0 suites passed after 6.548 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test exactDimensionsRemainDistinct() started.
+◇ Test diagnosticsContainOnlyAllowlistedEventAndCorrelation() started.
+◇ Test settingsRoundTripAndCalendarWeekStart() started.
+◇ Test uuidV7UsesTimestampAndIsUnique() started.
+◇ Test uuidV7InvalidDatesDoNotTrap(_:) started.
+◇ Test invalidMassCannotBecomeAValidPrefix(_:) started.
+◇ Test massPreservesInputAndConvertsExactly() started.
+◇ Test everyP1FlagIsPresentAndDisabled() started.
+◇ Test case passing 1 argument seconds → inf to uuidV7InvalidDatesDoNotTrap(_:) started.
+◇ Test case passing 1 argument seconds → nan to uuidV7InvalidDatesDoNotTrap(_:) started.
+◇ Test case passing 1 argument seconds → -inf to uuidV7InvalidDatesDoNotTrap(_:) started.
+◇ Test case passing 1 argument seconds → -1.0 to uuidV7InvalidDatesDoNotTrap(_:) started.
+◇ Test case passing 1 argument seconds → 1.7976931348623157e+308 to uuidV7InvalidDatesDoNotTrap(_:) started.
+◇ Test case passing 1 argument text → "nan" to invalidMassCannotBecomeAValidPrefix(_:) started.
+◇ Test case passing 1 argument text → "infinity" to invalidMassCannotBecomeAValidPrefix(_:) started.
+◇ Test case passing 1 argument text → "82 kg" to invalidMassCannotBecomeAValidPrefix(_:) started.
+◇ Test case passing 1 argument text → "-1" to invalidMassCannotBecomeAValidPrefix(_:) started.
+◇ Test case passing 1 argument text → "" to invalidMassCannotBecomeAValidPrefix(_:) started.
+✔ Test diagnosticsContainOnlyAllowlistedEventAndCorrelation() passed after 0.001 seconds.
+◇ Test case passing 1 argument text → "12abc" to invalidMassCannotBecomeAValidPrefix(_:) started.
+◇ Test case passing 1 argument text → "1.2.3" to invalidMassCannotBecomeAValidPrefix(_:) started.
+✔ Test exactDimensionsRemainDistinct() passed after 0.001 seconds.
+✔ Test uuidV7InvalidDatesDoNotTrap(_:) with 5 test cases passed after 0.001 seconds.
+✔ Test invalidMassCannotBecomeAValidPrefix(_:) with 7 test cases passed after 0.001 seconds.
+✔ Test massPreservesInputAndConvertsExactly() passed after 0.001 seconds.
+✔ Test settingsRoundTripAndCalendarWeekStart() passed after 0.002 seconds.
+✔ Test everyP1FlagIsPresentAndDisabled() passed after 0.002 seconds.
+✔ Test uuidV7UsesTimestampAndIsUnique() passed after 0.004 seconds.
+✔ Test run with 8 tests in 0 suites passed after 0.004 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite CalendarChartWindowTests started.
+◇ Test weekCoverageUsesLocalDaysAcrossDST(lastDate:) started.
+◇ Test nonfiniteDatesAreExcludedAndAllMissingDatesAreStillVisible() started.
+◇ Test monthUsesActualLeapFebruaryBoundary() started.
+◇ Test repeatedSameDayValuesCountAsOneLoggedDayAndStayInTable() started.
+◇ Test weekMeansSevenCalendarDaysRatherThanSevenSparseRecords() started.
+◇ Test explicitMissingAndInvalidValuesBreakSegments() started.
+◇ Test sparseMissingDatesSplitLinesWithoutInventingZeroes() started.
+◇ Test leapYearRetainsAll366DayBuckets() started.
+◇ Test emptyInputHasNoFabricatedDomainOrCoverage() started.
+◇ Test case passing 1 argument lastDate → "2026-03-08" to weekCoverageUsesLocalDaysAcrossDST(lastDate:) started.
+◇ Test case passing 1 argument lastDate → "2026-11-01" to weekCoverageUsesLocalDaysAcrossDST(lastDate:) started.
+✔ Test emptyInputHasNoFabricatedDomainOrCoverage() passed after 0.001 seconds.
+✔ Test nonfiniteDatesAreExcludedAndAllMissingDatesAreStillVisible() passed after 0.001 seconds.
+✔ Test explicitMissingAndInvalidValuesBreakSegments() passed after 0.001 seconds.
+✔ Test weekCoverageUsesLocalDaysAcrossDST(lastDate:) with 2 test cases passed after 0.001 seconds.
+✔ Test repeatedSameDayValuesCountAsOneLoggedDayAndStayInTable() passed after 0.001 seconds.
+✔ Test weekMeansSevenCalendarDaysRatherThanSevenSparseRecords() passed after 0.001 seconds.
+✔ Test monthUsesActualLeapFebruaryBoundary() passed after 0.001 seconds.
+✔ Test sparseMissingDatesSplitLinesWithoutInventingZeroes() passed after 0.001 seconds.
+✔ Test leapYearRetainsAll366DayBuckets() passed after 0.001 seconds.
+✔ Suite CalendarChartWindowTests passed after 0.001 seconds.
+✔ Test run with 9 tests in 1 suite passed after 0.001 seconds.

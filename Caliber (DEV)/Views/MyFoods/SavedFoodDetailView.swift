@@ -10,6 +10,7 @@ import SwiftData
 /// always creates a brand-new FoodItem snapshot — so a one-time macro
 /// override here never changes the saved library entry.
 struct SavedFoodDetailView: View {
+    @Environment(\.locale) private var locale
     @Environment(\.modelContext) private var modelContext
     let food: FoodItem
 
@@ -32,11 +33,11 @@ struct SavedFoodDetailView: View {
     private var finalTotals: MacroTotals? {
         guard isCustomizingMacros else { return baseTotals.isValid ? baseTotals : nil }
         return NutritionInput.totals(calories: editedCalories, protein: editedProtein,
-                                     carbs: editedCarbs, fat: editedFat)
+                                     carbs: editedCarbs, fat: editedFat, locale: locale)
     }
 
     private var loggedTotals: MacroTotals? {
-        guard let totals = finalTotals, let amount = NutritionInput.quantity(quantity) else { return nil }
+        guard let totals = finalTotals, let amount = NutritionInput.quantity(quantity, locale: locale) else { return nil }
         let scaled = totals.scaled(by: amount)
         return scaled.isValid ? scaled : nil
     }
@@ -45,9 +46,9 @@ struct SavedFoodDetailView: View {
         Form {
             Section("Nutrition for this log") {
                 if let totals = loggedTotals {
-                    Text("\(NutritionInput.format(totals.calories)) calories")
+                    Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
                         .font(.headline)
-                    Text("Protein \(NutritionInput.format(totals.protein))g · Carbs \(NutritionInput.format(totals.carbs))g · Fat \(NutritionInput.format(totals.fat))g")
+                    Text("Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 } else {
@@ -102,7 +103,7 @@ struct SavedFoodDetailView: View {
     }
 
     private func save() {
-        guard let totals = finalTotals, let amount = NutritionInput.quantity(quantity), loggedTotals != nil else { return }
+        guard let totals = finalTotals, let amount = NutritionInput.quantity(quantity, locale: locale), loggedTotals != nil else { return }
         let loggedFood = FoodItem(
             name: food.name + (isCustomizingMacros ? " (edited)" : ""),
             calories: totals.calories,

@@ -71,3 +71,21 @@ The owner's “Go” accepted ADR-001's native iOS / later Android amendment. Ph
 | D32 | Checkpoint the exact existing app before the Foundation commit. | Hash-verified baseline preserves owner work and makes the Foundation diff reproducible. |
 | D33 | CI runs fixture-only UI suites; existing restaurant UI scripts excluded until isolated. | Those older scripts can use the personal persistent store. Unit tests still exercise restaurant editing. |
 | D34 | Minimum-OS, hosted CI/cloud, chart image baselines and device budgets stay open. | Local test success cannot establish production or physical-device acceptance. |
+
+
+## Foundation follow-through — 2026-10-08
+
+| ID | Decision | Reason/evidence |
+|---|---|---|
+| D35 | Use the owner's existing Caliber DEV Supabase project, `tuvbdozxtkcxnojxbvlh`, `us-east-1`. | Owner selected existing Supabase and supplied its dashboard link; authenticated overview verifies URL/region. No account or key was created. Supersedes D28's unanswered provider choice; hosted deployment remains pending. |
+| D36 | Public metadata only in the app; project-scoped Keychain; separate deployment activation flag. | An unverified endpoint cannot silently become active. No client API key/service-role credential. Region routing is requested, not represented as verified full data residency. |
+| D37 | Clear local session first; attempt current-session server logout afterward. | Offline logout stays possible. Report remote uncertainty; concurrent newer login remains intact. Supabase verifies authentication and fixed local logout scope. |
+| D38 | Locale-aware strict decimal parsing across legacy and Foundation forms. | Preferences must apply to entered values and fractional edits without silent rounding/grouping reinterpretation. Tests cover both decimal separators and finite boundary values. |
+| D39 | Verify largest-text chart routes and accessibility audits on the available simulator; keep minimum-OS gate open. | iOS 17.5 arm64 download was unavailable through installed Xcode. Compiling for deployment target 17 with SDK 27 is not runtime proof. |
+
+## Local readiness fixes — 2026-10-10
+
+| ID | Decision | Reason/evidence |
+|---|---|---|
+| D40 | Use a persistent full-width bottom control to exit the fictional demo. | The native navigation toolbar constrained its text at Accessibility XXXL. A wrapping body label and minimum 48pt touch area stay reachable across chart routes. |
+| D41 | Put the Sendable account transport protocol in CaliberIntegrations; keep the UI model on the main actor. | An app-local protocol inherited the app target's main-actor default and prevented independent actor transports. Failed restoration remains retryable without restarting. |

@@ -12,6 +12,7 @@ import SwiftData
 /// changes the saved MenuItem — every save creates a brand-new FoodItem
 /// snapshot, same as every other logging flow in the app.
 struct MenuItemDetailView: View {
+    @Environment(\.locale) private var locale
     @Environment(\.modelContext) private var modelContext
     let menuItem: MenuItem
 
@@ -21,6 +22,7 @@ struct MenuItemDetailView: View {
     @State private var date: Date = .now
     @State private var didJustSave = false
     @State private var saveError: String?
+    @State private var preparedLocale = false
 
     @State private var isCustomizingMacros = false
     @State private var editedCalories = ""
@@ -61,11 +63,11 @@ struct MenuItemDetailView: View {
     private var finalTotals: MacroTotals? {
         guard isCustomizingMacros else { return customizedTotals.isValid ? customizedTotals : nil }
         return NutritionInput.totals(calories: editedCalories, protein: editedProtein,
-                                     carbs: editedCarbs, fat: editedFat)
+                                     carbs: editedCarbs, fat: editedFat, locale: locale)
     }
 
     private var loggedTotals: MacroTotals? {
-        guard let totals = finalTotals, let amount = NutritionInput.quantity(quantity) else { return nil }
+        guard let totals = finalTotals, let amount = NutritionInput.quantity(quantity, locale: locale) else { return nil }
         let scaled = totals.scaled(by: amount)
         return scaled.isValid ? scaled : nil
     }
@@ -74,9 +76,9 @@ struct MenuItemDetailView: View {
         Form {
             Section("Nutrition for this log") {
                 if let totals = loggedTotals {
-                    Text("\(NutritionInput.format(totals.calories)) calories")
+                    Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
                         .font(.headline)
-                    Text("Protein \(NutritionInput.format(totals.protein))g · Carbs \(NutritionInput.format(totals.carbs))g · Fat \(NutritionInput.format(totals.fat))g")
+                    Text("Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 } else {
@@ -141,6 +143,11 @@ struct MenuItemDetailView: View {
         .onChange(of: [editedCalories, editedProtein, editedCarbs, editedFat]) { _, _ in didJustSave = false }
         .onChange(of: mealType) { _, _ in didJustSave = false }
         .onChange(of: date) { _, _ in didJustSave = false }
+        .onAppear {
+            guard !preparedLocale else { return }
+            quantity = NutritionInput.reformatted(quantity, from: .current, to: locale)
+            preparedLocale = true
+        }
         .navigationTitle(menuItem.name)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
@@ -166,7 +173,7 @@ struct MenuItemDetailView: View {
             ? ""
             : " (\(selectedModifiers.map(\.name).joined(separator: ", ")))"
         let editSuffix = isCustomizingMacros ? " (edited)" : ""
-        guard let totals = finalTotals, let amount = NutritionInput.quantity(quantity), loggedTotals != nil else { return }
+        guard let totals = finalTotals, let amount = NutritionInput.quantity(quantity, locale: locale), loggedTotals != nil else { return }
 
         let food = FoodItem(
             name: menuItem.name + modifierSuffix + editSuffix,

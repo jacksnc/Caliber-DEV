@@ -9,6 +9,7 @@ import SwiftData
 /// A simple manual-entry form for adding a food to a specific meal on a
 /// specific day. Used both as its own "Add" tab and as a sheet from Diary.
 struct AddFoodView: View {
+    @Environment(\.locale) private var locale
     @Environment(\.modelContext) private var modelContext
 
     @State private var mealType: MealType
@@ -33,12 +34,12 @@ struct AddFoodView: View {
         NutritionInput.totals(calories: calories,
                              protein: protein.isEmpty ? "0" : protein,
                              carbs: carbs.isEmpty ? "0" : carbs,
-                             fat: fat.isEmpty ? "0" : fat)
+                             fat: fat.isEmpty ? "0" : fat, locale: locale)
     }
 
     private var canSave: Bool {
         guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-              let totals, let amount = NutritionInput.quantity(quantity) else { return false }
+              let totals, let amount = NutritionInput.quantity(quantity, locale: locale) else { return false }
         return totals.scaled(by: amount).isValid
     }
 
@@ -94,7 +95,7 @@ struct AddFoodView: View {
     }
 
     private func save() {
-        guard canSave, let totals, let amount = NutritionInput.quantity(quantity) else { return }
+        guard canSave, let totals, let amount = NutritionInput.quantity(quantity, locale: locale) else { return }
         let food = FoodItem(
             name: name,
             calories: totals.calories,

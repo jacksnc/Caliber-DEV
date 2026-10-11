@@ -9,6 +9,7 @@ import SwiftData
 /// Built-in and personal menu items grouped into categories. Each choice opens a personal
 /// portion/nutrition review before anything is added to the diary.
 struct RestaurantDetailView: View {
+    @Environment(\.locale) private var locale
     @Environment(\.modelContext) private var modelContext
     let restaurant: Restaurant
 
@@ -80,7 +81,7 @@ struct RestaurantDetailView: View {
                                             .foregroundStyle(.secondary)
                                     }
                                 }
-                                Text("\(NutritionInput.format(item.baseCalories)) cal · \(NutritionInput.format(item.baseProtein))p \(NutritionInput.format(item.baseCarbs))c \(NutritionInput.format(item.baseFat))f")
+                                Text("\(NutritionInput.format(item.baseCalories, locale: locale)) cal · \(NutritionInput.format(item.baseProtein, locale: locale))p \(NutritionInput.format(item.baseCarbs, locale: locale))c \(NutritionInput.format(item.baseFat, locale: locale))f")
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                             }

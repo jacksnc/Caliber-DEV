@@ -9,6 +9,7 @@ import SwiftData
 /// One place to find an available food, saved meal, or restaurant item.
 /// Each result opens the existing review form so logging creates a personal copy.
 struct FoodSearchView: View {
+    @Environment(\.locale) private var locale
     @Environment(\.modelContext) private var modelContext
     @Query(filter: #Predicate<FoodItem> { $0.isSavedToLibrary }, sort: \FoodItem.name)
     private var savedFoods: [FoodItem]
@@ -158,7 +159,7 @@ struct FoodSearchView: View {
                             } label: {
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text(item.name)
-                                    Text("\(item.restaurant?.name ?? "Restaurant") · \(item.category.displayName) · \(NutritionInput.format(item.baseCalories)) cal")
+                                    Text("\(item.restaurant?.name ?? "Restaurant") · \(item.category.displayName) · \(NutritionInput.format(item.baseCalories, locale: locale)) cal")
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
                                 }
@@ -197,7 +198,7 @@ struct FoodSearchView: View {
         } label: {
             VStack(alignment: .leading, spacing: 2) {
                 Text(food.name)
-                Text("\(food.servingDescription) · \(NutritionInput.format(food.calories)) cal")
+                Text("\(food.servingDescription) · \(NutritionInput.format(food.calories, locale: locale)) cal")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

@@ -1,0 +1,1203 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild test -project "Caliber (DEV).xcodeproj" -scheme "Caliber (DEV)" -destination "platform=iOS Simulator,id=384D80B9-60DE-4538-B135-00D31BB69D2E" -derivedDataPath /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData -resultBundlePath /private/tmp/caliber-step1.zjzgUT/Verified.xcresult -parallel-testing-enabled NO -collect-test-diagnostics never "-only-testing:Caliber (DEV)Tests" "-only-testing:Caliber (DEV)UITests/FoundationUITests" "-only-testing:Caliber (DEV)UITests/ProgressUITests" CODE_SIGNING_ALLOWED=NO
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+
+Resolve Package Graph
+
+
+Resolved source packages:
+  GRDB: https://github.com/groue/GRDB.swift.git @ 7.9.0
+  CaliberFoundation: /Users/jcrock/Documents/Caliber (DEV) - Project/Caliber (DEV)/Packages/CaliberFoundation @ local
+
+2026-10-10 21:08:59.387 xcodebuild[56666:4270524] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+Writing result bundle at path:
+	/private/tmp/caliber-step1.zjzgUT/Verified.xcresult
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (22 targets)
+    Target 'Caliber (DEV)UITests' in project 'Caliber (DEV)'
+        ➜ Explicit dependency on target 'Caliber (DEV)' in project 'Caliber (DEV)'
+    Target 'Caliber (DEV)Tests' in project 'Caliber (DEV)'
+        ➜ Explicit dependency on target 'Caliber (DEV)' in project 'Caliber (DEV)'
+    Target 'Caliber (DEV)' in project 'Caliber (DEV)'
+        ➜ Explicit dependency on target 'CaliberCore-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDatabase-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDesignSystem-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCharts-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberSeedData-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberIntegrations-product' in project 'CaliberFoundation'
+    Target 'CaliberIntegrations-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberIntegrations' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'GRDB-product' in project 'GRDB'
+    Target 'CaliberIntegrations' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'GRDB-product' in project 'GRDB'
+    Target 'CaliberSeedData-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberSeedData' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberSeedData' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberCharts-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCharts' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDesignSystem' in project 'CaliberFoundation'
+    Target 'CaliberCharts' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDesignSystem' in project 'CaliberFoundation'
+    Target 'CaliberDesignSystem-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDesignSystem' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberDesignSystem' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberDesignSystem' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberDesignSystem' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberFoundation_CaliberDesignSystem' in project 'CaliberFoundation' (no dependencies)
+    Target 'CaliberDatabase-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'GRDB-product' in project 'GRDB'
+    Target 'CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'GRDB-product' in project 'GRDB'
+    Target 'GRDB-product' in project 'GRDB'
+        ➜ Explicit dependency on target 'GRDB' in project 'GRDB'
+        ➜ Explicit dependency on target 'GRDB_GRDB' in project 'GRDB'
+    Target 'GRDB' in project 'GRDB'
+        ➜ Explicit dependency on target 'GRDB_GRDB' in project 'GRDB'
+        ➜ Explicit dependency on target 'GRDBSQLite' in project 'GRDB'
+    Target 'GRDBSQLite' in project 'GRDB' (no dependencies)
+    Target 'GRDB_GRDB' in project 'GRDB' (no dependencies)
+    Target 'CaliberFoundation_CaliberDatabase' in project 'CaliberFoundation' (no dependencies)
+    Target 'CaliberCore-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberFoundation_CaliberCore' in project 'CaliberFoundation' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)/Caliber\ \(DEV\).xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -o /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache
+
+ProcessInfoPlistFile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/GRDB_GRDB.bundle/Info.plist /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/GRDB.build/Debug-iphonesimulator/GRDB_GRDB-b.build/empty-GRDB_GRDB.plist (in target 'GRDB_GRDB' from project 'GRDB')
+    cd /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/SourcePackages/checkouts/GRDB.swift
+    builtin-infoPlistUtility /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/GRDB.build/Debug-iphonesimulator/GRDB_GRDB-b.build/empty-GRDB_GRDB.plist -producttype com.apple.product-type.bundle -expandbuildsettings -format binary -platform iphonesimulator -o /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/GRDB_GRDB.bundle/Info.plist
+
+ProcessInfoPlistFile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/CaliberFoundation_CaliberDatabase.bundle/Info.plist /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/CaliberFoundation.build/Debug-iphonesimulator/CaliberFoundation_CaliberDatabase-b.build/empty-CaliberFoundation_CaliberDatabase.plist (in target 'CaliberFoundation_CaliberDatabase' from project 'CaliberFoundation')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)/Packages/CaliberFoundation
+    builtin-infoPlistUtility /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/CaliberFoundation.build/Debug-iphonesimulator/CaliberFoundation_CaliberDatabase-b.build/empty-CaliberFoundation_CaliberDatabase.plist -producttype com.apple.product-type.bundle -expandbuildsettings -format binary -platform iphonesimulator -o /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/CaliberFoundation_CaliberDatabase.bundle/Info.plist
+
+ProcessInfoPlistFile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/CaliberFoundation_CaliberCore.bundle/Info.plist /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/CaliberFoundation.build/Debug-iphonesimulator/CaliberFoundation_CaliberCore-b.build/empty-CaliberFoundation_CaliberCore.plist (in target 'CaliberFoundation_CaliberCore' from project 'CaliberFoundation')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)/Packages/CaliberFoundation
+    builtin-infoPlistUtility /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/CaliberFoundation.build/Debug-iphonesimulator/CaliberFoundation_CaliberCore-b.build/empty-CaliberFoundation_CaliberCore.plist -producttype com.apple.product-type.bundle -expandbuildsettings -format binary -platform iphonesimulator -o /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/CaliberFoundation_CaliberCore.bundle/Info.plist
+
+ProcessInfoPlistFile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/CaliberFoundation_CaliberDesignSystem.bundle/Info.plist /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/CaliberFoundation.build/Debug-iphonesimulator/CaliberFoundation_CaliberDesignSystem-b.build/empty-CaliberFoundation_CaliberDesignSystem.plist (in target 'CaliberFoundation_CaliberDesignSystem' from project 'CaliberFoundation')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)/Packages/CaliberFoundation
+    builtin-infoPlistUtility /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/CaliberFoundation.build/Debug-iphonesimulator/CaliberFoundation_CaliberDesignSystem-b.build/empty-CaliberFoundation_CaliberDesignSystem.plist -producttype com.apple.product-type.bundle -expandbuildsettings -format binary -platform iphonesimulator -o /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/CaliberFoundation_CaliberDesignSystem.bundle/Info.plist
+
+ProcessInfoPlistFile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app/Info.plist /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV).build/empty-Caliber\ (DEV).plist (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-infoPlistUtility /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/empty-Caliber\ \(DEV\).plist -producttype com.apple.product-type.application -genpkginfo /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/assetcatalog_generated_info.plist -scanforprivacyfile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/CaliberFoundation_CaliberCore.bundle -scanforprivacyfile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/CaliberFoundation_CaliberDatabase.bundle -scanforprivacyfile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/CaliberFoundation_CaliberDesignSystem.bundle -scanforprivacyfile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/GRDB_GRDB.bundle -o /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Info.plist
+
+CopySwiftLibs /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\).debug.dylib --scan-folder /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Frameworks --scan-folder /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns --scan-folder /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/SystemExtensions --scan-folder /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+Ignoring --strip-bitcode because --sign was not passed
+
+ProcessInfoPlistFile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app/PlugIns/Caliber\ (DEV)Tests.xctest/Info.plist /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV)Tests.build/empty-Caliber\ (DEV)Tests.plist (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-infoPlistUtility /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/empty-Caliber\ \(DEV\)Tests.plist -producttype com.apple.product-type.bundle.unit-test -expandbuildsettings -format binary -platform iphonesimulator -scanforprivacyfile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/CaliberFoundation_CaliberCore.bundle -scanforprivacyfile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/CaliberFoundation_CaliberDatabase.bundle -scanforprivacyfile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/CaliberFoundation_CaliberDesignSystem.bundle -scanforprivacyfile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/GRDB_GRDB.bundle -o /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/Info.plist
+
+ProcessInfoPlistFile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ (DEV)UITests-Runner.app/PlugIns/Caliber\ (DEV)UITests.xctest/Info.plist /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV)UITests.build/empty-Caliber\ (DEV)UITests.plist (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-infoPlistUtility /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/empty-Caliber\ \(DEV\)UITests.plist -producttype com.apple.product-type.bundle.ui-testing -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/ProductTypeInfoPlistAdditions.plist -o /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Info.plist
+
+CopySwiftLibs /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ (DEV)UITests-Runner.app/PlugIns/Caliber\ (DEV)UITests.xctest (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Caliber\ \(DEV\)UITests --scan-folder /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Frameworks --scan-folder /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/PlugIns --scan-folder /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/SystemExtensions --scan-folder /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Frameworks --strip-bitcode --scan-executable /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+Ignoring --strip-bitcode because --sign was not passed
+
+PruneExplicitPrecompiledModules /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Users/jcrock/Documents/Codex/2026-10-07/are-x20/work/phase1/DerivedData/SDKExplicitPrecompiledModules
+
+2026-10-10 21:09:09.611428-0400 Caliber (DEV)[56694:4271529] [API] cannot add handler to 0 from 0 - dropping
+2026-10-10 21:09:09.611719-0400 Caliber (DEV)[56694:4271529] [API] cannot add handler to 0 from 0 - dropping
+2026-10-10 21:09:09.615982-0400 Caliber (DEV)[56694:4271529] [XPCErrors] non-launching port is incompatible with service identifier "com.apple.PointerUI.pointeruid.default-service"
+2026-10-10 21:09:09.618416-0400 Caliber (DEV)[56694:4271529] [API] cannot add handler to 0 from 0 - dropping
+2026-10-10 21:09:09.618463-0400 Caliber (DEV)[56694:4271529] [API] cannot add handler to 0 from 0 - dropping
+Test Suite 'All tests' started at 2026-10-10 21:09:10.841.
+Test Suite 'Caliber (DEV)Tests.xctest' started at 2026-10-10 21:09:10.842.
+Test Suite 'Caliber__DEV_Tests' started at 2026-10-10 21:09:10.842.
+Test Case '-[Caliber__DEV_Tests.Caliber__DEV_Tests testExample]' started.
+Test Case '-[Caliber__DEV_Tests.Caliber__DEV_Tests testExample]' passed (0.001 seconds).
+Test Case '-[Caliber__DEV_Tests.Caliber__DEV_Tests testPerformanceExample]' started.
+/Users/jcrock/Documents/Caliber (DEV) - Project/Caliber (DEV)/Caliber (DEV)Tests/Caliber__DEV_Tests.swift:32: Test Case '-[Caliber__DEV_Tests.Caliber__DEV_Tests testPerformanceExample]' measured [Time, seconds] average: 0.000, relative standard deviation: 140.830%, values: [0.000087, 0.000012, 0.000008, 0.000007, 0.000006, 0.000006, 0.000024, 0.000008, 0.000006, 0.000006], performanceMetricID:com.apple.XCTPerformanceMetric_WallClockTime, baselineName: "", baselineAverage: , polarity: prefers smaller, maxPercentRegression: 10.000%, maxPercentRelativeStandardDeviation: 10.000%, maxRegression: 0.100, maxStandardDeviation: 0.100
+Test Case '-[Caliber__DEV_Tests.Caliber__DEV_Tests testPerformanceExample]' passed (0.329 seconds).
+Test Suite 'Caliber__DEV_Tests' passed at 2026-10-10 21:09:11.173.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.330 (0.331) seconds
+Test Suite 'Caliber (DEV)Tests.xctest' passed at 2026-10-10 21:09:11.173.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.330 (0.331) seconds
+Test Suite 'All tests' passed at 2026-10-10 21:09:11.173.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.330 (0.332) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64-apple-ios17.0-simulator
+◇ Suite "Build your own meal" started.
+◇ Test "A required entrée is needed, while optional protein may be skipped" started.
+✔ Test "A required entrée is needed, while optional protein may be skipped" passed after 0.011 seconds.
+◇ Test "Totals sum selected ingredients and preserve fractional grams" started.
+✔ Test "Totals sum selected ingredients and preserve fractional grams" passed after 0.001 seconds.
+◇ Test "Double scales only the chosen ingredient; Regular keeps it selected" started.
+✔ Test "Double scales only the chosen ingredient; Regular keeps it selected" passed after 0.001 seconds.
+◇ Test "Optional single choice can be removed, including its double portion" started.
+✔ Test "Optional single choice can be removed, including its double portion" passed after 0.001 seconds.
+◇ Test "Swiping a replacement protein clears the previous double portion" started.
+✔ Test "Swiping a replacement protein clears the previous double portion" passed after 0.001 seconds.
+◇ Test "Tapping a replacement protein clears the previous double portion" started.
+✔ Test "Tapping a replacement protein clears the previous double portion" passed after 0.001 seconds.
+◇ Test "Removing one topping keeps the other selected topping" started.
+✔ Test "Removing one topping keeps the other selected topping" passed after 0.001 seconds.
+◇ Test "Entrée format cannot be doubled like an ingredient" started.
+✔ Test "Entrée format cannot be doubled like an ingredient" passed after 0.001 seconds.
+◇ Test "Unsupported options cannot be doubled or selected by the double action" started.
+✔ Test "Unsupported options cannot be doubled or selected by the double action" passed after 0.001 seconds.
+◇ Test "An eligible protein cannot be doubled through the wrong category" started.
+✔ Test "An eligible protein cannot be doubled through the wrong category" passed after 0.001 seconds.
+✔ Suite "Build your own meal" passed after 0.015 seconds.
+◇ Suite "Custom restaurant menu items" started.
+◇ Test "Creating an item persists its trimmed name, category, custom flag, and restaurant" started.
+✔ Test "Creating an item persists its trimmed name, category, custom flag, and restaurant" passed after 0.063 seconds.
+◇ Test "Editing updates the same custom row and leaves already logged nutrition unchanged" started.
+✔ Test "Editing updates the same custom row and leaves already logged nutrition unchanged" passed after 0.015 seconds.
+◇ Test "Deleting a custom item keeps logged foods and detaches their optional menu links" started.
+✔ Test "Deleting a custom item keeps logged foods and detaches their optional menu links" passed after 0.020 seconds.
+◇ Test "Built-in menu items cannot be edited or deleted" started.
+✔ Test "Built-in menu items cannot be edited or deleted" passed after 0.008 seconds.
+◇ Test "Invalid nutrition or an empty name cannot create menu items" started.
+✔ Test "Invalid nutrition or an empty name cannot create menu items" passed after 0.002 seconds.
+◇ Test "Editing cannot move a custom item to another restaurant" started.
+✔ Test "Editing cannot move a custom item to another restaurant" passed after 0.003 seconds.
+◇ Test "A failed creation removes only its new row and preserves unrelated pending changes" started.
+✔ Test "A failed creation removes only its new row and preserves unrelated pending changes" passed after 0.009 seconds.
+◇ Test "A failed edit restores the original menu values without rolling back other work" started.
+✔ Test "A failed edit restores the original menu values without rolling back other work" passed after 0.006 seconds.
+◇ Test "A failed deletion restores the custom item and links without rolling back other work" started.
+✔ Test "A failed deletion restores the custom item and links without rolling back other work" passed after 0.012 seconds.
+✔ Suite "Custom restaurant menu items" passed after 0.142 seconds.
+◇ Suite "Diary entry editing" started.
+◇ Test "Editing a log preserves catalog, saved-meal, and other diary nutrition" started.
+✔ Test "Editing a log preserves catalog, saved-meal, and other diary nutrition" passed after 0.009 seconds.
+◇ Test "A failed save restores this entry without discarding unrelated pending changes" started.
+✔ Test "A failed save restores this entry without discarding unrelated pending changes" passed after 0.008 seconds.
+◇ Test "Invalid quantities are rejected before a diary entry is changed" started.
+◇ Test case passing 1 argument quantity → 0.0 to "Invalid quantities are rejected before a diary entry is changed" started.
+​◇ Test case passing 1 argument quantity → -1.0 to "Invalid quantities are rejected before a diary entry is changed" started.
+​◇ Test case passing 1 argument quantity → inf to "Invalid quantities are rejected before a diary entry is changed" started.
+​◇ Test case passing 1 argument quantity → nan to "Invalid quantities are rejected before a diary entry is changed" started.
+​✔ Test "Invalid quantities are rejected before a diary entry is changed" with 4 test cases passed after 0.013 seconds.
+✔ Suite "Diary entry editing" passed after 0.031 seconds.
+◇ Test failedAccountRestoreCanBeRetriedWithoutRestart() started.
+✔ Test failedAccountRestoreCanBeRetriedWithoutRestart() passed after 0.001 seconds.
+◇ Test failedAccountRestoreCanClearSessionOffline() started.
+✔ Test failedAccountRestoreCanClearSessionOffline() passed after 0.001 seconds.
+◇ Test pendingDeploymentCannotContactAccountGateway() started.
+✔ Test pendingDeploymentCannotContactAccountGateway() passed after 0.001 seconds.
+◇ Test legacyShadowCopyPreservesPhotosRelationshipsAndOriginalUnits() started.
+✔ Test legacyShadowCopyPreservesPhotosRelationshipsAndOriginalUnits() passed after 0.123 seconds.
+◇ Suite "MacroCalculator" started.
+◇ Test "Totals are zero for an empty list of entries" started.
+✔ Test "Totals are zero for an empty list of entries" passed after 0.001 seconds.
+◇ Test "Totals sum macros across multiple entries" started.
+✔ Test "Totals sum macros across multiple entries" passed after 0.001 seconds.
+◇ Test "Quantity scales an entry's macros" started.
+✔ Test "Quantity scales an entry's macros" passed after 0.001 seconds.
+◇ Test "Totals filtered by meal type only include that meal" started.
+✔ Test "Totals filtered by meal type only include that meal" passed after 0.001 seconds.
+◇ Test "Totals sum macros across SavedMealItems, scaled by each item's quantity" started.
+✔ Test "Totals sum macros across SavedMealItems, scaled by each item's quantity" passed after 0.001 seconds.
+✔ Suite "MacroCalculator" passed after 0.001 seconds.
+◇ Suite "Nutrition input" started.
+◇ Test "Fractional grams survive enabling and saving an adjustment" started.
+✔ Test "Fractional grams survive enabling and saving an adjustment" passed after 0.001 seconds.
+◇ Test "Decimal-comma input is accepted in the matching locale" started.
+✔ Test "Decimal-comma input is accepted in the matching locale" passed after 0.008 seconds.
+◇ Test "Invalid values cannot silently fall back to catalog nutrition" started.
+✔ Test "Invalid values cannot silently fall back to catalog nutrition" passed after 0.001 seconds.
+◇ Test "Overflow after scaling is not a valid diary total" started.
+✔ Test "Overflow after scaling is not a valid diary total" passed after 0.001 seconds.
+◇ Test "Locale changes keep every finite nutrition value intact" started.
+✔ Test "Locale changes keep every finite nutrition value intact" passed after 0.010 seconds.
+◇ Test "The selected decimal format controls quantities and all macro fields" started.
+✔ Test "The selected decimal format controls quantities and all macro fields" passed after 0.001 seconds.
+✔ Suite "Nutrition input" passed after 0.019 seconds.
+◇ Suite "Daily progress check-ins" started.
+◇ Test "A check-in persists its day, trimmed note, owned weight, and ordered photos" started.
+✔ Test "A check-in persists its day, trimmed note, owned weight, and ordered photos" passed after 0.003 seconds.
+◇ Test "Each optional field can be the only content" started.
+◇ Test case passing 1 argument field → "weight" to "Each optional field can be the only content" started.
+​◇ Test case passing 1 argument field → "notes" to "Each optional field can be the only content" started.
+​◇ Test case passing 1 argument field → "photos" to "Each optional field can be the only content" started.
+​✔ Test "Each optional field can be the only content" with 3 test cases passed after 0.014 seconds.
+◇ Test "Photos, order, weight, and notes survive reopening a disk-backed store" started.
+2026-10-10 21:09:11.646415-0400 Caliber (DEV)[56694:4271666] [logging] BUG IN CLIENT OF libsqlite3.dylib: database integrity compromised by API violation: vnode unlinked while in use: /Users/jcrock/Library/Developer/CoreSimulator/Devices/384D80B9-60DE-4538-B135-00D31BB69D2E/data/Containers/Data/Application/CA670D25-4EBC-4B3C-A57A-8025CCCFC1F6/tmp/ProgressPersistence-0ACDB1EF-D419-4473-94AD-84E6F1B33159/progress.store
+2026-10-10 21:09:11.646448-0400 Caliber (DEV)[56694:4271666] [logging] invalidated open fd: 17 (0x11)
+2026-10-10 21:09:11.646461-0400 Caliber (DEV)[56694:4271673] [logging] BUG IN CLIENT OF libsqlite3.dylib: database integrity compromised by API violation: vnode unlinked while in use: /Users/jcrock/Library/Developer/CoreSimulator/Devices/384D80B9-60DE-4538-B135-00D31BB69D2E/data/Containers/Data/Application/CA670D25-4EBC-4B3C-A57A-8025CCCFC1F6/tmp/ProgressPersistence-0ACDB1EF-D419-4473-94AD-84E6F1B33159/progress.store-shm
+2026-10-10 21:09:11.646493-0400 Caliber (DEV)[56694:4271673] [logging] invalidated open fd: 15 (0x11)
+2026-10-10 21:09:11.646486-0400 Caliber (DEV)[56694:4271666] [logging] BUG IN CLIENT OF libsqlite3.dylib: database integrity compromised by API violation: vnode unlinked while in use: /Users/jcrock/Library/Developer/CoreSimulator/Devices/384D80B9-60DE-4538-B135-00D31BB69D2E/data/Containers/Data/Application/CA670D25-4EBC-4B3C-A57A-8025CCCFC1F6/tmp/ProgressPersistence-0ACDB1EF-D419-4473-94AD-84E6F1B33159/progress.store-wal
+2026-10-10 21:09:11.646534-0400 Caliber (DEV)[56694:4271666] [logging] invalidated open fd: 14 (0x11)
+✔ Test "Photos, order, weight, and notes survive reopening a disk-backed store" passed after 0.102 seconds.
+◇ Test "Empty content, invalid weight, and malformed photo drafts do not create rows" started.
+✔ Test "Empty content, invalid weight, and malformed photo drafts do not create rows" passed after 0.005 seconds.
+◇ Test "Only one check-in is allowed per calendar day, including a daylight-saving transition" started.
+✔ Test "Only one check-in is allowed per calendar day, including a daylight-saving transition" passed after 0.005 seconds.
+◇ Test "Editing preserves entry, weight and photo IDs while persisting a new photo order" started.
+✔ Test "Editing preserves entry, weight and photo IDs while persisting a new photo order" passed after 0.006 seconds.
+◇ Test "Removing weight and photos deletes only those owned by the edited check-in" started.
+✔ Test "Removing weight and photos deletes only those owned by the edited check-in" passed after 0.007 seconds.
+◇ Test "Deleting a check-in cascades to its owned weight/photos and preserves standalone weigh-ins" started.
+✔ Test "Deleting a check-in cascades to its owned weight/photos and preserves standalone weigh-ins" passed after 0.007 seconds.
+◇ Test "A failed create leaves no progress rows and preserves unrelated pending work" started.
+✔ Test "A failed create leaves no progress rows and preserves unrelated pending work" passed after 0.007 seconds.
+◇ Test "A failed edit restores removed data, order, and relationships without discarding other work" started.
+✔ Test "A failed edit restores removed data, order, and relationships without discarding other work" passed after 0.011 seconds.
+◇ Test "A failed edit adding weight and photos leaves a notes-only entry unchanged" started.
+2026-10-10 21:09:11.718960-0400 Caliber (DEV)[56694:4271529] [PersistentModel] Optional(SwiftData.PersistentIdentifier(id: SwiftData.PersistentIdentifier.ID(backing: SwiftData.PersistentIdentifier.PersistentIdentifierBacking.managedObjectID(0xa5a91cdb2d49e890 <x-coredata://F25CDE31-04E2-49F4-9856-C905C7854648/ProgressEntry/p1>)))) is attempting to flip a captured temporary persistentIdentifier for PersistentIdentifier(id: SwiftData.PersistentIdentifier.ID(backing: SwiftData.PersistentIdentifier.PersistentIdentifierBacking.temporaryIdentifier(SwiftData.TemporaryPersistentIdentifierImplementation))) on weightEntry
+✔ Test "A failed edit adding weight and photos leaves a notes-only entry unchanged" passed after 0.028 seconds.
+◇ Test "A failed delete restores owned rows and permits a later successful deletion" started.
+✔ Test "A failed delete restores owned rows and permits a later successful deletion" passed after 0.005 seconds.
+✔ Suite "Daily progress check-ins" passed after 0.206 seconds.
+◇ Suite "Progress photo import" started.
+◇ Test "Large photos become bounded JPEGs with the original metadata removed" started.
+2026-10-10 21:09:11.849839-0400 Caliber (DEV)[56694:4271673] [] CVPixelBufferCreate returned err -6680. width 1600, height 400, pixel format RGBA, options [ExtendedPixelsRight = 0, ExtendedPixelsBottom = 0, BytesPerRowAlignment = 64]
+✔ Test "Large photos become bounded JPEGs with the original metadata removed" passed after 0.122 seconds.
+◇ Test "Camera orientation is applied to the pixels before saving" started.
+2026-10-10 21:09:11.859672-0400 Caliber (DEV)[56694:4271673] [] CVPixelBufferCreate returned err -6680. width 1600, height 400, pixel format RGBA, options [ExtendedPixelsRight = 0, ExtendedPixelsBottom = 0, BytesPerRowAlignment = 64]
+✔ Test "Camera orientation is applied to the pixels before saving" passed after 0.007 seconds.
+◇ Test "Small photos keep their dimensions instead of being enlarged" started.
+2026-10-10 21:09:11.863407-0400 Caliber (DEV)[56694:4271773] [] CVPixelBufferCreate returned err -6680. width 120, height 80, pixel format RGBA, options [ExtendedPixelsRight = 0, ExtendedPixelsBottom = 0, BytesPerRowAlignment = 64]
+✔ Test "Small photos keep their dimensions instead of being enlarged" passed after 0.001 seconds.
+◇ Test "Invalid and empty input are rejected" started.
+2026-10-10 21:09:11.863803-0400 Caliber (DEV)[56694:4271673] [Caliber (DEV)] *** ERROR: CGImageSourceCreateThumbnailAtIndexEx:5504: create thumbnail at index failed
+2026-10-10 21:09:11.863837-0400 Caliber (DEV)[56694:4271673] [Caliber (DEV)] CGImageSourceCreateThumbnailAtIndexEx:5525: *** ERROR: CGImageSourceCreateThumbnailAtIndex[0] - 'n/a ' - failed to create thumbnail [1] {alw:1, abs: -1 tra:1 max:1600}
+2026-10-10 21:09:11.872844-0400 Caliber (DEV)[56694:4271662] [Caliber (DEV)] *** ERROR: CGImageSourceCreateThumbnailAtIndexEx:5504: create thumbnail at index failed
+2026-10-10 21:09:11.872889-0400 Caliber (DEV)[56694:4271662] [Caliber (DEV)] CGImageSourceCreateThumbnailAtIndexEx:5525: *** ERROR: CGImageSourceCreateThumbnailAtIndex[0] - 'n/a ' - failed to create thumbnail [1] {alw:1, abs: -1 tra:1 max:1600}
+✔ Test "Invalid and empty input are rejected" passed after 0.009 seconds.
+✔ Suite "Progress photo import" passed after 0.140 seconds.
+◇ Suite "Restaurant catalog seeding" started.
+◇ Test "Repeated loading stores the catalog only once and persists its items" started.
+✔ Test "Repeated loading stores the catalog only once and persists its items" passed after 0.021 seconds.
+◇ Test "Existing catalog and diary data survive the targeted veggie correction" started.
+✔ Test "Existing catalog and diary data survive the targeted veggie correction" passed after 0.022 seconds.
+◇ Test "Fresh Chipotle catalog enables double portions only for its eligible proteins" started.
+✔ Test "Fresh Chipotle catalog enables double portions only for its eligible proteins" passed after 0.011 seconds.
+◇ Test "Existing Chipotle portions are corrected and saved without replacing custom nutrition" started.
+✔ Test "Existing Chipotle portions are corrected and saved without replacing custom nutrition" passed after 0.007 seconds.
+◇ Test "A canceled fetch cannot insert a returned catalog" started.
+✔ Test "A canceled fetch cannot insert a returned catalog" passed after 0.008 seconds.
+✔ Suite "Restaurant catalog seeding" passed after 0.072 seconds.
+◇ Suite WeightProgressSummaryTests started.
+◇ Test "No weigh-ins means no invented weight or change" started.
+✔ Test "No weigh-ins means no invented weight or change" passed after 0.001 seconds.
+◇ Test "A single weigh-in shows a weight without claiming a trend" started.
+✔ Test "A single weigh-in shows a weight without claiming a trend" passed after 0.001 seconds.
+◇ Test "Weights sort by date and preserve fractional changes in either direction" started.
+✔ Test "Weights sort by date and preserve fractional changes in either direction" passed after 0.001 seconds.
+◇ Test "Invalid old data cannot corrupt the chart or summary" started.
+✔ Test "Invalid old data cannot corrupt the chart or summary" passed after 0.001 seconds.
+✔ Suite WeightProgressSummaryTests passed after 0.001 seconds.
+◇ Suite "Weight unit conversion" started.
+◇ Test "Pounds remain unchanged" started.
+✔ Test "Pounds remain unchanged" passed after 0.001 seconds.
+◇ Test "One pound is exactly 0.45359237 kilograms" started.
+✔ Test "One pound is exactly 0.45359237 kilograms" passed after 0.001 seconds.
+◇ Test "Finite weights survive conversion in either direction" started.
+◇ Test case passing 1 argument value → 0.01 to "Finite weights survive conversion in either direction" started.
+​◇ Test case passing 1 argument value → 40.5 to "Finite weights survive conversion in either direction" started.
+​◇ Test case passing 1 argument value → 180.125 to "Finite weights survive conversion in either direction" started.
+​◇ Test case passing 1 argument value → 500.0 to "Finite weights survive conversion in either direction" started.
+​◇ Test case passing 1 argument value → 1000.0 to "Finite weights survive conversion in either direction" started.
+​✔ Test "Finite weights survive conversion in either direction" with 5 test cases passed after 0.001 seconds.
+✔ Suite "Weight unit conversion" passed after 0.001 seconds.
+✔ Test run with 65 tests in 10 suites passed after 0.756 seconds.
+2026-10-10 21:09:13.061323-0400 Caliber (DEV)UITests-Runner[56719:4272162] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-10-10 21:09:15.370.
+Test Suite 'Caliber (DEV)UITests.xctest' started at 2026-10-10 21:09:15.371.
+Test Suite 'FoundationUITests' started at 2026-10-10 21:09:15.371.
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testAccountSignInAndDeviceSignOutUseOnlyFixture]' started.
+    t =     0.00s Start Test at 2026-10-10 21:09:15.372
+    t =     0.04s Set Up
+    t =     0.05s Open CAL.Caliber--DEV-
+    t =     0.05s     Launch CAL.Caliber--DEV-
+2026-10-10 21:09:15.701 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-10 21:09:15.701 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     0.62s         Setting up automation session
+objc[56719]: Class UIAccessibilityLoaderWebShared is implemented in both /private/var/run/com.apple.security.cryptexd/mnt/com.apple.iPhoneOS.SimulatorRuntime-v24.1.434.0.3yLR0B/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x1026f0398) and /private/var/run/com.apple.security.cryptexd/mnt/com.apple.iPhoneOS.SimulatorRuntime-v24.1.434.0.3yLR0B/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x105698310). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =     2.50s         Wait for CAL.Caliber--DEV- to idle
+    t =     3.99s Waiting 20.0s for "welcomeContinue" Button to exist
+    t =     5.03s     Checking `Expect predicate `existsNoRetry == 1` for object "welcomeContinue" Button`
+    t =     5.04s         Checking existence of `"welcomeContinue" Button`
+    t =     5.19s Find the "welcomeContinue" Button
+    t =     5.20s Tap "adultConfirmation" Switch[0.92, 0.50]
+    t =     5.20s     Wait for CAL.Caliber--DEV- to idle
+    t =     5.21s     Find the "adultConfirmation" Switch
+    t =     5.22s     Check for interrupting elements affecting "adultConfirmation" Switch
+    t =     5.24s     Synthesize event
+    t =     5.24s         Find the "adultConfirmation" Switch
+    t =     5.25s         Find the "adultConfirmation" Switch
+    t =     5.27s         Find the "adultConfirmation" Switch
+    t =     5.57s     Wait for CAL.Caliber--DEV- to idle
+    t =     6.88s Find the "adultConfirmation" Switch
+    t =     6.91s Tap "scopeConfirmation" Switch[0.92, 0.50]
+    t =     6.91s     Wait for CAL.Caliber--DEV- to idle
+    t =     6.91s     Find the "scopeConfirmation" Switch
+    t =     6.93s     Check for interrupting elements affecting "scopeConfirmation" Switch
+    t =     6.95s     Synthesize event
+    t =     6.95s         Find the "scopeConfirmation" Switch
+    t =     6.96s         Find the "scopeConfirmation" Switch
+    t =     6.98s         Find the "scopeConfirmation" Switch
+    t =     7.27s     Wait for CAL.Caliber--DEV- to idle
+    t =     8.59s Find the "scopeConfirmation" Switch
+    t =     8.62s Find the "welcomeContinue" Button
+    t =     8.64s Tap "welcomeContinue" Button
+    t =     8.64s     Wait for CAL.Caliber--DEV- to idle
+    t =     8.65s     Find the "welcomeContinue" Button
+    t =     8.66s     Check for interrupting elements affecting "welcomeContinue" Button
+    t =     8.68s     Synthesize event
+    t =     9.00s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.02s Waiting 10.0s for "Today" Button to exist
+    t =    10.08s     Checking `Expect predicate `existsNoRetry == 1` for object "Today" Button`
+    t =    10.09s         Checking existence of `"Today" Button`
+    t =    10.18s Tap "Settings" Button
+    t =    10.18s     Wait for CAL.Caliber--DEV- to idle
+    t =    10.18s     Find the "Settings" Button
+    t =    10.20s     Check for interrupting elements affecting "gearshape" Button
+    t =    10.23s     Synthesize event
+    t =    10.52s     Wait for CAL.Caliber--DEV- to idle
+    t =    12.48s Find the "openAccount" Button
+    t =    13.55s     Find the "openAccount" Button (retry 1)
+    t =    14.62s     Find the "openAccount" Button (retry 2)
+    t =    14.67s Swipe up Target Application 'CAL.Caliber--DEV-'
+    t =    14.67s     Wait for CAL.Caliber--DEV- to idle
+    t =    14.67s     Find the Target Application 'CAL.Caliber--DEV-'
+    t =    14.69s     Check for interrupting elements affecting "Caliber (DEV)" Application
+    t =    14.72s     Synthesize event
+    t =    15.14s     Wait for CAL.Caliber--DEV- to idle
+    t =    17.24s Find the "openAccount" Button
+    t =    17.30s Tap "openAccount" Button
+    t =    17.30s     Wait for CAL.Caliber--DEV- to idle
+    t =    17.30s     Find the "openAccount" Button
+    t =    17.33s     Check for interrupting elements affecting "openAccount" Button
+    t =    17.36s     Synthesize event
+    t =    17.65s     Wait for CAL.Caliber--DEV- to idle
+    t =    18.21s Waiting 5.0s for "accountEmail" TextField to exist
+    t =    19.27s     Checking `Expect predicate `existsNoRetry == 1` for object "accountEmail" TextField`
+    t =    19.27s         Checking existence of `"accountEmail" TextField`
+    t =    19.34s Tap "accountEmail" TextField
+    t =    19.34s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.34s     Find the "accountEmail" TextField
+    t =    19.36s     Check for interrupting elements affecting "accountEmail" TextField
+    t =    19.39s     Synthesize event
+    t =    19.67s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.12s Type 'fixture@example.in...' into "accountEmail" TextField
+    t =    20.12s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.48s     Find the "accountEmail" TextField
+    t =    20.54s     Check for interrupting elements affecting "accountEmail" TextField
+    t =    20.58s     Synthesize event
+    t =    21.17s     Wait for CAL.Caliber--DEV- to idle
+    t =    21.17s Tap "accountPassword" SecureTextField
+    t =    21.17s     Wait for CAL.Caliber--DEV- to idle
+    t =    21.18s     Find the "accountPassword" SecureTextField
+    t =    21.22s     Check for interrupting elements affecting "accountPassword" SecureTextField
+    t =    21.25s     Synthesize event
+    t =    21.54s     Wait for CAL.Caliber--DEV- to idle
+    t =    21.98s Type '<redacted>' into "accountPassword" SecureTextField
+    t =    21.98s     Wait for CAL.Caliber--DEV- to idle
+    t =    21.99s     Find the "accountPassword" SecureTextField
+    t =    22.03s     Check for interrupting elements affecting "accountPassword" SecureTextField
+    t =    22.06s     Synthesize event
+    t =    22.54s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.54s Tap "accountSignIn" Button
+    t =    22.54s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.54s     Find the "accountSignIn" Button
+    t =    22.58s     Check for interrupting elements affecting "accountSignIn" Button
+    t =    22.61s     Synthesize event
+    t =    22.89s     Wait for CAL.Caliber--DEV- to idle
+    t =    23.17s Waiting 5.0s for "accountSignedIn" StaticText to exist
+    t =    24.22s     Checking `Expect predicate `existsNoRetry == 1` for object "accountSignedIn" StaticText`
+    t =    24.22s         Checking existence of `"accountSignedIn" StaticText`
+    t =    24.26s Find the "accountMessage" StaticText
+    t =    24.28s Tap "accountSignOut" Button
+    t =    24.28s     Wait for CAL.Caliber--DEV- to idle
+    t =    24.28s     Find the "accountSignOut" Button
+    t =    24.31s     Check for interrupting elements affecting "accountSignOut" Button
+    t =    24.33s     Synthesize event
+    t =    24.62s     Wait for CAL.Caliber--DEV- to idle
+    t =    24.87s Waiting 5.0s for "accountEmail" TextField to exist
+    t =    25.93s     Checking `Expect predicate `existsNoRetry == 1` for object "accountEmail" TextField`
+    t =    25.94s         Checking existence of `"accountEmail" TextField`
+    t =    25.98s Find the "accountPassword" SecureTextField
+    t =    26.00s Find the "accountMessage" StaticText
+    t =    26.03s Tear Down
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testAccountSignInAndDeviceSignOutUseOnlyFixture]' passed (26.299 seconds).
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testDemoAndExitPreserveEmptyPersonalDiary]' started.
+    t =     0.00s Start Test at 2026-10-10 21:09:41.673
+    t =     0.03s Set Up
+    t =     0.03s Open CAL.Caliber--DEV-
+    t =     0.03s     Launch CAL.Caliber--DEV-
+    t =     0.03s         Terminate CAL.Caliber--DEV-:56727
+2026-10-10 21:09:42.791 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-10 21:09:42.791 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     1.33s         Setting up automation session
+    t =     3.20s         Wait for CAL.Caliber--DEV- to idle
+    t =     4.61s Waiting 20.0s for "welcomeContinue" Button to exist
+    t =     5.67s     Checking `Expect predicate `existsNoRetry == 1` for object "welcomeContinue" Button`
+    t =     5.67s         Checking existence of `"welcomeContinue" Button`
+    t =     5.74s Find the "welcomeContinue" Button
+    t =     5.76s Tap "adultConfirmation" Switch[0.92, 0.50]
+    t =     5.76s     Wait for CAL.Caliber--DEV- to idle
+    t =     5.76s     Find the "adultConfirmation" Switch
+    t =     5.77s     Check for interrupting elements affecting "adultConfirmation" Switch
+    t =     5.79s     Synthesize event
+    t =     5.79s         Find the "adultConfirmation" Switch
+    t =     5.80s         Find the "adultConfirmation" Switch
+    t =     5.82s         Find the "adultConfirmation" Switch
+    t =     6.12s     Wait for CAL.Caliber--DEV- to idle
+    t =     7.41s Find the "adultConfirmation" Switch
+    t =     7.44s Tap "scopeConfirmation" Switch[0.92, 0.50]
+    t =     7.44s     Wait for CAL.Caliber--DEV- to idle
+    t =     7.44s     Find the "scopeConfirmation" Switch
+    t =     7.46s     Check for interrupting elements affecting "scopeConfirmation" Switch
+    t =     7.48s     Synthesize event
+    t =     7.48s         Find the "scopeConfirmation" Switch
+    t =     7.49s         Find the "scopeConfirmation" Switch
+    t =     7.51s         Find the "scopeConfirmation" Switch
+    t =     7.81s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.12s Find the "scopeConfirmation" Switch
+    t =     9.13s Find the "welcomeContinue" Button
+    t =     9.15s Tap "welcomeContinue" Button
+    t =     9.15s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.15s     Find the "welcomeContinue" Button
+    t =     9.16s     Check for interrupting elements affecting "welcomeContinue" Button
+    t =     9.18s     Synthesize event
+    t =     9.50s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.50s Waiting 10.0s for "Today" Button to exist
+    t =    10.55s     Checking `Expect predicate `existsNoRetry == 1` for object "Today" Button`
+    t =    10.55s         Checking existence of `"Today" Button`
+    t =    10.64s Tap "openDemo" Button
+    t =    10.64s     Wait for CAL.Caliber--DEV- to idle
+    t =    10.64s     Find the "openDemo" Button
+    t =    10.66s     Check for interrupting elements affecting "openDemo" Button
+    t =    10.68s     Synthesize event
+    t =    10.97s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.21s Waiting 30.0s for "exitDemo" Button to exist
+    t =    12.25s     Checking `Expect predicate `existsNoRetry == 1` for object "exitDemo" Button`
+    t =    12.25s         Checking existence of `"exitDemo" Button`
+    t =    12.29s Waiting 10.0s for "Body weight" StaticText to exist
+    t =    13.31s     Checking `Expect predicate `existsNoRetry == 1` for object "Body weight" StaticText`
+    t =    13.31s         Checking existence of `"Body weight" StaticText`
+    t =    13.36s Find the Target Application 'CAL.Caliber--DEV-'
+    t =    13.51s Added attachment named 'Foundation demo chart'
+    t =    13.51s Tap "chartTable-Body weight" Button
+    t =    13.51s     Wait for CAL.Caliber--DEV- to idle
+    t =    13.51s     Find the "chartTable-Body weight" Button
+    t =    13.54s     Check for interrupting elements affecting "chartTable-Body weight" Button
+    t =    13.56s     Synthesize event
+    t =    13.86s     Wait for CAL.Caliber--DEV- to idle
+    t =    14.01s Waiting 5.0s for Any (First Match) to exist
+    t =    15.03s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =    15.03s         Checking existence of `Any (First Match)`
+    t =    15.09s Tap Button (Element at index 0)
+    t =    15.09s     Wait for CAL.Caliber--DEV- to idle
+    t =    15.09s     Find the Button (Element at index 0)
+    t =    15.11s     Check for interrupting elements affecting "BackButton" Button
+    t =    15.14s     Synthesize event
+    t =    15.44s     Wait for CAL.Caliber--DEV- to idle
+    t =    15.76s Tap "exitDemo" Button
+    t =    15.76s     Wait for CAL.Caliber--DEV- to idle
+    t =    15.79s     Find the "exitDemo" Button
+    t =    15.83s     Check for interrupting elements affecting "exitDemo" Button
+    t =    15.85s     Synthesize event
+    t =    16.13s     Wait for CAL.Caliber--DEV- to idle
+    t =    16.14s Waiting 10.0s for "No food logged today" StaticText to exist
+    t =    17.20s     Checking `Expect predicate `existsNoRetry == 1` for object "No food logged today" StaticText`
+    t =    17.20s         Checking existence of `"No food logged today" StaticText`
+    t =    17.24s Tap "Food Library" Button
+    t =    17.24s     Wait for CAL.Caliber--DEV- to idle
+    t =    17.24s     Find the "Food Library" Button
+    t =    17.26s     Check for interrupting elements affecting "books.vertical" Button
+    t =    17.29s     Synthesize event
+    t =    17.57s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.31s Waiting 10.0s for "Restaurants" Button to exist
+    t =    20.36s     Checking `Expect predicate `existsNoRetry == 1` for object "Restaurants" Button`
+    t =    20.37s         Checking existence of `"Restaurants" Button`
+    t =    20.43s Tear Down
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testDemoAndExitPreserveEmptyPersonalDiary]' passed (20.691 seconds).
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testDemoAtLargestTextSizeHasUsableChartRoutes]' started.
+    t =     0.00s Start Test at 2026-10-10 21:10:02.365
+    t =     0.05s Set Up
+    t =     0.05s Open CAL.Caliber--DEV-
+    t =     0.05s     Launch CAL.Caliber--DEV-
+    t =     0.05s         Terminate CAL.Caliber--DEV-:56794
+2026-10-10 21:10:03.477 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-10 21:10:03.477 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     1.33s         Setting up automation session
+    t =     4.04s         Wait for CAL.Caliber--DEV- to idle
+    t =     6.62s Waiting 20.0s for "welcomeContinue" Button to exist
+    t =     7.67s     Checking `Expect predicate `existsNoRetry == 1` for object "welcomeContinue" Button`
+    t =     7.68s         Checking existence of `"welcomeContinue" Button`
+    t =     7.83s Find the "welcomeContinue" Button
+    t =     7.85s Tap "adultConfirmation" Switch[0.92, 0.50]
+    t =     7.85s     Wait for CAL.Caliber--DEV- to idle
+    t =     7.85s     Find the "adultConfirmation" Switch
+    t =     7.86s     Check for interrupting elements affecting "adultConfirmation" Switch
+    t =     7.88s     Synthesize event
+    t =     7.88s         Find the "adultConfirmation" Switch
+    t =     7.89s         Find the "adultConfirmation" Switch
+    t =     7.91s         Find the "adultConfirmation" Switch
+    t =     8.21s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.51s Find the "adultConfirmation" Switch
+    t =     9.54s Tap "scopeConfirmation" Switch[0.92, 0.50]
+    t =     9.54s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.54s     Find the "scopeConfirmation" Switch
+    t =     9.55s     Check for interrupting elements affecting "scopeConfirmation" Switch
+    t =     9.57s     Synthesize event
+    t =     9.57s         Find the "scopeConfirmation" Switch
+    t =     9.58s         Find the "scopeConfirmation" Switch
+    t =     9.60s         Find the "scopeConfirmation" Switch
+    t =     9.90s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.20s Find the "scopeConfirmation" Switch
+    t =    11.23s Find the "welcomeContinue" Button
+    t =    11.25s Tap "welcomeContinue" Button
+    t =    11.25s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.25s     Find the "welcomeContinue" Button
+    t =    11.27s     Check for interrupting elements affecting "welcomeContinue" Button
+    t =    11.28s     Synthesize event
+    t =    11.61s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.66s Waiting 10.0s for "Today" Button to exist
+    t =    12.72s     Checking `Expect predicate `existsNoRetry == 1` for object "Today" Button`
+    t =    12.73s         Checking existence of `"Today" Button`
+    t =    12.81s Terminate CAL.Caliber--DEV-:56922
+    t =    13.86s Open CAL.Caliber--DEV-
+    t =    13.86s     Launch CAL.Caliber--DEV-
+2026-10-10 21:10:16.226 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-10 21:10:16.226 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =    14.08s         Setting up automation session
+    t =    15.97s         Wait for CAL.Caliber--DEV- to idle
+    t =    17.53s Find the "openDemo" Button
+    t =    18.63s     Find the "openDemo" Button (retry 1)
+    t =    19.69s     Find the "openDemo" Button (retry 2)
+    t =    19.74s Swipe up Target Application 'CAL.Caliber--DEV-'
+    t =    19.74s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.74s     Find the Target Application 'CAL.Caliber--DEV-'
+    t =    19.76s     Check for interrupting elements affecting "Caliber (DEV)" Application
+    t =    19.78s     Synthesize event
+    t =    20.20s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.31s Find the "openDemo" Button
+    t =    22.36s Tap "openDemo" Button
+    t =    22.36s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.36s     Find the "openDemo" Button
+    t =    22.38s     Check for interrupting elements affecting "openDemo" Button
+    t =    22.40s     Synthesize event
+    t =    22.69s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.94s Waiting 30.0s for "exitDemo" Button to exist
+    t =    23.96s     Checking `Expect predicate `existsNoRetry == 1` for object "exitDemo" Button`
+    t =    23.96s         Checking existence of `"exitDemo" Button`
+    t =    23.99s Find the "chartTable-Body weight" Button
+    t =    24.02s Swipe up Target Application 'CAL.Caliber--DEV-'
+    t =    24.02s     Wait for CAL.Caliber--DEV- to idle
+    t =    24.03s     Find the Target Application 'CAL.Caliber--DEV-'
+    t =    24.04s     Check for interrupting elements affecting "Caliber (DEV)" Application
+    t =    24.05s     Synthesize event
+    t =    24.47s     Wait for CAL.Caliber--DEV- to idle
+    t =    26.59s Find the "chartTable-Body weight" Button
+    t =    26.63s Swipe up Target Application 'CAL.Caliber--DEV-'
+    t =    26.63s     Wait for CAL.Caliber--DEV- to idle
+    t =    26.63s     Find the Target Application 'CAL.Caliber--DEV-'
+    t =    26.65s     Check for interrupting elements affecting "Caliber (DEV)" Application
+    t =    26.66s     Synthesize event
+    t =    27.08s     Wait for CAL.Caliber--DEV- to idle
+    t =    29.19s Find the "chartTable-Body weight" Button
+    t =    29.22s Find the "chartTable-Body weight" Button
+    t =    31.61s Find the Target Application 'CAL.Caliber--DEV-'
+    t =    31.70s Added attachment named 'Foundation demo AX5'
+    t =    31.70s Tap "chartTable-Body weight" Button
+    t =    31.70s     Wait for CAL.Caliber--DEV- to idle
+    t =    31.71s     Find the "chartTable-Body weight" Button
+    t =    31.73s     Check for interrupting elements affecting "chartTable-Body weight" Button
+    t =    31.75s     Synthesize event
+    t =    31.76s         Scroll element to visible
+    t =    31.77s         Find the "chartTable-Body weight" Button
+    t =    31.79s         Computed hit point {201, 657.33333333333326} after scrolling to visible
+    t =    32.08s     Wait for CAL.Caliber--DEV- to idle
+    t =    32.19s Waiting 5.0s for "Body weight" NavigationBar to exist
+    t =    33.22s     Checking `Expect predicate `existsNoRetry == 1` for object "Body weight" NavigationBar`
+    t =    33.23s         Checking existence of `"Body weight" NavigationBar`
+    t =    36.91s Find the Target Application 'CAL.Caliber--DEV-'
+    t =    37.00s Added attachment named 'Foundation data table AX5'
+    t =    37.00s Tap Button (Element at index 0)
+    t =    37.00s     Wait for CAL.Caliber--DEV- to idle
+    t =    37.01s     Find the Button (Element at index 0)
+    t =    37.02s     Check for interrupting elements affecting "BackButton" Button
+    t =    37.04s     Synthesize event
+    t =    37.33s     Wait for CAL.Caliber--DEV- to idle
+    t =    37.64s Find the "chartInfo-Body weight" Button
+    t =    37.71s Find the "chartInfo-Body weight" Button
+    t =    37.75s Find the "chartInfo-Body weight" Button
+    t =    37.78s Find the "chartInfo-Body weight" Button
+    t =    37.81s Tap "chartInfo-Body weight" Button
+    t =    37.81s     Wait for CAL.Caliber--DEV- to idle
+    t =    37.81s     Find the "chartInfo-Body weight" Button
+    t =    37.83s     Check for interrupting elements affecting "chartInfo-Body weight" Button
+    t =    37.85s     Synthesize event
+    t =    38.14s     Wait for CAL.Caliber--DEV- to idle
+    t =    38.48s Waiting 5.0s for "How we calculate" NavigationBar to exist
+    t =    39.52s     Checking `Expect predicate `existsNoRetry == 1` for object "How we calculate" NavigationBar`
+    t =    39.52s         Checking existence of `"How we calculate" NavigationBar`
+    t =    41.32s Find the Target Application 'CAL.Caliber--DEV-'
+    t =    41.40s Added attachment named 'Foundation calculation method AX5'
+    t =    41.40s Tap "exitDemo" Button
+    t =    41.40s     Wait for CAL.Caliber--DEV- to idle
+    t =    41.40s     Find the "exitDemo" Button
+    t =    41.41s     Check for interrupting elements affecting "exitDemo" Button
+    t =    41.42s     Synthesize event
+    t =    41.71s     Wait for CAL.Caliber--DEV- to idle
+    t =    41.71s Waiting 5.0s for "Today" Button to exist
+    t =    42.76s     Checking `Expect predicate `existsNoRetry == 1` for object "Today" Button`
+    t =    42.76s         Checking existence of `"Today" Button`
+    t =    42.79s Tear Down
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testDemoAtLargestTextSizeHasUsableChartRoutes]' passed (43.116 seconds).
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testNumberHidingRemovesNumericRoutesAndAllowsNotes]' started.
+    t =     0.00s Start Test at 2026-10-10 21:10:45.482
+    t =     0.03s Set Up
+    t =     0.03s Open CAL.Caliber--DEV-
+    t =     0.03s     Launch CAL.Caliber--DEV-
+    t =     0.03s         Terminate CAL.Caliber--DEV-:56955
+2026-10-10 21:10:46.593 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-10 21:10:46.593 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     1.33s         Setting up automation session
+    t =     3.19s         Wait for CAL.Caliber--DEV- to idle
+    t =     4.60s Waiting 20.0s for "welcomeContinue" Button to exist
+    t =     5.64s     Checking `Expect predicate `existsNoRetry == 1` for object "welcomeContinue" Button`
+    t =     5.64s         Checking existence of `"welcomeContinue" Button`
+    t =     5.73s Find the "welcomeContinue" Button
+    t =     5.75s Tap "adultConfirmation" Switch[0.92, 0.50]
+    t =     5.75s     Wait for CAL.Caliber--DEV- to idle
+    t =     5.75s     Find the "adultConfirmation" Switch
+    t =     5.76s     Check for interrupting elements affecting "adultConfirmation" Switch
+    t =     5.78s     Synthesize event
+    t =     5.78s         Find the "adultConfirmation" Switch
+    t =     5.79s         Find the "adultConfirmation" Switch
+    t =     5.81s         Find the "adultConfirmation" Switch
+    t =     6.11s     Wait for CAL.Caliber--DEV- to idle
+    t =     7.42s Find the "adultConfirmation" Switch
+    t =     7.46s Tap "scopeConfirmation" Switch[0.92, 0.50]
+    t =     7.46s     Wait for CAL.Caliber--DEV- to idle
+    t =     7.46s     Find the "scopeConfirmation" Switch
+    t =     7.48s     Check for interrupting elements affecting "scopeConfirmation" Switch
+    t =     7.49s     Synthesize event
+    t =     7.49s         Find the "scopeConfirmation" Switch
+    t =     7.51s         Find the "scopeConfirmation" Switch
+    t =     7.52s         Find the "scopeConfirmation" Switch
+    t =     7.81s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.13s Find the "scopeConfirmation" Switch
+    t =     9.16s Find the "welcomeContinue" Button
+    t =     9.18s Tap "welcomeContinue" Button
+    t =     9.18s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.18s     Find the "welcomeContinue" Button
+    t =     9.20s     Check for interrupting elements affecting "welcomeContinue" Button
+    t =     9.21s     Synthesize event
+    t =     9.52s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.53s Waiting 10.0s for "Today" Button to exist
+    t =    10.54s     Checking `Expect predicate `existsNoRetry == 1` for object "Today" Button`
+    t =    10.54s         Checking existence of `"Today" Button`
+    t =    10.62s Tap "Settings" Button
+    t =    10.62s     Wait for CAL.Caliber--DEV- to idle
+    t =    10.63s     Find the "Settings" Button
+    t =    10.65s     Check for interrupting elements affecting "gearshape" Button
+    t =    10.67s     Synthesize event
+    t =    10.96s     Wait for CAL.Caliber--DEV- to idle
+    t =    12.79s Tap "hideNumbers" Switch[0.92, 0.50]
+    t =    12.79s     Wait for CAL.Caliber--DEV- to idle
+    t =    12.79s     Find the "hideNumbers" Switch
+    t =    12.86s     Check for interrupting elements affecting "hideNumbers" Switch
+    t =    12.89s     Synthesize event
+    t =    12.89s         Find the "hideNumbers" Switch
+    t =    12.91s         Find the "hideNumbers" Switch
+    t =    12.95s         Find the "hideNumbers" Switch
+    t =    13.26s     Wait for CAL.Caliber--DEV- to idle
+    t =    13.53s Waiting 10.0s for "Your Journal" NavigationBar to exist
+    t =    14.56s     Checking `Expect predicate `existsNoRetry == 1` for object "Your Journal" NavigationBar`
+    t =    14.56s         Checking existence of `"Your Journal" NavigationBar`
+    t =    14.59s Checking existence of `"Diary" Button`
+    t =    14.61s Tap "Add a Photo or Note" Button
+    t =    14.61s     Wait for CAL.Caliber--DEV- to idle
+    t =    14.61s     Find the "Add a Photo or Note" Button
+    t =    14.62s     Check for interrupting elements affecting "Add a Photo or Note" Button
+    t =    14.64s     Synthesize event
+    t =    14.92s     Wait for CAL.Caliber--DEV- to idle
+    t =    15.11s Waiting 5.0s for "progressNotes" TextView to exist
+    t =    16.18s     Checking `Expect predicate `existsNoRetry == 1` for object "progressNotes" TextView`
+    t =    16.18s         Checking existence of `"progressNotes" TextView`
+    t =    16.24s Checking existence of `"progressWeight" TextField`
+    t =    16.26s Tap "progressNotes" TextView
+    t =    16.26s     Wait for CAL.Caliber--DEV- to idle
+    t =    16.27s     Find the "progressNotes" TextView
+    t =    16.29s     Check for interrupting elements affecting "progressNotes" TextView
+    t =    16.32s     Synthesize event
+    t =    16.61s     Wait for CAL.Caliber--DEV- to idle
+    t =    17.13s Type 'A calm day' into "progressNotes" TextView
+    t =    17.13s     Wait for CAL.Caliber--DEV- to idle
+    t =    17.50s     Find the "progressNotes" TextView
+    t =    17.57s     Check for interrupting elements affecting "progressNotes" TextView
+    t =    17.61s     Synthesize event
+    t =    17.99s     Wait for CAL.Caliber--DEV- to idle
+    t =    18.10s Tap "progressSave" Button
+    t =    18.10s     Wait for CAL.Caliber--DEV- to idle
+    t =    18.11s     Find the "progressSave" Button
+    t =    18.15s     Check for interrupting elements affecting "progressSave" Button
+    t =    18.19s     Synthesize event
+    t =    18.48s     Wait for CAL.Caliber--DEV- to idle
+    t =    18.97s Waiting 5.0s for "A calm day" StaticText to exist
+    t =    19.99s     Checking `Expect predicate `existsNoRetry == 1` for object "A calm day" StaticText`
+    t =    19.99s         Checking existence of `"A calm day" StaticText`
+    t =    20.02s Terminate CAL.Caliber--DEV-:57010
+    t =    21.06s Open CAL.Caliber--DEV-
+    t =    21.06s     Launch CAL.Caliber--DEV-
+2026-10-10 21:11:06.546 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-10 21:11:06.546 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =    21.28s         Setting up automation session
+    t =    23.17s         Wait for CAL.Caliber--DEV- to idle
+    t =    24.61s Waiting 10.0s for "Your Journal" NavigationBar to exist
+    t =    25.64s     Checking `Expect predicate `existsNoRetry == 1` for object "Your Journal" NavigationBar`
+    t =    25.64s         Checking existence of `"Your Journal" NavigationBar`
+    t =    25.74s Tear Down
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testNumberHidingRemovesNumericRoutesAndAllowsNotes]' passed (25.970 seconds).
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testSelectedDecimalFormatSurvivesProgressSaveAndCancel]' started.
+    t =     0.00s Start Test at 2026-10-10 21:11:11.452
+    t =     0.03s Set Up
+    t =     0.03s Open CAL.Caliber--DEV-
+    t =     0.03s     Launch CAL.Caliber--DEV-
+    t =     0.03s         Terminate CAL.Caliber--DEV-:57079
+2026-10-10 21:11:12.558 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-10 21:11:12.558 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     1.32s         Setting up automation session
+    t =     3.18s         Wait for CAL.Caliber--DEV- to idle
+    t =     4.62s Waiting 20.0s for "welcomeContinue" Button to exist
+    t =     5.65s     Checking `Expect predicate `existsNoRetry == 1` for object "welcomeContinue" Button`
+    t =     5.65s         Checking existence of `"welcomeContinue" Button`
+    t =     5.73s Find the "welcomeContinue" Button
+    t =     5.75s Tap "adultConfirmation" Switch[0.92, 0.50]
+    t =     5.75s     Wait for CAL.Caliber--DEV- to idle
+    t =     5.75s     Find the "adultConfirmation" Switch
+    t =     5.76s     Check for interrupting elements affecting "adultConfirmation" Switch
+    t =     5.78s     Synthesize event
+    t =     5.78s         Find the "adultConfirmation" Switch
+    t =     5.79s         Find the "adultConfirmation" Switch
+    t =     5.81s         Find the "adultConfirmation" Switch
+    t =     6.11s     Wait for CAL.Caliber--DEV- to idle
+    t =     7.41s Find the "adultConfirmation" Switch
+    t =     7.44s Tap "scopeConfirmation" Switch[0.92, 0.50]
+    t =     7.44s     Wait for CAL.Caliber--DEV- to idle
+    t =     7.45s     Find the "scopeConfirmation" Switch
+    t =     7.46s     Check for interrupting elements affecting "scopeConfirmation" Switch
+    t =     7.48s     Synthesize event
+    t =     7.48s         Find the "scopeConfirmation" Switch
+    t =     7.50s         Find the "scopeConfirmation" Switch
+    t =     7.51s         Find the "scopeConfirmation" Switch
+    t =     7.81s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.11s Find the "scopeConfirmation" Switch
+    t =     9.14s Find the "welcomeContinue" Button
+    t =     9.16s Tap "welcomeContinue" Button
+    t =     9.16s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.16s     Find the "welcomeContinue" Button
+    t =     9.18s     Check for interrupting elements affecting "welcomeContinue" Button
+    t =     9.19s     Synthesize event
+    t =     9.50s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.50s Waiting 10.0s for "Today" Button to exist
+    t =    10.54s     Checking `Expect predicate `existsNoRetry == 1` for object "Today" Button`
+    t =    10.54s         Checking existence of `"Today" Button`
+    t =    10.60s Tap "Settings" Button
+    t =    10.60s     Wait for CAL.Caliber--DEV- to idle
+    t =    10.60s     Find the "Settings" Button
+    t =    10.63s     Check for interrupting elements affecting "gearshape" Button
+    t =    10.65s     Synthesize event
+    t =    10.94s     Wait for CAL.Caliber--DEV- to idle
+    t =    12.78s Find the "settingsNumberFormat" Button
+    t =    13.85s     Find the "settingsNumberFormat" Button (retry 1)
+    t =    14.91s     Find the "settingsNumberFormat" Button (retry 2)
+    t =    14.95s Swipe up Target Application 'CAL.Caliber--DEV-'
+    t =    14.95s     Wait for CAL.Caliber--DEV- to idle
+    t =    14.95s     Find the Target Application 'CAL.Caliber--DEV-'
+    t =    14.97s     Check for interrupting elements affecting "Caliber (DEV)" Application
+    t =    14.99s     Synthesize event
+    t =    15.41s     Wait for CAL.Caliber--DEV- to idle
+    t =    17.53s Find the "settingsNumberFormat" Button
+    t =    17.59s Tap "settingsNumberFormat" Button
+    t =    17.59s     Wait for CAL.Caliber--DEV- to idle
+    t =    17.59s     Find the "settingsNumberFormat" Button
+    t =    17.62s     Check for interrupting elements affecting "settingsNumberFormat" Button
+    t =    17.65s     Synthesize event
+    t =    17.94s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.13s Tap "German (Germany)" Button
+    t =    19.13s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.13s     Find the "German (Germany)" Button
+    t =    19.19s     Check for interrupting elements affecting "German (Germany)" Button
+    t =    19.22s     Synthesize event
+    t =    19.51s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.97s Tap "Progress" Button
+    t =    20.97s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.98s     Find the "Progress" Button
+    t =    21.03s     Check for interrupting elements affecting "chart.line.uptrend.xyaxis" Button
+    t =    21.07s     Synthesize event
+    t =    21.35s     Wait for CAL.Caliber--DEV- to idle
+    t =    23.16s Tap "addProgressEntry" Button
+    t =    23.16s     Wait for CAL.Caliber--DEV- to idle
+    t =    23.17s     Find the "addProgressEntry" Button
+    t =    23.24s     Check for interrupting elements affecting "addProgressEntry" Button
+    t =    23.27s     Synthesize event
+    t =    23.56s     Wait for CAL.Caliber--DEV- to idle
+    t =    24.10s Waiting 5.0s for "progressWeight" TextField to exist
+    t =    25.14s     Checking `Expect predicate `existsNoRetry == 1` for object "progressWeight" TextField`
+    t =    25.14s         Checking existence of `"progressWeight" TextField`
+    t =    25.20s Tap "progressWeight" TextField
+    t =    25.20s     Wait for CAL.Caliber--DEV- to idle
+    t =    25.21s     Find the "progressWeight" TextField
+    t =    25.26s     Check for interrupting elements affecting "progressWeight" TextField
+    t =    25.31s     Synthesize event
+    t =    25.60s     Wait for CAL.Caliber--DEV- to idle
+    t =    25.76s Type '180,5' into "progressWeight" TextField
+    t =    25.76s     Wait for CAL.Caliber--DEV- to idle
+    t =    26.14s     Find the "progressWeight" TextField
+    t =    26.23s     Check for interrupting elements affecting "progressWeight" TextField
+    t =    26.28s     Synthesize event
+    t =    26.57s     Wait for CAL.Caliber--DEV- to idle
+    t =    26.77s Find the "progressSave" Button
+    t =    26.83s Tap "progressSave" Button
+    t =    26.83s     Wait for CAL.Caliber--DEV- to idle
+    t =    26.83s     Find the "progressSave" Button
+    t =    26.89s     Check for interrupting elements affecting "progressSave" Button
+    t =    26.93s     Synthesize event
+    t =    27.23s     Wait for CAL.Caliber--DEV- to idle
+    t =    27.91s Tap "addProgressEntry" Button
+    t =    27.91s     Wait for CAL.Caliber--DEV- to idle
+    t =    27.91s     Find the "addProgressEntry" Button
+    t =    28.02s     Check for interrupting elements affecting "addProgressEntry" Button
+    t =    28.06s     Synthesize event
+    t =    28.35s     Wait for CAL.Caliber--DEV- to idle
+    t =    28.79s Waiting 5.0s for "progressWeight" TextField to exist
+    t =    29.84s     Checking `Expect predicate `existsNoRetry == 1` for object "progressWeight" TextField`
+    t =    29.84s         Checking existence of `"progressWeight" TextField`
+    t =    29.94s Find the "progressWeight" TextField
+    t =    29.99s Tap "progressWeight" TextField[0.95, 0.50]
+    t =    29.99s     Wait for CAL.Caliber--DEV- to idle
+    t =    30.00s     Find the "progressWeight" TextField
+    t =    30.05s     Check for interrupting elements affecting "progressWeight" TextField
+    t =    30.10s     Synthesize event
+    t =    30.10s         Find the "progressWeight" TextField
+    t =    30.16s         Find the "progressWeight" TextField
+    t =    30.22s         Find the "progressWeight" TextField
+    t =    30.56s     Wait for CAL.Caliber--DEV- to idle
+    t =    30.89s Type '175,25' into "progressWeight" TextField
+    t =    30.89s     Wait for CAL.Caliber--DEV- to idle
+    t =    30.89s     Find the "progressWeight" TextField
+    t =    30.97s     Check for interrupting elements affecting "progressWeight" TextField
+    t =    31.02s     Synthesize event
+    t =    31.41s     Wait for CAL.Caliber--DEV- to idle
+    t =    31.46s Tap "Cancel" Button
+    t =    31.46s     Wait for CAL.Caliber--DEV- to idle
+    t =    31.47s     Find the "Cancel" Button
+    t =    31.54s     Check for interrupting elements affecting "Cancel" Button
+    t =    31.59s     Synthesize event
+    t =    31.89s     Wait for CAL.Caliber--DEV- to idle
+    t =    32.31s Tap "addProgressEntry" Button
+    t =    32.31s     Wait for CAL.Caliber--DEV- to idle
+    t =    32.31s     Find the "addProgressEntry" Button
+    t =    32.36s     Check for interrupting elements affecting "addProgressEntry" Button
+    t =    32.39s     Synthesize event
+    t =    32.69s     Wait for CAL.Caliber--DEV- to idle
+    t =    33.12s Waiting 5.0s for "progressWeight" TextField to exist
+    t =    34.17s     Checking `Expect predicate `existsNoRetry == 1` for object "progressWeight" TextField`
+    t =    34.17s         Checking existence of `"progressWeight" TextField`
+    t =    34.27s Find the "progressWeight" TextField
+    t =    34.32s Tear Down
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testSelectedDecimalFormatSurvivesProgressSaveAndCancel]' passed (34.610 seconds).
+Test Suite 'FoundationUITests' passed at 2026-10-10 21:11:46.062.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 150.685 (150.692) seconds
+Test Suite 'ProgressUITests' started at 2026-10-10 21:11:46.067.
+Test Case '-[Caliber__DEV_UITests.ProgressUITests testDailyCheckInEditsSameDayAndCanBeDeleted]' started.
+    t =     0.00s Start Test at 2026-10-10 21:11:46.068
+    t =     0.03s Set Up
+    t =     0.03s Open CAL.Caliber--DEV-
+    t =     0.03s     Launch CAL.Caliber--DEV-
+    t =     0.04s         Terminate CAL.Caliber--DEV-:57095
+2026-10-10 21:11:47.189 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-10 21:11:47.189 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     1.33s         Setting up automation session
+    t =     3.23s         Wait for CAL.Caliber--DEV- to idle
+    t =     4.76s Waiting 20.0s for "Progress" Button to exist
+    t =     5.77s     Checking `Expect predicate `existsNoRetry == 1` for object "Progress" Button`
+    t =     5.77s         Checking existence of `"Progress" Button`
+    t =     5.91s Tap "Progress" Button
+    t =     5.91s     Wait for CAL.Caliber--DEV- to idle
+    t =     5.91s     Find the "Progress" Button
+    t =     5.94s     Check for interrupting elements affecting "Progress" Button
+    t =     5.96s     Synthesize event
+    t =     6.27s     Wait for CAL.Caliber--DEV- to idle
+    t =     8.07s Tap "addProgressEntry" Button
+    t =     8.07s     Wait for CAL.Caliber--DEV- to idle
+    t =     8.07s     Find the "addProgressEntry" Button
+    t =     8.13s     Check for interrupting elements affecting "addProgressEntry" Button
+    t =     8.15s     Synthesize event
+    t =     8.44s     Wait for CAL.Caliber--DEV- to idle
+    t =     8.96s Waiting 5.0s for "progressSave" Button to exist
+    t =    10.00s     Checking `Expect predicate `existsNoRetry == 1` for object "progressSave" Button`
+    t =    10.00s         Checking existence of `"progressSave" Button`
+    t =    10.09s Find the "progressSave" Button
+    t =    10.13s Tap "progressWeight" TextField
+    t =    10.13s     Wait for CAL.Caliber--DEV- to idle
+    t =    10.13s     Find the "progressWeight" TextField
+    t =    10.17s     Check for interrupting elements affecting "progressWeight" TextField
+    t =    10.21s     Synthesize event
+    t =    10.49s     Wait for CAL.Caliber--DEV- to idle
+    t =    10.61s Type '180.5' into "progressWeight" TextField
+    t =    10.61s     Wait for CAL.Caliber--DEV- to idle
+    t =    10.98s     Find the "progressWeight" TextField
+    t =    11.04s     Check for interrupting elements affecting "progressWeight" TextField
+    t =    11.08s     Synthesize event
+    t =    11.37s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.57s Tap "progressNotes" TextView
+    t =    11.57s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.57s     Find the "progressNotes" TextView
+    t =    11.63s     Check for interrupting elements affecting "progressNotes" TextView
+    t =    11.66s     Synthesize event
+    t =    11.95s     Wait for CAL.Caliber--DEV- to idle
+    t =    12.45s Type 'Progress integrati...' into "progressNotes" TextView
+    t =    12.45s     Wait for CAL.Caliber--DEV- to idle
+    t =    12.46s     Find the "progressNotes" TextView
+    t =    12.52s     Check for interrupting elements affecting "progressNotes" TextView
+    t =    12.57s     Synthesize event
+    t =    13.21s     Wait for CAL.Caliber--DEV- to idle
+    t =    13.22s Tap "progressSave" Button
+    t =    13.22s     Wait for CAL.Caliber--DEV- to idle
+    t =    13.22s     Find the "progressSave" Button
+    t =    13.28s     Check for interrupting elements affecting "progressSave" Button
+    t =    13.32s     Synthesize event
+    t =    13.62s     Wait for CAL.Caliber--DEV- to idle
+    t =    14.95s Waiting 5.0s for "Progress integration check" StaticText to exist
+    t =    15.99s     Checking `Expect predicate `existsNoRetry == 1` for object "Progress integration check" StaticText`
+    t =    16.00s         Checking existence of `"Progress integration check" StaticText`
+    t =    16.13s Checking existence of `"latestProgressWeight" StaticText`
+    t =    16.15s Tap "addProgressEntry" Button
+    t =    16.15s     Wait for CAL.Caliber--DEV- to idle
+    t =    16.15s     Find the "addProgressEntry" Button
+    t =    16.18s     Check for interrupting elements affecting "addProgressEntry" Button
+    t =    16.22s     Synthesize event
+    t =    16.55s     Wait for CAL.Caliber--DEV- to idle
+    t =    17.02s Waiting 5.0s for "progressNotes" TextView to exist
+    t =    18.05s     Checking `Expect predicate `existsNoRetry == 1` for object "progressNotes" TextView`
+    t =    18.05s         Checking existence of `"progressNotes" TextView`
+    t =    18.14s Find the "progressNotes" TextView
+    t =    18.18s Tap "progressNotes" TextView
+    t =    18.18s     Wait for CAL.Caliber--DEV- to idle
+    t =    18.18s     Find the "progressNotes" TextView
+    t =    18.22s     Check for interrupting elements affecting "progressNotes" TextView
+    t =    18.26s     Synthesize event
+    t =    18.55s     Wait for CAL.Caliber--DEV- to idle
+    t =    18.91s Type ' discarded draft' into "progressNotes" TextView
+    t =    18.91s     Wait for CAL.Caliber--DEV- to idle
+    t =    18.91s     Find the "progressNotes" TextView
+    t =    18.97s     Check for interrupting elements affecting "progressNotes" TextView
+    t =    19.02s     Synthesize event
+    t =    19.49s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.49s Tap "Cancel" Button
+    t =    19.50s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.50s     Find the "Cancel" Button
+    t =    19.55s     Check for interrupting elements affecting "Cancel" Button
+    t =    19.60s     Synthesize event
+    t =    19.89s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.29s Tap "addProgressEntry" Button
+    t =    20.29s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.30s     Find the "addProgressEntry" Button
+    t =    20.33s     Check for interrupting elements affecting "addProgressEntry" Button
+    t =    20.35s     Synthesize event
+    t =    20.64s     Wait for CAL.Caliber--DEV- to idle
+    t =    21.08s Waiting 5.0s for "progressNotes" TextView to exist
+    t =    22.09s     Checking `Expect predicate `existsNoRetry == 1` for object "progressNotes" TextView`
+    t =    22.09s         Checking existence of `"progressNotes" TextView`
+    t =    22.17s Find the "progressNotes" TextView
+    t =    22.22s Tap "Cancel" Button
+    t =    22.22s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.22s     Find the "Cancel" Button
+    t =    22.26s     Check for interrupting elements affecting "Cancel" Button
+    t =    22.30s     Synthesize event
+    t =    22.59s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.99s Swipe left Cell (First Match)
+    t =    22.99s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.99s     Find the Cell (First Match)
+    t =    23.04s     Check for interrupting elements affecting Cell
+    t =    23.07s     Synthesize event
+    t =    23.51s     Wait for CAL.Caliber--DEV- to idle
+    t =    24.09s Tap "Edit" Button
+    t =    24.09s     Wait for CAL.Caliber--DEV- to idle
+    t =    24.10s     Find the "Edit" Button
+    t =    24.15s     Check for interrupting elements affecting "pencil" Button
+    t =    24.17s     Synthesize event
+    t =    24.46s     Wait for CAL.Caliber--DEV- to idle
+    t =    25.06s Waiting 5.0s for "progressWeight" TextField to exist
+    t =    26.09s     Checking `Expect predicate `existsNoRetry == 1` for object "progressWeight" TextField`
+    t =    26.09s         Checking existence of `"progressWeight" TextField`
+    t =    26.17s Find the "progressWeight" TextField
+    t =    26.22s Tap "progressWeight" TextField[0.95, 0.50]
+    t =    26.22s     Wait for CAL.Caliber--DEV- to idle
+    t =    26.22s     Find the "progressWeight" TextField
+    t =    26.26s     Check for interrupting elements affecting "progressWeight" TextField
+    t =    26.30s     Synthesize event
+    t =    26.30s         Find the "progressWeight" TextField
+    t =    26.34s         Find the "progressWeight" TextField
+    t =    26.38s         Find the "progressWeight" TextField
+    t =    26.71s     Wait for CAL.Caliber--DEV- to idle
+    t =    26.98s Type '179.25' into "progressWeight" TextField
+    t =    26.98s     Wait for CAL.Caliber--DEV- to idle
+    t =    26.99s     Find the "progressWeight" TextField
+    t =    27.05s     Check for interrupting elements affecting "progressWeight" TextField
+    t =    27.09s     Synthesize event
+    t =    27.48s     Wait for CAL.Caliber--DEV- to idle
+    t =    27.51s Tap "progressSave" Button
+    t =    27.51s     Wait for CAL.Caliber--DEV- to idle
+    t =    27.52s     Find the "progressSave" Button
+    t =    27.57s     Check for interrupting elements affecting "progressSave" Button
+    t =    27.62s     Synthesize event
+    t =    27.91s     Wait for CAL.Caliber--DEV- to idle
+    t =    28.39s Waiting 5.0s for "latestProgressWeight" StaticText to exist
+    t =    29.44s     Checking `Expect predicate `existsNoRetry == 1` for object "latestProgressWeight" StaticText`
+    t =    29.44s         Checking existence of `"latestProgressWeight" StaticText`
+    t =    29.49s Find the "latestProgressWeight" StaticText
+    t =    29.52s Get number of matches for: Elements containing elements matching type StaticText with identifier 'Progress integration check'
+    t =    29.55s Swipe left Cell at {{16.0, 686.7}, {370.0, 136.3}}
+    t =    29.55s     Wait for CAL.Caliber--DEV- to idle
+    t =    29.55s     Find the Cell at {{16.0, 686.7}, {370.0, 136.3}}
+    t =    29.59s     Check for interrupting elements affecting Cell
+    t =    29.62s     Synthesize event
+    t =    30.07s     Wait for CAL.Caliber--DEV- to idle
+    t =    30.64s Tap "Delete" Button
+    t =    30.64s     Wait for CAL.Caliber--DEV- to idle
+    t =    30.64s     Find the "Delete" Button
+    t =    30.69s     Check for interrupting elements affecting "trash" Button
+    t =    30.72s     Synthesize event
+    t =    31.00s     Wait for CAL.Caliber--DEV- to idle
+    t =    31.37s Tap "Delete" Button
+    t =    31.37s     Wait for CAL.Caliber--DEV- to idle
+    t =    31.38s     Find the "Delete" Button
+    t =    31.43s     Check for interrupting elements affecting "Delete" Button
+    t =    31.46s     Synthesize event
+    t =    31.75s     Wait for CAL.Caliber--DEV- to idle
+    t =    32.06s Waiting 5.0s for "Progress integration check" StaticText to not exist
+    t =    33.12s     Checking `Expect predicate `existsNoRetry == 0` for object "Progress integration check" StaticText`
+    t =    33.12s         Checking existence of `"Progress integration check" StaticText`
+    t =    33.14s Checking existence of `"latestProgressWeight" StaticText`
+    t =    33.16s Tear Down
+Test Case '-[Caliber__DEV_UITests.ProgressUITests testDailyCheckInEditsSameDayAndCanBeDeleted]' passed (33.449 seconds).
+Test Case '-[Caliber__DEV_UITests.ProgressUITests testNotesOnlyCheckInDoesNotInventAWeight]' started.
+    t =     0.00s Start Test at 2026-10-10 21:12:19.519
+    t =     0.04s Set Up
+    t =     0.04s Open CAL.Caliber--DEV-
+    t =     0.04s     Launch CAL.Caliber--DEV-
+    t =     0.04s         Terminate CAL.Caliber--DEV-:57178
+2026-10-10 21:12:20.667 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-10 21:12:20.668 xcodebuild[56666:4270524] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     1.36s         Setting up automation session
+    t =     3.28s         Wait for CAL.Caliber--DEV- to idle
+    t =     4.87s Waiting 20.0s for "Progress" Button to exist
+    t =     5.90s     Checking `Expect predicate `existsNoRetry == 1` for object "Progress" Button`
+    t =     5.90s         Checking existence of `"Progress" Button`
+    t =     6.06s Tap "Progress" Button
+    t =     6.06s     Wait for CAL.Caliber--DEV- to idle
+    t =     6.06s     Find the "Progress" Button
+    t =     6.08s     Check for interrupting elements affecting "Progress" Button
+    t =     6.11s     Synthesize event
+    t =     6.41s     Wait for CAL.Caliber--DEV- to idle
+    t =     8.21s Tap "addProgressEntry" Button
+    t =     8.21s     Wait for CAL.Caliber--DEV- to idle
+    t =     8.22s     Find the "addProgressEntry" Button
+    t =     8.26s     Check for interrupting elements affecting "addProgressEntry" Button
+    t =     8.29s     Synthesize event
+    t =     8.57s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.12s Waiting 5.0s for "progressNotes" TextView to exist
+    t =    10.15s     Checking `Expect predicate `existsNoRetry == 1` for object "progressNotes" TextView`
+    t =    10.15s         Checking existence of `"progressNotes" TextView`
+    t =    10.23s Tap "progressNotes" TextView
+    t =    10.23s     Wait for CAL.Caliber--DEV- to idle
+    t =    10.24s     Find the "progressNotes" TextView
+    t =    10.27s     Check for interrupting elements affecting "progressNotes" TextView
+    t =    10.31s     Synthesize event
+    t =    10.60s     Wait for CAL.Caliber--DEV- to idle
+    t =    10.71s Type 'Notes-only check-in' into "progressNotes" TextView
+    t =    10.71s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.08s     Find the "progressNotes" TextView
+    t =    11.17s     Check for interrupting elements affecting "progressNotes" TextView
+    t =    11.22s     Synthesize event
+    t =    11.74s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.84s Tap "progressSave" Button
+    t =    11.84s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.85s     Find the "progressSave" Button
+    t =    11.91s     Check for interrupting elements affecting "progressSave" Button
+    t =    11.95s     Synthesize event
+    t =    12.24s     Wait for CAL.Caliber--DEV- to idle
+    t =    12.74s Waiting 5.0s for "Notes-only check-in" StaticText to exist
+    t =    13.76s     Checking `Expect predicate `existsNoRetry == 1` for object "Notes-only check-in" StaticText`
+    t =    13.76s         Checking existence of `"Notes-only check-in" StaticText`
+    t =    13.83s Checking existence of `"latestProgressWeight" StaticText`
+    t =    13.86s Tap Cell (First Match)
+    t =    13.86s     Wait for CAL.Caliber--DEV- to idle
+    t =    13.86s     Find the Cell (First Match)
+    t =    13.90s     Check for interrupting elements affecting Cell
+    t =    13.92s     Synthesize event
+    t =    14.21s     Wait for CAL.Caliber--DEV- to idle
+    t =    14.56s Waiting 5.0s for "editProgressEntry" Button to exist
+    t =    15.59s     Checking `Expect predicate `existsNoRetry == 1` for object "editProgressEntry" Button`
+    t =    15.59s         Checking existence of `"editProgressEntry" Button`
+    t =    15.64s Checking existence of `"Notes-only check-in" StaticText`
+    t =    15.66s Tear Down
+Test Case '-[Caliber__DEV_UITests.ProgressUITests testNotesOnlyCheckInDoesNotInventAWeight]' passed (15.892 seconds).
+Test Suite 'ProgressUITests' passed at 2026-10-10 21:12:35.411.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 49.342 (49.344) seconds
+Test Suite 'Caliber (DEV)UITests.xctest' passed at 2026-10-10 21:12:35.412.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 200.027 (200.042) seconds
+Test Suite 'Selected tests' passed at 2026-10-10 21:12:35.413.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 200.027 (200.043) seconds
+2026-10-10 21:12:35.817 xcodebuild[56666:4270524] [MT] IDETestOperationsObserverDebug: 214.056 elapsed -- Testing started completed.
+2026-10-10 21:12:35.818 xcodebuild[56666:4270524] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-10-10 21:12:35.818 xcodebuild[56666:4270524] [MT] IDETestOperationsObserverDebug: 214.056 sec, +214.056 sec -- end
+
+Test session results, code coverage, and logs:
+	/tmp/caliber-step1.zjzgUT/Verified.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started

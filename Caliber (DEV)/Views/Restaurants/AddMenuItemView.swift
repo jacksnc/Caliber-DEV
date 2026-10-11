@@ -4,6 +4,7 @@ import SwiftData
 /// A temporary draft used for both creating and editing a personal menu item.
 /// Cancel leaves the saved menu alone; Save commits only this item's changes.
 struct AddMenuItemView: View {
+    @Environment(\.locale) private var locale
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     let restaurant: Restaurant
@@ -16,6 +17,7 @@ struct AddMenuItemView: View {
     @State private var carbs: String
     @State private var fat: String
     @State private var saveError: String?
+    @State private var preparedLocale = false
 
     init(restaurant: Restaurant, item: MenuItem? = nil) {
         self.restaurant = restaurant
@@ -29,7 +31,7 @@ struct AddMenuItemView: View {
     }
 
     private var totals: MacroTotals? {
-        NutritionInput.totals(calories: calories, protein: protein, carbs: carbs, fat: fat)
+        NutritionInput.totals(calories: calories, protein: protein, carbs: carbs, fat: fat, locale: locale)
     }
 
     private var canSave: Bool {
@@ -80,6 +82,14 @@ struct AddMenuItemView: View {
                 if let saveError {
                     Section { Text(saveError).foregroundStyle(.red) }
                 }
+            }
+            .onAppear {
+                guard !preparedLocale else { return }
+                calories = NutritionInput.reformatted(calories, from: .current, to: locale)
+                protein = NutritionInput.reformatted(protein, from: .current, to: locale)
+                carbs = NutritionInput.reformatted(carbs, from: .current, to: locale)
+                fat = NutritionInput.reformatted(fat, from: .current, to: locale)
+                preparedLocale = true
             }
             .navigationTitle(item == nil ? "New Custom Item" : "Edit Custom Item")
             .navigationBarTitleDisplayMode(.inline)

@@ -4,6 +4,7 @@ import SwiftData
 /// Assemble a restaurant meal, adjust ingredient portions, then save an
 /// editable nutrition snapshot without changing the restaurant's menu.
 struct BuildYourOwnView: View {
+    @Environment(\.locale) private var locale
     @Environment(\.modelContext) private var modelContext
     let template: BuildableItemTemplate
 
@@ -27,13 +28,13 @@ struct BuildYourOwnView: View {
     private var perItemTotals: MacroTotals? {
         if isCustomizingMacros {
             return NutritionInput.totals(calories: editedCalories, protein: editedProtein,
-                                         carbs: editedCarbs, fat: editedFat)
+                                         carbs: editedCarbs, fat: editedFat, locale: locale)
         }
         return viewModel.totals.isValid ? viewModel.totals : nil
     }
 
     private var diaryTotals: MacroTotals? {
-        guard let perItemTotals, let quantity = NutritionInput.quantity(quantity) else { return nil }
+        guard let perItemTotals, let quantity = NutritionInput.quantity(quantity, locale: locale) else { return nil }
         let total = perItemTotals.scaled(by: quantity)
         return total.isValid ? total : nil
     }
@@ -46,10 +47,10 @@ struct BuildYourOwnView: View {
         Form {
             Section {
                 if let totals = diaryTotals {
-                    Text("\(NutritionInput.format(totals.calories)) calories")
+                    Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
                         .accessibilityIdentifier("builderCalories")
                         .font(.headline)
-                    Text("Protein \(NutritionInput.format(totals.protein))g · Carbs \(NutritionInput.format(totals.carbs))g · Fat \(NutritionInput.format(totals.fat))g")
+                    Text("Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 } else {
@@ -149,7 +150,7 @@ struct BuildYourOwnView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(option.name).foregroundStyle(.primary)
-                    Text("\(NutritionInput.format(option.calories * viewModel.multiplier(for: option))) cal")
+                    Text("\(NutritionInput.format(option.calories * viewModel.multiplier(for: option), locale: locale)) cal")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -192,7 +193,7 @@ struct BuildYourOwnView: View {
 
     private func save() {
         guard canAdd, let totals = perItemTotals,
-              let quantity = NutritionInput.quantity(quantity) else { return }
+              let quantity = NutritionInput.quantity(quantity, locale: locale) else { return }
         let nameSuffix = viewModel.selectedOptions.map { option in
             viewModel.doubledOptionIDs.contains(option.id) ? "\(option.name) ×2" : option.name
         }.joined(separator: ", ")

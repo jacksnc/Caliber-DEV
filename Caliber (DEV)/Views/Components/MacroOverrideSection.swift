@@ -10,6 +10,7 @@ import SwiftUI
 /// FoodItem/MenuItem it came from. Used by any screen that logs a library
 /// item (restaurant menu items, saved "My Foods").
 struct MacroOverrideSection: View {
+    @Environment(\.locale) private var locale
     let itemName: String
     let baseTotals: MacroTotals
     @Binding var isEditing: Bool
@@ -23,10 +24,10 @@ struct MacroOverrideSection: View {
             Toggle("Adjust macros for this log", isOn: $isEditing)
                 .onChange(of: isEditing) { _, isOn in
                     if isOn {
-                        calories = NutritionInput.format(baseTotals.calories)
-                        protein = NutritionInput.format(baseTotals.protein)
-                        carbs = NutritionInput.format(baseTotals.carbs)
-                        fat = NutritionInput.format(baseTotals.fat)
+                        calories = NutritionInput.format(baseTotals.calories, locale: locale)
+                        protein = NutritionInput.format(baseTotals.protein, locale: locale)
+                        carbs = NutritionInput.format(baseTotals.carbs, locale: locale)
+                        fat = NutritionInput.format(baseTotals.fat, locale: locale)
                     }
                 }
 

@@ -9,6 +9,7 @@ import SwiftData
 /// Shows the selected day's food diary: a running total at the top, and each entry
 /// grouped under its meal (breakfast/lunch/dinner/snack).
 struct DiaryView: View {
+    @Environment(\.locale) private var locale
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \DiaryEntry.date) private var allEntries: [DiaryEntry]
 
@@ -88,12 +89,13 @@ struct DiaryView: View {
 }
 
 private struct DiaryEntryRow: View {
+    @Environment(\.locale) private var locale
     let entry: DiaryEntry
 
     var body: some View {
         VStack(alignment: .leading) {
             Text(entry.foodItem?.name ?? "Unknown food")
-            Text("\(NutritionInput.format(entry.calories)) cal · \(NutritionInput.format(entry.protein))p \(NutritionInput.format(entry.carbs))c \(NutritionInput.format(entry.fat))f")
+            Text("\(NutritionInput.format(entry.calories, locale: locale)) cal · \(NutritionInput.format(entry.protein, locale: locale))p \(NutritionInput.format(entry.carbs, locale: locale))c \(NutritionInput.format(entry.fat, locale: locale))f")
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
@@ -101,13 +103,14 @@ private struct DiaryEntryRow: View {
 }
 
 private struct MacroTotalsSummaryView: View {
+    @Environment(\.locale) private var locale
     let totals: MacroTotals
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("\(NutritionInput.format(totals.calories)) calories")
+            Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
                 .font(.headline)
-            Text("Protein \(NutritionInput.format(totals.protein))g · Carbs \(NutritionInput.format(totals.carbs))g · Fat \(NutritionInput.format(totals.fat))g")
+            Text("Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }

@@ -10,6 +10,7 @@ import SwiftData
 /// chosen to save for reuse (see the "Save to My Foods" toggle in
 /// AddFoodView). Tapping one logs it again without retyping its macros.
 struct MyFoodsView: View {
+    @Environment(\.locale) private var locale
     @Query(filter: #Predicate<FoodItem> { $0.isSavedToLibrary }, sort: \FoodItem.name)
     private var savedFoods: [FoodItem]
 
@@ -28,7 +29,7 @@ struct MyFoodsView: View {
                     } label: {
                         VStack(alignment: .leading, spacing: 2) {
                             Text(food.name)
-                            Text("\(NutritionInput.format(food.calories)) cal · \(NutritionInput.format(food.proteinGrams))p \(NutritionInput.format(food.carbGrams))c \(NutritionInput.format(food.fatGrams))f")
+                            Text("\(NutritionInput.format(food.calories, locale: locale)) cal · \(NutritionInput.format(food.proteinGrams, locale: locale))p \(NutritionInput.format(food.carbGrams, locale: locale))c \(NutritionInput.format(food.fatGrams, locale: locale))f")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }

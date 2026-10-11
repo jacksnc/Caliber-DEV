@@ -7,13 +7,28 @@ public enum GatewayError: Error, Equatable, Sendable {
 }
 public struct CloudConfiguration: Sendable {
   public let endpoint: URL
-  public init(endpoint: URL) throws {
+  /// Requested function invocation region; this does not assert storage residency or failover policy.
+  public let region: String?
+  public init(endpoint: URL, region: String? = nil) throws {
     guard endpoint.scheme == "https", endpoint.host != nil, endpoint.user == nil,
       endpoint.password == nil,
       endpoint.query == nil, endpoint.fragment == nil
     else { throw GatewayError.insecureEndpoint }
+    if let region {
+      guard
+        let match = region.range(of: "^[a-z]{2}(?:-[a-z]+)+-[0-9]+$", options: .regularExpression),
+        match.lowerBound == region.startIndex, match.upperBound == region.endIndex
+      else {
+        throw GatewayError.insecureEndpoint
+      }
+    }
     self.endpoint = endpoint
+    self.region = region
   }
+}
+/// `localOnly` means this device is cleared; remote refresh-token revocation was not confirmed.
+public enum DeviceSignOutResult: Sendable, Equatable {
+  case remoteRevoked, localOnly
 }
 public struct AuthSession: Codable, Sendable, Equatable {
   public let accessToken: String
@@ -147,6 +162,23 @@ public actor CloudGateway: SyncTransport {
     signedOut = false
     return session
   }
+  /// Empty storage is normal. Only an expired access token requires a server request.
+  public func restoredSession() async throws -> AuthSession? {
+    let attempt = generation
+    guard !signedOut else { return nil }
+    if let mutationTask { try await mutationTask.value }
+    guard attempt == generation, !signedOut else { throw GatewayError.unauthorized }
+    let stored = try await vault.load()
+    guard attempt == generation, !signedOut else { throw GatewayError.unauthorized }
+    guard let stored else { return nil }
+    try validateStored(stored)
+    if stored.expiresAt <= Date().addingTimeInterval(60) {
+      let refreshed = try await refresh()
+      guard attempt == generation, !signedOut else { throw GatewayError.unauthorized }
+      return refreshed
+    }
+    return stored
+  }
   public func refresh() async throws -> AuthSession {
     guard !signedOut else { throw GatewayError.unauthorized }
     if let refreshTask { return try await refreshTask.value }
@@ -157,6 +189,8 @@ public actor CloudGateway: SyncTransport {
     return try await task.value
   }
   private func performRefresh(generation attempt: UUID) async throws -> AuthSession {
+    if let mutationTask { try await mutationTask.value }
+    guard attempt == generation, !signedOut else { throw GatewayError.unauthorized }
     guard let previous = try await vault.load(), attempt == generation, !signedOut else {
       throw GatewayError.unauthorized
     }
@@ -174,14 +208,43 @@ public actor CloudGateway: SyncTransport {
     guard attempt == generation, !signedOut else { throw GatewayError.unauthorized }
     return next
   }
-  /// Local sign-out. Hosted token revocation is a separate activation/release requirement.
+  /// Local-only sign-out remains available offline and never makes an HTTP request.
   public func signOut() async throws {
+    invalidateAuthentication()
+    let clear = enqueueMutation(nil)
+    try await clear.value
+  }
+  /// Clears this device first, then revokes only the captured old session.
+  /// Newer logins can proceed during the request; its completion never edits storage.
+  public func signOutOnThisDevice() async throws -> DeviceSignOutResult {
+    invalidateAuthentication()
+    let prior = mutationTask
+    let storage = vault
+    // Capture AND clear are one queue entry, behind a prior save and before any newer save.
+    let capture = Task<AuthSession?, Error> {
+      if let prior { _ = try? await prior.value }
+      let previous = try? await storage.load()
+      try await storage.clear()
+      return previous
+    }
+    mutationTask = Task { _ = try await capture.value }
+    guard let previous = try await capture.value else { return .localOnly }
+    struct Request: Encodable {}
+    struct Reply: Decodable { let signedOut: Bool }
+    do {
+      let reply: Reply = try await request(
+        "auth/sign-out", body: Request(), token: previous.accessToken)
+      return reply.signedOut ? .remoteRevoked : .localOnly
+    } catch {
+      // Local clearing has committed. Provider/network details must not surface here.
+      return .localOnly
+    }
+  }
+  private func invalidateAuthentication() {
     generation = UUID()
     refreshTask?.cancel()
     refreshTask = nil
     signedOut = true
-    let clear = enqueueMutation(nil)
-    try await clear.value
   }
   /// Queue before suspending. A slow save must finish before the later sign-out clear,
   /// and an even newer login must save after that clear. Completion never clears a newer login.
@@ -221,25 +284,20 @@ public actor CloudGateway: SyncTransport {
   private func accessToken() async throws -> (value: String, generation: UUID) {
     guard configuration != nil else { throw GatewayError.unconfigured }
     let attempt = generation
-    guard !signedOut else { throw GatewayError.unauthorized }
-    if let mutationTask { try await mutationTask.value }
-    guard attempt == generation, !signedOut,
-      let session = try await vault.load(), attempt == generation, !signedOut
-    else { throw GatewayError.unauthorized }
-    let token: String
-    if session.expiresAt <= Date().addingTimeInterval(60) {
-      token = try await refresh().accessToken
-    } else {
-      token = session.accessToken
+    guard let session = try await restoredSession(), attempt == generation, !signedOut else {
+      throw GatewayError.unauthorized
     }
-    guard attempt == generation, !signedOut else { throw GatewayError.unauthorized }
-    return (token, attempt)
+    return (session.accessToken, attempt)
   }
-  private func validate(_ session: AuthSession) throws {
+  private func validateStored(_ session: AuthSession) throws {
     guard !session.accessToken.isEmpty, !session.refreshToken.isEmpty,
       UUID(uuidString: session.subject) != nil,
-      session.expiresAt.timeIntervalSince1970.isFinite, session.expiresAt > Date()
+      session.expiresAt.timeIntervalSince1970.isFinite
     else { throw GatewayError.invalidResponse }
+  }
+  private func validate(_ session: AuthSession) throws {
+    try validateStored(session)
+    guard session.expiresAt > Date() else { throw GatewayError.invalidResponse }
   }
   private func request<Input: Encodable, Output: Decodable>(
     _ path: String, body: Input, token: String?, authenticatedGeneration: UUID? = nil
@@ -250,6 +308,9 @@ public actor CloudGateway: SyncTransport {
     request.timeoutInterval = 20
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue("no-store", forHTTPHeaderField: "Cache-Control")
+    if let region = configuration.region {
+      request.setValue(region, forHTTPHeaderField: "x-region")
+    }
     if let token { request.setValue("Bearer " + token, forHTTPHeaderField: "Authorization") }
     request.httpBody = try JSONEncoder().encode(body)
     let response: (Data, Int)

@@ -9,6 +9,7 @@ import SwiftData
 /// Shows a saved meal's contents and combined nutrition, and logs every
 /// contained food to the diary at once under a chosen meal slot and date.
 struct SavedMealDetailView: View {
+    @Environment(\.locale) private var locale
     @Environment(\.modelContext) private var modelContext
     let meal: SavedMeal
 
@@ -29,16 +30,16 @@ struct SavedMealDetailView: View {
     private var finalTotals: MacroTotals? {
         guard isCustomizingMacros else { return totals.isValid ? totals : nil }
         return NutritionInput.totals(calories: editedCalories, protein: editedProtein,
-                                     carbs: editedCarbs, fat: editedFat)
+                                     carbs: editedCarbs, fat: editedFat, locale: locale)
     }
 
     var body: some View {
         Form {
             Section("Nutrition for this meal") {
                 let totals = finalTotals ?? self.totals
-                Text("\(NutritionInput.format(totals.calories)) calories")
+                Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
                     .font(.headline)
-                Text("Protein \(NutritionInput.format(totals.protein))g · Carbs \(NutritionInput.format(totals.carbs))g · Fat \(NutritionInput.format(totals.fat))g")
+                Text("Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -47,7 +48,7 @@ struct SavedMealDetailView: View {
                 ForEach(meal.items) { item in
                     VStack(alignment: .leading, spacing: 2) {
                         Text(item.foodItem?.name ?? "Unknown food")
-                        Text("\(NutritionInput.format(item.calories)) cal · \(NutritionInput.format(item.protein))p \(NutritionInput.format(item.carbs))c \(NutritionInput.format(item.fat))f")
+                        Text("\(NutritionInput.format(item.calories, locale: locale)) cal · \(NutritionInput.format(item.protein, locale: locale))p \(NutritionInput.format(item.carbs, locale: locale))c \(NutritionInput.format(item.fat, locale: locale))f")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }

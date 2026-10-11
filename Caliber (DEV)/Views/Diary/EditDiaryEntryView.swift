@@ -3,6 +3,7 @@ import SwiftData
 
 /// Uses a temporary form draft so Cancel never changes the stored diary entry.
 struct EditDiaryEntryView: View {
+    @Environment(\.locale) private var locale
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     let entry: DiaryEntry
@@ -16,6 +17,7 @@ struct EditDiaryEntryView: View {
     @State private var mealType: MealType
     @State private var date: Date
     @State private var saveError: String?
+    @State private var preparedLocale = false
 
     init(entry: DiaryEntry) {
         self.entry = entry
@@ -31,12 +33,12 @@ struct EditDiaryEntryView: View {
     }
 
     private var perServingTotals: MacroTotals? {
-        NutritionInput.totals(calories: calories, protein: protein, carbs: carbs, fat: fat)
+        NutritionInput.totals(calories: calories, protein: protein, carbs: carbs, fat: fat, locale: locale)
     }
 
     private var entryTotals: MacroTotals? {
         guard let totals = perServingTotals,
-              let quantity = NutritionInput.quantity(quantity) else { return nil }
+              let quantity = NutritionInput.quantity(quantity, locale: locale) else { return nil }
         let scaled = totals.scaled(by: quantity)
         guard [scaled.calories, scaled.protein, scaled.carbs, scaled.fat].allSatisfy(\.isFinite) else {
             return nil
@@ -75,9 +77,9 @@ struct EditDiaryEntryView: View {
 
                 if let totals = entryTotals {
                     Section("Total for this entry") {
-                        Text("\(NutritionInput.format(totals.calories)) calories")
+                        Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
                             .font(.headline)
-                        Text("Protein \(NutritionInput.format(totals.protein))g · Carbs \(NutritionInput.format(totals.carbs))g · Fat \(NutritionInput.format(totals.fat))g")
+                        Text("Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
@@ -106,6 +108,15 @@ struct EditDiaryEntryView: View {
                     }
                 }
             }
+            .onAppear {
+                guard !preparedLocale else { return }
+                calories = NutritionInput.reformatted(calories, from: .current, to: locale)
+                protein = NutritionInput.reformatted(protein, from: .current, to: locale)
+                carbs = NutritionInput.reformatted(carbs, from: .current, to: locale)
+                fat = NutritionInput.reformatted(fat, from: .current, to: locale)
+                quantity = NutritionInput.reformatted(quantity, from: .current, to: locale)
+                preparedLocale = true
+            }
             .navigationTitle("Edit Food")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -121,7 +132,7 @@ struct EditDiaryEntryView: View {
 
     private func save() {
         guard canSave, let totals = perServingTotals,
-              let quantity = NutritionInput.quantity(quantity) else { return }
+              let quantity = NutritionInput.quantity(quantity, locale: locale) else { return }
         do {
             try DiaryEntryEditor.save(
                 entry: entry,

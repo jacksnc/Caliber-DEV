@@ -6,6 +6,7 @@ import UIKit
 /// All edits stay in local state until Save. Removing a photo or changing a
 /// weight here cannot change an existing check-in when the user taps Cancel.
 struct ProgressEntryForm: View {
+    @Environment(\.locale) private var locale
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @AppStorage("progressWeightUnit") private var weightUnitRawValue = WeightUnit.pounds.rawValue
@@ -44,7 +45,7 @@ struct ProgressEntryForm: View {
 
     private var weightInPounds: Double? {
         if hidesWeight { return entry?.weightEntry?.weightInPounds }
-        guard let value = NutritionInput.quantity(weightText) else { return nil }
+        guard let value = NutritionInput.quantity(weightText, locale: locale) else { return nil }
         let pounds = unit.toPounds(value)
         return pounds.isFinite && pounds > 0 ? pounds : nil
     }
@@ -103,7 +104,7 @@ struct ProgressEntryForm: View {
                 if photos.isEmpty && !hasWeightText
                     && notes.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     Section {
-                        Text("Add a photo, weight, or note to save your progress.")
+                        Text(hidesWeight ? "Add a photo or note to save your progress." : "Add a photo, weight, or note to save your progress.")
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                     }
@@ -198,7 +199,7 @@ struct ProgressEntryForm: View {
         guard !didLoadWeight else { return }
         selectedUnit = WeightUnit(rawValue: weightUnitRawValue) ?? .pounds
         if !hidesWeight, let pounds = entry?.weightEntry?.weightInPounds {
-            weightText = NutritionInput.format(unit.fromPounds(pounds))
+            weightText = NutritionInput.format(unit.fromPounds(pounds), locale: locale)
         }
         didLoadWeight = true
     }
@@ -206,7 +207,7 @@ struct ProgressEntryForm: View {
     private func changeUnit(to newUnit: WeightUnit) {
         // Convert the entered number so changing units preserves the weight.
         if let pounds = weightInPounds {
-            weightText = NutritionInput.format(newUnit.fromPounds(pounds))
+            weightText = NutritionInput.format(newUnit.fromPounds(pounds), locale: locale)
         }
         selectedUnit = newUnit
     }

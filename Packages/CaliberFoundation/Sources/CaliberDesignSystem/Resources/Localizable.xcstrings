@@ -21,6 +21,16 @@
         }
       }
     },
+    "%@: Not logged": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: Not logged"
+          }
+        }
+      }
+    },
     "%lld of %lld days logged": {
       "localizations": {
         "en": {
@@ -251,6 +261,16 @@
         }
       }
     },
+    "How %@ is calculated": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How %@ is calculated"
+          }
+        }
+      }
+    },
     "How this chart works": {
       "localizations": {
         "en": {
@@ -267,6 +287,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "How we calculate"
+          }
+        }
+      }
+    },
+    "Method": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Method"
           }
         }
       }
@@ -447,6 +477,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Unit: %@"
+          }
+        }
+      }
+    },
+    "View %@ data table": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "View %@ data table"
           }
         }
       }

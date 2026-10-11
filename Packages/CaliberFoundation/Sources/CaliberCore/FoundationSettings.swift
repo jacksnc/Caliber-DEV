@@ -57,24 +57,28 @@ public struct FoundationSettings: Codable, Equatable, Sendable {
 
 public enum QuantityError: Error, Equatable { case invalidNumber, negative, unknownUnit }
 
+public enum QuantityParsing {
+  public static func nonnegative(_ text: String, locale: Locale = .current) throws -> Double {
+    let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+    let decimalSeparator = locale.decimalSeparator ?? "."
+    let separator = NSRegularExpression.escapedPattern(for: decimalSeparator)
+    let pattern = "^[+-]?(?:[0-9]+(?:" + separator + "[0-9]*)?|" + separator + "[0-9]+)$"
+    guard trimmed.range(of: pattern, options: .regularExpression) != nil,
+      let number = Double(trimmed.replacingOccurrences(of: decimalSeparator, with: ".")),
+      number.isFinite
+    else { throw QuantityError.invalidNumber }
+    guard number >= 0 else { throw QuantityError.negative }
+    return number
+  }
+}
+
 /// Keep the entered text/unit so display rounding cannot rewrite historical input.
 public struct EnteredMass: Codable, Equatable, Sendable {
   public let enteredText: String
   public let unit: MassUnit
   public let kilograms: Double
   public init(text: String, unit: MassUnit, locale: Locale = .current) throws {
-    let formatter = NumberFormatter()
-    formatter.locale = locale
-    formatter.numberStyle = .decimal
-    formatter.isLenient = false
-    let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
-    // Reject partial parses and grouping ambiguity in editable input. Display formatting can group digits.
-    let separator = NSRegularExpression.escapedPattern(for: formatter.decimalSeparator ?? ".")
-    let pattern = "^[+-]?(?:[0-9]+(?:" + separator + "[0-9]*)?|" + separator + "[0-9]+)$"
-    guard trimmed.range(of: pattern, options: .regularExpression) != nil,
-      let number = formatter.number(from: trimmed)?.doubleValue, number.isFinite
-    else { throw QuantityError.invalidNumber }
-    guard number >= 0 else { throw QuantityError.negative }
+    let number = try QuantityParsing.nonnegative(text, locale: locale)
     let result = unit.kilograms(from: number)
     guard result.isFinite else { throw QuantityError.invalidNumber }
     enteredText = text

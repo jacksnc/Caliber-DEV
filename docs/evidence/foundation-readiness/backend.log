@@ -1,0 +1,18 @@
+Checked 6 files
+Checked 4 files
+Task check deno check supabase/functions/caliber-gateway/index.ts tests/*.ts
+Task test deno test --allow-read --allow-env tests
+running 9 tests from ./tests/gateway_test.ts
+unconfigured insecure hosts are rejected ... ok (1ms)
+sign-in forwards secrets only upstream and returns the session contract ... ok (14ms)
+unauthenticated sync never reaches upstream ... ok (127µs)
+SQL and provider error bodies are discarded ... ok (552µs)
+methods, malformed JSON, unknown routes, and oversized batches are denied ... ok (858µs)
+sign-out revokes only the current session and sanitizes the empty upstream response ... ok (2ms)
+sign-out denies absent, malformed, and legacy sessionless tokens without an upstream call ... ok (527µs)
+sign-out does not accept scope or session selection from the client ... ok (469µs)
+sign-out delegates authentication and discards provider failures and unexpected success bodies ... ok (273µs)
+running 1 test from ./tests/rls_test.ts
+Postgres RLS, idempotency, conflict preservation, and cursor contracts ... ok (704ms)
+
+ok | 10 passed | 0 failed (795ms)
