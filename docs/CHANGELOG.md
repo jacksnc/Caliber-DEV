@@ -36,3 +36,10 @@ Existing source work predates this phase and remains locally staged/uncommitted 
 - Moved the Sendable account transport protocol into CaliberIntegrations and corrected failed session restoration so it can be retried without restarting.
 - Expanded the largest-text UI test to audit chart, table and explanation routes and exit from the explanation page, without suppressing audit issues.
 - Recorded current verification evidence separately from the historical Phase 1 baseline. Hosted activation, live synchronization and the remaining Phase 1 quality gates remain open.
+
+## 2026-10-10 — Hosted deployment prepared for confirmation
+
+- Rechecked the selected development project and ran a hosted read-only schema preflight; both table and sync command names are available.
+- Staged the exact tested gateway source and transaction-wrapped SQL in the dashboard, verifying both editor copies without deploying.
+- Added a read-only hosted permission/RLS catalog query and a PostgreSQL regression test that detects disabled RLS and public RPC execution.
+- Saved successful format, lint, strict typecheck and all 11 backend test results. Hosted deployment, positive authentication and app activation remain pending.

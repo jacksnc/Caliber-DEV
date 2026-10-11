@@ -89,3 +89,10 @@ The owner's “Go” accepted ADR-001's native iOS / later Android amendment. Ph
 |---|---|---|
 | D40 | Use a persistent full-width bottom control to exit the fictional demo. | The native navigation toolbar constrained its text at Accessibility XXXL. A wrapping body label and minimum 48pt touch area stay reachable across chart routes. |
 | D41 | Put the Sendable account transport protocol in CaliberIntegrations; keep the UI model on the main actor. | An app-local protocol inherited the app target's main-actor default and prevented independent actor transports. Failed restoration remains retryable without restarting. |
+
+## Hosted preparation — 2026-10-10
+
+| ID | Decision | Reason/evidence |
+|---|---|---|
+| D42 | Stage the exact tested bundle and atomic migration in the existing DEV project; compare editor copies before deployment. | No applicable Supabase connector or installed CLI was available. Fresh metadata confirms object names are available. Browser permission/authentication changes need action-time confirmation; app activation remains off until hosted verification. |
+| D43 | Verify deployed catalog permissions separately from positive authentication. | The catalog query catches RLS and public-execution regressions locally. Hosted simulated-claim fixtures cannot prove JWT/sign-in/refresh/logout behavior. No personal records or credentials are needed for preflight. |

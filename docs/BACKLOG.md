@@ -257,6 +257,7 @@ All listed acceptance tests are planned. Full P0 table/screen/test mappings are 
 ## Foundation follow-through (P0 dependencies, not deferred to P2)
 
 - PLAT-03: configure owner-approved Supabase project/region; wire consent, hosted login/logout/revocation, account recovery/delete, live domain adapters, uploads and foreground/background sync. Verify two actual clients, conflicts, interruption/retry, region and encrypted backup recovery.
+- PLAT-03 deployment checkpoint (2026-10-10): DEV preflight passed and exact gateway/SQL drafts are staged. Apply after browser action-time confirmation; hosted catalog/RLS, signed-token auth lifecycle, rate limits, signup/CAPTCHA/logging checks and activation are still required. See HOSTED_DEPLOYMENT_VERIFICATION.md.
 - PLAT-03: finish normalized SwiftData→GRDB mapping and photo-vault protections; restore rehearsal and approval before irreversible cutover. Current archive proves lossless rehearsal only.
 - PLAT-02: audit every dynamic string and accessibility phrase; translate only when reviewed. Verify chosen decimal formats in existing entry forms as well as new package parsing.
 - PLAT-02 / §10.2: execute iOS17 runtime/device checks, largest Dynamic Type/VoiceOver, every-chart image baselines and required physical-device performance/coverage budgets.

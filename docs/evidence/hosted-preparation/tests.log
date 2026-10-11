@@ -1,0 +1,18 @@
+running 1 test from ./tests/deployment_test.ts
+deployment catalog checks detect disabled RLS and public RPC access ... ok (684ms)
+running 9 tests from ./tests/gateway_test.ts
+unconfigured insecure hosts are rejected ... ok (428µs)
+sign-in forwards secrets only upstream and returns the session contract ... ok (9ms)
+unauthenticated sync never reaches upstream ... ok (168µs)
+SQL and provider error bodies are discarded ... ok (132µs)
+methods, malformed JSON, unknown routes, and oversized batches are denied ... ok (510µs)
+sign-out revokes only the current session and sanitizes the empty upstream response ... ok (1ms)
+sign-out denies absent, malformed, and legacy sessionless tokens without an upstream call ... ok (571µs)
+sign-out does not accept scope or session selection from the client ... ok (253µs)
+sign-out delegates authentication and discards provider failures and unexpected success bodies ... ok (307µs)
+running 1 test from ./tests/rls_test.ts
+Postgres RLS, idempotency, conflict preservation, and cursor contracts ... ok (666ms)
+
+ok | 11 passed | 0 failed (1s)
+
+Task test deno test --allow-read --allow-env tests
