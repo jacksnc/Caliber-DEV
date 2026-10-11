@@ -1,0 +1,265 @@
+Browser tab: 1247604979, Title: "Sign In / Providers | Authentication | Caliber DEV | jacksnc's rummage | Supabase", URL: "https://supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/providers".
+0 AXWebArea Sign In / Providers | Authentication | Caliber DEV | jacksnc's rummage | Supabase, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/providers
+	1 container
+		2 link Description: Skip to content, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/providers#main
+		3 container
+			4 link Description: Supabase Back to organization home, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			90 link Description: jacksnc's rummage FREE, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			91 pop up button (collapsed) Description: Show organizations, Secondary Actions: Expand
+			92 link Description: Caliber DEV, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			93 pop up button (collapsed) Description: Show organization projects, Secondary Actions: Expand
+			94 link Description: main PRODUCTION, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			95 pop up button (collapsed) Description: Show project branches, Secondary Actions: Expand
+			96 button Connect
+			6 pop up button (collapsed) Feedback, Secondary Actions: Expand
+			7 pop up button (collapsed) Search..., Secondary Actions: Expand
+				8 image
+				9 text Search...
+			10 button Help, ID: help-dropdown-button
+				11 image
+				12 text Help
+			13 button Advisor Center, ID: advisor-center-trigger
+				14 image
+				15 text Advisor Center
+			16 button SQL Editor, ID: editor-trigger
+				17 image
+				18 text SQL Editor
+			19 button AI Assistant, ID: assistant-trigger
+				20 text AI Assistant
+			21 pop up button (collapsed) jacksnc, ID: radix-_r_3o_, Secondary Actions: Expand
+				97 image jacksnc
+		23 container
+			24 container
+				25 content list
+					26 link Description: Project Overview, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+					98 link Description: Table Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/editor
+					99 link Description: SQL Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql
+				33 content list
+					100 link Description: Database, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/database/schemas
+					101 link Description: Authentication, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+					102 link Description: Storage, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/storage/files
+					43 link Description: Edge Functions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions
+					103 link Description: Compute NEW, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/compute
+					104 link Description: Realtime, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/realtime/inspector
+				47 content list
+					105 link Description: Advisors, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/advisors/security
+					106 link Description: Observability, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/observability
+					54 link Description: Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/logs
+					107 link Description: Integrations, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/integrations
+				58 content list
+					59 link Description: Project Settings, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/settings/general
+			60 pop up button (collapsed) Description: Sidebar control, ID: radix-_r_48_, Secondary Actions: Expand
+		152 container
+			153 container spec-click-target
+				154 heading Authentication, Value: 4
+					155 text Authentication
+				156 menu Sidebar
+					157 content list
+						158 text MANAGE
+						159 link Description: Users, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+						160 link Description: OAuth Apps, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/oauth-apps
+						161 text NOTIFICATIONS
+						162 link Description: Emails, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates
+						163 text CONFIGURATION
+						164 link Description: Policies, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/database/policies
+						165 link Description: Sign In / Providers, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/providers
+						166 link Description: Passkeys BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/passkeys
+						167 link Description: OAuth Server BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/oauth-server
+						168 link Description: Sessions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/sessions
+						169 link Description: Rate Limits, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/rate-limits
+						170 link Description: Multi-Factor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/mfa
+						171 link Description: URL Configuration, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/url-configuration
+						172 link Description: Attack Protection, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/protection
+						173 link Description: Auth Hooks BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/hooks
+						174 link Description: Audit Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/audit-logs
+						175 link Description: Performance, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/performance
+			176 container
+				177 heading Sign In / Providers, Value: 1
+					178 text Sign In / Providers
+				179 text Configure authentication providers and login methods for your users
+				180 container
+					181 link Description: Supabase Auth, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/providers
+					182 link Description: Third-Party Auth, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/third-party
+				183 heading User Signups, Value: 2
+					184 text User Signups
+				185 container
+					186 switch Description: Allow new users to sign up, Value: 1
+					187 text Allow new users to sign up If this is disabled, new users will not be able to sign up to your application
+				188 container
+					189 switch Description: Allow manual linking, Value: 0
+					190 text Allow manual linking Enable
+					191 link Description: manual linking APIs, Value: supabase.com/docs/guides/auth/auth-identity-linking#manual-linking-beta
+					192 text for your project
+				193 container
+					194 switch Description: Allow anonymous sign-ins, Value: 0
+					195 text Allow anonymous sign-ins Enable
+					196 link Description: anonymous sign-ins, Value: supabase.com/docs/guides/auth/auth-anonymous
+					197 text for your project
+				198 container
+					199 switch Description: Confirm email, Value: 1
+					200 text Confirm email Users will need to confirm their email address before signing in for the first time
+				201 button (disabled) Save changes
+				202 heading Auth Providers, Value: 2
+					203 text Auth Providers
+				204 text Authenticate your users through a suite of providers and login methods
+				205 button Email auth icon Email ENABLED
+					206 image Email auth icon
+					207 text Email
+					208 text ENABLED
+					209 image
+				210 button Phone auth icon Phone DISABLED
+					211 image Phone auth icon
+					212 text Phone
+					213 text DISABLED
+					214 image
+				215 button SAML 2.0 auth icon SAML 2.0 DISABLED
+					216 image SAML 2.0 auth icon
+					217 text SAML 2.0
+					218 text DISABLED
+					219 image
+				220 button Web3 Wallet auth icon Web3 Wallet DISABLED
+					221 image Web3 Wallet auth icon
+					222 text Web3 Wallet
+					223 text DISABLED
+					224 image
+				225 button Apple auth icon Apple DISABLED
+					226 image Apple auth icon
+					227 text Apple
+					228 text DISABLED
+					229 image
+				230 button Azure auth icon Azure DISABLED
+					231 image Azure auth icon
+					232 text Azure
+					233 text DISABLED
+					234 image
+				235 button Bitbucket auth icon Bitbucket DISABLED
+					236 image Bitbucket auth icon
+					237 text Bitbucket
+					238 text DISABLED
+					239 image
+				240 button Discord auth icon Discord DISABLED
+					241 image Discord auth icon
+					242 text Discord
+					243 text DISABLED
+					244 image
+				245 button Facebook auth icon Facebook DISABLED
+					246 image Facebook auth icon
+					247 text Facebook
+					248 text DISABLED
+					249 image
+				250 button Figma auth icon Figma DISABLED
+					251 image Figma auth icon
+					252 text Figma
+					253 text DISABLED
+					254 image
+				255 button GitHub auth icon GitHub DISABLED
+					256 image GitHub auth icon
+					257 text GitHub
+					258 text DISABLED
+					259 image
+				260 button GitLab auth icon GitLab DISABLED
+					261 image GitLab auth icon
+					262 text GitLab
+					263 text DISABLED
+					264 image
+				265 button Google auth icon Google DISABLED
+					266 image Google auth icon
+					267 text Google
+					268 text DISABLED
+					269 image
+				270 button Kakao auth icon Kakao DISABLED
+					271 image Kakao auth icon
+					272 text Kakao
+					273 text DISABLED
+					274 image
+				275 button KeyCloak auth icon KeyCloak DISABLED
+					276 image KeyCloak auth icon
+					277 text KeyCloak
+					278 text DISABLED
+					279 image
+				280 button LinkedIn (OIDC) auth icon LinkedIn (OIDC) DISABLED
+					281 image LinkedIn (OIDC) auth icon
+					282 text LinkedIn (OIDC)
+					283 text DISABLED
+					284 image
+				285 button Notion auth icon Notion DISABLED
+					286 image Notion auth icon
+					287 text Notion
+					288 text DISABLED
+					289 image
+				290 button Twitch auth icon Twitch DISABLED
+					291 image Twitch auth icon
+					292 text Twitch
+					293 text DISABLED
+					294 image
+				295 button X / Twitter (OAuth 2.0) auth icon X / Twitter (OAuth 2.0) DISABLED
+					296 image X / Twitter (OAuth 2.0) auth icon
+					297 text X / Twitter (OAuth 2.0)
+					298 text DISABLED
+					299 image
+				300 button Twitter (Deprecated) auth icon Twitter (Deprecated) DISABLED
+					301 image Twitter (Deprecated) auth icon
+					302 text Twitter (Deprecated)
+					303 text DISABLED
+					304 image
+				305 button Slack (OIDC) auth icon Slack (OIDC) DISABLED
+					306 image Slack (OIDC) auth icon
+					307 text Slack (OIDC)
+					308 text DISABLED
+					309 image
+				310 button Slack (Deprecated) auth icon Slack (Deprecated) DISABLED
+					311 image Slack (Deprecated) auth icon
+					312 text Slack (Deprecated)
+					313 text DISABLED
+					314 image
+				315 button Spotify auth icon Spotify DISABLED
+					316 image Spotify auth icon
+					317 text Spotify
+					318 text DISABLED
+					319 image
+				320 button WorkOS auth icon WorkOS DISABLED
+					321 image WorkOS auth icon
+					322 text WorkOS
+					323 text DISABLED
+					324 image
+				325 button Zoom auth icon Zoom DISABLED
+					326 image Zoom auth icon
+					327 text Zoom
+					328 text DISABLED
+					329 image
+				330 container custom-providers
+					331 heading Custom Providers, Value: 2
+						332 text Custom Providers
+					333 text NEW
+					334 text Configure OAuth/OIDC providers for this project using your own issuer or endpoints.
+					335 link Description: Docs, Value: supabase.com/docs/guides/auth/custom-oauth-providers
+					336 container
+						337 text field (settable)
+						338 image
+					339 pop up button (collapsed) Provider Type, Secondary Actions: Expand
+						340 text Provider Type
+					341 pop up button (collapsed) Status, Secondary Actions: Expand
+						342 text Status
+					343 button New Provider
+					344 container
+						345 table
+							346 row
+								347 cell
+									348 button NAME
+										349 text NAME
+								350 cell
+									351 button IDENTIFIER
+										352 text IDENTIFIER
+								353 cell
+									354 button TYPE
+										355 text TYPE
+								356 cell
+									357 text ENABLED
+							358 row
+								359 cell
+									360 text No custom providers found
+		89 text Sign In / Providers | Authentication | Caliber DEV | jacksnc's rummage | Supabase
+	150 container grammarly-integration
+		361 text {"mode":"full","isActive":true,"isUserDisabled":false}
+
+The focused UI element is 0 AXWebArea Sign In / Providers | Authentication | Caliber DEV | jacksnc's rummage | Supabase, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/providers

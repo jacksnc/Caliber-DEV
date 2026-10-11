@@ -1,0 +1,124 @@
+Browser tab: 1247604996, Title: "Users | Authentication | Caliber DEV | jacksnc's rummage | Supabase", URL: "https://supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users".
+0 AXWebArea Users | Authentication | Caliber DEV | jacksnc's rummage | Supabase, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+	1 container
+		207 link Description: Skip to content, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users#main
+		208 container
+			209 link Description: Supabase Back to organization home, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			210 link Description: jacksnc's rummage FREE, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			211 pop up button (collapsed) Description: Show organizations, Secondary Actions: Expand
+			212 link Description: Caliber DEV, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			213 pop up button (collapsed) Description: Show organization projects, Secondary Actions: Expand
+			214 link Description: main PRODUCTION, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			215 pop up button (collapsed) Description: Show project branches, Secondary Actions: Expand
+			216 button Connect
+			217 pop up button (collapsed) Feedback, Secondary Actions: Expand
+			218 pop up button (collapsed) Search..., Secondary Actions: Expand
+				219 image
+				220 text Search...
+			221 button Help, ID: help-dropdown-button
+				222 image
+				223 text Help
+			224 button Advisor Center, ID: advisor-center-trigger
+				225 image
+				226 text Advisor Center
+			227 button SQL Editor, ID: editor-trigger
+				228 image
+				229 text SQL Editor
+			230 button AI Assistant, ID: assistant-trigger
+				231 text AI Assistant
+			232 pop up button (collapsed) jacksnc, ID: radix-_r_3u_, Secondary Actions: Expand
+				233 image jacksnc
+		234 container
+			235 container
+				236 content list
+					237 link Description: Project Overview, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+					238 link Description: Table Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/editor
+					239 link Description: SQL Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql
+				240 content list
+					241 link Description: Database, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/database/schemas
+					242 link Description: Authentication, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+					243 link Description: Storage, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/storage/files
+					244 link Description: Edge Functions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions
+					245 link Description: Compute NEW, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/compute
+					246 link Description: Realtime, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/realtime/inspector
+				247 content list
+					248 link Description: Advisors, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/advisors/security
+					249 link Description: Observability, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/observability
+					250 link Description: Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/logs
+					251 link Description: Integrations, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/integrations
+				252 content list
+					253 link Description: Project Settings, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/settings/general
+			254 pop up button (collapsed) Description: Sidebar control, ID: radix-_r_4e_, Secondary Actions: Expand
+		255 container
+			256 container spec-click-target
+				257 heading Authentication, Value: 4
+					258 text Authentication
+				259 menu Sidebar
+					260 content list
+						261 text MANAGE
+						262 link Description: Users, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+						263 link Description: OAuth Apps, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/oauth-apps
+						264 text NOTIFICATIONS
+						265 link Description: Emails, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates
+						266 text CONFIGURATION
+						267 link Description: Policies, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/database/policies
+						268 link Description: Sign In / Providers, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/providers
+						269 link Description: Passkeys BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/passkeys
+						270 link Description: OAuth Server BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/oauth-server
+						271 link Description: Sessions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/sessions
+						272 link Description: Rate Limits, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/rate-limits
+						273 link Description: Multi-Factor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/mfa
+						274 link Description: URL Configuration, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/url-configuration
+						275 link Description: Attack Protection, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/protection
+						276 link Description: Auth Hooks BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/hooks
+						277 link Description: Audit Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/audit-logs
+						278 link Description: Performance, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/performance
+			279 container
+				280 heading Users, Value: 3
+					281 text Users
+				282 image
+				283 combo box (collapsed) Value: Email address, Secondary Actions: Expand
+					284 text Email address
+				285 text field (settable)
+				286 pop up button (collapsed) All columns, Secondary Actions: Expand
+					287 text All columns
+				288 button (disabled) Sorted by user ID
+				289 button Refresh
+				290 pop up button (collapsed) Add user, ID: radix-_r_da_, Secondary Actions: Expand
+				291 table
+					292 row UID Display name Email Phone Providers Provider type Created at
+						293 cell (selectable)
+						294 cell (selectable) UID
+						295 cell (selectable) Display name
+						296 cell (selectable) Email
+						297 cell (selectable) Phone
+						298 cell (selectable) Providers
+						299 cell (selectable) Provider type
+						300 cell (selectable) Created at
+					301 row (selectable) e0b46ff1-8b32-4c17-94b6-8b4af994bb92 - caliber.qa.a@caliber.invalid - email auth icon Email - Sat 10 Oct 2026 23:04:10 GMT-0400
+						302 cell (selectable)
+							303 checkbox 0
+						304 cell (selectable) e0b46ff1-8b32-4c17-94b6-8b4af994bb92
+						305 cell (selectable) -
+						306 cell (selectable) caliber.qa.a@caliber.invalid
+						307 cell (selectable) -
+						308 cell (selectable) Description: email auth icon, Value: Email
+						309 cell (selectable) -
+						310 cell (selectable) Sat 10 Oct 2026 23:04:10 GMT-0400
+					311 row (selectable) bde0e17b-7f40-41b3-9e24-63bb8a6352c4 - caliber.qa.b@caliber.invalid - email auth icon Email - Sat 10 Oct 2026 23:04:30 GMT-0400
+						312 cell (selectable)
+							313 checkbox 0
+						314 cell (selectable) bde0e17b-7f40-41b3-9e24-63bb8a6352c4
+						315 cell (selectable) -
+						316 cell (selectable) caliber.qa.b@caliber.invalid
+						317 cell (selectable) -
+						318 cell (selectable) Description: email auth icon, Value: Email
+						319 cell (selectable) -
+						320 cell (selectable) Sat 10 Oct 2026 23:04:30 GMT-0400
+				321 text Total: 10 user s  (estimated)
+				322 button
+		96 text Users | Authentication | Caliber DEV | jacksnc's rummage | Supabase
+	184 container grammarly-integration
+		206 text {"mode":"full","isActive":true,"isUserDisabled":false}
+
+The focused UI element is 0 AXWebArea Users | Authentication | Caliber DEV | jacksnc's rummage | Supabase, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users

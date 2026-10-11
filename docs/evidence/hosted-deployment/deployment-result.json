@@ -1,0 +1,36 @@
+{
+  "verifiedAt": "2026-10-11T03:32:26.238354+00:00",
+  "projectURL": "https://tuvbdozxtkcxnojxbvlh.supabase.co",
+  "projectName": "Caliber DEV",
+  "configuredRegion": "us-east-1",
+  "functionName": "caliber-gateway",
+  "status": "deployed_backend_verified_activation_pending",
+  "verifyJWTAtRelay": false,
+  "reviewedSHA256": {
+    "index.ts": "bfaa1d10f9ac01c8df4ba9cd8d67ff13bc6977ccfff0f0f5376b0d2a964c327a",
+    "foundation.sql": "fc03f88827d33109f2cc6056ee8539c9ab05af7b0bf1b69c7813875f5b348ff7"
+  },
+  "publishedSourceMatches": true,
+  "publishedSourceCharacters": 7096,
+  "catalogCriteriaPassed": 6,
+  "simulatedClaimBehaviorAssertionsPassed": 12,
+  "simulatedFixtureCleanupChecksPassed": 3,
+  "httpRejectionChecksPassed": 11,
+  "positiveAuthenticationCriteriaPassed": 18,
+  "localDenoTestFunctionsPassed": 12,
+  "localPythonVerifierTestsPassed": 3,
+  "initialAuthenticationAttemptPassed": false,
+  "completeAuthenticationRerunPassed": true,
+  "testSessionLogoutPassed": true,
+  "temporaryCredentialFileRemoved": true,
+  "fictionalAccountsRetained": 2,
+  "fictionalNoteFixturesRetained": 2,
+  "personalHealthUploadPerformed": false,
+  "appActivationEnabled": false,
+  "remainingGates": [
+    "Registration policy",
+    "Gateway abuse controls",
+    "Provider safeguard verification",
+    "Live domain sync and remaining Foundation acceptance"
+  ]
+}

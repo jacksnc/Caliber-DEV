@@ -44,3 +44,35 @@ Deno.test("deployment catalog checks detect disabled RLS and public RPC access",
     await db.close();
   }
 });
+
+Deno.test("hosted owner fixture checks run twice and leave no fixture rows", async () => {
+  const db = new PGlite();
+  try {
+    await db.exec(`CREATE ROLE anon; CREATE ROLE authenticated;
+      CREATE SCHEMA auth; CREATE TABLE auth.users(id uuid PRIMARY KEY);
+      CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$
+        SELECT coalesce(nullif(current_setting('request.jwt.claim.sub',true),''),
+          nullif(current_setting('request.jwt.claims',true),'')::jsonb->>'sub')::uuid $$;
+      GRANT USAGE ON SCHEMA auth TO anon, authenticated;`);
+    await db.exec(
+      await Deno.readTextFile(
+        new URL("../supabase/migrations/001_foundation.sql", import.meta.url),
+      ),
+    );
+    const fixture = await Deno.readTextFile(
+      new URL("../verification/owner_isolation.sql", import.meta.url),
+    );
+    for (let run = 0; run < 2; run++) {
+      await db.exec(fixture);
+      const rows = (await db.query<{ clean: boolean }>(`SELECT
+        NOT EXISTS(SELECT 1 FROM auth.users) AND
+        NOT EXISTS(SELECT 1 FROM public.caliber_accounts) AND
+        NOT EXISTS(SELECT 1 FROM public.caliber_revisions) AS clean`)).rows;
+      if (rows[0]?.clean !== true) {
+        throw new Error("Fixture rows survived rollback");
+      }
+    }
+  } finally {
+    await db.close();
+  }
+});

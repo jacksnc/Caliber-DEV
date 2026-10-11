@@ -96,3 +96,11 @@ The owner's “Go” accepted ADR-001's native iOS / later Android amendment. Ph
 |---|---|---|
 | D42 | Stage the exact tested bundle and atomic migration in the existing DEV project; compare editor copies before deployment. | No applicable Supabase connector or installed CLI was available. Fresh metadata confirms object names are available. Browser permission/authentication changes need action-time confirmation; app activation remains off until hosted verification. |
 | D43 | Verify deployed catalog permissions separately from positive authentication. | The catalog query catches RLS and public-execution regressions locally. Hosted simulated-claim fixtures cannot prove JWT/sign-in/refresh/logout behavior. No personal records or credentials are needed for preflight. |
+
+## Hosted deployment — 2026-10-10
+
+| ID | Decision | Reason/evidence |
+|---|---|---|
+| D44 | Apply only the approved Foundation migration and gateway relay setting to DEV; keep app activation off. | Owner gave action-time approval. Six hosted permission checks, twelve simulated-claim behavior assertions, eleven HTTP rejection requests and eighteen genuine signed-token criteria pass. Provider hardening remains required. Other existing auth settings were inspected, not changed. |
+| D45 | Create only the two named fictional confirmed DEV users under the owner's explicit “you do it” authorization. | This instruction supersedes the initial browser-guideline handoff. Independent generated passwords were held in a private temporary file, never printed or committed, and discarded after verification. The interactive runner keeps response tokens out of reports. Both test accounts and their synthetic notes remain; all test sessions were logged out. |
+| D46 | Treat the current Auth limits as provider controls, not verified per-device gateway protection. | IP forwarding is off and the anonymous server key cannot use forwarded-IP rate limiting. Shared egress and existing signup/CAPTCHA settings require a reviewed hardening design before activation; no key/limit/protection was changed as a shortcut. |

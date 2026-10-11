@@ -1,0 +1,122 @@
+Browser tab: 1247604979, Title: "Rate Limits | Authentication | Caliber DEV | jacksnc's rummage | Supabase", URL: "https://supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/rate-limits".
+0 AXWebArea Rate Limits | Authentication | Caliber DEV | jacksnc's rummage | Supabase, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/rate-limits
+	1 container
+		2 link Description: Skip to content, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/rate-limits#main
+		3 container
+			4 link Description: Supabase Back to organization home, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			90 link Description: jacksnc's rummage FREE, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			91 pop up button (collapsed) Description: Show organizations, Secondary Actions: Expand
+			92 link Description: Caliber DEV, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			93 pop up button (collapsed) Description: Show organization projects, Secondary Actions: Expand
+			94 link Description: main PRODUCTION, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			95 pop up button (collapsed) Description: Show project branches, Secondary Actions: Expand
+			96 button Connect
+			6 pop up button (collapsed) Feedback, Secondary Actions: Expand
+			7 pop up button (collapsed) Search..., Secondary Actions: Expand
+				8 image
+				9 text Search...
+			10 button Help, ID: help-dropdown-button
+				11 image
+				12 text Help
+			13 button Advisor Center, ID: advisor-center-trigger
+				14 image
+				15 text Advisor Center
+			16 button SQL Editor, ID: editor-trigger
+				17 image
+				18 text SQL Editor
+			19 button AI Assistant, ID: assistant-trigger
+				20 text AI Assistant
+			21 pop up button (collapsed) jacksnc, ID: radix-_r_3o_, Secondary Actions: Expand
+				97 image jacksnc
+		23 container
+			24 container
+				25 content list
+					26 link Description: Project Overview, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+					98 link Description: Table Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/editor
+					99 link Description: SQL Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql
+				33 content list
+					100 link Description: Database, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/database/schemas
+					101 link Description: Authentication, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+					102 link Description: Storage, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/storage/files
+					43 link Description: Edge Functions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions
+					103 link Description: Compute NEW, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/compute
+					104 link Description: Realtime, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/realtime/inspector
+				47 content list
+					105 link Description: Advisors, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/advisors/security
+					106 link Description: Observability, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/observability
+					54 link Description: Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/logs
+					107 link Description: Integrations, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/integrations
+				58 content list
+					59 link Description: Project Settings, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/settings/general
+			60 pop up button (collapsed) Description: Sidebar control, ID: radix-_r_48_, Secondary Actions: Expand
+		61 container
+			62 container spec-click-target
+				63 heading Authentication, Value: 4
+					64 text Authentication
+				65 menu Sidebar
+					66 content list
+						67 text MANAGE
+						68 link Description: Users, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+						69 link Description: OAuth Apps, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/oauth-apps
+						70 text NOTIFICATIONS
+						71 link Description: Emails, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates
+						72 text CONFIGURATION
+						73 link Description: Policies, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/database/policies
+						74 link Description: Sign In / Providers, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/providers
+						108 link Description: Passkeys BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/passkeys
+						75 link Description: OAuth Server BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/oauth-server
+						76 link Description: Sessions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/sessions
+						77 link Description: Rate Limits, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/rate-limits
+						78 link Description: Multi-Factor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/mfa
+						79 link Description: URL Configuration, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/url-configuration
+						80 link Description: Attack Protection, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/protection
+						81 link Description: Auth Hooks BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/hooks
+						82 link Description: Audit Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/audit-logs
+						83 link Description: Performance, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/performance
+			84 container
+				109 heading Rate Limits, Value: 1
+					110 text Rate Limits
+				111 text Safeguard against bursts of incoming traffic to prevent abuse and maximize stability
+				112 link Description: Docs, Value: supabase.com/docs/guides/platform/going-into-prod#rate-limiting-resource-allocation--abuse-prevention
+				113 container
+					114 stepper (disabled) Rate limit for sending emails, Value: <redacted>
+					115 text emails/h
+					116 text Rate limit for sending emails Number of emails that can be sent per hour from your project
+				117 container
+					118 stepper (disabled, settable, integer) Rate limit for sending SMS messages, Value: 30
+					119 text sms/h
+					120 text Rate limit for sending SMS messages Number of SMS messages that can be sent per hour from your project
+				121 container
+					122 stepper (settable, integer) Rate limit for token refreshes, Value: 150
+					123 text requests/5 min
+					124 text 1800  requests per hour Rate limit for token refreshes Number of sessions that can be refreshed in a 5 minute interval per IP address
+				125 container
+					126 stepper (settable, integer) Rate limit for token verifications, Value: 30
+					127 text requests/5 min
+					128 text 360  requests per hour Rate limit for token verifications Number of OTP and magic link verifications that can be made in a 5 minute interval per IP address
+				129 container
+					130 stepper (disabled, settable, integer) Rate limit for anonymous users, Value: 30
+					131 text requests/h
+					132 text Rate limit for anonymous users Number of anonymous sign-ins that can be made per hour per IP address
+				133 container
+					134 stepper (settable, integer) Rate limit for sign-ups and sign-ins, Value: 30
+					135 text requests/5 min
+					136 text 360  requests per hour Rate limit for sign-ups and sign-ins Number of sign-up and sign-in requests that can be made in a 5 minute interval per IP address (excludes anonymous users)
+				137 container
+					138 stepper (disabled, settable, integer) Rate limit for Web3 sign-ups and sign-ins, Value: 30
+					139 text requests/5 min
+					140 text Rate limit for Web3 sign-ups and sign-ins Number of Web3 sign-up or sign-in requests that can be made per IP address in 5 minutes
+				141 button (disabled) Save changes
+				142 heading IP Address Forwarding, Value: 2
+					143 text IP Address Forwarding
+				144 text Control how Auth determines source IP address for rate limiting.
+				145 container
+					146 switch Description: Enable IP address forwarding, Value: 0
+					147 text Enable IP address forwarding Clients can forward end-user IP addresses to Auth for rate limiting when using secret API keys.
+					148 link Description: Learn more, Value: supabase.com/docs/guides/auth/rate-limits#ip-address-forwarding
+				149 button (disabled) Save changes
+		89 text Rate Limits | Authentication | Supabase
+	150 container grammarly-integration
+		151 text {"mode":"full","isActive":true,"isUserDisabled":false}
+
+The focused UI element is 0 AXWebArea Rate Limits | Authentication | Caliber DEV | jacksnc's rummage | Supabase, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/rate-limits

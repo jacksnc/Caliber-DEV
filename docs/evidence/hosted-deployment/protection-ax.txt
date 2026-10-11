@@ -1,0 +1,94 @@
+Browser tab: 1247604979, Title: "Attack Protection | Authentication | Caliber DEV | jacksnc's rummage | Supabase", URL: "https://supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/protection".
+0 AXWebArea Attack Protection | Authentication | Caliber DEV | jacksnc's rummage | Supabase, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/protection
+	1 container
+		2 link Description: Skip to content, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/protection#main
+		3 container
+			4 link Description: Supabase Back to organization home, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			90 link Description: jacksnc's rummage FREE, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			91 pop up button (collapsed) Description: Show organizations, Secondary Actions: Expand
+			92 link Description: Caliber DEV, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			93 pop up button (collapsed) Description: Show organization projects, Secondary Actions: Expand
+			94 link Description: main PRODUCTION, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			95 pop up button (collapsed) Description: Show project branches, Secondary Actions: Expand
+			96 button Connect
+			6 pop up button (collapsed) Feedback, Secondary Actions: Expand
+			7 pop up button (collapsed) Search..., Secondary Actions: Expand
+				8 image
+				9 text Search...
+			10 button Help, ID: help-dropdown-button
+				11 image
+				12 text Help
+			13 button Advisor Center, ID: advisor-center-trigger
+				14 image
+				15 text Advisor Center
+			16 button SQL Editor, ID: editor-trigger
+				17 image
+				18 text SQL Editor
+			19 button AI Assistant, ID: assistant-trigger
+				20 text AI Assistant
+			21 pop up button (collapsed) jacksnc, ID: radix-_r_3o_, Secondary Actions: Expand
+				97 image jacksnc
+		23 container
+			24 container
+				25 content list
+					26 link Description: Project Overview, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+					98 link Description: Table Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/editor
+					99 link Description: SQL Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql
+				33 content list
+					100 link Description: Database, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/database/schemas
+					101 link Description: Authentication, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+					102 link Description: Storage, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/storage/files
+					43 link Description: Edge Functions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions
+					103 link Description: Compute NEW, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/compute
+					104 link Description: Realtime, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/realtime/inspector
+				47 content list
+					105 link Description: Advisors, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/advisors/security
+					106 link Description: Observability, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/observability
+					54 link Description: Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/logs
+					107 link Description: Integrations, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/integrations
+				58 content list
+					59 link Description: Project Settings, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/settings/general
+			60 pop up button (collapsed) Description: Sidebar control, ID: radix-_r_48_, Secondary Actions: Expand
+		362 container
+			363 container spec-click-target
+				364 heading Authentication, Value: 4
+					365 text Authentication
+				366 menu Sidebar
+					367 content list
+						368 text MANAGE
+						369 link Description: Users, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+						370 link Description: OAuth Apps, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/oauth-apps
+						371 text NOTIFICATIONS
+						372 link Description: Emails, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates
+						373 text CONFIGURATION
+						374 link Description: Policies, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/database/policies
+						375 link Description: Sign In / Providers, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/providers
+						376 link Description: Passkeys BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/passkeys
+						377 link Description: OAuth Server BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/oauth-server
+						378 link Description: Sessions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/sessions
+						379 link Description: Rate Limits, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/rate-limits
+						380 link Description: Multi-Factor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/mfa
+						381 link Description: URL Configuration, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/url-configuration
+						382 link Description: Attack Protection, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/protection
+						383 link Description: Auth Hooks BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/hooks
+						384 link Description: Audit Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/audit-logs
+						385 link Description: Performance, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/performance
+			386 container
+				387 heading Attack Protection, Value: 1
+					388 text Attack Protection
+				389 text Configure security settings to protect your project from attacks
+				390 heading Bot and Abuse Protection, Value: 2
+					391 text Bot and Abuse Protection
+				392 container
+					393 switch Description: Toggle Captcha protection, Value: 0
+					394 text Enable Captcha protection Protect authentication endpoints from bots and abuse.
+				395 container
+					396 text DISABLED
+					397 link Description: Configure in email provider, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/providers?provider=Email
+					398 text Prevent use of leaked passwords Rejects the use of known or easy to guess passwords on sign up or password change.
+				399 button (disabled) Save changes
+		89 text Attack Protection | Authentication | Caliber DEV | jacksnc's rummage | Supabase
+	150 container grammarly-integration
+		361 text {"mode":"full","isActive":true,"isUserDisabled":false}
+
+The focused UI element is 0 AXWebArea Attack Protection | Authentication | Caliber DEV | jacksnc's rummage | Supabase, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/protection

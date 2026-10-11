@@ -43,3 +43,12 @@ Existing source work predates this phase and remains locally staged/uncommitted 
 - Staged the exact tested gateway source and transaction-wrapped SQL in the dashboard, verifying both editor copies without deploying.
 - Added a read-only hosted permission/RLS catalog query and a PostgreSQL regression test that detects disabled RLS and public RPC execution.
 - Saved successful format, lint, strict typecheck and all 11 backend test results. Hosted deployment, positive authentication and app activation remain pending.
+
+## 2026-10-10 — DEV backend deployed (activation gates open)
+
+- Applied the owner-approved atomic Foundation migration and deployed the exact reviewed caliber-gateway source. Saved the approved relay JWT setting off; sync retains upstream authentication and owner checks.
+- Verified all six hosted grants/RLS/definer criteria, twelve database behavior assertions and complete rollback of fictional fixtures, plus eleven key-free HTTP rejection paths with sanitized no-store responses.
+- Added a private-password two-account authentication verifier and three local harness tests for session scope and credential redaction. Final backend format/lint/typecheck and all twelve Deno tests pass.
+- Created the two named fictional DEV users under the owner's explicit authorization, then passed eighteen positive hosted checks for sign-in, authenticated sync, account isolation, refresh and current-session logout. The first attempt failed during sync; its session cleanup passed, and the complete rerun passed without backend changes. Sanitized evidence retains both outcomes.
+- Removed the private temporary passwords after verification and logged out issued test sessions. Only the two fictional accounts and their synthetic notes remain; no credential or token is stored in the repository or delivered in artifacts.
+- Inspected current provider safeguards and documented signup, CAPTCHA, logging and shared-IP rate-limit limitations. App activation and personal uploads remain off pending these gates.

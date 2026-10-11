@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-10-11T03:06:20.738165+00:00",
+  "endpoint": "https://tuvbdozxtkcxnojxbvlh.supabase.co/functions/v1/caliber-gateway",
+  "fictionalFixtureOwners": [
+    "0199b100-1000-7000-8000-000000000001",
+    "0199b100-1000-7000-8000-000000000002"
+  ],
+  "results": [
+    { "criterion": "Account A first session", "passed": true },
+    { "criterion": "Account A second session", "passed": true },
+    { "criterion": "Account B session", "passed": true },
+    { "criterion": "Sessions bind to distinct authenticated accounts", "passed": true },
+    { "criterion": "Remaining issued sessions logged out", "passed": true }
+  ],
+  "passed": false,
+  "failure": "Verification interrupted or transport/response failed",
+  "scope": "Fictional DEV accounts only; note rows remain until fixture-account cleanup. Access JWTs may remain valid until expiry."
+}

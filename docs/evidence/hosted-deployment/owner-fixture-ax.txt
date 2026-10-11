@@ -1,0 +1,133 @@
+Browser tab: 1247604656, Title: "Untitled query | SQL Editor | Caliber DEV | jacksnc's rummage | Supabase", URL: "https://supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/b15d4566-a0d4-43d7-8a7f-3f67fe5de79c".
+0 AXWebArea Untitled query | SQL Editor | Caliber DEV | jacksnc's rummage | Supabase, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/b15d4566-a0d4-43d7-8a7f-3f67fe5de79c
+	1 container
+		2 link Description: Skip to content, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/b15d4566-a0d4-43d7-8a7f-3f67fe5de79c#main
+		3 container
+			4 link Description: Supabase Back to organization home, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			5 link Description: jacksnc's rummage FREE, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			6 pop up button (collapsed) Description: Show organizations, Secondary Actions: Expand
+			7 link Description: Caliber DEV, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			8 pop up button (collapsed) Description: Show organization projects, Secondary Actions: Expand
+			9 link Description: main PRODUCTION, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			10 pop up button (collapsed) Description: Show project branches, Secondary Actions: Expand
+			11 button Connect
+			12 pop up button (collapsed) Feedback, Secondary Actions: Expand
+			13 pop up button (collapsed) Search..., Secondary Actions: Expand
+				14 image
+				15 text Search...
+			16 button Help, ID: help-dropdown-button
+				17 image
+				18 text Help
+			19 button Advisor Center, ID: advisor-center-trigger
+				20 image
+				21 text Advisor Center
+			22 button SQL Editor, ID: editor-trigger
+				23 image
+				24 text SQL Editor
+			25 button AI Assistant, ID: assistant-trigger
+				26 text AI Assistant
+			27 pop up button (collapsed) jacksnc, ID: radix-_r_5h_, Secondary Actions: Expand
+				28 image jacksnc
+		29 container
+			30 container
+				31 content list
+					32 link Description: Project Overview, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+					33 link Description: Table Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/editor
+					34 link Description: SQL Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql
+				35 content list
+					36 link Description: Database, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/database/schemas
+					37 link Description: Authentication, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+					38 link Description: Storage, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/storage/files
+					39 link Description: Edge Functions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions
+					40 link Description: Compute NEW, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/compute
+					41 link Description: Realtime, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/realtime/inspector
+				42 content list
+					43 link Description: Advisors, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/advisors/security
+					44 link Description: Observability, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/observability
+					45 link Description: Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/logs
+					46 link Description: Integrations, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/integrations
+				47 content list
+					48 link Description: Project Settings, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/settings/general
+			49 pop up button (collapsed) Description: Sidebar control, ID: radix-_r_61_, Secondary Actions: Expand
+		50 container
+			51 container spec-click-target
+				52 heading SQL Editor, Value: 4
+					53 text SQL Editor
+				54 container
+					55 text Search queries
+					56 text field (settable) Search queries...
+					57 pop up button (collapsed) ID: radix-_r_87_, Secondary Actions: Expand
+						58 image
+					59 image
+				60 pop up button (collapsed) Description: Create a new query, ID: radix-_r_8a_, Secondary Actions: Expand
+				61 button (collapsed) SHARED, Help: Shared, Secondary Actions: Expand
+					62 image
+					63 text SHARED
+				64 button (collapsed) FAVORITES, Help: Favorites, Secondary Actions: Expand
+					65 image
+					66 text FAVORITES
+				67 button (expanded) PRIVATE, Secondary Actions: Collapse
+					68 image
+					69 text PRIVATE
+				70 outline private-snippets
+					71 container
+						72 image
+						73 text Untitled query
+				74 button (collapsed) LOGS, Help: Logs, Secondary Actions: Expand
+					75 image
+					76 text LOGS
+				77 button (expanded) REFERENCE, Help: Reference, Secondary Actions: Collapse
+					78 image
+					79 text REFERENCE
+				80 container radix-_r_8h_
+					81 link Description: Templates, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/templates
+					82 link Description: Examples, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql/examples
+				83 link Description: View running queries, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/observability/connections
+			84 splitter 18.01499938964844
+			85 container
+				86 button Collapse sidebar
+					87 image
+					88 text Collapse sidebar
+				89 tab group
+					90 container
+						91 tab (selected, settable, boolean) Untitled query, ID: radix-_r_97_-trigger-sql-b15d4566-a0d4-43d7-8a7f-3f67fe5de79c, Value: 1
+Untitled query
+						92 button Close tab
+							93 image
+					94 button
+						95 image
+				96 text Unsaved edits
+				97 pop up button (collapsed) Description: More actions, ID: radix-_r_bp_, Secondary Actions: Expand
+				98 pop up button (collapsed) Description: Query source: Database, ID: radix-_r_c1_, Secondary Actions: Expand
+				99 button Save
+				100 button Run
+				101 container
+					102 editor (settable) Description: Editor content, Value:     ('0199b000-1000-7000-8000-000000000001','0199b000-1000-7000-8000-000000000009')) AS fixture_owners_removed,
+  NOT EXISTS (SELECT 1 FROM public.caliber_revisions WHERE owner_id IN
+    ('0199b000-1000-7000-8000-000000000001','0199b000-1000-7000-8000-000000000009')) AS fixture_revisions_removed;
+
+				103 splitter 50
+				104 container
+					105 tab group
+						106 tab (selected, settable, boolean) Results, Value: 1, ID: radix-_r_c8_-trigger-results
+						107 tab (selectable, settable, boolean) Chart, Value: 0, ID: radix-_r_c8_-trigger-chart
+						166 button 1 row
+							167 container
+								168 text 1  row
+						111 pop up button (collapsed) Export, ID: radix-_r_cm_, Secondary Actions: Expand
+					169 table
+						170 row fixture_subjects_removed fixture_owners_removed fixture_revisions_removed
+							171 cell (selectable) fixture_subjects_removed
+							172 cell (selectable) fixture_owners_removed
+							173 cell (selectable) fixture_revisions_removed
+						174 row true true true
+							175 cell (selectable) true
+							176 cell (selectable) true
+							177 cell (selectable) true
+		113 text SQL Editor | Caliber DEV | jacksnc's rummage | Supabase
+	114 container grammarly-integration
+		165 text {"mode":"full","isActive":true,"isUserDisabled":false}
+
+The focused UI element is 102 editor (settable) Description: Editor content, Value:     ('0199b000-1000-7000-8000-000000000001','0199b000-1000-7000-8000-000000000009')) AS fixture_owners_removed,
+  NOT EXISTS (SELECT 1 FROM public.caliber_revisions WHERE owner_id IN
+    ('0199b000-1000-7000-8000-000000000001','0199b000-1000-7000-8000-000000000009')) AS fixture_revisions_removed;
