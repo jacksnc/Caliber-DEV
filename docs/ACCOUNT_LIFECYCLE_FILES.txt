@@ -1,0 +1,60 @@
+Caliber (DEV)/App/FoundationRuntime.swift
+Caliber (DEV)/App/HostedAccountModel.swift
+Caliber (DEV)/Resources/Localizable.xcstrings
+Caliber (DEV)/Views/Foundation/HostedAccountView.swift
+Caliber (DEV)Tests/HostedAccountTests.swift
+Caliber (DEV)UITests/FoundationUITests.swift
+Packages/CaliberFoundation/Sources/CaliberIntegrations/AccountGateway.swift
+Packages/CaliberFoundation/Sources/CaliberIntegrations/CloudGateway.swift
+Packages/CaliberFoundation/Tests/CaliberIntegrationsTests/AccountLifecycleTests.swift
+backend/supabase/functions/caliber-gateway/account_lifecycle.ts
+backend/supabase/functions/caliber-gateway/auth_budget.ts
+backend/supabase/functions/caliber-gateway/handler.ts
+backend/supabase/functions/caliber-gateway/index.ts
+backend/supabase/migrations/004_account_lifecycle.sql
+backend/supabase/templates/recovery.html
+backend/tests/account_lifecycle_test.ts
+backend/tests/auth_guard_test.ts
+backend/tests/gateway_test.ts
+backend/verification/account_lifecycle_postflight.sql
+backend/verification/account_lifecycle_preflight.sql
+backend/verification/account_lifecycle_smoke.py
+backend/verification/auth_guard_smoke.py
+backend/verification/auth_lifecycle.py
+backend/verification/tests/test_account_lifecycle_runner.py
+docs/ACCOUNT_LIFECYCLE_VERIFICATION.md
+docs/BACKLOG.md
+docs/CHANGELOG.md
+docs/DECISIONS.md
+docs/MIGRATIONS.md
+docs/SECURITY.md
+docs/adr/008-account-lifecycle.md
+docs/evidence/account-lifecycle/SHA256.json
+docs/evidence/account-lifecycle/app-and-ui-retry.log
+docs/evidence/account-lifecycle/backend-tests.log
+docs/evidence/account-lifecycle/bundle-check.log
+docs/evidence/account-lifecycle/check.log
+docs/evidence/account-lifecycle/cleanup-ax.txt
+docs/evidence/account-lifecycle/cleanup.sql
+docs/evidence/account-lifecycle/deletion-fixture.png
+docs/evidence/account-lifecycle/email-setup-ax.txt
+docs/evidence/account-lifecycle/final-ui.log
+docs/evidence/account-lifecycle/first-ios-stall.log
+docs/evidence/account-lifecycle/format.log
+docs/evidence/account-lifecycle/hosted-cleanup.jpg
+docs/evidence/account-lifecycle/hosted-lifecycle.json
+docs/evidence/account-lifecycle/http-smoke.json
+docs/evidence/account-lifecycle/lint.log
+docs/evidence/account-lifecycle/migration-ax.txt
+docs/evidence/account-lifecycle/package-tests.log
+docs/evidence/account-lifecycle/postflight-ax.txt
+docs/evidence/account-lifecycle/preflight-ax.txt
+docs/evidence/account-lifecycle/recovery-fixture.png
+docs/evidence/account-lifecycle/relay-ax.txt
+docs/evidence/account-lifecycle/results.json
+docs/evidence/account-lifecycle/source-match.json
+docs/evidence/account-lifecycle/swift-lint.log
+docs/evidence/account-lifecycle/ui-attachments.json
+docs/evidence/account-lifecycle/verifier-tests.log
+scripts/prepare_hosted.py
+docs/ACCOUNT_LIFECYCLE_FILES.txt

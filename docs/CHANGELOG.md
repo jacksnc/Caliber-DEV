@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-12 — Optional account permission, recovery and hosted self-deletion
+
+- Added explicit versioned account permission, local withdrawal, code-based recovery and password-confirmed deletion UI. Sensitive form values are cleared; deletion preserves local diary/progress/photos and resets the permission toggle.
+- Added guarded recovery routes, subject-bound acceptance RPC and a narrowly scoped server-only Auth administrative self-delete path. No account target or API key is accepted from the app. Migration 004 preserves existing quotas/counters and live SwiftData storage.
+- Deployed the exact tested DEV bundle and applied migration 004 after prerequisite checks. Twenty-nine backend functions, sixty-six package functions, sixty-eight app functions plus two template cases, six verifier tests and three account UI tests pass. Final affected UI tests were rerun after the view review.
+- Passed twelve live fictional lifecycle criteria and five catalog cleanup/preservation checks. The newly created disposable account/journal/acceptance record were deleted; four earlier QA accounts remain. Temporary test password discarded; no personal health upload.
+- Prepared the recovery email template. Custom SMTP setup and actual delivery/reset verification remain pending; private DEV app activation and broader Foundation/release gates remain open. See ACCOUNT_LIFECYCLE_VERIFICATION.md and ADR-008.
+
 ## 2026-10-07 — Phase 0 architecture
 - Audited the existing native app against the master brief, retaining its working food, restaurant and Progress flows.
 - Proposed native Swift packages, explicit SQLite/GRDB repositories, separate private Stack storage and a conflict-preserving sync protocol.

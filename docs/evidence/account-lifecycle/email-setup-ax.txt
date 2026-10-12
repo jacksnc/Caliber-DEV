@@ -1,0 +1,141 @@
+Browser tab: 1247605111, Title: "Emails | Authentication | Caliber DEV | jacksnc's rummage | Supabase", URL: "https://supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates".
+1 AXWebArea Emails | Authentication | Caliber DEV | jacksnc's rummage | Supabase, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates
+	2 container
+		151 link Description: Skip to content, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates#main
+		152 container
+			153 image
+			154 text We are investigating multiple technical issues
+			155 text ·
+			156 container
+				157 text Follow the
+				158 link Description: status page, Value: status.supabase.com/
+				159 text  for updates
+			160 button Dismiss banner
+				161 image
+		162 container
+			163 link Description: Supabase Back to organization home, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			164 link Description: jacksnc's rummage FREE, Value: supabase.com/dashboard/org/kelvrffibbowpjlnhndr
+			165 pop up button (collapsed) Description: Show organizations, Secondary Actions: Expand
+			166 link Description: Caliber DEV, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			167 pop up button (collapsed) Description: Show organization projects, Secondary Actions: Expand
+			168 link Description: main PRODUCTION, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+			169 pop up button (collapsed) Description: Show project branches, Secondary Actions: Expand
+			170 button Connect
+			171 pop up button (collapsed) Feedback, Secondary Actions: Expand
+			172 pop up button (collapsed) Search..., Secondary Actions: Expand
+				173 image
+				174 text Search...
+			175 button Help, ID: help-dropdown-button
+				176 image
+				177 text Help
+			178 button Advisor Center, ID: advisor-center-trigger
+				179 image
+				180 text Advisor Center
+			181 button SQL Editor, ID: editor-trigger
+				182 image
+				183 text SQL Editor
+			184 button AI Assistant, ID: assistant-trigger
+				185 text AI Assistant
+			186 pop up button (collapsed) jacksnc, ID: radix-_r_3k_, Secondary Actions: Expand
+				187 image jacksnc
+		188 container
+			189 container
+				190 content list
+					191 link Description: Project Overview, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh
+					192 link Description: Table Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/editor
+					193 link Description: SQL Editor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/sql
+				194 content list
+					195 link Description: Database, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/database/schemas
+					196 link Description: Authentication, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+					197 link Description: Storage, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/storage/files
+					198 link Description: Edge Functions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/functions
+					199 link Description: Compute NEW, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/compute
+					200 link Description: Realtime, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/realtime/inspector
+				201 content list
+					202 link Description: Advisors, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/advisors/security
+					203 link Description: Observability, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/observability
+					204 link Description: Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/logs
+					205 link Description: Integrations, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/integrations
+				206 content list
+					207 link Description: Project Settings, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/settings/general
+			208 pop up button (collapsed) Description: Sidebar control, ID: radix-_r_44_, Secondary Actions: Expand
+		308 container
+			309 container spec-click-target
+				310 heading Authentication, Value: 4
+					311 text Authentication
+				312 menu Sidebar
+					313 content list
+						314 text MANAGE
+						315 link Description: Users, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/users
+						316 link Description: OAuth Apps, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/oauth-apps
+						317 text NOTIFICATIONS
+						318 link Description: Emails, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates
+						319 text CONFIGURATION
+						320 link Description: Policies, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/database/policies
+						321 link Description: Sign In / Providers, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/providers
+						322 link Description: Passkeys BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/passkeys
+						323 link Description: OAuth Server BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/oauth-server
+						324 link Description: Sessions, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/sessions
+						325 link Description: Rate Limits, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/rate-limits
+						326 link Description: Multi-Factor, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/mfa
+						327 link Description: URL Configuration, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/url-configuration
+						328 link Description: Attack Protection, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/protection
+						329 link Description: Auth Hooks BETA, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/hooks
+						330 link Description: Audit Logs, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/audit-logs
+						331 link Description: Performance, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/performance
+			332 container
+				333 heading Emails, Value: 1
+					334 text Emails
+				335 text Configure what emails your users receive and how they are sent
+				336 container
+					337 link Description: Templates, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates
+					338 link Description: SMTP Settings, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/smtp
+				339 container Note
+					340 text Set up custom SMTP to edit templates
+					341 text Emails will be sent using the default templates. Set up custom SMTP to edit their subject and body.
+					342 link Description: Set up SMTP, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/smtp
+					343 pop up button (collapsed) Description: More email template editing options, ID: radix-_r_a6_, Secondary Actions: Expand
+				344 heading Authentication, Value: 2
+					345 text Authentication
+				346 link Description: Confirm sign up Ask users to confirm their email address after signing up, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/confirm-sign-up
+				347 link Description: Invite user Invite someone to create an account, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/invite-user
+				348 link Description: Magic link or OTP Send a one-time sign-in link or one-time password, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/magic-link-or-otp
+				349 link Description: Change email address Ask users to verify their new email address after changing it, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/change-email-address
+				350 link Description: Reset password Send a password reset link or code, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/reset-password
+				351 link Description: Reauthentication Ask users to verify their identity before a sensitive operation, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/reauthentication
+				352 heading Security, Value: 2
+					353 text Security
+				354 link Description: Password changed Notify users when their password has changed, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/password-changed
+				355 container
+					356 switch Value: 0, ID: undefined-form-item
+					357 link supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/password-changed
+				358 link Description: Email address changed Notify users when their email address has changed, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/email-address-changed
+				359 container
+					360 switch Value: 0, ID: undefined-form-item
+					361 link supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/email-address-changed
+				362 link Description: Phone number changed Notify users when their phone number has changed, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/phone-number-changed
+				363 container
+					364 switch Value: 0, ID: undefined-form-item
+					365 link supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/phone-number-changed
+				366 link Description: Sign-in method linked Notify users when a sign-in method has been linked to their account, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/sign-in-method-linked
+				367 container
+					368 switch Value: 0, ID: undefined-form-item
+					369 link supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/sign-in-method-linked
+				370 link Description: Sign-in method removed Notify users when a sign-in method has been removed from their account, Value: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates/sign-in-method-removed
+				371 container
+					372 switch Value: 0, ID: undefined-form-item
+					373 link …
+				374 link Description: MFA method added Notify users when an MFA method has been added to their account, Value: …
+				375 container
+					376 switch Value: 0, ID: undefined-form-item
+					377 link …
+				378 link Description: MFA method removed Notify users when an MFA method has been removed from their account, Value: …
+				379 container
+					380 switch Value: 0, ID: undefined-form-item
+					381 link …
+				382 button (disabled) Save changes
+		149 text Emails | Authentication | Caliber DEV | jacksnc's rummage | Supabase
+	150 container grammarly-integration
+		307 text {"mode":"full","isActive":true,"isUserDisabled":false}
+
+The focused UI element is 1 AXWebArea Emails | Authentication | Caliber DEV | jacksnc's rummage | Supabase, URL: supabase.com/dashboard/project/tuvbdozxtkcxnojxbvlh/auth/templates

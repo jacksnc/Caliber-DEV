@@ -1,0 +1,1 @@
+Task check deno check supabase/functions/caliber-gateway/index.ts tests/*.ts

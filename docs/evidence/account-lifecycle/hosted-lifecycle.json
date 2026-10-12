@@ -1,0 +1,56 @@
+{
+  "verifiedAt": "2026-10-12T20:25:45.644000+00:00",
+  "passed": true,
+  "criteria": [
+    {
+      "criterion": "fixture sign-in with consent",
+      "passed": true
+    },
+    {
+      "criterion": "fixture second session",
+      "passed": true
+    },
+    {
+      "criterion": "authenticated consent confirmation",
+      "passed": true
+    },
+    {
+      "criterion": "synthetic journal created",
+      "passed": true
+    },
+    {
+      "criterion": "wrong password cannot delete",
+      "passed": true
+    },
+    {
+      "criterion": "caller cannot select deletion target",
+      "passed": true
+    },
+    {
+      "criterion": "self-deletion confirmed",
+      "passed": true
+    },
+    {
+      "criterion": "deleted session 1 cannot refresh",
+      "passed": true
+    },
+    {
+      "criterion": "deleted session 2 cannot refresh",
+      "passed": true
+    },
+    {
+      "criterion": "deleted subject cannot create consent with old JWT",
+      "passed": true
+    },
+    {
+      "criterion": "deleted journal not returned to old JWT",
+      "passed": true
+    },
+    {
+      "criterion": "deleted fixture cannot sign in",
+      "passed": true
+    }
+  ],
+  "fixtureSubject": "0767b982-9dc8-45e9-875d-3dc70f823c10",
+  "scope": "Disposable lifecycle fixture only; no email delivery or personal health data."
+}

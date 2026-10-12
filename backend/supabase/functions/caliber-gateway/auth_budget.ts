@@ -1,4 +1,8 @@
-export type AuthRoute = "sign-in" | "refresh";
+export type AuthRoute =
+  | "sign-in"
+  | "refresh"
+  | "recovery-request"
+  | "recovery-verify";
 export interface AuthBudget {
   consume(route: AuthRoute, identifier: string): Promise<{
     allowed: boolean;

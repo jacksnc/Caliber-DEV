@@ -52,7 +52,7 @@ final class FoundationRuntime: ObservableObject {
       loaded.massUnit = prior == "kilograms" ? .kilograms : .pounds
     }
     settings = loaded
-    account = HostedAccountModel.configured(testing: testing)
+    account = HostedAccountModel.configured(testing: testing, defaults: defaults)
     let base =
       testing
       ? FileManager.default.temporaryDirectory.appendingPathComponent("CaliberUITestFoundation")

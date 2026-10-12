@@ -98,6 +98,11 @@ final class FoundationUITests: XCTestCase {
     let open = app.buttons["openAccount"]
     reveal(open, in: app)
     open.tap()
+    XCTAssertTrue(app.switches["accountConsent"].waitForExistence(timeout: 5))
+    XCTAssertFalse(app.buttons["accountConsentContinue"].isEnabled)
+    app.switches["accountConsent"].coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5))
+      .tap()
+    app.buttons["accountConsentContinue"].tap()
     let email = app.textFields["accountEmail"]
     XCTAssertTrue(email.waitForExistence(timeout: 5))
     email.tap()
@@ -159,6 +164,88 @@ final class FoundationUITests: XCTestCase {
     add(methodPicture)
     app.buttons["exitDemo"].tap()
     XCTAssertTrue(app.tabBars.buttons["Today"].waitForExistence(timeout: 5))
+  }
+
+  @MainActor private func openFixtureAccount(in app: XCUIApplication) {
+    app.tabBars.buttons["Settings"].tap()
+    let open = app.buttons["openAccount"]
+    reveal(open, in: app)
+    open.tap()
+    let consent = app.switches["accountConsent"]
+    XCTAssertTrue(consent.waitForExistence(timeout: 5))
+    consent.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
+    app.buttons["accountConsentContinue"].tap()
+    XCTAssertTrue(app.textFields["accountEmail"].waitForExistence(timeout: 5))
+  }
+  @MainActor func testRecoveryUsesCodeWithoutSigningIn() {
+    let app = launch(additionalArguments: ["--account-ui-testing"])
+    openFixtureAccount(in: app)
+    app.buttons["accountRecover"].tap()
+    let email = app.textFields["recoveryEmail"]
+    XCTAssertTrue(email.waitForExistence(timeout: 5))
+    email.tap()
+    email.typeText("fixture@example.invalid")
+    app.buttons["recoverySend"].tap()
+    XCTAssertTrue(app.staticTexts["recoveryMessage"].waitForExistence(timeout: 5))
+    app.textFields["recoveryCode"].tap()
+    app.textFields["recoveryCode"].typeText("123456")
+    app.secureTextFields["recoveryNewPassword"].tap()
+    app.secureTextFields["recoveryNewPassword"].typeText("new-fixture-password")
+    app.secureTextFields["recoveryRepeatPassword"].tap()
+    app.secureTextFields["recoveryRepeatPassword"].typeText("new-fixture-password")
+    let submit = app.buttons["recoveryChangePassword"]
+    reveal(submit, in: app)
+    XCTAssertTrue(submit.isEnabled)
+    submit.tap()
+    XCTAssertTrue(app.staticTexts["recoveryMessage"].waitForExistence(timeout: 5))
+    XCTAssertEqual(
+      app.staticTexts["recoveryMessage"].label, "Password changed. Sign in with your new password.")
+    let picture = XCTAttachment(screenshot: app.screenshot())
+    picture.name = "Password recovery fixture"
+    picture.lifetime = .keepAlways
+    add(picture)
+    app.buttons["Done"].tap()
+    XCTAssertTrue(app.textFields["accountEmail"].waitForExistence(timeout: 5))
+    XCTAssertFalse(app.staticTexts["accountSignedIn"].exists)
+  }
+  @MainActor func testHostedDeletionKeepsLocalProgressNote() {
+    let app = launch(additionalArguments: ["--account-ui-testing"])
+    app.tabBars.buttons["Progress"].tap()
+    app.buttons["addProgressEntry"].tap()
+    let notes = app.textViews["progressNotes"]
+    XCTAssertTrue(notes.waitForExistence(timeout: 5))
+    notes.tap()
+    notes.typeText("Kept after hosted deletion")
+    app.buttons["progressSave"].tap()
+    openFixtureAccount(in: app)
+    app.textFields["accountEmail"].tap()
+    app.textFields["accountEmail"].typeText("fixture@example.invalid")
+    app.secureTextFields["accountPassword"].tap()
+    app.secureTextFields["accountPassword"].typeText("fixture-password")
+    app.buttons["accountSignIn"].tap()
+    XCTAssertTrue(app.staticTexts["accountSignedIn"].waitForExistence(timeout: 5))
+    app.buttons["accountDelete"].tap()
+    XCTAssertTrue(app.secureTextFields["deletionPassword"].waitForExistence(timeout: 5))
+    XCTAssertFalse(app.buttons["deletionSubmit"].isEnabled)
+    app.secureTextFields["deletionPassword"].tap()
+    app.secureTextFields["deletionPassword"].typeText("fixture-password")
+    app.textFields["deletionConfirmation"].tap()
+    app.textFields["deletionConfirmation"].typeText("DELETE")
+    reveal(app.buttons["deletionSubmit"], in: app)
+    app.buttons["deletionSubmit"].tap()
+    app.buttons["Permanently Delete Account"].tap()
+    XCTAssertTrue(app.switches["accountConsent"].waitForExistence(timeout: 5))
+    XCTAssertEqual(app.switches["accountConsent"].value as? String, "0")
+    XCTAssertFalse(app.buttons["accountConsentContinue"].isEnabled)
+    XCTAssertTrue(
+      app.staticTexts["accountMessage"].label.contains("Your local logs and photos are still here"))
+    let picture = XCTAttachment(screenshot: app.screenshot())
+    picture.name = "Hosted deletion fixture"
+    picture.lifetime = .keepAlways
+    add(picture)
+    app.navigationBars.buttons.element(boundBy: 0).tap()
+    app.tabBars.buttons["Progress"].tap()
+    XCTAssertTrue(app.staticTexts["Kept after hosted deletion"].waitForExistence(timeout: 5))
   }
 
 }

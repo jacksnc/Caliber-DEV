@@ -1,0 +1,95 @@
+{
+  "checkedAt": "2026-10-12T20:25:48.321438+00:00",
+  "endpoint": "https://tuvbdozxtkcxnojxbvlh.supabase.co/functions/v1/caliber-gateway",
+  "regionRequested": "us-east-1",
+  "results": [
+    {
+      "criterion": "GET denied",
+      "status": 405,
+      "expectedStatus": 405,
+      "sanitizedBodyMatches": true,
+      "noStore": true,
+      "passed": true
+    },
+    {
+      "criterion": "unknown route",
+      "status": 404,
+      "expectedStatus": 404,
+      "sanitizedBodyMatches": true,
+      "noStore": true,
+      "passed": true
+    },
+    {
+      "criterion": "malformed JSON",
+      "status": 400,
+      "expectedStatus": 400,
+      "sanitizedBodyMatches": true,
+      "noStore": true,
+      "passed": true
+    },
+    {
+      "criterion": "array body",
+      "status": 400,
+      "expectedStatus": 400,
+      "sanitizedBodyMatches": true,
+      "noStore": true,
+      "passed": true
+    },
+    {
+      "criterion": "invalid sign-in fields",
+      "status": 400,
+      "expectedStatus": 400,
+      "sanitizedBodyMatches": true,
+      "noStore": true,
+      "passed": true
+    },
+    {
+      "criterion": "missing pull token",
+      "status": 401,
+      "expectedStatus": 401,
+      "sanitizedBodyMatches": true,
+      "noStore": true,
+      "passed": true
+    },
+    {
+      "criterion": "missing push token",
+      "status": 401,
+      "expectedStatus": 401,
+      "sanitizedBodyMatches": true,
+      "noStore": true,
+      "passed": true
+    },
+    {
+      "criterion": "missing logout token",
+      "status": 401,
+      "expectedStatus": 401,
+      "sanitizedBodyMatches": true,
+      "noStore": true,
+      "passed": true
+    },
+    {
+      "criterion": "forged pull token",
+      "status": 401,
+      "expectedStatus": 401,
+      "sanitizedBodyMatches": true,
+      "noStore": true,
+      "passed": true
+    },
+    {
+      "criterion": "forged logout token",
+      "status": 401,
+      "expectedStatus": 401,
+      "sanitizedBodyMatches": true,
+      "noStore": true,
+      "passed": true
+    },
+    {
+      "criterion": "invalid refresh token",
+      "status": 409,
+      "expectedStatus": 409,
+      "sanitizedBodyMatches": true,
+      "noStore": true,
+      "passed": true
+    }
+  ]
+}

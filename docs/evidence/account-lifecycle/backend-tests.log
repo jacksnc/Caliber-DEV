@@ -1,0 +1,42 @@
+Task test deno test --allow-read --allow-env tests
+Check tests/account_lifecycle_test.ts
+Check tests/auth_guard_test.ts
+Check tests/deployment_test.ts
+Check tests/gateway_test.ts
+Check tests/rls_test.ts
+running 9 tests from ./tests/account_lifecycle_test.ts
+consent is mandatory before sign-in, tied to authenticated subject, and blocks token return on RPC failure ... ok (6ms)
+recovery request has identical safe responses for existing and absent email and independent budgets ... ok (940µs)
+recovery outage, throttle, invalid fields, and oversized input cannot bypass controls ... ok (1ms)
+valid recovery code updates password and revokes sessions without returning a session ... ok (390µs)
+wrong recovery code never updates password; password refusal still cleans ephemeral session ... ok (386µs)
+delete rejects missing auth, wrong confirmation, caller target, and wrong password without admin access ... ok (216µs)
+delete derives target only from verified user and matching password authentication ... ok (203µs)
+failed admin deletion cleans reauth session and never acknowledges deletion ... ok (103µs)
+consent SQL enforces subject ownership, live-user checks, cascade deletion, and recovery budgets ... ok (556ms)
+running 8 tests from ./tests/auth_guard_test.ts
+login budget is checked on the normalized identifier before Auth ... ok (3ms)
+exhausted and failed guards never call Auth and return safe retry responses ... ok (621µs)
+private keyed buckets omit raw email and ignore forwarded IP headers ... ok (3ms)
+invalid guard configuration or RPC results fail closed ... ok (535µs)
+upstream throttling is sanitized without reflecting provider details ... ok (132µs)
+oversized auth streams are cancelled before Auth or budget work ... ok (248µs)
+logout remains available without spending a pre-login budget ... ok (681µs)
+database budgets enforce private grants, capacities, refill and retention ... ok (530ms)
+running 2 tests from ./tests/deployment_test.ts
+deployment catalog checks detect disabled RLS and public RPC access ... ok (516ms)
+hosted owner fixture checks run twice and leave no fixture rows ... ok (288ms)
+running 9 tests from ./tests/gateway_test.ts
+unconfigured insecure hosts are rejected ... ok (383µs)
+sign-in forwards secrets only upstream and returns the session contract ... ok (8ms)
+unauthenticated sync never reaches upstream ... ok (147µs)
+SQL and provider error bodies are discarded ... ok (156µs)
+methods, malformed JSON, unknown routes, and oversized batches are denied ... ok (432µs)
+sign-out revokes only the current session and sanitizes the empty upstream response ... ok (407µs)
+sign-out denies absent, malformed, and legacy sessionless tokens without an upstream call ... ok (629µs)
+sign-out does not accept scope or session selection from the client ... ok (236µs)
+sign-out delegates authentication and discards provider failures and unexpected success bodies ... ok (253µs)
+running 1 test from ./tests/rls_test.ts
+Postgres RLS, idempotency, conflict preservation, and cursor contracts ... ok (511ms)
+
+ok | 29 passed | 0 failed (2s)

@@ -1,0 +1,47 @@
+{
+  "checkedAt": "2026-10-12",
+  "status": "dev_account_lifecycle_verified_email_delivery_pending",
+  "checks": {
+    "backendFormat": true,
+    "backendLint": true,
+    "backendStrictCheck": true,
+    "bundleStrictCheck": true,
+    "swiftLint": true,
+    "diffReview": true
+  },
+  "passedTests": {
+    "backendFunctions": 29,
+    "packageFunctions": 66,
+    "appFunctions": 68,
+    "templateXCTestCases": 2,
+    "verifierCases": 6,
+    "finalUI": 3
+  },
+  "hosted": {
+    "preflightCriteria": 5,
+    "postflightCriteria": 6,
+    "lifecycleCriteria": 12,
+    "httpRejectionCriteria": 11,
+    "cleanupCriteria": 5,
+    "sourceExactMatch": true,
+    "relayLegacyJWT": false,
+    "migrationsApplied": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "activation": {
+    "gatewayDeployedAppFlag": false,
+    "personalHealthSync": false,
+    "recoveryEmailDeliveryVerified": false,
+    "minimumIOS17RuntimeVerified": false
+  },
+  "confidentiality": {
+    "generatedPasswordAbsentFromSourceAndEvidence": true,
+    "privatePasswordFileRemoved": true,
+    "noPersonalHealthUploaded": true
+  },
+  "scope": "A single new disposable fictional account was deleted. Four earlier QA accounts remain. No live SwiftData migration."
+}

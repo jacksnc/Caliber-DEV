@@ -11,7 +11,11 @@ const config = {
 };
 const guardSecret = "a1".repeat(32);
 const signin = (
-  body = { email: "  TEST@example.invalid  ", password: "fictional" },
+  body = {
+    email: "  TEST@example.invalid  ",
+    consentVersion: "account-access-v1",
+    password: "fictional",
+  },
 ) =>
   new Request("https://gateway.invalid/auth/sign-in", {
     method: "POST",

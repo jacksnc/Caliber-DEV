@@ -1,0 +1,11 @@
+test_complete_lifecycle_and_cleanup (test_account_lifecycle_runner.LifecycleRunnerTests) ... ok
+test_failed_deletion_cannot_pass_and_sessions_are_cleaned (test_account_lifecycle_runner.LifecycleRunnerTests) ... ok
+test_provider_password_echo_never_enters_report (test_account_lifecycle_runner.LifecycleRunnerTests) ... ok
+test_current_session_logout_passes (test_auth_runner.RunnerTests) ... ok
+test_global_logout_cannot_pass (test_auth_runner.RunnerTests) ... ok
+test_provider_echo_is_not_saved (test_auth_runner.RunnerTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.004s
+
+OK

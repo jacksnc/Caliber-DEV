@@ -6,7 +6,11 @@ if (!supabaseURL || !publishableKey) {
   throw new Error("missing_server_configuration");
 }
 const guardSecret = Deno.env.get("CALIBER_AUTH_GUARD_SECRET");
-const config = { supabaseURL, publishableKey };
+const config = {
+  supabaseURL,
+  publishableKey,
+  serviceRoleKey: Deno.env.get("SUPABASE_SERVICE_ROLE_KEY"),
+};
 const budget = guardSecret
   ? new DatabaseAuthBudget({ ...config, guardSecret })
   : unavailableAuthBudget;

@@ -45,7 +45,7 @@ def run(endpoint, region, output):
             record(name, status == expected and data == {'error': error} and cache == 'no-store')
         with ThreadPoolExecutor(max_workers=6) as pool:
             responses = list(pool.map(lambda _: request('/auth/sign-in', {
-                'email': email, 'password': 'fictional-wrong-password'}), range(6)))
+                'email': email, 'password': 'fictional-wrong-password', 'consentVersion': 'account-access-v1'}), range(6)))
         accepted = sum(status == 409 and data == {'error': 'request_rejected'} and cache == 'no-store'
                        for status, data, cache, _ in responses)
         throttled = sum(status == 429 and data == {'error': 'rate_limited'} and cache == 'no-store' and
@@ -53,11 +53,11 @@ def run(endpoint, region, output):
                         for status, data, cache, retry in responses)
         record('Six simultaneous attempts forward at most five and throttle the sixth', accepted == 5 and throttled == 1)
         status, data, cache, _ = request('/auth/sign-in', {
-            'email': '  ' + email.upper() + '  ', 'password': 'fictional-wrong-password'}, '203.0.113.99')
+            'email': '  ' + email.upper() + '  ', 'password': 'fictional-wrong-password', 'consentVersion': 'account-access-v1'}, '203.0.113.99')
         record('Case, whitespace and spoofed forwarding cannot reset the bucket',
                status == 429 and data == {'error': 'rate_limited'} and cache == 'no-store')
         status, data, cache, _ = request('/auth/sign-in', {
-            'email': 'caliber.qa.limit.other@caliber.invalid', 'password': 'fictional-wrong-password'})
+            'email': 'caliber.qa.limit.other@caliber.invalid', 'password': 'fictional-wrong-password', 'consentVersion': 'account-access-v1'})
         record('Another identifier retains its own budget', status == 409 and data == {'error': 'request_rejected'} and cache == 'no-store')
     except Exception:
         failure = 'Transport or response contract failed'

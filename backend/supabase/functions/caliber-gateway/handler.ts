@@ -1,8 +1,15 @@
 import { type AuthBudget, unavailableAuthBudget } from "./auth_budget.ts";
+import {
+  accountConsentVersion,
+  accountLifecycle,
+  recordAccountConsent,
+  revokeEphemeralSession,
+} from "./account_lifecycle.ts";
 
 export interface GatewayConfig {
   supabaseURL: string;
   publishableKey: string;
+  serviceRoleKey?: string;
 }
 export type HTTP = typeof fetch;
 const headers = {
@@ -89,6 +96,10 @@ export function gateway(
           "auth/sign-in",
           "auth/refresh",
           "auth/sign-out",
+          "auth/recover",
+          "auth/reset-password",
+          "account/consent",
+          "account/delete",
           "sync/push",
           "sync/pull",
         ].includes(route)
@@ -98,11 +109,28 @@ export function gateway(
       const body = JSON.parse(
         await boundedBody(
           request,
-          route.startsWith("auth/") ? 8192 : 9_000_000,
+          route.startsWith("sync/") ? 9_000_000 : 8192,
         ),
       );
       if (!body || typeof body !== "object" || Array.isArray(body)) {
         return reply({ error: "invalid_request" }, 400);
+      }
+      if (
+        [
+          "auth/recover",
+          "auth/reset-password",
+          "account/consent",
+          "account/delete",
+        ].includes(route)
+      ) {
+        return await accountLifecycle(
+          route,
+          body,
+          request.headers.get("authorization"),
+          config,
+          http,
+          authBudget,
+        );
       }
       const upstreamHeaders: Record<string, string> = {
         apikey: config.publishableKey,
@@ -143,6 +171,9 @@ export function gateway(
               body.email.length > 254 || body.password.length < 1
         ) {
           return reply({ error: "invalid_request" }, 400);
+        }
+        if (!refresh && body.consentVersion !== accountConsentVersion) {
+          return reply({ error: "consent_required" }, 400);
         }
         // Count eligible attempts before calling Auth; successful and failed passwords
         // share a budget. A failed guard cannot fall through to an unprotected login.
@@ -228,6 +259,23 @@ export function gateway(
           typeof data.user?.id !== "string" ||
           !Number.isFinite(data.expires_in) || data.expires_in <= 0
         ) return reply({ error: "invalid_response" }, 502);
+        if (route === "auth/sign-in") {
+          let accepted = false;
+          try {
+            accepted = await recordAccountConsent(
+              config,
+              `Bearer ${data.access_token}`,
+              http,
+            );
+          } finally {
+            if (!accepted) {
+              await revokeEphemeralSession(config, data.access_token, http);
+            }
+          }
+          if (!accepted) {
+            return reply({ error: "temporarily_unavailable" }, 503);
+          }
+        }
         // Swift's default Date Codable representation is seconds since 2001-01-01 UTC.
         return reply({
           accessToken: data.access_token,

@@ -68,7 +68,7 @@ def run(endpoint, region, output, fixture_set='foundation'):
             return response.code, data
 
     def signin(email, password, name):
-        status, data = request('/auth/sign-in', {'email': email, 'password': password})
+        status, data = request('/auth/sign-in', {'email': email, 'password': password, 'consentVersion': 'account-access-v1'})
         valid = status == 200 and valid_session(data)
         # Save a successfully issued session for best-effort logout even if its contract is invalid.
         if isinstance(data, dict) and isinstance(data.get('accessToken'), str):

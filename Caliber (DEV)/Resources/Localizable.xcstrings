@@ -1360,6 +1360,456 @@
           }
         }
       }
+    },
+    "Too many recovery attempts. Wait a few minutes and try again.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Too many recovery attempts. Wait a few minutes and try again."
+          }
+        }
+      }
+    },
+    "Could not request recovery. Check your connection and try again.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not request recovery. Check your connection and try again."
+          }
+        }
+      }
+    },
+    "Password changed. Sign in with your new password.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Password changed. Sign in with your new password."
+          }
+        }
+      }
+    },
+    "Hosted account deleted. Your local logs and photos are still here.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hosted account deleted. Your local logs and photos are still here."
+          }
+        }
+      }
+    },
+    "Account": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account"
+          }
+        }
+      }
+    },
+    "Hosted setup pending": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hosted setup pending"
+          }
+        }
+      }
+    },
+    "Account access is being verified. Your local diary and progress tracking are available.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account access is being verified. Your local diary and progress tracking are available."
+          }
+        }
+      }
+    },
+    "Account access is optional": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account access is optional"
+          }
+        }
+      }
+    },
+    "Your email and account requests are sent to Caliber's backend on Supabase. Passwords and recovery codes are used to authenticate you. Supabase may retain security logs under its provider policies.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your email and account requests are sent to Caliber's backend on Supabase. Passwords and recovery codes are used to authenticate you. Supabase may retain security logs under its provider policies."
+          }
+        }
+      }
+    },
+    "Your diary, photos, weight and notes stay on this device. This permission does not enable personal cloud backup, AI uploads or analytics.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your diary, photos, weight and notes stay on this device. This permission does not enable personal cloud backup, AI uploads or analytics."
+          }
+        }
+      }
+    },
+    "Caliber saves the permission version and date. You can stop account services here or delete your hosted account. Local logging works without an account.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caliber saves the permission version and date. You can stop account services here or delete your hosted account. Local logging works without an account."
+          }
+        }
+      }
+    },
+    "Continue to Account": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue to Account"
+          }
+        }
+      }
+    },
+    "Signed in": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Signed in"
+          }
+        }
+      }
+    },
+    "Sign Out on This Device": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign Out on This Device"
+          }
+        }
+      }
+    },
+    "Delete Hosted Account": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete Hosted Account"
+          }
+        }
+      }
+    },
+    "Email": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email"
+          }
+        }
+      }
+    },
+    "Password": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Password"
+          }
+        }
+      }
+    },
+    "Sign In": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign In"
+          }
+        }
+      }
+    },
+    "Forgot Password?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Forgot Password?"
+          }
+        }
+      }
+    },
+    "Use an existing Caliber account. Your Supabase dashboard login is separate.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use an existing Caliber account. Your Supabase dashboard login is separate."
+          }
+        }
+      }
+    },
+    "Try Checking Account Again": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try Checking Account Again"
+          }
+        }
+      }
+    },
+    "Remove Saved Session": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove Saved Session"
+          }
+        }
+      }
+    },
+    "Checking account…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checking account…"
+          }
+        }
+      }
+    },
+    "Storage": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Storage"
+          }
+        }
+      }
+    },
+    "Your diary, photos, weight and notes remain on this device. Signing in does not start cloud backup.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your diary, photos, weight and notes remain on this device. Signing in does not start cloud backup."
+          }
+        }
+      }
+    },
+    "Account access is handled by your Caliber backend on Supabase.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account access is handled by your Caliber backend on Supabase."
+          }
+        }
+      }
+    },
+    "Stop Using Account Services": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop Using Account Services"
+          }
+        }
+      }
+    },
+    "This removes permission and the saved session from this device. It does not delete the hosted account or other devices' sessions.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This removes permission and the saved session from this device. It does not delete the hosted account or other devices' sessions."
+          }
+        }
+      }
+    },
+    "Request a code, then enter it here with a new password. Recovery does not sign you in or upload your logs.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Request a code, then enter it here with a new password. Recovery does not sign you in or upload your logs."
+          }
+        }
+      }
+    },
+    "Send Recovery Code": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send Recovery Code"
+          }
+        }
+      }
+    },
+    "Set a New Password": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set a New Password"
+          }
+        }
+      }
+    },
+    "Recovery Code": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recovery Code"
+          }
+        }
+      }
+    },
+    "New Password": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New Password"
+          }
+        }
+      }
+    },
+    "Repeat New Password": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repeat New Password"
+          }
+        }
+      }
+    },
+    "Use at least 8 characters. Never share a recovery code.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use at least 8 characters. Never share a recovery code."
+          }
+        }
+      }
+    },
+    "Change Password": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change Password"
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        }
+      }
+    },
+    "This permanently deletes your hosted account and its Caliber server records. It cannot be undone. Provider logs and backups follow their retention policies.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This permanently deletes your hosted account and its Caliber server records. It cannot be undone. Provider logs and backups follow their retention policies."
+          }
+        }
+      }
+    },
+    "Your local diary, progress photos, weight and notes stay on this device. Deleting the hosted account does not erase local copies on other devices.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your local diary, progress photos, weight and notes stay on this device. Deleting the hosted account does not erase local copies on other devices."
+          }
+        }
+      }
+    },
+    "Current Password": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Current Password"
+          }
+        }
+      }
+    },
+    "Type DELETE to confirm": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type DELETE to confirm"
+          }
+        }
+      }
+    },
+    "Deleting account…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deleting account…"
+          }
+        }
+      }
+    },
+    "Permanently Delete Account": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permanently Delete Account"
+          }
+        }
+      }
+    },
+    "Password Recovery": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Password Recovery"
+          }
+        }
+      }
+    },
+    "Delete Account": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete Account"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

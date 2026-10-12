@@ -136,6 +136,7 @@ public actor CloudGateway: SyncTransport {
   private var refreshTask: Task<AuthSession, Error>?
   private var mutationTask: Task<Void, Error>?
   private var signedOut = false
+  private var deletionInProgress = false
   public init(
     configuration: CloudConfiguration?, http: any GatewayHTTPClient = URLSessionGatewayClient(),
     vault: any SessionStorage = SessionVault()
@@ -145,6 +146,7 @@ public actor CloudGateway: SyncTransport {
     self.vault = vault
   }
   public func signIn(email: String, password: String) async throws -> AuthSession {
+    guard !deletionInProgress else { throw GatewayError.unavailable }
     generation = UUID()
     let attempt = generation
     refreshTask?.cancel()
@@ -152,6 +154,7 @@ public actor CloudGateway: SyncTransport {
     struct Request: Encodable {
       let email: String
       let password: String
+      let consentVersion = AccountAccessConsent.version
     }
     let session: AuthSession = try await request(
       "auth/sign-in", body: Request(email: email, password: password), token: nil)
@@ -162,6 +165,64 @@ public actor CloudGateway: SyncTransport {
     guard attempt == generation else { throw GatewayError.unauthorized }
     signedOut = false
     return session
+  }
+  public func confirmAccountAccess() async throws {
+    struct Request: Encodable { let version = AccountAccessConsent.version }
+    struct Reply: Decodable {
+      let accepted: Bool
+      let version: String
+    }
+    let token = try await accessToken()
+    let reply: Reply = try await request(
+      "account/consent", body: Request(), token: token.value,
+      authenticatedGeneration: token.generation)
+    guard reply.accepted, reply.version == AccountAccessConsent.version else {
+      throw GatewayError.invalidResponse
+    }
+  }
+  public func requestPasswordRecovery(email: String) async throws {
+    struct Request: Encodable { let email: String }
+    struct Reply: Decodable { let recoveryRequested: Bool }
+    let reply: Reply = try await request("auth/recover", body: Request(email: email), token: nil)
+    guard reply.recoveryRequested else { throw GatewayError.invalidResponse }
+  }
+  /// Recovery never saves a session or attaches it to an existing local journal.
+  public func resetPassword(email: String, code: String, newPassword: String) async throws
+    -> PasswordResetResult
+  {
+    struct Request: Encodable {
+      let email: String
+      let code: String
+      let newPassword: String
+    }
+    let result: PasswordResetResult = try await request(
+      "auth/reset-password", body: Request(email: email, code: code, newPassword: newPassword),
+      token: nil)
+    guard result.passwordUpdated else { throw GatewayError.invalidResponse }
+    return result
+  }
+  public func deleteAccount(password: String) async throws -> AccountDeletionResult {
+    guard !deletionInProgress else { throw GatewayError.unavailable }
+    deletionInProgress = true
+    defer { deletionInProgress = false }
+    let token = try await accessToken()
+    struct Request: Encodable {
+      let password: String
+      let confirmation = "DELETE"
+    }
+    struct Reply: Decodable { let accountDeleted: Bool }
+    let result: Reply = try await request(
+      "account/delete", body: Request(password: password), token: token.value,
+      authenticatedGeneration: token.generation)
+    guard result.accountDeleted else { throw GatewayError.invalidResponse }
+    // Do not call remote logout after Auth deletion. Clear only after server confirmation.
+    invalidateAuthentication()
+    do {
+      try await enqueueMutation(nil).value
+      return .deleted
+    } catch {
+      return .sessionRemovalPending
+    }
   }
   /// Empty storage is normal. Only an expired access token requires a server request.
   public func restoredSession() async throws -> AuthSession? {

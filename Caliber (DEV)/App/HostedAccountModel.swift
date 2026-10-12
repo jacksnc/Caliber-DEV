@@ -9,17 +9,25 @@ final class HostedAccountModel: ObservableObject {
   @Published private(set) var isSignedIn = false
   @Published private(set) var restoreFailed = false
   @Published private(set) var message: String?
+  @Published private(set) var hasAccountConsent: Bool
+  @Published private(set) var recoveryRequested = false
+  @Published private(set) var sessionRemovalPending = false
   let project: HostedProject?
   let isAvailable: Bool
   private let gateway: any AccountGateway
   private var didRestore = false
+  private let defaults: UserDefaults
+  private static let consentKey = "account.access.consent.version"
+  private static let consentDateKey = "account.access.consent.date"
 
-  init(project: HostedProject?, gateway: any AccountGateway) {
+  init(project: HostedProject?, gateway: any AccountGateway, defaults: UserDefaults = .standard) {
+    self.defaults = defaults
+    hasAccountConsent = defaults.string(forKey: Self.consentKey) == AccountAccessConsent.version
     self.project = project
     self.gateway = gateway
     isAvailable = project?.gatewayDeployed == true
   }
-  static func configured(testing: Bool) -> HostedAccountModel {
+  static func configured(testing: Bool, defaults: UserDefaults) -> HostedAccountModel {
     let project = Bundle.main.url(forResource: "CloudDeployment", withExtension: "json")
       .flatMap { try? Data(contentsOf: $0) }
       .flatMap { try? JSONDecoder().decode(HostedProject.self, from: $0) }
@@ -28,21 +36,42 @@ final class HostedAccountModel: ObservableObject {
         let fixture = try? HostedProject(
           projectURL: URL(string: "https://aaaaaaaaaaaaaaaaaaaa.supabase.co")!,
           region: "us-east-1", gatewayDeployed: true)
-        return HostedAccountModel(project: fixture, gateway: FixtureAccountGateway())
+        return HostedAccountModel(
+          project: fixture, gateway: FixtureAccountGateway(), defaults: defaults)
       }
     #endif
     return HostedAccountModel(
       project: project,
       gateway: CloudGateway(
         configuration: try? project?.configuration(),
-        vault: SessionVault(service: project?.sessionService ?? "Caliber.Foundation.Unconfigured")))
+        vault: SessionVault(service: project?.sessionService ?? "Caliber.Foundation.Unconfigured")),
+      defaults: defaults)
+  }
+  func acceptAccountConsent() {
+    guard isAvailable, !isBusy else { return }
+    defaults.set(AccountAccessConsent.version, forKey: Self.consentKey)
+    defaults.set(Date(), forKey: Self.consentDateKey)
+    hasAccountConsent = true
+    message = nil
+  }
+  func stopAccountServices() async {
+    guard !isBusy else { return }
+    defaults.removeObject(forKey: Self.consentKey)
+    defaults.removeObject(forKey: Self.consentDateKey)
+    hasAccountConsent = false
+    recoveryRequested = false
+    isSignedIn = false
+    sessionRemovalPending = true
+    await signOut()
   }
   func restore() async {
-    guard isAvailable, !didRestore, !isBusy else { return }
+    guard isAvailable, hasAccountConsent, !didRestore, !isBusy else { return }
     isBusy = true
     defer { isBusy = false }
     do {
-      isSignedIn = try await gateway.restoredSession() != nil
+      let restored = try await gateway.restoredSession()
+      if restored != nil { try await gateway.confirmAccountAccess() }
+      isSignedIn = restored != nil
       didRestore = true
       restoreFailed = false
       message = nil
@@ -53,7 +82,7 @@ final class HostedAccountModel: ObservableObject {
     }
   }
   func signIn(email: String, password: String) async {
-    guard isAvailable, !isBusy else { return }
+    guard isAvailable, hasAccountConsent, !isBusy else { return }
     isBusy = true
     message = nil
     defer { isBusy = false }
@@ -75,6 +104,89 @@ final class HostedAccountModel: ObservableObject {
       }
     }
   }
+  func requestPasswordRecovery(email: String) async {
+    guard isAvailable, hasAccountConsent, !isBusy, !isSignedIn else { return }
+    isBusy = true
+    message = nil
+    defer { isBusy = false }
+    do {
+      try await gateway.requestPasswordRecovery(
+        email: email.trimmingCharacters(in: .whitespacesAndNewlines))
+      recoveryRequested = true
+      message = String(
+        localized:
+          "If this email has an account, a recovery code has been requested. Check your inbox and spam folder."
+      )
+    } catch {
+      message =
+        error as? GatewayError == .rateLimited
+        ? String(localized: "Too many recovery attempts. Wait a few minutes and try again.")
+        : String(localized: "Could not request recovery. Check your connection and try again.")
+    }
+  }
+  func resetPassword(email: String, code: String, newPassword: String) async {
+    guard isAvailable, hasAccountConsent, !isBusy, !isSignedIn else { return }
+    isBusy = true
+    message = nil
+    defer { isBusy = false }
+    do {
+      let result = try await gateway.resetPassword(
+        email: email.trimmingCharacters(in: .whitespacesAndNewlines), code: code,
+        newPassword: newPassword)
+      recoveryRequested = false
+      message =
+        result.sessionsRevoked
+        ? String(localized: "Password changed. Sign in with your new password.")
+        : String(
+          localized:
+            "Password changed. Session revocation could not be confirmed; earlier sessions may remain active. Sign in with your new password."
+        )
+    } catch {
+      switch error as? GatewayError {
+      case .unauthorized:
+        message = String(
+          localized: "The recovery code was not accepted. Check it or request a new code.")
+      case .rateLimited:
+        message = String(localized: "Too many recovery attempts. Wait a few minutes and try again.")
+      default:
+        message = String(
+          localized:
+            "Could not confirm the reset. Try signing in with the new password, or request a new recovery code."
+        )
+      }
+    }
+  }
+  func deleteAccount(password: String) async {
+    guard isAvailable, hasAccountConsent, isSignedIn, !isBusy else { return }
+    isBusy = true
+    message = nil
+    defer { isBusy = false }
+    do {
+      let result = try await gateway.deleteAccount(password: password)
+      isSignedIn = false
+      didRestore = true
+      restoreFailed = false
+      defaults.removeObject(forKey: Self.consentKey)
+      defaults.removeObject(forKey: Self.consentDateKey)
+      hasAccountConsent = false
+      sessionRemovalPending = result == .sessionRemovalPending
+      message =
+        sessionRemovalPending
+        ? String(
+          localized:
+            "Hosted account deleted. Unlock this device and remove the saved session. Your local logs and photos are still here."
+        )
+        : String(localized: "Hosted account deleted. Your local logs and photos are still here.")
+    } catch {
+      message =
+        error as? GatewayError == .unauthorized
+        ? String(
+          localized: "Deletion was not accepted. Check your current password or sign in again.")
+        : String(
+          localized:
+            "Deletion could not be confirmed. Your local logs are safe. Try again when connected.")
+    }
+  }
   func signOut() async {
     guard !isBusy else { return }
     isBusy = true
@@ -85,6 +197,7 @@ final class HostedAccountModel: ObservableObject {
       isSignedIn = false
       didRestore = true
       restoreFailed = false
+      sessionRemovalPending = false
       message =
         result == .remoteRevoked
         ? "Signed out on this device."
@@ -109,6 +222,21 @@ final class HostedAccountModel: ObservableObject {
         subject: "00000000-0000-4000-8000-000000000001", expiresAt: .now.addingTimeInterval(3600))
       session = next
       return next
+    }
+    func confirmAccountAccess() throws {
+      guard session != nil else { throw GatewayError.unauthorized }
+    }
+    func requestPasswordRecovery(email: String) {}
+    func resetPassword(email: String, code: String, newPassword: String) throws
+      -> PasswordResetResult
+    {
+      guard code == "123456" else { throw GatewayError.unauthorized }
+      return PasswordResetResult(passwordUpdated: true, sessionsRevoked: true)
+    }
+    func deleteAccount(password: String) throws -> AccountDeletionResult {
+      guard session != nil, password == "fixture-password" else { throw GatewayError.unauthorized }
+      session = nil
+      return .deleted
     }
     func signOutOnThisDevice() -> DeviceSignOutResult {
       session = nil

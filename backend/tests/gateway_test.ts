@@ -23,6 +23,13 @@ Deno.test("sign-in forwards secrets only upstream and returns the session contra
   const handler = gateway(
     config,
     ((url, init) => {
+      if (String(url).endsWith("/caliber_accept_account_access")) {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({ accepted: true, version: "account-access-v1" }),
+          ),
+        );
+      }
       assert(
         String(url) ===
           "https://project.invalid/auth/v1/token?grant_type=password",
@@ -49,6 +56,7 @@ Deno.test("sign-in forwards secrets only upstream and returns the session contra
       method: "POST",
       body: JSON.stringify({
         email: "test@example.invalid",
+        consentVersion: "account-access-v1",
         password: "fixture-only",
       }),
     }),

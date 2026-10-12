@@ -1,0 +1,802 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild test -project "Caliber (DEV).xcodeproj" -scheme "Caliber (DEV)" -destination "platform=iOS Simulator,id=18A39DAA-85BB-4B10-BF51-EB6918AB649A" -derivedDataPath /private/tmp/caliber-lifecycle-ios -resultBundlePath /private/tmp/caliber-lifecycle-final-ui.xcresult -parallel-testing-enabled NO -collect-test-diagnostics never -test-timeouts-enabled YES -default-test-execution-time-allowance 90 -maximum-test-execution-time-allowance 120 "-only-testing:Caliber (DEV)UITests/FoundationUITests/testAccountSignInAndDeviceSignOutUseOnlyFixture" "-only-testing:Caliber (DEV)UITests/FoundationUITests/testRecoveryUsesCodeWithoutSigningIn" "-only-testing:Caliber (DEV)UITests/FoundationUITests/testHostedDeletionKeepsLocalProgressNote" CODE_SIGNING_ALLOWED=NO
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+
+Resolve Package Graph
+
+
+Resolved source packages:
+  CaliberFoundation: /Users/jcrock/Documents/Caliber (DEV) - Project/Caliber (DEV)/Packages/CaliberFoundation @ local
+  GRDB: https://github.com/groue/GRDB.swift.git @ 7.9.0
+
+2026-10-12 16:29:43.716 xcodebuild[3322:5088417] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+Writing result bundle at path:
+	/private/tmp/caliber-lifecycle-final-ui.xcresult
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (22 targets)
+    Target 'Caliber (DEV)UITests' in project 'Caliber (DEV)'
+        ➜ Explicit dependency on target 'Caliber (DEV)' in project 'Caliber (DEV)'
+    Target 'Caliber (DEV)Tests' in project 'Caliber (DEV)'
+        ➜ Explicit dependency on target 'Caliber (DEV)' in project 'Caliber (DEV)'
+    Target 'Caliber (DEV)' in project 'Caliber (DEV)'
+        ➜ Explicit dependency on target 'CaliberCore-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDatabase-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDesignSystem-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCharts-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberSeedData-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberIntegrations-product' in project 'CaliberFoundation'
+    Target 'CaliberIntegrations-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberIntegrations' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'GRDB-product' in project 'GRDB'
+    Target 'CaliberIntegrations' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'GRDB-product' in project 'GRDB'
+    Target 'CaliberSeedData-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberSeedData' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberSeedData' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberCharts-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCharts' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDesignSystem' in project 'CaliberFoundation'
+    Target 'CaliberCharts' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDesignSystem' in project 'CaliberFoundation'
+    Target 'CaliberDesignSystem-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDesignSystem' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberDesignSystem' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberDesignSystem' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberDesignSystem' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberFoundation_CaliberDesignSystem' in project 'CaliberFoundation' (no dependencies)
+    Target 'CaliberDatabase-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'GRDB-product' in project 'GRDB'
+    Target 'CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'GRDB-product' in project 'GRDB'
+    Target 'GRDB-product' in project 'GRDB'
+        ➜ Explicit dependency on target 'GRDB' in project 'GRDB'
+        ➜ Explicit dependency on target 'GRDB_GRDB' in project 'GRDB'
+    Target 'GRDB' in project 'GRDB'
+        ➜ Explicit dependency on target 'GRDB_GRDB' in project 'GRDB'
+        ➜ Explicit dependency on target 'GRDBSQLite' in project 'GRDB'
+    Target 'GRDBSQLite' in project 'GRDB' (no dependencies)
+    Target 'GRDB_GRDB' in project 'GRDB' (no dependencies)
+    Target 'CaliberFoundation_CaliberDatabase' in project 'CaliberFoundation' (no dependencies)
+    Target 'CaliberCore-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberFoundation_CaliberCore' in project 'CaliberFoundation' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk /tmp/caliber-lifecycle-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)/Caliber\ \(DEV\).xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -o /tmp/caliber-lifecycle-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache
+
+SwiftDriver Caliber\ (DEV) normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_ -Onone @/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\).SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/tmp/caliber-lifecycle-ios/SourcePackages/checkouts/GRDB.swift/Sources/GRDBSQLite/module.modulemap -default-isolation\=MainActor -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-lifecycle-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-lifecycle-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -F /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64 -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-lifecycle-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-lifecycle-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-lifecycle-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-lifecycle-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-generated-files.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-own-target-headers.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-project-headers.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources/arm64 -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ Caliber__DEV_ (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+
+
+SwiftCompile normal arm64 Compiling\ HostedAccountView.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)/Views/Foundation/HostedAccountView.swift (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)/Views/Foundation/HostedAccountView.swift (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile HostedAccountView.swift
+
+SwiftDriverJobDiscovery normal arm64 Compiling HostedAccountView.swift (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+
+SwiftDriver\ Compilation Caliber\ (DEV) normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_ -Onone @/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\).SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/tmp/caliber-lifecycle-ios/SourcePackages/checkouts/GRDB.swift/Sources/GRDBSQLite/module.modulemap -default-isolation\=MainActor -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-lifecycle-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-lifecycle-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -F /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64 -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-lifecycle-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-lifecycle-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-lifecycle-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-lifecycle-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-generated-files.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-own-target-headers.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-project-headers.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources/arm64 -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for Caliber__DEV_ (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+
+SwiftDriver\ Compilation\ Requirements Caliber\ (DEV) normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_ -Onone @/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\).SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/tmp/caliber-lifecycle-ios/SourcePackages/checkouts/GRDB.swift/Sources/GRDBSQLite/module.modulemap -default-isolation\=MainActor -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-lifecycle-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-lifecycle-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -F /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64 -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-lifecycle-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-lifecycle-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-lifecycle-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-lifecycle-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-generated-files.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-own-target-headers.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-project-headers.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources/arm64 -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+Copy /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_.swiftmodule/arm64-apple-ios-simulator.abi.json /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV).build/Objects-normal/arm64/Caliber__DEV_.abi.json (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_.abi.json /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+Copy /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV).build/Objects-normal/arm64/Caliber__DEV_.swiftsourceinfo (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_.swiftsourceinfo /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+Ld /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app/Caliber\ (DEV).debug.dylib normal (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -F/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -filelist /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\).LinkFileList -install_name @rpath/Caliber\ \(DEV\).debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @loader_path -Xlinker -rpath -Xlinker /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -dead_strip -Xlinker -object_path_lto -Xlinker /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -Xlinker -dependency_info -Xlinker /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)_dependency_info.dat -fobjc-link-runtime -fprofile-instr-generate -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_.swiftmodule -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -o /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\).debug.dylib
+
+ConstructStubExecutorLinkFileList /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV).build/Caliber\ (DEV)-ExecutorLinkFileList-normal-arm64.txt (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    construct-stub-executor-link-file-list /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\).debug.dylib /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-ExecutorLinkFileList-normal-arm64.txt
+note: Using stub executor library with Swift entry point. (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+
+Ld /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app/Caliber\ (DEV) normal (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -F/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @loader_path -Xlinker -rpath -Xlinker /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-ExecutorLinkFileList-normal-arm64.txt /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\).debug.dylib -o /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\)
+
+ExtractAppIntentsMetadata (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name Caliber__DEV_ --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk --xcode-version 27A266a --platform-family iOS --deployment-target 17.0 --bundle-identifier CAL.Caliber--DEV- --output /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app --target-triple arm64-apple-ios17.0-simulator --binary-file /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\) --dependency-file /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)_dependency_info.dat --stringsdata-file /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\).SwiftFileList --metadata-file-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\).DependencyMetadataFileList --static-metadata-file-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\).DependencyStaticMetadataFileList --swift-const-vals-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\).SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+2026-10-12 16:29:47.711 appintentsmetadataprocessor[3350:5088707] Starting appintentsmetadataprocessor export
+2026-10-12 16:29:47.718 appintentsmetadataprocessor[3350:5088707] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+
+CopySwiftLibs /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\).debug.dylib --scan-folder /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Frameworks --scan-folder /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns --scan-folder /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/SystemExtensions --scan-folder /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+Ignoring --strip-bitcode because --sign was not passed
+
+SwiftDriver Caliber\ (DEV)UITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_UITests -Onone @/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-lifecycle-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-lifecycle-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-lifecycle-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-lifecycle-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-lifecycle-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-lifecycle-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-generated-files.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-own-target-headers.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-project-headers.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources/arm64 -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+Ld /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app/PlugIns/Caliber\ (DEV)Tests.xctest/Caliber\ (DEV)Tests normal (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -bundle -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -filelist /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests.LinkFileList -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @loader_path -Xlinker -rpath -Xlinker /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -Xlinker -rpath -Xlinker @loader_path/Frameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -dead_strip -bundle_loader /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\) -Xlinker -object_path_lto -Xlinker /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -Xlinker -dependency_info -Xlinker /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests_dependency_info.dat -fobjc-link-runtime -fprofile-instr-generate -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber__DEV_Tests.swiftmodule -Xlinker -needed_framework -Xlinker XCTest -framework XCTest -Xlinker -needed-lXCTestSwiftSupport -lXCTestSwiftSupport /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\).debug.dylib -o /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/Caliber\ \(DEV\)Tests
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ Caliber__DEV_UITests (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+
+
+SwiftCompile normal arm64 Compiling\ FoundationUITests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)UITests/FoundationUITests.swift (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)UITests/FoundationUITests.swift (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile FoundationUITests.swift
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for Caliber__DEV_UITests (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+
+SwiftDriver\ Compilation\ Requirements Caliber\ (DEV)UITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_UITests -Onone @/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-lifecycle-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-lifecycle-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-lifecycle-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-lifecycle-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-lifecycle-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-lifecycle-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-generated-files.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-own-target-headers.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-project-headers.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources/arm64 -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+Copy /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_UITests.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.swiftsourceinfo (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.swiftsourceinfo /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_UITests.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+Copy /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_UITests.swiftmodule/arm64-apple-ios-simulator.abi.json /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.abi.json (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.abi.json /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_UITests.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+ExtractAppIntentsMetadata (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name Caliber__DEV_Tests --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk --xcode-version 27A266a --platform-family iOS --deployment-target 17.0 --bundle-identifier CAL.Caliber--DEV-Tests --output /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest --target-triple arm64-apple-ios17.0-simulator --binary-file /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/Caliber\ \(DEV\)Tests --dependency-file /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests_dependency_info.dat --stringsdata-file /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests.SwiftFileList --metadata-file-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests.DependencyMetadataFileList --static-metadata-file-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests.DependencyStaticMetadataFileList --swift-const-vals-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+2026-10-12 16:29:48.031 appintentsmetadataprocessor[3355:5088754] Starting appintentsmetadataprocessor export
+2026-10-12 16:29:48.032 appintentsmetadataprocessor[3355:5088754] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+
+CopySwiftLibs /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app/PlugIns/Caliber\ (DEV)Tests.xctest (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/Caliber\ \(DEV\)Tests --scan-folder /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/Frameworks --scan-folder /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/PlugIns --scan-folder /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/SystemExtensions --scan-folder /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/Frameworks --strip-bitcode --scan-executable /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+Ignoring --strip-bitcode because --sign was not passed
+
+Validate /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-validationUtility /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app -shallow-bundle -infoplist-subpath Info.plist
+
+SwiftDriverJobDiscovery normal arm64 Compiling FoundationUITests.swift (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+
+SwiftDriver\ Compilation Caliber\ (DEV)UITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_UITests -Onone @/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-lifecycle-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-lifecycle-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-lifecycle-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-lifecycle-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-lifecycle-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-lifecycle-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-generated-files.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-own-target-headers.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-project-headers.hmap -Xcc -I/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources/arm64 -Xcc -I/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+Ld /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV)UITests-Runner.app/PlugIns/Caliber\ (DEV)UITests.xctest/Caliber\ (DEV)UITests normal (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -bundle -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F/tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -filelist /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests.LinkFileList -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @loader_path/Frameworks -Xlinker -dead_strip -Xlinker -object_path_lto -Xlinker /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -Xlinker -dependency_info -Xlinker /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests_dependency_info.dat -fobjc-link-runtime -fprofile-instr-generate -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.swiftmodule -Xlinker -needed_framework -Xlinker XCTest -framework XCTest -Xlinker -needed-lXCTestSwiftSupport -lXCTestSwiftSupport -o /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Caliber\ \(DEV\)UITests
+
+CopySwiftLibs /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV)UITests-Runner.app/PlugIns/Caliber\ (DEV)UITests.xctest (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Caliber\ \(DEV\)UITests --scan-folder /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Frameworks --scan-folder /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/PlugIns --scan-folder /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/SystemExtensions --scan-folder /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Frameworks --strip-bitcode --scan-executable /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+Ignoring --strip-bitcode because --sign was not passed
+
+ExtractAppIntentsMetadata (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name Caliber__DEV_UITests --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk --xcode-version 27A266a --platform-family iOS --deployment-target 17.0 --bundle-identifier CAL.Caliber--DEV-UITests --output /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest --target-triple arm64-apple-ios17.0-simulator --binary-file /tmp/caliber-lifecycle-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Caliber\ \(DEV\)UITests --dependency-file /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests_dependency_info.dat --stringsdata-file /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests.SwiftFileList --metadata-file-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests.DependencyMetadataFileList --static-metadata-file-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests.DependencyStaticMetadataFileList --swift-const-vals-list /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+2026-10-12 16:29:48.237 appintentsmetadataprocessor[3358:5088770] Starting appintentsmetadataprocessor export
+2026-10-12 16:29:48.237 appintentsmetadataprocessor[3358:5088770] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+
+PruneExplicitPrecompiledModules /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /tmp/caliber-lifecycle-ios/SDKExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /tmp/caliber-lifecycle-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+2026-10-12 16:29:52.991259-0400 Caliber (DEV)UITests-Runner[3359:5089001] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-10-12 16:29:56.012.
+Test Suite 'Caliber (DEV)UITests.xctest' started at 2026-10-12 16:29:56.013.
+Test Suite 'FoundationUITests' started at 2026-10-12 16:29:56.013.
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testAccountSignInAndDeviceSignOutUseOnlyFixture]' started.
+    t =     0.00s Start Test at 2026-10-12 16:29:56.016
+    t =     0.08s Set Up
+    t =     0.10s Open CAL.Caliber--DEV-
+    t =     0.10s     Launch CAL.Caliber--DEV-
+2026-10-12 16:29:56.504 xcodebuild[3322:5088417] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-12 16:29:56.504 xcodebuild[3322:5088417] [MT] IDELaunchParametersSnapshot: no debugger version
+objc[3359]: Class UIAccessibilityLoaderWebShared is implemented in both /private/var/run/com.apple.security.cryptexd/mnt/com.apple.iPhoneOS.SimulatorRuntime-v24.1.434.0.3yLR0B/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x10802c398) and /private/var/run/com.apple.security.cryptexd/mnt/com.apple.iPhoneOS.SimulatorRuntime-v24.1.434.0.3yLR0B/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x108200310). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =     1.50s         Setting up automation session
+    t =     4.94s         Wait for CAL.Caliber--DEV- to idle
+    t =     7.08s Waiting 20.0s for "welcomeContinue" Button to exist
+    t =     8.10s     Checking `Expect predicate `existsNoRetry == 1` for object "welcomeContinue" Button`
+    t =     8.11s         Checking existence of `"welcomeContinue" Button`
+    t =     8.31s Find the "welcomeContinue" Button
+    t =     8.32s Tap "adultConfirmation" Switch[0.92, 0.50]
+    t =     8.32s     Wait for CAL.Caliber--DEV- to idle
+    t =     8.33s     Find the "adultConfirmation" Switch
+    t =     8.34s     Check for interrupting elements affecting "adultConfirmation" Switch
+    t =     8.39s     Synthesize event
+    t =     8.39s         Find the "adultConfirmation" Switch
+    t =     8.41s         Find the "adultConfirmation" Switch
+    t =     8.42s         Find the "adultConfirmation" Switch
+    t =     8.76s     Wait for CAL.Caliber--DEV- to idle
+    t =    10.07s Find the "adultConfirmation" Switch
+    t =    10.11s Tap "scopeConfirmation" Switch[0.92, 0.50]
+    t =    10.11s     Wait for CAL.Caliber--DEV- to idle
+    t =    10.11s     Find the "scopeConfirmation" Switch
+    t =    10.12s     Check for interrupting elements affecting "scopeConfirmation" Switch
+    t =    10.15s     Synthesize event
+    t =    10.15s         Find the "scopeConfirmation" Switch
+    t =    10.17s         Find the "scopeConfirmation" Switch
+    t =    10.19s         Find the "scopeConfirmation" Switch
+    t =    10.49s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.80s Find the "scopeConfirmation" Switch
+    t =    11.84s Find the "welcomeContinue" Button
+    t =    11.85s Tap "welcomeContinue" Button
+    t =    11.86s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.86s     Find the "welcomeContinue" Button
+    t =    11.87s     Check for interrupting elements affecting "welcomeContinue" Button
+    t =    11.89s     Synthesize event
+    t =    12.23s     Wait for CAL.Caliber--DEV- to idle
+    t =    12.61s Waiting 10.0s for "Today" Button to exist
+    t =    13.63s     Checking `Expect predicate `existsNoRetry == 1` for object "Today" Button`
+    t =    13.63s         Checking existence of `"Today" Button`
+    t =    13.73s Tap "Settings" Button
+    t =    13.73s     Wait for CAL.Caliber--DEV- to idle
+    t =    13.73s     Find the "Settings" Button
+    t =    13.76s     Check for interrupting elements affecting "gearshape" Button
+    t =    13.78s     Synthesize event
+    t =    14.07s     Wait for CAL.Caliber--DEV- to idle
+    t =    16.00s Find the "openAccount" Button
+    t =    17.05s     Find the "openAccount" Button (retry 1)
+    t =    18.11s     Find the "openAccount" Button (retry 2)
+    t =    18.17s Swipe up Target Application 'CAL.Caliber--DEV-'
+    t =    18.17s     Wait for CAL.Caliber--DEV- to idle
+    t =    18.17s     Find the Target Application 'CAL.Caliber--DEV-'
+    t =    18.19s     Check for interrupting elements affecting "Caliber (DEV)" Application
+    t =    18.22s     Synthesize event
+    t =    18.64s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.78s Find the "openAccount" Button
+    t =    20.83s Tap "openAccount" Button
+    t =    20.83s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.83s     Find the "openAccount" Button
+    t =    20.86s     Check for interrupting elements affecting "openAccount" Button
+    t =    20.89s     Synthesize event
+    t =    21.18s     Wait for CAL.Caliber--DEV- to idle
+    t =    21.65s Waiting 5.0s for "accountConsent" Switch to exist
+    t =    22.68s     Checking `Expect predicate `existsNoRetry == 1` for object "accountConsent" Switch`
+    t =    22.68s         Checking existence of `"accountConsent" Switch`
+    t =    22.74s Find the "accountConsentContinue" Button
+    t =    22.77s Tap "accountConsent" Switch[0.92, 0.50]
+    t =    22.77s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.77s     Find the "accountConsent" Switch
+    t =    22.79s     Check for interrupting elements affecting "accountConsent" Switch
+    t =    22.82s     Synthesize event
+    t =    22.82s         Find the "accountConsent" Switch
+    t =    22.84s         Find the "accountConsent" Switch
+    t =    22.87s         Find the "accountConsent" Switch
+    t =    23.17s     Wait for CAL.Caliber--DEV- to idle
+    t =    24.48s Tap "accountConsentContinue" Button
+    t =    24.48s     Wait for CAL.Caliber--DEV- to idle
+    t =    24.50s     Find the "accountConsentContinue" Button
+    t =    24.54s     Check for interrupting elements affecting "accountConsentContinue" Button
+    t =    24.57s     Synthesize event
+    t =    24.86s     Wait for CAL.Caliber--DEV- to idle
+    t =    25.24s Waiting 5.0s for "accountEmail" TextField to exist
+    t =    26.26s     Checking `Expect predicate `existsNoRetry == 1` for object "accountEmail" TextField`
+    t =    26.26s         Checking existence of `"accountEmail" TextField`
+    t =    26.30s Tap "accountEmail" TextField
+    t =    26.30s     Wait for CAL.Caliber--DEV- to idle
+    t =    26.30s     Find the "accountEmail" TextField
+    t =    26.32s     Check for interrupting elements affecting "accountEmail" TextField
+    t =    26.35s     Synthesize event
+    t =    26.64s     Wait for CAL.Caliber--DEV- to idle
+    t =    27.15s Type 'fixture@example.in...' into "accountEmail" TextField
+    t =    27.15s     Wait for CAL.Caliber--DEV- to idle
+    t =    27.50s     Find the "accountEmail" TextField
+    t =    27.57s     Check for interrupting elements affecting "accountEmail" TextField
+    t =    27.60s     Synthesize event
+    t =    28.20s     Wait for CAL.Caliber--DEV- to idle
+    t =    28.20s Tap "accountPassword" SecureTextField
+    t =    28.20s     Wait for CAL.Caliber--DEV- to idle
+    t =    28.21s     Find the "accountPassword" SecureTextField
+    t =    28.26s     Check for interrupting elements affecting "accountPassword" SecureTextField
+    t =    28.30s     Synthesize event
+    t =    28.58s     Wait for CAL.Caliber--DEV- to idle
+    t =    29.01s Type '<redacted>' into "accountPassword" SecureTextField
+    t =    29.02s     Wait for CAL.Caliber--DEV- to idle
+    t =    29.02s     Find the "accountPassword" SecureTextField
+    t =    29.06s     Check for interrupting elements affecting "accountPassword" SecureTextField
+    t =    29.09s     Synthesize event
+    t =    29.56s     Wait for CAL.Caliber--DEV- to idle
+    t =    29.57s Tap "accountSignIn" Button
+    t =    29.57s     Wait for CAL.Caliber--DEV- to idle
+    t =    29.58s     Find the "accountSignIn" Button
+    t =    29.63s     Check for interrupting elements affecting "accountSignIn" Button
+    t =    29.66s     Synthesize event
+    t =    29.95s     Wait for CAL.Caliber--DEV- to idle
+    t =    30.22s Waiting 5.0s for "accountSignedIn" StaticText to exist
+    t =    31.25s     Checking `Expect predicate `existsNoRetry == 1` for object "accountSignedIn" StaticText`
+    t =    31.25s         Checking existence of `"accountSignedIn" StaticText`
+    t =    31.30s Find the "accountMessage" StaticText
+    t =    31.33s Tap "accountSignOut" Button
+    t =    31.33s     Wait for CAL.Caliber--DEV- to idle
+    t =    31.33s     Find the "accountSignOut" Button
+    t =    31.36s     Check for interrupting elements affecting "accountSignOut" Button
+    t =    31.38s     Synthesize event
+    t =    31.67s     Wait for CAL.Caliber--DEV- to idle
+    t =    31.92s Waiting 5.0s for "accountEmail" TextField to exist
+    t =    32.95s     Checking `Expect predicate `existsNoRetry == 1` for object "accountEmail" TextField`
+    t =    32.95s         Checking existence of `"accountEmail" TextField`
+    t =    33.00s Find the "accountPassword" SecureTextField
+    t =    33.03s Find the "accountMessage" StaticText
+    t =    33.05s Tear Down
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testAccountSignInAndDeviceSignOutUseOnlyFixture]' passed (33.362 seconds).
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testHostedDeletionKeepsLocalProgressNote]' started.
+    t =     0.00s Start Test at 2026-10-12 16:30:29.379
+    t =     0.05s Set Up
+    t =     0.05s Open CAL.Caliber--DEV-
+    t =     0.05s     Launch CAL.Caliber--DEV-
+    t =     0.05s         Terminate CAL.Caliber--DEV-:3392
+2026-10-12 16:30:30.487 xcodebuild[3322:5088417] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-12 16:30:30.488 xcodebuild[3322:5088417] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     1.32s         Setting up automation session
+    t =     3.62s         Wait for CAL.Caliber--DEV- to idle
+    t =     5.12s Waiting 20.0s for "welcomeContinue" Button to exist
+    t =     6.13s     Checking `Expect predicate `existsNoRetry == 1` for object "welcomeContinue" Button`
+    t =     6.13s         Checking existence of `"welcomeContinue" Button`
+    t =     6.24s Find the "welcomeContinue" Button
+    t =     6.26s Tap "adultConfirmation" Switch[0.92, 0.50]
+    t =     6.26s     Wait for CAL.Caliber--DEV- to idle
+    t =     6.26s     Find the "adultConfirmation" Switch
+    t =     6.27s     Check for interrupting elements affecting "adultConfirmation" Switch
+    t =     6.29s     Synthesize event
+    t =     6.29s         Find the "adultConfirmation" Switch
+    t =     6.30s         Find the "adultConfirmation" Switch
+    t =     6.32s         Find the "adultConfirmation" Switch
+    t =     6.61s     Wait for CAL.Caliber--DEV- to idle
+    t =     7.92s Find the "adultConfirmation" Switch
+    t =     7.95s Tap "scopeConfirmation" Switch[0.92, 0.50]
+    t =     7.95s     Wait for CAL.Caliber--DEV- to idle
+    t =     7.95s     Find the "scopeConfirmation" Switch
+    t =     7.97s     Check for interrupting elements affecting "scopeConfirmation" Switch
+    t =     7.99s     Synthesize event
+    t =     7.99s         Find the "scopeConfirmation" Switch
+    t =     8.00s         Find the "scopeConfirmation" Switch
+    t =     8.02s         Find the "scopeConfirmation" Switch
+    t =     8.31s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.62s Find the "scopeConfirmation" Switch
+    t =     9.65s Find the "welcomeContinue" Button
+    t =     9.67s Tap "welcomeContinue" Button
+    t =     9.67s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.67s     Find the "welcomeContinue" Button
+    t =     9.69s     Check for interrupting elements affecting "welcomeContinue" Button
+    t =     9.71s     Synthesize event
+    t =    10.01s     Wait for CAL.Caliber--DEV- to idle
+    t =    10.02s Waiting 10.0s for "Today" Button to exist
+    t =    11.03s     Checking `Expect predicate `existsNoRetry == 1` for object "Today" Button`
+    t =    11.04s         Checking existence of `"Today" Button`
+    t =    11.19s Tap "Progress" Button
+    t =    11.19s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.19s     Find the "Progress" Button
+    t =    11.21s     Check for interrupting elements affecting "chart.line.uptrend.xyaxis" Button
+    t =    11.25s     Synthesize event
+    t =    11.56s     Wait for CAL.Caliber--DEV- to idle
+    t =    13.71s Tap "addProgressEntry" Button
+    t =    13.71s     Wait for CAL.Caliber--DEV- to idle
+    t =    13.72s     Find the "addProgressEntry" Button
+    t =    13.79s     Check for interrupting elements affecting "addProgressEntry" Button
+    t =    13.82s     Synthesize event
+    t =    14.10s     Wait for CAL.Caliber--DEV- to idle
+    t =    14.98s Waiting 5.0s for "progressNotes" TextView to exist
+    t =    15.99s     Checking `Expect predicate `existsNoRetry == 1` for object "progressNotes" TextView`
+    t =    16.00s         Checking existence of `"progressNotes" TextView`
+    t =    16.25s Tap "progressNotes" TextView
+    t =    16.25s     Wait for CAL.Caliber--DEV- to idle
+    t =    16.25s     Find the "progressNotes" TextView
+    t =    16.31s     Check for interrupting elements affecting "progressNotes" TextView
+    t =    16.44s     Synthesize event
+    t =    16.83s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.98s Type 'Kept after hosted ...' into "progressNotes" TextView
+    t =    19.98s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.99s     Find the "progressNotes" TextView
+    t =    20.08s     Check for interrupting elements affecting "progressNotes" TextView
+    t =    20.14s     Synthesize event
+    t =    20.79s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.79s Tap "progressSave" Button
+    t =    20.79s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.80s     Find the "progressSave" Button
+    t =    20.87s     Check for interrupting elements affecting "progressSave" Button
+    t =    20.92s     Synthesize event
+    t =    21.21s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.06s Tap "Settings" Button
+    t =    22.06s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.07s     Find the "Settings" Button
+    t =    22.20s     Check for interrupting elements affecting "gearshape" Button
+    t =    22.23s     Synthesize event
+    t =    22.52s     Wait for CAL.Caliber--DEV- to idle
+    t =    24.49s Find the "openAccount" Button
+    t =    25.56s     Find the "openAccount" Button (retry 1)
+    t =    26.62s     Find the "openAccount" Button (retry 2)
+    t =    26.68s Swipe up Target Application 'CAL.Caliber--DEV-'
+    t =    26.68s     Wait for CAL.Caliber--DEV- to idle
+    t =    26.68s     Find the Target Application 'CAL.Caliber--DEV-'
+    t =    26.70s     Check for interrupting elements affecting "Caliber (DEV)" Application
+    t =    26.73s     Synthesize event
+    t =    27.15s     Wait for CAL.Caliber--DEV- to idle
+    t =    29.25s Find the "openAccount" Button
+    t =    29.32s Tap "openAccount" Button
+    t =    29.32s     Wait for CAL.Caliber--DEV- to idle
+    t =    29.32s     Find the "openAccount" Button
+    t =    29.35s     Check for interrupting elements affecting "openAccount" Button
+    t =    29.38s     Synthesize event
+    t =    29.67s     Wait for CAL.Caliber--DEV- to idle
+    t =    30.12s Waiting 5.0s for "accountConsent" Switch to exist
+    t =    31.20s     Checking `Expect predicate `existsNoRetry == 1` for object "accountConsent" Switch`
+    t =    31.34s         Checking existence of `"accountConsent" Switch`
+    t =    32.37s Tap "accountConsent" Switch[0.92, 0.50]
+    t =    32.37s     Wait for CAL.Caliber--DEV- to idle
+    t =    32.38s     Find the "accountConsent" Switch
+    t =    32.41s     Check for interrupting elements affecting "accountConsent" Switch
+    t =    32.52s     Synthesize event
+    t =    32.52s         Find the "accountConsent" Switch
+    t =    32.55s         Find the "accountConsent" Switch
+    t =    32.57s         Find the "accountConsent" Switch
+    t =    32.89s     Wait for CAL.Caliber--DEV- to idle
+    t =    34.21s Tap "accountConsentContinue" Button
+    t =    34.21s     Wait for CAL.Caliber--DEV- to idle
+    t =    34.23s     Find the "accountConsentContinue" Button
+    t =    34.26s     Check for interrupting elements affecting "accountConsentContinue" Button
+    t =    34.28s     Synthesize event
+    t =    34.58s     Wait for CAL.Caliber--DEV- to idle
+    t =    34.91s Waiting 5.0s for "accountEmail" TextField to exist
+    t =    35.93s     Checking `Expect predicate `existsNoRetry == 1` for object "accountEmail" TextField`
+    t =    35.93s         Checking existence of `"accountEmail" TextField`
+    t =    36.00s Tap "accountEmail" TextField
+    t =    36.00s     Wait for CAL.Caliber--DEV- to idle
+    t =    36.00s     Find the "accountEmail" TextField
+    t =    36.02s     Check for interrupting elements affecting "accountEmail" TextField
+    t =    36.05s     Synthesize event
+    t =    36.33s     Wait for CAL.Caliber--DEV- to idle
+    t =    36.44s Type 'fixture@example.in...' into "accountEmail" TextField
+    t =    36.44s     Wait for CAL.Caliber--DEV- to idle
+    t =    36.78s     Find the "accountEmail" TextField
+    t =    36.83s     Check for interrupting elements affecting "accountEmail" TextField
+    t =    36.86s     Synthesize event
+    t =    37.45s     Wait for CAL.Caliber--DEV- to idle
+    t =    37.46s Tap "accountPassword" SecureTextField
+    t =    37.46s     Wait for CAL.Caliber--DEV- to idle
+    t =    37.46s     Find the "accountPassword" SecureTextField
+    t =    37.52s     Check for interrupting elements affecting "accountPassword" SecureTextField
+    t =    37.55s     Synthesize event
+    t =    37.84s     Wait for CAL.Caliber--DEV- to idle
+    t =    38.23s Type '<redacted>' into "accountPassword" SecureTextField
+    t =    38.23s     Wait for CAL.Caliber--DEV- to idle
+    t =    38.24s     Find the "accountPassword" SecureTextField
+    t =    38.28s     Check for interrupting elements affecting "accountPassword" SecureTextField
+    t =    38.32s     Synthesize event
+    t =    38.79s     Wait for CAL.Caliber--DEV- to idle
+    t =    38.79s Tap "accountSignIn" Button
+    t =    38.79s     Wait for CAL.Caliber--DEV- to idle
+    t =    38.80s     Find the "accountSignIn" Button
+    t =    38.85s     Check for interrupting elements affecting "accountSignIn" Button
+    t =    38.88s     Synthesize event
+    t =    39.17s     Wait for CAL.Caliber--DEV- to idle
+    t =    39.44s Waiting 5.0s for "accountSignedIn" StaticText to exist
+    t =    40.46s     Checking `Expect predicate `existsNoRetry == 1` for object "accountSignedIn" StaticText`
+    t =    40.46s         Checking existence of `"accountSignedIn" StaticText`
+    t =    40.53s Tap "accountDelete" Button
+    t =    40.53s     Wait for CAL.Caliber--DEV- to idle
+    t =    40.53s     Find the "accountDelete" Button
+    t =    40.56s     Check for interrupting elements affecting "accountDelete" Button
+    t =    40.58s     Synthesize event
+    t =    40.87s     Wait for CAL.Caliber--DEV- to idle
+    t =    41.38s Waiting 5.0s for "deletionPassword" SecureTextField to exist
+    t =    42.40s     Checking `Expect predicate `existsNoRetry == 1` for object "deletionPassword" SecureTextField`
+    t =    42.40s         Checking existence of `"deletionPassword" SecureTextField`
+    t =    42.47s Find the "deletionSubmit" Button
+    t =    42.50s Tap "deletionPassword" SecureTextField
+    t =    42.50s     Wait for CAL.Caliber--DEV- to idle
+    t =    42.50s     Find the "deletionPassword" SecureTextField
+    t =    42.54s     Check for interrupting elements affecting "deletionPassword" SecureTextField
+    t =    42.57s     Synthesize event
+    t =    42.86s     Wait for CAL.Caliber--DEV- to idle
+    t =    43.15s Type '<redacted>' into "deletionPassword" SecureTextField
+    t =    43.15s     Wait for CAL.Caliber--DEV- to idle
+    t =    43.16s     Find the "deletionPassword" SecureTextField
+    t =    43.21s     Check for interrupting elements affecting "deletionPassword" SecureTextField
+    t =    43.26s     Synthesize event
+    t =    43.72s     Wait for CAL.Caliber--DEV- to idle
+    t =    43.73s Tap "deletionConfirmation" TextField
+    t =    43.73s     Wait for CAL.Caliber--DEV- to idle
+    t =    43.73s     Find the "deletionConfirmation" TextField
+    t =    43.80s     Check for interrupting elements affecting "deletionConfirmation" TextField
+    t =    43.84s     Synthesize event
+    t =    44.13s     Wait for CAL.Caliber--DEV- to idle
+    t =    44.49s Type 'DELETE' into "deletionConfirmation" TextField
+    t =    44.49s     Wait for CAL.Caliber--DEV- to idle
+    t =    44.49s     Find the "deletionConfirmation" TextField
+    t =    44.53s     Check for interrupting elements affecting "deletionConfirmation" TextField
+    t =    44.59s     Synthesize event
+    t =    44.89s     Wait for CAL.Caliber--DEV- to idle
+    t =    44.89s Find the "deletionSubmit" Button
+    t =    44.97s Tap "deletionSubmit" Button
+    t =    44.97s     Wait for CAL.Caliber--DEV- to idle
+    t =    44.97s     Find the "deletionSubmit" Button
+    t =    45.02s     Check for interrupting elements affecting "deletionSubmit" Button
+    t =    45.06s     Synthesize event
+    t =    45.35s     Wait for CAL.Caliber--DEV- to idle
+    t =    45.39s Tap "Permanently Delete Account" Button
+    t =    45.39s     Wait for CAL.Caliber--DEV- to idle
+    t =    45.65s     Find the "Permanently Delete Account" Button
+    t =    45.73s     Check for interrupting elements affecting "Permanently Delete Account" Button
+    t =    45.77s     Synthesize event
+    t =    46.06s     Wait for CAL.Caliber--DEV- to idle
+    t =    46.26s Waiting 5.0s for "accountConsent" Switch to exist
+    t =    47.28s     Checking `Expect predicate `existsNoRetry == 1` for object "accountConsent" Switch`
+    t =    47.28s         Checking existence of `"accountConsent" Switch`
+    t =    47.33s Find the "accountConsent" Switch
+    t =    47.36s Find the "accountConsentContinue" Button
+    t =    47.38s Find the "accountMessage" StaticText
+    t =    47.40s Find the Target Application 'CAL.Caliber--DEV-'
+    t =    47.58s Added attachment named 'Hosted deletion fixture'
+    t =    47.58s Tap Button (Element at index 0)
+    t =    47.58s     Wait for CAL.Caliber--DEV- to idle
+    t =    47.58s     Find the Button (Element at index 0)
+    t =    47.60s     Check for interrupting elements affecting "BackButton" Button
+    t =    47.62s     Synthesize event
+    t =    47.92s     Wait for CAL.Caliber--DEV- to idle
+    t =    48.22s Tap "Progress" Button
+    t =    48.22s     Wait for CAL.Caliber--DEV- to idle
+    t =    48.25s     Find the "Progress" Button
+    t =    48.31s     Check for interrupting elements affecting "chart.line.uptrend.xyaxis" Button
+    t =    48.34s     Synthesize event
+    t =    48.63s     Wait for CAL.Caliber--DEV- to idle
+    t =    50.30s Waiting 5.0s for "Kept after hosted deletion" StaticText to exist
+    t =    51.32s     Checking `Expect predicate `existsNoRetry == 1` for object "Kept after hosted deletion" StaticText`
+    t =    51.32s         Checking existence of `"Kept after hosted deletion" StaticText`
+    t =    51.38s Tear Down
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testHostedDeletionKeepsLocalProgressNote]' passed (51.776 seconds).
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testRecoveryUsesCodeWithoutSigningIn]' started.
+    t =     0.01s Start Test at 2026-10-12 16:31:21.163
+    t =     0.07s Set Up
+    t =     0.07s Open CAL.Caliber--DEV-
+    t =     0.07s     Launch CAL.Caliber--DEV-
+    t =     0.07s         Terminate CAL.Caliber--DEV-:3499
+2026-10-12 16:31:22.306 xcodebuild[3322:5088417] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-12 16:31:22.307 xcodebuild[3322:5088417] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     1.36s         Setting up automation session
+    t =     4.62s         Wait for CAL.Caliber--DEV- to idle
+    t =     6.41s Waiting 20.0s for "welcomeContinue" Button to exist
+    t =     7.43s     Checking `Expect predicate `existsNoRetry == 1` for object "welcomeContinue" Button`
+    t =     7.44s         Checking existence of `"welcomeContinue" Button`
+    t =     7.58s Find the "welcomeContinue" Button
+    t =     7.59s Tap "adultConfirmation" Switch[0.92, 0.50]
+    t =     7.59s     Wait for CAL.Caliber--DEV- to idle
+    t =     7.60s     Find the "adultConfirmation" Switch
+    t =     7.61s     Check for interrupting elements affecting "adultConfirmation" Switch
+    t =     7.62s     Synthesize event
+    t =     7.62s         Find the "adultConfirmation" Switch
+    t =     7.64s         Find the "adultConfirmation" Switch
+    t =     7.65s         Find the "adultConfirmation" Switch
+    t =     8.05s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.36s Find the "adultConfirmation" Switch
+    t =     9.39s Tap "scopeConfirmation" Switch[0.92, 0.50]
+    t =     9.39s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.39s     Find the "scopeConfirmation" Switch
+    t =     9.41s     Check for interrupting elements affecting "scopeConfirmation" Switch
+    t =     9.43s     Synthesize event
+    t =     9.43s         Find the "scopeConfirmation" Switch
+    t =     9.44s         Find the "scopeConfirmation" Switch
+    t =     9.46s         Find the "scopeConfirmation" Switch
+    t =     9.76s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.06s Find the "scopeConfirmation" Switch
+    t =    11.09s Find the "welcomeContinue" Button
+    t =    11.11s Tap "welcomeContinue" Button
+    t =    11.11s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.11s     Find the "welcomeContinue" Button
+    t =    11.12s     Check for interrupting elements affecting "welcomeContinue" Button
+    t =    11.14s     Synthesize event
+    t =    11.45s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.73s Waiting 10.0s for "Today" Button to exist
+    t =    12.74s     Checking `Expect predicate `existsNoRetry == 1` for object "Today" Button`
+    t =    12.75s         Checking existence of `"Today" Button`
+    t =    12.84s Tap "Settings" Button
+    t =    12.84s     Wait for CAL.Caliber--DEV- to idle
+    t =    12.84s     Find the "Settings" Button
+    t =    12.86s     Check for interrupting elements affecting "gearshape" Button
+    t =    12.88s     Synthesize event
+    t =    13.17s     Wait for CAL.Caliber--DEV- to idle
+    t =    15.02s Find the "openAccount" Button
+    t =    16.08s     Find the "openAccount" Button (retry 1)
+    t =    17.14s     Find the "openAccount" Button (retry 2)
+    t =    17.19s Swipe up Target Application 'CAL.Caliber--DEV-'
+    t =    17.19s     Wait for CAL.Caliber--DEV- to idle
+    t =    17.19s     Find the Target Application 'CAL.Caliber--DEV-'
+    t =    17.22s     Check for interrupting elements affecting "Caliber (DEV)" Application
+    t =    17.24s     Synthesize event
+    t =    17.66s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.77s Find the "openAccount" Button
+    t =    19.83s Tap "openAccount" Button
+    t =    19.83s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.83s     Find the "openAccount" Button
+    t =    19.86s     Check for interrupting elements affecting "openAccount" Button
+    t =    19.89s     Synthesize event
+    t =    20.17s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.56s Waiting 5.0s for "accountConsent" Switch to exist
+    t =    21.58s     Checking `Expect predicate `existsNoRetry == 1` for object "accountConsent" Switch`
+    t =    21.58s         Checking existence of `"accountConsent" Switch`
+    t =    21.64s Tap "accountConsent" Switch[0.92, 0.50]
+    t =    21.64s     Wait for CAL.Caliber--DEV- to idle
+    t =    21.64s     Find the "accountConsent" Switch
+    t =    21.67s     Check for interrupting elements affecting "accountConsent" Switch
+    t =    21.69s     Synthesize event
+    t =    21.69s         Find the "accountConsent" Switch
+    t =    21.72s         Find the "accountConsent" Switch
+    t =    21.74s         Find the "accountConsent" Switch
+    t =    22.05s     Wait for CAL.Caliber--DEV- to idle
+    t =    23.35s Tap "accountConsentContinue" Button
+    t =    23.35s     Wait for CAL.Caliber--DEV- to idle
+    t =    23.37s     Find the "accountConsentContinue" Button
+    t =    23.39s     Check for interrupting elements affecting "accountConsentContinue" Button
+    t =    23.42s     Synthesize event
+    t =    23.72s     Wait for CAL.Caliber--DEV- to idle
+    t =    24.01s Waiting 5.0s for "accountEmail" TextField to exist
+    t =    25.02s     Checking `Expect predicate `existsNoRetry == 1` for object "accountEmail" TextField`
+    t =    25.02s         Checking existence of `"accountEmail" TextField`
+    t =    25.08s Tap "accountRecover" Button
+    t =    25.08s     Wait for CAL.Caliber--DEV- to idle
+    t =    25.08s     Find the "accountRecover" Button
+    t =    25.11s     Check for interrupting elements affecting "accountRecover" Button
+    t =    25.14s     Synthesize event
+    t =    25.42s     Wait for CAL.Caliber--DEV- to idle
+    t =    25.88s Waiting 5.0s for "recoveryEmail" TextField to exist
+    t =    26.89s     Checking `Expect predicate `existsNoRetry == 1` for object "recoveryEmail" TextField`
+    t =    26.90s         Checking existence of `"recoveryEmail" TextField`
+    t =    26.97s Tap "recoveryEmail" TextField
+    t =    26.97s     Wait for CAL.Caliber--DEV- to idle
+    t =    26.98s     Find the "recoveryEmail" TextField
+    t =    27.01s     Check for interrupting elements affecting "recoveryEmail" TextField
+    t =    27.05s     Synthesize event
+    t =    27.34s     Wait for CAL.Caliber--DEV- to idle
+    t =    27.55s Type 'fixture@example.in...' into "recoveryEmail" TextField
+    t =    27.55s     Wait for CAL.Caliber--DEV- to idle
+    t =    27.91s     Find the "recoveryEmail" TextField
+    t =    27.98s     Check for interrupting elements affecting "recoveryEmail" TextField
+    t =    28.03s     Synthesize event
+    t =    28.62s     Wait for CAL.Caliber--DEV- to idle
+    t =    28.63s Tap "recoverySend" Button
+    t =    28.63s     Wait for CAL.Caliber--DEV- to idle
+    t =    28.63s     Find the "recoverySend" Button
+    t =    28.72s     Check for interrupting elements affecting "recoverySend" Button
+    t =    28.77s     Synthesize event
+    t =    29.06s     Wait for CAL.Caliber--DEV- to idle
+    t =    29.31s Waiting 5.0s for "recoveryMessage" StaticText to exist
+    t =    30.32s     Checking `Expect predicate `existsNoRetry == 1` for object "recoveryMessage" StaticText`
+    t =    30.32s         Checking existence of `"recoveryMessage" StaticText`
+    t =    30.40s Tap "recoveryCode" TextField
+    t =    30.40s     Wait for CAL.Caliber--DEV- to idle
+    t =    30.40s     Find the "recoveryCode" TextField
+    t =    30.45s     Check for interrupting elements affecting "recoveryCode" TextField
+    t =    30.50s     Synthesize event
+    t =    30.78s     Wait for CAL.Caliber--DEV- to idle
+    t =    31.18s Type '123456' into "recoveryCode" TextField
+    t =    31.18s     Wait for CAL.Caliber--DEV- to idle
+    t =    31.19s     Find the "recoveryCode" TextField
+    t =    31.25s     Check for interrupting elements affecting "recoveryCode" TextField
+    t =    31.29s     Synthesize event
+    t =    31.59s     Wait for CAL.Caliber--DEV- to idle
+    t =    31.60s Tap "recoveryNewPassword" SecureTextField
+    t =    31.60s     Wait for CAL.Caliber--DEV- to idle
+    t =    31.60s     Find the "recoveryNewPassword" SecureTextField
+    t =    31.67s     Check for interrupting elements affecting "recoveryNewPassword" SecureTextField
+    t =    31.71s     Synthesize event
+    t =    31.99s     Wait for CAL.Caliber--DEV- to idle
+    t =    32.00s Type 'new-fixture-passwo...' into "recoveryNewPassword" SecureTextField
+    t =    32.00s     Wait for CAL.Caliber--DEV- to idle
+    t =    32.00s     Find the "recoveryNewPassword" SecureTextField
+    t =    32.05s     Check for interrupting elements affecting "recoveryNewPassword" SecureTextField
+    t =    32.09s     Synthesize event
+    t =    32.63s     Wait for CAL.Caliber--DEV- to idle
+    t =    32.64s Tap "recoveryRepeatPassword" SecureTextField
+    t =    32.64s     Wait for CAL.Caliber--DEV- to idle
+    t =    32.65s     Find the "recoveryRepeatPassword" SecureTextField
+    t =    32.71s     Check for interrupting elements affecting "recoveryRepeatPassword" SecureTextField
+    t =    32.76s     Synthesize event
+    t =    32.76s         Scroll element to visible
+    t =    32.77s         Find the "recoveryRepeatPassword" SecureTextField
+    t =    32.82s         Computed hit point {201, 267.83333333333331} after scrolling to visible
+    t =    33.10s     Wait for CAL.Caliber--DEV- to idle
+    t =    33.11s Type 'new-fixture-passwo...' into "recoveryRepeatPassword" SecureTextField
+    t =    33.11s     Wait for CAL.Caliber--DEV- to idle
+    t =    33.11s     Find the "recoveryRepeatPassword" SecureTextField
+    t =    33.16s     Check for interrupting elements affecting "recoveryRepeatPassword" SecureTextField
+    t =    33.20s     Synthesize event
+    t =    33.74s     Wait for CAL.Caliber--DEV- to idle
+    t =    33.75s Find the "recoveryChangePassword" Button
+    t =    33.80s Find the "recoveryChangePassword" Button
+    t =    33.84s Tap "recoveryChangePassword" Button
+    t =    33.84s     Wait for CAL.Caliber--DEV- to idle
+    t =    33.85s     Find the "recoveryChangePassword" Button
+    t =    33.89s     Check for interrupting elements affecting "recoveryChangePassword" Button
+    t =    33.93s     Synthesize event
+    t =    34.22s     Wait for CAL.Caliber--DEV- to idle
+    t =    34.48s Waiting 5.0s for "recoveryMessage" StaticText to exist
+    t =    35.50s     Checking `Expect predicate `existsNoRetry == 1` for object "recoveryMessage" StaticText`
+    t =    35.50s         Checking existence of `"recoveryMessage" StaticText`
+    t =    35.55s Find the "recoveryMessage" StaticText
+    t =    35.59s Find the Target Application 'CAL.Caliber--DEV-'
+    t =    35.70s Added attachment named 'Password recovery fixture'
+    t =    35.70s Tap "Done" Button
+    t =    35.70s     Wait for CAL.Caliber--DEV- to idle
+    t =    35.71s     Find the "Done" Button
+    t =    35.75s     Check for interrupting elements affecting "Done" Button
+    t =    35.79s     Synthesize event
+    t =    36.08s     Wait for CAL.Caliber--DEV- to idle
+    t =    36.49s Waiting 5.0s for "accountEmail" TextField to exist
+    t =    37.52s     Checking `Expect predicate `existsNoRetry == 1` for object "accountEmail" TextField`
+    t =    37.52s         Checking existence of `"accountEmail" TextField`
+    t =    37.58s Checking existence of `"accountSignedIn" StaticText`
+    t =    37.61s Tear Down
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testRecoveryUsesCodeWithoutSigningIn]' passed (37.869 seconds).
+Test Suite 'FoundationUITests' passed at 2026-10-12 16:31:59.027.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 123.007 (123.014) seconds
+Test Suite 'Caliber (DEV)UITests.xctest' passed at 2026-10-12 16:31:59.035.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 123.007 (123.022) seconds
+Test Suite 'Selected tests' passed at 2026-10-12 16:31:59.036.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 123.007 (123.024) seconds
+2026-10-12 16:31:59.415 xcodebuild[3322:5088417] [MT] IDETestOperationsObserverDebug: 131.164 elapsed -- Testing started completed.
+2026-10-12 16:31:59.415 xcodebuild[3322:5088417] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-10-12 16:31:59.415 xcodebuild[3322:5088417] [MT] IDETestOperationsObserverDebug: 131.164 sec, +131.164 sec -- end
+
+Test session results, code coverage, and logs:
+	/tmp/caliber-lifecycle-final-ui.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started

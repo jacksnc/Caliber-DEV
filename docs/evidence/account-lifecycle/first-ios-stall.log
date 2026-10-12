@@ -1,0 +1,38 @@
+/Users/jcrock/Documents/Caliber (DEV) - Project/Caliber (DEV)/Caliber (DEV)UITests/FoundationUITests.swift:10: error: -[Caliber__DEV_UITests.FoundationUITests testRecoveryUsesCodeWithoutSigningIn] : Failed to get matching snapshots: Timed out while fetching snapshot from testmanagerd..
+    t =  3963.32s                 Capturing element debug description
+    t =  3963.36s Tear Down
+Test Case '-[Caliber__DEV_UITests.FoundationUITests testRecoveryUsesCodeWithoutSigningIn]' failed (7057.263 seconds).
+Test Suite 'FoundationUITests' failed at 2026-10-12 03:10:45.692.
+	 Executed 3 tests, with 3 failures (0 unexpected) in 12655.852 (12655.878) seconds
+Test Suite 'Caliber (DEV)UITests.xctest' failed at 2026-10-12 03:10:45.695.
+	 Executed 3 tests, with 3 failures (0 unexpected) in 12655.852 (12655.885) seconds
+Test Suite 'Selected tests' failed at 2026-10-12 03:10:45.722.
+	 Executed 3 tests, with 3 failures (0 unexpected) in 12655.852 (12655.914) seconds
+2026-10-12 04:22:42.287054-0400 Caliber (DEV)[98033:4970726] [API] cannot add handler to 0 from 0 - dropping
+2026-10-12 04:22:42.292414-0400 Caliber (DEV)[98033:4970726] [API] cannot add handler to 0 from 0 - dropping
+2026-10-12 04:22:42.404354-0400 Caliber (DEV)[98033:4970726] [XPCErrors] non-launching port is incompatible with service identifier "com.apple.PointerUI.pointeruid.default-service"
+2026-10-12 04:22:42.500120-0400 Caliber (DEV)[98033:4970726] [API] cannot add handler to 0 from 0 - dropping
+2026-10-12 04:22:42.500413-0400 Caliber (DEV)[98033:4970726] [API] cannot add handler to 0 from 0 - dropping
+2026-10-12 04:36:07.206638-0400 Caliber (DEV)[98033:4970726] [Default] Error while discovering and preparing to run tests: Error Domain=com.apple.dt.XCTest.XCTFuture Code=1000 "Timed out while preparing execution worker." UserInfo={NSLocalizedDescription=Timed out while preparing execution worker.}
+
+
+*** If you believe this error represents a bug, please attach the result bundle at /tmp/caliber-lifecycle-ios.xcresult
+
+2026-10-12 04:36:08.019 xcodebuild[96839:4939103] [MT] IDETestOperationsObserverDebug: 20757.711 elapsed -- Testing started completed.
+2026-10-12 04:36:08.019 xcodebuild[96839:4939103] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-10-12 04:36:08.019 xcodebuild[96839:4939103] [MT] IDETestOperationsObserverDebug: 20757.711 sec, +20757.711 sec -- end
+
+Test session results, code coverage, and logs:
+	/tmp/caliber-lifecycle-ios.xcresult
+
+Testing failed:
+	Caliber (DEV) (98033) encountered an error (Timed out while preparing execution worker.)
+
+Failing tests:
+	FoundationUITests.testAccountSignInAndDeviceSignOutUseOnlyFixture()
+	FoundationUITests.testHostedDeletionKeepsLocalProgressNote()
+	FoundationUITests.testRecoveryUsesCodeWithoutSigningIn()
+
+** TEST FAILED **
+
+Testing started

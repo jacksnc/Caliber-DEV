@@ -1,0 +1,32 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "18A39DAA-85BB-4B10-BF51-EB6918AB649A",
+        "deviceName" : "Caliber Account QA",
+        "exportedFileName" : "763B33D8-C725-40CE-8FB1-4421927D1C1A.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Hosted deletion fixture_0_003C3777-33FC-4114-8A13-CAA708211F6F.png",
+        "timestamp" : 1791837076.958
+      }
+    ],
+    "testIdentifier" : "FoundationUITests/testHostedDeletionKeepsLocalProgressNote()",
+    "testIdentifierURL" : "test://com.apple.xcode/Caliber%20(DEV)/Caliber%20(DEV)UITests/FoundationUITests/testHostedDeletionKeepsLocalProgressNote"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "18A39DAA-85BB-4B10-BF51-EB6918AB649A",
+        "deviceName" : "Caliber Account QA",
+        "exportedFileName" : "A99D36F1-93D5-49A0-983E-5A91733BD318.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Password recovery fixture_0_ED311D7E-20CA-4DF3-9BA5-B8132F5595F0.png",
+        "timestamp" : 1791837116.859
+      }
+    ],
+    "testIdentifier" : "FoundationUITests/testRecoveryUsesCodeWithoutSigningIn()",
+    "testIdentifierURL" : "test://com.apple.xcode/Caliber%20(DEV)/Caliber%20(DEV)UITests/FoundationUITests/testRecoveryUsesCodeWithoutSigningIn"
+  }
+]
