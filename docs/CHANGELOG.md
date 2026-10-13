@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-13 — Local restore mapping rehearsal
+
+- Added complete reconstruction of all 15 current SwiftData model types from the saved legacy archive into a separate memory container, with CloudKit off and no live-store/file destination accepted.
+- Preserved photo bytes/order, UUIDs, optional links, saved-meal/restaurant relationships, original pounds and custom diary/menu nutrition. Rejected unknown fields/types, inconsistent relationships, incompatible units and changed totals.
+- Added six restore test functions, including thirteen invalid variants, and extended the all-model saved-archive test. App build, 74 Swift Testing functions plus two template cases, strict formatting and diff review pass.
+- Replaced an initial disk-copy experiment after it exposed retained-handle cleanup diagnostics. Final evidence proves model restoration in memory from persisted archive input; canonical disk restoration remains a separate gate.
+- Followed the owner's instruction to keep email setup pending. No UI, existing schema/model, live store, hosted service or account setting changed.
+
 ## 2026-10-12 — Optional account permission, recovery and hosted self-deletion
 
 - Added explicit versioned account permission, local withdrawal, code-based recovery and password-confirmed deletion UI. Sensitive form values are cleared; deletion preserves local diary/progress/photos and resets the permission toggle.

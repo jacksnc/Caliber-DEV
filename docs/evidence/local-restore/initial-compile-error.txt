@@ -1,0 +1,5 @@
+macro expansion #expect:1:79: error: call can throw, but it is not marked with 'try' and it is executed in a non-throwing autoclosure
+    |  |                                                                               `- error: call can throw, but it is not marked with 'try' and it is executed in a non-throwing autoclosure
+	Call can throw, but it is not marked with 'try' and it is executed in a non-throwing autoclosure
+	Testing cancelled because the build failed.
+** TEST FAILED **

@@ -1,0 +1,32 @@
+{
+  "checkedAt": "2026-10-13",
+  "status": "local_model_restore_mapping_verified",
+  "counts": {
+    "newTestFunctions": 6,
+    "invalidVariants": 13,
+    "integerBoundaryArguments": 2,
+    "appTestFunctions": 74,
+    "templateXCTestCases": 2,
+    "modelTypesRestoredFromArchive": 15
+  },
+  "checks": {
+    "build": true,
+    "swiftLint": true,
+    "diffReview": true,
+    "sourceAndArchivePreservation": true,
+    "exactIntegerRanks": true,
+    "restoreCleanupDiagnostics": 0
+  },
+  "limits": {
+    "diskRestoreVerified": false,
+    "normalizedGRDBMapping": false,
+    "encryptedBackup": false,
+    "minimumIOS17Runtime": false,
+    "cloudActivation": false,
+    "newUserFacingScreen": false
+  },
+  "unchangedProgressFixtureDiagnostics": {
+    "\u25c7 Test \"Photos, order, weight, and notes survive reopening a disk-backed store\"": 3
+  },
+  "changes": "No live model/store/schema/configuration/hosted change. Only fictional snapshots reconstructed in memory."
+}

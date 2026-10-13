@@ -1,0 +1,23 @@
+[
+  {
+    "attempt": "second",
+    "testFunctionsPassed": 73,
+    "testsPassed": true,
+    "openFileDeletionDiagnostics": 26,
+    "scope": "Discarded disk-based restore experiment; not the final implementation."
+  },
+  {
+    "attempt": "third",
+    "testFunctionsPassed": 73,
+    "testsPassed": true,
+    "openFileDeletionDiagnostics": 26,
+    "scope": "Discarded disk-based restore experiment; not the final implementation."
+  },
+  {
+    "attempt": "fourth",
+    "testFunctionsPassed": 73,
+    "testsPassed": true,
+    "openFileDeletionDiagnostics": 20,
+    "scope": "Discarded disk-based restore experiment; not the final implementation."
+  }
+]

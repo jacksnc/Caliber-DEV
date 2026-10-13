@@ -1,0 +1,18 @@
+Caliber (DEV)/Services/LegacyRestoreRehearsal.swift
+Caliber (DEV)Tests/LegacyRestoreTests.swift
+Caliber (DEV)Tests/LegacySnapshotTests.swift
+docs/BACKLOG.md
+docs/CHANGELOG.md
+docs/DECISIONS.md
+docs/LOCAL_RESTORE_VERIFICATION.md
+docs/MIGRATIONS.md
+docs/SECURITY.md
+docs/adr/009-local-restore-rehearsal.md
+docs/evidence/local-restore/SHA256.json
+docs/evidence/local-restore/app-tests.log
+docs/evidence/local-restore/disk-experiment.json
+docs/evidence/local-restore/initial-compile-error.txt
+docs/evidence/local-restore/lint.log
+docs/evidence/local-restore/results.json
+scripts/lint_foundation.py
+docs/LOCAL_RESTORE_FILES.txt

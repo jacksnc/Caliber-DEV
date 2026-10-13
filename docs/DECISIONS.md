@@ -125,3 +125,11 @@ The owner's “Go” accepted ADR-001's native iOS / later Android amendment. Ph
 | D55 | Preserve local health data when deleting only the hosted account. | UI explicitly explains scope; credential clearing occurs after server acknowledgement, with recoverable Keychain failures. Dedicated simulator proves a local progress note survives. |
 | D56 | Apply additive migration 004 without resetting counters, and delete only a new disposable lifecycle fixture. | Hosted twelve-criterion probe and catalog cleanup pass; four earlier QA accounts remain. No personal migration/upload/deletion occurred. |
 | D57 | Leave app activation off until sender and provider safeguards are verified. | Local/hosted permission and deletion proof do not certify email delivery, provider retention, public bot protection, encrypted domain sync or full Phase 1. |
+
+## Local restore rehearsal — 2026-10-13
+
+| ID | Decision | Reason/evidence |
+|---|---|---|
+| D58 | Defer email setup and continue local Foundation work. | Owner explicitly selected this option; no sender/provider/hosted configuration is changed. |
+| D59 | Restore saved legacy snapshots into a fresh in-memory SwiftData graph. | ADR-009: all 15 types can be checked without a live store/file destination. A disk-copy experiment exposed retained-handle cleanup diagnostics; the planned canonical target remains GRDB. This is mapping evidence, not disk durability. |
+| D60 | Fail on unknown fields, inconsistent references/types or changed totals rather than silently repair a copy. | Exact recapture includes photo bytes, UUIDs, inverse relationships, menu/diary nutrition and original pounds. The future normalized projection must independently reconcile this evidence. |

@@ -62,4 +62,12 @@ import Testing
   #expect(try await reopened.snapshotCount() == 2)
   #expect(try LegacySnapshotAdapter.capture(context) == before)
   #expect(Set(before.map(\.entity)).count == 15)
+
+  let restore = try LegacyRestoreRehearsal.verify(
+    try await reopened.read(snapshotID: id))
+  #expect(restore.rowCount == before.count)
+  #expect(restore.entityCounts.keys.count == 15)
+  #expect(restore.restoredRows == before)
+  #expect(try LegacySnapshotAdapter.capture(context) == before)
+  #expect(try await reopened.read(snapshotID: id) == before)
 }

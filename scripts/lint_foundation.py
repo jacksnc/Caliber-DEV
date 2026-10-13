@@ -13,9 +13,11 @@ paths += [ROOT / p for p in [
     'Caliber (DEV)/App/HostedAccountModel.swift',
     'Caliber (DEV)/Views/Foundation/HostedAccountView.swift',
     'Caliber (DEV)/Services/LegacySnapshotAdapter.swift',
+    'Caliber (DEV)/Services/LegacyRestoreRehearsal.swift',
     'Caliber (DEV)/Views/Foundation/FoundationSettingsView.swift',
     'Caliber (DEV)/Views/Foundation/TodayFoundationView.swift',
     'Caliber (DEV)Tests/LegacySnapshotTests.swift',
+    'Caliber (DEV)Tests/LegacyRestoreTests.swift',
     'Caliber (DEV)Tests/HostedAccountTests.swift',
     'Caliber (DEV)UITests/FoundationUITests.swift',
 ]]
