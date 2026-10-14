@@ -33,3 +33,19 @@ Release evidence: approved manifest, generated acknowledgements, package lockfil
 - PGlite **0.3.14**, development-only npm dependency pinned by deno.lock. Its package metadata declares Apache-2.0; its embedded PostgreSQL components carry their own upstream notices. We redistribute no PGlite binary in the mobile app or delivery source archive. Official documentation: https://pglite.dev/docs/ . Review transitive notices if redistributing the test runtime.
 - Deno **2.9.7** is a local/CI development tool, not an app dependency. No runtime binary is included in the source delivery.
 - The new demo generator and UI/chart copy are original; no third-party restaurant/exercise/compound dataset was added. Existing restaurant provenance gates remain open.
+
+## Offline food import — 2026-10-14
+
+USDA FoodData Central Foundation Foods, release **2026-04-30**, checked by this engineering implementation. [USDA](https://fdc.nal.usda.gov/) declares FoodData Central data CC0 1.0/public domain; attribution is retained in review/source links, personal serving descriptions, manifest and Settings notices. [Foundation documentation](https://fdc.nal.usda.gov/Foundation_Foods_Documentation/) describes preparation and energy methods. This is an engineering source check, not a general legal sign-off.
+
+- Source: `https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_foundation_food_json_2026-04-30.zip`.
+- Archive SHA256: `186e988ec542e913f51ef62b86a47758e8cdd0d1dc3889e7b055581f3c09c77a` (469,303 bytes).
+- Generated resource SHA256: `febcf09814868e18c6a84a737a246bd9c15fb9812b6682c9470652bc1b67460e` (106,628 bytes).
+- Fields: original description/preparation, FDC ID, publication date, energy method and kcal/protein/total carbohydrate/fat per100g. No images or branding. 395 source slots → 311 foods; 32 null, 42 missing nutrients and 10 negative carbohydrate-by-difference values excluded. Source order is normalized deterministically. No inferred zeros or new nutrition estimates.
+- `scripts/import_usda_foods.py` verifies the pinned ZIP before extraction; `--check` reproduces the checked-in bytes. Default use is offline; `--download` explicitly opts into the bounded public download. Future releases need a new reviewed pin and diff; remove a source entry by regenerating the catalog without changing prior personal diary snapshots.
+
+## Optional barcode and restaurant sources — pending
+
+The optional Open Food Facts adapter uses no bundled product data/images and made no live product requests. Current [official API documentation](https://openfoodfacts.github.io/openfoodfacts-server/api/) recommends v3.6 and a contact-email User-Agent, development staging and usage setup. [Reuse guidance](https://openfoodfacts.github.io/documentation/docs/Product-Opener/api/tutorials/license-be-on-the-legal-side/) identifies ODbL database and DbCL contents duties. A separate factory/configuration and attribution are prepared; provider choice, actual contact and applicable terms/setup remain owner decisions. No setup form was submitted. Do not infer that separating user copies settles all share-alike questions, or that private diaries should be published.
+
+Existing restaurant values remain unverified samples. Source links are navigational references, not an import license. [LongHorn legal notices](https://www.longhornsteakhouse.com/legal-notices) and [Chipotle terms](https://www.chipotle.com/terms-of-use) restrict content reuse; new official menu imports are pending a licensed source or permission under §0.4(e). No new menu tables, photos/logos or competitor dataset were ingested.

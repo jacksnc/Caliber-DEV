@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-14 — Offline food, barcode review and normalized copy
+
+- Bundled 311 complete, source-traceable USDA Foundation foods from a hash-pinned CC0 release, with reproducible importer and offline ranked search. Added gram-based review, personal macro overrides and independent diary copies without changing SwiftData models.
+- Added native/manual GTIN capture, check-digit validation, private request/consent coordination and an optional Open Food Facts v3.6 adapter. Default provider remains pending; fictional fixtures verify total carbohydrate, basis/units, errors, cancellation and limits. No live product requests, API keys, images or private health uploads.
+- Added personal restaurant creation, improved menu/name/category search and official nutrition links. Existing custom item Edit/Delete swipes and eligible Chipotle portions stay intact; built-in restaurant values remain samples pending reuse rights and verified coverage.
+- Added all-model typed GRDB projection/reconciliation in a separate immutable rehearsal target, with source/archive preservation, stable IDs, exact nutrition/photo checks, transactional retry/reopen and zero migration outbox. Unknown serving grams remain unknown in compatibility tables.
+- Added isolated unit/UI/import tests and source/license/migration/security documentation. See FOOD_AND_NORMALIZED_VERIFICATION.md for final execution results and limits. Email setup, cloud activation, protected attachments and live cutover remain pending.
+
 ## 2026-10-13 — Local restore mapping rehearsal
 
 - Added complete reconstruction of all 15 current SwiftData model types from the saved legacy archive into a separate memory container, with CloudKit off and no live-store/file destination accepted.

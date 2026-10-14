@@ -268,3 +268,12 @@ All listed acceptance tests are planned. Full P0 table/screen/test mappings are 
 - §11: encrypted Stack store, private attachment vault, consent/lock/region/store gates and qualified policy review precede real Stack capture. Simulation markers do not satisfy these requirements.
 
 These entries preserve the existing requirement priorities. They are unfinished Foundation/release gates, not completed or newly optional features.
+
+## Food/data checkpoint — 2026-10-14
+
+- FUEL-01/02/03 are **partially implemented**: 311 offline USDA foods, explicit gram review, personal macro overrides and native/manual barcode capture. Remaining P0 scope includes production packaged-food coverage, recents/frequency/favorites/copy flows, broader serving units and structured canonical source metadata. Do not mark the full requirements complete.
+- Optional OFF adapter is fixture-tested and defaults off. Resolve the pending provider/reuse choice, real contact User-Agent, official usage setup and release obligations before live requests. Review coverage using authorized real products; current parser requires explicit total carbs and may reject many records. No offline packaged-product cache or label OCR yet (FUEL-11 P1 remains flagged).
+- Restaurant tooling now supports adding local restaurants plus existing custom menu create/edit/delete, categorized browsing, improved search and official-source links. New official restaurant table imports remain pending reuse permission/licensed source; sample menus are not production coverage (FUEL-13 P1 remains flagged).
+- PLAT-03 normalized rehearsal maps all 15 models into a separate GRDB target and reconciles exact typed values. Unknown serving grams remain compatibility rows, not fabricated canonical nutrients/log grams. Finish canonical app repositories/read-model integration, protected attachments/backup and migration review before live cutover.
+- Verify native camera permission denial/retry, real barcode decoding, rotation, background/interruption and accessibility on a physical iPhone. Simulator manual capture is not a hardware-camera pass.
+- Email sender and delivery/reset verification remain deferred per the owner's explicit instruction. No hosted account/sync activation occurred in this checkpoint.

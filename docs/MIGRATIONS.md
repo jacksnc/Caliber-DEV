@@ -52,3 +52,9 @@ Hosted account self-deletion uses the supported Auth Admin API after verified be
 ## Local restore rehearsal — October 13
 
 No new migration is applied. LegacyRestoreRehearsal reconstructs all 15 current SwiftData types from the version-1 saved archive into a new memory container, verifies exact recaptured rows and destroys only that memory container. The source context and archive remain unchanged. It accepts no existing context or file destination. This is a graph-compatibility check; normalized GRDB mapping, restored disk restart, protected attachments and live cutover are still required. See ADR-009 and LOCAL_RESTORE_VERIFICATION.md.
+
+## Normalized rehearsal — October 14
+
+`LegacyNormalizedProjection` adds a **rehearsal-only** v4 migration beneath its fixed, separately named target path. The live `FoundationStore`, shared v1–v3 schema resources, SwiftData models and app locator remain unchanged. No hosted SQL applied. Typed compatibility tables preserve arbitrary serving nutrition, quantities, original fields/photo bytes and unlinked objects that the stronger canonical gram/date schema cannot truthfully represent yet.
+
+One immutable snapshot/timezone/reference-date boundary is supported per target; a changed snapshot needs another directory. Failure rolls back; retry/reopen preserves stable ID mappings. Reconciliation reconstructs typed fields independently of archived payload JSON and checks graph/totals/photo bytes plus the target digest. Zero migration outbox records are required. This is local copy/restart evidence only, not completed production migration, canonical repository cutover, photo vault or protected portable backup. See ADR-010.

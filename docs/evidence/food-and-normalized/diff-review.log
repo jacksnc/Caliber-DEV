@@ -1,0 +1,4 @@
+Reviewed source/data/privacy/math/consent/migration boundaries and final app diff.
+git diff --check: exit 0
+Unrelated Xcode scheme user preferences excluded. No live store/cloud migration or provider activation.
+Copied tool logs normalize line endings and trailing whitespace only; original stdout/result bundles remain in /private/tmp.

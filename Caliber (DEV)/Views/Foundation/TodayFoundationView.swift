@@ -56,7 +56,7 @@ struct TodayFoundationView: View {
             .font(.footnote).foregroundStyle(.secondary)
         }
       }.navigationTitle("Today")
-        .sheet(isPresented: $food) { FoodSearchView() }
+        .sheet(isPresented: $food) { NavigationStack { FoodSearchView() } }
         .sheet(isPresented: $checkIn) {
           ProgressEntryForm(entry: progress.first { Calendar.current.isDateInToday($0.date) })
         }

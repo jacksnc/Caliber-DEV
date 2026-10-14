@@ -1,0 +1,55 @@
+Caliber (DEV).xcodeproj/project.pbxproj
+Caliber (DEV)/App/BarcodeLookupCoordinator.swift
+Caliber (DEV)/Resources/FoodCatalog.json
+Caliber (DEV)/Resources/FoodLookupConfiguration.json
+Caliber (DEV)/Resources/ThirdPartyNotices.txt
+Caliber (DEV)/Services/BarcodeCaptureService.swift
+Caliber (DEV)/Services/BarcodeNutritionProduct.swift
+Caliber (DEV)/Services/BarcodeService.swift
+Caliber (DEV)/Services/BundledFoodSearchService.swift
+Caliber (DEV)/Services/FoodCatalogTypes.swift
+Caliber (DEV)/Services/FoodNutritionReference.swift
+Caliber (DEV)/Services/FoodSearchService.swift
+Caliber (DEV)/Services/OpenFoodFactsBarcodeService.swift
+Caliber (DEV)/Services/RestaurantSourceDirectory.swift
+Caliber (DEV)/Utilities/BarcodeValue.swift
+Caliber (DEV)/Views/Diary/BarcodeFoodLookupView.swift
+Caliber (DEV)/Views/Diary/BarcodeScannerView.swift
+Caliber (DEV)/Views/Diary/FoodNutritionReviewView.swift
+Caliber (DEV)/Views/Diary/FoodSearchView.swift
+Caliber (DEV)/Views/FoodLibrary/FoodLibraryView.swift
+Caliber (DEV)/Views/Foundation/TodayFoundationView.swift
+Caliber (DEV)/Views/Restaurants/AddRestaurantView.swift
+Caliber (DEV)/Views/Restaurants/RestaurantDetailView.swift
+Caliber (DEV)/Views/Restaurants/RestaurantListView.swift
+Caliber (DEV)Tests/BarcodeCoordinatorTests.swift
+Caliber (DEV)Tests/BarcodeLookupTests.swift
+Caliber (DEV)Tests/BarcodeValueTests.swift
+Caliber (DEV)Tests/FoodCatalogTests.swift
+Caliber (DEV)Tests/LegacySnapshotTests.swift
+Caliber (DEV)Tests/ReferenceFoodLoggingTests.swift
+Caliber (DEV)UITests/FoodExperienceUITests.swift
+Caliber (DEV)UITests/RestaurantCustomizationUITests.swift
+Packages/CaliberFoundation/Sources/CaliberDatabase/LegacyNormalizedProjection.swift
+Packages/CaliberFoundation/Tests/CaliberDatabaseTests/LegacyNormalizedProjectionTests.swift
+docs/BACKLOG.md
+docs/CHANGELOG.md
+docs/DECISIONS.md
+docs/FOOD_AND_NORMALIZED_FILES.txt
+docs/FOOD_AND_NORMALIZED_VERIFICATION.md
+docs/HOW_WE_CALCULATE.md
+docs/LICENSES.md
+docs/MIGRATIONS.md
+docs/SECURITY.md
+docs/adr/010-normalized-copy-rehearsal.md
+docs/adr/011-offline-food-and-barcode.md
+docs/evidence/food-and-normalized/app-and-food-ui.log
+docs/evidence/food-and-normalized/catalog-reproduction.log
+docs/evidence/food-and-normalized/diff-review.log
+docs/evidence/food-and-normalized/import-tests.log
+docs/evidence/food-and-normalized/lint.log
+docs/evidence/food-and-normalized/package-tests.log
+docs/evidence/food-and-normalized/restaurant-ui.log
+scripts/import_usda_foods.py
+scripts/lint_foundation.py
+scripts/test_import_usda_foods.py

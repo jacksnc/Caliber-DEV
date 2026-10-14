@@ -1,0 +1,13 @@
+test_kilojoules_alone_do_not_become_calories (test_import_usda_foods.ImportPolicyTests) ... ok
+test_malformed_nutrient_rows_are_not_usable_data (test_import_usda_foods.ImportPolicyTests) ... ok
+test_missing_negative_nonfinite_and_invalid_units_are_not_zero (test_import_usda_foods.ImportPolicyTests) ... ok
+test_nonmatching_archive_is_rejected_before_parsing (test_import_usda_foods.ImportPolicyTests) ... ok
+test_null_rows_are_skipped_and_duplicate_food_ids_fail (test_import_usda_foods.ImportPolicyTests) ... ok
+test_output_is_deterministic_and_bundled_manifest_is_correct (test_import_usda_foods.ImportPolicyTests) ... ok
+test_prefer_specific_then_general_then_legacy_energy (test_import_usda_foods.ImportPolicyTests) ... ok
+test_realistic_macro_values_and_explicit_zero_survive (test_import_usda_foods.ImportPolicyTests) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.002s
+
+OK

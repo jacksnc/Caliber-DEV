@@ -70,4 +70,21 @@ import Testing
   #expect(restore.restoredRows == before)
   #expect(try LegacySnapshotAdapter.capture(context) == before)
   #expect(try await reopened.read(snapshotID: id) == before)
+
+  let projectionDirectory = directory.appendingPathComponent("normalized-shadow")
+  let projection = try LegacyNormalizedProjection(directory: projectionDirectory)
+  let projected = try await projection.copy(
+    before, snapshotID: id, timeZoneID: "America/New_York",
+    referenceDate: Date(timeIntervalSince1970: 1_700_000_000))
+  #expect(projected.sourceRows == before.count)
+  #expect(projected.diaryCalories == 123.5 * 1.5)
+  #expect(projected.photos == 1 && projected.photoBytes == 4)
+  #expect(try await projection.normalizedRows() == before)
+  let projectionReopened = try LegacyNormalizedProjection(directory: projectionDirectory)
+  _ = try await projectionReopened.copy(
+    before, snapshotID: id, timeZoneID: "America/New_York",
+    referenceDate: Date(timeIntervalSince1970: 1_700_000_000))
+  #expect(try await projectionReopened.normalizedRows() == before)
+  #expect(try LegacySnapshotAdapter.capture(context) == before)
+  #expect(try await reopened.read(snapshotID: id) == before)
 }

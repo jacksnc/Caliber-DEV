@@ -1,0 +1,1194 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild test -project "Caliber (DEV).xcodeproj" -scheme "Caliber (DEV)" -destination "platform=iOS Simulator,id=18A39DAA-85BB-4B10-BF51-EB6918AB649A" -derivedDataPath /private/tmp/caliber-food-ios -resultBundlePath /private/tmp/caliber-food-tests-08.xcresult -parallel-testing-enabled NO -collect-test-diagnostics never -test-timeouts-enabled YES -default-test-execution-time-allowance 90 -maximum-test-execution-time-allowance 120 "-only-testing:Caliber (DEV)Tests" "-only-testing:Caliber (DEV)UITests/FoodExperienceUITests" CODE_SIGNING_ALLOWED=NO
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+
+Resolve Package Graph
+
+
+Resolved source packages:
+  CaliberFoundation: /Users/jcrock/Documents/Caliber (DEV) - Project/Caliber (DEV)/Packages/CaliberFoundation @ local
+  GRDB: https://github.com/groue/GRDB.swift.git @ 7.9.0
+
+2026-10-14 13:39:29.512 xcodebuild[74254:6045147] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+Writing result bundle at path:
+	/private/tmp/caliber-food-tests-08.xcresult
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (22 targets)
+    Target 'Caliber (DEV)Tests' in project 'Caliber (DEV)'
+        ➜ Explicit dependency on target 'Caliber (DEV)' in project 'Caliber (DEV)'
+    Target 'Caliber (DEV)UITests' in project 'Caliber (DEV)'
+        ➜ Explicit dependency on target 'Caliber (DEV)' in project 'Caliber (DEV)'
+    Target 'Caliber (DEV)' in project 'Caliber (DEV)'
+        ➜ Explicit dependency on target 'CaliberCore-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDatabase-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDesignSystem-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCharts-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberSeedData-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberIntegrations-product' in project 'CaliberFoundation'
+    Target 'CaliberIntegrations-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberIntegrations' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'GRDB-product' in project 'GRDB'
+    Target 'CaliberIntegrations' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'GRDB-product' in project 'GRDB'
+    Target 'CaliberSeedData-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberSeedData' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberSeedData' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberCharts-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCharts' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDesignSystem' in project 'CaliberFoundation'
+    Target 'CaliberCharts' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDesignSystem' in project 'CaliberFoundation'
+    Target 'CaliberDesignSystem-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDesignSystem' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberDesignSystem' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberDesignSystem' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberDesignSystem' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberFoundation_CaliberDesignSystem' in project 'CaliberFoundation' (no dependencies)
+    Target 'CaliberDatabase-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'GRDB-product' in project 'GRDB'
+    Target 'CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberDatabase' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'GRDB-product' in project 'GRDB'
+    Target 'GRDB-product' in project 'GRDB'
+        ➜ Explicit dependency on target 'GRDB' in project 'GRDB'
+        ➜ Explicit dependency on target 'GRDB_GRDB' in project 'GRDB'
+    Target 'GRDB' in project 'GRDB'
+        ➜ Explicit dependency on target 'GRDB_GRDB' in project 'GRDB'
+        ➜ Explicit dependency on target 'GRDBSQLite' in project 'GRDB'
+    Target 'GRDBSQLite' in project 'GRDB' (no dependencies)
+    Target 'GRDB_GRDB' in project 'GRDB' (no dependencies)
+    Target 'CaliberFoundation_CaliberDatabase' in project 'CaliberFoundation' (no dependencies)
+    Target 'CaliberCore-product' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberCore' in project 'CaliberFoundation'
+        ➜ Explicit dependency on target 'CaliberFoundation_CaliberCore' in project 'CaliberFoundation'
+    Target 'CaliberFoundation_CaliberCore' in project 'CaliberFoundation' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk /tmp/caliber-food-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)/Caliber\ \(DEV\).xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -o /tmp/caliber-food-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache
+
+SwiftDriver Caliber\ (DEV) normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_ -Onone @/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\).SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/tmp/caliber-food-ios/SourcePackages/checkouts/GRDB.swift/Sources/GRDBSQLite/module.modulemap -default-isolation\=MainActor -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-food-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64 -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-food-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-food-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-food-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-food-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-generated-files.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-own-target-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-project-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ Caliber__DEV_ (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for Caliber__DEV_ (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+
+SwiftDriver\ Compilation\ Requirements Caliber\ (DEV) normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_ -Onone @/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\).SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/tmp/caliber-food-ios/SourcePackages/checkouts/GRDB.swift/Sources/GRDBSQLite/module.modulemap -default-isolation\=MainActor -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-food-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64 -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-food-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-food-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-food-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-food-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-generated-files.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-own-target-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-project-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+Copy /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV).build/Objects-normal/arm64/Caliber__DEV_.swiftsourceinfo (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_.swiftsourceinfo /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+Copy /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_.swiftmodule/arm64-apple-ios-simulator.swiftmodule /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV).build/Objects-normal/arm64/Caliber__DEV_.swiftmodule (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_.swiftmodule /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+
+Copy /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_.swiftmodule/arm64-apple-ios-simulator.abi.json /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV).build/Objects-normal/arm64/Caliber__DEV_.abi.json (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_.abi.json /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+SwiftCompile normal arm64 Compiling\ FoodNutritionReviewView.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)/Views/Diary/FoodNutritionReviewView.swift (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)/Views/Diary/FoodNutritionReviewView.swift (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile FoodNutritionReviewView.swift
+
+SwiftDriverJobDiscovery normal arm64 Compiling FoodNutritionReviewView.swift (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 Compiling\ BarcodeFoodLookupView.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)/Views/Diary/BarcodeFoodLookupView.swift (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)/Views/Diary/BarcodeFoodLookupView.swift (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile BarcodeFoodLookupView.swift
+
+SwiftCompile normal arm64 Compiling\ FoodSearchView.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)/Views/Diary/FoodSearchView.swift (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)/Views/Diary/FoodSearchView.swift (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile FoodSearchView.swift
+
+SwiftDriverJobDiscovery normal arm64 Compiling BarcodeFoodLookupView.swift (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+
+SwiftDriverJobDiscovery normal arm64 Compiling FoodSearchView.swift (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+
+SwiftDriver\ Compilation Caliber\ (DEV) normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_ -Onone @/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\).SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/tmp/caliber-food-ios/SourcePackages/checkouts/GRDB.swift/Sources/GRDBSQLite/module.modulemap -default-isolation\=MainActor -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-food-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64 -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-food-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-food-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-food-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-food-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-generated-files.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-own-target-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-project-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+Ld /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app/Caliber\ (DEV).debug.dylib normal (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/tmp/caliber-food-ios/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -F/tmp/caliber-food-ios/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -filelist /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\).LinkFileList -install_name @rpath/Caliber\ \(DEV\).debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @loader_path -Xlinker -rpath -Xlinker /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -dead_strip -Xlinker -object_path_lto -Xlinker /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -Xlinker -dependency_info -Xlinker /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)_dependency_info.dat -fobjc-link-runtime -fprofile-instr-generate -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber__DEV_.swiftmodule -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -o /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\).debug.dylib
+
+ConstructStubExecutorLinkFileList /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV).build/Caliber\ (DEV)-ExecutorLinkFileList-normal-arm64.txt (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    construct-stub-executor-link-file-list /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\).debug.dylib /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-ExecutorLinkFileList-normal-arm64.txt
+note: Using stub executor library with Swift entry point. (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+
+Ld /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app/Caliber\ (DEV) normal (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -F/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @loader_path -Xlinker -rpath -Xlinker /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\)-ExecutorLinkFileList-normal-arm64.txt /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\).debug.dylib -o /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\)
+
+ExtractAppIntentsMetadata (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name Caliber__DEV_ --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk --xcode-version 27A266a --platform-family iOS --deployment-target 17.0 --bundle-identifier CAL.Caliber--DEV- --output /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app --target-triple arm64-apple-ios17.0-simulator --binary-file /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\) --dependency-file /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\)_dependency_info.dat --stringsdata-file /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\).SwiftFileList --metadata-file-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\).DependencyMetadataFileList --static-metadata-file-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Caliber\ \(DEV\).DependencyStaticMetadataFileList --swift-const-vals-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/Objects-normal/arm64/Caliber\ \(DEV\).SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+2026-10-14 13:39:36.105 appintentsmetadataprocessor[74295:6045638] Starting appintentsmetadataprocessor export
+2026-10-14 13:39:36.111 appintentsmetadataprocessor[74295:6045638] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+
+CopySwiftLibs /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\).debug.dylib --scan-folder /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Frameworks --scan-folder /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns --scan-folder /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/SystemExtensions --scan-folder /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\).build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+Ignoring --strip-bitcode because --sign was not passed
+
+SwiftDriver Caliber\ (DEV)Tests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_Tests -Onone @/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests.SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/tmp/caliber-food-ios/SourcePackages/checkouts/GRDB.swift/Sources/GRDBSQLite/module.modulemap -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-food-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-food-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-food-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-food-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber__DEV_Tests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber__DEV_Tests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-food-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests-generated-files.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests-own-target-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests-project-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/DerivedSources/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber__DEV_Tests-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+SwiftCompile normal arm64 Compiling\ MacroCalculatorTests.swift,\ NutritionInputTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/MacroCalculatorTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/NutritionInputTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/MacroCalculatorTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile MacroCalculatorTests.swift
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/NutritionInputTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile NutritionInputTests.swift
+
+SwiftCompile normal arm64 Compiling\ ProgressEntryEditorTests.swift,\ ProgressPhotoImporterTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/ProgressEntryEditorTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/ProgressPhotoImporterTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/ProgressEntryEditorTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile ProgressEntryEditorTests.swift
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/ProgressPhotoImporterTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile ProgressPhotoImporterTests.swift
+
+SwiftCompile normal arm64 Compiling\ WeightProgressSummaryTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/WeightProgressSummaryTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/WeightProgressSummaryTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile WeightProgressSummaryTests.swift
+
+SwiftCompile normal arm64 Compiling\ WeightUnitTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/WeightUnitTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/WeightUnitTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile WeightUnitTests.swift
+
+SwiftCompile normal arm64 Compiling\ BarcodeCoordinatorTests.swift,\ BarcodeLookupTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/BarcodeCoordinatorTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/BarcodeLookupTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/BarcodeCoordinatorTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile BarcodeCoordinatorTests.swift
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/BarcodeLookupTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile BarcodeLookupTests.swift
+
+SwiftCompile normal arm64 Compiling\ BarcodeValueTests.swift,\ BuildYourOwnTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/BarcodeValueTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/BuildYourOwnTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/BarcodeValueTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile BarcodeValueTests.swift
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/BuildYourOwnTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile BuildYourOwnTests.swift
+
+SwiftCompile normal arm64 Compiling\ LegacyRestoreTests.swift,\ LegacySnapshotTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/LegacyRestoreTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/LegacySnapshotTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/LegacyRestoreTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile LegacyRestoreTests.swift
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/LegacySnapshotTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile LegacySnapshotTests.swift
+
+SwiftCompile normal arm64 Compiling\ CustomMenuItemEditorTests.swift,\ DiaryEntryEditorTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/CustomMenuItemEditorTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/DiaryEntryEditorTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/CustomMenuItemEditorTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile CustomMenuItemEditorTests.swift
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/DiaryEntryEditorTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile DiaryEntryEditorTests.swift
+
+SwiftCompile normal arm64 Compiling\ FoodCatalogTests.swift,\ HostedAccountTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/FoodCatalogTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/HostedAccountTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/FoodCatalogTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile FoodCatalogTests.swift
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/HostedAccountTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile HostedAccountTests.swift
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ Caliber__DEV_Tests (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+
+
+SwiftCompile normal arm64 Compiling\ ReferenceFoodLoggingTests.swift,\ RestaurantCatalogSeederTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/ReferenceFoodLoggingTests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/RestaurantCatalogSeederTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/ReferenceFoodLoggingTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile ReferenceFoodLoggingTests.swift
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)Tests/RestaurantCatalogSeederTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile RestaurantCatalogSeederTests.swift
+
+SwiftDriverJobDiscovery normal arm64 Compiling WeightUnitTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftDriverJobDiscovery normal arm64 Compiling WeightProgressSummaryTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftDriverJobDiscovery normal arm64 Compiling MacroCalculatorTests.swift, NutritionInputTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftDriverJobDiscovery normal arm64 Compiling BarcodeValueTests.swift, BuildYourOwnTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftDriverJobDiscovery normal arm64 Compiling FoodCatalogTests.swift, HostedAccountTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftDriverJobDiscovery normal arm64 Compiling LegacyRestoreTests.swift, LegacySnapshotTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftDriverJobDiscovery normal arm64 Compiling BarcodeCoordinatorTests.swift, BarcodeLookupTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ProgressEntryEditorTests.swift, ProgressPhotoImporterTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftDriverJobDiscovery normal arm64 Compiling CustomMenuItemEditorTests.swift, DiaryEntryEditorTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ReferenceFoodLoggingTests.swift, RestaurantCatalogSeederTests.swift (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftDriver\ Compilation Caliber\ (DEV)Tests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_Tests -Onone @/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests.SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/tmp/caliber-food-ios/SourcePackages/checkouts/GRDB.swift/Sources/GRDBSQLite/module.modulemap -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-food-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-food-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-food-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-food-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber__DEV_Tests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber__DEV_Tests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-food-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests-generated-files.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests-own-target-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests-project-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/DerivedSources/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber__DEV_Tests-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for Caliber__DEV_Tests (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+
+SwiftDriver\ Compilation\ Requirements Caliber\ (DEV)Tests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_Tests -Onone @/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests.SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/tmp/caliber-food-ios/SourcePackages/checkouts/GRDB.swift/Sources/GRDBSQLite/module.modulemap -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-food-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-food-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-food-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-food-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber__DEV_Tests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber__DEV_Tests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-food-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests-generated-files.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests-own-target-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests-project-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/DerivedSources/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber__DEV_Tests-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+Ld /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app/PlugIns/Caliber\ (DEV)Tests.xctest/Caliber\ (DEV)Tests normal (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -bundle -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/tmp/caliber-food-ios/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F/tmp/caliber-food-ios/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -filelist /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests.LinkFileList -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @loader_path -Xlinker -rpath -Xlinker /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/PackageFrameworks -Xlinker -rpath -Xlinker @loader_path/Frameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -dead_strip -bundle_loader /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\) -Xlinker -object_path_lto -Xlinker /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -Xlinker -dependency_info -Xlinker /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests_dependency_info.dat -fobjc-link-runtime -fprofile-instr-generate -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber__DEV_Tests.swiftmodule -Xlinker -needed_framework -Xlinker XCTest -framework XCTest -Xlinker -needed-lXCTestSwiftSupport -lXCTestSwiftSupport /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/Caliber\ \(DEV\).debug.dylib -o /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/Caliber\ \(DEV\)Tests
+
+Copy /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_Tests.swiftmodule/arm64-apple-ios-simulator.abi.json /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV)Tests.build/Objects-normal/arm64/Caliber__DEV_Tests.abi.json (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber__DEV_Tests.abi.json /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_Tests.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+ExtractAppIntentsMetadata (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name Caliber__DEV_Tests --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk --xcode-version 27A266a --platform-family iOS --deployment-target 17.0 --bundle-identifier CAL.Caliber--DEV-Tests --output /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest --target-triple arm64-apple-ios17.0-simulator --binary-file /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/Caliber\ \(DEV\)Tests --dependency-file /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests_dependency_info.dat --stringsdata-file /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests.SwiftFileList --metadata-file-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests.DependencyMetadataFileList --static-metadata-file-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Caliber\ \(DEV\)Tests.DependencyStaticMetadataFileList --swift-const-vals-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/Objects-normal/arm64/Caliber\ \(DEV\)Tests.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+2026-10-14 13:39:38.839 appintentsmetadataprocessor[74321:6045804] Starting appintentsmetadataprocessor export
+2026-10-14 13:39:38.841 appintentsmetadataprocessor[74321:6045804] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+
+CopySwiftLibs /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app/PlugIns/Caliber\ (DEV)Tests.xctest (in target 'Caliber (DEV)Tests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/Caliber\ \(DEV\)Tests --scan-folder /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/Frameworks --scan-folder /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/PlugIns --scan-folder /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/SystemExtensions --scan-folder /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app/PlugIns/Caliber\ \(DEV\)Tests.xctest/Frameworks --strip-bitcode --scan-executable /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)Tests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+Ignoring --strip-bitcode because --sign was not passed
+
+SwiftDriver Caliber\ (DEV)UITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_UITests -Onone @/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-food-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-food-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-food-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-food-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-food-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-generated-files.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-own-target-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-project-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+Validate /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV).app (in target 'Caliber (DEV)' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-validationUtility /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\).app -shallow-bundle -infoplist-subpath Info.plist
+
+SwiftCompile normal arm64 Compiling\ FoodExperienceUITests.swift /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)UITests/FoodExperienceUITests.swift (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 /Users/jcrock/Documents/Caliber\ (DEV)\ -\ Project/Caliber\ (DEV)/Caliber\ (DEV)UITests/FoodExperienceUITests.swift (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-SwiftPerFileCompile FoodExperienceUITests.swift
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ Caliber__DEV_UITests (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+
+SwiftCompile normal arm64 (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for Caliber__DEV_UITests (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+
+SwiftDriver\ Compilation\ Requirements Caliber\ (DEV)UITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_UITests -Onone @/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-food-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-food-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-food-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-food-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-food-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-generated-files.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-own-target-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-project-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+Copy /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_UITests.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.swiftsourceinfo (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.swiftsourceinfo /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_UITests.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+Copy /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_UITests.swiftmodule/arm64-apple-ios-simulator.abi.json /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ (DEV).build/Debug-iphonesimulator/Caliber\ (DEV)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.abi.json (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.abi.json /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber__DEV_UITests.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+SwiftDriverJobDiscovery normal arm64 Compiling FoodExperienceUITests.swift (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+
+SwiftDriver\ Compilation Caliber\ (DEV)UITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Caliber__DEV_UITests -Onone @/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /tmp/caliber-food-ios/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /tmp/caliber-food-ios/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /tmp/caliber-food-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /tmp/caliber-food-ios/ModuleCache.noindex -sdk-module-cache-path /tmp/caliber-food-ios/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /tmp/caliber-food-ios/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests_const_extract_protocols.json -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-generated-files.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-own-target-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)-dac57cc495fae5c301b70c78973eecc8-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests-project-headers.hmap -Xcc -I/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/include -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources-normal/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources/arm64 -Xcc -I/tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests-Swift.h -working-directory /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\) -experimental-emit-module-separately -disable-cmo
+
+Ld /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV)UITests-Runner.app/PlugIns/Caliber\ (DEV)UITests.xctest/Caliber\ (DEV)UITests normal (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -bundle -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/tmp/caliber-food-ios/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F/tmp/caliber-food-ios/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -filelist /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests.LinkFileList -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @loader_path/Frameworks -Xlinker -dead_strip -Xlinker -object_path_lto -Xlinker /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -Xlinker -dependency_info -Xlinker /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests_dependency_info.dat -fobjc-link-runtime -fprofile-instr-generate -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber__DEV_UITests.swiftmodule -Xlinker -needed_framework -Xlinker XCTest -framework XCTest -Xlinker -needed-lXCTestSwiftSupport -lXCTestSwiftSupport -o /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Caliber\ \(DEV\)UITests
+
+ExtractAppIntentsMetadata (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name Caliber__DEV_UITests --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk --xcode-version 27A266a --platform-family iOS --deployment-target 17.0 --bundle-identifier CAL.Caliber--DEV-UITests --output /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest --target-triple arm64-apple-ios17.0-simulator --binary-file /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Caliber\ \(DEV\)UITests --dependency-file /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests_dependency_info.dat --stringsdata-file /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests.SwiftFileList --metadata-file-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests.DependencyMetadataFileList --static-metadata-file-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Caliber\ \(DEV\)UITests.DependencyStaticMetadataFileList --swift-const-vals-list /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/Objects-normal/arm64/Caliber\ \(DEV\)UITests.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+2026-10-14 13:39:39.277 appintentsmetadataprocessor[74332:6045873] Starting appintentsmetadataprocessor export
+2026-10-14 13:39:39.277 appintentsmetadataprocessor[74332:6045873] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+
+CopySwiftLibs /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ (DEV)UITests-Runner.app/PlugIns/Caliber\ (DEV)UITests.xctest (in target 'Caliber (DEV)UITests' from project 'Caliber (DEV)')
+    cd /Users/jcrock/Documents/Caliber\ \(DEV\)\ -\ Project/Caliber\ \(DEV\)
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Caliber\ \(DEV\)UITests --scan-folder /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Frameworks --scan-folder /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/PlugIns --scan-folder /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/SystemExtensions --scan-folder /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /tmp/caliber-food-ios/Build/Products/Debug-iphonesimulator/Caliber\ \(DEV\)UITests-Runner.app/PlugIns/Caliber\ \(DEV\)UITests.xctest/Frameworks --strip-bitcode --scan-executable /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /tmp/caliber-food-ios/Build/Intermediates.noindex/Caliber\ \(DEV\).build/Debug-iphonesimulator/Caliber\ \(DEV\)UITests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+Ignoring --strip-bitcode because --sign was not passed
+
+PruneExplicitPrecompiledModules /tmp/caliber-food-ios/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /tmp/caliber-food-ios/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /tmp/caliber-food-ios/SDKExplicitPrecompiledModules
+
+2026-10-14 13:39:43.250380-0400 Caliber (DEV)UITests-Runner[74337:6046211] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-10-14 13:39:47.074.
+Test Suite 'Caliber (DEV)UITests.xctest' started at 2026-10-14 13:39:47.077.
+Test Suite 'FoodExperienceUITests' started at 2026-10-14 13:39:47.077.
+Test Case '-[Caliber__DEV_UITests.FoodExperienceUITests testBarcodeManualCaptureConsentAndFictionalProductReview]' started.
+    t =     0.01s Start Test at 2026-10-14 13:39:47.088
+    t =     0.09s Set Up
+    t =     0.11s Open CAL.Caliber--DEV-
+    t =     0.11s     Launch CAL.Caliber--DEV-
+2026-10-14 13:39:47.625 xcodebuild[74254:6045147] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-14 13:39:47.625 xcodebuild[74254:6045147] [MT] IDELaunchParametersSnapshot: no debugger version
+objc[74337]: Class UIAccessibilityLoaderWebShared is implemented in both /private/var/run/com.apple.security.cryptexd/mnt/com.apple.iPhoneOS.SimulatorRuntime-v24.1.434.0.3yLR0B/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x1099c8398) and /private/var/run/com.apple.security.cryptexd/mnt/com.apple.iPhoneOS.SimulatorRuntime-v24.1.434.0.3yLR0B/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x109af8310). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =     1.77s         Setting up automation session
+    t =     4.73s         Wait for CAL.Caliber--DEV- to idle
+    t =     7.47s Waiting 20.0s for "Food Library" Button to exist
+    t =     8.50s     Checking `Expect predicate `existsNoRetry == 1` for object "Food Library" Button`
+    t =     8.50s         Checking existence of `"Food Library" Button`
+    t =     8.73s Tap "Food Library" Button
+    t =     8.73s     Wait for CAL.Caliber--DEV- to idle
+    t =     8.73s     Find the "Food Library" Button
+    t =     8.83s     Check for interrupting elements affecting "Food Library" Button
+    t =     8.94s     Synthesize event
+    t =     9.36s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.36s Tap "openBarcode" Button
+    t =    11.36s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.36s     Find the "openBarcode" Button
+    t =    11.40s     Check for interrupting elements affecting "openBarcode" Button
+    t =    11.43s     Synthesize event
+    t =    11.72s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.87s Tap "barcodeOpenCamera" Button
+    t =    11.87s     Wait for CAL.Caliber--DEV- to idle
+    t =    12.34s     Find the "barcodeOpenCamera" Button
+    t =    12.39s     Check for interrupting elements affecting "barcodeOpenCamera" Button
+    t =    12.42s     Synthesize event
+    t =    12.72s     Wait for CAL.Caliber--DEV- to idle
+    t =    12.90s Waiting 5.0s for "barcodeManualInput" TextField to exist
+    t =    13.93s     Checking `Expect predicate `existsNoRetry == 1` for object "barcodeManualInput" TextField`
+    t =    13.93s         Checking existence of `"barcodeManualInput" TextField`
+    t =    14.01s Tap "barcodeManualInput" TextField
+    t =    14.01s     Wait for CAL.Caliber--DEV- to idle
+    t =    14.01s     Find the "barcodeManualInput" TextField
+    t =    14.04s     Check for interrupting elements affecting "barcodeManualInput" TextField
+    t =    14.07s     Synthesize event
+    t =    14.36s     Wait for CAL.Caliber--DEV- to idle
+<unknown>:0: warning: -[Caliber__DEV_UITests.FoodExperienceUITests testBarcodeManualCaptureConsentAndFictionalProductReview] : Invalid frame dimension (negative or non-finite).
+    t =    14.89s Type '123' into "barcodeManualInput" TextField
+    t =    14.89s     Wait for CAL.Caliber--DEV- to idle
+    t =    15.27s     Find the "barcodeManualInput" TextField
+    t =    15.33s     Check for interrupting elements affecting "barcodeManualInput" TextField
+    t =    15.36s     Synthesize event
+    t =    15.62s     Wait for CAL.Caliber--DEV- to idle
+    t =    15.86s Tap "barcodeConfirm" Button
+    t =    15.86s     Wait for CAL.Caliber--DEV- to idle
+    t =    15.86s     Find the "barcodeConfirm" Button
+    t =    15.92s     Check for interrupting elements affecting "barcodeConfirm" Button
+    t =    15.96s     Synthesize event
+    t =    16.25s     Wait for CAL.Caliber--DEV- to idle
+    t =    16.59s Waiting 3.0s for "barcodeValidationMessage" StaticText to exist
+    t =    17.62s     Checking `Expect predicate `existsNoRetry == 1` for object "barcodeValidationMessage" StaticText`
+    t =    17.62s         Checking existence of `"barcodeValidationMessage" StaticText`
+    t =    17.71s Waiting 5.0s for "barcodeManualInput" TextField to exist
+    t =    18.73s     Checking `Expect predicate `existsNoRetry == 1` for object "barcodeManualInput" TextField`
+    t =    18.73s         Checking existence of `"barcodeManualInput" TextField`
+    t =    18.79s Tap "barcodeManualInput" TextField[0.98, 0.50]
+    t =    18.79s     Wait for CAL.Caliber--DEV- to idle
+    t =    18.79s     Find the "barcodeManualInput" TextField
+    t =    18.83s     Check for interrupting elements affecting "barcodeManualInput" TextField
+    t =    18.86s     Synthesize event
+    t =    18.86s         Find the "barcodeManualInput" TextField
+    t =    18.90s         Find the "barcodeManualInput" TextField
+    t =    18.94s         Find the "barcodeManualInput" TextField
+    t =    19.26s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.26s Find the "barcodeManualInput" TextField
+    t =    19.32s Type '012345678905' into "barcodeManualInput" TextField
+    t =    19.32s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.32s     Find the "barcodeManualInput" TextField
+    t =    19.42s     Check for interrupting elements affecting "barcodeManualInput" TextField
+    t =    19.47s     Synthesize event
+    t =    19.92s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.93s Tap "barcodeConfirm" Button
+    t =    19.93s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.93s     Find the "barcodeConfirm" Button
+    t =    19.97s     Check for interrupting elements affecting "barcodeConfirm" Button
+    t =    20.01s     Synthesize event
+    t =    20.30s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.79s Waiting 5.0s for "barcodeLookupCode" TextField to exist
+    t =    21.83s     Checking `Expect predicate `existsNoRetry == 1` for object "barcodeLookupCode" TextField`
+    t =    21.83s         Checking existence of `"barcodeLookupCode" TextField`
+    t =    21.87s Find the "barcodeLookupCode" TextField
+    t =    21.90s Find the NavigationBar (First Match)
+    t =    21.91s Checking existence of `Keyboard (First Match)`
+    t =    21.96s Find the TabBar (First Match)
+    t =    21.97s Checking existence of `"barcodeLookup" Button`
+    t =    21.99s Find the "barcodeLookup" Button
+    t =    22.02s Find the "barcodeLookup" Button
+    t =    22.05s Find the "barcodeLookup" Button
+    t =    22.08s Tap "barcodeLookup" Button
+    t =    22.08s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.08s     Find the "barcodeLookup" Button
+    t =    22.10s     Check for interrupting elements affecting "barcodeLookup" Button
+    t =    22.12s     Synthesize event
+    t =    22.41s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.67s Find the "barcodeLookupMessage" StaticText
+    t =    22.70s Find the NavigationBar (First Match)
+    t =    22.71s Checking existence of `Keyboard (First Match)`
+    t =    22.76s Find the TabBar (First Match)
+    t =    22.77s Checking existence of `"barcodePermission" Switch`
+    t =    22.80s Find the "barcodePermission" Switch
+    t =    22.83s Find the "barcodePermission" Switch
+    t =    22.86s Find the "barcodePermission" Switch
+    t =    22.89s Tap "barcodePermission" Switch[0.92, 0.50]
+    t =    22.89s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.89s     Find the "barcodePermission" Switch
+    t =    22.92s     Check for interrupting elements affecting "barcodePermission" Switch
+    t =    22.94s     Synthesize event
+    t =    22.95s         Find the "barcodePermission" Switch
+    t =    22.97s         Find the "barcodePermission" Switch
+    t =    23.00s         Find the "barcodePermission" Switch
+    t =    23.30s     Wait for CAL.Caliber--DEV- to idle
+    t =    24.62s Tap "barcodeLookup" Button
+    t =    24.62s     Wait for CAL.Caliber--DEV- to idle
+    t =    24.63s     Find the "barcodeLookup" Button
+    t =    24.69s     Check for interrupting elements affecting "barcodeLookup" Button
+    t =    24.71s     Synthesize event
+    t =    25.00s     Wait for CAL.Caliber--DEV- to idle
+    t =    25.24s Find the NavigationBar (First Match)
+    t =    25.25s Checking existence of `Keyboard (First Match)`
+    t =    25.30s Find the TabBar (First Match)
+    t =    25.31s Checking existence of `"barcodeReview" Button`
+    t =    25.34s Find the "barcodeReview" Button
+    t =    25.37s Find the "barcodeReview" Button
+    t =    25.40s Find the "barcodeReview" Button
+    t =    25.42s Checking existence of `"barcodeReview" Button`
+    t =    25.45s Find the "barcodeReview" Button
+    t =    25.47s Press Target Application 'CAL.Caliber--DEV-'[0.00, 0.00] -> (10.0, 479.5) for 0.1 seconds, then drag to Target Application 'CAL.Caliber--DEV-'[0.00, 0.00] -> (10.0, 359.5) with velocity of 500.00 pixels per second, and then hold for 0.0 seconds
+    t =    25.47s     Wait for CAL.Caliber--DEV- to idle
+    t =    25.47s     Find the Target Application 'CAL.Caliber--DEV-'
+    t =    25.49s     Check for interrupting elements affecting "Caliber (DEV)" Application
+    t =    25.52s     Synthesize event
+    t =    25.52s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    25.54s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    25.55s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    25.57s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    25.59s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    26.14s     Wait for CAL.Caliber--DEV- to idle
+    t =    26.88s Find the NavigationBar (First Match)
+    t =    26.90s Checking existence of `Keyboard (First Match)`
+    t =    26.96s Find the TabBar (First Match)
+    t =    26.97s Checking existence of `"barcodeReview" Button`
+    t =    27.00s Find the "barcodeReview" Button
+    t =    27.03s Find the "barcodeReview" Button
+    t =    27.06s Find the "barcodeReview" Button
+    t =    27.08s Tap "barcodeReview" Button
+    t =    27.08s     Wait for CAL.Caliber--DEV- to idle
+    t =    27.09s     Find the "barcodeReview" Button
+    t =    27.11s     Check for interrupting elements affecting "barcodeReview" Button
+    t =    27.14s     Synthesize event
+    t =    27.42s     Wait for CAL.Caliber--DEV- to idle
+    t =    27.50s Find the "referenceGrams" TextField
+    t =    27.57s Find the "referenceCalories" StaticText
+    t =    27.62s Find the Target Application 'CAL.Caliber--DEV-'
+    t =    27.76s Added attachment named 'Fictional barcode product review'
+    t =    27.76s Tap "referenceAdd" Button
+    t =    27.76s     Wait for CAL.Caliber--DEV- to idle
+    t =    27.97s     Find the "referenceAdd" Button
+    t =    28.02s     Check for interrupting elements affecting "referenceAdd" Button
+    t =    28.05s     Synthesize event
+    t =    28.35s     Wait for CAL.Caliber--DEV- to idle
+    t =    28.44s Find the "referenceAdd" Button
+    t =    28.47s Tear Down
+Test Case '-[Caliber__DEV_UITests.FoodExperienceUITests testBarcodeManualCaptureConsentAndFictionalProductReview]' passed (28.747 seconds).
+Test Case '-[Caliber__DEV_UITests.FoodExperienceUITests testLocalRestaurantCanBeCreatedAndReceivesCustomMenu]' started.
+    t =     0.00s Start Test at 2026-10-14 13:40:15.836
+    t =     0.06s Set Up
+    t =     0.06s Open CAL.Caliber--DEV-
+    t =     0.06s     Launch CAL.Caliber--DEV-
+    t =     0.06s         Terminate CAL.Caliber--DEV-:74355
+2026-10-14 13:40:16.995 xcodebuild[74254:6045147] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-14 13:40:16.996 xcodebuild[74254:6045147] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     1.37s         Setting up automation session
+    t =     4.18s         Wait for CAL.Caliber--DEV- to idle
+    t =     6.13s Waiting 20.0s for "Food Library" Button to exist
+    t =     7.16s     Checking `Expect predicate `existsNoRetry == 1` for object "Food Library" Button`
+    t =     7.16s         Checking existence of `"Food Library" Button`
+    t =     7.34s Tap "Food Library" Button
+    t =     7.34s     Wait for CAL.Caliber--DEV- to idle
+    t =     7.34s     Find the "Food Library" Button
+    t =     7.37s     Check for interrupting elements affecting "Food Library" Button
+    t =     7.39s     Synthesize event
+    t =     7.70s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.53s Tap "Restaurants" Button
+    t =     9.53s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.54s     Find the "Restaurants" Button
+    t =     9.59s     Check for interrupting elements affecting "Restaurants" Button
+    t =     9.61s     Synthesize event
+    t =     9.90s     Wait for CAL.Caliber--DEV- to idle
+    t =    10.15s Waiting 10.0s for "addRestaurant" Button to exist
+    t =    11.16s     Checking `Expect predicate `existsNoRetry == 1` for object "addRestaurant" Button`
+    t =    11.16s         Checking existence of `"addRestaurant" Button`
+    t =    11.19s Tap "addRestaurant" Button
+    t =    11.19s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.20s     Find the "addRestaurant" Button
+    t =    11.22s     Check for interrupting elements affecting "addRestaurant" Button
+    t =    11.25s     Synthesize event
+    t =    11.54s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.98s Waiting 5.0s for "newRestaurantName" TextField to exist
+    t =    13.01s     Checking `Expect predicate `existsNoRetry == 1` for object "newRestaurantName" TextField`
+    t =    13.01s         Checking existence of `"newRestaurantName" TextField`
+    t =    13.06s Tap "newRestaurantName" TextField
+    t =    13.06s     Wait for CAL.Caliber--DEV- to idle
+    t =    13.06s     Find the "newRestaurantName" TextField
+    t =    13.09s     Check for interrupting elements affecting "newRestaurantName" TextField
+    t =    13.13s     Synthesize event
+    t =    13.41s     Wait for CAL.Caliber--DEV- to idle
+    t =    13.82s Type 'QA Local Grill' into "newRestaurantName" TextField
+    t =    13.82s     Wait for CAL.Caliber--DEV- to idle
+    t =    14.18s     Find the "newRestaurantName" TextField
+    t =    14.24s     Check for interrupting elements affecting "newRestaurantName" TextField
+    t =    14.28s     Synthesize event
+    t =    14.71s     Wait for CAL.Caliber--DEV- to idle
+    t =    14.76s Tap "saveRestaurant" Button
+    t =    14.76s     Wait for CAL.Caliber--DEV- to idle
+    t =    14.77s     Find the "saveRestaurant" Button
+    t =    14.82s     Check for interrupting elements affecting "saveRestaurant" Button
+    t =    14.86s     Synthesize event
+    t =    15.15s     Wait for CAL.Caliber--DEV- to idle
+    t =    15.57s Waiting 5.0s for Button (First Match) to exist
+    t =    16.59s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    16.59s         Checking existence of `Button (First Match)`
+    t =    16.68s Tap Button (First Match)
+    t =    16.68s     Wait for CAL.Caliber--DEV- to idle
+    t =    16.70s     Find the Button (First Match)
+    t =    16.74s     Check for interrupting elements affecting "QA Local Grill" Button
+    t =    16.76s     Synthesize event
+    t =    17.05s     Wait for CAL.Caliber--DEV- to idle
+    t =    17.45s Tap "Add Custom Item" Button
+    t =    17.45s     Wait for CAL.Caliber--DEV- to idle
+    t =    17.48s     Find the "Add Custom Item" Button
+    t =    17.52s     Check for interrupting elements affecting "Add Custom Item" Button
+    t =    17.54s     Synthesize event
+    t =    17.83s     Wait for CAL.Caliber--DEV- to idle
+    t =    18.34s Waiting 5.0s for "customMenuItemName" TextField to exist
+    t =    19.37s     Checking `Expect predicate `existsNoRetry == 1` for object "customMenuItemName" TextField`
+    t =    19.37s         Checking existence of `"customMenuItemName" TextField`
+    t =    19.44s Tap "customMenuItemName" TextField
+    t =    19.44s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.44s     Find the "customMenuItemName" TextField
+    t =    19.48s     Check for interrupting elements affecting "customMenuItemName" TextField
+    t =    19.51s     Synthesize event
+    t =    19.80s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.09s Type 'Local plate' into "customMenuItemName" TextField
+    t =    20.09s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.09s     Find the "customMenuItemName" TextField
+    t =    20.14s     Check for interrupting elements affecting "customMenuItemName" TextField
+    t =    20.19s     Synthesize event
+    t =    20.57s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.61s Tap "Calories" TextField
+    t =    20.61s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.62s     Find the "Calories" TextField
+    t =    20.66s     Check for interrupting elements affecting "Calories" TextField
+    t =    20.70s     Synthesize event
+    t =    20.99s     Wait for CAL.Caliber--DEV- to idle
+    t =    21.41s Type '321.5' into "Calories" TextField
+    t =    21.41s     Wait for CAL.Caliber--DEV- to idle
+    t =    21.42s     Find the "Calories" TextField
+    t =    21.48s     Check for interrupting elements affecting "Calories" TextField
+    t =    21.52s     Synthesize event
+    t =    21.81s     Wait for CAL.Caliber--DEV- to idle
+    t =    21.96s Tap "Save" Button
+    t =    21.96s     Wait for CAL.Caliber--DEV- to idle
+    t =    21.96s     Find the "Save" Button
+    t =    22.02s     Check for interrupting elements affecting "Save" Button
+    t =    22.06s     Synthesize event
+    t =    22.35s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.79s Waiting 5.0s for "Local plate" StaticText to exist
+    t =    23.81s     Checking `Expect predicate `existsNoRetry == 1` for object "Local plate" StaticText`
+    t =    23.81s         Checking existence of `"Local plate" StaticText`
+    t =    23.92s Find the Target Application 'CAL.Caliber--DEV-'
+    t =    24.01s Added attachment named 'Local restaurant with personal entree'
+    t =    24.01s Tear Down
+Test Case '-[Caliber__DEV_UITests.FoodExperienceUITests testLocalRestaurantCanBeCreatedAndReceivesCustomMenu]' passed (24.261 seconds).
+Test Case '-[Caliber__DEV_UITests.FoodExperienceUITests testOfflineFoodPortionAndPersonalMacroEditCanBeLogged]' started.
+    t =     0.00s Start Test at 2026-10-14 13:40:40.097
+    t =     0.03s Set Up
+    t =     0.03s Open CAL.Caliber--DEV-
+    t =     0.03s     Launch CAL.Caliber--DEV-
+    t =     0.03s         Terminate CAL.Caliber--DEV-:74446
+2026-10-14 13:40:41.165 xcodebuild[74254:6045147] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-10-14 13:40:41.165 xcodebuild[74254:6045147] [MT] IDELaunchParametersSnapshot: no debugger version
+    t =     1.28s         Setting up automation session
+    t =     3.23s         Wait for CAL.Caliber--DEV- to idle
+    t =     4.82s Waiting 20.0s for "Food Library" Button to exist
+    t =     5.83s     Checking `Expect predicate `existsNoRetry == 1` for object "Food Library" Button`
+    t =     5.83s         Checking existence of `"Food Library" Button`
+    t =     5.95s Tap "Food Library" Button
+    t =     5.95s     Wait for CAL.Caliber--DEV- to idle
+    t =     5.96s     Find the "Food Library" Button
+    t =     5.98s     Check for interrupting elements affecting "Food Library" Button
+    t =     6.00s     Synthesize event
+    t =     6.32s     Wait for CAL.Caliber--DEV- to idle
+    t =     8.07s Tap "openFoodSearch" Button
+    t =     8.07s     Wait for CAL.Caliber--DEV- to idle
+    t =     8.07s     Find the "openFoodSearch" Button
+    t =     8.11s     Check for interrupting elements affecting "openFoodSearch" Button
+    t =     8.13s     Synthesize event
+    t =     8.42s     Wait for CAL.Caliber--DEV- to idle
+    t =     8.60s Waiting 5.0s for SearchField (First Match) to exist
+    t =     9.63s     Checking `Expect predicate `existsNoRetry == 1` for object SearchField (First Match)`
+    t =     9.63s         Checking existence of `SearchField (First Match)`
+    t =     9.66s Tap SearchField (First Match)
+    t =     9.66s     Wait for CAL.Caliber--DEV- to idle
+    t =     9.66s     Find the SearchField (First Match)
+    t =     9.68s     Check for interrupting elements affecting "Search foods, meals, or restaurants" SearchField
+    t =     9.72s     Synthesize event
+    t =    10.01s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.05s Type 'bananas
+' into "Search foods, meals, or restaurants" SearchField
+    t =    11.05s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.06s     Find the "Search foods, meals, or restaurants" SearchField
+    t =    11.11s     Check for interrupting elements affecting "Search foods, meals, or restaurants" SearchField
+    t =    11.15s     Synthesize event
+    t =    11.48s     Wait for CAL.Caliber--DEV- to idle
+    t =    11.65s Waiting 8.0s for "catalogFood-1105073" Button to exist
+    t =    12.68s     Checking `Expect predicate `existsNoRetry == 1` for object "catalogFood-1105073" Button`
+    t =    12.68s         Checking existence of `"catalogFood-1105073" Button`
+    t =    12.84s Tap "catalogFood-1105073" Button
+    t =    12.84s     Wait for CAL.Caliber--DEV- to idle
+    t =    12.85s     Find the "catalogFood-1105073" Button
+    t =    12.87s     Check for interrupting elements affecting "catalogFood-1105073" Button
+    t =    12.90s     Synthesize event
+    t =    13.18s     Wait for CAL.Caliber--DEV- to idle
+<unknown>:0: warning: -[Caliber__DEV_UITests.FoodExperienceUITests testOfflineFoodPortionAndPersonalMacroEditCanBeLogged] : Invalid frame dimension (negative or non-finite).
+    t =    13.32s Waiting 5.0s for "referenceFoodName" StaticText to exist
+    t =    14.33s     Checking `Expect predicate `existsNoRetry == 1` for object "referenceFoodName" StaticText`
+    t =    14.34s         Checking existence of `"referenceFoodName" StaticText`
+    t =    14.41s Waiting 5.0s for "referenceGrams" TextField to exist
+    t =    15.45s     Checking `Expect predicate `existsNoRetry == 1` for object "referenceGrams" TextField`
+    t =    15.46s         Checking existence of `"referenceGrams" TextField`
+    t =    15.51s Tap "referenceGrams" TextField[0.98, 0.50]
+    t =    15.52s     Wait for CAL.Caliber--DEV- to idle
+    t =    15.52s     Find the "referenceGrams" TextField
+    t =    15.55s     Check for interrupting elements affecting "referenceGrams" TextField
+    t =    15.58s     Synthesize event
+    t =    15.58s         Find the "referenceGrams" TextField
+    t =    15.61s         Find the "referenceGrams" TextField
+    t =    15.65s         Find the "referenceGrams" TextField
+    t =    15.96s     Wait for CAL.Caliber--DEV- to idle
+    t =    16.00s Find the "referenceGrams" TextField
+    t =    16.04s Type '150' into "referenceGrams" TextField
+    t =    16.04s     Wait for CAL.Caliber--DEV- to idle
+    t =    16.39s     Find the "referenceGrams" TextField
+    t =    16.44s     Check for interrupting elements affecting "referenceGrams" TextField
+    t =    16.48s     Synthesize event
+    t =    16.78s     Wait for CAL.Caliber--DEV- to idle
+    t =    16.91s Tap "nutritionKeyboardDone" Button
+    t =    16.91s     Wait for CAL.Caliber--DEV- to idle
+    t =    16.92s     Find the "nutritionKeyboardDone" Button
+    t =    16.96s     Check for interrupting elements affecting "nutritionKeyboardDone" Button
+    t =    16.99s     Synthesize event
+    t =    17.28s     Wait for CAL.Caliber--DEV- to idle
+    t =    17.53s Find the "referenceGrams" TextField
+    t =    17.57s Find the "referenceCalories" StaticText
+    t =    17.60s Find the NavigationBar (First Match)
+    t =    17.61s Checking existence of `Keyboard (First Match)`
+    t =    17.67s Find the TabBar (First Match)
+    t =    17.68s Checking existence of `"Adjust macros for this log" Switch`
+    t =    17.71s Find the "Adjust macros for this log" Switch
+    t =    17.75s Find the "Adjust macros for this log" Switch
+    t =    17.78s Find the "Adjust macros for this log" Switch
+    t =    17.81s Tap "Adjust macros for this log" Switch[0.92, 0.50]
+    t =    17.81s     Wait for CAL.Caliber--DEV- to idle
+    t =    17.81s     Find the "Adjust macros for this log" Switch
+    t =    17.84s     Check for interrupting elements affecting "Adjust macros for this log" Switch
+    t =    17.87s     Synthesize event
+    t =    17.87s         Find the "Adjust macros for this log" Switch
+    t =    17.90s         Find the "Adjust macros for this log" Switch
+    t =    17.93s         Find the "Adjust macros for this log" Switch
+    t =    18.25s     Wait for CAL.Caliber--DEV- to idle
+    t =    19.55s Find the NavigationBar (First Match)
+    t =    19.58s Checking existence of `Keyboard (First Match)`
+    t =    19.65s Find the TabBar (First Match)
+    t =    19.66s Checking existence of `"Calories" TextField`
+    t =    19.69s Find the "Calories" TextField
+    t =    19.73s Find the "Calories" TextField
+    t =    19.76s Find the "Calories" TextField
+    t =    19.79s Waiting 5.0s for "Calories" TextField to exist
+    t =    20.81s     Checking `Expect predicate `existsNoRetry == 1` for object "Calories" TextField`
+    t =    20.81s         Checking existence of `"Calories" TextField`
+    t =    20.89s Tap "Calories" TextField[0.98, 0.50]
+    t =    20.89s     Wait for CAL.Caliber--DEV- to idle
+    t =    20.90s     Find the "Calories" TextField
+    t =    20.93s     Check for interrupting elements affecting "Calories" TextField
+    t =    20.96s     Synthesize event
+    t =    20.96s         Find the "Calories" TextField
+    t =    20.99s         Find the "Calories" TextField
+    t =    21.02s         Find the "Calories" TextField
+    t =    21.34s     Wait for CAL.Caliber--DEV- to idle
+    t =    21.36s Find the "Calories" TextField
+    t =    21.40s Type '200.5' into "Calories" TextField
+    t =    21.40s     Wait for CAL.Caliber--DEV- to idle
+    t =    21.76s     Find the "Calories" TextField
+    t =    21.93s     Check for interrupting elements affecting "Calories" TextField
+    t =    21.99s     Synthesize event
+    t =    22.36s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.43s Tap "nutritionKeyboardDone" Button
+    t =    22.43s     Wait for CAL.Caliber--DEV- to idle
+    t =    22.44s     Find the "nutritionKeyboardDone" Button
+    t =    22.49s     Check for interrupting elements affecting "nutritionKeyboardDone" Button
+    t =    22.53s     Synthesize event
+    t =    22.82s     Wait for CAL.Caliber--DEV- to idle
+    t =    23.05s Tap "referenceAdd" Button
+    t =    23.05s     Wait for CAL.Caliber--DEV- to idle
+    t =    23.05s     Find the "referenceAdd" Button
+    t =    23.10s     Check for interrupting elements affecting "referenceAdd" Button
+    t =    23.14s     Synthesize event
+    t =    23.43s     Wait for CAL.Caliber--DEV- to idle
+    t =    24.30s Find the "referenceAdd" Button
+    t =    24.37s Find the NavigationBar (First Match)
+    t =    24.38s Checking existence of `Keyboard (First Match)`
+    t =    24.46s Find the TabBar (First Match)
+    t =    24.47s Checking existence of `"referenceSaved" StaticText`
+    t =    24.51s Checking existence of `"referenceSaved" StaticText`
+    t =    24.54s Press Target Application 'CAL.Caliber--DEV-'[0.00, 0.00] -> (10.0, 453.5) for 0.1 seconds, then drag to Target Application 'CAL.Caliber--DEV-'[0.00, 0.00] -> (10.0, 333.5) with velocity of 500.00 pixels per second, and then hold for 0.0 seconds
+    t =    24.54s     Wait for CAL.Caliber--DEV- to idle
+    t =    24.55s     Find the Target Application 'CAL.Caliber--DEV-'
+    t =    24.58s     Check for interrupting elements affecting "Caliber (DEV)" Application
+    t =    24.62s     Synthesize event
+    t =    24.62s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    24.72s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    24.85s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    24.91s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    24.95s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    25.52s     Wait for CAL.Caliber--DEV- to idle
+    t =    27.17s Find the NavigationBar (First Match)
+    t =    27.20s Checking existence of `Keyboard (First Match)`
+    t =    27.29s Find the TabBar (First Match)
+    t =    27.30s Checking existence of `"referenceSaved" StaticText`
+    t =    27.33s Checking existence of `"referenceSaved" StaticText`
+    t =    27.36s Press Target Application 'CAL.Caliber--DEV-'[0.00, 0.00] -> (10.0, 453.5) for 0.1 seconds, then drag to Target Application 'CAL.Caliber--DEV-'[0.00, 0.00] -> (10.0, 333.5) with velocity of 500.00 pixels per second, and then hold for 0.0 seconds
+    t =    27.36s     Wait for CAL.Caliber--DEV- to idle
+    t =    27.37s     Find the Target Application 'CAL.Caliber--DEV-'
+    t =    27.40s     Check for interrupting elements affecting "Caliber (DEV)" Application
+    t =    27.43s     Synthesize event
+    t =    27.43s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    27.46s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    27.49s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    27.51s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    27.54s         Find the Target Application 'CAL.Caliber--DEV-'
+    t =    28.11s     Wait for CAL.Caliber--DEV- to idle
+    t =    29.08s Find the NavigationBar (First Match)
+    t =    29.09s Checking existence of `Keyboard (First Match)`
+    t =    29.20s Find the TabBar (First Match)
+    t =    29.21s Checking existence of `"referenceSaved" StaticText`
+    t =    29.25s Find the "referenceSaved" StaticText
+    t =    29.30s Find the "referenceSaved" StaticText
+    t =    29.33s Find the "referenceSaved" StaticText
+    t =    29.37s Checking existence of `"referenceSaved" StaticText`
+    t =    29.40s Find the Target Application 'CAL.Caliber--DEV-'
+    t =    29.53s Added attachment named 'USDA food logged with personal macros'
+    t =    29.53s Tear Down
+Test Case '-[Caliber__DEV_UITests.FoodExperienceUITests testOfflineFoodPortionAndPersonalMacroEditCanBeLogged]' passed (29.799 seconds).
+Test Suite 'FoodExperienceUITests' passed at 2026-10-14 13:41:09.897.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 82.807 (82.820) seconds
+Test Suite 'Caliber (DEV)UITests.xctest' passed at 2026-10-14 13:41:09.911.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 82.807 (82.834) seconds
+Test Suite 'Selected tests' passed at 2026-10-14 13:41:09.912.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 82.807 (82.838) seconds
+2026-10-14 13:41:14.360916-0400 Caliber (DEV)[74622:6050395] [API] cannot add handler to 0 from 0 - dropping
+2026-10-14 13:41:14.377233-0400 Caliber (DEV)[74622:6050395] [XPCErrors] non-launching port is incompatible with service identifier "com.apple.PointerUI.pointeruid.default-service"
+2026-10-14 13:41:14.382259-0400 Caliber (DEV)[74622:6050395] [API] cannot add handler to 0 from 0 - dropping
+Test Suite 'All tests' started at 2026-10-14 13:41:16.157.
+Test Suite 'Caliber (DEV)Tests.xctest' started at 2026-10-14 13:41:16.157.
+Test Suite 'BarcodeValueTests' started at 2026-10-14 13:41:16.157.
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testEmptyAndUnsupportedLengthsCannotBecomeAnotherCode]' started.
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testEmptyAndUnsupportedLengthsCannotBecomeAnotherCode]' passed (0.004 seconds).
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testEverySingleDigitChangeIsDetected]' started.
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testEverySingleDigitChangeIsDetected]' passed (0.001 seconds).
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testInvalidChecksumForEverySupportedLength]' started.
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testInvalidChecksumForEverySupportedLength]' passed (0.000 seconds).
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testLeadingZeroAndPackagingIndicatorKeepTheirMeaning]' started.
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testLeadingZeroAndPackagingIndicatorKeepTheirMeaning]' passed (0.017 seconds).
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testNonASCIIDigitsURLsSignsAndDecimalsAreRejected]' started.
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testNonASCIIDigitsURLsSignsAndDecimalsAreRejected]' passed (0.000 seconds).
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testOuterWhitespaceIsTrimmedButInteriorCharactersAreNotDiscarded]' started.
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testOuterWhitespaceIsTrimmedButInteriorCharactersAreNotDiscarded]' passed (0.000 seconds).
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testUPCAAndCameraEAN13AreEquivalent]' started.
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testUPCAAndCameraEAN13AreEquivalent]' passed (0.000 seconds).
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testValidGTINLengths]' started.
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testValidGTINLengths]' passed (0.001 seconds).
+Test Suite 'BarcodeValueTests' passed at 2026-10-14 13:41:16.185.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.025 (0.028) seconds
+Test Suite 'Caliber__DEV_Tests' started at 2026-10-14 13:41:16.185.
+Test Case '-[Caliber__DEV_Tests.Caliber__DEV_Tests testExample]' started.
+Test Case '-[Caliber__DEV_Tests.Caliber__DEV_Tests testExample]' passed (0.000 seconds).
+Test Case '-[Caliber__DEV_Tests.Caliber__DEV_Tests testPerformanceExample]' started.
+/Users/jcrock/Documents/Caliber (DEV) - Project/Caliber (DEV)/Caliber (DEV)Tests/Caliber__DEV_Tests.swift:32: Test Case '-[Caliber__DEV_Tests.Caliber__DEV_Tests testPerformanceExample]' measured [Time, seconds] average: 0.000, relative standard deviation: 145.538%, values: [0.000106, 0.000026, 0.000012, 0.000008, 0.000009, 0.000008, 0.000008, 0.000008, 0.000008, 0.000008], performanceMetricID:com.apple.XCTPerformanceMetric_WallClockTime, baselineName: "", baselineAverage: , polarity: prefers smaller, maxPercentRegression: 10.000%, maxPercentRelativeStandardDeviation: 10.000%, maxRegression: 0.100, maxStandardDeviation: 0.100
+Test Case '-[Caliber__DEV_Tests.Caliber__DEV_Tests testPerformanceExample]' passed (0.351 seconds).
+Test Suite 'Caliber__DEV_Tests' passed at 2026-10-14 13:41:16.537.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.351 (0.352) seconds
+Test Suite 'Caliber (DEV)Tests.xctest' passed at 2026-10-14 13:41:16.537.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.376 (0.380) seconds
+Test Suite 'All tests' passed at 2026-10-14 13:41:16.537.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.376 (0.381) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64-apple-ios17.0-simulator
+◇ Test barcodePermissionAndValidationGateEveryRequest() started.
+✔ Test barcodePermissionAndValidationGateEveryRequest() passed after 0.006 seconds.
+◇ Test barcodePermissionIsVersionedAndSurvivesOnlyUntilWithdrawal() started.
+✔ Test barcodePermissionIsVersionedAndSurvivesOnlyUntilWithdrawal() passed after 0.002 seconds.
+◇ Test barcodeEquivalentEANAcceptedAndMismatchedProductRejected() started.
+✔ Test barcodeEquivalentEANAcceptedAndMismatchedProductRejected() passed after 0.001 seconds.
+◇ Test lateBarcodeResultCannotPublishAfterWithdrawalOrCancellation(withdraw:) started.
+◇ Test case passing 1 argument withdraw → true to lateBarcodeResultCannotPublishAfterWithdrawalOrCancellation(withdraw:) started.
+​◇ Test case passing 1 argument withdraw → false to lateBarcodeResultCannotPublishAfterWithdrawalOrCancellation(withdraw:) started.
+​✔ Test lateBarcodeResultCannotPublishAfterWithdrawalOrCancellation(withdraw:) with 2 test cases passed after 0.005 seconds.
+◇ Test arbitraryBarcodeErrorsNeverExposeProviderBody() started.
+✔ Test arbitraryBarcodeErrorsNeverExposeProviderBody() passed after 0.001 seconds.
+◇ Test bundledBarcodeProviderIsDisabledUntilOwnerSetup() started.
+✔ Test bundledBarcodeProviderIsDisabledUntilOwnerSetup() passed after 0.001 seconds.
+◇ Suite "Barcode provider parsing and privacy" started.
+◇ Test "A complete v3.6 per-serving label preserves fractions and total carbohydrate" started.
+✔ Test "A complete v3.6 per-serving label preserves fractions and total carbohydrate" passed after 0.016 seconds.
+◇ Test "A lookup requests only the barcode and required fields from the fixed staging host" started.
+✔ Test "A lookup requests only the barcode and required fields from the fixed staging host" passed after 0.001 seconds.
+◇ Test "Production does not receive the shared staging credentials" started.
+✔ Test "Production does not receive the shared staging credentials" passed after 0.001 seconds.
+◇ Test "Missing nutrients and net-carbohydrate-only labels never become zero or total carbs" started.
+✔ Test "Missing nutrients and net-carbohydrate-only labels never become zero or total carbs" passed after 0.002 seconds.
+◇ Test "Explicit zeros are valid; unknown or contradictory basis is not" started.
+✔ Test "Explicit zeros are valid; unknown or contradictory basis is not" passed after 0.001 seconds.
+◇ Test "Volume stays volume, and an explicit 100 gram basis stays mass" started.
+✔ Test "Volume stays volume, and an explicit 100 gram basis stays mass" passed after 0.001 seconds.
+◇ Test "A complete serving takes priority over a complete 100 gram input set" started.
+✔ Test "A complete serving takes priority over a complete 100 gram input set" passed after 0.001 seconds.
+◇ Test "Corrupt JSON, wrong product identity, old schema and unexpected MIME are rejected" started.
+✔ Test "Corrupt JSON, wrong product identity, old schema and unexpected MIME are rejected" passed after 0.001 seconds.
+◇ Test "Not found, provider downtime, redirects and offline errors are distinct" started.
+✔ Test "Not found, provider downtime, redirects and offline errors are distinct" passed after 0.008 seconds.
+◇ Test "Ten requests per minute and the provider's Retry-After stop additional traffic" started.
+✔ Test "Ten requests per minute and the provider's Retry-After stop additional traffic" passed after 0.006 seconds.
+◇ Test "Unconfigured services and invalid codes never send requests" started.
+✔ Test "Unconfigured services and invalid codes never send requests" passed after 0.001 seconds.
+◇ Test "OFF's documented leading-zero normalization keeps the scanned UPC intact" started.
+✔ Test "OFF's documented leading-zero normalization keeps the scanned UPC intact" passed after 0.001 seconds.
+✔ Suite "Barcode provider parsing and privacy" passed after 0.037 seconds.
+◇ Suite "Build your own meal" started.
+◇ Test "A required entrée is needed, while optional protein may be skipped" started.
+✔ Test "A required entrée is needed, while optional protein may be skipped" passed after 0.004 seconds.
+◇ Test "Totals sum selected ingredients and preserve fractional grams" started.
+✔ Test "Totals sum selected ingredients and preserve fractional grams" passed after 0.001 seconds.
+◇ Test "Double scales only the chosen ingredient; Regular keeps it selected" started.
+✔ Test "Double scales only the chosen ingredient; Regular keeps it selected" passed after 0.001 seconds.
+◇ Test "Optional single choice can be removed, including its double portion" started.
+✔ Test "Optional single choice can be removed, including its double portion" passed after 0.001 seconds.
+◇ Test "Swiping a replacement protein clears the previous double portion" started.
+✔ Test "Swiping a replacement protein clears the previous double portion" passed after 0.001 seconds.
+◇ Test "Tapping a replacement protein clears the previous double portion" started.
+✔ Test "Tapping a replacement protein clears the previous double portion" passed after 0.001 seconds.
+◇ Test "Removing one topping keeps the other selected topping" started.
+✔ Test "Removing one topping keeps the other selected topping" passed after 0.001 seconds.
+◇ Test "Entrée format cannot be doubled like an ingredient" started.
+✔ Test "Entrée format cannot be doubled like an ingredient" passed after 0.001 seconds.
+◇ Test "Unsupported options cannot be doubled or selected by the double action" started.
+✔ Test "Unsupported options cannot be doubled or selected by the double action" passed after 0.001 seconds.
+◇ Test "An eligible protein cannot be doubled through the wrong category" started.
+✔ Test "An eligible protein cannot be doubled through the wrong category" passed after 0.001 seconds.
+✔ Suite "Build your own meal" passed after 0.007 seconds.
+◇ Suite "Custom restaurant menu items" started.
+◇ Test "Creating an item persists its trimmed name, category, custom flag, and restaurant" started.
+✔ Test "Creating an item persists its trimmed name, category, custom flag, and restaurant" passed after 0.046 seconds.
+◇ Test "Editing updates the same custom row and leaves already logged nutrition unchanged" started.
+✔ Test "Editing updates the same custom row and leaves already logged nutrition unchanged" passed after 0.016 seconds.
+◇ Test "Deleting a custom item keeps logged foods and detaches their optional menu links" started.
+✔ Test "Deleting a custom item keeps logged foods and detaches their optional menu links" passed after 0.033 seconds.
+◇ Test "Built-in menu items cannot be edited or deleted" started.
+✔ Test "Built-in menu items cannot be edited or deleted" passed after 0.007 seconds.
+◇ Test "Invalid nutrition or an empty name cannot create menu items" started.
+✔ Test "Invalid nutrition or an empty name cannot create menu items" passed after 0.002 seconds.
+◇ Test "Editing cannot move a custom item to another restaurant" started.
+✔ Test "Editing cannot move a custom item to another restaurant" passed after 0.003 seconds.
+◇ Test "A failed creation removes only its new row and preserves unrelated pending changes" started.
+✔ Test "A failed creation removes only its new row and preserves unrelated pending changes" passed after 0.008 seconds.
+◇ Test "A failed edit restores the original menu values without rolling back other work" started.
+✔ Test "A failed edit restores the original menu values without rolling back other work" passed after 0.005 seconds.
+◇ Test "A failed deletion restores the custom item and links without rolling back other work" started.
+✔ Test "A failed deletion restores the custom item and links without rolling back other work" passed after 0.009 seconds.
+✔ Suite "Custom restaurant menu items" passed after 0.134 seconds.
+◇ Suite "Diary entry editing" started.
+◇ Test "Editing a log preserves catalog, saved-meal, and other diary nutrition" started.
+✔ Test "Editing a log preserves catalog, saved-meal, and other diary nutrition" passed after 0.012 seconds.
+◇ Test "A failed save restores this entry without discarding unrelated pending changes" started.
+✔ Test "A failed save restores this entry without discarding unrelated pending changes" passed after 0.007 seconds.
+◇ Test "Invalid quantities are rejected before a diary entry is changed" started.
+◇ Test case passing 1 argument quantity → 0.0 to "Invalid quantities are rejected before a diary entry is changed" started.
+​◇ Test case passing 1 argument quantity → -1.0 to "Invalid quantities are rejected before a diary entry is changed" started.
+​◇ Test case passing 1 argument quantity → inf to "Invalid quantities are rejected before a diary entry is changed" started.
+​◇ Test case passing 1 argument quantity → nan to "Invalid quantities are rejected before a diary entry is changed" started.
+​✔ Test "Invalid quantities are rejected before a diary entry is changed" with 4 test cases passed after 0.013 seconds.
+✔ Suite "Diary entry editing" passed after 0.033 seconds.
+◇ Suite "Offline USDA food catalog" started.
+◇ Test "The production bundle contains 311 complete foods and traceable IDs" started.
+✔ Test "The production bundle contains 311 complete foods and traceable IDs" passed after 0.003 seconds.
+◇ Test "Actual USDA macro values retain the edible 100 gram basis" started.
+✔ Test "Actual USDA macro values retain the edible 100 gram basis" passed after 0.001 seconds.
+◇ Test "A 150 gram cooked portion makes an editable copy without changing its source" started.
+✔ Test "A 150 gram cooked portion makes an editable copy without changing its source" passed after 0.001 seconds.
+◇ Test "Search accepts case, accents, punctuation, prefixes and words in any order" started.
+✔ Test "Search accepts case, accents, punctuation, prefixes and words in any order" passed after 0.007 seconds.
+◇ Test "Ranking favors an exact word over a longer prefix and is deterministic" started.
+✔ Test "Ranking favors an exact word over a longer prefix and is deterministic" passed after 0.003 seconds.
+◇ Test "The compatibility protocol returns independent 100 gram food objects" started.
+✔ Test "The compatibility protocol returns independent 100 gram food objects" passed after 0.002 seconds.
+◇ Test "Missing, corrupt, duplicate or incorrectly based source data fails closed" started.
+✔ Test "Missing, corrupt, duplicate or incorrectly based source data fails closed" passed after 0.022 seconds.
+◇ Test "Zero, negative, nonfinite and overflowing portions cannot become diary foods" started.
+✔ Test "Zero, negative, nonfinite and overflowing portions cannot become diary foods" passed after 0.001 seconds.
+✔ Suite "Offline USDA food catalog" passed after 0.043 seconds.
+◇ Test failedAccountRestoreCanBeRetriedWithoutRestart() started.
+✔ Test failedAccountRestoreCanBeRetriedWithoutRestart() passed after 0.010 seconds.
+◇ Test failedAccountRestoreCanClearSessionOffline() started.
+✔ Test failedAccountRestoreCanClearSessionOffline() passed after 0.005 seconds.
+◇ Test pendingDeploymentCannotContactAccountGateway() started.
+✔ Test pendingDeploymentCannotContactAccountGateway() passed after 0.001 seconds.
+◇ Test rateLimitedAccountShowsWaitMessageAndLeavesLocalLogsUsable() started.
+✔ Test rateLimitedAccountShowsWaitMessageAndLeavesLocalLogsUsable() passed after 0.005 seconds.
+◇ Test missingConsentPreventsRestoreSignInAndRecovery() started.
+✔ Test missingConsentPreventsRestoreSignInAndRecovery() passed after 0.011 seconds.
+◇ Test accountRecoveryFailureLeavesSessionAndLocalWorkAlone() started.
+✔ Test accountRecoveryFailureLeavesSessionAndLocalWorkAlone() passed after 0.005 seconds.
+◇ Test restorePreservesPhotosCustomNutritionAndStandaloneWeightWithoutChangingSource() started.
+✔ Test restorePreservesPhotosCustomNutritionAndStandaloneWeightWithoutChangingSource() passed after 0.172 seconds.
+◇ Test failedRestoreLeavesSourceAndUnrelatedFilesIntactAndRetryWorks() started.
+✔ Test failedRestoreLeavesSourceAndUnrelatedFilesIntactAndRetryWorks() passed after 0.071 seconds.
+◇ Test restorePreservesIntegerRanksWithoutPassingThroughDouble(order:) started.
+◇ Test case passing 1 argument order → -9223372036854775808 to restorePreservesIntegerRanksWithoutPassingThroughDouble(order:) started.
+​◇ Test case passing 1 argument order → 9223372036854775807 to restorePreservesIntegerRanksWithoutPassingThroughDouble(order:) started.
+​✔ Test restorePreservesIntegerRanksWithoutPassingThroughDouble(order:) with 2 test cases passed after 0.079 seconds.
+◇ Test invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+◇ Test case passing 1 argument kind → "boolean nutrition" to invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+​◇ Test case passing 1 argument kind → "string nutrition" to invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+​◇ Test case passing 1 argument kind → "number instead of boolean" to invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+​◇ Test case passing 1 argument kind → "fractional sort" to invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+​◇ Test case passing 1 argument kind → "bad image" to invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+​◇ Test case passing 1 argument kind → "wrong unit" to invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+​◇ Test case passing 1 argument kind → "wrong kg" to invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+​◇ Test case passing 1 argument kind → "unknown enum" to invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+​◇ Test case passing 1 argument kind → "unknown field" to invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+​◇ Test case passing 1 argument kind → "missing reference" to invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+​◇ Test case passing 1 argument kind → "duplicate row" to invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+​◇ Test case passing 1 argument kind → "unknown entity" to invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+​◇ Test case passing 1 argument kind → "mismatched totals" to invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+​✔ Test invalidRestoresNeverTouchSourceOrCreateFiles(kind:) with 13 test cases passed after 0.333 seconds.
+◇ Test orphanedOptionalLinksAndEmptySnapshotRestoreWithoutInventedRecords() started.
+✔ Test orphanedOptionalLinksAndEmptySnapshotRestoreWithoutInventedRecords() passed after 0.015 seconds.
+◇ Test inconsistentInverseLinksCannotSilentlyRepairARehearsal() started.
+✔ Test inconsistentInverseLinksCannotSilentlyRepairARehearsal() passed after 0.036 seconds.
+◇ Test legacyShadowCopyPreservesPhotosRelationshipsAndOriginalUnits() started.
+✔ Test legacyShadowCopyPreservesPhotosRelationshipsAndOriginalUnits() passed after 0.363 seconds.
+◇ Suite "MacroCalculator" started.
+◇ Test "Totals are zero for an empty list of entries" started.
+✔ Test "Totals are zero for an empty list of entries" passed after 0.001 seconds.
+◇ Test "Totals sum macros across multiple entries" started.
+✔ Test "Totals sum macros across multiple entries" passed after 0.001 seconds.
+◇ Test "Quantity scales an entry's macros" started.
+✔ Test "Quantity scales an entry's macros" passed after 0.001 seconds.
+◇ Test "Totals filtered by meal type only include that meal" started.
+✔ Test "Totals filtered by meal type only include that meal" passed after 0.001 seconds.
+◇ Test "Totals sum macros across SavedMealItems, scaled by each item's quantity" started.
+✔ Test "Totals sum macros across SavedMealItems, scaled by each item's quantity" passed after 0.001 seconds.
+✔ Suite "MacroCalculator" passed after 0.001 seconds.
+◇ Suite "Nutrition input" started.
+◇ Test "Fractional grams survive enabling and saving an adjustment" started.
+✔ Test "Fractional grams survive enabling and saving an adjustment" passed after 0.001 seconds.
+◇ Test "Decimal-comma input is accepted in the matching locale" started.
+✔ Test "Decimal-comma input is accepted in the matching locale" passed after 0.008 seconds.
+◇ Test "Invalid values cannot silently fall back to catalog nutrition" started.
+✔ Test "Invalid values cannot silently fall back to catalog nutrition" passed after 0.001 seconds.
+◇ Test "Overflow after scaling is not a valid diary total" started.
+✔ Test "Overflow after scaling is not a valid diary total" passed after 0.001 seconds.
+◇ Test "Locale changes keep every finite nutrition value intact" started.
+✔ Test "Locale changes keep every finite nutrition value intact" passed after 0.002 seconds.
+◇ Test "The selected decimal format controls quantities and all macro fields" started.
+✔ Test "The selected decimal format controls quantities and all macro fields" passed after 0.001 seconds.
+✔ Suite "Nutrition input" passed after 0.012 seconds.
+◇ Suite "Daily progress check-ins" started.
+◇ Test "A check-in persists its day, trimmed note, owned weight, and ordered photos" started.
+✔ Test "A check-in persists its day, trimmed note, owned weight, and ordered photos" passed after 0.003 seconds.
+◇ Test "Each optional field can be the only content" started.
+◇ Test case passing 1 argument field → "weight" to "Each optional field can be the only content" started.
+​◇ Test case passing 1 argument field → "notes" to "Each optional field can be the only content" started.
+​◇ Test case passing 1 argument field → "photos" to "Each optional field can be the only content" started.
+​✔ Test "Each optional field can be the only content" with 3 test cases passed after 0.010 seconds.
+◇ Test "Photos, order, weight, and notes survive reopening a disk-backed store" started.
+2026-10-14 13:41:18.075675-0400 Caliber (DEV)[74622:6050517] [logging] BUG IN CLIENT OF libsqlite3.dylib: database integrity compromised by API violation: vnode unlinked while in use: /Users/jcrock/Library/Developer/CoreSimulator/Devices/18A39DAA-85BB-4B10-BF51-EB6918AB649A/data/Containers/Data/Application/9165B299-A580-4112-AC08-0135E545B34E/tmp/ProgressPersistence-6FDD2261-B10D-4B9D-8150-607C83EF6420/progress.store
+2026-10-14 13:41:18.075701-0400 Caliber (DEV)[74622:6050506] [logging] BUG IN CLIENT OF libsqlite3.dylib: database integrity compromised by API violation: vnode unlinked while in use: /Users/jcrock/Library/Developer/CoreSimulator/Devices/18A39DAA-85BB-4B10-BF51-EB6918AB649A/data/Containers/Data/Application/9165B299-A580-4112-AC08-0135E545B34E/tmp/ProgressPersistence-6FDD2261-B10D-4B9D-8150-607C83EF6420/progress.store-shm
+2026-10-14 13:41:18.075716-0400 Caliber (DEV)[74622:6050517] [logging] invalidated open fd: 17 (0x11)
+2026-10-14 13:41:18.075724-0400 Caliber (DEV)[74622:6050506] [logging] invalidated open fd: 15 (0x11)
+2026-10-14 13:41:18.075731-0400 Caliber (DEV)[74622:6050504] [logging] BUG IN CLIENT OF libsqlite3.dylib: database integrity compromised by API violation: vnode unlinked while in use: /Users/jcrock/Library/Developer/CoreSimulator/Devices/18A39DAA-85BB-4B10-BF51-EB6918AB649A/data/Containers/Data/Application/9165B299-A580-4112-AC08-0135E545B34E/tmp/ProgressPersistence-6FDD2261-B10D-4B9D-8150-607C83EF6420/progress.store-wal
+2026-10-14 13:41:18.075762-0400 Caliber (DEV)[74622:6050504] [logging] invalidated open fd: 14 (0x11)
+✔ Test "Photos, order, weight, and notes survive reopening a disk-backed store" passed after 0.100 seconds.
+◇ Test "Empty content, invalid weight, and malformed photo drafts do not create rows" started.
+✔ Test "Empty content, invalid weight, and malformed photo drafts do not create rows" passed after 0.005 seconds.
+◇ Test "Only one check-in is allowed per calendar day, including a daylight-saving transition" started.
+✔ Test "Only one check-in is allowed per calendar day, including a daylight-saving transition" passed after 0.004 seconds.
+◇ Test "Editing preserves entry, weight and photo IDs while persisting a new photo order" started.
+✔ Test "Editing preserves entry, weight and photo IDs while persisting a new photo order" passed after 0.005 seconds.
+◇ Test "Removing weight and photos deletes only those owned by the edited check-in" started.
+✔ Test "Removing weight and photos deletes only those owned by the edited check-in" passed after 0.005 seconds.
+◇ Test "Deleting a check-in cascades to its owned weight/photos and preserves standalone weigh-ins" started.
+✔ Test "Deleting a check-in cascades to its owned weight/photos and preserves standalone weigh-ins" passed after 0.005 seconds.
+◇ Test "A failed create leaves no progress rows and preserves unrelated pending work" started.
+✔ Test "A failed create leaves no progress rows and preserves unrelated pending work" passed after 0.006 seconds.
+◇ Test "A failed edit restores removed data, order, and relationships without discarding other work" started.
+✔ Test "A failed edit restores removed data, order, and relationships without discarding other work" passed after 0.014 seconds.
+◇ Test "A failed edit adding weight and photos leaves a notes-only entry unchanged" started.
+2026-10-14 13:41:18.144030-0400 Caliber (DEV)[74622:6050395] [PersistentModel] Optional(SwiftData.PersistentIdentifier(id: SwiftData.PersistentIdentifier.ID(backing: SwiftData.PersistentIdentifier.PersistentIdentifierBacking.managedObjectID(0xb0665df393f5836e <x-coredata://A1A6AFE8-B1F5-4CF5-89FB-337E7EB045A1/ProgressEntry/p1>)))) is attempting to flip a captured temporary persistentIdentifier for PersistentIdentifier(id: SwiftData.PersistentIdentifier.ID(backing: SwiftData.PersistentIdentifier.PersistentIdentifierBacking.temporaryIdentifier(SwiftData.TemporaryPersistentIdentifierImplementation))) on weightEntry
+✔ Test "A failed edit adding weight and photos leaves a notes-only entry unchanged" passed after 0.027 seconds.
+◇ Test "A failed delete restores owned rows and permits a later successful deletion" started.
+✔ Test "A failed delete restores owned rows and permits a later successful deletion" passed after 0.005 seconds.
+✔ Suite "Daily progress check-ins" passed after 0.196 seconds.
+◇ Suite "Progress photo import" started.
+◇ Test "Large photos become bounded JPEGs with the original metadata removed" started.
+2026-10-14 13:41:18.288780-0400 Caliber (DEV)[74622:6050503] [] CVPixelBufferCreate returned err -6680. width 1600, height 400, pixel format RGBA, options [ExtendedPixelsRight = 0, ExtendedPixelsBottom = 0, BytesPerRowAlignment = 64]
+✔ Test "Large photos become bounded JPEGs with the original metadata removed" passed after 0.137 seconds.
+◇ Test "Camera orientation is applied to the pixels before saving" started.
+2026-10-14 13:41:18.298972-0400 Caliber (DEV)[74622:6050504] [] CVPixelBufferCreate returned err -6680. width 1600, height 400, pixel format RGBA, options [ExtendedPixelsRight = 0, ExtendedPixelsBottom = 0, BytesPerRowAlignment = 64]
+✔ Test "Camera orientation is applied to the pixels before saving" passed after 0.008 seconds.
+◇ Test "Small photos keep their dimensions instead of being enlarged" started.
+2026-10-14 13:41:18.302859-0400 Caliber (DEV)[74622:6050506] [] CVPixelBufferCreate returned err -6680. width 120, height 80, pixel format RGBA, options [ExtendedPixelsRight = 0, ExtendedPixelsBottom = 0, BytesPerRowAlignment = 64]
+✔ Test "Small photos keep their dimensions instead of being enlarged" passed after 0.001 seconds.
+◇ Test "Invalid and empty input are rejected" started.
+2026-10-14 13:41:18.303278-0400 Caliber (DEV)[74622:6050515] [Caliber (DEV)] *** ERROR: CGImageSourceCreateThumbnailAtIndexEx:5504: create thumbnail at index failed
+2026-10-14 13:41:18.303309-0400 Caliber (DEV)[74622:6050515] [Caliber (DEV)] CGImageSourceCreateThumbnailAtIndexEx:5525: *** ERROR: CGImageSourceCreateThumbnailAtIndex[0] - 'n/a ' - failed to create thumbnail [1] {alw:1, abs: -1 tra:1 max:1600}
+2026-10-14 13:41:18.307518-0400 Caliber (DEV)[74622:6050506] [Caliber (DEV)] *** ERROR: CGImageSourceCreateThumbnailAtIndexEx:5504: create thumbnail at index failed
+2026-10-14 13:41:18.307564-0400 Caliber (DEV)[74622:6050506] [Caliber (DEV)] CGImageSourceCreateThumbnailAtIndexEx:5525: *** ERROR: CGImageSourceCreateThumbnailAtIndex[0] - 'n/a ' - failed to create thumbnail [1] {alw:1, abs: -1 tra:1 max:1600}
+✔ Test "Invalid and empty input are rejected" passed after 0.004 seconds.
+✔ Suite "Progress photo import" passed after 0.150 seconds.
+◇ Test referencedFoodLoggingScalesOnceAndPreservesEditablePersonalValues() started.
+✔ Test referencedFoodLoggingScalesOnceAndPreservesEditablePersonalValues() passed after 0.018 seconds.
+◇ Test referencePortionRejectsInvalidWeightsAndQuantities(value:) started.
+◇ Test case passing 1 argument value → 0.0 to referencePortionRejectsInvalidWeightsAndQuantities(value:) started.
+​◇ Test case passing 1 argument value → -1.0 to referencePortionRejectsInvalidWeightsAndQuantities(value:) started.
+​◇ Test case passing 1 argument value → inf to referencePortionRejectsInvalidWeightsAndQuantities(value:) started.
+​◇ Test case passing 1 argument value → nan to referencePortionRejectsInvalidWeightsAndQuantities(value:) started.
+​✔ Test referencePortionRejectsInvalidWeightsAndQuantities(value:) with 4 test cases passed after 0.017 seconds.
+◇ Test failedReferenceLogKeepsUnrelatedPendingDraft() started.
+✔ Test failedReferenceLogKeepsUnrelatedPendingDraft() passed after 0.004 seconds.
+◇ Test liquidReferencesNeverUseAnAssumedDensity() started.
+✔ Test liquidReferencesNeverUseAnAssumedDensity() passed after 0.001 seconds.
+◇ Test personalRestaurantNamesAreUniqueAndSearchMatchesAllWords() started.
+✔ Test personalRestaurantNamesAreUniqueAndSearchMatchesAllWords() passed after 0.009 seconds.
+◇ Suite "Restaurant catalog seeding" started.
+◇ Test "Repeated loading stores the catalog only once and persists its items" started.
+✔ Test "Repeated loading stores the catalog only once and persists its items" passed after 0.010 seconds.
+◇ Test "Existing catalog and diary data survive the targeted veggie correction" started.
+✔ Test "Existing catalog and diary data survive the targeted veggie correction" passed after 0.015 seconds.
+◇ Test "Fresh Chipotle catalog enables double portions only for its eligible proteins" started.
+✔ Test "Fresh Chipotle catalog enables double portions only for its eligible proteins" passed after 0.011 seconds.
+◇ Test "Existing Chipotle portions are corrected and saved without replacing custom nutrition" started.
+✔ Test "Existing Chipotle portions are corrected and saved without replacing custom nutrition" passed after 0.006 seconds.
+◇ Test "A canceled fetch cannot insert a returned catalog" started.
+✔ Test "A canceled fetch cannot insert a returned catalog" passed after 0.011 seconds.
+✔ Suite "Restaurant catalog seeding" passed after 0.056 seconds.
+◇ Suite WeightProgressSummaryTests started.
+◇ Test "No weigh-ins means no invented weight or change" started.
+✔ Test "No weigh-ins means no invented weight or change" passed after 0.001 seconds.
+◇ Test "A single weigh-in shows a weight without claiming a trend" started.
+✔ Test "A single weigh-in shows a weight without claiming a trend" passed after 0.001 seconds.
+◇ Test "Weights sort by date and preserve fractional changes in either direction" started.
+✔ Test "Weights sort by date and preserve fractional changes in either direction" passed after 0.001 seconds.
+◇ Test "Invalid old data cannot corrupt the chart or summary" started.
+✔ Test "Invalid old data cannot corrupt the chart or summary" passed after 0.001 seconds.
+✔ Suite WeightProgressSummaryTests passed after 0.001 seconds.
+◇ Suite "Weight unit conversion" started.
+◇ Test "Pounds remain unchanged" started.
+✔ Test "Pounds remain unchanged" passed after 0.001 seconds.
+◇ Test "One pound is exactly 0.45359237 kilograms" started.
+✔ Test "One pound is exactly 0.45359237 kilograms" passed after 0.001 seconds.
+◇ Test "Finite weights survive conversion in either direction" started.
+◇ Test case passing 1 argument value → 0.01 to "Finite weights survive conversion in either direction" started.
+​◇ Test case passing 1 argument value → 40.5 to "Finite weights survive conversion in either direction" started.
+​◇ Test case passing 1 argument value → 180.125 to "Finite weights survive conversion in either direction" started.
+​◇ Test case passing 1 argument value → 500.0 to "Finite weights survive conversion in either direction" started.
+​◇ Test case passing 1 argument value → 1000.0 to "Finite weights survive conversion in either direction" started.
+​✔ Test "Finite weights survive conversion in either direction" with 5 test cases passed after 0.001 seconds.
+✔ Suite "Weight unit conversion" passed after 0.001 seconds.
+✔ Test run with 105 tests in 12 suites passed after 1.861 seconds.
+2026-10-14 13:41:18.763 xcodebuild[74254:6045147] [MT] IDETestOperationsObserverDebug: 99.448 elapsed -- Testing started completed.
+2026-10-14 13:41:18.763 xcodebuild[74254:6045147] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-10-14 13:41:18.763 xcodebuild[74254:6045147] [MT] IDETestOperationsObserverDebug: 99.448 sec, +99.448 sec -- end
+
+Test session results, code coverage, and logs:
+	/tmp/caliber-food-tests-08.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started

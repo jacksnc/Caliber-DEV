@@ -1,0 +1,4066 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "name": "USDA FoodData Central",
+    "dataType": "Foundation",
+    "release": "2026-04-30",
+    "archiveURL": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_foundation_food_json_2026-04-30.zip",
+    "archiveSHA256": "186e988ec542e913f51ef62b86a47758e8cdd0d1dc3889e7b055581f3c09c77a",
+    "license": "CC0-1.0",
+    "licenseURL": "https://fdc.nal.usda.gov/",
+    "basisGrams": 100,
+    "sourceFoodCount": 395,
+    "skippedNullCount": 32,
+    "skippedIncompleteCount": 52,
+    "energyPriority": [
+      2048,
+      2047,
+      1008
+    ]
+  },
+  "foods": [
+    {
+      "id": "usda-foundation:2262074",
+      "fdcID": 2262074,
+      "name": "Almond butter, creamy",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 603,
+        "proteinGrams": 20.8,
+        "carbGrams": 21.2,
+        "fatGrams": 53.0
+      }
+    },
+    {
+      "id": "usda-foundation:2257045",
+      "fdcID": 2257045,
+      "name": "Almond milk, unsweetened, plain, refrigerated",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 19.3,
+        "proteinGrams": 0.656,
+        "carbGrams": 0.671,
+        "fatGrams": 1.56
+      }
+    },
+    {
+      "id": "usda-foundation:1999631",
+      "fdcID": 1999631,
+      "name": "Almond milk, unsweetened, plain, shelf stable",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 14.6,
+        "proteinGrams": 0.555,
+        "carbGrams": 0.337,
+        "fatGrams": 1.22
+      }
+    },
+    {
+      "id": "usda-foundation:2747652",
+      "fdcID": 2747652,
+      "name": "Anchovies, canned in olive oil, with salt, drained",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 206,
+        "proteinGrams": 26.9,
+        "carbGrams": 2.41,
+        "fatGrams": 9.85
+      }
+    },
+    {
+      "id": "usda-foundation:2003590",
+      "fdcID": 2003590,
+      "name": "Apple juice, with added vitamin C, from concentrate, shelf stable",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 47.2,
+        "proteinGrams": 0.086,
+        "carbGrams": 11.4,
+        "fatGrams": 0.286
+      }
+    },
+    {
+      "id": "usda-foundation:1750340",
+      "fdcID": 1750340,
+      "name": "Apples, fuji, with skin, raw",
+      "publicationDate": "10/30/2020",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 58.2,
+        "proteinGrams": 0.148,
+        "carbGrams": 15.7,
+        "fatGrams": 0.162
+      }
+    },
+    {
+      "id": "usda-foundation:1750341",
+      "fdcID": 1750341,
+      "name": "Apples, gala, with skin, raw",
+      "publicationDate": "10/30/2020",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 54.9,
+        "proteinGrams": 0.133,
+        "carbGrams": 14.8,
+        "fatGrams": 0.15
+      }
+    },
+    {
+      "id": "usda-foundation:1750342",
+      "fdcID": 1750342,
+      "name": "Apples, granny smith, with skin, raw",
+      "publicationDate": "10/30/2020",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 53.0,
+        "proteinGrams": 0.266,
+        "carbGrams": 14.1,
+        "fatGrams": 0.138
+      }
+    },
+    {
+      "id": "usda-foundation:1750343",
+      "fdcID": 1750343,
+      "name": "Apples, honeycrisp, with skin, raw",
+      "publicationDate": "10/30/2020",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 54.0,
+        "proteinGrams": 0.102,
+        "carbGrams": 14.7,
+        "fatGrams": 0.1
+      }
+    },
+    {
+      "id": "usda-foundation:1750339",
+      "fdcID": 1750339,
+      "name": "Apples, red delicious, with skin, raw",
+      "publicationDate": "10/30/2020",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 55.6,
+        "proteinGrams": 0.188,
+        "carbGrams": 14.8,
+        "fatGrams": 0.212
+      }
+    },
+    {
+      "id": "usda-foundation:2346414",
+      "fdcID": 2346414,
+      "name": "Applesauce, unsweetened, with added vitamin C",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 46.4,
+        "proteinGrams": 0.273,
+        "carbGrams": 12.3,
+        "fatGrams": 0.162
+      }
+    },
+    {
+      "id": "usda-foundation:2710815",
+      "fdcID": 2710815,
+      "name": "Apricot, with skin, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 43.5,
+        "proteinGrams": 0.961,
+        "carbGrams": 10.2,
+        "fatGrams": 0.405
+      }
+    },
+    {
+      "id": "usda-foundation:2710822",
+      "fdcID": 2710822,
+      "name": "Arugula, baby, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 25.9,
+        "proteinGrams": 1.65,
+        "carbGrams": 5.37,
+        "fatGrams": 0.325
+      }
+    },
+    {
+      "id": "usda-foundation:2710823",
+      "fdcID": 2710823,
+      "name": "Asparagus, green, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 23.5,
+        "proteinGrams": 1.44,
+        "carbGrams": 5.1,
+        "fatGrams": 0.216
+      }
+    },
+    {
+      "id": "usda-foundation:2710824",
+      "fdcID": 2710824,
+      "name": "Avocado, Hass, peeled, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 206,
+        "proteinGrams": 1.81,
+        "carbGrams": 8.32,
+        "fatGrams": 20.3
+      }
+    },
+    {
+      "id": "usda-foundation:1105073",
+      "fdcID": 1105073,
+      "name": "Bananas, overripe, raw",
+      "publicationDate": "4/1/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 85.0,
+        "proteinGrams": 0.73,
+        "carbGrams": 20.1,
+        "fatGrams": 0.22
+      }
+    },
+    {
+      "id": "usda-foundation:1105314",
+      "fdcID": 1105314,
+      "name": "Bananas, ripe and slightly ripe, raw",
+      "publicationDate": "4/1/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 97.0,
+        "proteinGrams": 0.74,
+        "carbGrams": 23.0,
+        "fatGrams": 0.29
+      }
+    },
+    {
+      "id": "usda-foundation:2644285",
+      "fdcID": 2644285,
+      "name": "Beans, black, canned, sodium added, drained and rinsed",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 115,
+        "proteinGrams": 6.91,
+        "carbGrams": 19.8,
+        "fatGrams": 1.27
+      }
+    },
+    {
+      "id": "usda-foundation:2644287",
+      "fdcID": 2644287,
+      "name": "Beans, cannellini, canned, sodium added, drained and rinsed",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 112,
+        "proteinGrams": 7.41,
+        "carbGrams": 18.8,
+        "fatGrams": 1.17
+      }
+    },
+    {
+      "id": "usda-foundation:2644281",
+      "fdcID": 2644281,
+      "name": "Beans, cannellini, dry",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 337,
+        "proteinGrams": 21.6,
+        "carbGrams": 59.8,
+        "fatGrams": 2.2
+      }
+    },
+    {
+      "id": "usda-foundation:2644294",
+      "fdcID": 2644294,
+      "name": "Beans, great northern, canned, sodium added, drained and rinsed",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 114,
+        "proteinGrams": 7.03,
+        "carbGrams": 19.3,
+        "fatGrams": 1.27
+      }
+    },
+    {
+      "id": "usda-foundation:2644289",
+      "fdcID": 2644289,
+      "name": "Beans, kidney, dark red, canned, sodium added, sugar added, drained and rinsed",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 123,
+        "proteinGrams": 7.8,
+        "carbGrams": 21.0,
+        "fatGrams": 1.26
+      }
+    },
+    {
+      "id": "usda-foundation:2644290",
+      "fdcID": 2644290,
+      "name": "Beans, kidney, light red, canned, sodium added, sugar added, drained and rinsed",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 124,
+        "proteinGrams": 7.31,
+        "carbGrams": 21.4,
+        "fatGrams": 1.3
+      }
+    },
+    {
+      "id": "usda-foundation:2644286",
+      "fdcID": 2644286,
+      "name": "Beans, navy, canned, sodium added, drained and rinsed",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 116,
+        "proteinGrams": 6.57,
+        "carbGrams": 20.0,
+        "fatGrams": 1.4
+      }
+    },
+    {
+      "id": "usda-foundation:2644292",
+      "fdcID": 2644292,
+      "name": "Beans, pinto, canned, sodium added, drained and rinsed",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 114,
+        "proteinGrams": 6.69,
+        "carbGrams": 19.6,
+        "fatGrams": 1.27
+      }
+    },
+    {
+      "id": "usda-foundation:321611",
+      "fdcID": 321611,
+      "name": "Beans, snap, green, canned, regular pack, drained solids",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 21.0,
+        "proteinGrams": 1.04,
+        "carbGrams": 4.11,
+        "fatGrams": 0.39
+      }
+    },
+    {
+      "id": "usda-foundation:2346400",
+      "fdcID": 2346400,
+      "name": "Beans, snap, green, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 33.6,
+        "proteinGrams": 1.97,
+        "carbGrams": 7.41,
+        "fatGrams": 0.275
+      }
+    },
+    {
+      "id": "usda-foundation:2646174",
+      "fdcID": 2646174,
+      "name": "Beef, chuck, roast, boneless, choice, raw",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 237,
+        "proteinGrams": 18.4,
+        "carbGrams": 0.0,
+        "fatGrams": 17.8
+      }
+    },
+    {
+      "id": "usda-foundation:2646175",
+      "fdcID": 2646175,
+      "name": "Beef, flank, steak, boneless, choice, raw",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 170,
+        "proteinGrams": 20.1,
+        "carbGrams": 0.0,
+        "fatGrams": 9.4
+      }
+    },
+    {
+      "id": "usda-foundation:2514744",
+      "fdcID": 2514744,
+      "name": "Beef, ground, 80% lean meat / 20% fat, raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 248,
+        "proteinGrams": 17.5,
+        "carbGrams": 0.0,
+        "fatGrams": 19.4
+      }
+    },
+    {
+      "id": "usda-foundation:2514743",
+      "fdcID": 2514743,
+      "name": "Beef, ground, 90% lean meat / 10% fat, raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 190,
+        "proteinGrams": 18.2,
+        "carbGrams": 0.0,
+        "fatGrams": 12.8
+      }
+    },
+    {
+      "id": "usda-foundation:746758",
+      "fdcID": 746758,
+      "name": "Beef, loin, tenderloin roast, separable lean only, boneless, trimmed to 0\" fat, select, cooked, roasted",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 176,
+        "proteinGrams": 27.7,
+        "carbGrams": 0.0,
+        "fatGrams": 6.36
+      }
+    },
+    {
+      "id": "usda-foundation:746759",
+      "fdcID": 746759,
+      "name": "Beef, loin, top loin steak, boneless, lip-on, separable lean only, trimmed to 1/8\" fat, choice, raw",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 155,
+        "proteinGrams": 22.8,
+        "carbGrams": 0.0,
+        "fatGrams": 6.39
+      }
+    },
+    {
+      "id": "usda-foundation:2646172",
+      "fdcID": 2646172,
+      "name": "Beef, ribeye, steak, boneless, choice, raw",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 260,
+        "proteinGrams": 18.7,
+        "carbGrams": 0.0,
+        "fatGrams": 20.0
+      }
+    },
+    {
+      "id": "usda-foundation:746760",
+      "fdcID": 746760,
+      "name": "Beef, round, eye of round roast, boneless, separable lean only, trimmed to 0\" fat, select, raw",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 122,
+        "proteinGrams": 23.4,
+        "carbGrams": 0.0,
+        "fatGrams": 2.48
+      }
+    },
+    {
+      "id": "usda-foundation:746761",
+      "fdcID": 746761,
+      "name": "Beef, round, top round roast, boneless, separable lean only, trimmed to 0\" fat, select, raw",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 123,
+        "proteinGrams": 23.7,
+        "carbGrams": 0.0,
+        "fatGrams": 2.41
+      }
+    },
+    {
+      "id": "usda-foundation:2646173",
+      "fdcID": 2646173,
+      "name": "Beef, round, top round, boneless, choice, raw",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 146,
+        "proteinGrams": 21.5,
+        "carbGrams": 0.852,
+        "fatGrams": 5.7
+      }
+    },
+    {
+      "id": "usda-foundation:2727572",
+      "fdcID": 2727572,
+      "name": "Beef, short loin (NY strip steak), raw",
+      "publicationDate": "4/24/2025",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 196,
+        "proteinGrams": 21.3,
+        "carbGrams": 0.221,
+        "fatGrams": 11.5
+      }
+    },
+    {
+      "id": "usda-foundation:746762",
+      "fdcID": 746762,
+      "name": "Beef, short loin, porterhouse steak, separable lean only, trimmed to 1/8\" fat, select, raw",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 145,
+        "proteinGrams": 22.7,
+        "carbGrams": 0.0,
+        "fatGrams": 5.32
+      }
+    },
+    {
+      "id": "usda-foundation:746763",
+      "fdcID": 746763,
+      "name": "Beef, short loin, t-bone steak, bone-in, separable lean only, trimmed to 1/8\" fat, choice, cooked, grilled",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 219,
+        "proteinGrams": 27.3,
+        "carbGrams": 0.0,
+        "fatGrams": 11.4
+      }
+    },
+    {
+      "id": "usda-foundation:2727573",
+      "fdcID": 2727573,
+      "name": "Beef, tenderloin steak, raw",
+      "publicationDate": "4/24/2025",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 149,
+        "proteinGrams": 21.1,
+        "carbGrams": 0.18,
+        "fatGrams": 6.46
+      }
+    },
+    {
+      "id": "usda-foundation:2727574",
+      "fdcID": 2727574,
+      "name": "Beef, top sirloin steak, raw",
+      "publicationDate": "4/24/2025",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 146,
+        "proteinGrams": 22.0,
+        "carbGrams": 0.218,
+        "fatGrams": 5.71
+      }
+    },
+    {
+      "id": "usda-foundation:2747653",
+      "fdcID": 2747653,
+      "name": "Beet greens, raw",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 26.4,
+        "proteinGrams": 1.61,
+        "carbGrams": 4.66,
+        "fatGrams": 0.144
+      }
+    },
+    {
+      "id": "usda-foundation:2685576",
+      "fdcID": 2685576,
+      "name": "Beets, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 41.0,
+        "proteinGrams": 1.69,
+        "carbGrams": 8.79,
+        "fatGrams": 0.302
+      }
+    },
+    {
+      "id": "usda-foundation:2644293",
+      "fdcID": 2644293,
+      "name": "Blackeye pea, canned, sodium added, drained and rinsed",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 113,
+        "proteinGrams": 6.92,
+        "carbGrams": 19.2,
+        "fatGrams": 1.3
+      }
+    },
+    {
+      "id": "usda-foundation:2644284",
+      "fdcID": 2644284,
+      "name": "Blackeye pea, dry",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 346,
+        "proteinGrams": 21.2,
+        "carbGrams": 61.8,
+        "fatGrams": 2.42
+      }
+    },
+    {
+      "id": "usda-foundation:2346411",
+      "fdcID": 2346411,
+      "name": "Blueberries, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 57.4,
+        "proteinGrams": 0.703,
+        "carbGrams": 14.6,
+        "fatGrams": 0.306
+      }
+    },
+    {
+      "id": "usda-foundation:747447",
+      "fdcID": 747447,
+      "name": "Broccoli, raw",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 31.0,
+        "proteinGrams": 2.57,
+        "carbGrams": 6.27,
+        "fatGrams": 0.34
+      }
+    },
+    {
+      "id": "usda-foundation:2685575",
+      "fdcID": 2685575,
+      "name": "Brussels sprouts, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 48.8,
+        "proteinGrams": 3.98,
+        "carbGrams": 9.62,
+        "fatGrams": 0.565
+      }
+    },
+    {
+      "id": "usda-foundation:2512378",
+      "fdcID": 2512378,
+      "name": "Buckwheat, whole grain",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 332,
+        "proteinGrams": 11.1,
+        "carbGrams": 71.1,
+        "fatGrams": 3.04
+      }
+    },
+    {
+      "id": "usda-foundation:2710820",
+      "fdcID": 2710820,
+      "name": "Bulgur, dry, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 349,
+        "proteinGrams": 11.8,
+        "carbGrams": 75.9,
+        "fatGrams": 2.42
+      }
+    },
+    {
+      "id": "usda-foundation:2259792",
+      "fdcID": 2259792,
+      "name": "Buttermilk, low fat",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 42.9,
+        "proteinGrams": 3.46,
+        "carbGrams": 4.81,
+        "fatGrams": 1.08
+      }
+    },
+    {
+      "id": "usda-foundation:2685572",
+      "fdcID": 2685572,
+      "name": "Cabbage, bok choy, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 17.0,
+        "proteinGrams": 1.02,
+        "carbGrams": 3.51,
+        "fatGrams": 0.234
+      }
+    },
+    {
+      "id": "usda-foundation:2346407",
+      "fdcID": 2346407,
+      "name": "Cabbage, green, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 27.9,
+        "proteinGrams": 0.961,
+        "carbGrams": 6.38,
+        "fatGrams": 0.228
+      }
+    },
+    {
+      "id": "usda-foundation:2346408",
+      "fdcID": 2346408,
+      "name": "Cabbage, red, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 29.9,
+        "proteinGrams": 1.24,
+        "carbGrams": 6.79,
+        "fatGrams": 0.214
+      }
+    },
+    {
+      "id": "usda-foundation:2258587",
+      "fdcID": 2258587,
+      "name": "Carrots, baby, raw",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 38.3,
+        "proteinGrams": 0.805,
+        "carbGrams": 9.08,
+        "fatGrams": 0.138
+      }
+    },
+    {
+      "id": "usda-foundation:746764",
+      "fdcID": 746764,
+      "name": "Carrots, frozen, unprepared",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 37.0,
+        "proteinGrams": 0.81,
+        "carbGrams": 7.92,
+        "fatGrams": 0.47
+      }
+    },
+    {
+      "id": "usda-foundation:2258586",
+      "fdcID": 2258586,
+      "name": "Carrots, mature, raw",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 45.0,
+        "proteinGrams": 0.941,
+        "carbGrams": 10.3,
+        "fatGrams": 0.351
+      }
+    },
+    {
+      "id": "usda-foundation:2685573",
+      "fdcID": 2685573,
+      "name": "Cauliflower, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 22.9,
+        "proteinGrams": 1.64,
+        "carbGrams": 4.72,
+        "fatGrams": 0.238
+      }
+    },
+    {
+      "id": "usda-foundation:2346405",
+      "fdcID": 2346405,
+      "name": "Celery, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 14.8,
+        "proteinGrams": 0.492,
+        "carbGrams": 3.32,
+        "fatGrams": 0.162
+      }
+    },
+    {
+      "id": "usda-foundation:747429",
+      "fdcID": 747429,
+      "name": "Cheese, American, restaurant",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 375,
+        "proteinGrams": 17.5,
+        "carbGrams": 6.35,
+        "fatGrams": 31.1
+      }
+    },
+    {
+      "id": "usda-foundation:328637",
+      "fdcID": 328637,
+      "name": "Cheese, cheddar",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 408,
+        "proteinGrams": 23.3,
+        "carbGrams": 2.44,
+        "fatGrams": 34.0
+      }
+    },
+    {
+      "id": "usda-foundation:2647443",
+      "fdcID": 2647443,
+      "name": "Cheese, cotija, solid",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 352,
+        "proteinGrams": 23.8,
+        "carbGrams": 2.72,
+        "fatGrams": 27.2
+      }
+    },
+    {
+      "id": "usda-foundation:328841",
+      "fdcID": 328841,
+      "name": "Cheese, cottage, lowfat, 2% milkfat",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 84.0,
+        "proteinGrams": 11.0,
+        "carbGrams": 4.31,
+        "fatGrams": 2.3
+      }
+    },
+    {
+      "id": "usda-foundation:746765",
+      "fdcID": 746765,
+      "name": "Cheese, dry white, queso seco",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 326,
+        "proteinGrams": 24.5,
+        "carbGrams": 2.07,
+        "fatGrams": 24.3
+      }
+    },
+    {
+      "id": "usda-foundation:2259796",
+      "fdcID": 2259796,
+      "name": "Cheese, feta, whole milk, crumbled",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 273,
+        "proteinGrams": 19.7,
+        "carbGrams": 5.58,
+        "fatGrams": 19.1
+      }
+    },
+    {
+      "id": "usda-foundation:2647438",
+      "fdcID": 2647438,
+      "name": "Cheese, monterey jack, solid",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 391,
+        "proteinGrams": 22.6,
+        "carbGrams": 1.9,
+        "fatGrams": 32.6
+      }
+    },
+    {
+      "id": "usda-foundation:329370",
+      "fdcID": 329370,
+      "name": "Cheese, mozzarella, low moisture, part-skim",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 298,
+        "proteinGrams": 23.7,
+        "carbGrams": 4.44,
+        "fatGrams": 20.4
+      }
+    },
+    {
+      "id": "usda-foundation:2647441",
+      "fdcID": 2647441,
+      "name": "Cheese, oaxaca, solid",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 298,
+        "proteinGrams": 22.1,
+        "carbGrams": 2.4,
+        "fatGrams": 22.1
+      }
+    },
+    {
+      "id": "usda-foundation:325036",
+      "fdcID": 325036,
+      "name": "Cheese, parmesan, grated",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 421,
+        "proteinGrams": 29.6,
+        "carbGrams": 12.4,
+        "fatGrams": 28.0
+      }
+    },
+    {
+      "id": "usda-foundation:2259795",
+      "fdcID": 2259795,
+      "name": "Cheese, parmesan, grated, refrigerated",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 405,
+        "proteinGrams": 30.1,
+        "carbGrams": 4.33,
+        "fatGrams": 29.5
+      }
+    },
+    {
+      "id": "usda-foundation:2647439",
+      "fdcID": 2647439,
+      "name": "Cheese, pasteurized process cheese food or product, American, singles",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 308,
+        "proteinGrams": 15.6,
+        "carbGrams": 8.19,
+        "fatGrams": 23.9
+      }
+    },
+    {
+      "id": "usda-foundation:325198",
+      "fdcID": 325198,
+      "name": "Cheese, pasteurized process, American, vitamin D fortified",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 366,
+        "proteinGrams": 18.0,
+        "carbGrams": 5.27,
+        "fatGrams": 30.6
+      }
+    },
+    {
+      "id": "usda-foundation:2647440",
+      "fdcID": 2647440,
+      "name": "Cheese, provolone, sliced",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 357,
+        "proteinGrams": 23.5,
+        "carbGrams": 2.45,
+        "fatGrams": 28.1
+      }
+    },
+    {
+      "id": "usda-foundation:2647442",
+      "fdcID": 2647442,
+      "name": "Cheese, queso fresco, solid",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 297,
+        "proteinGrams": 18.9,
+        "carbGrams": 2.96,
+        "fatGrams": 23.4
+      }
+    },
+    {
+      "id": "usda-foundation:746766",
+      "fdcID": 746766,
+      "name": "Cheese, ricotta, whole milk",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 157,
+        "proteinGrams": 7.81,
+        "carbGrams": 6.86,
+        "fatGrams": 11.0
+      }
+    },
+    {
+      "id": "usda-foundation:746767",
+      "fdcID": 746767,
+      "name": "Cheese, swiss",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 393,
+        "proteinGrams": 27.0,
+        "carbGrams": 1.44,
+        "fatGrams": 31.0
+      }
+    },
+    {
+      "id": "usda-foundation:2346399",
+      "fdcID": 2346399,
+      "name": "Cherries, sweet, dark red, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 63.3,
+        "proteinGrams": 1.04,
+        "carbGrams": 16.2,
+        "fatGrams": 0.192
+      }
+    },
+    {
+      "id": "usda-foundation:2710819",
+      "fdcID": 2710819,
+      "name": "Chia seeds, dry, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 490,
+        "proteinGrams": 17.0,
+        "carbGrams": 38.3,
+        "fatGrams": 32.9
+      }
+    },
+    {
+      "id": "usda-foundation:2646170",
+      "fdcID": 2646170,
+      "name": "Chicken, breast, boneless, skinless, raw",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 112,
+        "proteinGrams": 22.5,
+        "carbGrams": 0.0,
+        "fatGrams": 1.93
+      }
+    },
+    {
+      "id": "usda-foundation:331960",
+      "fdcID": 331960,
+      "name": "Chicken, broiler or fryers, breast, skinless, boneless, meat only, cooked, braised",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 166,
+        "proteinGrams": 32.1,
+        "carbGrams": 0.0,
+        "fatGrams": 3.24
+      }
+    },
+    {
+      "id": "usda-foundation:331897",
+      "fdcID": 331897,
+      "name": "Chicken, broilers or fryers, drumstick, meat only, cooked, braised",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 156,
+        "proteinGrams": 23.9,
+        "carbGrams": 0.0,
+        "fatGrams": 5.95
+      }
+    },
+    {
+      "id": "usda-foundation:2514746",
+      "fdcID": 2514746,
+      "name": "Chicken, ground, with additives, raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 138,
+        "proteinGrams": 17.9,
+        "carbGrams": 0.0,
+        "fatGrams": 7.16
+      }
+    },
+    {
+      "id": "usda-foundation:2646171",
+      "fdcID": 2646171,
+      "name": "Chicken, thigh, boneless, skinless, raw",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 149,
+        "proteinGrams": 18.6,
+        "carbGrams": 0.0,
+        "fatGrams": 7.92
+      }
+    },
+    {
+      "id": "usda-foundation:2644288",
+      "fdcID": 2644288,
+      "name": "Chickpeas (garbanzo beans, bengal gram), canned, sodium added, drained and rinsed",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 133,
+        "proteinGrams": 7.02,
+        "carbGrams": 20.3,
+        "fatGrams": 3.1
+      }
+    },
+    {
+      "id": "usda-foundation:2644282",
+      "fdcID": 2644282,
+      "name": "Chickpeas, (garbanzo beans, bengal gram), dry",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 372,
+        "proteinGrams": 21.3,
+        "carbGrams": 60.4,
+        "fatGrams": 6.27
+      }
+    },
+    {
+      "id": "usda-foundation:2747654",
+      "fdcID": 2747654,
+      "name": "Cod, Pacific or Alaskan, frozen, wild caught",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 60.8,
+        "proteinGrams": 14.2,
+        "carbGrams": 0.524,
+        "fatGrams": 0.216
+      }
+    },
+    {
+      "id": "usda-foundation:2685574",
+      "fdcID": 2685574,
+      "name": "Collards, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 38.8,
+        "proteinGrams": 2.97,
+        "carbGrams": 7.02,
+        "fatGrams": 0.77
+      }
+    },
+    {
+      "id": "usda-foundation:333008",
+      "fdcID": 333008,
+      "name": "Cookies, oatmeal, soft, with raisins",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 430,
+        "proteinGrams": 5.79,
+        "carbGrams": 69.6,
+        "fatGrams": 14.3
+      }
+    },
+    {
+      "id": "usda-foundation:2710835",
+      "fdcID": 2710835,
+      "name": "Corn flour, masa harina, white or yellow, dry, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 366,
+        "proteinGrams": 7.56,
+        "carbGrams": 76.7,
+        "fatGrams": 4.34
+      }
+    },
+    {
+      "id": "usda-foundation:2710826",
+      "fdcID": 2710826,
+      "name": "Corn, sweet, yellow and white kernels, fresh, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 72.9,
+        "proteinGrams": 2.79,
+        "carbGrams": 14.7,
+        "fatGrams": 1.63
+      }
+    },
+    {
+      "id": "usda-foundation:2346384",
+      "fdcID": 2346384,
+      "name": "Cottage cheese, full fat, large or small curd",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 105,
+        "proteinGrams": 11.6,
+        "carbGrams": 4.6,
+        "fatGrams": 4.22
+      }
+    },
+    {
+      "id": "usda-foundation:2003594",
+      "fdcID": 2003594,
+      "name": "Cranberry juice, not fortified, from concentrate, shelf stable",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 31.3,
+        "proteinGrams": 0.0,
+        "carbGrams": 7.26,
+        "fatGrams": 0.338
+      }
+    },
+    {
+      "id": "usda-foundation:2346385",
+      "fdcID": 2346385,
+      "name": "Cream cheese, full fat, block",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 337,
+        "proteinGrams": 5.79,
+        "carbGrams": 4.56,
+        "fatGrams": 33.5
+      }
+    },
+    {
+      "id": "usda-foundation:2346386",
+      "fdcID": 2346386,
+      "name": "Cream, heavy",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 336,
+        "proteinGrams": 2.02,
+        "carbGrams": 3.8,
+        "fatGrams": 35.6
+      }
+    },
+    {
+      "id": "usda-foundation:2346387",
+      "fdcID": 2346387,
+      "name": "Cream, sour, full fat",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 193,
+        "proteinGrams": 3.07,
+        "carbGrams": 5.56,
+        "fatGrams": 18.0
+      }
+    },
+    {
+      "id": "usda-foundation:2684446",
+      "fdcID": 2684446,
+      "name": "Crustaceans, crab, blue swimming, lump, pasteurized, refrigerated",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 86.0,
+        "proteinGrams": 18.6,
+        "carbGrams": 0.0,
+        "fatGrams": 0.808
+      }
+    },
+    {
+      "id": "usda-foundation:2684443",
+      "fdcID": 2684443,
+      "name": "Crustaceans, shrimp, farm raised, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 75.7,
+        "proteinGrams": 15.6,
+        "carbGrams": 0.485,
+        "fatGrams": 0.801
+      }
+    },
+    {
+      "id": "usda-foundation:2346406",
+      "fdcID": 2346406,
+      "name": "Cucumber, with peel, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 13.9,
+        "proteinGrams": 0.625,
+        "carbGrams": 2.95,
+        "fatGrams": 0.178
+      }
+    },
+    {
+      "id": "usda-foundation:323793",
+      "fdcID": 323793,
+      "name": "Egg, white, dried",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 376,
+        "proteinGrams": 79.9,
+        "carbGrams": 6.02,
+        "fatGrams": 0.65
+      }
+    },
+    {
+      "id": "usda-foundation:323697",
+      "fdcID": 323697,
+      "name": "Egg, white, raw, frozen, pasteurized",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 48.0,
+        "proteinGrams": 10.1,
+        "carbGrams": 0.74,
+        "fatGrams": 0.16
+      }
+    },
+    {
+      "id": "usda-foundation:329490",
+      "fdcID": 329490,
+      "name": "Egg, whole, dried",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 575,
+        "proteinGrams": 48.1,
+        "carbGrams": 1.87,
+        "fatGrams": 39.8
+      }
+    },
+    {
+      "id": "usda-foundation:323604",
+      "fdcID": 323604,
+      "name": "Egg, whole, raw, frozen, pasteurized",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 150,
+        "proteinGrams": 12.3,
+        "carbGrams": 0.91,
+        "fatGrams": 10.3
+      }
+    },
+    {
+      "id": "usda-foundation:329716",
+      "fdcID": 329716,
+      "name": "Egg, yolk, dried",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 654,
+        "proteinGrams": 34.2,
+        "carbGrams": 1.07,
+        "fatGrams": 55.5
+      }
+    },
+    {
+      "id": "usda-foundation:329596",
+      "fdcID": 329596,
+      "name": "Egg, yolk, raw, frozen, pasteurized",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 296,
+        "proteinGrams": 15.6,
+        "carbGrams": 0.59,
+        "fatGrams": 25.1
+      }
+    },
+    {
+      "id": "usda-foundation:2685577",
+      "fdcID": 2685577,
+      "name": "Eggplant, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 22.4,
+        "proteinGrams": 0.852,
+        "carbGrams": 5.4,
+        "fatGrams": 0.12
+      }
+    },
+    {
+      "id": "usda-foundation:747997",
+      "fdcID": 747997,
+      "name": "Eggs, Grade A, Large, egg white",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 55.0,
+        "proteinGrams": 10.7,
+        "carbGrams": 2.36,
+        "fatGrams": 0.0
+      }
+    },
+    {
+      "id": "usda-foundation:748967",
+      "fdcID": 748967,
+      "name": "Eggs, Grade A, Large, egg whole",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 148,
+        "proteinGrams": 12.4,
+        "carbGrams": 0.96,
+        "fatGrams": 9.96
+      }
+    },
+    {
+      "id": "usda-foundation:748236",
+      "fdcID": 748236,
+      "name": "Eggs, Grade A, Large, egg yolk",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 334,
+        "proteinGrams": 16.2,
+        "carbGrams": 1.02,
+        "fatGrams": 28.8
+      }
+    },
+    {
+      "id": "usda-foundation:2710827",
+      "fdcID": 2710827,
+      "name": "Einkorn, grain, dry, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 346,
+        "proteinGrams": 15.1,
+        "carbGrams": 68.7,
+        "fatGrams": 3.81
+      }
+    },
+    {
+      "id": "usda-foundation:2710828",
+      "fdcID": 2710828,
+      "name": "Farro, pearled, dry, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 344,
+        "proteinGrams": 12.6,
+        "carbGrams": 72.1,
+        "fatGrams": 3.1
+      }
+    },
+    {
+      "id": "usda-foundation:2747655",
+      "fdcID": 2747655,
+      "name": "Fennel, bulb, raw",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 26.9,
+        "proteinGrams": 0.922,
+        "carbGrams": 5.49,
+        "fatGrams": 0.14
+      }
+    },
+    {
+      "id": "usda-foundation:746768",
+      "fdcID": 746768,
+      "name": "Figs, dried, uncooked",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 249,
+        "proteinGrams": 3.3,
+        "carbGrams": 63.9,
+        "fatGrams": 0.92
+      }
+    },
+    {
+      "id": "usda-foundation:2684445",
+      "fdcID": 2684445,
+      "name": "Fish, catfish, farm raised, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 134,
+        "proteinGrams": 16.5,
+        "carbGrams": 0.0,
+        "fatGrams": 7.31
+      }
+    },
+    {
+      "id": "usda-foundation:2684444",
+      "fdcID": 2684444,
+      "name": "Fish, cod, Atlantic, wild caught, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 70.5,
+        "proteinGrams": 16.1,
+        "carbGrams": 0.0,
+        "fatGrams": 0.668
+      }
+    },
+    {
+      "id": "usda-foundation:333374",
+      "fdcID": 333374,
+      "name": "Fish, haddock, raw",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 74.0,
+        "proteinGrams": 16.3,
+        "carbGrams": 0.0,
+        "fatGrams": 0.45
+      }
+    },
+    {
+      "id": "usda-foundation:333476",
+      "fdcID": 333476,
+      "name": "Fish, pollock, raw",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 56.0,
+        "proteinGrams": 12.3,
+        "carbGrams": 0.0,
+        "fatGrams": 0.41
+      }
+    },
+    {
+      "id": "usda-foundation:2684441",
+      "fdcID": 2684441,
+      "name": "Fish, salmon, Atlantic, farm raised, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 203,
+        "proteinGrams": 20.3,
+        "carbGrams": 0.0,
+        "fatGrams": 13.1
+      }
+    },
+    {
+      "id": "usda-foundation:2684440",
+      "fdcID": 2684440,
+      "name": "Fish, salmon, sockeye, wild caught, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 136,
+        "proteinGrams": 22.3,
+        "carbGrams": 0.0,
+        "fatGrams": 4.94
+      }
+    },
+    {
+      "id": "usda-foundation:2684442",
+      "fdcID": 2684442,
+      "name": "Fish, tilapia, farm raised, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 100,
+        "proteinGrams": 19.0,
+        "carbGrams": 0.0,
+        "fatGrams": 2.48
+      }
+    },
+    {
+      "id": "usda-foundation:334194",
+      "fdcID": 334194,
+      "name": "Fish, tuna, light, canned in water, drained solids",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 90.0,
+        "proteinGrams": 19.0,
+        "carbGrams": 0.08,
+        "fatGrams": 0.94
+      }
+    },
+    {
+      "id": "usda-foundation:2262075",
+      "fdcID": 2262075,
+      "name": "Flaxseed, ground",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 514,
+        "proteinGrams": 18.0,
+        "carbGrams": 34.4,
+        "fatGrams": 37.3
+      }
+    },
+    {
+      "id": "usda-foundation:2003586",
+      "fdcID": 2003586,
+      "name": "Flour, 00",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 366,
+        "proteinGrams": 11.4,
+        "carbGrams": 74.4,
+        "fatGrams": 1.52
+      }
+    },
+    {
+      "id": "usda-foundation:2261420",
+      "fdcID": 2261420,
+      "name": "Flour, almond",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 578,
+        "proteinGrams": 26.2,
+        "carbGrams": 16.2,
+        "fatGrams": 50.2
+      }
+    },
+    {
+      "id": "usda-foundation:2512371",
+      "fdcID": 2512371,
+      "name": "Flour, amaranth",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 378,
+        "proteinGrams": 13.2,
+        "carbGrams": 68.8,
+        "fatGrams": 6.24
+      }
+    },
+    {
+      "id": "usda-foundation:2512376",
+      "fdcID": 2512376,
+      "name": "Flour, barley",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 357,
+        "proteinGrams": 8.72,
+        "carbGrams": 77.4,
+        "fatGrams": 2.45
+      }
+    },
+    {
+      "id": "usda-foundation:790146",
+      "fdcID": 790146,
+      "name": "Flour, bread, white, enriched, unbleached",
+      "publicationDate": "4/1/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 363,
+        "proteinGrams": 14.3,
+        "carbGrams": 72.8,
+        "fatGrams": 1.65
+      }
+    },
+    {
+      "id": "usda-foundation:2512374",
+      "fdcID": 2512374,
+      "name": "Flour, buckwheat",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 334,
+        "proteinGrams": 8.88,
+        "carbGrams": 75.0,
+        "fatGrams": 2.48
+      }
+    },
+    {
+      "id": "usda-foundation:2512377",
+      "fdcID": 2512377,
+      "name": "Flour, cassava",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 359,
+        "proteinGrams": 0.918,
+        "carbGrams": 87.3,
+        "fatGrams": 0.494
+      }
+    },
+    {
+      "id": "usda-foundation:2515377",
+      "fdcID": 2515377,
+      "name": "Flour, chestnut",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 385,
+        "proteinGrams": 5.29,
+        "carbGrams": 80.5,
+        "fatGrams": 4.64
+      }
+    },
+    {
+      "id": "usda-foundation:2515382",
+      "fdcID": 2515382,
+      "name": "Flour, coconut",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 424,
+        "proteinGrams": 16.1,
+        "carbGrams": 58.9,
+        "fatGrams": 15.3
+      }
+    },
+    {
+      "id": "usda-foundation:790276",
+      "fdcID": 790276,
+      "name": "Flour, corn, yellow, fine meal, enriched",
+      "publicationDate": "4/1/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 364,
+        "proteinGrams": 6.2,
+        "carbGrams": 80.8,
+        "fatGrams": 1.74
+      }
+    },
+    {
+      "id": "usda-foundation:2261421",
+      "fdcID": 2261421,
+      "name": "Flour, oat, whole grain",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 386,
+        "proteinGrams": 13.2,
+        "carbGrams": 69.9,
+        "fatGrams": 6.31
+      }
+    },
+    {
+      "id": "usda-foundation:1104913",
+      "fdcID": 1104913,
+      "name": "Flour, pastry, unenriched, unbleached",
+      "publicationDate": "10/30/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 358,
+        "proteinGrams": 8.75,
+        "carbGrams": 77.2,
+        "fatGrams": 1.64
+      }
+    },
+    {
+      "id": "usda-foundation:2261422",
+      "fdcID": 2261422,
+      "name": "Flour, potato",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 353,
+        "proteinGrams": 8.11,
+        "carbGrams": 79.9,
+        "fatGrams": 0.951
+      }
+    },
+    {
+      "id": "usda-foundation:2512372",
+      "fdcID": 2512372,
+      "name": "Flour, quinoa",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 378,
+        "proteinGrams": 11.9,
+        "carbGrams": 69.5,
+        "fatGrams": 6.6
+      }
+    },
+    {
+      "id": "usda-foundation:1104812",
+      "fdcID": 1104812,
+      "name": "Flour, rice, brown",
+      "publicationDate": "10/30/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 365,
+        "proteinGrams": 7.19,
+        "carbGrams": 75.5,
+        "fatGrams": 3.85
+      }
+    },
+    {
+      "id": "usda-foundation:1104867",
+      "fdcID": 1104867,
+      "name": "Flour, rice, glutinous",
+      "publicationDate": "10/30/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 358,
+        "proteinGrams": 6.69,
+        "carbGrams": 80.1,
+        "fatGrams": 1.16
+      }
+    },
+    {
+      "id": "usda-foundation:790214",
+      "fdcID": 790214,
+      "name": "Flour, rice, white, unenriched",
+      "publicationDate": "4/1/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 359,
+        "proteinGrams": 6.94,
+        "carbGrams": 79.8,
+        "fatGrams": 1.3
+      }
+    },
+    {
+      "id": "usda-foundation:2512375",
+      "fdcID": 2512375,
+      "name": "Flour, rye",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 351,
+        "proteinGrams": 8.4,
+        "carbGrams": 77.2,
+        "fatGrams": 1.91
+      }
+    },
+    {
+      "id": "usda-foundation:2003588",
+      "fdcID": 2003588,
+      "name": "Flour, semolina, coarse and semi-coarse",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 365,
+        "proteinGrams": 11.7,
+        "carbGrams": 73.8,
+        "fatGrams": 1.6
+      }
+    },
+    {
+      "id": "usda-foundation:2003589",
+      "fdcID": 2003589,
+      "name": "Flour, semolina, fine",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 366,
+        "proteinGrams": 13.3,
+        "carbGrams": 72.0,
+        "fatGrams": 1.84
+      }
+    },
+    {
+      "id": "usda-foundation:2512373",
+      "fdcID": 2512373,
+      "name": "Flour, sorghum",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 364,
+        "proteinGrams": 8.27,
+        "carbGrams": 77.4,
+        "fatGrams": 3.59
+      }
+    },
+    {
+      "id": "usda-foundation:1104705",
+      "fdcID": 1104705,
+      "name": "Flour, soy, defatted",
+      "publicationDate": "10/30/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 366,
+        "proteinGrams": 51.1,
+        "carbGrams": 32.9,
+        "fatGrams": 3.33
+      }
+    },
+    {
+      "id": "usda-foundation:1104766",
+      "fdcID": 1104766,
+      "name": "Flour, soy, full-fat",
+      "publicationDate": "10/30/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 452,
+        "proteinGrams": 38.6,
+        "carbGrams": 27.9,
+        "fatGrams": 20.7
+      }
+    },
+    {
+      "id": "usda-foundation:2003587",
+      "fdcID": 2003587,
+      "name": "Flour, spelt, whole grain",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 341,
+        "proteinGrams": 14.5,
+        "carbGrams": 70.7,
+        "fatGrams": 2.54
+      }
+    },
+    {
+      "id": "usda-foundation:789890",
+      "fdcID": 789890,
+      "name": "Flour, wheat, all-purpose, enriched, bleached",
+      "publicationDate": "4/1/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 366,
+        "proteinGrams": 10.9,
+        "carbGrams": 77.3,
+        "fatGrams": 1.48
+      }
+    },
+    {
+      "id": "usda-foundation:789951",
+      "fdcID": 789951,
+      "name": "Flour, wheat, all-purpose, enriched, unbleached",
+      "publicationDate": "4/1/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 358,
+        "proteinGrams": 13.1,
+        "carbGrams": 73.2,
+        "fatGrams": 1.48
+      }
+    },
+    {
+      "id": "usda-foundation:790018",
+      "fdcID": 790018,
+      "name": "Flour, wheat, all-purpose, unenriched, unbleached",
+      "publicationDate": "4/1/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 362,
+        "proteinGrams": 12.0,
+        "carbGrams": 74.6,
+        "fatGrams": 1.7
+      }
+    },
+    {
+      "id": "usda-foundation:790085",
+      "fdcID": 790085,
+      "name": "Flour, whole wheat, unenriched",
+      "publicationDate": "4/1/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 370,
+        "proteinGrams": 15.1,
+        "carbGrams": 71.2,
+        "fatGrams": 2.73
+      }
+    },
+    {
+      "id": "usda-foundation:2710829",
+      "fdcID": 2710829,
+      "name": "Fonio, grain, dry, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 377,
+        "proteinGrams": 7.17,
+        "carbGrams": 81.3,
+        "fatGrams": 1.69
+      }
+    },
+    {
+      "id": "usda-foundation:323121",
+      "fdcID": 323121,
+      "name": "Frankfurter, beef, unheated",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 314,
+        "proteinGrams": 11.7,
+        "carbGrams": 2.89,
+        "fatGrams": 28.0
+      }
+    },
+    {
+      "id": "usda-foundation:1104647",
+      "fdcID": 1104647,
+      "name": "Garlic, raw",
+      "publicationDate": "10/30/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 143,
+        "proteinGrams": 6.62,
+        "carbGrams": 28.2,
+        "fatGrams": 0.38
+      }
+    },
+    {
+      "id": "usda-foundation:2003592",
+      "fdcID": 2003592,
+      "name": "Grape juice, purple, with added vitamin C, from concentrate, shelf stable",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 64.5,
+        "proteinGrams": 0.258,
+        "carbGrams": 15.6,
+        "fatGrams": 0.288
+      }
+    },
+    {
+      "id": "usda-foundation:2003593",
+      "fdcID": 2003593,
+      "name": "Grape juice, white, with added vitamin C, from concentrate, shelf stable",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 64.6,
+        "proteinGrams": 0.094,
+        "carbGrams": 15.8,
+        "fatGrams": 0.265
+      }
+    },
+    {
+      "id": "usda-foundation:2003595",
+      "fdcID": 2003595,
+      "name": "Grapefruit juice, red, not fortified, not from concentrate, refrigerated",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 39.8,
+        "proteinGrams": 0.57,
+        "carbGrams": 9.1,
+        "fatGrams": 0.267
+      }
+    },
+    {
+      "id": "usda-foundation:325287",
+      "fdcID": 325287,
+      "name": "Grapefruit juice, white, canned or bottled, unsweetened",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 37.0,
+        "proteinGrams": 0.55,
+        "carbGrams": 7.59,
+        "fatGrams": 0.7
+      }
+    },
+    {
+      "id": "usda-foundation:2346413",
+      "fdcID": 2346413,
+      "name": "Grapes, green, seedless, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 71.9,
+        "proteinGrams": 0.899,
+        "carbGrams": 18.6,
+        "fatGrams": 0.232
+      }
+    },
+    {
+      "id": "usda-foundation:2346412",
+      "fdcID": 2346412,
+      "name": "Grapes, red, seedless, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 77.2,
+        "proteinGrams": 0.914,
+        "carbGrams": 20.2,
+        "fatGrams": 0.164
+      }
+    },
+    {
+      "id": "usda-foundation:332397",
+      "fdcID": 332397,
+      "name": "Ham, sliced, pre-packaged, deli meat (96%fat free, water added)",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 106,
+        "proteinGrams": 16.7,
+        "carbGrams": 0.27,
+        "fatGrams": 3.73
+      }
+    },
+    {
+      "id": "usda-foundation:746952",
+      "fdcID": 746952,
+      "name": "Ham, sliced, restaurant",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 121,
+        "proteinGrams": 19.6,
+        "carbGrams": 2.36,
+        "fatGrams": 3.68
+      }
+    },
+    {
+      "id": "usda-foundation:321358",
+      "fdcID": 321358,
+      "name": "Hummus, commercial",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 229,
+        "proteinGrams": 7.35,
+        "carbGrams": 14.9,
+        "fatGrams": 17.1
+      }
+    },
+    {
+      "id": "usda-foundation:326196",
+      "fdcID": 326196,
+      "name": "Kale, frozen, cooked, boiled, drained, without salt",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 36.0,
+        "proteinGrams": 2.94,
+        "carbGrams": 5.3,
+        "fatGrams": 1.21
+      }
+    },
+    {
+      "id": "usda-foundation:323505",
+      "fdcID": 323505,
+      "name": "Kale, raw",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 35.0,
+        "proteinGrams": 2.92,
+        "carbGrams": 4.42,
+        "fatGrams": 1.49
+      }
+    },
+    {
+      "id": "usda-foundation:747693",
+      "fdcID": 747693,
+      "name": "Ketchup, restaurant",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 117,
+        "proteinGrams": 1.11,
+        "carbGrams": 26.8,
+        "fatGrams": 0.55
+      }
+    },
+    {
+      "id": "usda-foundation:2710830",
+      "fdcID": 2710830,
+      "name": "Khorasan, grain, dry, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 348,
+        "proteinGrams": 14.8,
+        "carbGrams": 71.8,
+        "fatGrams": 2.8
+      }
+    },
+    {
+      "id": "usda-foundation:2710831",
+      "fdcID": 2710831,
+      "name": "Kiwifruit (kiwi), green, peeled, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 58.5,
+        "proteinGrams": 1.01,
+        "carbGrams": 13.8,
+        "fatGrams": 0.64
+      }
+    },
+    {
+      "id": "usda-foundation:327046",
+      "fdcID": 327046,
+      "name": "Kiwifruit, green, raw",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 58.0,
+        "proteinGrams": 1.06,
+        "carbGrams": 14.0,
+        "fatGrams": 0.44
+      }
+    },
+    {
+      "id": "usda-foundation:2644283",
+      "fdcID": 2644283,
+      "name": "Lentils, dry",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 351,
+        "proteinGrams": 23.6,
+        "carbGrams": 62.2,
+        "fatGrams": 1.92
+      }
+    },
+    {
+      "id": "usda-foundation:746769",
+      "fdcID": 746769,
+      "name": "Lettuce, cos or romaine, raw",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 17.0,
+        "proteinGrams": 1.24,
+        "carbGrams": 3.24,
+        "fatGrams": 0.26
+      }
+    },
+    {
+      "id": "usda-foundation:2346388",
+      "fdcID": 2346388,
+      "name": "Lettuce, iceberg, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 14.5,
+        "proteinGrams": 0.742,
+        "carbGrams": 3.37,
+        "fatGrams": 0.074
+      }
+    },
+    {
+      "id": "usda-foundation:2346391",
+      "fdcID": 2346391,
+      "name": "Lettuce, leaf, green, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 18.5,
+        "proteinGrams": 1.09,
+        "carbGrams": 4.07,
+        "fatGrams": 0.156
+      }
+    },
+    {
+      "id": "usda-foundation:2346390",
+      "fdcID": 2346390,
+      "name": "Lettuce, leaf, red, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 14.7,
+        "proteinGrams": 0.883,
+        "carbGrams": 3.26,
+        "fatGrams": 0.106
+      }
+    },
+    {
+      "id": "usda-foundation:2346389",
+      "fdcID": 2346389,
+      "name": "Lettuce, romaine, green, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 17.5,
+        "proteinGrams": 0.977,
+        "carbGrams": 4.06,
+        "fatGrams": 0.071
+      }
+    },
+    {
+      "id": "usda-foundation:2747657",
+      "fdcID": 2747657,
+      "name": "Lobster, tail only, frozen, wild caught",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 58.8,
+        "proteinGrams": 13.0,
+        "carbGrams": 0.886,
+        "fatGrams": 0.367
+      }
+    },
+    {
+      "id": "usda-foundation:2747658",
+      "fdcID": 2747658,
+      "name": "Mahi mahi, frozen, wild caught",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 83.7,
+        "proteinGrams": 19.8,
+        "carbGrams": 0.287,
+        "fatGrams": 0.377
+      }
+    },
+    {
+      "id": "usda-foundation:2710832",
+      "fdcID": 2710832,
+      "name": "Mandarin, seedless, peeled, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 55.6,
+        "proteinGrams": 1.04,
+        "carbGrams": 13.4,
+        "fatGrams": 0.458
+      }
+    },
+    {
+      "id": "usda-foundation:2710834",
+      "fdcID": 2710834,
+      "name": "Mango, Ataulfo, peeled, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 70.6,
+        "proteinGrams": 0.688,
+        "carbGrams": 17.4,
+        "fatGrams": 0.681
+      }
+    },
+    {
+      "id": "usda-foundation:2710833",
+      "fdcID": 2710833,
+      "name": "Mango, Tommy Atkins, peeled, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 61.6,
+        "proteinGrams": 0.562,
+        "carbGrams": 15.3,
+        "fatGrams": 0.572
+      }
+    },
+    {
+      "id": "usda-foundation:746770",
+      "fdcID": 746770,
+      "name": "Melons, cantaloupe, raw",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 34.0,
+        "proteinGrams": 0.82,
+        "carbGrams": 8.16,
+        "fatGrams": 0.18
+      }
+    },
+    {
+      "id": "usda-foundation:2710816",
+      "fdcID": 2710816,
+      "name": "Melons, honeydew, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 32.9,
+        "proteinGrams": 0.531,
+        "carbGrams": 8.15,
+        "fatGrams": 0.216
+      }
+    },
+    {
+      "id": "usda-foundation:746772",
+      "fdcID": 746772,
+      "name": "Milk, lowfat, fluid, 1% milkfat, with added vitamin A and vitamin D",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 43.0,
+        "proteinGrams": 3.38,
+        "carbGrams": 5.18,
+        "fatGrams": 0.95
+      }
+    },
+    {
+      "id": "usda-foundation:746776",
+      "fdcID": 746776,
+      "name": "Milk, nonfat, fluid, with added vitamin A and vitamin D (fat free or skim)",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 34.0,
+        "proteinGrams": 3.43,
+        "carbGrams": 4.92,
+        "fatGrams": 0.08
+      }
+    },
+    {
+      "id": "usda-foundation:746778",
+      "fdcID": 746778,
+      "name": "Milk, reduced fat, fluid, 2% milkfat, with added vitamin A and vitamin D",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 50.0,
+        "proteinGrams": 3.36,
+        "carbGrams": 4.9,
+        "fatGrams": 1.9
+      }
+    },
+    {
+      "id": "usda-foundation:746782",
+      "fdcID": 746782,
+      "name": "Milk, whole, 3.25% milkfat, with added vitamin D",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 60.0,
+        "proteinGrams": 3.27,
+        "carbGrams": 4.63,
+        "fatGrams": 3.2
+      }
+    },
+    {
+      "id": "usda-foundation:2512379",
+      "fdcID": 2512379,
+      "name": "Millet, whole grain",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 381,
+        "proteinGrams": 10.0,
+        "carbGrams": 74.4,
+        "fatGrams": 4.19
+      }
+    },
+    {
+      "id": "usda-foundation:2003603",
+      "fdcID": 2003603,
+      "name": "Mushroom, beech",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 33.0,
+        "proteinGrams": 2.18,
+        "carbGrams": 6.76,
+        "fatGrams": 0.449
+      }
+    },
+    {
+      "id": "usda-foundation:2003601",
+      "fdcID": 2003601,
+      "name": "Mushroom, crimini",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 23.7,
+        "proteinGrams": 3.09,
+        "carbGrams": 4.01,
+        "fatGrams": 0.197
+      }
+    },
+    {
+      "id": "usda-foundation:2003600",
+      "fdcID": 2003600,
+      "name": "Mushroom, enoki",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 36.7,
+        "proteinGrams": 2.42,
+        "carbGrams": 8.14,
+        "fatGrams": 0.245
+      }
+    },
+    {
+      "id": "usda-foundation:2003599",
+      "fdcID": 2003599,
+      "name": "Mushroom, king oyster",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 38.5,
+        "proteinGrams": 2.41,
+        "carbGrams": 8.5,
+        "fatGrams": 0.308
+      }
+    },
+    {
+      "id": "usda-foundation:1999626",
+      "fdcID": 1999626,
+      "name": "Mushroom, lion's mane",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 35.1,
+        "proteinGrams": 2.5,
+        "carbGrams": 7.59,
+        "fatGrams": 0.256
+      }
+    },
+    {
+      "id": "usda-foundation:2003602",
+      "fdcID": 2003602,
+      "name": "Mushroom, maitake",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 31.0,
+        "proteinGrams": 2.2,
+        "carbGrams": 6.6,
+        "fatGrams": 0.265
+      }
+    },
+    {
+      "id": "usda-foundation:1999627",
+      "fdcID": 1999627,
+      "name": "Mushroom, oyster",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 33.3,
+        "proteinGrams": 2.9,
+        "carbGrams": 6.94,
+        "fatGrams": 0.188
+      }
+    },
+    {
+      "id": "usda-foundation:2003604",
+      "fdcID": 2003604,
+      "name": "Mushroom, pioppini",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 31.2,
+        "proteinGrams": 3.5,
+        "carbGrams": 5.76,
+        "fatGrams": 0.24
+      }
+    },
+    {
+      "id": "usda-foundation:2003598",
+      "fdcID": 2003598,
+      "name": "Mushroom, portabella",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 26.0,
+        "proteinGrams": 2.75,
+        "carbGrams": 4.66,
+        "fatGrams": 0.312
+      }
+    },
+    {
+      "id": "usda-foundation:1999628",
+      "fdcID": 1999628,
+      "name": "Mushrooms, shiitake",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 36.4,
+        "proteinGrams": 2.41,
+        "carbGrams": 8.17,
+        "fatGrams": 0.195
+      }
+    },
+    {
+      "id": "usda-foundation:1999629",
+      "fdcID": 1999629,
+      "name": "Mushrooms, white button",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 24.9,
+        "proteinGrams": 2.89,
+        "carbGrams": 4.08,
+        "fatGrams": 0.371
+      }
+    },
+    {
+      "id": "usda-foundation:326698",
+      "fdcID": 326698,
+      "name": "Mustard, prepared, yellow",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 61.0,
+        "proteinGrams": 4.25,
+        "carbGrams": 5.3,
+        "fatGrams": 3.38
+      }
+    },
+    {
+      "id": "usda-foundation:327357",
+      "fdcID": 327357,
+      "name": "Nectarines, raw",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 39.0,
+        "proteinGrams": 1.06,
+        "carbGrams": 9.18,
+        "fatGrams": 0.28
+      }
+    },
+    {
+      "id": "usda-foundation:323294",
+      "fdcID": 323294,
+      "name": "Nuts, almonds, dry roasted, with salt added",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 620,
+        "proteinGrams": 20.4,
+        "carbGrams": 16.2,
+        "fatGrams": 57.8
+      }
+    },
+    {
+      "id": "usda-foundation:2346393",
+      "fdcID": 2346393,
+      "name": "Nuts, almonds, whole, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 584,
+        "proteinGrams": 21.5,
+        "carbGrams": 20.0,
+        "fatGrams": 51.1
+      }
+    },
+    {
+      "id": "usda-foundation:2515373",
+      "fdcID": 2515373,
+      "name": "Nuts, brazilnuts, raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 621,
+        "proteinGrams": 15.0,
+        "carbGrams": 21.6,
+        "fatGrams": 57.4
+      }
+    },
+    {
+      "id": "usda-foundation:2515374",
+      "fdcID": 2515374,
+      "name": "Nuts, cashew nuts, raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 533,
+        "proteinGrams": 17.4,
+        "carbGrams": 36.3,
+        "fatGrams": 38.9
+      }
+    },
+    {
+      "id": "usda-foundation:2515375",
+      "fdcID": 2515375,
+      "name": "Nuts, hazelnuts or filberts, raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 602,
+        "proteinGrams": 13.5,
+        "carbGrams": 26.5,
+        "fatGrams": 53.5
+      }
+    },
+    {
+      "id": "usda-foundation:2515378",
+      "fdcID": 2515378,
+      "name": "Nuts, macadamia nuts, raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 669,
+        "proteinGrams": 7.79,
+        "carbGrams": 24.1,
+        "fatGrams": 64.9
+      }
+    },
+    {
+      "id": "usda-foundation:2346395",
+      "fdcID": 2346395,
+      "name": "Nuts, pecans, halves, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 700,
+        "proteinGrams": 9.96,
+        "carbGrams": 12.7,
+        "fatGrams": 73.3
+      }
+    },
+    {
+      "id": "usda-foundation:2346392",
+      "fdcID": 2346392,
+      "name": "Nuts, pine nuts, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 643,
+        "proteinGrams": 15.7,
+        "carbGrams": 18.6,
+        "fatGrams": 61.3
+      }
+    },
+    {
+      "id": "usda-foundation:2515379",
+      "fdcID": 2515379,
+      "name": "Nuts, pistachio nuts, raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 561,
+        "proteinGrams": 20.5,
+        "carbGrams": 27.7,
+        "fatGrams": 45.0
+      }
+    },
+    {
+      "id": "usda-foundation:2346394",
+      "fdcID": 2346394,
+      "name": "Nuts, walnuts, English, halves, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 679,
+        "proteinGrams": 14.6,
+        "carbGrams": 10.9,
+        "fatGrams": 69.7
+      }
+    },
+    {
+      "id": "usda-foundation:2257046",
+      "fdcID": 2257046,
+      "name": "Oat milk, unsweetened, plain, refrigerated",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 48.3,
+        "proteinGrams": 0.797,
+        "carbGrams": 5.1,
+        "fatGrams": 2.75
+      }
+    },
+    {
+      "id": "usda-foundation:2346396",
+      "fdcID": 2346396,
+      "name": "Oats, whole grain, rolled, old fashioned",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 379,
+        "proteinGrams": 13.5,
+        "carbGrams": 68.7,
+        "fatGrams": 5.89
+      }
+    },
+    {
+      "id": "usda-foundation:2346397",
+      "fdcID": 2346397,
+      "name": "Oats, whole grain, steel cut",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 379,
+        "proteinGrams": 12.5,
+        "carbGrams": 69.8,
+        "fatGrams": 5.8
+      }
+    },
+    {
+      "id": "usda-foundation:330458",
+      "fdcID": 330458,
+      "name": "Oil, coconut",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 833,
+        "proteinGrams": 0.0,
+        "carbGrams": 0.84,
+        "fatGrams": 99.1
+      }
+    },
+    {
+      "id": "usda-foundation:332791",
+      "fdcID": 332791,
+      "name": "Olives, green, Manzanilla, stuffed with pimiento",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 130,
+        "proteinGrams": 1.15,
+        "carbGrams": 4.96,
+        "fatGrams": 12.9
+      }
+    },
+    {
+      "id": "usda-foundation:324317",
+      "fdcID": 324317,
+      "name": "Onion rings, breaded, par fried, frozen, prepared, heated in oven",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 288,
+        "proteinGrams": 4.52,
+        "carbGrams": 36.3,
+        "fatGrams": 14.4
+      }
+    },
+    {
+      "id": "usda-foundation:790577",
+      "fdcID": 790577,
+      "name": "Onions, red, raw",
+      "publicationDate": "4/1/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 44.0,
+        "proteinGrams": 0.94,
+        "carbGrams": 9.93,
+        "fatGrams": 0.1
+      }
+    },
+    {
+      "id": "usda-foundation:1104962",
+      "fdcID": 1104962,
+      "name": "Onions, white, raw",
+      "publicationDate": "10/30/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 35.0,
+        "proteinGrams": 0.89,
+        "carbGrams": 7.68,
+        "fatGrams": 0.13
+      }
+    },
+    {
+      "id": "usda-foundation:790646",
+      "fdcID": 790646,
+      "name": "Onions, yellow, raw",
+      "publicationDate": "4/1/2020",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 38.0,
+        "proteinGrams": 0.83,
+        "carbGrams": 8.61,
+        "fatGrams": 0.05
+      }
+    },
+    {
+      "id": "usda-foundation:2003591",
+      "fdcID": 2003591,
+      "name": "Orange juice, no pulp, not fortified, from concentrate, refrigerated",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 45.7,
+        "proteinGrams": 0.734,
+        "carbGrams": 10.3,
+        "fatGrams": 0.325
+      }
+    },
+    {
+      "id": "usda-foundation:2003597",
+      "fdcID": 2003597,
+      "name": "Orange juice, no pulp, not fortified, not from concentrate, refrigerated",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 45.0,
+        "proteinGrams": 0.812,
+        "carbGrams": 10.0,
+        "fatGrams": 0.356
+      }
+    },
+    {
+      "id": "usda-foundation:746771",
+      "fdcID": 746771,
+      "name": "Oranges, raw, navels",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 47.0,
+        "proteinGrams": 0.91,
+        "carbGrams": 11.8,
+        "fatGrams": 0.15
+      }
+    },
+    {
+      "id": "usda-foundation:2747659",
+      "fdcID": 2747659,
+      "name": "Parsnips, raw",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 87.1,
+        "proteinGrams": 1.27,
+        "carbGrams": 19.3,
+        "fatGrams": 0.538
+      }
+    },
+    {
+      "id": "usda-foundation:325430",
+      "fdcID": 325430,
+      "name": "Peaches, yellow, raw",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 42.0,
+        "proteinGrams": 0.91,
+        "carbGrams": 10.1,
+        "fatGrams": 0.27
+      }
+    },
+    {
+      "id": "usda-foundation:2262072",
+      "fdcID": 2262072,
+      "name": "Peanut butter, creamy",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 589,
+        "proteinGrams": 24.0,
+        "carbGrams": 22.7,
+        "fatGrams": 49.4
+      }
+    },
+    {
+      "id": "usda-foundation:2515376",
+      "fdcID": 2515376,
+      "name": "Peanuts, raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 551,
+        "proteinGrams": 23.2,
+        "carbGrams": 26.5,
+        "fatGrams": 43.3
+      }
+    },
+    {
+      "id": "usda-foundation:2710836",
+      "fdcID": 2710836,
+      "name": "Pear, Anjou, green, with skin, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 57.3,
+        "proteinGrams": 0.312,
+        "carbGrams": 14.8,
+        "fatGrams": 0.371
+      }
+    },
+    {
+      "id": "usda-foundation:746773",
+      "fdcID": 746773,
+      "name": "Pears, raw, bartlett",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 57.0,
+        "proteinGrams": 0.38,
+        "carbGrams": 15.1,
+        "fatGrams": 0.16
+      }
+    },
+    {
+      "id": "usda-foundation:2644291",
+      "fdcID": 2644291,
+      "name": "Peas, green, sweet, canned, sodium added, sugar added, drained and rinsed",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 77.8,
+        "proteinGrams": 4.73,
+        "carbGrams": 12.7,
+        "fatGrams": 1.15
+      }
+    },
+    {
+      "id": "usda-foundation:2747660",
+      "fdcID": 2747660,
+      "name": "Peppers, banana or Hungarian wax, seeded, raw",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 23.9,
+        "proteinGrams": 0.723,
+        "carbGrams": 4.97,
+        "fatGrams": 0.131
+      }
+    },
+    {
+      "id": "usda-foundation:2258588",
+      "fdcID": 2258588,
+      "name": "Peppers, bell, green, raw",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 19.7,
+        "proteinGrams": 0.715,
+        "carbGrams": 4.78,
+        "fatGrams": 0.106
+      }
+    },
+    {
+      "id": "usda-foundation:2258591",
+      "fdcID": 2258591,
+      "name": "Peppers, bell, orange, raw",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 27.4,
+        "proteinGrams": 0.882,
+        "carbGrams": 6.7,
+        "fatGrams": 0.156
+      }
+    },
+    {
+      "id": "usda-foundation:2258590",
+      "fdcID": 2258590,
+      "name": "Peppers, bell, red, raw",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 27.0,
+        "proteinGrams": 0.896,
+        "carbGrams": 6.65,
+        "fatGrams": 0.126
+      }
+    },
+    {
+      "id": "usda-foundation:2258589",
+      "fdcID": 2258589,
+      "name": "Peppers, bell, yellow, raw",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 26.6,
+        "proteinGrams": 0.819,
+        "carbGrams": 6.6,
+        "fatGrams": 0.121
+      }
+    },
+    {
+      "id": "usda-foundation:2747661",
+      "fdcID": 2747661,
+      "name": "Peppers, jalapeno, seeded, raw",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 24.1,
+        "proteinGrams": 0.621,
+        "carbGrams": 5.08,
+        "fatGrams": 0.149
+      }
+    },
+    {
+      "id": "usda-foundation:2747662",
+      "fdcID": 2747662,
+      "name": "Peppers, poblano, seeded, raw",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 28.0,
+        "proteinGrams": 1.43,
+        "carbGrams": 5.14,
+        "fatGrams": 0.191
+      }
+    },
+    {
+      "id": "usda-foundation:2747663",
+      "fdcID": 2747663,
+      "name": "Peppers, serrano, seeded, raw",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 29.2,
+        "proteinGrams": 0.856,
+        "carbGrams": 6.14,
+        "fatGrams": 0.141
+      }
+    },
+    {
+      "id": "usda-foundation:324653",
+      "fdcID": 324653,
+      "name": "Pickles, cucumber, dill or kosher dill",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 12.0,
+        "proteinGrams": 0.48,
+        "carbGrams": 1.99,
+        "fatGrams": 0.43
+      }
+    },
+    {
+      "id": "usda-foundation:2346398",
+      "fdcID": 2346398,
+      "name": "Pineapple, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 54.0,
+        "proteinGrams": 0.461,
+        "carbGrams": 14.1,
+        "fatGrams": 0.211
+      }
+    },
+    {
+      "id": "usda-foundation:2710843",
+      "fdcID": 2710843,
+      "name": "Plantains, overripe, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 117,
+        "proteinGrams": 1.17,
+        "carbGrams": 29.2,
+        "fatGrams": 0.99
+      }
+    },
+    {
+      "id": "usda-foundation:2710817",
+      "fdcID": 2710817,
+      "name": "Plantains, ripe, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 123,
+        "proteinGrams": 1.16,
+        "carbGrams": 31.0,
+        "fatGrams": 0.893
+      }
+    },
+    {
+      "id": "usda-foundation:2710818",
+      "fdcID": 2710818,
+      "name": "Plantains, underripe, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 145,
+        "proteinGrams": 1.23,
+        "carbGrams": 33.6,
+        "fatGrams": 0.685
+      }
+    },
+    {
+      "id": "usda-foundation:2710837",
+      "fdcID": 2710837,
+      "name": "Plum, black, with skin, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 52.7,
+        "proteinGrams": 0.578,
+        "carbGrams": 13.5,
+        "fatGrams": 0.282
+      }
+    },
+    {
+      "id": "usda-foundation:749420",
+      "fdcID": 749420,
+      "name": "Pork, cured, bacon, cooked, restaurant",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 500,
+        "proteinGrams": 40.9,
+        "carbGrams": 2.1,
+        "fatGrams": 36.5
+      }
+    },
+    {
+      "id": "usda-foundation:2514745",
+      "fdcID": 2514745,
+      "name": "Pork, ground, raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 233,
+        "proteinGrams": 17.8,
+        "carbGrams": 0.0,
+        "fatGrams": 17.5
+      }
+    },
+    {
+      "id": "usda-foundation:2646168",
+      "fdcID": 2646168,
+      "name": "Pork, loin, boneless, raw",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 174,
+        "proteinGrams": 21.1,
+        "carbGrams": 0.0,
+        "fatGrams": 9.47
+      }
+    },
+    {
+      "id": "usda-foundation:2646169",
+      "fdcID": 2646169,
+      "name": "Pork, loin, tenderloin, boneless, raw",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 125,
+        "proteinGrams": 21.6,
+        "carbGrams": 0.0,
+        "fatGrams": 3.9
+      }
+    },
+    {
+      "id": "usda-foundation:2346403",
+      "fdcID": 2346403,
+      "name": "Potatoes, gold, without skin, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 71.6,
+        "proteinGrams": 1.81,
+        "carbGrams": 16.0,
+        "fatGrams": 0.264
+      }
+    },
+    {
+      "id": "usda-foundation:2346402",
+      "fdcID": 2346402,
+      "name": "Potatoes, red, without skin, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 73.4,
+        "proteinGrams": 2.06,
+        "carbGrams": 16.3,
+        "fatGrams": 0.248
+      }
+    },
+    {
+      "id": "usda-foundation:2346401",
+      "fdcID": 2346401,
+      "name": "Potatoes, russet, without skin, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 81.0,
+        "proteinGrams": 2.27,
+        "carbGrams": 17.8,
+        "fatGrams": 0.36
+      }
+    },
+    {
+      "id": "usda-foundation:2747664",
+      "fdcID": 2747664,
+      "name": "Radicchio, raw",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 26.4,
+        "proteinGrams": 1.31,
+        "carbGrams": 4.96,
+        "fatGrams": 0.143
+      }
+    },
+    {
+      "id": "usda-foundation:2747665",
+      "fdcID": 2747665,
+      "name": "Radishes, red, raw",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 19.6,
+        "proteinGrams": 0.656,
+        "carbGrams": 4.06,
+        "fatGrams": 0.083
+      }
+    },
+    {
+      "id": "usda-foundation:2346410",
+      "fdcID": 2346410,
+      "name": "Raspberries, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 51.4,
+        "proteinGrams": 1.01,
+        "carbGrams": 12.9,
+        "fatGrams": 0.188
+      }
+    },
+    {
+      "id": "usda-foundation:334536",
+      "fdcID": 334536,
+      "name": "Restaurant, Chinese, fried rice, without meat",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 174,
+        "proteinGrams": 3.84,
+        "carbGrams": 32.5,
+        "fatGrams": 3.19
+      }
+    },
+    {
+      "id": "usda-foundation:746774",
+      "fdcID": 746774,
+      "name": "Restaurant, Chinese, sweet and sour pork",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 260,
+        "proteinGrams": 8.88,
+        "carbGrams": 25.5,
+        "fatGrams": 13.6
+      }
+    },
+    {
+      "id": "usda-foundation:334720",
+      "fdcID": 334720,
+      "name": "Restaurant, Latino, pupusas con frijoles (pupusas, bean)",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 229,
+        "proteinGrams": 5.59,
+        "carbGrams": 31.5,
+        "fatGrams": 9.01
+      }
+    },
+    {
+      "id": "usda-foundation:334628",
+      "fdcID": 334628,
+      "name": "Restaurant, Latino, tamale, pork",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 174,
+        "proteinGrams": 7.38,
+        "carbGrams": 15.8,
+        "fatGrams": 9.04
+      }
+    },
+    {
+      "id": "usda-foundation:2710825",
+      "fdcID": 2710825,
+      "name": "Rice, black, unenriched, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 361,
+        "proteinGrams": 7.57,
+        "carbGrams": 77.2,
+        "fatGrams": 3.44
+      }
+    },
+    {
+      "id": "usda-foundation:2512380",
+      "fdcID": 2512380,
+      "name": "Rice, brown, long grain, unenriched, raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 368,
+        "proteinGrams": 7.25,
+        "carbGrams": 76.7,
+        "fatGrams": 3.31
+      }
+    },
+    {
+      "id": "usda-foundation:2710838",
+      "fdcID": 2710838,
+      "name": "Rice, red, unenriched, dry, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 360,
+        "proteinGrams": 8.56,
+        "carbGrams": 76.2,
+        "fatGrams": 3.44
+      }
+    },
+    {
+      "id": "usda-foundation:2512381",
+      "fdcID": 2512381,
+      "name": "Rice, white, long grain, unenriched, raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 370,
+        "proteinGrams": 7.04,
+        "carbGrams": 80.3,
+        "fatGrams": 1.03
+      }
+    },
+    {
+      "id": "usda-foundation:332282",
+      "fdcID": 332282,
+      "name": "Sauce, pasta, spaghetti/marinara, ready-to-serve",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 45.0,
+        "proteinGrams": 1.41,
+        "carbGrams": 8.05,
+        "fatGrams": 1.48
+      }
+    },
+    {
+      "id": "usda-foundation:746777",
+      "fdcID": 746777,
+      "name": "Sauce, salsa, ready-to-serve",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 29.0,
+        "proteinGrams": 1.44,
+        "carbGrams": 6.74,
+        "fatGrams": 0.19
+      }
+    },
+    {
+      "id": "usda-foundation:746779",
+      "fdcID": 746779,
+      "name": "Sausage, breakfast sausage, beef, pre-cooked, unprepared",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 328,
+        "proteinGrams": 13.3,
+        "carbGrams": 3.37,
+        "fatGrams": 28.7
+      }
+    },
+    {
+      "id": "usda-foundation:746780",
+      "fdcID": 746780,
+      "name": "Sausage, Italian, pork, mild, cooked, pan-fried",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 322,
+        "proteinGrams": 18.2,
+        "carbGrams": 2.15,
+        "fatGrams": 26.2
+      }
+    },
+    {
+      "id": "usda-foundation:746781",
+      "fdcID": 746781,
+      "name": "Sausage, pork, chorizo, link or ground, cooked, pan-fried",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 346,
+        "proteinGrams": 19.3,
+        "carbGrams": 2.63,
+        "fatGrams": 28.1
+      }
+    },
+    {
+      "id": "usda-foundation:746783",
+      "fdcID": 746783,
+      "name": "Sausage, turkey, breakfast links, mild, raw",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 169,
+        "proteinGrams": 16.7,
+        "carbGrams": 0.93,
+        "fatGrams": 10.4
+      }
+    },
+    {
+      "id": "usda-foundation:2747666",
+      "fdcID": 2747666,
+      "name": "Scallops, bay, Patagonian, frozen, wild caught",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 78.5,
+        "proteinGrams": 16.4,
+        "carbGrams": 2.28,
+        "fatGrams": 0.419
+      }
+    },
+    {
+      "id": "usda-foundation:2747667",
+      "fdcID": 2747667,
+      "name": "Scallops, sea, frozen, wild caught",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 66.4,
+        "proteinGrams": 13.5,
+        "carbGrams": 1.97,
+        "fatGrams": 0.493
+      }
+    },
+    {
+      "id": "usda-foundation:2747668",
+      "fdcID": 2747668,
+      "name": "Sea bass, Chilean, frozen, wild caught",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 209,
+        "proteinGrams": 14.9,
+        "carbGrams": 0.139,
+        "fatGrams": 16.6
+      }
+    },
+    {
+      "id": "usda-foundation:2515380",
+      "fdcID": 2515380,
+      "name": "Seeds, pumpkin seeds (pepitas), raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 515,
+        "proteinGrams": 29.9,
+        "carbGrams": 18.7,
+        "fatGrams": 40.0
+      }
+    },
+    {
+      "id": "usda-foundation:325524",
+      "fdcID": 325524,
+      "name": "Seeds, sunflower seed kernels, dry roasted, with salt added",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 612,
+        "proteinGrams": 21.0,
+        "carbGrams": 17.1,
+        "fatGrams": 56.1
+      }
+    },
+    {
+      "id": "usda-foundation:2515381",
+      "fdcID": 2515381,
+      "name": "Seeds, sunflower seed, kernel, raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 571,
+        "proteinGrams": 18.9,
+        "carbGrams": 24.5,
+        "fatGrams": 48.4
+      }
+    },
+    {
+      "id": "usda-foundation:2262073",
+      "fdcID": 2262073,
+      "name": "Sesame butter, creamy",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 648,
+        "proteinGrams": 19.7,
+        "carbGrams": 14.2,
+        "fatGrams": 62.4
+      }
+    },
+    {
+      "id": "usda-foundation:2747669",
+      "fdcID": 2747669,
+      "name": "Snapper, frozen, wild caught",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 89.5,
+        "proteinGrams": 20.7,
+        "carbGrams": 0.441,
+        "fatGrams": 0.569
+      }
+    },
+    {
+      "id": "usda-foundation:2747670",
+      "fdcID": 2747670,
+      "name": "Snow crab, legs only, frozen",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 69.2,
+        "proteinGrams": 15.5,
+        "carbGrams": 1.11,
+        "fatGrams": 0.294
+      }
+    },
+    {
+      "id": "usda-foundation:2710839",
+      "fdcID": 2710839,
+      "name": "Sorghum bran, white, unenriched, dry, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 365,
+        "proteinGrams": 11.2,
+        "carbGrams": 68.7,
+        "fatGrams": 9.26
+      }
+    },
+    {
+      "id": "usda-foundation:2710840",
+      "fdcID": 2710840,
+      "name": "Sorghum flour, white, pearled, unenriched, dry, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 350,
+        "proteinGrams": 10.2,
+        "carbGrams": 73.5,
+        "fatGrams": 3.24
+      }
+    },
+    {
+      "id": "usda-foundation:2710841",
+      "fdcID": 2710841,
+      "name": "Sorghum grain, white, pearled, unenriched, dry, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 338,
+        "proteinGrams": 10.2,
+        "carbGrams": 74.9,
+        "fatGrams": 3.26
+      }
+    },
+    {
+      "id": "usda-foundation:2710842",
+      "fdcID": 2710842,
+      "name": "Sorghum, whole grain, white, dry, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 341,
+        "proteinGrams": 10.1,
+        "carbGrams": 73.6,
+        "fatGrams": 4.22
+      }
+    },
+    {
+      "id": "usda-foundation:2257044",
+      "fdcID": 2257044,
+      "name": "Soy milk, sweetened, plain, refrigerated",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 40.7,
+        "proteinGrams": 2.78,
+        "carbGrams": 3.0,
+        "fatGrams": 1.96
+      }
+    },
+    {
+      "id": "usda-foundation:1999630",
+      "fdcID": 1999630,
+      "name": "Soy milk, unsweetened, plain, shelf stable",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 38.5,
+        "proteinGrams": 3.55,
+        "carbGrams": 1.29,
+        "fatGrams": 2.12
+      }
+    },
+    {
+      "id": "usda-foundation:1999632",
+      "fdcID": 1999632,
+      "name": "Spinach, baby",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 20.7,
+        "proteinGrams": 2.85,
+        "carbGrams": 2.41,
+        "fatGrams": 0.619
+      }
+    },
+    {
+      "id": "usda-foundation:1999633",
+      "fdcID": 1999633,
+      "name": "Spinach, mature",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 21.6,
+        "proteinGrams": 2.91,
+        "carbGrams": 2.64,
+        "fatGrams": 0.604
+      }
+    },
+    {
+      "id": "usda-foundation:2685568",
+      "fdcID": 2685568,
+      "name": "Squash, summer, green, zucchini, includes skin, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 16.0,
+        "proteinGrams": 0.984,
+        "carbGrams": 3.27,
+        "fatGrams": 0.205
+      }
+    },
+    {
+      "id": "usda-foundation:2685569",
+      "fdcID": 2685569,
+      "name": "Squash, summer, yellow, includes skin, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 19.0,
+        "proteinGrams": 0.891,
+        "carbGrams": 4.39,
+        "fatGrams": 0.135
+      }
+    },
+    {
+      "id": "usda-foundation:2685571",
+      "fdcID": 2685571,
+      "name": "Squash, winter, acorn, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 42.0,
+        "proteinGrams": 1.25,
+        "carbGrams": 10.5,
+        "fatGrams": 0.182
+      }
+    },
+    {
+      "id": "usda-foundation:2685570",
+      "fdcID": 2685570,
+      "name": "Squash, winter, butternut, raw",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 41.7,
+        "proteinGrams": 1.15,
+        "carbGrams": 10.5,
+        "fatGrams": 0.168
+      }
+    },
+    {
+      "id": "usda-foundation:2747671",
+      "fdcID": 2747671,
+      "name": "Squid (calamari), frozen, tubes only",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 43.9,
+        "proteinGrams": 8.81,
+        "carbGrams": 0.932,
+        "fatGrams": 0.551
+      }
+    },
+    {
+      "id": "usda-foundation:2346409",
+      "fdcID": 2346409,
+      "name": "Strawberries, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 32.7,
+        "proteinGrams": 0.641,
+        "carbGrams": 7.96,
+        "fatGrams": 0.22
+      }
+    },
+    {
+      "id": "usda-foundation:746784",
+      "fdcID": 746784,
+      "name": "Sugars, granulated",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 385,
+        "proteinGrams": 0.0,
+        "carbGrams": 99.6,
+        "fatGrams": 0.32
+      }
+    },
+    {
+      "id": "usda-foundation:2346404",
+      "fdcID": 2346404,
+      "name": "Sweet potatoes, orange flesh, without skin, raw",
+      "publicationDate": "10/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 77.4,
+        "proteinGrams": 1.58,
+        "carbGrams": 17.3,
+        "fatGrams": 0.375
+      }
+    },
+    {
+      "id": "usda-foundation:2747672",
+      "fdcID": 2747672,
+      "name": "Swordfish, frozen, wild caught",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 152,
+        "proteinGrams": 19.2,
+        "carbGrams": 0.45,
+        "fatGrams": 8.12
+      }
+    },
+    {
+      "id": "usda-foundation:2003596",
+      "fdcID": 2003596,
+      "name": "Tomato juice, with added ingredients, from concentrate, shelf stable",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 19.9,
+        "proteinGrams": 0.859,
+        "carbGrams": 4.32,
+        "fatGrams": 0.288
+      }
+    },
+    {
+      "id": "usda-foundation:2685580",
+      "fdcID": 2685580,
+      "name": "Tomato, paste, canned, without salt added",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 88.5,
+        "proteinGrams": 4.23,
+        "carbGrams": 20.2,
+        "fatGrams": 0.732
+      }
+    },
+    {
+      "id": "usda-foundation:2685582",
+      "fdcID": 2685582,
+      "name": "Tomato, puree, canned",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 34.8,
+        "proteinGrams": 1.58,
+        "carbGrams": 8.04,
+        "fatGrams": 0.265
+      }
+    },
+    {
+      "id": "usda-foundation:1999634",
+      "fdcID": 1999634,
+      "name": "Tomato, roma",
+      "publicationDate": "10/28/2021",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 19.0,
+        "proteinGrams": 0.696,
+        "carbGrams": 3.84,
+        "fatGrams": 0.425
+      }
+    },
+    {
+      "id": "usda-foundation:2685579",
+      "fdcID": 2685579,
+      "name": "Tomato, sauce, canned, with salt added",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 29.1,
+        "proteinGrams": 1.35,
+        "carbGrams": 6.33,
+        "fatGrams": 0.382
+      }
+    },
+    {
+      "id": "usda-foundation:333281",
+      "fdcID": 333281,
+      "name": "Tomatoes, canned, red, ripe, diced",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 18.0,
+        "proteinGrams": 0.84,
+        "carbGrams": 3.32,
+        "fatGrams": 0.5
+      }
+    },
+    {
+      "id": "usda-foundation:2685581",
+      "fdcID": 2685581,
+      "name": "Tomatoes, crushed, canned",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 32.3,
+        "proteinGrams": 1.44,
+        "carbGrams": 7.14,
+        "fatGrams": 0.398
+      }
+    },
+    {
+      "id": "usda-foundation:321360",
+      "fdcID": 321360,
+      "name": "Tomatoes, grape, raw",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 27.0,
+        "proteinGrams": 0.83,
+        "carbGrams": 5.51,
+        "fatGrams": 0.63
+      }
+    },
+    {
+      "id": "usda-foundation:2685578",
+      "fdcID": 2685578,
+      "name": "Tomatoes, whole, canned, solids and liquids, with salt added",
+      "publicationDate": "4/18/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 19.1,
+        "proteinGrams": 0.868,
+        "carbGrams": 4.29,
+        "fatGrams": 0.206
+      }
+    },
+    {
+      "id": "usda-foundation:746785",
+      "fdcID": 746785,
+      "name": "Turkey, ground, 93% lean, 7% fat, pan-broiled crumbles",
+      "publicationDate": "12/16/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 220,
+        "proteinGrams": 27.1,
+        "carbGrams": 0.0,
+        "fatGrams": 11.6
+      }
+    },
+    {
+      "id": "usda-foundation:2514747",
+      "fdcID": 2514747,
+      "name": "Turkey, ground, 93% lean/ 7% fat, raw",
+      "publicationDate": "4/20/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 158,
+        "proteinGrams": 17.3,
+        "carbGrams": 0.0,
+        "fatGrams": 9.59
+      }
+    },
+    {
+      "id": "usda-foundation:2747674",
+      "fdcID": 2747674,
+      "name": "Turnips, raw",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 34.0,
+        "proteinGrams": 0.953,
+        "carbGrams": 7.27,
+        "fatGrams": 0.119
+      }
+    },
+    {
+      "id": "usda-foundation:2747676",
+      "fdcID": 2747676,
+      "name": "Watermelon, seedless, rind only, raw",
+      "publicationDate": "12/18/2025",
+      "energyNutrientID": 2047,
+      "nutritionPer100g": {
+        "calories": 19.4,
+        "proteinGrams": 0.531,
+        "carbGrams": 4.17,
+        "fatGrams": 0.07
+      }
+    },
+    {
+      "id": "usda-foundation:2710821",
+      "fdcID": 2710821,
+      "name": "Wild rice, dry, raw",
+      "publicationDate": "10/31/2024",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 359,
+        "proteinGrams": 12.8,
+        "carbGrams": 75.7,
+        "fatGrams": 1.7
+      }
+    },
+    {
+      "id": "usda-foundation:330137",
+      "fdcID": 330137,
+      "name": "Yogurt, Greek, plain, nonfat",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 61.0,
+        "proteinGrams": 10.3,
+        "carbGrams": 3.64,
+        "fatGrams": 0.37
+      }
+    },
+    {
+      "id": "usda-foundation:2259794",
+      "fdcID": 2259794,
+      "name": "Yogurt, Greek, plain, whole milk",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 94.5,
+        "proteinGrams": 8.78,
+        "carbGrams": 4.75,
+        "fatGrams": 4.39
+      }
+    },
+    {
+      "id": "usda-foundation:330415",
+      "fdcID": 330415,
+      "name": "Yogurt, Greek, strawberry, nonfat",
+      "publicationDate": "4/1/2019",
+      "energyNutrientID": 1008,
+      "nutritionPer100g": {
+        "calories": 83.0,
+        "proteinGrams": 8.06,
+        "carbGrams": 12.2,
+        "fatGrams": 0.15
+      }
+    },
+    {
+      "id": "usda-foundation:2647437",
+      "fdcID": 2647437,
+      "name": "Yogurt, plain, nonfat",
+      "publicationDate": "10/26/2023",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 50.1,
+        "proteinGrams": 4.23,
+        "carbGrams": 8.08,
+        "fatGrams": 0.087
+      }
+    },
+    {
+      "id": "usda-foundation:2259793",
+      "fdcID": 2259793,
+      "name": "Yogurt, plain, whole milk",
+      "publicationDate": "4/28/2022",
+      "energyNutrientID": 2048,
+      "nutritionPer100g": {
+        "calories": 77.3,
+        "proteinGrams": 3.82,
+        "carbGrams": 5.57,
+        "fatGrams": 4.48
+      }
+    }
+  ]
+}

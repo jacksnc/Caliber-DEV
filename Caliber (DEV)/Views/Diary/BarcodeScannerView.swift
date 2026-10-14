@@ -1,0 +1,225 @@
+@preconcurrency import AVFoundation
+import SwiftUI
+import UIKit
+
+/// Present this view as a sheet. It returns one validated barcode for the
+/// caller's food lookup; neither camera frames nor photos leave this screen.
+struct BarcodeScannerView: View {
+  @Environment(\.dismiss) private var dismiss
+  @Environment(\.scenePhase) private var scenePhase
+  @Environment(\.openURL) private var openURL
+  @StateObject private var capture = BarcodeCaptureService()
+  @State private var manualValue = ""
+  @State private var validationMessage: String?
+  @State private var didFinish = false
+  @FocusState private var isEditingManualCode: Bool
+
+  let onScanned: (String) -> Void
+
+  var body: some View {
+    NavigationStack {
+      ScrollView {
+        VStack(alignment: .leading, spacing: 20) {
+          cameraArea
+
+          VStack(alignment: .leading, spacing: 8) {
+            Text("Enter Barcode")
+              .font(.headline)
+            Text("Type the numbers below the barcode, including any leading zeroes.")
+              .font(.subheadline)
+              .foregroundStyle(.secondary)
+            TextField("8, 12, 13, or 14 digits", text: $manualValue)
+              .keyboardType(.numberPad)
+              .textInputAutocapitalization(.never)
+              .autocorrectionDisabled()
+              .font(.title3.monospacedDigit())
+              .padding(.horizontal, 12)
+              .frame(minHeight: 48)
+              .background(.quaternary, in: RoundedRectangle(cornerRadius: 10))
+              .focused($isEditingManualCode)
+              .accessibilityLabel("Barcode digits")
+              .accessibilityIdentifier("barcodeManualInput")
+              .onChange(of: manualValue) { _, _ in validationMessage = nil }
+
+            if let validationMessage {
+              Text(validationMessage)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .accessibilityIdentifier("barcodeValidationMessage")
+            }
+
+            Button {
+              complete(with: manualValue)
+            } label: {
+              Text("Find Food")
+                .frame(maxWidth: .infinity, minHeight: 48)
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(
+              manualValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || didFinish
+            )
+            .accessibilityIdentifier("barcodeConfirm")
+
+            Text(
+              "Supports EAN-8, UPC-A, EAN-13, and GTIN-14. Compressed UPC-E barcodes aren't supported."
+            )
+            .font(.footnote)
+            .foregroundStyle(.secondary)
+          }
+        }
+        .padding()
+      }
+      .scrollDismissesKeyboard(.interactively)
+      .navigationTitle("Scan Barcode")
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .cancellationAction) {
+          Button("Cancel", action: cancel)
+            .frame(minWidth: 48, minHeight: 48)
+            .accessibilityIdentifier("barcodeCancel")
+        }
+        ToolbarItemGroup(placement: .keyboard) {
+          Spacer()
+          Button("Done") { isEditingManualCode = false }
+            .frame(minWidth: 48, minHeight: 48)
+        }
+      }
+      .onAppear { capture.start() }
+      .onDisappear {
+        didFinish = true
+        capture.stop()
+      }
+      .onChange(of: capture.scannedValue) { _, value in
+        if let value { complete(with: value) }
+      }
+      .onChange(of: isEditingManualCode) { _, isEditing in
+        if isEditing {
+          capture.stop()
+        } else if scenePhase == .active && !didFinish {
+          capture.start()
+        }
+      }
+      .onChange(of: scenePhase) { _, phase in
+        if phase == .active && !didFinish && !isEditingManualCode {
+          capture.start()
+        } else {
+          capture.stop()
+        }
+      }
+    }
+  }
+
+  @ViewBuilder
+  private var cameraArea: some View {
+    switch capture.status {
+    case .scanning:
+      if let session = capture.previewSession {
+        BarcodeCameraPreview(session: session)
+          .frame(height: 240)
+          .clipShape(RoundedRectangle(cornerRadius: 16))
+          .accessibilityLabel("Live barcode camera preview")
+          .accessibilityIdentifier("barcodeCameraPreview")
+      }
+      Text("Hold the barcode steady inside the camera view.")
+        .font(.subheadline)
+        .foregroundStyle(.secondary)
+    case .requestingPermission:
+      ProgressView("Waiting for camera permission…")
+        .frame(maxWidth: .infinity, minHeight: 120)
+    case .denied:
+      Label(
+        "Camera access is off. Enter a barcode below, or enable Camera in Settings.",
+        systemImage: "camera.fill"
+      )
+      .foregroundStyle(.secondary)
+      Button {
+        if let url = URL(string: UIApplication.openSettingsURLString) { openURL(url) }
+      } label: {
+        Text("Open Settings").frame(maxWidth: .infinity, minHeight: 48)
+      }
+      .buttonStyle(.bordered)
+    case .unavailable(let message):
+      Label(message, systemImage: "camera.fill")
+        .foregroundStyle(.secondary)
+        .accessibilityIdentifier("barcodeCameraUnavailable")
+      Button {
+        capture.retry()
+      } label: {
+        Text("Retry Camera").frame(maxWidth: .infinity, minHeight: 48)
+      }
+      .buttonStyle(.bordered)
+    case .idle:
+      Label(
+        isEditingManualCode
+          ? "Camera paused while you enter a barcode."
+          : "Preparing the camera. You can also enter a barcode below.",
+        systemImage: "barcode.viewfinder"
+      )
+      .foregroundStyle(.secondary)
+    }
+  }
+
+  private func complete(with rawValue: String) {
+    guard !didFinish else { return }
+    do {
+      let code = try BarcodeValue.normalize(rawValue)
+      // Both the camera and the manual button reach this gate. Stop the
+      // camera before the callback so a second frame cannot log twice.
+      didFinish = true
+      capture.stop()
+      onScanned(code)
+      dismiss()
+    } catch {
+      validationMessage = error.localizedDescription
+    }
+  }
+
+  private func cancel() {
+    didFinish = true
+    capture.stop()
+    dismiss()
+  }
+}
+
+private struct BarcodeCameraPreview: UIViewRepresentable {
+  let session: AVCaptureSession
+
+  func makeUIView(context: Context) -> BarcodePreviewUIView {
+    let view = BarcodePreviewUIView()
+    view.previewLayer.videoGravity = .resizeAspectFill
+    view.previewLayer.session = session
+    return view
+  }
+
+  func updateUIView(_ view: BarcodePreviewUIView, context: Context) {
+    if view.previewLayer.session !== session { view.previewLayer.session = session }
+    view.setNeedsLayout()
+  }
+
+  static func dismantleUIView(_ view: BarcodePreviewUIView, coordinator: ()) {
+    view.previewLayer.session = nil
+  }
+}
+
+private final class BarcodePreviewUIView: UIView {
+  override class var layerClass: AnyClass { AVCaptureVideoPreviewLayer.self }
+  var previewLayer: AVCaptureVideoPreviewLayer { layer as! AVCaptureVideoPreviewLayer }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    guard let connection = previewLayer.connection,
+      let orientation = window?.windowScene?.interfaceOrientation
+    else { return }
+    let angle: CGFloat
+    switch orientation {
+    case .portrait: angle = 90
+    case .portraitUpsideDown: angle = 270
+    case .landscapeLeft: angle = 180
+    case .landscapeRight: angle = 0
+    default: return
+    }
+    if connection.isVideoRotationAngleSupported(angle) {
+      connection.videoRotationAngle = angle
+    }
+  }
+}
