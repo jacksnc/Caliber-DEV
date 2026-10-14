@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-14 — Recent foods, favorites, portions and day/meal copying
+
+- Added offline recent/frequent food groups, key-only favorites and personal favorite preservation in My Foods. Exact variants stay separate; repeating a food defaults to the latest valid quantity.
+- Added weight ounces and explicit source portions with live totals. Unit changes preserve the selected mass and macro edits; unknown mass never becomes a guessed volume/density conversion.
+- Added reviewed, selectable day/meal copying with calendar-correct yesterday, independent snapshots, preserved notes/provenance and targeted failure cleanup. Completed drafts cannot be added twice by repeated taps.
+- Routed Diary Add through food search and preserved its meal/date across catalog, barcode, saved meals and restaurant reviews. Added privacy cancellation protection before starting a barcode lookup.
+- Added 35 unit functions and four isolated UI scenarios; see FOOD_REUSE_VERIFICATION.md for final evidence and limits. Existing live models, provider configuration, hosted services and datasets remain unchanged.
+
 ## 2026-10-14 — Offline food, barcode review and normalized copy
 
 - Bundled 311 complete, source-traceable USDA Foundation foods from a hash-pinned CC0 release, with reproducible importer and offline ranked search. Added gram-based review, personal macro overrides and independent diary copies without changing SwiftData models.

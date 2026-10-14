@@ -123,3 +123,13 @@ func lateBarcodeResultCannotPublishAfterWithdrawalOrCancellation(withdraw: Bool)
   #expect(FoodLookupConfiguration.load()?.provider == "pending")
   #expect(FoodLookupConfiguration.load()?.configuredService() == nil)
 }
+
+@MainActor @Test func canceledBarcodeLookupDoesNotStartAProviderRequest() async {
+  await withBarcodeModel { model, service, _ in
+    model.setPermission(true)
+    let task = Task { await model.lookup("012345678905") }
+    task.cancel()
+    await task.value
+    #expect(service.calls == 0 && model.product == nil && !model.isBusy)
+  }
+}

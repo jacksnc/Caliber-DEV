@@ -1,0 +1,46 @@
+Caliber (DEV)/App/BarcodeLookupCoordinator.swift
+Caliber (DEV)/App/FoodLibraryPreferences.swift
+Caliber (DEV)/App/FoundationRuntime.swift
+Caliber (DEV)/Services/FoodReuseIndex.swift
+Caliber (DEV)/Services/FoodReuseUITestFixture.swift
+Caliber (DEV)/Utilities/DiaryDay.swift
+Caliber (DEV)/Utilities/DiaryRepeatLogger.swift
+Caliber (DEV)/Utilities/FoodFavoriteEditor.swift
+Caliber (DEV)/Utilities/FoodPortionMath.swift
+Caliber (DEV)/Views/Components/MacroOverrideSection.swift
+Caliber (DEV)/Views/Diary/BarcodeFoodLookupView.swift
+Caliber (DEV)/Views/Diary/CopyDiaryView.swift
+Caliber (DEV)/Views/Diary/DiaryView.swift
+Caliber (DEV)/Views/Diary/FoodNutritionReviewView.swift
+Caliber (DEV)/Views/Diary/FoodSearchView.swift
+Caliber (DEV)/Views/FoodLibrary/FoodLibraryView.swift
+Caliber (DEV)/Views/MyFoods/MyFoodsView.swift
+Caliber (DEV)/Views/MyFoods/SavedFoodDetailView.swift
+Caliber (DEV)/Views/MyMeals/SavedMealDetailView.swift
+Caliber (DEV)/Views/Restaurants/BuildYourOwnView.swift
+Caliber (DEV)/Views/Restaurants/MenuItemDetailView.swift
+Caliber (DEV)/Views/Restaurants/RestaurantDetailView.swift
+Caliber (DEV)/Views/Restaurants/RestaurantListView.swift
+Caliber (DEV)Tests/BarcodeCoordinatorTests.swift
+Caliber (DEV)Tests/DiaryDayTests.swift
+Caliber (DEV)Tests/DiaryRepeatLoggerTests.swift
+Caliber (DEV)Tests/FoodFavoriteEditorTests.swift
+Caliber (DEV)Tests/FoodLibraryPreferencesTests.swift
+Caliber (DEV)Tests/FoodPortionMathTests.swift
+Caliber (DEV)Tests/FoodReuseIndexTests.swift
+Caliber (DEV)UITests/FoodShortcutsUITests.swift
+docs/BACKLOG.md
+docs/CHANGELOG.md
+docs/DECISIONS.md
+docs/FOOD_REUSE_FILES.txt
+docs/FOOD_REUSE_VERIFICATION.md
+docs/HOW_WE_CALCULATE.md
+docs/MIGRATIONS.md
+docs/SECURITY.md
+docs/adr/012-local-food-reuse.md
+docs/evidence/food-reuse/app-and-copy-ui.log
+docs/evidence/food-reuse/diff-review.log
+docs/evidence/food-reuse/existing-food-and-restaurant-ui.log
+docs/evidence/food-reuse/lint.log
+docs/evidence/food-reuse/portion-and-shortcuts-ui.log
+scripts/lint_foundation.py

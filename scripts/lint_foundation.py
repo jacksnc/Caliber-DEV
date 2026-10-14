@@ -50,4 +50,28 @@ paths += [ROOT / p for p in [
     'Caliber (DEV)UITests/FoodExperienceUITests.swift',
     'Caliber (DEV)UITests/RestaurantCustomizationUITests.swift',
 ]]
+paths += [ROOT / p for p in [
+    'Caliber (DEV)/App/FoodLibraryPreferences.swift',
+    'Caliber (DEV)/Services/FoodReuseIndex.swift',
+    'Caliber (DEV)/Services/FoodReuseUITestFixture.swift',
+    'Caliber (DEV)/Utilities/FoodFavoriteEditor.swift',
+    'Caliber (DEV)/Utilities/FoodPortionMath.swift',
+    'Caliber (DEV)/Utilities/DiaryDay.swift',
+    'Caliber (DEV)/Utilities/DiaryRepeatLogger.swift',
+    'Caliber (DEV)/Views/Diary/CopyDiaryView.swift',
+    'Caliber (DEV)/Views/Diary/DiaryView.swift',
+    'Caliber (DEV)/Views/MyFoods/SavedFoodDetailView.swift',
+    'Caliber (DEV)/Views/MyFoods/MyFoodsView.swift',
+    'Caliber (DEV)/Views/MyMeals/SavedMealDetailView.swift',
+    'Caliber (DEV)/Views/Restaurants/BuildYourOwnView.swift',
+    'Caliber (DEV)/Views/Restaurants/MenuItemDetailView.swift',
+    'Caliber (DEV)Tests/FoodReuseIndexTests.swift',
+    'Caliber (DEV)Tests/FoodLibraryPreferencesTests.swift',
+    'Caliber (DEV)Tests/DiaryRepeatLoggerTests.swift',
+    'Caliber (DEV)Tests/FoodFavoriteEditorTests.swift',
+    'Caliber (DEV)Tests/FoodPortionMathTests.swift',
+    'Caliber (DEV)Tests/DiaryDayTests.swift',
+]]
+paths += [ROOT / 'Caliber (DEV)UITests/FoodShortcutsUITests.swift']
+paths += [ROOT / 'Caliber (DEV)/Views/Components/MacroOverrideSection.swift']
 subprocess.run(['xcrun', 'swift-format', 'lint', '--strict', *map(str, paths)], cwd=ROOT, check=True)

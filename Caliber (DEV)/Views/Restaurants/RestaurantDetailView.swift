@@ -12,6 +12,13 @@ struct RestaurantDetailView: View {
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var modelContext
   let restaurant: Restaurant
+  let mealType: MealType
+  let date: Date
+  init(restaurant: Restaurant, mealType: MealType = .snack, date: Date = .now) {
+    self.restaurant = restaurant
+    self.mealType = mealType
+    self.date = date
+  }
 
   @State private var searchText = ""
   @State private var isAddingCustomItem = false
@@ -72,7 +79,7 @@ struct RestaurantDetailView: View {
         Section("Build Your Own") {
           ForEach(filteredTemplates) { template in
             NavigationLink(template.name) {
-              BuildYourOwnView(template: template)
+              BuildYourOwnView(template: template, mealType: mealType, date: date)
             }
           }
         }
@@ -82,7 +89,7 @@ struct RestaurantDetailView: View {
         Section(group.category.displayName) {
           ForEach(group.items) { item in
             NavigationLink {
-              MenuItemDetailView(menuItem: item)
+              MenuItemDetailView(menuItem: item, mealType: mealType, date: date)
             } label: {
               VStack(alignment: .leading, spacing: 2) {
                 HStack {

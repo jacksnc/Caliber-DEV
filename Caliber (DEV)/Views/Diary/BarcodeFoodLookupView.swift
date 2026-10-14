@@ -2,11 +2,17 @@ import SwiftUI
 
 struct BarcodeFoodLookupView: View {
   @EnvironmentObject private var runtime: FoundationRuntime
+  let mealType: MealType
+  let date: Date
+  init(mealType: MealType = .snack, date: Date = .now) {
+    self.mealType = mealType
+    self.date = date
+  }
   @State private var coordinator: BarcodeLookupCoordinator?
   var body: some View {
     Group {
       if let coordinator {
-        BarcodeLookupContent(coordinator: coordinator)
+        BarcodeLookupContent(coordinator: coordinator, mealType: mealType, date: date)
       } else {
         ProgressView("Opening barcode tools…")
       }
@@ -18,6 +24,8 @@ struct BarcodeFoodLookupView: View {
 
 private struct BarcodeLookupContent: View {
   @ObservedObject var coordinator: BarcodeLookupCoordinator
+  let mealType: MealType
+  let date: Date
   @State private var code = ""
   @State private var showsScanner = false
   @State private var showsManualFood = false
@@ -77,7 +85,7 @@ private struct BarcodeLookupContent: View {
       if let product = coordinator.product {
         Section("Product Found") {
           NavigationLink {
-            FoodNutritionReviewView(reference: .barcode(product))
+            FoodNutritionReviewView(reference: .barcode(product), meal: mealType, date: date)
           } label: {
             VStack(alignment: .leading, spacing: 4) {
               Text(product.name)
@@ -97,7 +105,7 @@ private struct BarcodeLookupContent: View {
       BarcodeScannerView { value in code = value }
     }
     .sheet(isPresented: $showsManualFood) {
-      AddFoodView(mealType: .snack, date: .now)
+      AddFoodView(mealType: mealType, date: date)
     }
     .onChange(of: code) { _, _ in
       lookupTask?.cancel()

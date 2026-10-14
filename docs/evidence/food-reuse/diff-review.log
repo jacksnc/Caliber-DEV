@@ -1,0 +1,5 @@
+Reviewed favorite persistence, serving dimensions, copy snapshots/failure cleanup, chosen day/meal propagation and debug-only fixture boundaries.
+No persistent model, source dataset, live-store locator or hosted configuration change.
+Touched legacy views are formatted consistently; forEach-to-for-in replacements preserve behavior.
+Unrelated Xcode scheme user preferences excluded.
+git diff --check: exit 0

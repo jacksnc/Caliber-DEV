@@ -12,6 +12,7 @@ final class FoundationRuntime: ObservableObject {
   @Published private(set) var isLoadingDemo = false
   @Published var isDemoMode = false
   @Published var message: String?
+  let foodLibraryPreferences: FoodLibraryPreferences
   let account: HostedAccountModel
   let testing: Bool
   var preferenceStore: UserDefaults { defaults }
@@ -37,6 +38,7 @@ final class FoundationRuntime: ObservableObject {
     } else {
       defaults = .standard
     }
+    foodLibraryPreferences = FoodLibraryPreferences(defaults: defaults)
     var loaded =
       defaults.data(forKey: "foundation.settings.v1").flatMap {
         try? JSONDecoder().decode(FoundationSettings.self, from: $0)
@@ -143,6 +145,7 @@ struct FoundationRootView: View {
       }
     }
     .environmentObject(runtime.account)
+    .environmentObject(runtime.foodLibraryPreferences)
     .defaultAppStorage(runtime.preferenceStore)
     .preferredColorScheme(runtime.colorScheme)
     .environment(\.locale, Locale(identifier: runtime.settings.localeIdentifier))
@@ -169,6 +172,14 @@ struct FoundationRootView: View {
       container = try ModelContainer(
         for: schema,
         configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: runtime.testing)])
+      #if DEBUG
+        if runtime.testing && ProcessInfo.processInfo.arguments.contains("--food-reuse-fixture"),
+          let container
+        {
+          try FoodReuseUITestFixture.seed(
+            in: container.mainContext, calendar: runtime.settings.calendar)
+        }
+      #endif
     } catch { failed = true }
   }
 }

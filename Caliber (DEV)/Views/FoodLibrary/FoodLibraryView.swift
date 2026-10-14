@@ -57,4 +57,6 @@ struct FoodLibraryView: View {
 #Preview {
   FoodLibraryView()
     .modelContainer(for: [Restaurant.self, SavedMeal.self, FoodItem.self], inMemory: true)
+    .environmentObject(
+      FoodLibraryPreferences(defaults: UserDefaults(suiteName: "Caliber.Food.Previews")!))
 }

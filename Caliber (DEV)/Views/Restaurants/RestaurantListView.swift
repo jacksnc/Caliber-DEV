@@ -11,6 +11,13 @@ struct RestaurantListView: View {
   @Environment(\.modelContext) private var modelContext
   @Query(sort: \Restaurant.name) private var restaurants: [Restaurant]
 
+  let mealType: MealType
+  let date: Date
+  init(mealType: MealType = .snack, date: Date = .now) {
+    self.mealType = mealType
+    self.date = date
+  }
+
   @State private var searchText = ""
   @State private var loadError: String?
   @State private var isLoading = false
@@ -42,7 +49,7 @@ struct RestaurantListView: View {
         Section {
           ForEach(filteredRestaurants) { restaurant in
             NavigationLink {
-              RestaurantDetailView(restaurant: restaurant)
+              RestaurantDetailView(restaurant: restaurant, mealType: mealType, date: date)
             } label: {
               VStack(alignment: .leading, spacing: 3) {
                 Text(restaurant.name)

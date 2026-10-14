@@ -277,3 +277,11 @@ These entries preserve the existing requirement priorities. They are unfinished 
 - PLAT-03 normalized rehearsal maps all 15 models into a separate GRDB target and reconciles exact typed values. Unknown serving grams remain compatibility rows, not fabricated canonical nutrients/log grams. Finish canonical app repositories/read-model integration, protected attachments/backup and migration review before live cutover.
 - Verify native camera permission denial/retry, real barcode decoding, rotation, background/interruption and accessibility on a physical iPhone. Simulator manual capture is not a hardware-camera pass.
 - Email sender and delivery/reset verification remain deferred per the owner's explicit instruction. No hosted account/sync activation occurred in this checkpoint.
+
+## Food reuse checkpoint — 2026-10-14
+
+- FUEL-01 local recents, frequency, favorites and reviewed day/meal copying are now implemented. Diary Add opens unified search with its selected meal/date; repeat review defaults to the last quantity. Quick-add polish, custom meal-slot times and broader serving/database coverage remain P0 work; this does not close all FUEL-01/02/03/05 scope.
+- FUEL-03 supports g, weight oz and explicit source portions. Unknown-mass servings remain multipliers. Slider interaction, household measures, density, yield factors and volume conversions remain; conversions need truthful source metadata; do not infer them.
+- Favorite keys are separate device preferences and are not included in the legacy model archive. Full preference portability, source-version/removal reconciliation and account-specific migration remain open with the protected export/import work.
+- Native camera/iOS17 runtime, largest accessibility size/VoiceOver and physical-device/large-history budgets remain pending. The existing simulator numeric-keyboard layout warning is tracked; no warning-free-runtime claim.
+- No new food dataset or restaurant import occurred here. Live barcode provider/contact/terms setup, licensed restaurant coverage and email delivery configuration stay pending. Source 311-food USDA catalog and restricted default online configuration are unchanged.

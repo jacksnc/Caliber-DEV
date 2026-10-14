@@ -73,7 +73,7 @@ final class BarcodeLookupCoordinator: ObservableObject {
     message = nil
   }
   func lookup(_ raw: String) async {
-    guard !isBusy else { return }
+    guard !Task.isCancelled, !isBusy else { return }
     product = nil
     guard let code = try? BarcodeValue.normalize(raw) else {
       message = BarcodeLookupError.invalidBarcode.errorDescription
