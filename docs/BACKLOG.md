@@ -300,3 +300,9 @@ These entries preserve the existing requirement priorities. They are unfinished 
 - Native/manual capture → local lookup → reviewed serving/macros → independent diary snapshot is implemented. Source mL stays volume-only; missing products retain manual entry. Physical camera/device/minimum-OS checks remain open.
 - The separately gated OFF adapter remains configured pending. No remote requests, provider account/API key or real barcode transmission were activated. Future server-backed coverage/source refresh/contact/terms choices remain separate work.
 - Existing generic8,104-food/14,792-portion database and all private schemas remain intact. Global name search across packaged records, labelOCR, structured source-update reconciliation and micronutrients remain open.
+
+## Restaurant data follow-through — 2026-10-15
+
+- Obtain a permitted current chain dataset or actual restaurant permission, retain its rights evidence and source/retrieval dates, and validate real-label/menu samples before enabling FUEL-13.
+- Prepared importer supports flat categorized servings. Licensed component/modifier/version updates, broad menu search, source removal/update reconciliation and structured personal provenance remain open.
+- Existing sample menus are still samples; an empty production registry is not restaurant coverage. Fictional examples must never be relabeled approved or used as a real meal.

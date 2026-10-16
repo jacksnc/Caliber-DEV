@@ -1,3 +1,9 @@
+## 2026-10-15 — Restaurant import workflow prepared
+
+- Added strict permission/source-aware JSON imports, deterministic preview/output checks and an honestly empty production registry.
+- Added immutable categorized menu browsing with portion/macro review and personal custom-item actions; FUEL-13 remains off pending source/release clearance.
+- Production rejects fictional/invalid data. No new real menu dataset, private migration or hosted change occurred.
+
 # Changelog
 
 ## 2026-10-15 — Offline packaged-food barcodes

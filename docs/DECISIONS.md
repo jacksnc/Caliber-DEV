@@ -182,3 +182,11 @@ The owner's “Go” accepted ADR-001's native iOS / later Android amendment. Ph
 | D87 | Select newest publication then modification per GTIN before eligibility/completeness. | Tied newest versions are excluded; an incomplete latest record never falls back silently to older nutrition. The manifest records editorial brand priority and subset exclusions. |
 | D88 | Check local data first and require separate permission before any online fallback. | Local hits work with permission off; cancellation/generation checks before a local miss can reach a provider prevent stale codes leaking online. Existing OFF setup/terms remain pending. |
 | D89 | Keep packaged sources independent of generic source tables and private snapshots. | Read-only pin/schema/integrity/GTIN checks, off-main shared loading and independent editable logs preserve existing data. No private schema or hosted migration. |
+
+## Restaurant import preparation — 2026-10-15
+
+| ID | Choice | Reason / consequence |
+| --- | --- | --- |
+| D90 | Prepare a deterministic permission-gated registry, shipping it empty. | Owner authorized steps 1→2→3; no licensed restaurant source was supplied. ADR-015 avoids inventing current menu coverage or reuse rights. |
+| D91 | Read imported menu rows as immutable values; save only reviewed personal food snapshots. | Avoid importing a source graph into private SwiftData through a MenuItem relationship. Source ID/date stay in serving text; personal restaurant additions remain editable. |
+| D92 | Keep FUEL-13 off and fictional previews restricted to DEBUG + isolated-memory tests. | Dataset permission declarations are not proof of a rights review. Production rejects fictional registry output, invalid nutrition, ambiguous IDs and unsupported serving bases. |

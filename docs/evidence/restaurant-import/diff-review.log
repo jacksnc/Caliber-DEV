@@ -1,0 +1,1 @@
+2026-10-15: affected Swift/Python/schema source reread for preservation of source values, strict parsing, private snapshot boundaries, fixture/release gating and personal actions. git diff --check passed. Unrelated user scheme state and in-progress recipe files excluded from phase commit.

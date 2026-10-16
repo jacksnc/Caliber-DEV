@@ -148,3 +148,7 @@ USDA Branded values use 100 g **or 100 mL**, based on the explicit provider serv
 Pinned-record checks: FDC 2212186 reports 393 kcal/100 g and a 28 g serving, producing 110.04 kcal; 56 g gives 220.08 kcal. FDC 2475195 reports 44 kcal/100 mL and a 250 mL serving, producing 110 kcal; two source servings give 220 kcal with no inferred 500 g. These verify source math, not present-day package labels. Personal overrides apply to the reviewed source portion before its count multiplier.
 
 Barcode identity uses checksum-valid canonical GTIN14 text, preserving leading zeros and UPC/EAN equivalence. The source pipeline excludes reserved all-zero values and ambiguous latest versions; a checksum does not prove assignment or label correctness. Current-package comparison remains necessary. Missing local products can be entered manually; only an explicitly configured/permitted remote provider can receive a lookup.
+
+## Restaurant import servings — prepared 2026-10-15
+
+Every imported number describes the complete servingDescription supplied by the permitted source. A known servingGrams value permits `nutrition × selected grams / servingGrams`; unknown mass permits only a count of the stated portion. No density, household mass, cooked yield, side inclusion or recipe modifier is guessed. Source kcal are preserved rather than reconstructed from rounded macros. Personal overrides replace values for the reviewed portion, then any portion count applies once. This importer adds no nutrition estimate and currently ships with zero real imported menu items.

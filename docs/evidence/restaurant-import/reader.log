@@ -1,0 +1,111 @@
+warning: /Users/jcrock/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/jcrock/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/jcrock/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'caliberfoundation': failed storing manifest for 'caliberfoundation' in cache: attempt to write a readonly database
+warning: 'grdb.swift': failed storing manifest for 'grdb.swift' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 648]
+[Planning deferred tasks]
+[1 / 4] CaliberDesignSystem
+[5 / 5] CaliberChartsTests-product
+[18 / 42] CaliberDatabase
+[21 / 45] CaliberDatabase
+[26 / 42] CaliberDatabase
+[31 / 40] CaliberDatabaseTests-product
+[37 / 46] CaliberDatabaseTests-product
+[41 / 45] CaliberDatabaseTests-product
+[43 / 45] CaliberDatabaseTests-product
+[45 / 45] CaliberIntegrationsTests-product
+[46 / 50] CaliberIntegrations
+[47 / 51] CaliberIntegrations
+[51 / 58] CaliberIntegrations
+[55 / 57] CaliberIntegrationsTests-product
+[58 / 60] CaliberIntegrationsTests-product
+[62 / 63] CaliberIntegrationsTests-product
+Build complete! (14.85 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test restaurantMenuProductionRejectsExampleHostsEvenWithApprovedDeclaration(_:) started.
+◇ Test restaurantMenuRejectsDuplicateJSONKeysIncludingEscapesAtEveryObjectLevel() started.
+◇ Test restaurantMenuErrorsContainNoPathsRawNutritionOrPermissionReferences() started.
+◇ Test restaurantMenuAllowsUnusedSourcesAndEmptyItemArrays() started.
+◇ Test restaurantMenuFictionalDataRequiresExplicitOptInAndRetainsEverySourceValue() started.
+◇ Test restaurantMenuEmptyProductionRegistryRequiresNoFabricatedLicense() started.
+◇ Test restaurantMenuRejectsUnsafeSourceURLs(_:) started.
+◇ Test restaurantMenuPermissionIsAnOpaqueDeclarationRatherThanAnAutomaticLegalApproval() started.
+◇ Test restaurantMenuNameLookupFoldsAccentsCaseAndWidthWithoutChangingIdentity() started.
+◇ Test restaurantMenuRejectsOversizedCountsDataDeepNestingAndMalformedJSON() started.
+◇ Test case passing 1 argument scenario → "schema" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "schemaBool" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument url → "https://example.com/menu" to restaurantMenuProductionRejectsExampleHostsEvenWithApprovedDeclaration(_:) started.
+◇ Test case passing 1 argument url → "https://example.org/menu" to restaurantMenuProductionRejectsExampleHostsEvenWithApprovedDeclaration(_:) started.
+◇ Test case passing 1 argument scenario → "fictionalType" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument url → "https://example.net/menu" to restaurantMenuProductionRejectsExampleHostsEvenWithApprovedDeclaration(_:) started.
+◇ Test case passing 1 argument url → "http://menus.example.invalid/" to restaurantMenuRejectsUnsafeSourceURLs(_:) started.
+◇ Test case passing 1 argument scenario → "digestUppercase" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument url → "https://example.com./menu" to restaurantMenuProductionRejectsExampleHostsEvenWithApprovedDeclaration(_:) started.
+◇ Test case passing 1 argument scenario → "digestShort" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument url → "HTTPS://menus.example.invalid/" to restaurantMenuRejectsUnsafeSourceURLs(_:) started.
+◇ Test case passing 1 argument url → "https://menus.example.invalid/" to restaurantMenuProductionRejectsExampleHostsEvenWithApprovedDeclaration(_:) started.
+◇ Test case passing 1 argument scenario → "sourceID" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument url → "https:///missing" to restaurantMenuRejectsUnsafeSourceURLs(_:) started.
+◇ Test case passing 1 argument url → "https://menus.test/" to restaurantMenuProductionRejectsExampleHostsEvenWithApprovedDeclaration(_:) started.
+◇ Test case passing 1 argument scenario → "sourceIDLong" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument url → "https://menus.example/" to restaurantMenuProductionRejectsExampleHostsEvenWithApprovedDeclaration(_:) started.
+◇ Test case passing 1 argument scenario → "duplicateSource" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "sourceName" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "dateInvalid" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "dateTime" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "dateZeroYear" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "permissionEmpty" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "permissionLong" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "attributionEmpty" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "licenseStatus" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "unknownTop" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument url → "https://user:password@menus.example.invalid/" to restaurantMenuRejectsUnsafeSourceURLs(_:) started.
+◇ Test case passing 1 argument scenario → "unknownSource" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "unknownLicense" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument url → "https://menus.example.invalid\bad" to restaurantMenuRejectsUnsafeSourceURLs(_:) started.
+◇ Test case passing 1 argument url → "https://menus.example.invalid/with space" to restaurantMenuRejectsUnsafeSourceURLs(_:) started.
+◇ Test case passing 1 argument scenario → "unknownRestaurant" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument url → "https://menus.example.invalid/
+control" to restaurantMenuRejectsUnsafeSourceURLs(_:) started.
+◇ Test case passing 1 argument scenario → "unknownItem" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "missingGrams" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "missingSourceField" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "restaurantID" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "duplicateRestaurant" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "restaurantNameLong" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "danglingSource" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "duplicateItem" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "duplicateItemAcrossRestaurants" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "category" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "itemNameEmpty" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "itemNameLong" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "descriptionLong" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "descriptionControl" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "oversizedMacro" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "negativeCalories" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "macroBool" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "macroNull" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "macroString" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "zeroGrams" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "negativeGrams" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "oversizedGrams" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "gramsBool" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+◇ Test case passing 1 argument scenario → "gramsString" to restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) started.
+✔ Test restaurantMenuEmptyProductionRegistryRequiresNoFabricatedLicense() passed after 0.011 seconds.
+✔ Test restaurantMenuErrorsContainNoPathsRawNutritionOrPermissionReferences() passed after 0.011 seconds.
+✔ Test restaurantMenuAllowsUnusedSourcesAndEmptyItemArrays() passed after 0.011 seconds.
+✔ Test restaurantMenuProductionRejectsExampleHostsEvenWithApprovedDeclaration(_:) with 7 test cases passed after 0.011 seconds.
+✔ Test restaurantMenuFictionalDataRequiresExplicitOptInAndRetainsEverySourceValue() passed after 0.011 seconds.
+✔ Test restaurantMenuPermissionIsAnOpaqueDeclarationRatherThanAnAutomaticLegalApproval() passed after 0.011 seconds.
+✔ Test restaurantMenuRejectsDuplicateJSONKeysIncludingEscapesAtEveryObjectLevel() passed after 0.011 seconds.
+✔ Test restaurantMenuRejectsUnsafeSourceURLs(_:) with 7 test cases passed after 0.011 seconds.
+✔ Test restaurantMenuNameLookupFoldsAccentsCaseAndWidthWithoutChangingIdentity() passed after 0.011 seconds.
+✔ Test restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) with 44 test cases passed after 0.012 seconds.
+✔ Test restaurantMenuRejectsOversizedCountsDataDeepNestingAndMalformedJSON() passed after 1.881 seconds.
+✔ Test run with 11 tests in 0 suites passed after 1.881 seconds.

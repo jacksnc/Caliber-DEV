@@ -96,3 +96,7 @@ Personal logs remain separate editable snapshots; only the existing serving desc
 The shipped collection contains public source products, not lookup history. Catalog queries stay on device and require no online consent. A local hit cannot invoke the optional network service. Local misses reach a configured remote provider only after the existing separate permission check; task/generation checks prevent canceled or withdrawn attempts from initiating fallback. Tests use independent counting services to prove the boundary and suppress late results. Online setup remains off.
 
 The source reader verifies bounded file/hash/schema/GTIN/nutrient/basis/date integrity and opens read-only without sidecars. One shared background load keeps full validation off the UI thread. Hashes are integrity checks, not encryption or arbitrary-import authenticity. No personal model migration, account request, photo upload, contact creation or provider key is introduced.
+
+## Prepared restaurant imports
+
+The maintainer CLI makes no network requests. It rejects oversized/deep/duplicate-key input and stages output atomically; the app strictly validates a bounded bundled registry off the main actor. Imported values are not private SwiftData source graphs. Only explicit personal custom-item actions and reviewed diary additions save private data. DEBUG fictional menus require an isolated test launch; production rejects fixture status and keeps FUEL-13 disabled. No account/provider key, diary, note or photo is used in an import.

@@ -1,13 +1,15 @@
+import CaliberDatabase
+import SwiftData
+import SwiftUI
+
 //
 //  RestaurantListView.swift
 //  Caliber (DEV)
 //
 
-import SwiftData
-import SwiftUI
-
 /// Search restaurants, then browse each restaurant's fixed menu categories.
 struct RestaurantListView: View {
+  @EnvironmentObject private var runtime: FoundationRuntime
   @Environment(\.modelContext) private var modelContext
   @Query(sort: \Restaurant.name) private var restaurants: [Restaurant]
 
@@ -18,6 +20,8 @@ struct RestaurantListView: View {
     self.date = date
   }
 
+  @State private var importedCatalog: RestaurantMenuCatalog?
+  @State private var importError: String?
   @State private var searchText = ""
   @State private var loadError: String?
   @State private var isLoading = false
@@ -31,6 +35,35 @@ struct RestaurantListView: View {
 
   var body: some View {
     List {
+      if let importedCatalog {
+        if importedCatalog.restaurants.isEmpty {
+          Section("Imported Menus") {
+            Text(
+              "New restaurant menus are pending an approved data source. Sample menus and your custom items are available below."
+            ).font(.footnote)
+              .accessibilityIdentifier("restaurantSourcePending")
+          }
+        } else {
+          Section(importedCatalog.fictional ? "Fictional Test Menus" : "Imported Menus") {
+            ForEach(
+              importedCatalog.restaurants.filter {
+                FoodSearchText.matches($0.name, query: searchText)
+              }, id: \.id
+            ) { restaurant in
+              if let source = importedCatalog.sources.first(where: { $0.id == restaurant.sourceID })
+              {
+                NavigationLink(restaurant.name) {
+                  ImportedRestaurantMenuView(
+                    restaurant: restaurant, source: source, fictional: importedCatalog.fictional,
+                    mealType: mealType, date: date)
+                }.accessibilityIdentifier("importedRestaurant-" + restaurant.id)
+              }
+            }
+          }
+        }
+      }
+      if let importError { Section { Text(importError).font(.footnote) } }
+
       if let loadError {
         Section {
           Label(loadError, systemImage: "exclamationmark.triangle")
@@ -84,6 +117,12 @@ struct RestaurantListView: View {
     .searchable(text: $searchText, prompt: "Search restaurants")
     .task {
       await loadCatalog()
+      do {
+        importedCatalog = try await BundledRestaurantMenuService.load(testing: runtime.testing)
+      } catch {
+        importError =
+          "Imported menus could not be opened. Sample menus and custom items remain available."
+      }
     }
   }
 

@@ -1,0 +1,5 @@
+2026-10-15
+python3 -m unittest discover -s scripts -p test_import_restaurant_menus.py -v
+23 tests passed.
+Empty production registry generation: 0 sources / 0 restaurants / 0 items; input SHA256 6c002290fe0908227bff1f55a078325d17104c5cffc9b0ac2ce02d422ac0d94a.
+Strict swift-format for all seven affected app/test files: exit 0. Reader own two-file strict format: exit 0.

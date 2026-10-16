@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "fictional": true,
+  "sources": [
+    {
+      "id": "fictional-menu-source",
+      "name": "Fictional restaurant importer example — not a real menu",
+      "url": "https://restaurant-example.invalid/nutrition",
+      "retrievedOn": "2026-10-15",
+      "license": {
+        "status": "fixture",
+        "permissionReference": "Fictional test data authored for this importer example. This is not an approval or a license for any real restaurant dataset.",
+        "attribution": "Caliber fictional importer fixture. Nutrition values are invented for software tests; do not use them to log an actual meal."
+      }
+    }
+  ],
+  "restaurants": [
+    {
+      "id": "fictional-example-bistro",
+      "name": "Fictional Example Bistro",
+      "sourceID": "fictional-menu-source",
+      "items": [
+        {
+          "id": "fictional-bistro-rice-plate",
+          "name": "Fictional Rice Plate",
+          "category": "entree",
+          "servingDescription": "1 fictional plate, including the listed side",
+          "servingGrams": 420,
+          "calories": 540,
+          "proteinGrams": 38,
+          "carbGrams": 49,
+          "fatGrams": 21
+        },
+        {
+          "id": "fictional-bistro-greens",
+          "name": "Fictional Greens",
+          "category": "side",
+          "servingDescription": "1 fictional side, dressing included",
+          "servingGrams": null,
+          "calories": 110,
+          "proteinGrams": 4,
+          "carbGrams": 10,
+          "fatGrams": 6
+        },
+        {
+          "id": "fictional-bistro-water",
+          "name": "Fictional Plain Water",
+          "category": "drink",
+          "servingDescription": "1 fictional cup; no mass inferred from its volume",
+          "servingGrams": null,
+          "calories": 0,
+          "proteinGrams": 0,
+          "carbGrams": 0,
+          "fatGrams": 0
+        }
+      ]
+    }
+  ]
+}

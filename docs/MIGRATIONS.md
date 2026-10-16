@@ -70,3 +70,7 @@ No personal-data migration, live SwiftData schema change, normalized rehearsal c
 ## Packaged barcode collection — October 15
 
 No private SwiftData model, account database, rehearsal locator or hosted migration changes. New PackagedFoodDatabase.sqlite is a public reference resource(application_id1128352848,user_version1) with packaged_metadata/sources/products tables and canonical GTIN keys. It is separate from the generic source catalog and all personal data. Source-serving nutrition is copied into existing FoodItem/DiaryEntry fields only after Add. The optional online configuration/permission keys remain unchanged.
+
+## Restaurant registry preparation — 2026-10-15
+
+No private/SwiftData/hosted schema migration. RestaurantMenuCatalog.json has schemaVersion 1, a source-input SHA256 and separate public source/restaurant/item arrays. The shipped empty registry is reproducible from docs/examples/restaurant-menu-empty.json. Changing a public registry cannot rewrite diary snapshots. Runtime validation is read-only and does not insert source MenuItems. A custom item continues using the existing personal Restaurant/MenuItem models.

@@ -195,4 +195,26 @@ final class FoodExperienceUITests: XCTestCase {
     app.tabBars.buttons["Diary"].tap()
     XCTAssertEqual(app.staticTexts["diaryCalories"].label, "220 calories")
   }
+  @MainActor func testImportedFictionalMenuUsesCategoriesAndPersonalReview() {
+    let app = XCUIApplication()
+    app.launchArguments = ["--progress-ui-testing", "--restaurant-menu-fixture"]
+    app.launch()
+    XCTAssertTrue(app.tabBars.buttons["Food Library"].waitForExistence(timeout: 20))
+    app.tabBars.buttons["Food Library"].tap()
+    app.buttons["Restaurants"].tap()
+    let restaurant = app.buttons["importedRestaurant-fictional-kitchen"]
+    XCTAssertTrue(restaurant.waitForExistence(timeout: 10))
+    restaurant.tap()
+    XCTAssertTrue(app.staticTexts["fictionalMenuNotice"].waitForExistence(timeout: 5))
+    XCTAssertTrue(app.staticTexts["Entrées"].exists)
+    XCTAssertTrue(app.staticTexts["Sides"].exists)
+    app.buttons["importedMenu-fictional-chicken"].tap()
+    replace(app.textFields["referenceGrams"], with: "100")
+    app.buttons["nutritionKeyboardDone"].tap()
+    XCTAssertTrue(app.staticTexts["referenceCalories"].label.contains("200"))
+    app.buttons["referenceAdd"].tap()
+    XCTAssertFalse(app.buttons["referenceAdd"].isEnabled)
+    snapshot("Fictional imported menu reviewed and logged", app: app)
+  }
+
 }

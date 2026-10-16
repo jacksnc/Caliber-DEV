@@ -123,7 +123,7 @@ struct FoodNutritionReviewView: View {
         Text(
           reference.basisGrams == nil
             ? "Use portions of the stated serving. No weight conversion is assumed."
-            : "oz means weight ounces. Listed measures use USDA weights for this food. Changing units keeps the same amount of food; enter 1 to use one listed measure."
+            : "oz means weight ounces. Listed measures use source weights for this food. Changing units keeps the same amount of food; enter 1 to use one listed measure."
         )
       }
       Section("Nutrition for this log") {

@@ -1,0 +1,30 @@
+Caliber (DEV)/Resources/RestaurantMenuCatalog.json
+Caliber (DEV)/Services/BundledRestaurantMenuService.swift
+Caliber (DEV)/Services/FoodNutritionReference.swift
+Caliber (DEV)/Views/Diary/FoodNutritionReviewView.swift
+Caliber (DEV)/Views/Restaurants/ImportedRestaurantMenuView.swift
+Caliber (DEV)/Views/Restaurants/RestaurantListView.swift
+Caliber (DEV)Tests/ImportedRestaurantMenuTests.swift
+Caliber (DEV)UITests/FoodExperienceUITests.swift
+Packages/CaliberFoundation/Sources/CaliberDatabase/RestaurantMenuCatalog.swift
+Packages/CaliberFoundation/Tests/CaliberDatabaseTests/RestaurantMenuCatalogTests.swift
+docs/BACKLOG.md
+docs/CHANGELOG.md
+docs/DECISIONS.md
+docs/HOW_WE_CALCULATE.md
+docs/LICENSES.md
+docs/MIGRATIONS.md
+docs/RESTAURANT_IMPORT_FILES.txt
+docs/RESTAURANT_IMPORT_VERIFICATION.md
+docs/SECURITY.md
+docs/adr/015-permitted-restaurant-imports.md
+docs/evidence/restaurant-import/app-and-ui-01.log
+docs/evidence/restaurant-import/app-and-ui-02.log
+docs/evidence/restaurant-import/diff-review.log
+docs/evidence/restaurant-import/import-and-lint.log
+docs/evidence/restaurant-import/reader.log
+docs/examples/restaurant-menu-empty.json
+docs/examples/restaurant-menu-input.json
+scripts/import_restaurant_menus.py
+scripts/lint_foundation.py
+scripts/test_import_restaurant_menus.py

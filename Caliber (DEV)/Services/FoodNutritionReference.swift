@@ -13,6 +13,7 @@ struct FoodNutritionReference: Identifiable {
   let attribution: String
   let sourceNote: String
   var servings: [FoodCatalogServing] = []
+  var sourceType: FoodSourceType = .generic
 
   static func usda(_ entry: FoodCatalogEntry) -> Self {
     Self(
@@ -75,7 +76,7 @@ enum ReferenceFoodLogger {
       carbGrams: totals.carbs, fatGrams: totals.fat,
       servingDescription: portion + " · " + reference.sourceLabel
         + (override == nil ? "" : " · personal values"),
-      isSavedToLibrary: saveToLibrary)
+      sourceType: reference.sourceType, isSavedToLibrary: saveToLibrary)
     let entry = DiaryEntry(date: date, mealType: meal, foodItem: food, quantity: quantity)
     context.insert(food)
     context.insert(entry)
