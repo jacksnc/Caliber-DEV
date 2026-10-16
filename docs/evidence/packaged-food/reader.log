@@ -1,0 +1,84 @@
+warning: /Users/jcrock/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/jcrock/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/jcrock/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'caliberfoundation': failed storing manifest for 'caliberfoundation' in cache: attempt to write a readonly database
+warning: 'grdb.swift': failed storing manifest for 'grdb.swift' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[1 / 5]
+Build complete! (0.56 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test packagedCatalogAcceptsCanonicalUPCAndEANIdentitiesWithoutAliasingShortForms() started.
+◇ Test packagedCatalogRejectsOversizedRowCountAndBoundedText() started.
+◇ Test packagedCatalogReopensWithoutChangingBytesOrCreatingSidecars() started.
+◇ Test packagedCatalogUsesVolumeBoundsWithoutAssumingLiquidDensity() started.
+◇ Test packagedCatalogErrorsNeverIncludePathsQueriesOrSQL() started.
+◇ Test packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+➜ Test packagedCatalogFullDatasetMeasurementWhenSupplied() skipped.
+◇ Test packagedCatalogReadsSourceAndExplicitMassVolumeBasis() started.
+◇ Test packagedCatalogRejectsWrongHashesCorruptionMissingOversizedSymlinkAndSidecars() started.
+◇ Test packagedCatalogRejectsNoncanonicalLookupWithoutSQLInterpolation(_:) started.
+◇ Test packagedCatalogRequiresDeclaredSourceForeignKey() started.
+◇ Test case passing 1 argument mutation → "PRAGMA application_id=0" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument code → "" to packagedCatalogRejectsNoncanonicalLookupWithoutSQLInterpolation(_:) started.
+◇ Test case passing 1 argument mutation → "PRAGMA user_version=2" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument code → "012345678905" to packagedCatalogRejectsNoncanonicalLookupWithoutSQLInterpolation(_:) started.
+◇ Test case passing 1 argument code → "00000000000018" to packagedCatalogRejectsNoncanonicalLookupWithoutSQLInterpolation(_:) started.
+◇ Test case passing 1 argument code → "00000000000000" to packagedCatalogRejectsNoncanonicalLookupWithoutSQLInterpolation(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_metadata SET value='2'" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument code → "００００００００００００１７" to packagedCatalogRejectsNoncanonicalLookupWithoutSQLInterpolation(_:) started.
+◇ Test case passing 1 argument code → "00000000000017 OR 1=1" to packagedCatalogRejectsNoncanonicalLookupWithoutSQLInterpolation(_:) started.
+◇ Test case passing 1 argument code → "00000000000017; DROP TABLE packaged_products" to packagedCatalogRejectsNoncanonicalLookupWithoutSQLInterpolation(_:) started.
+◇ Test case passing 1 argument mutation → "DROP TABLE packaged_metadata" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument code → " 00000000000017" to packagedCatalogRejectsNoncanonicalLookupWithoutSQLInterpolation(_:) started.
+◇ Test case passing 1 argument mutation → "CREATE VIEW unexpected_view AS SELECT * FROM packaged_products" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "CREATE TABLE new_products AS SELECT * FROM packaged_products; DROP TABLE packaged_products; ALTER TABLE new_products RENAME TO packaged_products" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_sources SET id='unknown'" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_sources SET name='Unknown source'" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_sources SET data_type='Foundation'" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_sources SET release='2025-04'" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_sources SET archive_url='https://example.invalid/archive.zip'" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_sources SET archive_sha256=printf('%064d',0)" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_sources SET license='unclear'" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "INSERT INTO packaged_sources SELECT 'extra',name,data_type,release,archive_url,archive_sha256,license FROM packaged_sources" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET source_id='missing' WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET fdc_id=0 WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET fdc_id=1.5 WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET gtin14='00000000000018' WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET gtin14='00000000000000' WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET name='' WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET publication_date='' WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET publication_date='2026-02-29' WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET publication_date='2026-04-30T12:00:00Z' WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET modified_date='2026-13-01' WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET calories=-1 WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET calories=1000.1 WHERE basis_unit='g'" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET calories=2000.1 WHERE basis_unit='mL'" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET calories=1e999 WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET calories=NULL WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET protein_g=100.1 WHERE basis_unit='g'" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET carbohydrate_g=200.1 WHERE basis_unit='mL'" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET fat_g=-0.1 WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET basis_unit='oz' WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET basis_unit='ml' WHERE basis_unit='mL'" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET serving_quantity=NULL WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET serving_quantity=0 WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET serving_quantity=10000.1 WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET serving_quantity=1e999 WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET serving_unit=NULL WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET serving_unit='mL' WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE packaged_products SET serving_label='' WHERE fdc_id=1" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+◇ Test case passing 1 argument mutation → "DELETE FROM packaged_products" to packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) started.
+✔ Test packagedCatalogErrorsNeverIncludePathsQueriesOrSQL() passed after 0.057 seconds.
+✔ Test packagedCatalogRequiresDeclaredSourceForeignKey() passed after 0.057 seconds.
+✔ Test packagedCatalogReadsSourceAndExplicitMassVolumeBasis() passed after 0.058 seconds.
+✔ Test packagedCatalogUsesVolumeBoundsWithoutAssumingLiquidDensity() passed after 0.058 seconds.
+✔ Test packagedCatalogAcceptsCanonicalUPCAndEANIdentitiesWithoutAliasingShortForms() passed after 0.058 seconds.
+✔ Test packagedCatalogReopensWithoutChangingBytesOrCreatingSidecars() passed after 0.058 seconds.
+✔ Test packagedCatalogRejectsWrongHashesCorruptionMissingOversizedSymlinkAndSidecars() passed after 0.058 seconds.
+✔ Test packagedCatalogRejectsNoncanonicalLookupWithoutSQLInterpolation(_:) with 8 test cases passed after 0.057 seconds.
+✔ Test packagedCatalogRejectsMalformedRowsSchemaAndProvenanceWithMatchingHash(_:) with 42 test cases passed after 0.061 seconds.
+✔ Test packagedCatalogRejectsOversizedRowCountAndBoundedText() passed after 1.220 seconds.
+✔ Test run with 11 tests in 0 suites passed after 1.220 seconds.

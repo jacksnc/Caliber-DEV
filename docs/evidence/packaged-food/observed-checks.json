@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-15",
+  "importer": {
+    "unitTests": 24,
+    "pinnedArchiveCheck": "passed; exact database and manifest reproduced by catalog_import workstream"
+  },
+  "actualDatasetReader": {
+    "passed": true,
+    "products": 50000,
+    "openAndFullValidationSeconds": 0.649500459,
+    "oneHundredLookupsSeconds": 0.008462,
+    "environment": "macOS Debug; not physical iPhone budget certification"
+  },
+  "app": {
+    "swiftTestingFunctions": 155,
+    "xctestCases": 10,
+    "affectedUICases": 3,
+    "result": "passed",
+    "xcresult": "/private/tmp/caliber-food-tests-packaged-03.xcresult"
+  },
+  "limits": [
+    "Initial offline subset, not complete or present-day label verification",
+    "Physical camera, iOS 17 runtime, full accessibility and device performance remain open",
+    "Existing simulator invalid-frame and AppIntents metadata diagnostics remain"
+  ]
+}

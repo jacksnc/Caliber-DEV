@@ -33,3 +33,9 @@ https://fdc.nal.usda.gov/ — Public domain / CC0 1.0 Universal.
 Source releases, original archive hashes and import exclusions are recorded in
 FoodDatabaseManifest.json. SR Legacy is historical reference data; it is not
 current restaurant-menu or package-label coverage. No USDA endorsement implied.
+
+Packaged-food collection: USDA FoodData Central, Branded Foods April2026.
+Public domain / CC0-1.0. Source/selection/member/output hashes are recorded in
+PackagedFoodDatabaseManifest.json. Nutrients retain explicit100g or100mL bases.
+Data providers supply label records; compare with the current package.
+No product endorsement implied; this is a bounded initial collection.

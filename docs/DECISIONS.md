@@ -172,3 +172,13 @@ The owner's “Go” accepted ADR-001's native iOS / later Android amendment. Ph
 | D82 | Pin input ZIPs and verify a manifest-bound database hash, source/schema/row/index integrity and counts. | Bounded importer rejects missing nutrition and ambiguous portions; both outputs are staged and handled failures restore the previous pair. A process interruption between replacements fails closed on the next hash check. Byte reproduction uses the manifest's SQLite writer version. |
 | D83 | Validate the source database off the main actor once; share the resulting read-only connection across food screens. | Full Debug validation takes hundreds of milliseconds; small indexed queries remain synchronous and bounded to 200 results. Loading UI keeps manual entry available. This is not physical-device first-paint certification. |
 | D84 | Extend the existing favorites key allowlist with usda-sr-legacy IDs. | Existing Foundation/personal preferences remain intact. Entered source measure and resolved grams are retained in the existing personal serving description, without a model migration. Full structured personal provenance and preference portability remain open. |
+
+## Offline packaged-food coverage — 2026-10-15
+
+| ID | Choice | Reason / consequence |
+| --- | --- | --- |
+| D85 | Ship a bounded, separate USDA Branded offline barcode collection before activating a remote provider. | 50,000 real reference products require no API key or barcode transmission. This is a documented initial US-market subset, not all products/current-label verification. ADR-014. |
+| D86 | Preserve explicit per 100 g vs per 100 mL basis and matching label serving. | USDA's current Branded documentation distinguishes the two; volume never implies gram mass. Unknown units/preparation, missing macros and ambiguous versions are excluded instead of guessed. |
+| D87 | Select newest publication then modification per GTIN before eligibility/completeness. | Tied newest versions are excluded; an incomplete latest record never falls back silently to older nutrition. The manifest records editorial brand priority and subset exclusions. |
+| D88 | Check local data first and require separate permission before any online fallback. | Local hits work with permission off; cancellation/generation checks before a local miss can reach a provider prevent stale codes leaking online. Existing OFF setup/terms remain pending. |
+| D89 | Keep packaged sources independent of generic source tables and private snapshots. | Read-only pin/schema/integrity/GTIN checks, off-main shared loading and independent editable logs preserve existing data. No private schema or hosted migration. |

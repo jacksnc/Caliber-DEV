@@ -1,0 +1,31 @@
+Caliber (DEV)/App/BarcodeLookupCoordinator.swift
+Caliber (DEV)/Resources/PackagedFoodDatabase.sqlite
+Caliber (DEV)/Resources/PackagedFoodDatabaseManifest.json
+Caliber (DEV)/Resources/ThirdPartyNotices.txt
+Caliber (DEV)/Services/BarcodeNutritionProduct.swift
+Caliber (DEV)/Services/BundledBarcodeService.swift
+Caliber (DEV)/Views/Diary/BarcodeFoodLookupView.swift
+Caliber (DEV)/Views/Diary/FoodNutritionReviewView.swift
+Caliber (DEV)Tests/PackagedBarcodeTests.swift
+Caliber (DEV)UITests/FoodExperienceUITests.swift
+Packages/CaliberFoundation/Sources/CaliberDatabase/PackagedFoodCatalog.swift
+Packages/CaliberFoundation/Tests/CaliberDatabaseTests/PackagedFoodCatalogTests.swift
+docs/BACKLOG.md
+docs/CHANGELOG.md
+docs/DECISIONS.md
+docs/HOW_WE_CALCULATE.md
+docs/LICENSES.md
+docs/MIGRATIONS.md
+docs/PACKAGED_FOOD_FILES.txt
+docs/PACKAGED_FOOD_VERIFICATION.md
+docs/SECURITY.md
+docs/adr/014-offline-packaged-foods.md
+docs/evidence/packaged-food/app-and-ui.log
+docs/evidence/packaged-food/diff-review.log
+docs/evidence/packaged-food/lint.log
+docs/evidence/packaged-food/observed-checks.json
+docs/evidence/packaged-food/package.log
+docs/evidence/packaged-food/reader.log
+scripts/build_packaged_database.py
+scripts/lint_foundation.py
+scripts/test_build_packaged_database.py

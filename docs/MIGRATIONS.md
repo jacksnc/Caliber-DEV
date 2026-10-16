@@ -66,3 +66,7 @@ No SwiftData model/schema, normalized rehearsal schema, live locator or hosted m
 ## Expanded public food catalog — October 14
 
 No personal-data migration, live SwiftData schema change, normalized rehearsal change or hosted SQL is applied. `FoodDatabase.sqlite` is a newly bundled **public reference resource**, application_id 1128352838 and user_version 1. Its catalog_sources, catalog_foods, catalog_servings, catalog_metadata and food_search FTS5 tables are separate from private logs and canonical account tables. An app resource update supplies the new catalog; it never rewrites logged nutrition. Existing 311 Foundation IDs/values and favorite keys are preserved; SR Legacy adds its own namespace. The original FoodCatalog.json remains an unchanged reproduction/compatibility fixture and is no longer the production search backend. See ADR-013.
+
+## Packaged barcode collection — October 15
+
+No private SwiftData model, account database, rehearsal locator or hosted migration changes. New PackagedFoodDatabase.sqlite is a public reference resource(application_id1128352848,user_version1) with packaged_metadata/sources/products tables and canonical GTIN keys. It is separate from the generic source catalog and all personal data. Source-serving nutrition is copied into existing FoodItem/DiaryEntry fields only after Add. The optional online configuration/permission keys remain unchanged.

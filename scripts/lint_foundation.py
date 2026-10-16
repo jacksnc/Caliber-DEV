@@ -75,4 +75,6 @@ paths += [ROOT / p for p in [
 paths += [ROOT / 'Caliber (DEV)UITests/FoodShortcutsUITests.swift']
 paths += [ROOT / 'Caliber (DEV)/Views/Components/MacroOverrideSection.swift']
 paths += [ROOT / 'Caliber (DEV)Tests/ExpandedFoodDatabaseTests.swift']
+paths += [ROOT / 'Caliber (DEV)/Services/BundledBarcodeService.swift']
+paths += [ROOT / 'Caliber (DEV)Tests/PackagedBarcodeTests.swift']
 subprocess.run(['xcrun', 'swift-format', 'lint', '--strict', *map(str, paths)], cwd=ROOT, check=True)

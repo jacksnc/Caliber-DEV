@@ -16,6 +16,9 @@ struct BarcodeNutritionProduct: Equatable, Sendable {
   let sourceURL: URL
   let sourceName: String
   let attribution: String
+  var sourceNote =
+    "Product data can be incomplete or outdated. Compare the nutrition, preparation and serving with your current package before adding."
+  var sourceRecordID: String? = nil
 }
 
 enum BarcodeLookupError: LocalizedError, Equatable {
@@ -27,6 +30,7 @@ enum BarcodeLookupError: LocalizedError, Equatable {
   case invalidResponse
   case providerUnavailable
   case configurationRequired
+  case permissionRequired
 
   var errorDescription: String? {
     switch self {
@@ -40,6 +44,8 @@ enum BarcodeLookupError: LocalizedError, Equatable {
       "The barcode provider is unavailable. You can enter its label manually."
     case .configurationRequired:
       "Online barcode lookup is not configured. You can enter its label manually."
+    case .permissionRequired:
+      "Allow online barcode lookup before sending this code."
     }
   }
 }

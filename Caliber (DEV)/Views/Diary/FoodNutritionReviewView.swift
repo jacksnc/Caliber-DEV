@@ -23,6 +23,7 @@ struct FoodNutritionReviewView: View {
   // A display-unit change preserves the exact selected mass and personal edits.
   @State private var convertedGrams: Double?
   @State private var convertedText: String?
+  @FocusState private var amountHasFocus: Bool
 
   init(reference: FoodNutritionReference, meal: MealType = .snack, date: Date = .now) {
     self.reference = reference
@@ -107,6 +108,7 @@ struct FoodNutritionReviewView: View {
         VStack(alignment: .leading, spacing: 8) {
           Text(amountLabel)
           TextField(amountLabel, text: $amount).keyboardType(.decimalPad)
+            .focused($amountHasFocus)
             .multilineTextAlignment(.trailing).accessibilityIdentifier(inputID)
             .frame(maxWidth: .infinity, minHeight: 48)
         }
@@ -206,6 +208,17 @@ struct FoodNutritionReviewView: View {
     .onChange(of: meal) { _, _ in didSave = false }
     .onChange(of: date) { _, _ in didSave = false }
     .onChange(of: isEditing) { _, _ in didSave = false }
+    .onChange(of: amountHasFocus) { _, focused in
+      guard focused else { return }
+      // Portion amounts are usually replaced in full. Selecting the existing
+      // number on focus makes that edit straightforward on a small screen.
+      Task { @MainActor in
+        await Task.yield()
+        guard amountHasFocus else { return }
+        UIApplication.shared.sendAction(
+          #selector(UIResponder.selectAll(_:)), to: nil, from: nil, for: nil)
+      }
+    }
   }
 
   private func changeUnit(from previous: String, to next: String) {

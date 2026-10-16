@@ -293,3 +293,10 @@ These entries preserve the existing requirement priorities. They are unfinished 
 - FUEL-01 favorite allowlist now includes SR Legacy while preserving Foundation and personal keys. Broader source-backed favorites portability and account ownership remain open.
 - Historical restaurant/branded names present in SR Legacy are source reference foods, not an integrated current menu or barcode database. FUEL-13 licensed/current menu coverage and live barcode provider/contact/usage setup remain pending. No OFF or commercial records imported.
 - Catalog initialization is shared/off-main; Debug macOS source-reader timing is recorded in FOOD_DATABASE_VERIFICATION.md. Physical-device first-paint/search budgets, minimum-OS runtime and full accessibility checks remain unverified. No full FUEL/Phase-1 completion claim.
+
+## Packaged barcode checkpoint — 2026-10-15
+
+- Initial barcode coverage now includes50,000 USDA Branded records(42,401g and7,599mL bases) in a separate offline catalog. It is a bounded editorial/freshness subset; full worldwide/current-label coverage is not established.
+- Native/manual capture → local lookup → reviewed serving/macros → independent diary snapshot is implemented. Source mL stays volume-only; missing products retain manual entry. Physical camera/device/minimum-OS checks remain open.
+- The separately gated OFF adapter remains configured pending. No remote requests, provider account/API key or real barcode transmission were activated. Future server-backed coverage/source refresh/contact/terms choices remain separate work.
+- Existing generic8,104-food/14,792-portion database and all private schemas remain intact. Global name search across packaged records, labelOCR, structured source-update reconciliation and micronutrients remain open.

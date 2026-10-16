@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-15 — Offline packaged-food barcodes
+
+- Added 50,000 USDA Branded barcode records with explicit mass/volume bases, pinned provenance and a reproducible bounded importer.
+- Look up local products before any separately permitted online fallback; keep manual label entry and editable independent snapshots.
+- Added safe shared loading, GTIN/schema/basis checks, cancellation-before-fallback protection and mass/volume regression cases. Remote provider setup remains pending.
+
+
 ## 2026-10-14 — Expanded indexed food database
 
 - Replaced production JSON scanning with a separate GRDB read-only SQLite catalog containing 8,104 complete USDA foods and 14,792 source-defined gram-weight portions. Original 311 Foundation IDs and nutrients are unchanged.

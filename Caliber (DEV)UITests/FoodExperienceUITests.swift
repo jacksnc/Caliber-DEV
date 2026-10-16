@@ -11,7 +11,9 @@ final class FoodExperienceUITests: XCTestCase {
     app.tabBars.buttons["Food Library"].tap()
     return app
   }
-  @MainActor private func reveal(_ element: XCUIElement, in app: XCUIApplication) {
+  @MainActor private func reveal(
+    _ element: XCUIElement, in app: XCUIApplication, towardTop: Bool = false
+  ) {
     for _ in 0..<14 {
       let top = app.navigationBars.firstMatch.frame.maxY + 8
       let bottom =
@@ -26,7 +28,8 @@ final class FoodExperienceUITests: XCTestCase {
       // from below the keyboard to underneath the navigation bar.
       let middle = top + max(20, bottom - top) / 2
       let distance = min(120, max(20, bottom - top) / 3)
-      let delta = element.exists && element.frame.minY < top ? distance : -distance
+      let scrollDown = element.exists ? element.frame.minY < top : towardTop
+      let delta = scrollDown ? distance : -distance
       let start = app.coordinate(withNormalizedOffset: .zero).withOffset(
         CGVector(dx: 10, dy: middle))
       let end = app.coordinate(withNormalizedOffset: .zero).withOffset(
@@ -138,5 +141,58 @@ final class FoodExperienceUITests: XCTestCase {
     app.buttons["Save"].tap()
     XCTAssertTrue(app.staticTexts["Local plate"].waitForExistence(timeout: 5))
     snapshot("Local restaurant with personal entree", app: app)
+  }
+
+  @MainActor private func openOfflineProduct(_ code: String, in app: XCUIApplication) {
+    app.buttons["openBarcode"].tap()
+    let input = app.textFields["barcodeLookupCode"]
+    XCTAssertTrue(input.waitForExistence(timeout: 20))
+    XCTAssertFalse(app.switches["barcodePermission"].exists)
+    replace(input, with: code)
+    app.buttons["barcodeKeyboardDone"].tap()
+    let lookup = app.buttons["barcodeLookup"]
+    reveal(lookup, in: app)
+    lookup.tap()
+    let review = app.buttons["barcodeReview"]
+    XCTAssertTrue(review.waitForExistence(timeout: 5))
+    reveal(review, in: app)
+    review.tap()
+  }
+
+  @MainActor func testBundledBarcodeFindsAMassProductWithoutOnlinePermission() {
+    let app = launch()
+    openOfflineProduct("016000482685", in: app)
+    XCTAssertTrue(app.staticTexts["referenceFoodName"].label.contains("CHEERIOS"))
+    XCTAssertEqual(app.textFields["referenceGrams"].value as? String, "28")
+    reveal(app.staticTexts["referenceCalories"], in: app)
+    XCTAssertEqual(app.staticTexts["referenceCalories"].label, "110.04 calories")
+    reveal(app.textFields["referenceGrams"], in: app, towardTop: true)
+    replace(app.textFields["referenceGrams"], with: "56")
+    app.buttons["nutritionKeyboardDone"].tap()
+    reveal(app.staticTexts["referenceCalories"], in: app)
+    XCTAssertEqual(app.staticTexts["referenceCalories"].label, "220.08 calories")
+    snapshot("Offline USDA packaged food with a weighed portion", app: app)
+    app.buttons["referenceAdd"].tap()
+    XCTAssertFalse(app.buttons["referenceAdd"].isEnabled)
+    app.tabBars.buttons["Diary"].tap()
+    XCTAssertEqual(app.staticTexts["diaryCalories"].label, "220.08 calories")
+  }
+
+  @MainActor func testBundledBarcodeKeepsALiquidServingInMilliliters() {
+    let app = launch()
+    openOfflineProduct("000020072353", in: app)
+    XCTAssertTrue(app.staticTexts["referenceFoodName"].label.contains("CLASSIC ENERGY DRINK"))
+    XCTAssertFalse(app.textFields["referenceGrams"].exists)
+    XCTAssertFalse(app.buttons["referenceUnit"].exists)
+    XCTAssertEqual(app.textFields["referenceQuantity"].value as? String, "1")
+    replace(app.textFields["referenceQuantity"], with: "2")
+    app.buttons["nutritionKeyboardDone"].tap()
+    reveal(app.staticTexts["referenceCalories"], in: app)
+    XCTAssertEqual(app.staticTexts["referenceCalories"].label, "220 calories")
+    snapshot("Offline USDA volume serving without gram conversion", app: app)
+    app.buttons["referenceAdd"].tap()
+    XCTAssertFalse(app.buttons["referenceAdd"].isEnabled)
+    app.tabBars.buttons["Diary"].tap()
+    XCTAssertEqual(app.staticTexts["diaryCalories"].label, "220 calories")
   }
 }

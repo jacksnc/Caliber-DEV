@@ -29,20 +29,30 @@ final class BarcodeLookupCoordinator: ObservableObject {
   @Published private(set) var product: BarcodeNutritionProduct?
   @Published private(set) var message: String?
   let isConfigured: Bool
+  let offlineFoodCount: Int?
+  let offlineMessage: String?
   private let service: any BarcodeService
+  private let offlineService: (any BarcodeService)?
   private let preferences: UserDefaults
   private var generation = UUID()
   private static let permissionKey = "food.barcode.open-food-facts.permission.version"
   private static let permissionDateKey = "food.barcode.open-food-facts.permission.date"
   private static let version = "barcode-open-food-facts-v1"
 
-  init(service: any BarcodeService, isConfigured: Bool, preferences: UserDefaults) {
+  init(
+    service: any BarcodeService, isConfigured: Bool, preferences: UserDefaults,
+    offlineService: (any BarcodeService)? = nil, offlineFoodCount: Int? = nil,
+    offlineMessage: String? = nil
+  ) {
     self.service = service
     self.isConfigured = isConfigured
     self.preferences = preferences
+    self.offlineService = offlineService
+    self.offlineFoodCount = offlineFoodCount
+    self.offlineMessage = offlineMessage
     hasPermission = preferences.string(forKey: Self.permissionKey) == Self.version
   }
-  static func configured(runtime: FoundationRuntime) -> BarcodeLookupCoordinator {
+  static func configured(runtime: FoundationRuntime) async -> BarcodeLookupCoordinator {
     #if DEBUG
       if runtime.testing && ProcessInfo.processInfo.arguments.contains("--barcode-fixture") {
         return BarcodeLookupCoordinator(
@@ -51,9 +61,14 @@ final class BarcodeLookupCoordinator: ObservableObject {
       }
     #endif
     let service = FoodLookupConfiguration.load()?.configuredService()
+    let offline = await BundledBarcodeService.prepared()
     return BarcodeLookupCoordinator(
       service: service ?? DisabledBarcodeService(), isConfigured: service != nil,
-      preferences: runtime.preferenceStore)
+      preferences: runtime.preferenceStore,
+      offlineService: offline.service, offlineFoodCount: offline.count,
+      offlineMessage: offline.service == nil
+        ? "The offline product collection is unavailable. You can enter the package label manually."
+        : nil)
   }
   func setPermission(_ enabled: Bool) {
     cancel()
@@ -79,22 +94,14 @@ final class BarcodeLookupCoordinator: ObservableObject {
       message = BarcodeLookupError.invalidBarcode.errorDescription
       return
     }
-    guard isConfigured else {
-      message = BarcodeLookupError.configurationRequired.errorDescription
-      return
-    }
-    guard hasPermission else {
-      message = "Allow online barcode lookup before sending this code."
-      return
-    }
     generation = UUID()
     let attempt = generation
     isBusy = true
     message = nil
     do {
-      let result = try await service.lookupFood(barcode: code)
+      let (result, usedOnline) = try await findProduct(code: code, attempt: attempt)
       try Task.checkCancellation()
-      guard generation == attempt, hasPermission else { return }
+      guard generation == attempt, !usedOnline || hasPermission else { return }
       guard try BarcodeValue.gtin14(result.barcode) == BarcodeValue.gtin14(code) else {
         throw BarcodeLookupError.invalidResponse
       }
@@ -109,20 +116,41 @@ final class BarcodeLookupCoordinator: ObservableObject {
     }
     if generation == attempt { isBusy = false }
   }
+
+  private func findProduct(code: String, attempt: UUID) async throws -> (
+    BarcodeNutritionProduct, Bool
+  ) {
+    if let offlineService {
+      do {
+        return (try await offlineService.lookupFood(barcode: code), false)
+      } catch BarcodeLookupError.notFound {
+        // A missing local product may use a permitted provider.
+      }
+    }
+    try Task.checkCancellation()
+    guard generation == attempt else { throw CancellationError() }
+    guard isConfigured else {
+      throw offlineService == nil ? BarcodeLookupError.configurationRequired : .notFound
+    }
+    guard hasPermission else { throw BarcodeLookupError.permissionRequired }
+    return (try await service.lookupFood(barcode: code), true)
+  }
 }
 
 extension FoodNutritionReference {
   static func barcode(_ product: BarcodeNutritionProduct) -> Self {
     Self(
-      id: "barcode:" + product.barcode, name: product.name,
+      id: "barcode:" + product.barcode,
+      name: product.brand.flatMap { $0.isEmpty ? nil : $0 }.map { $0 + " · " + product.name }
+        ?? product.name,
       totals: MacroTotals(
         calories: product.calories, protein: product.proteinGrams,
         carbs: product.carbGrams, fat: product.fatGrams),
       basisDescription: product.basisDescription, basisGrams: product.basisGrams,
-      sourceLabel: product.sourceName + " GTIN " + product.barcode,
+      sourceLabel: product.sourceName + (product.sourceRecordID.map { " FDC " + $0 } ?? "")
+        + " GTIN " + product.barcode,
       sourceURL: product.sourceURL, attribution: product.attribution,
-      sourceNote:
-        "Community product data can be incomplete or outdated. Compare the nutrition and serving with your package before adding."
+      sourceNote: product.sourceNote
     )
   }
 }

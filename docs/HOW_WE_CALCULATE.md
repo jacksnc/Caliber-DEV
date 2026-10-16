@@ -140,3 +140,11 @@ Only a source-supplied gram weight makes a household measure available. `selecte
 Changing the unit/measure keeps the same food mass and any personal macro edit; the count is converted. Enter 1 to choose one complete displayed measure. Typing a new number resets a pending macro edit. Saving records the resolved grams and, when a household measure is selected, its entered count/label in the existing serving text. No ml-to-g, unlisted household measure or raw-to-cooked yield is inferred.
 
 Search requires every normalized word prefix, gives exact words/phrases higher relevance, and prefers Foundation for relevance ties before stable name/ID ordering. Accented text and punctuation are normalized for search only; displayed preparation names remain unchanged. This source preference is a search rule, not a personal health estimate or guarantee that a food matches a user's label.
+
+## Packaged label bases — implemented 2026-10-15
+
+USDA Branded values use 100 g **or 100 mL**, based on the explicit provider serving unit. [USDA's documentation](https://fdc.nal.usda.gov/GBFPD_Documentation/) describes this standardization and explains that missing nutrients are not zeros. A source serving scales each reported nutrient by `source serving quantity / 100`. A mass serving supplies its stated gram basis; a liquid serving remains a volume portion with no gram conversion. Number-of-portions then multiplies that source serving once. Reported kcal are retained rather than recomputed from rounded macros.
+
+Pinned-record checks: FDC 2212186 reports 393 kcal/100 g and a 28 g serving, producing 110.04 kcal; 56 g gives 220.08 kcal. FDC 2475195 reports 44 kcal/100 mL and a 250 mL serving, producing 110 kcal; two source servings give 220 kcal with no inferred 500 g. These verify source math, not present-day package labels. Personal overrides apply to the reviewed source portion before its count multiplier.
+
+Barcode identity uses checksum-valid canonical GTIN14 text, preserving leading zeros and UPC/EAN equivalence. The source pipeline excludes reserved all-zero values and ambiguous latest versions; a checksum does not prove assignment or label correctness. Current-package comparison remains necessary. Missing local products can be entered manually; only an explicitly configured/permitted remote provider can receive a lookup.

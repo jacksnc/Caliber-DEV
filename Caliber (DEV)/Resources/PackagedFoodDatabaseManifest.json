@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "applicationID": 1128352848,
+  "databaseSHA256": "7874bba39cf9d15b77d82bd73d367bba86a570e909d49695a5bd09ce34422a73",
+  "databaseBytes": 10428416,
+  "productCount": 50000,
+  "sqliteVersion": "3.54.0",
+  "source": {
+    "id": "usda-branded:2026-04",
+    "name": "USDA FoodData Central",
+    "dataType": "Branded",
+    "release": "2026-04",
+    "archiveURL": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_branded_food_csv_2026-04-30.zip",
+    "archiveSHA256": "26050a5d03197469813754743a21ee0fad4ccf22b6aac2a995846a987719fc49",
+    "archiveBytes": 448767220,
+    "license": "CC0-1.0",
+    "licenseURL": "https://fdc.nal.usda.gov/"
+  },
+  "selection": {
+    "maximumProducts": 50000,
+    "priorityBrandTokenPhrases": [
+      "general mills",
+      "kellogg",
+      "kellanova",
+      "kraft",
+      "heinz",
+      "pepsico",
+      "frito lay",
+      "quaker",
+      "nestle",
+      "conagra",
+      "campbell",
+      "pepperidge farm",
+      "danone",
+      "dannon",
+      "chobani",
+      "tyson",
+      "hormel",
+      "smucker",
+      "wal mart",
+      "walmart",
+      "great value",
+      "target",
+      "good gather",
+      "kroger",
+      "costco",
+      "kirkland",
+      "aldi"
+    ],
+    "order": [
+      "priority brand first",
+      "publication date descending",
+      "modified date descending",
+      "canonical GTIN ascending"
+    ],
+    "versionPolicy": "Newest publication then modified date before eligibility/completeness; all top-date ties excluded; no older fallback",
+    "preparationStates": [
+      "",
+      "UNPREPARED",
+      "READY_TO_EAT",
+      "READY_TO_DRINK"
+    ],
+    "scope": "Deterministic initial US-market subset; not full, representative or popularity-ranked coverage"
+  },
+  "nutrition": {
+    "basis": "100 g or 100 mL, exactly as basis_unit",
+    "energyPriority": [
+      2048,
+      2047,
+      1008
+    ],
+    "sourceUnitMapping": {
+      "g": "g",
+      "ml": "mL"
+    },
+    "missingNutrients": "excluded, never zero-filled",
+    "volumePolicy": "No volume-to-mass or density inference"
+  },
+  "audit": {
+    "sourceFoodCount": 1999950,
+    "sourceBrandedCount": 1999950,
+    "sourceBrandedRejections": {
+      "invalid_gtin": 52175
+    },
+    "uniqueGTINCount": 430276,
+    "latestRecordRejections": {
+      "ambiguous_latest_date_tie": 4864,
+      "discontinued_record": 1825,
+      "missing_or_invalid_name_or_brand": 6,
+      "not_explicit_us_market": 1090,
+      "unorderable_version_date": 19,
+      "unsupported_or_invalid_serving_basis": 120024,
+      "unsupported_preparation_state": 2613
+    },
+    "metadataCandidateCount": 299835,
+    "completeCandidateCount": 289015,
+    "completenessRejections": {
+      "missing_or_invalid_kcal": 1583,
+      "missing_or_invalid_macros": 9237
+    },
+    "omittedBySubsetLimit": 239015,
+    "selectedPriorityBrandCount": 26676,
+    "energyNutrientCounts": {
+      "1008": 50000
+    },
+    "preparationStateCounts": {
+      "READY_TO_DRINK": 2,
+      "READY_TO_EAT": 36,
+      "UNPREPARED": 228,
+      "not_supplied": 49734
+    }
+  },
+  "csvMembers": {
+    "food.csv": {
+      "bytes": 375881194,
+      "sha256": "7a93b9b348bd9b8e2b52f93feecd831a8f6527d7ab197b75b374bec246fb5868",
+      "rowCount": 1999950
+    },
+    "branded_food.csv": {
+      "bytes": 954002257,
+      "sha256": "36195ac3a901e9900742fdb3ae812fb0837c12d6daaf4f0997b53f20a825d59e",
+      "rowCount": 1999950
+    },
+    "nutrient.csv": {
+      "bytes": 21556,
+      "sha256": "226ba937d1a73e8c87bd7fdcdd577524699bef4025c9232ee474b7d3083498ff",
+      "rowCount": 477
+    },
+    "food_nutrient.csv": {
+      "bytes": 1496063311,
+      "sha256": "39ee9145992ba65839b0c5cb8aff605b6af2f9aca8f3b431d2ddee53f582a34c",
+      "rowCount": 26027437
+    }
+  }
+}
