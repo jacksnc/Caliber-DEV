@@ -1,0 +1,31 @@
+{
+  "recordType": "Recorded tool-execution outcomes; full package/app logs are stored separately",
+  "checkpoint": "2026-10-14 through 2026-10-15",
+  "checks": [
+    {
+      "command": "python3 -m unittest discover -s scripts -p 'test_import_usda_foods.py' -v",
+      "exitCode": 0,
+      "passedTestFunctions": 8
+    },
+    {
+      "command": "python3 -m unittest discover -s scripts -p 'test_build_food_database.py' -v",
+      "exitCode": 0,
+      "passedTestFunctions": 20
+    },
+    {
+      "command": "python3 scripts/build_food_database.py --archive-dir /private/tmp --check",
+      "exitCode": 0,
+      "stdout": "USDA database: 8104 foods, 14792 portions, 7000064 bytes; SHA-256 3ff4994f61ddb212fda6323cf623ca1eb5a2728ff1323e197083ef461a7a0968"
+    },
+    {
+      "command": "python3 scripts/verify_phase1.py",
+      "exitCode": 0,
+      "summary": "Foundation bundle/source boundaries; Phase0 static contracts,43 disposable canonical SQL cases; private schema generation unchanged"
+    },
+    {
+      "command": "Read-only Python sqlite3 resource audit",
+      "exitCode": 0,
+      "summary": "Manifest hash;8104 foods;14792 measures;maximum16 measures/food;integrity/foreign_keys;unchanged bytes and no sidecars"
+    }
+  ]
+}

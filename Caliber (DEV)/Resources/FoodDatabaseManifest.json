@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "applicationID": 1128352838,
+  "databaseSHA256": "3ff4994f61ddb212fda6323cf623ca1eb5a2728ff1323e197083ef461a7a0968",
+  "databaseBytes": 7000064,
+  "foodCount": 8104,
+  "servingCount": 14792,
+  "basisGrams": 100,
+  "energyPriority": [
+    2048,
+    2047,
+    1008
+  ],
+  "sqliteVersion": "3.54.0",
+  "sources": [
+    {
+      "id": "usda-foundation:2026-04-30",
+      "name": "USDA FoodData Central",
+      "dataType": "Foundation",
+      "release": "2026-04-30",
+      "archiveURL": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_foundation_food_json_2026-04-30.zip",
+      "archiveSHA256": "186e988ec542e913f51ef62b86a47758e8cdd0d1dc3889e7b055581f3c09c77a",
+      "license": "CC0-1.0",
+      "licenseURL": "https://fdc.nal.usda.gov/",
+      "archiveBytes": 469303,
+      "jsonBytes": 6721650,
+      "jsonSHA256": "27d1fe3fd89edfbe528ed915da5619320e1d004d4594603a1b19bdb1511590cc",
+      "sourceFoodCount": 395,
+      "foodCount": 311,
+      "skippedFoodCount": 84,
+      "skippedFoodReasons": {
+        "missing_or_invalid_macro": 52,
+        "null_food": 32
+      },
+      "sourcePortionCountForIncludedFoods": 361,
+      "servingCount": 361,
+      "skippedPortionReasons": {}
+    },
+    {
+      "id": "usda-sr-legacy:2018-04",
+      "name": "USDA FoodData Central",
+      "dataType": "SR Legacy",
+      "release": "2018-04",
+      "archiveURL": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_json_2018-04.zip",
+      "archiveSHA256": "0fe8ae486a2c8eb42cb96413f058deb51863a46c8fb8eeb4b1fb45006dd338ef",
+      "license": "CC0-1.0",
+      "licenseURL": "https://fdc.nal.usda.gov/",
+      "archiveBytes": 13456312,
+      "jsonBytes": 210758826,
+      "jsonSHA256": "70d4235ae3a2bdf48a7b9eaa1286a83fa67b6f3270436c9ce8b008213f500129",
+      "sourceFoodCount": 7793,
+      "foodCount": 7793,
+      "skippedFoodCount": 0,
+      "skippedFoodReasons": {},
+      "sourcePortionCountForIncludedFoods": 14449,
+      "servingCount": 14431,
+      "skippedPortionReasons": {
+        "invalid_portion_amount_or_weight": 18
+      }
+    }
+  ]
+}

@@ -1,0 +1,296 @@
+warning: /Users/jcrock/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/jcrock/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/jcrock/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'caliberfoundation': failed storing manifest for 'caliberfoundation' in cache: attempt to write a readonly database
+warning: 'grdb.swift': failed storing manifest for 'grdb.swift' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[1 / 5]
+[2 / 5] CaliberDatabase
+[3 / 6] CaliberDatabase
+[8 / 11] CaliberDatabase
+[11 / 13] CaliberDatabaseTests-product
+[13 / 15] CaliberDatabaseTests-product
+[19 / 20] CaliberDatabaseTests-product
+[22 / 25] CaliberIntegrations
+[25 / 27] CaliberIntegrationsTests-product
+[28 / 29] CaliberIntegrationsTests-product
+Build complete! (3.36 sec)
+Test Suite 'All tests' started at 2026-10-14 15:11:09.938.
+Test Suite 'All tests' passed at 2026-10-14 15:11:09.940.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.002) seconds
+Test Suite 'All tests' started at 2026-10-14 15:11:10.113.
+Test Suite 'All tests' passed at 2026-10-14 15:11:10.114.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.002) seconds
+Test Suite 'All tests' started at 2026-10-14 15:11:10.268.
+Test Suite 'All tests' passed at 2026-10-14 15:11:10.269.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'All tests' started at 2026-10-14 15:11:10.362.
+Test Suite 'All tests' passed at 2026-10-14 15:11:10.363.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'All tests' started at 2026-10-14 15:11:10.574.
+Test Suite 'All tests' passed at 2026-10-14 15:11:10.575.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test civilDaysSurviveDST(_:) started.
+◇ Test deterministicYearHasGapsAndPhases() started.
+◇ Test nonFiniteDateIsRejected() started.
+◇ Test case passing 1 argument zone → "America/New_York" to civilDaysSurviveDST(_:) started.
+◇ Test case passing 1 argument zone → "Pacific/Auckland" to civilDaysSurviveDST(_:) started.
+◇ Test case passing 1 argument zone → "Asia/Kolkata" to civilDaysSurviveDST(_:) started.
+✔ Test nonFiniteDateIsRejected() passed after 0.001 seconds.
+✔ Test civilDaysSurviveDST(_:) with 3 test cases passed after 0.010 seconds.
+✔ Test deterministicYearHasGapsAndPhases() passed after 0.015 seconds.
+✔ Test run with 3 tests in 0 suites passed after 0.015 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test invalidProjectMetadataFailsClosed(_:) started.
+◇ Test gatewayDeclinesRedirects() started.
+◇ Test signOutCannotBeUndoneByInFlightSignIn() started.
+◇ Test malformedDeletionReplyCannotClearSession() started.
+◇ Test offlineSignOutAndUnconfiguredSignOutKeepLocalClearingAvailable() started.
+◇ Test keychainClearFailureIsNotReportedAsSuccessfulSignOut() started.
+◇ Test restoringExpiredSessionRefreshesAndPersistsTheSameIdentity() started.
+◇ Test deletionReportsConfirmedRemoteDeletionEvenIfKeychainClearingFails() started.
+◇ Test invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test staleSaveCompletionDoesNotClearNewerLogin() started.
+◇ Test signOutCannotBeUndoneByInFlightRefresh() started.
+◇ Test missingConfigurationMakesNoNetworkRequest() started.
+◇ Test insecureConfigurationFailsClosed(_:) started.
+◇ Test deviceSignOutClearsLocallyAndRevokesOnlyCapturedSession() started.
+◇ Test deletionFailureKeepsTheSavedSession(status:) started.
+◇ Test failedRemoteRevocationStillClearsDevice(status:) started.
+◇ Test throttledResponseHasSafeTypedErrorAndCannotSaveASession() started.
+◇ Test requestedInvocationRegionIsSentWithoutAnyClientAPIKey() started.
+◇ Test refreshRequestsShareOneTokenRotation() started.
+◇ Test deviceSignOutCapturesSessionOnlyAfterEarlierSaveFinishes() started.
+◇ Test restoredConsentRequiresExactVersionAndNoCallerSubject() started.
+◇ Test selectedProjectRemainsOfflineUntilDeployed() started.
+◇ Test signOutOrdersClearAfterSuspendedSessionSave() started.
+◇ Test signOutInvalidatesRestorationPausedOnStorage() started.
+◇ Test remoteLogoutCompletionDoesNotClearOrRevokeNewerLogin() started.
+◇ Test deletionClearsOnlyAfterServerConfirmationAndSendsNoTargetID() started.
+◇ Test recoveryNeverSavesOrClearsAnExistingSession() started.
+◇ Test captureAndClearAreOrderedBeforeNewerSessionSave() started.
+◇ Test unspecifiedInvocationRegionDoesNotAddAnEmptyHeader() started.
+◇ Test absentAndCurrentSessionsRestoreWithoutNetwork() started.
+◇ Test responseBodiesNeverEscapeAsErrors() started.
+◇ Test case passing 1 argument url → "https://tuvbdozxtkcxnojxbvlh.supabase.co.attacker.invalid" to invalidProjectMetadataFailsClosed(_:) started.
+◇ Test case passing 1 argument url → "https://secret@tuvbdozxtkcxnojxbvlh.supabase.co" to invalidProjectMetadataFailsClosed(_:) started.
+◇ Test case passing 1 argument url → "http://tuvbdozxtkcxnojxbvlh.supabase.co" to invalidProjectMetadataFailsClosed(_:) started.
+◇ Test case passing 1 argument url → "https://tuvbdozxtkcxnojxbvlh.supabase.co/auth" to invalidProjectMetadataFailsClosed(_:) started.
+◇ Test suspendedTokenLoadCannotStartRequestAfterSignOut() started.
+◇ Test case passing 1 argument url → "https://tuvbdozxtkcxnojxbvlh.supabase.co?key=x" to invalidProjectMetadataFailsClosed(_:) started.
+◇ Test case passing 1 argument url → "https://tuvbdozxtkcxnojxbvlh.supabase.co:8443" to invalidProjectMetadataFailsClosed(_:) started.
+◇ Test case passing 1 argument region → "" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument region → "us-east-1
+x-api-key: injected" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument region → "us-east-1
+" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument region → "us east 1" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument region → "US-EAST-1" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument region → "us-east-1
+" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument region → "us-east" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument region → "arbitrary" to invocationRegionRejectsMalformedOrHeaderLikeValues(_:) started.
+◇ Test case passing 1 argument status → 401 to deletionFailureKeepsTheSavedSession(status:) started.
+◇ Test case passing 1 argument status → 409 to deletionFailureKeepsTheSavedSession(status:) started.
+◇ Test case passing 1 argument status → 401 to failedRemoteRevocationStillClearsDevice(status:) started.
+◇ Test case passing 1 argument value → "http://example.com" to insecureConfigurationFailsClosed(_:) started.
+◇ Test case passing 1 argument status → 500 to deletionFailureKeepsTheSavedSession(status:) started.
+◇ Test case passing 1 argument status → 500 to failedRemoteRevocationStillClearsDevice(status:) started.
+◇ Test case passing 1 argument value → "https://name:pass@example.com" to insecureConfigurationFailsClosed(_:) started.
+◇ Test case passing 1 argument value → "https://example.com?secret=x" to insecureConfigurationFailsClosed(_:) started.
+◇ Test case passing 1 argument value → "https://example.com#key" to insecureConfigurationFailsClosed(_:) started.
+✔ Test invalidProjectMetadataFailsClosed(_:) with 6 test cases passed after 0.004 seconds.
+✔ Test throttledResponseHasSafeTypedErrorAndCannotSaveASession() passed after 0.004 seconds.
+✔ Test invocationRegionRejectsMalformedOrHeaderLikeValues(_:) with 8 test cases passed after 0.004 seconds.
+✔ Test deletionFailureKeepsTheSavedSession(status:) with 3 test cases passed after 0.004 seconds.
+✔ Test malformedDeletionReplyCannotClearSession() passed after 0.004 seconds.
+✔ Test absentAndCurrentSessionsRestoreWithoutNetwork() passed after 0.004 seconds.
+✔ Test responseBodiesNeverEscapeAsErrors() passed after 0.004 seconds.
+✔ Test insecureConfigurationFailsClosed(_:) with 4 test cases passed after 0.004 seconds.
+✔ Test keychainClearFailureIsNotReportedAsSuccessfulSignOut() passed after 0.004 seconds.
+✔ Test selectedProjectRemainsOfflineUntilDeployed() passed after 0.004 seconds.
+✔ Test restoredConsentRequiresExactVersionAndNoCallerSubject() passed after 0.004 seconds.
+✔ Test deletionReportsConfirmedRemoteDeletionEvenIfKeychainClearingFails() passed after 0.004 seconds.
+✔ Test deviceSignOutClearsLocallyAndRevokesOnlyCapturedSession() passed after 0.004 seconds.
+✔ Test deletionClearsOnlyAfterServerConfirmationAndSendsNoTargetID() passed after 0.004 seconds.
+✔ Test unspecifiedInvocationRegionDoesNotAddAnEmptyHeader() passed after 0.004 seconds.
+✔ Test restoringExpiredSessionRefreshesAndPersistsTheSameIdentity() passed after 0.004 seconds.
+✔ Test failedRemoteRevocationStillClearsDevice(status:) with 2 test cases passed after 0.004 seconds.
+✔ Test signOutCannotBeUndoneByInFlightRefresh() passed after 0.004 seconds.
+✔ Test requestedInvocationRegionIsSentWithoutAnyClientAPIKey() passed after 0.004 seconds.
+✔ Test signOutCannotBeUndoneByInFlightSignIn() passed after 0.004 seconds.
+✔ Test signOutInvalidatesRestorationPausedOnStorage() passed after 0.004 seconds.
+✔ Test remoteLogoutCompletionDoesNotClearOrRevokeNewerLogin() passed after 0.004 seconds.
+✔ Test suspendedTokenLoadCannotStartRequestAfterSignOut() passed after 0.004 seconds.
+✔ Test recoveryNeverSavesOrClearsAnExistingSession() passed after 0.004 seconds.
+✔ Test captureAndClearAreOrderedBeforeNewerSessionSave() passed after 0.004 seconds.
+✔ Test signOutOrdersClearAfterSuspendedSessionSave() passed after 0.004 seconds.
+✔ Test deviceSignOutCapturesSessionOnlyAfterEarlierSaveFinishes() passed after 0.004 seconds.
+✔ Test refreshRequestsShareOneTokenRotation() passed after 0.004 seconds.
+✔ Test staleSaveCompletionDoesNotClearNewerLogin() passed after 0.005 seconds.
+✔ Test offlineSignOutAndUnconfiguredSignOutKeepLocalClearingAvailable() passed after 0.005 seconds.
+✔ Test missingConfigurationMakesNoNetworkRequest() passed after 0.007 seconds.
+✔ Test gatewayDeclinesRedirects() passed after 0.007 seconds.
+✔ Test run with 32 tests in 0 suites passed after 0.008 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test operationIDReuseAndAccountRebindingAreRejected() started.
+◇ Test pulledEchoAcknowledgesDurableOperationAfterLostPushResponse() started.
+◇ Test normalizedProjectionCoversEveryCurrentModelAndPreservesSourceArchive() started.
+◇ Test normalizedProjectionRefusesArbitraryExistingTargetAndRequiresTimeZone() started.
+◇ Test normalizedProjectionRefusesChangedSourceOrAssumptionsWithoutChangingCopy() started.
+◇ Test referenceCatalogSearchUsesWordPrefixesAndDeterministicRanking() started.
+◇ Test syncRetryDoesNotEchoOrLoseIndependentLogs() started.
+◇ Test referenceCatalogBoundsQueriesAndNeverTreatsInputAsSQLOrFTSSyntax() started.
+◇ Test simultaneousMergeRevisionsHaveNoArbitraryCommonWinner() started.
+◇ Test referenceCatalogRejectsMissingWrongHashCorruptOversizedAndSidecarFiles() started.
+◇ Test normalizedProjectionFailureRollsBackEveryRecordAndRetrySurvivesReopen() started.
+◇ Test referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test referenceCatalogReadsExactNutritionProvenanceAndMeasuredServings() started.
+◇ Test migrationFailureRollsBackAndCanRetry() started.
+◇ Test unsafeJSONIntegersAndCursorCollisionsAreRejectedAtomically() started.
+◇ Test referenceCatalogDoesNotWriteCreateSidecarsOrChangeOriginalBytes() started.
+◇ Test durableDivergenceIsVisibleAndResolutionIsExplicit() started.
+◇ Test historicalRemoteResolutionPreservesNewOfflineBranchAndFindsDAGAncestor() started.
+◇ Test populatedDemoSurvivesV2ToV3IndexMigration() started.
+◇ Test demoSurvivesBothMigrationsAndReopenWithoutPrivateLeakage() started.
+◇ Test wrongOwnerOrInvalidPageRollsBackAllChangesAndCursor() started.
+◇ Test normalizedProjectionRejectsMalformedRelationshipsValuesAndDuplicateIDsBeforeWrites() started.
+◇ Test syntheticFixtureMatchesSQLColumnContract() started.
+◇ Test resolutionCannotConsumeAnAncestorOrUnrelatedBase() started.
+◇ Test differentDemoCannotOverwriteExistingData() started.
+◇ Test normalizedProjectionRejectsAggregateOverflowBeforeCopying() started.
+◇ Test normalizedProjectionDetectsTypedDataAndArchiveTampering() started.
+◇ Test normalizedProjectionPreservesEveryNullableLinkWithoutFabricatingParents() started.
+◇ Test referenceCatalogFullDatasetMeasurementWhenSupplied() started.
+◇ Test case passing 1 argument mutation → "PRAGMA application_id=0" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "PRAGMA user_version=2" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_metadata SET value='2'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "DROP TABLE catalog_metadata" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "DROP INDEX catalog_food_name" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "DROP INDEX catalog_serving_food" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "CREATE TABLE fake_search AS SELECT * FROM food_search; DROP TABLE food_search; ALTER TABLE fake_search RENAME TO food_search" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "CREATE VIEW unexpected_view AS SELECT * FROM catalog_foods" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_sources SET license='unclear' WHERE id='usda-foundation:2026-04-30'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_sources SET data_type='Branded' WHERE id='usda-foundation:2026-04-30'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_sources SET release='2025-04' WHERE id='usda-foundation:2026-04-30'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_sources SET archive_sha256=printf('%064d',0) WHERE id='usda-foundation:2026-04-30'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_sources SET archive_url='https://example.invalid/archive.zip' WHERE id='usda-foundation:2026-04-30'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_sources SET name=NULL WHERE id='usda-foundation:2026-04-30'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET source_id='unknown' WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET id='usda-foundation:01' WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET name='' WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET publication_date='' WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET energy_nutrient_id=999 WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET calories=-1 WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET calories=1000.1 WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET calories=1e999 WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET calories=NULL WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET protein_g=100.1 WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET carbohydrate_g=-0.1 WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET fat_g=NULL WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET search_name='different name' WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_servings SET gram_weight=0 WHERE id='fictional-cup'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_servings SET gram_weight=1000000.1 WHERE id='fictional-cup'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_servings SET label='' WHERE id='fictional-cup'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_servings SET food_id='missing' WHERE id='fictional-cup'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_servings SET sort_order=-1 WHERE id='fictional-cup'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE food_search SET name='wrong words' WHERE food_id='usda-foundation:1'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "DELETE FROM food_search WHERE food_id='usda-foundation:1'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "INSERT INTO food_search VALUES ('usda-foundation:1','egg')" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+✔ Test referenceCatalogSearchUsesWordPrefixesAndDeterministicRanking() passed after 0.401 seconds.
+✔ Test referenceCatalogRejectsMissingWrongHashCorruptOversizedAndSidecarFiles() passed after 0.401 seconds.
+✔ Test referenceCatalogReadsExactNutritionProvenanceAndMeasuredServings() passed after 0.401 seconds.
+✔ Test referenceCatalogBoundsQueriesAndNeverTreatsInputAsSQLOrFTSSyntax() passed after 0.402 seconds.
+✔ Test simultaneousMergeRevisionsHaveNoArbitraryCommonWinner() passed after 0.402 seconds.
+✔ Test pulledEchoAcknowledgesDurableOperationAfterLostPushResponse() passed after 0.402 seconds.
+✔ Test referenceCatalogDoesNotWriteCreateSidecarsOrChangeOriginalBytes() passed after 0.402 seconds.
+✔ Test syncRetryDoesNotEchoOrLoseIndependentLogs() passed after 0.402 seconds.
+✔ Test operationIDReuseAndAccountRebindingAreRejected() passed after 0.402 seconds.
+✔ Test migrationFailureRollsBackAndCanRetry() passed after 0.402 seconds.
+✔ Test unsafeJSONIntegersAndCursorCollisionsAreRejectedAtomically() passed after 0.402 seconds.
+✔ Test durableDivergenceIsVisibleAndResolutionIsExplicit() passed after 0.402 seconds.
+✔ Test historicalRemoteResolutionPreservesNewOfflineBranchAndFindsDAGAncestor() passed after 0.408 seconds.
+✔ Test wrongOwnerOrInvalidPageRollsBackAllChangesAndCursor() passed after 0.408 seconds.
+✔ Test resolutionCannotConsumeAnAncestorOrUnrelatedBase() passed after 0.408 seconds.
+✔ Test referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) with 35 test cases passed after 0.466 seconds.
+✔ Test normalizedProjectionRefusesChangedSourceOrAssumptionsWithoutChangingCopy() passed after 0.513 seconds.
+✔ Test normalizedProjectionCoversEveryCurrentModelAndPreservesSourceArchive() passed after 0.513 seconds.
+✔ Test normalizedProjectionRejectsAggregateOverflowBeforeCopying() passed after 0.513 seconds.
+✔ Test normalizedProjectionPreservesEveryNullableLinkWithoutFabricatingParents() passed after 0.613 seconds.
+✔ Test normalizedProjectionRefusesArbitraryExistingTargetAndRequiresTimeZone() passed after 0.619 seconds.
+✔ Test normalizedProjectionFailureRollsBackEveryRecordAndRetrySurvivesReopen() passed after 0.932 seconds.
+REFERENCE CATALOG open+full validation: 0.588411667 seconds; 30 searches: 0.055825542 seconds
+✔ Test referenceCatalogFullDatasetMeasurementWhenSupplied() passed after 0.943 seconds.
+✔ Test normalizedProjectionRejectsMalformedRelationshipsValuesAndDuplicateIDsBeforeWrites() passed after 1.490 seconds.
+✔ Test normalizedProjectionDetectsTypedDataAndArchiveTampering() passed after 1.899 seconds.
+✔ Test syntheticFixtureMatchesSQLColumnContract() passed after 6.525 seconds.
+✔ Test differentDemoCannotOverwriteExistingData() passed after 7.005 seconds.
+✔ Test demoSurvivesBothMigrationsAndReopenWithoutPrivateLeakage() passed after 7.090 seconds.
+✔ Test populatedDemoSurvivesV2ToV3IndexMigration() passed after 7.612 seconds.
+✔ Test run with 29 tests in 0 suites passed after 7.612 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test uuidV7UsesTimestampAndIsUnique() started.
+◇ Test settingsRoundTripAndCalendarWeekStart() started.
+◇ Test massPreservesInputAndConvertsExactly() started.
+◇ Test uuidV7InvalidDatesDoNotTrap(_:) started.
+◇ Test exactDimensionsRemainDistinct() started.
+◇ Test invalidMassCannotBecomeAValidPrefix(_:) started.
+◇ Test everyP1FlagIsPresentAndDisabled() started.
+◇ Test diagnosticsContainOnlyAllowlistedEventAndCorrelation() started.
+◇ Test case passing 1 argument seconds → nan to uuidV7InvalidDatesDoNotTrap(_:) started.
+◇ Test case passing 1 argument text → "nan" to invalidMassCannotBecomeAValidPrefix(_:) started.
+◇ Test case passing 1 argument seconds → inf to uuidV7InvalidDatesDoNotTrap(_:) started.
+◇ Test case passing 1 argument seconds → -inf to uuidV7InvalidDatesDoNotTrap(_:) started.
+◇ Test case passing 1 argument seconds → -1.0 to uuidV7InvalidDatesDoNotTrap(_:) started.
+◇ Test case passing 1 argument seconds → 1.7976931348623157e+308 to uuidV7InvalidDatesDoNotTrap(_:) started.
+◇ Test case passing 1 argument text → "infinity" to invalidMassCannotBecomeAValidPrefix(_:) started.
+◇ Test case passing 1 argument text → "-1" to invalidMassCannotBecomeAValidPrefix(_:) started.
+◇ Test case passing 1 argument text → "82 kg" to invalidMassCannotBecomeAValidPrefix(_:) started.
+◇ Test case passing 1 argument text → "12abc" to invalidMassCannotBecomeAValidPrefix(_:) started.
+◇ Test case passing 1 argument text → "" to invalidMassCannotBecomeAValidPrefix(_:) started.
+◇ Test case passing 1 argument text → "1.2.3" to invalidMassCannotBecomeAValidPrefix(_:) started.
+✔ Test exactDimensionsRemainDistinct() passed after 0.002 seconds.
+✔ Test diagnosticsContainOnlyAllowlistedEventAndCorrelation() passed after 0.002 seconds.
+✔ Test uuidV7InvalidDatesDoNotTrap(_:) with 5 test cases passed after 0.002 seconds.
+✔ Test invalidMassCannotBecomeAValidPrefix(_:) with 7 test cases passed after 0.002 seconds.
+✔ Test massPreservesInputAndConvertsExactly() passed after 0.004 seconds.
+✔ Test settingsRoundTripAndCalendarWeekStart() passed after 0.008 seconds.
+✔ Test everyP1FlagIsPresentAndDisabled() passed after 0.009 seconds.
+✔ Test uuidV7UsesTimestampAndIsUnique() passed after 0.011 seconds.
+✔ Test run with 8 tests in 0 suites passed after 0.011 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite CalendarChartWindowTests started.
+◇ Test explicitMissingAndInvalidValuesBreakSegments() started.
+◇ Test monthUsesActualLeapFebruaryBoundary() started.
+◇ Test sparseMissingDatesSplitLinesWithoutInventingZeroes() started.
+◇ Test leapYearRetainsAll366DayBuckets() started.
+◇ Test emptyInputHasNoFabricatedDomainOrCoverage() started.
+◇ Test nonfiniteDatesAreExcludedAndAllMissingDatesAreStillVisible() started.
+◇ Test weekMeansSevenCalendarDaysRatherThanSevenSparseRecords() started.
+◇ Test weekCoverageUsesLocalDaysAcrossDST(lastDate:) started.
+◇ Test repeatedSameDayValuesCountAsOneLoggedDayAndStayInTable() started.
+◇ Test case passing 1 argument lastDate → "2026-03-08" to weekCoverageUsesLocalDaysAcrossDST(lastDate:) started.
+◇ Test case passing 1 argument lastDate → "2026-11-01" to weekCoverageUsesLocalDaysAcrossDST(lastDate:) started.
+✔ Test emptyInputHasNoFabricatedDomainOrCoverage() passed after 0.001 seconds.
+✔ Test repeatedSameDayValuesCountAsOneLoggedDayAndStayInTable() passed after 0.001 seconds.
+✔ Test nonfiniteDatesAreExcludedAndAllMissingDatesAreStillVisible() passed after 0.001 seconds.
+✔ Test monthUsesActualLeapFebruaryBoundary() passed after 0.001 seconds.
+✔ Test weekCoverageUsesLocalDaysAcrossDST(lastDate:) with 2 test cases passed after 0.001 seconds.
+✔ Test explicitMissingAndInvalidValuesBreakSegments() passed after 0.001 seconds.
+✔ Test sparseMissingDatesSplitLinesWithoutInventingZeroes() passed after 0.001 seconds.
+✔ Test leapYearRetainsAll366DayBuckets() passed after 0.001 seconds.
+✔ Test weekMeansSevenCalendarDaysRatherThanSevenSparseRecords() passed after 0.001 seconds.
+✔ Suite CalendarChartWindowTests passed after 0.002 seconds.
+✔ Test run with 9 tests in 1 suite passed after 0.002 seconds.

@@ -24,3 +24,12 @@ https://opendatacommons.org/licenses/odbl/1-0/
 https://opendatacommons.org/licenses/dbcl/1-0/
 https://world.openfoodfacts.org/
 No Open Food Facts products or images are bundled with this app. Images are not requested by the adapter.
+
+Expanded offline catalog:
+USDA FoodData Central, Foundation Foods April 2026 and SR Legacy April 2018.
+U.S. Department of Agriculture, Agricultural Research Service, Beltsville Human
+Nutrition Research Center. FoodData Central. Accessed October 14, 2026.
+https://fdc.nal.usda.gov/ — Public domain / CC0 1.0 Universal.
+Source releases, original archive hashes and import exclusions are recorded in
+FoodDatabaseManifest.json. SR Legacy is historical reference data; it is not
+current restaurant-menu or package-label coverage. No USDA endorsement implied.

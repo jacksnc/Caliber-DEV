@@ -1,0 +1,2 @@
+Command: python3 scripts/lint_foundation.py
+Result: exit 0, no diagnostics (2026-10-15 final source).

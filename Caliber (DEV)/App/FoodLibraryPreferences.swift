@@ -45,13 +45,7 @@ final class FoodLibraryPreferences: ObservableObject {
   }
 
   private static func canonicalKey(_ key: String) -> String? {
-    if key.hasPrefix("usda-foundation:") {
-      let suffix = key.dropFirst("usda-foundation:".count)
-      guard !suffix.isEmpty, suffix.utf8.allSatisfy({ (48...57).contains($0) }),
-        let id = Int(suffix), id > 0, String(id) == suffix
-      else { return nil }
-      return key
-    }
+    if FoodCatalogSourceType.contains(key: key) { return key }
     if key.hasPrefix("personal:") {
       let suffix = key.dropFirst("personal:".count)
       guard suffix.utf8.count == 64,

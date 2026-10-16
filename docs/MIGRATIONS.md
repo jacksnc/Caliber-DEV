@@ -62,3 +62,7 @@ One immutable snapshot/timezone/reference-date boundary is supported per target;
 ## Food reuse and portion controls — October 14
 
 No SwiftData model/schema, normalized rehearsal schema, live locator or hosted migration changes. A separate `food.library.favorites.v1` preference stores bounded source/content keys only. Recents and frequency are reconstructed from current logs; they are not another migrated history. Favoriting a personal food updates its existing `isSavedToLibrary` flag through the app context. Day/meal copying is an explicit user command that inserts independent snapshots, not a background migration. Existing archive versions still cover the same 15 models and do not claim to include device preference keys.
+
+## Expanded public food catalog — October 14
+
+No personal-data migration, live SwiftData schema change, normalized rehearsal change or hosted SQL is applied. `FoodDatabase.sqlite` is a newly bundled **public reference resource**, application_id 1128352838 and user_version 1. Its catalog_sources, catalog_foods, catalog_servings, catalog_metadata and food_search FTS5 tables are separate from private logs and canonical account tables. An app resource update supplies the new catalog; it never rewrites logged nutrition. Existing 311 Foundation IDs/values and favorite keys are preserved; SR Legacy adds its own namespace. The original FoodCatalog.json remains an unchanged reproduction/compatibility fixture and is no longer the production search backend. See ADR-013.

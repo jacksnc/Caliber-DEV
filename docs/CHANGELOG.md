@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-14 — Expanded indexed food database
+
+- Replaced production JSON scanning with a separate GRDB read-only SQLite catalog containing 8,104 complete USDA foods and 14,792 source-defined gram-weight portions. Original 311 Foundation IDs and nutrients are unchanged.
+- Added SR Legacy source-year labels, exact preparation names and equivalent-relevance Foundation preference; historical reference foods are not presented as current menus.
+- Added source household measures to portion review, live scaling, entered count/measure text and support for their source favorites. Unit changes preserve exact mass and macro edits.
+- Added bounded pinned import, reproducible resource/manifest generation, source/schema/row/FTS checks, background resource validation and regression tests. See FOOD_DATABASE_VERIFICATION.md for executed results and limits.
+- No personal model migration, hosted change, current restaurant import or live barcode activation.
+
 ## 2026-10-14 — Recent foods, favorites, portions and day/meal copying
 
 - Added offline recent/frequent food groups, key-only favorites and personal favorite preservation in My Foods. Exact variants stay separate; repeating a food defaults to the latest valid quantity.

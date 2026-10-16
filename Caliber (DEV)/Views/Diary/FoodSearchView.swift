@@ -26,7 +26,7 @@ struct FoodSearchView: View {
     self.mealType = mealType
     self.date = date
   }
-  private let searchService = BundledFoodSearchService()
+  @State private var searchService: BundledFoodSearchService?
   @State private var searchText = ""
   @State private var scope = FoodSearchScope.all
   @State private var catalogFoods: [FoodCatalogEntry] = []
@@ -45,7 +45,8 @@ struct FoodSearchView: View {
   }
   private var catalogFavorites: [FoodCatalogEntry] {
     favorites.favoriteKeys.sorted().compactMap { key -> FoodCatalogEntry? in
-      guard key.hasPrefix("usda-foundation:"), let food = try? searchService.catalogEntry(id: key),
+      guard FoodCatalogSourceType.contains(key: key),
+        let food = try? searchService?.catalogEntry(id: key),
         matches(food.name)
       else { return nil }
       return food
@@ -94,6 +95,7 @@ struct FoodSearchView: View {
       }
     return List {
       Section {
+        if searchService == nil { ProgressView("Opening food database…") }
         Picker("Show", selection: $scope) {
           ForEach(FoodSearchScope.allCases) { Text($0.rawValue).tag($0) }
         }.accessibilityIdentifier("foodSearchScope")
@@ -200,7 +202,7 @@ struct FoodSearchView: View {
           }
         }
       }
-      if !hasResults {
+      if !hasResults && (scope != .all || searchService != nil) {
         ContentUnavailableView(
           scope == .all
             ? "No Foods Found"
@@ -220,9 +222,12 @@ struct FoodSearchView: View {
     )
     .task(id: query) {
       do {
-        catalogFoods = try searchService.catalogSearch(query: query, limit: 50)
+        let service = await BundledFoodSearchService.prepared()
+        try Task.checkCancellation()
+        searchService = service
+        catalogFoods = try service.catalogSearch(query: query, limit: 50)
         searchError = nil
-      } catch {
+      } catch is CancellationError {} catch {
         catalogFoods = []
         searchError = "The offline food catalog could not be opened. You can enter a food manually."
       }
@@ -247,7 +252,7 @@ struct FoodSearchView: View {
       VStack(alignment: .leading, spacing: 3) {
         Text(food.name)
         Text(
-          "100 g · \(NutritionInput.format(food.nutritionPer100g.calories, locale: locale)) cal · USDA"
+          "100 g · \(NutritionInput.format(food.nutritionPer100g.calories, locale: locale)) cal · \(food.sourceType.shortLabel)"
         ).font(.caption).foregroundStyle(.secondary)
       }.frame(minHeight: 48)
     }.accessibilityIdentifier(favorite ? "favorite-\(food.id)" : "catalogFood-\(food.fdcID)")

@@ -1,0 +1,1 @@
+Reviewed importer, read-only catalog schema/query boundaries, source identities, exact 100g/household math, favorites compatibility, asynchronous loading, diary snapshot independence and UI/test diff. No changes to private models/schema, hosted services, provider flags or existing source fixture. Final diff --check: exit 0.

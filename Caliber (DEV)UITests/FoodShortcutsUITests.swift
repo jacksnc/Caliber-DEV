@@ -9,7 +9,9 @@ final class FoodShortcutsUITests: XCTestCase {
     XCTAssertTrue(app.tabBars.buttons["Diary"].waitForExistence(timeout: 20))
     return app
   }
-  @MainActor private func reveal(_ element: XCUIElement, in app: XCUIApplication) {
+  @MainActor private func reveal(
+    _ element: XCUIElement, in app: XCUIApplication, towardTop: Bool = false
+  ) {
     for _ in 0..<18 {
       let top = app.navigationBars.firstMatch.frame.maxY + 8
       let bottom =
@@ -21,8 +23,11 @@ final class FoodShortcutsUITests: XCTestCase {
         return
       }
       let middle = top + max(20, bottom - top) / 2
+      // SwiftUI can evict rows outside the viewport. Use the caller's direction
+      // until a row exists again instead of scrolling away from an evicted row.
+      let scrollDown = element.exists ? element.frame.minY < top : towardTop
       let delta =
-        (element.exists && element.frame.minY < top ? 1.0 : -1.0)
+        (scrollDown ? 1.0 : -1.0)
         * min(120, max(20, bottom - top) / 3)
       let origin = app.coordinate(withNormalizedOffset: .zero)
       origin.withOffset(CGVector(dx: 10, dy: middle)).press(
@@ -162,7 +167,7 @@ final class FoodShortcutsUITests: XCTestCase {
     reveal(calories, in: app)
     replace(calories, with: "800.5")
     app.buttons["nutritionKeyboardDone"].tap()
-    reveal(app.buttons["referenceUnit"], in: app)
+    reveal(app.buttons["referenceUnit"], in: app, towardTop: true)
     app.buttons["referenceUnit"].tap()
     app.buttons["g"].tap()
     XCTAssertEqual(app.textFields["referenceGrams"].value as? String, "200")
@@ -172,5 +177,44 @@ final class FoodShortcutsUITests: XCTestCase {
     reveal(app.staticTexts["referenceSaved"], in: app)
     XCTAssertTrue(app.staticTexts["referenceSaved"].label.contains("Breakfast"))
     snapshot("Source portion and personal macro review", app: app)
+  }
+
+  @MainActor func testExpandedDatabaseOffersExactHouseholdMeasuresAndHistoricalFavorites() {
+    let app = launch(fixture: false)
+    app.tabBars.buttons["Food Library"].tap()
+    app.buttons["openFoodSearch"].tap()
+    let search = app.searchFields.firstMatch
+    XCTAssertTrue(search.waitForExistence(timeout: 5))
+    search.tap()
+    search.typeText("rice white long grain enriched cooked\n")
+    let rice = app.buttons["catalogFood-168878"]
+    XCTAssertTrue(rice.waitForExistence(timeout: 5))
+    XCTAssertTrue(rice.label.contains("2018"))
+    rice.tap()
+    app.buttons["referenceFavorite"].tap()
+    app.buttons["referenceUnit"].tap()
+    app.buttons["1 cup"].tap()
+    let quantity = app.textFields["referenceQuantity"]
+    reveal(quantity, in: app)
+    snapshot("Measured serving before quantity editing", app: app)
+    replace(quantity, with: "2")
+    app.buttons["nutritionKeyboardDone"].tap()
+    XCTAssertEqual(app.staticTexts["referenceCalories"].label, "410.8 calories")
+    XCTAssertEqual(app.staticTexts["referenceServingWeight"].label, "1 cup = 158 g")
+    app.buttons["referenceUnit"].tap()
+    app.buttons["g"].tap()
+    XCTAssertEqual(app.textFields["referenceGrams"].value as? String, "316")
+    XCTAssertEqual(app.staticTexts["referenceCalories"].label, "410.8 calories")
+    app.buttons["referenceUnit"].tap()
+    app.buttons["1 cup"].tap()
+    XCTAssertEqual(app.textFields["referenceQuantity"].value as? String, "2")
+    snapshot("Historical USDA food and measured household portion", app: app)
+    app.buttons["referenceAdd"].tap()
+    XCTAssertFalse(app.buttons["referenceAdd"].isEnabled)
+    app.navigationBars.buttons.element(boundBy: 0).tap()
+    show("Favorites", in: app)
+    XCTAssertTrue(app.buttons["favorite-usda-sr-legacy:168878"].waitForExistence(timeout: 5))
+    app.tabBars.buttons["Diary"].tap()
+    XCTAssertEqual(app.staticTexts["diaryCalories"].label, "410.8 calories")
   }
 }

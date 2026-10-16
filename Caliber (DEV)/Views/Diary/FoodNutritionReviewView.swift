@@ -8,7 +8,7 @@ struct FoodNutritionReviewView: View {
   @EnvironmentObject private var favorites: FoodLibraryPreferences
   let reference: FoodNutritionReference
   @State private var amount: String
-  @State private var unit: FoodPortionUnit
+  @State private var choiceID: String
   @State private var meal: MealType
   @State private var date: Date
   @State private var saveToLibrary = false
@@ -27,15 +27,23 @@ struct FoodNutritionReviewView: View {
   init(reference: FoodNutritionReference, meal: MealType = .snack, date: Date = .now) {
     self.reference = reference
     _amount = State(initialValue: reference.basisGrams.map { NutritionInput.format($0) } ?? "1")
-    _unit = State(initialValue: reference.basisGrams == nil ? .portions : .grams)
+    _choiceID = State(initialValue: reference.basisGrams == nil ? "portions" : "grams")
     _meal = State(initialValue: meal)
     _date = State(initialValue: date)
   }
 
+  private var sourceServings: [FoodCatalogServing] {
+    reference.basisGrams == nil ? [] : reference.servings.filter(\.isValid)
+  }
+  private var selectedServing: FoodCatalogServing? { sourceServings.first { $0.id == choiceID } }
+  private var unit: FoodPortionUnit { FoodPortionUnit(rawValue: choiceID) ?? .portions }
+  private func basis(for id: String) -> Double? {
+    sourceServings.first { $0.id == id }?.gramWeight ?? reference.basisGrams
+  }
   private var selection: ResolvedFoodPortion? {
     if let convertedGrams { return ResolvedFoodPortion(grams: convertedGrams, quantity: 1) }
     guard let value = NutritionInput.quantity(amount, locale: locale) else { return nil }
-    return try? FoodPortionMath.resolve(value: value, unit: unit, basisGrams: reference.basisGrams)
+    return try? FoodPortionMath.resolve(value: value, unit: unit, basisGrams: basis(for: choiceID))
   }
   private var portion: MacroTotals? {
     guard let selection else { return nil }
@@ -52,7 +60,8 @@ struct FoodNutritionReviewView: View {
     return result.isValid ? result : nil
   }
   private var amountLabel: String {
-    switch unit {
+    if selectedServing != nil { return "Quantity" }
+    return switch unit {
     case .grams: "Weight (g)"
     case .ounces: "Weight (oz)"
     case .portions: "Number of Portions"
@@ -71,7 +80,7 @@ struct FoodNutritionReviewView: View {
       Section("Food") {
         Text(reference.name).font(.headline).accessibilityIdentifier("referenceFoodName")
         Text(reference.sourceNote).font(.footnote)
-        if reference.id.hasPrefix("usda-foundation:") {
+        if FoodCatalogSourceType.contains(key: reference.id) {
           Button {
             if !favorites.setFavorite(!favorites.isFavorite(reference.id), for: reference.id) {
               saveError = FoodFavoriteEditor.EditError.limitReached.errorDescription
@@ -88,22 +97,32 @@ struct FoodNutritionReviewView: View {
       }
       Section {
         if reference.basisGrams != nil {
-          Picker("Portion Unit", selection: $unit) {
-            ForEach(FoodPortionUnit.allCases) { Text($0.displayName).tag($0) }
+          Picker("Portion Unit", selection: $choiceID) {
+            ForEach(FoodPortionUnit.allCases) { Text($0.displayName).tag($0.rawValue) }
+            ForEach(sourceServings) { serving in
+              Text(serving.label).tag(serving.id)
+            }
           }.accessibilityIdentifier("referenceUnit")
         }
-        LabeledContent(amountLabel) {
+        VStack(alignment: .leading, spacing: 8) {
+          Text(amountLabel)
           TextField(amountLabel, text: $amount).keyboardType(.decimalPad)
             .multilineTextAlignment(.trailing).accessibilityIdentifier(inputID)
-        }.frame(minHeight: 48)
-        Text("One source portion: \(reference.basisDescription)").font(.footnote)
+            .frame(maxWidth: .infinity, minHeight: 48)
+        }
+        Text("Nutrition basis: \(reference.basisDescription)").font(.footnote)
+        if let serving = selectedServing {
+          Text("\(serving.label) = \(NutritionInput.format(serving.gramWeight, locale: locale)) g")
+            .font(.footnote).accessibilityIdentifier("referenceServingWeight")
+        }
       } header: {
         Text("Portion")
       } footer: {
         Text(
           reference.basisGrams == nil
             ? "Use portions of the stated serving. No weight conversion is assumed."
-            : "oz means weight ounces. Cups and tablespoons need a known weight for this food.")
+            : "oz means weight ounces. Listed measures use USDA weights for this food. Changing units keeps the same amount of food; enter 1 to use one listed measure."
+        )
       }
       Section("Nutrition for this log") {
         if let final {
@@ -172,7 +191,7 @@ struct FoodNutritionReviewView: View {
       amount = NutritionInput.reformatted(amount, from: .current, to: locale)
       preparedLocale = true
     }
-    .onChange(of: unit) { previous, next in changeUnit(from: previous, to: next) }
+    .onChange(of: choiceID) { previous, next in changeUnit(from: previous, to: next) }
     .onChange(of: amount) { _, value in
       if value == convertedText {
         convertedText = nil
@@ -189,12 +208,16 @@ struct FoodNutritionReviewView: View {
     .onChange(of: isEditing) { _, _ in didSave = false }
   }
 
-  private func changeUnit(from previous: FoodPortionUnit, to next: FoodPortionUnit) {
-    guard let basis = reference.basisGrams,
+  private func changeUnit(from previous: String, to next: String) {
+    let previousUnit = FoodPortionUnit(rawValue: previous) ?? .portions
+    let nextUnit = FoodPortionUnit(rawValue: next) ?? .portions
+    guard let previousBasis = basis(for: previous), let nextBasis = basis(for: next),
       let value = NutritionInput.quantity(amount, locale: locale),
-      let old = try? FoodPortionMath.resolve(value: value, unit: previous, basisGrams: basis),
+      let old = try? FoodPortionMath.resolve(
+        value: value, unit: previousUnit, basisGrams: previousBasis),
       let grams = convertedGrams ?? old.grams,
-      let converted = try? FoodPortionMath.amount(grams: grams, unit: next, basisGrams: basis)
+      let converted = try? FoodPortionMath.amount(
+        grams: grams, unit: nextUnit, basisGrams: nextBasis)
     else {
       convertedGrams = nil
       isEditing = false
@@ -211,7 +234,10 @@ struct FoodNutritionReviewView: View {
     do {
       try ReferenceFoodLogger.log(
         reference: reference, grams: selection.grams, quantity: selection.quantity,
-        override: override, saveToLibrary: saveToLibrary, date: date, meal: meal, in: context)
+        override: override, saveToLibrary: saveToLibrary,
+        enteredPortionDescription: selectedServing.map {
+          "\(amount) × \($0.label)"
+        }, date: date, meal: meal, in: context)
       didSave = true
     } catch { saveError = "Your food could not be saved. Please try again." }
   }

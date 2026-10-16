@@ -1,0 +1,65 @@
+warning: /Users/jcrock/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/jcrock/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/jcrock/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'caliberfoundation': failed storing manifest for 'caliberfoundation' in cache: attempt to write a readonly database
+warning: 'grdb.swift': failed storing manifest for 'grdb.swift' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[2 / 7] CaliberDesignSystem
+[5 / 9] CaliberCharts
+[8 / 10] CaliberDatabaseTests-product
+[10 / 12] CaliberDatabaseTests-product
+[17 / 18] CaliberDatabaseTests-product
+[19 / 19] CaliberDatabaseTests-product
+[20 / 23] CaliberIntegrationsTests-product
+Build complete! (4.77 sec)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test referenceCatalogReadsExactNutritionProvenanceAndMeasuredServings() started.
+◇ Test referenceCatalogDoesNotWriteCreateSidecarsOrChangeOriginalBytes() started.
+◇ Test referenceCatalogSearchUsesWordPrefixesAndDeterministicRanking() started.
+◇ Test referenceCatalogBoundsQueriesAndNeverTreatsInputAsSQLOrFTSSyntax() started.
+◇ Test referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test referenceCatalogFullDatasetMeasurementWhenSupplied() started.
+◇ Test referenceCatalogRejectsMissingWrongHashCorruptOversizedAndSidecarFiles() started.
+◇ Test case passing 1 argument mutation → "PRAGMA application_id=0" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_metadata SET value='2'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "PRAGMA user_version=2" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "DROP TABLE catalog_metadata" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_sources SET license='unclear' WHERE id='usda-foundation:2026-04-30'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_sources SET data_type='Branded' WHERE id='usda-foundation:2026-04-30'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_sources SET release='2025-04' WHERE id='usda-foundation:2026-04-30'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_sources SET archive_sha256=printf('%064d',0) WHERE id='usda-foundation:2026-04-30'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_sources SET archive_url='https://example.invalid/archive.zip' WHERE id='usda-foundation:2026-04-30'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_sources SET name=NULL WHERE id='usda-foundation:2026-04-30'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET source_id='unknown' WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET id='usda-foundation:01' WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET name='' WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET publication_date='' WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET energy_nutrient_id=999 WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET calories=-1 WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET calories=1000.1 WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET calories=1e999 WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET calories=NULL WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET protein_g=100.1 WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET carbohydrate_g=-0.1 WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET fat_g=NULL WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_foods SET search_name='different name' WHERE fdc_id=1" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_servings SET gram_weight=0 WHERE id='fictional-cup'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_servings SET gram_weight=1000000.1 WHERE id='fictional-cup'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_servings SET label='' WHERE id='fictional-cup'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_servings SET food_id='missing' WHERE id='fictional-cup'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE catalog_servings SET sort_order=-1 WHERE id='fictional-cup'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "UPDATE food_search SET name='wrong words' WHERE food_id='usda-foundation:1'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "DELETE FROM food_search WHERE food_id='usda-foundation:1'" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+◇ Test case passing 1 argument mutation → "INSERT INTO food_search VALUES ('usda-foundation:1','egg')" to referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) started.
+✔ Test referenceCatalogReadsExactNutritionProvenanceAndMeasuredServings() passed after 0.045 seconds.
+✔ Test referenceCatalogSearchUsesWordPrefixesAndDeterministicRanking() passed after 0.045 seconds.
+✔ Test referenceCatalogDoesNotWriteCreateSidecarsOrChangeOriginalBytes() passed after 0.045 seconds.
+✔ Test referenceCatalogRejectsMissingWrongHashCorruptOversizedAndSidecarFiles() passed after 0.045 seconds.
+✔ Test referenceCatalogRejectsMalformedRowsEvenWithMatchingFileHash(_:) with 31 test cases passed after 0.051 seconds.
+✔ Test referenceCatalogBoundsQueriesAndNeverTreatsInputAsSQLOrFTSSyntax() passed after 0.054 seconds.
+REFERENCE CATALOG open+full validation: 0.367437625 seconds; 30 searches: 0.025437042 seconds
+✔ Test referenceCatalogFullDatasetMeasurementWhenSupplied() passed after 0.394 seconds.
+✔ Test run with 7 tests in 0 suites passed after 0.394 seconds.

@@ -12,6 +12,7 @@ struct FoodNutritionReference: Identifiable {
   let sourceURL: URL
   let attribution: String
   let sourceNote: String
+  var servings: [FoodCatalogServing] = []
 
   static func usda(_ entry: FoodCatalogEntry) -> Self {
     Self(
@@ -24,7 +25,10 @@ struct FoodNutritionReference: Identifiable {
       sourceLabel: "USDA FDC \(entry.fdcID)", sourceURL: entry.sourceURL,
       attribution: entry.attribution,
       sourceNote:
-        "Use the preparation in the food name. USDA values describe the food, not an individual package."
+        entry.sourceType == .foundation
+        ? "Use the preparation in the food name. USDA values describe the food, not an individual package."
+        : "Historical USDA reference from 2018. Check the preparation and your current label; this is not a current restaurant menu.",
+      servings: entry.servings
     )
   }
 
@@ -51,6 +55,7 @@ enum ReferenceFoodLogger {
   static func log(
     reference: FoodNutritionReference, grams: Double?, quantity: Double = 1,
     override: MacroTotals? = nil, saveToLibrary: Bool = false,
+    enteredPortionDescription: String? = nil,
     date: Date, meal: MealType, in context: ModelContext,
     persist: (ModelContext) throws -> Void = { try $0.save() }
   ) throws -> DiaryEntry {
@@ -60,9 +65,10 @@ enum ReferenceFoodLogger {
       quantity.isFinite, quantity > 0, totals.isValid,
       totals.scaled(by: quantity).isValid, date.timeIntervalSinceReferenceDate.isFinite
     else { throw FoodCatalogError.invalidPortion }
-    let portion =
+    let weight =
       grams.map { "\(NutritionInput.format($0, locale: Locale(identifier: "en_US"))) g" }
       ?? reference.basisDescription
+    let portion = enteredPortionDescription.map { weight + " (" + $0 + ")" } ?? weight
     let food = FoodItem(
       name: reference.name + (override == nil ? "" : " (edited)"),
       calories: totals.calories, proteinGrams: totals.protein,

@@ -6,10 +6,10 @@ import Testing
 @MainActor
 @Suite("Offline USDA food catalog")
 struct FoodCatalogTests {
-  @Test("The production bundle contains 311 complete foods and traceable IDs")
+  @Test("The production bundle contains 8,104 complete foods and traceable IDs")
   func bundledCatalog() throws {
     let service = BundledFoodSearchService()
-    #expect(try service.foodCount == 311)
+    #expect(try service.foodCount == 8104)
     let oats = try #require(try service.catalogEntry(id: "usda-foundation:2346396"))
     #expect(
       oats.sourceURL.absoluteString == "https://fdc.nal.usda.gov/food-details/2346396/nutrients")
