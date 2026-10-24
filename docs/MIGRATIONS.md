@@ -74,3 +74,20 @@ No private SwiftData model, account database, rehearsal locator or hosted migrat
 ## Restaurant registry preparation — 2026-10-15
 
 No private/SwiftData/hosted schema migration. RestaurantMenuCatalog.json has schemaVersion 1, a source-input SHA256 and separate public source/restaurant/item arrays. The shipped empty registry is reproducible from docs/examples/restaurant-menu-empty.json. Changing a public registry cannot rewrite diary snapshots. Runtime validation is read-only and does not insert source MenuItems. A custom item continues using the existing personal Restaurant/MenuItem models.
+
+## Recipe metadata and normalized rehearsal v5 — 2026-10-24
+
+`SavedMeal` adds `servings` with a default of 1 and optional, explicitly measured
+`cookedYieldGrams` and `rawBatchGrams`. Existing `SavedMealItem` and `FoodItem`
+relationships continue to store the ingredient snapshots. A default meal emits
+the exact former version-1 archive payload; customized metadata uses a strict
+version-2 payload extension with all three fields. Archive restore rejects
+partial, unknown, nonpositive, nonfinite, or incorrectly typed metadata before
+changing the source graph.
+
+The separate, non-live GRDB rehearsal adds `legacy_projection_v5.sql`, a typed
+metadata table and digest-version tracking. Existing completed v4 rehearsal
+targets keep their v1 digest and identifiers. This is not applied to the live
+SwiftData store, the Foundation locator, hosted SQL, or a user's data. See
+`docs/RECIPE_VERIFICATION.md` for old-save/open, archive-roundtrip, and rehearsal
+evidence. No destructive migration is performed.

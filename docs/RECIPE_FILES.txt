@@ -1,0 +1,29 @@
+AGENTS.md
+CLAUDE.md
+Caliber (DEV)/Models/SavedMeal.swift
+Caliber (DEV)/Services/LegacyRestoreRehearsal.swift
+Caliber (DEV)/Services/LegacySnapshotAdapter.swift
+Caliber (DEV)/Services/RecipeEditor.swift
+Caliber (DEV)/Services/RecipeIngredientDraft.swift
+Caliber (DEV)/Utilities/RecipeBatchNutrition.swift
+Caliber (DEV)/Views/FoodLibrary/FoodLibraryView.swift
+Caliber (DEV)/Views/MyMeals/MyMealsView.swift
+Caliber (DEV)/Views/MyMeals/RecipeEditorView.swift
+Caliber (DEV)/Views/MyMeals/RecipeIngredientPicker.swift
+Caliber (DEV)/Views/MyMeals/SavedMealDetailView.swift
+Caliber (DEV)Tests/RecipeBatchNutritionTests.swift
+Caliber (DEV)Tests/RecipeEditorTests.swift
+Caliber (DEV)Tests/RecipePersistenceTests.swift
+Caliber (DEV)UITests/RecipeBuilderUITests.swift
+Packages/CaliberFoundation/Sources/CaliberDatabase/LegacyNormalizedProjection.swift
+Packages/CaliberFoundation/Sources/CaliberDatabase/Resources/legacy_projection_v5.sql
+Packages/CaliberFoundation/Tests/CaliberDatabaseTests/RecipeProjectionCompatibilityTests.swift
+docs/AI_HANDOFF.md
+docs/BACKLOG.md
+docs/CHANGELOG.md
+docs/DECISIONS.md
+docs/HOW_WE_CALCULATE.md
+docs/MIGRATIONS.md
+docs/RECIPE_FILES.txt
+docs/RECIPE_VERIFICATION.md
+scripts/lint_foundation.py

@@ -71,8 +71,14 @@ enum LegacyRestoreRehearsal {
         let layout = layouts[row.entity],
         let object = try JSONSerialization.jsonObject(with: row.payload) as? [String: Any],
         Set(object.keys) == Set(layout.split(separator: " ").map(String.init))
+          || (row.entity == "SavedMeal"
+            && Set(object.keys)
+              == Set([
+                "name", "items", "payloadVersion", "servings", "cookedYieldGrams", "rawBatchGrams",
+              ]))
       else { throw FoundationStorageError.invalidFixture }
       let values = Fields(object)
+      if row.entity == "SavedMeal" { _ = try savedMealMetadata(values) }
       // Require the sidecar links to agree with the actual fields before creating any store.
       let references = try links(row.entity, values)
       guard references.sorted(by: referenceOrder) == row.references.sorted(by: referenceOrder),
@@ -82,6 +88,23 @@ enum LegacyRestoreRehearsal {
       result[key(row.entity, row.id)] = values
     }
     return result
+  }
+
+  private static func savedMealMetadata(_ fields: Fields) throws -> (
+    servings: Double, cooked: Double?, raw: Double?
+  ) {
+    if fields.values["payloadVersion"] == nil { return (1, nil, nil) }
+    guard try fields.integer("payloadVersion") == 2 else {
+      throw FoundationStorageError.invalidFixture
+    }
+    let servings = try fields.number("servings")
+    let cooked =
+      fields.values["cookedYieldGrams"] is NSNull ? nil : try fields.number("cookedYieldGrams")
+    let raw = fields.values["rawBatchGrams"] is NSNull ? nil : try fields.number("rawBatchGrams")
+    guard servings > 0, cooked.map({ $0 > 0 }) ?? true, raw.map({ $0 > 0 }) ?? true,
+      servings != 1 || cooked != nil || raw != nil
+    else { throw FoundationStorageError.invalidFixture }
+    return (servings, cooked, raw)
   }
 
   private static func referenceOrder(_ a: LegacyReference, _ b: LegacyReference) -> Bool {
@@ -213,7 +236,10 @@ enum LegacyRestoreRehearsal {
           x.id = id
           model = x
         case "SavedMeal":
-          let x = SavedMeal(name: try f.string("name"))
+          let metadata = try savedMealMetadata(f)
+          let x = SavedMeal(
+            name: try f.string("name"), servings: metadata.servings,
+            cookedYieldGrams: metadata.cooked, rawBatchGrams: metadata.raw)
           x.id = id
           model = x
         case "SavedMealItem":

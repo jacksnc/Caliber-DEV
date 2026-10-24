@@ -1,49 +1,84 @@
-//
-//  MyMealsView.swift
-//  Caliber (DEV)
-//
-
-import SwiftUI
 import SwiftData
+import SwiftUI
 
-/// The Food Library's "My Meals" folder: saved combinations of foods that
-/// can be logged together in one tap. Starts empty until a meal is saved —
-/// there's no "create a meal" flow yet, so this just lists whatever exists.
+/// Reusable personal recipes and meals. Source ingredients and logged portions
+/// are independent snapshots, so editing a recipe cannot rewrite the diary.
 struct MyMealsView: View {
-    @Environment(\.locale) private var locale
-    @Query(sort: \SavedMeal.name) private var savedMeals: [SavedMeal]
+  @Environment(\.locale) private var locale
+  @Environment(\.modelContext) private var context
+  @Query(sort: \SavedMeal.name) private var savedMeals: [SavedMeal]
+  @State private var creating = false
+  @State private var editing: SavedMeal?
+  @State private var deleting: SavedMeal?
+  @State private var error: String?
 
-    var body: some View {
-        Group {
-            if savedMeals.isEmpty {
-                ContentUnavailableView(
-                    "No Saved Meals Yet",
-                    systemImage: "square.stack.3d.up",
-                    description: Text("Saved combinations of foods will show up here.")
-                )
+  var body: some View {
+    List {
+      if savedMeals.isEmpty {
+        ContentUnavailableView(
+          "No Saved Recipes or Meals", systemImage: "square.stack.3d.up",
+          description: Text("Tap + to combine ingredients and save batch servings."))
+      }
+      ForEach(savedMeals) { meal in
+        NavigationLink {
+          SavedMealDetailView(meal: meal)
+        } label: {
+          VStack(alignment: .leading, spacing: 4) {
+            Text(meal.name)
+            if let batch = try? RecipeEditor.batch(for: meal),
+              let serving = try? batch.portion(amount: 1, unit: .servings)
+            {
+              Text(
+                "\(NutritionInput.format(serving.calories, locale: locale)) cal per serving · \(NutritionInput.format(meal.servings, locale: locale)) servings"
+              )
+              .font(.footnote).foregroundStyle(.secondary)
             } else {
-                List(savedMeals) { meal in
-                    NavigationLink {
-                        SavedMealDetailView(meal: meal)
-                    } label: {
-                        let totals = MacroCalculator.totals(for: meal.items)
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(meal.name)
-                            Text("\(NutritionInput.format(totals.calories, locale: locale)) cal · \(meal.items.count) item\(meal.items.count == 1 ? "" : "s")")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                }
+              Text("Needs ingredient review").font(.footnote)
             }
+          }.frame(minHeight: 48)
+        }.accessibilityIdentifier("savedRecipe-" + meal.name)
+          .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+            Button("Delete", role: .destructive) { deleting = meal }
+            Button("Edit") { editing = meal }.tint(.blue)
+          }
+      }
+    }
+    .navigationTitle("My Meals")
+    .toolbar {
+      ToolbarItem(placement: .primaryAction) {
+        Button {
+          creating = true
+        } label: {
+          Label("Create Recipe or Meal", systemImage: "plus")
         }
-        .navigationTitle("My Meals")
+        .accessibilityIdentifier("createRecipe")
+      }
     }
-}
-
-#Preview {
-    NavigationStack {
-        MyMealsView()
+    .sheet(isPresented: $creating) { RecipeEditorView() }
+    .sheet(item: $editing) { RecipeEditorView(meal: $0) }
+    .confirmationDialog(
+      "Delete saved recipe or meal?",
+      isPresented: Binding(
+        get: { deleting != nil }, set: { if !$0 { deleting = nil } }), titleVisibility: .visible
+    ) {
+      Button("Delete Saved Meal", role: .destructive) {
+        guard let deleting else { return }
+        do { try RecipeEditor.delete(meal: deleting, in: context) } catch {
+          self.error = error.localizedDescription
+        }
+        self.deleting = nil
+      }
+    } message: {
+      Text("Foods already logged in your diary stay unchanged.")
     }
-    .modelContainer(for: [SavedMeal.self, SavedMealItem.self, FoodItem.self, DiaryEntry.self], inMemory: true)
+    .alert(
+      "Couldn't Update Meal",
+      isPresented: Binding(
+        get: { error != nil }, set: { if !$0 { error = nil } })
+    ) {
+      Button("OK", role: .cancel) { error = nil }
+    } message: {
+      Text(error ?? "Please try again.")
+    }
+  }
 }

@@ -35,7 +35,7 @@ struct FoodLibraryView: View {
             MyMealsView()
           } label: {
             Label("My Meals", systemImage: "square.stack.3d.up")
-          }
+          }.accessibilityIdentifier("openMyMeals")
 
           NavigationLink {
             MyFoodsView()

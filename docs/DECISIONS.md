@@ -190,3 +190,12 @@ The owner's “Go” accepted ADR-001's native iOS / later Android amendment. Ph
 | D90 | Prepare a deterministic permission-gated registry, shipping it empty. | Owner authorized steps 1→2→3; no licensed restaurant source was supplied. ADR-015 avoids inventing current menu coverage or reuse rights. |
 | D91 | Read imported menu rows as immutable values; save only reviewed personal food snapshots. | Avoid importing a source graph into private SwiftData through a MenuItem relationship. Source ID/date stay in serving text; personal restaurant additions remain editable. |
 | D92 | Keep FUEL-13 off and fictional previews restricted to DEBUG + isolated-memory tests. | Dataset permission declarations are not proof of a rights review. Production rejects fictional registry output, invalid nutrition, ambiguous IDs and unsupported serving bases. |
+
+## Reusable recipes and meals — 2026-10-24
+
+| ID | Choice | Reason / consequence |
+| --- | --- | --- |
+| D93 | Keep the recipe editor draft-only until Save and snapshot each ingredient into the existing `SavedMeal` / `SavedMealItem` / `FoodItem` graph. | Cancel writes nothing; later source edits do not rewrite a recipe. This reuses the existing local model instead of adding a second recipe table or importing read-only catalog rows into private storage. |
+| D94 | Store batch servings and only explicitly measured cooked/raw batch gram values; compute cooked ÷ raw only when both are present. | Weight determines portion allocation and a descriptive yield ratio only. It never changes nutrients or implies cooking retention, density, or a guessed raw/cooked conversion. |
+| D95 | Log ordinary recipe portions as independent ingredient diary snapshots; a reviewed macro override logs one personal combined entry. | Saved recipes and previous diary entries remain unchanged when a recipe is edited or deleted. A single context save covers each diary portion; failed saves remove only the attempted rows. |
+| D96 | Preserve the exact legacy version-1 saved-meal payload for all default metadata and use a strict version-2 extension only for customized recipe metadata. | Existing archives stay byte-stable. The normalized rehearsal advances additively while completed v4 target digests and source IDs remain unchanged. |

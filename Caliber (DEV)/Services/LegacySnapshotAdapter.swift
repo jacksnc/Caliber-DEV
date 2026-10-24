@@ -103,8 +103,23 @@ enum LegacySnapshotAdapter {
         ], ref("FoodItem", x.foodItem?.id))
     }
     for x in try context.fetch(FetchDescriptor<SavedMeal>()) {
+      guard x.servings.isFinite, x.servings > 0,
+        [x.cookedYieldGrams, x.rawBatchGrams].compactMap({ $0 }).allSatisfy({
+          $0.isFinite && $0 > 0
+        })
+      else { throw FoundationStorageError.invalidFixture }
+      var fields: [String: Any] = [
+        "name": x.name, "items": x.items.map { $0.id.uuidString }.sorted(),
+      ]
+      // Default metadata keeps the exact original payload. Old archives do not acquire new bytes.
+      if x.servings != 1 || x.cookedYieldGrams != nil || x.rawBatchGrams != nil {
+        fields["payloadVersion"] = 2
+        fields["servings"] = x.servings
+        fields["cookedYieldGrams"] = x.cookedYieldGrams as Any? ?? NSNull()
+        fields["rawBatchGrams"] = x.rawBatchGrams as Any? ?? NSNull()
+      }
       try row(
-        "SavedMeal", x.id, ["name": x.name, "items": x.items.map { $0.id.uuidString }.sorted()],
+        "SavedMeal", x.id, fields,
         x.items.flatMap { ref("SavedMealItem", $0.id) })
     }
     for x in try context.fetch(FetchDescriptor<SavedMealItem>()) {

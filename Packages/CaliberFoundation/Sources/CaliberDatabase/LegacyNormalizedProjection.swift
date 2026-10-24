@@ -61,6 +61,14 @@ public actor LegacyNormalizedProjection {
     migrator.registerMigration("v4_legacy_normalized_rehearsal") { db in
       try db.execute(sql: Self.compatibilitySchema)
     }
+    guard
+      let recipeMigration = Bundle.module.url(
+        forResource: "legacy_projection_v5", withExtension: "sql")
+    else {
+      throw FoundationStorageError.unavailable
+    }
+    let recipeSQL = try String(contentsOf: recipeMigration, encoding: .utf8)
+    migrator.registerMigration("v5_saved_meal_metadata") { db in try db.execute(sql: recipeSQL) }
     try migrator.migrate(queue)
   }
 
@@ -88,7 +96,7 @@ public actor LegacyNormalizedProjection {
         [
           "singleton": 1, "snapshot_id": snapshotID, "source_digest": input.digest,
           "timezone": timeZoneID, "reference_date": referenceDate.timeIntervalSince1970,
-          "row_count": rows.count,
+          "row_count": rows.count, "digest_version": 2,
         ])
       try Self.seedIdentity(db, timestamp: input.importTimestamp)
       try Self.add(
@@ -96,7 +104,9 @@ public actor LegacyNormalizedProjection {
         [
           "format": "legacy-normalized-rehearsal", "file_digest": input.digest,
           "status": "verified", "total_rows": rows.count, "accepted_rows": rows.count,
-          "source_schema_version": "legacy-public-models-v1", "validation_digest": input.digest,
+          "source_schema_version": input.hasRecipeMetadata
+            ? "legacy-public-models-v2" : "legacy-public-models-v1",
+          "validation_digest": input.digest,
           "completed_at": input.importTimestamp,
         ], id: Self.batch)
       for row in input.rows {
@@ -338,6 +348,14 @@ public actor LegacyNormalizedProjection {
         ]) { _, v in v })
     case "SavedMeal":
       try add(db, "meal_templates", ["name": try f.string("name")], id: target)
+      if let metadata = try f.recipeMetadata() {
+        try sidecar(
+          "projection_saved_meal_metadata",
+          [
+            "payload_version": 2, "servings": metadata.servings,
+            "cooked_yield_grams": metadata.cooked, "raw_batch_grams": metadata.raw,
+          ])
+      }
     case "SavedMealItem":
       try sidecar(
         "projection_saved_items",
@@ -465,8 +483,16 @@ extension LegacyNormalizedProjection {
   ]
 
   private static func targetDigest(_ db: Database) throws -> String {
+    guard
+      let version = try Int.fetchOne(
+        db, sql: "SELECT digest_version FROM projection_manifest WHERE singleton=1"),
+      [1, 2].contains(version)
+    else { throw FoundationStorageError.incompleteFixture }
+    // The v1 table list and its framing are immutable. Hashing even a new empty table would
+    // invalidate completed v4 targets, so only new v2 manifests include recipe metadata.
+    let tables = targetTables + (version == 2 ? ["projection_saved_meal_metadata"] : [])
     var digest = SHA256()
-    for table in targetTables {
+    for table in tables {
       digest.update(data: Data(table.utf8))
       for row in try Row.fetchAll(
         db,
@@ -561,9 +587,11 @@ extension LegacyNormalizedProjection {
           && (try? ProjectionFields(row.payload).optionalString("progressEntry")) != nil)
         || (row.entity == "UserProfile" && input.hasSingleUsableHeight)
     }.count
-    let compatibility = input.rows.filter {
-      !["Restaurant", "BuildableItemTemplate", "SavedMeal"].contains($0.entity)
-    }.count
+    let compatibility =
+      input.rows.filter {
+        !["Restaurant", "BuildableItemTemplate", "SavedMeal"].contains($0.entity)
+      }.count
+      + (try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM projection_saved_meal_metadata") ?? 0)
     return LegacyProjectionReport(
       sourceRows: input.rows.count, canonicalRows: canonical, compatibilityRows: compatibility,
       diaryCalories: totals["c"], diaryProtein: totals["p"], diaryCarbs: totals["h"],
@@ -697,6 +725,16 @@ extension LegacyNormalizedProjection {
       case "SavedMeal":
         set(try one("meal_templates", target), ["name": "name"])
         f["items"] = try array("items")
+        if let metadata = try Row.fetchOne(
+          db, sql: "SELECT * FROM projection_saved_meal_metadata WHERE id=?", arguments: [target])
+        {
+          set(
+            metadata,
+            [
+              "payloadVersion": "payload_version", "servings": "servings",
+              "cookedYieldGrams": "cooked_yield_grams", "rawBatchGrams": "raw_batch_grams",
+            ])
+        }
       case "SavedMealItem":
         let r = try one("projection_saved_items", target)
         set(r, ["quantity": "quantity"])
@@ -813,6 +851,17 @@ private struct ProjectionFields {
     }
     return bytes
   }
+  func recipeMetadata() throws -> (servings: Double, cooked: Double?, raw: Double?)? {
+    guard values["payloadVersion"] != nil else { return nil }
+    guard try integer("payloadVersion") == 2 else { throw FoundationStorageError.invalidFixture }
+    let servings = try number("servings")
+    let cooked = values["cookedYieldGrams"] is NSNull ? nil : try number("cookedYieldGrams")
+    let raw = values["rawBatchGrams"] is NSNull ? nil : try number("rawBatchGrams")
+    guard servings > 0, cooked.map({ $0 > 0 }) ?? true, raw.map({ $0 > 0 }) ?? true,
+      servings != 1 || cooked != nil || raw != nil
+    else { throw FoundationStorageError.invalidFixture }
+    return (servings, cooked, raw)
+  }
 }
 
 private struct ProjectionLink {
@@ -830,6 +879,11 @@ private struct ProjectionInput {
   let digest: String
   let warnings: [String]
   var importTimestamp: Int64 { Int64(referenceDate.timeIntervalSince1970 * 1000) }
+  var hasRecipeMetadata: Bool {
+    rows.contains {
+      $0.entity == "SavedMeal" && (try? ProjectionFields($0.payload).recipeMetadata()) != nil
+    }
+  }
   var hasSingleUsableHeight: Bool {
     let profiles = rows.filter { $0.entity == "UserProfile" }
     guard profiles.count == 1,
@@ -883,7 +937,14 @@ private struct ProjectionInput {
         throw FoundationStorageError.invalidFixture
       }
       let f = try ProjectionFields(row.payload)
-      guard Set(f.values.keys) == Set(layout.split(separator: " ").map(String.init)) else {
+      guard
+        Set(f.values.keys) == Set(layout.split(separator: " ").map(String.init))
+          || (row.entity == "SavedMeal"
+            && Set(f.values.keys)
+              == Set([
+                "name", "items", "payloadVersion", "servings", "cookedYieldGrams", "rawBatchGrams",
+              ]))
+      else {
         throw FoundationStorageError.invalidFixture
       }
       let links = try Self.relationships(row)
@@ -917,6 +978,11 @@ private struct ProjectionInput {
       if row.entity == "ProgressPhoto" {
         warningSet.insert(
           "Photo bytes and order are preserved locally without modification. Original MIME, dimensions, EXIF stripping and historical biometric access state were not stored; these are not certified or uploaded."
+        )
+      }
+      if row.entity == "SavedMeal", try f.recipeMetadata() != nil {
+        warningSet.insert(
+          "Recipe servings and explicitly entered raw/cooked batch weights are preserved. Unknown ingredient gram weights are not inferred, so canonical recipe masses and yield factors are not fabricated."
         )
       }
       values[row.entity + "/" + row.id] = f
@@ -1058,6 +1124,7 @@ private struct ProjectionInput {
       try choice("mealType", ["breakfast", "lunch", "dinner", "snack"])
       _ = try f.optionalString("note")
     case "SavedMealItem": try numbers("quantity")
+    case "SavedMeal": _ = try f.recipeMetadata()
     case "WeightEntry":
       try choice("enteredUnit", ["lb"])
       let lb = try f.number("enteredValue")

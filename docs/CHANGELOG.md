@@ -113,3 +113,11 @@ Existing source work predates this phase and remains locally staged/uncommitted 
 - Added a localized wait message and typed throttling error without persisting a rejected session. Backend format/lint/typecheck, twenty Deno tests, three verifier tests, sixty package tests and sixty-six app test functions plus two template cases pass.
 - Reverified five final guard and six original catalog criteria, eleven HTTP rejection paths, six concurrent/boundary criteria and eighteen genuine-auth criteria. Preserved the failed probe against the previous gateway before its deployment confirmation completed, followed by the successful full probe on the confirmed source. Final review added forward migration 003 and retested route-specific cleanup to avoid cross-route lock cycles after idle periods.
 - Created two additional ordinary fictional guard QA accounts with no emails; logged out test sessions and removed temporary passwords/guard copies. Recorded direct-provider, shared-budget, idle-retention and release limits in ADR-007. Consent, recovery/delete and provider release safeguards still precede app activation.
+
+## 2026-10-24 — Recipe and reusable-meal builder
+
+- Added draft-first ingredient selection from the offline USDA catalog and My Foods, plus manual ingredient entry with explicit serving and all four macro values.
+- Added whole-batch and per-serving nutrition, optional measured cooked/raw batch weights, cooked-gram portion logging, ingredient editing and deletion, and macro override during diary review.
+- Recipe diary logs use independent ingredient snapshots; user-edited combined macros produce a separate personal diary entry. Recipe cancel/edit/delete do not rewrite earlier diary rows.
+- Added strict legacy snapshot compatibility and additive normalized-rehearsal v5 metadata. Full verification and limitations are recorded in `docs/RECIPE_VERIFICATION.md`.
+- Added repository instructions and a cross-assistant checkpoint in `AGENTS.md`, `CLAUDE.md`, and `docs/AI_HANDOFF.md`; switching assistants remains a manual, Git-based handoff.

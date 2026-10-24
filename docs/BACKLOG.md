@@ -306,3 +306,9 @@ These entries preserve the existing requirement priorities. They are unfinished 
 - Obtain a permitted current chain dataset or actual restaurant permission, retain its rights evidence and source/retrieval dates, and validate real-label/menu samples before enabling FUEL-13.
 - Prepared importer supports flat categorized servings. Licensed component/modifier/version updates, broad menu search, source removal/update reconciliation and structured personal provenance remain open.
 - Existing sample menus are still samples; an empty production registry is not restaurant coverage. Fictional examples must never be relabeled approved or used as a real meal.
+
+## Reusable-meal checkpoint — 2026-10-24
+
+- A draft-first recipe builder now combines offline USDA foods, My Foods, and manually entered portions. It calculates batch/per-serving totals and measured cooked-gram portions without inventing mass, yield, or retained nutrients; review `RECIPE_VERIFICATION.md` for evidence and limits.
+- Saved recipes can be edited/deleted independently from previously logged diary snapshots. The calculator/editor path is tested; iOS simulator UI rerun, physical-device checks, and broader FUEL-04 acceptance remain separate gates.
+- The next restaurant step still needs a current menu dataset or documented permission, rights evidence, and validated samples before FUEL-13 can be enabled.

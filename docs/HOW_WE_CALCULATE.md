@@ -152,3 +152,24 @@ Barcode identity uses checksum-valid canonical GTIN14 text, preserving leading z
 ## Restaurant import servings — prepared 2026-10-15
 
 Every imported number describes the complete servingDescription supplied by the permitted source. A known servingGrams value permits `nutrition × selected grams / servingGrams`; unknown mass permits only a count of the stated portion. No density, household mass, cooked yield, side inclusion or recipe modifier is guessed. Source kcal are preserved rather than reconstructed from rounded macros. Personal overrides replace values for the reviewed portion, then any portion count applies once. This importer adds no nutrition estimate and currently ships with zero real imported menu items.
+
+## Recipe and reusable-meal portions — implemented 2026-10-24
+
+Each ingredient begins with complete nutrients for its displayed source portion
+(for example, one saved-food serving or 100 g from the USDA catalog). The user
+enters how many of those portions go into the batch. For each nutrient,
+`batch total = sum(source portion nutrient × ingredient quantity)`. The app keeps
+reported calories as supplied; it does not reconstruct calories from rounded
+protein, carbohydrate, and fat.
+
+`per-serving nutrient = batch total / entered batch servings`. When the user has
+measured the cooked batch weight, `cooked-gram nutrient = batch total × selected
+cooked grams / measured cooked batch grams`. A raw-to-cooked yield ratio appears
+only if both measured values are entered: `measured cooked grams / measured raw
+grams`. This ratio describes measured weight change only. It does not change
+nutrition, estimate water loss or nutrient retention, or convert ingredient
+weights between raw and cooked states. No density or unmeasured serving weight is
+assumed. The user can instead enter a manual ingredient with explicit portion
+macros, including a current package label. Every logged serving is a personal
+snapshot; a personal macro override replaces the portion values for that diary
+entry only.
