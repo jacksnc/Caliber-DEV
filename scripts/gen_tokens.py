@@ -234,9 +234,9 @@ def css_block(selector, name, theme):
     for i, glow in enumerate(theme["glows"], start=1):
         add(f"glow-{i}-color", css_color(glow["color"], name))
         add(f"glow-{i}-opacity", number(glow["opacity"]))
-        add(f"glow-{i}-x", f"{number(glow['x'] * 100)}%")
-        add(f"glow-{i}-y", f"{number(glow['y'] * 100)}%")
-        add(f"glow-{i}-radius", f"{number(glow['radius'] * 100)}%")
+        add(f"glow-{i}-x", f"{number(round(glow['x'] * 100, 4))}%")
+        add(f"glow-{i}-y", f"{number(round(glow['y'] * 100, 4))}%")
+        add(f"glow-{i}-radius", f"{number(round(glow['radius'] * 100, 4))}%")
     for section, keys in (("glass", ["base", "raised", "overlay"]), ("opaque", ["base", "raised", "overlay"]),
                           ("border", ["highlight", "lowlight", "hairline", "strong"]),
                           ("text", ["primary", "secondary", "tertiary", "onAccent"]),
@@ -255,11 +255,12 @@ def css_block(selector, name, theme):
 
 def generate_css(tokens):
     blocks = []
+    # Element-scoped, so a page can show both themes side by side (and still works when set on <html>).
     selectors = {
-        "dark": ':root[data-theme="dark"]',
-        "light": ':root[data-theme="light"]',
-        "dark-hc": ':root[data-theme="dark"][data-contrast="more"]',
-        "light-hc": ':root[data-theme="light"][data-contrast="more"]',
+        "dark": '[data-theme="dark"]',
+        "light": '[data-theme="light"]',
+        "dark-hc": '[data-theme="dark"][data-contrast="more"]',
+        "light-hc": '[data-theme="light"][data-contrast="more"]',
     }
     for name in THEME_ORDER:
         blocks.append(css_block(selectors[name], name, resolve_theme(tokens, name)))

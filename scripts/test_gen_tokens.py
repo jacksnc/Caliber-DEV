@@ -84,8 +84,8 @@ class Generation(unittest.TestCase):
 
     def test_css_output_shape(self):
         css = gen.generate_css(load())
-        for selector in [':root[data-theme="dark"]', ':root[data-theme="light"]',
-                         ':root[data-theme="dark"][data-contrast="more"]', ':root[data-theme="light"][data-contrast="more"]']:
+        for selector in ['[data-theme="dark"]', '[data-theme="light"]',
+                         '[data-theme="dark"][data-contrast="more"]', '[data-theme="light"][data-contrast="more"]']:
             self.assertIn(selector + " {", css)
         self.assertIn("--glass-base: rgba(255, 255, 255, 0.05);", css)
         self.assertIn("--text-on-accent: #06131F;", css)
