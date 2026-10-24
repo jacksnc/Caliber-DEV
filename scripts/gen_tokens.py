@@ -113,6 +113,9 @@ def validate(tokens):
         for member in spec["members"]:
             if member not in data_names:
                 raise TokenError(f"chartGroups.{group}: unknown data colour '{member}'")
+        for key in ("minNormal", "minCVD"):
+            if not isinstance(spec.get(key), (int, float)) or spec[key] <= 0:
+                raise TokenError(f"chartGroups.{group}.{key} must be a positive number")
     for role, spec in tokens["type"].items():
         if spec["style"] not in TEXT_STYLES:
             raise TokenError(f"type.{role}: '{spec['style']}' is not a Dynamic Type text style")
@@ -179,7 +182,7 @@ def generate_swift(tokens):
     radius = tokens["radius"]
     motion = tokens["motion"]
     groups = ",\n".join(
-        f'        HeliosChartGroup(name: "{name}", members: {json.dumps(spec["members"])}, minDeltaE: {number(spec["minDeltaE"])})'
+        f'        HeliosChartGroup(name: "{name}", members: {json.dumps(spec["members"])}, minNormal: {number(spec["minNormal"])}, minCVD: {number(spec["minCVD"])})'
         for name, spec in tokens["chartGroups"].items() if not name.startswith("$")
     )
     roles = list(tokens["type"].items())

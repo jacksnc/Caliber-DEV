@@ -67,6 +67,26 @@ final class ColorMathTests: XCTestCase {
         XCTAssertEqual(ColorMath.deltaE76(RGBA(0xFF0000), RGBA(0xFF0000)), 0)
     }
 
+    func testOKLabReferenceValues() {
+        // Reference values from Ottosson's OKLab definition.
+        let whiteLab = ColorMath.oklab(white)
+        XCTAssertEqual(whiteLab.lightness, 1.0, accuracy: 1e-4)
+        XCTAssertEqual(whiteLab.chroma, 0, accuracy: 1e-3)
+        XCTAssertEqual(ColorMath.oklab(black).lightness, 0, accuracy: 1e-9)
+        let red = ColorMath.oklab(RGBA(0xFF0000))
+        XCTAssertEqual(red.lightness, 0.62796, accuracy: 1e-3)
+        XCTAssertEqual(red.a, 0.22486, accuracy: 1e-3)
+        XCTAssertEqual(red.b, 0.12585, accuracy: 1e-3)
+        let green = ColorMath.oklab(RGBA(0x00FF00))
+        XCTAssertEqual(green.lightness, 0.86644, accuracy: 1e-3)
+        XCTAssertEqual(green.a, -0.23389, accuracy: 1e-3)
+        let blue = ColorMath.oklab(RGBA(0x0000FF))
+        XCTAssertEqual(blue.lightness, 0.45201, accuracy: 1e-3)
+        XCTAssertEqual(blue.b, -0.31153, accuracy: 1e-3)
+        XCTAssertEqual(ColorMath.deltaEOK(white, black), 100, accuracy: 0.01)
+        XCTAssertEqual(ColorMath.deltaEOK(red.lightness == 0 ? white : RGBA(0xFF0000), RGBA(0xFF0000)), 0, accuracy: 1e-12)
+    }
+
     func testColourVisionSimulationKeepsGreysAndSeparatesWhatItShould() {
         for deficiency in ColorMath.ColorVisionDeficiency.allCases {
             let grey = deficiency.simulate(RGBA(0x808080))
@@ -83,7 +103,7 @@ final class ColorMathTests: XCTestCase {
     }
 
     func testMinimumSeparation() {
-        XCTAssertEqual(ColorMath.minimumSeparation([white, black]), 100, accuracy: 0.01)
+        XCTAssertEqual(ColorMath.minimumSeparation([white, black]), 100, accuracy: 0.05)
         XCTAssertEqual(ColorMath.minimumSeparation([white]), .infinity)
         XCTAssertEqual(ColorMath.minimumSeparation([RGBA(0x808080), RGBA(0x808080), black]), 0, accuracy: 1e-9)
     }

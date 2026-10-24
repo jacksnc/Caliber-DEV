@@ -47,6 +47,37 @@ public enum ColorMath {
         return (dl * dl + da * da + db * db).squareRoot()
     }
 
+    // MARK: OKLab
+
+    public struct OKLab: Equatable, Sendable {
+        public var lightness: Double
+        public var a: Double
+        public var b: Double
+
+        public var chroma: Double { (a * a + b * b).squareRoot() }
+    }
+
+    /// OKLab (Ottosson 2020) from an opaque sRGB colour.
+    public static func oklab(_ color: RGBA) -> OKLab {
+        let r = linear(color.red), g = linear(color.green), b = linear(color.blue)
+        let l = cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b)
+        let m = cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b)
+        let s = cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b)
+        return OKLab(
+            lightness: 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s,
+            a: 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s,
+            b: 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s
+        )
+    }
+
+    /// Euclidean distance in OKLab, times 100: the metric the data-visualisation palette checks are calibrated to
+    /// (normal-vision floor 15, colour-vision-deficiency floor 8).
+    public static func deltaEOK(_ x: RGBA, _ y: RGBA) -> Double {
+        let p = oklab(x), q = oklab(y)
+        let dl = p.lightness - q.lightness, da = p.a - q.a, db = p.b - q.b
+        return 100 * (dl * dl + da * da + db * db).squareRoot()
+    }
+
     // MARK: Colour-vision deficiency
 
     public enum ColorVisionDeficiency: String, CaseIterable, Sendable {
@@ -74,13 +105,13 @@ public enum ColorMath {
         }
     }
 
-    /// Smallest pairwise CIE76 distance between `colors`, as seen under `deficiency` (nil = normal vision).
+    /// Smallest pairwise OKLab x 100 distance between `colors`, as seen under `deficiency` (nil = normal vision).
     public static func minimumSeparation(_ colors: [RGBA], under deficiency: ColorVisionDeficiency? = nil) -> Double {
         let seen = colors.map { deficiency?.simulate($0) ?? $0 }
         var smallest = Double.infinity
         for i in seen.indices {
             for j in seen.indices where j > i {
-                smallest = min(smallest, deltaE76(seen[i], seen[j]))
+                smallest = min(smallest, deltaEOK(seen[i], seen[j]))
             }
         }
         return smallest

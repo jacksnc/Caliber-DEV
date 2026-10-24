@@ -26,14 +26,17 @@ final class TokensTests: XCTestCase {
     }
 
     func testChartGroupsReferenceRealColoursAndAreSeparated() {
-        XCTAssertEqual(HeliosTokens.chartGroups.map(\.name), ["macros", "domains"])
+        XCTAssertEqual(HeliosTokens.chartGroups.map(\.name), ["macros", "lifeline"])
         for group in HeliosTokens.chartGroups {
             for member in group.members { XCTAssertNotNil(HeliosPalette.dark.data.color(named: member), member) }
+            XCTAssertGreaterThanOrEqual(group.minNormal, 15, "normal-vision floor of the data-visualisation palette checks")
+            XCTAssertGreaterThanOrEqual(group.minCVD, 8, "colour-vision-deficiency target")
         }
         XCTAssertEqual(HeliosTokens.chartGroups[0].members, ["protein", "carbs", "fat"])
-        XCTAssertGreaterThanOrEqual(HeliosTokens.chartGroups[0].minDeltaE, 28)
+        XCTAssertEqual(HeliosTokens.chartGroups[1].members, ["energy", "training", "peptide"])
         XCTAssertNil(HeliosPalette.dark.data.color(named: "nonsense"))
         XCTAssertEqual(DataColors.names.count, 8)
+        XCTAssertEqual(DataColors.hueNames.count, 6)
     }
 
     func testMacroColoursKeepTheirIdentityAcrossThemes() {
@@ -48,7 +51,7 @@ final class TokensTests: XCTestCase {
             let d = abs(a - b).truncatingRemainder(dividingBy: 360)
             return min(d, 360 - d)
         }
-        for name in ["protein", "carbs", "fat", "training", "energy"] {
+        for name in DataColors.hueNames {
             let dark = hue(HeliosPalette.dark.data.color(named: name)!)
             let light = hue(HeliosPalette.light.data.color(named: name)!)
             XCTAssertLessThan(circularDistance(dark, light), 45, "\(name): dark \(dark), light \(light)")

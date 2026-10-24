@@ -89,7 +89,7 @@ class Generation(unittest.TestCase):
             self.assertIn(selector + " {", css)
         self.assertIn("--glass-base: rgba(255, 255, 255, 0.05);", css)
         self.assertIn("--text-on-accent: #06131F;", css)
-        self.assertIn("--data-protein: #79C6AF;", css)
+        self.assertIn("--data-protein: #31AA9A;", css)
 
     def test_committed_files_are_up_to_date(self):
         for path, text in gen.outputs(load()).items():

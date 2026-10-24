@@ -116,20 +116,40 @@ public enum PaletteAudit {
             }
         }
 
-        // Chart colours that can share a chart must stay apart under colour-vision deficiencies.
+        // Series colours must read as colours (not grey), sit in a lightness band that works on the surface, and
+        // stay apart. Bands are OKLCH lightness: 0.48-0.67 on dark surfaces, 0.43-0.77 on light ones; chroma at least 0.10.
+        let band = palette.isDark ? 0.48...0.67 : 0.43...0.77
+        for name in DataColors.hueNames {
+            guard let color = palette.data.color(named: name) else { continue }
+            let lab = ColorMath.oklab(color)
+            if !band.contains(lab.lightness) {
+                findings.append(AuditFinding(severity: .error, rule: "data.\(name) lightness band", value: lab.lightness, required: palette.isDark ? 0.48 : 0.43, detail: "OKLCH L must be in \(band.lowerBound)-\(band.upperBound)"))
+            }
+            if lab.chroma < 0.10 {
+                findings.append(AuditFinding(severity: .error, rule: "data.\(name) chroma floor", value: lab.chroma, required: 0.10, detail: "reads as grey"))
+            }
+        }
+
+        // Chart colours that can share a chart must stay apart, for everyone and under red-green colour-vision deficiency.
         for group in HeliosTokens.chartGroups {
             let colors = group.members.compactMap { palette.data.color(named: $0) }
             guard colors.count == group.members.count else {
-                findings.append(AuditFinding(severity: .error, rule: "chart group \(group.name)", value: 0, required: group.minDeltaE, detail: "unknown member"))
+                findings.append(AuditFinding(severity: .error, rule: "chart group \(group.name)", value: 0, required: group.minNormal, detail: "unknown member"))
                 continue
             }
-            var conditions: [(String, ColorMath.ColorVisionDeficiency?)] = [("normal vision", nil)]
-            conditions += ColorMath.ColorVisionDeficiency.allCases.map { ($0.rawValue, $0) }
-            for (label, deficiency) in conditions {
+            let normal = ColorMath.minimumSeparation(colors)
+            if normal < group.minNormal {
+                findings.append(AuditFinding(severity: .error, rule: "chart group \(group.name) separation", value: normal, required: group.minNormal, detail: "normal vision"))
+            }
+            for deficiency in [ColorMath.ColorVisionDeficiency.protanopia, .deuteranopia] {
                 let separation = ColorMath.minimumSeparation(colors, under: deficiency)
-                if separation < group.minDeltaE {
-                    findings.append(AuditFinding(severity: .error, rule: "chart group \(group.name) separation", value: separation, required: group.minDeltaE, detail: label))
+                if separation < group.minCVD {
+                    findings.append(AuditFinding(severity: .error, rule: "chart group \(group.name) separation", value: separation, required: group.minCVD, detail: deficiency.rawValue))
                 }
+            }
+            let tritan = ColorMath.minimumSeparation(colors, under: .tritanopia)
+            if tritan < group.minCVD {
+                findings.append(AuditFinding(severity: .warning, rule: "chart group \(group.name) separation", value: tritan, required: group.minCVD, detail: "tritanopia (label the series)"))
             }
         }
         return findings

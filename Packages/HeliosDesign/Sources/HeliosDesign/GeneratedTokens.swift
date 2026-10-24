@@ -8,8 +8,8 @@ extension HeliosPalette {
         id: "dark", label: "Graphite", isDark: true, isHighContrast: false,
         canvasTop: RGBA(0x0A0B0E), canvasBottom: RGBA(0x15171C),
         glows: [
-            HeliosGlow(color: RGBA(0x4F6489), opacity: 0.3, x: 0.12, y: 0.04, radius: 0.75),
-            HeliosGlow(color: RGBA(0x3A4256), opacity: 0.22, x: 0.95, y: 0.55, radius: 0.8),
+            HeliosGlow(color: RGBA(0x4F6489), opacity: 0.2, x: 0.12, y: 0.04, radius: 0.75),
+            HeliosGlow(color: RGBA(0x3A4256), opacity: 0.14, x: 0.95, y: 0.55, radius: 0.8),
         ],
         glass: GlassLevels(base: RGBA(0xFFFFFF, alpha: 0.05), raised: RGBA(0xFFFFFF, alpha: 0.08), overlay: RGBA(0xFFFFFF, alpha: 0.11)),
         opaque: GlassLevels(base: RGBA(0x212327), raised: RGBA(0x282A2E), overlay: RGBA(0x2F3135)),
@@ -17,7 +17,7 @@ extension HeliosPalette {
         shadow: ShadowToken(color: RGBA(0x000000, alpha: 0.45), radius: 24, y: 12),
         text: TextColors(primary: RGBA(0xF5F7FA), secondary: RGBA(0xB8BFCB), tertiary: RGBA(0x939CAA), onAccent: RGBA(0x06131F)),
         accent: AccentColors(base: RGBA(0x8AD0FF), pressed: RGBA(0x6FC0F5), subtle: RGBA(0x8AD0FF, alpha: 0.16), focus: RGBA(0xBFE4FF), tint: RGBA(0x8AD0FF, alpha: 0.16)),
-        data: DataColors(energy: RGBA(0x8AD0FF), protein: RGBA(0x79C6AF), carbs: RGBA(0xEDC77C), fat: RGBA(0xA291CB), training: RGBA(0xD98375), peptide: RGBA(0x6DABF8), weight: RGBA(0xF5F7FA), reference: RGBA(0x939CAA)),
+        data: DataColors(energy: RGBA(0x3D96F5), protein: RGBA(0x31AA9A), carbs: RGBA(0xC07E15), fat: RGBA(0x927CE9), training: RGBA(0x82960E), peptide: RGBA(0xD66A9E), weight: RGBA(0xF5F7FA), reference: RGBA(0x939CAA)),
         status: StatusColors(success: RGBA(0x6FD08C), warning: RGBA(0xF2C14E), danger: RGBA(0xFFA198))
     )
 
@@ -34,7 +34,7 @@ extension HeliosPalette {
         shadow: ShadowToken(color: RGBA(0x1B4F9C, alpha: 0.14), radius: 24, y: 10),
         text: TextColors(primary: RGBA(0x0B1626), secondary: RGBA(0x41536B), tertiary: RGBA(0x5F7089), onAccent: RGBA(0xFFFFFF)),
         accent: AccentColors(base: RGBA(0x0868B8), pressed: RGBA(0x07589C), subtle: RGBA(0x0868B8, alpha: 0.12), focus: RGBA(0x0868B8), tint: RGBA(0xDCEBFF)),
-        data: DataColors(energy: RGBA(0x0868B8), protein: RGBA(0x2F7862), carbs: RGBA(0x9B7534), fat: RGBA(0x857AB0), training: RGBA(0x994C3F), peptide: RGBA(0x48588E), weight: RGBA(0x0B1626), reference: RGBA(0x5F7089)),
+        data: DataColors(energy: RGBA(0x0383DD), protein: RGBA(0x03918E), carbs: RGBA(0x975110), fat: RGBA(0x6E47A4), training: RGBA(0x738C0A), peptide: RGBA(0x8C376B), weight: RGBA(0x0B1626), reference: RGBA(0x5F7089)),
         status: StatusColors(success: RGBA(0x1E7A3C), warning: RGBA(0x8A5A00), danger: RGBA(0xB3261E))
     )
 
@@ -42,8 +42,8 @@ extension HeliosPalette {
         id: "dark-hc", label: "Graphite (increased contrast)", isDark: true, isHighContrast: true,
         canvasTop: RGBA(0x0A0B0E), canvasBottom: RGBA(0x15171C),
         glows: [
-            HeliosGlow(color: RGBA(0x4F6489), opacity: 0.3, x: 0.12, y: 0.04, radius: 0.75),
-            HeliosGlow(color: RGBA(0x3A4256), opacity: 0.22, x: 0.95, y: 0.55, radius: 0.8),
+            HeliosGlow(color: RGBA(0x4F6489), opacity: 0.2, x: 0.12, y: 0.04, radius: 0.75),
+            HeliosGlow(color: RGBA(0x3A4256), opacity: 0.14, x: 0.95, y: 0.55, radius: 0.8),
         ],
         glass: GlassLevels(base: RGBA(0xFFFFFF, alpha: 0.03), raised: RGBA(0xFFFFFF, alpha: 0.05), overlay: RGBA(0xFFFFFF, alpha: 0.07)),
         opaque: GlassLevels(base: RGBA(0x212327), raised: RGBA(0x282A2E), overlay: RGBA(0x2F3135)),
@@ -51,7 +51,7 @@ extension HeliosPalette {
         shadow: ShadowToken(color: RGBA(0x000000, alpha: 0.45), radius: 24, y: 12),
         text: TextColors(primary: RGBA(0xF5F7FA), secondary: RGBA(0xD6DBE3), tertiary: RGBA(0xBDC4CF), onAccent: RGBA(0x06131F)),
         accent: AccentColors(base: RGBA(0x8AD0FF), pressed: RGBA(0x6FC0F5), subtle: RGBA(0x8AD0FF, alpha: 0.16), focus: RGBA(0xBFE4FF), tint: RGBA(0x8AD0FF, alpha: 0.16)),
-        data: DataColors(energy: RGBA(0x8AD0FF), protein: RGBA(0x79C6AF), carbs: RGBA(0xEDC77C), fat: RGBA(0xA291CB), training: RGBA(0xD98375), peptide: RGBA(0x6DABF8), weight: RGBA(0xF5F7FA), reference: RGBA(0x939CAA)),
+        data: DataColors(energy: RGBA(0x3D96F5), protein: RGBA(0x31AA9A), carbs: RGBA(0xC07E15), fat: RGBA(0x927CE9), training: RGBA(0x82960E), peptide: RGBA(0xD66A9E), weight: RGBA(0xF5F7FA), reference: RGBA(0x939CAA)),
         status: StatusColors(success: RGBA(0x6FD08C), warning: RGBA(0xF2C14E), danger: RGBA(0xFFA198))
     )
 
@@ -68,7 +68,7 @@ extension HeliosPalette {
         shadow: ShadowToken(color: RGBA(0x1B4F9C, alpha: 0.14), radius: 24, y: 10),
         text: TextColors(primary: RGBA(0x0B1626), secondary: RGBA(0x2A3A50), tertiary: RGBA(0x3F5069), onAccent: RGBA(0xFFFFFF)),
         accent: AccentColors(base: RGBA(0x0868B8), pressed: RGBA(0x07589C), subtle: RGBA(0x0868B8, alpha: 0.12), focus: RGBA(0x0868B8), tint: RGBA(0xDCEBFF)),
-        data: DataColors(energy: RGBA(0x0868B8), protein: RGBA(0x2F7862), carbs: RGBA(0x9B7534), fat: RGBA(0x857AB0), training: RGBA(0x994C3F), peptide: RGBA(0x48588E), weight: RGBA(0x0B1626), reference: RGBA(0x5F7089)),
+        data: DataColors(energy: RGBA(0x0383DD), protein: RGBA(0x03918E), carbs: RGBA(0x975110), fat: RGBA(0x6E47A4), training: RGBA(0x738C0A), peptide: RGBA(0x8C376B), weight: RGBA(0x0B1626), reference: RGBA(0x5F7089)),
         status: StatusColors(success: RGBA(0x1E7A3C), warning: RGBA(0x8A5A00), danger: RGBA(0xB3261E))
     )
 }
@@ -81,8 +81,8 @@ public enum HeliosTokens {
     public static let glass = HeliosGlassSpec(blur: 24, saturation: 1.4)
     public static let motion = HeliosMotion(fast: 0.15, base: 0.28, slow: 0.45, springResponse: 0.4, springDamping: 0.85)
     public static let chartGroups: [HeliosChartGroup] = [
-        HeliosChartGroup(name: "macros", members: ["protein", "carbs", "fat"], minDeltaE: 28),
-        HeliosChartGroup(name: "domains", members: ["energy", "protein", "carbs", "fat", "training", "peptide"], minDeltaE: 10),
+        HeliosChartGroup(name: "macros", members: ["protein", "carbs", "fat"], minNormal: 15, minCVD: 8),
+        HeliosChartGroup(name: "lifeline", members: ["energy", "training", "peptide"], minNormal: 15, minCVD: 8),
     ]
 }
 

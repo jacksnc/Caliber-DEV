@@ -76,6 +76,16 @@ final class PaletteAuditTests: XCTestCase {
         XCTAssertTrue(findings.contains { $0.rule == "chart group macros separation" && ($0.detail == "protanopia" || $0.detail == "deuteranopia") }, describe(findings))
     }
 
+    func testAuditCatchesPastelAndGreySeriesColours() {
+        var pastel = HeliosPalette.dark
+        pastel.data.protein = RGBA(0xB9E7DB)       // too light for the dark band: washes out on glass
+        XCTAssertTrue(PaletteAudit.audit(pastel).contains { $0.rule == "data.protein lightness band" }, describe(PaletteAudit.audit(pastel)))
+
+        var grey = HeliosPalette.light
+        grey.data.fat = RGBA(0x77727F)             // right lightness, but reads as grey
+        XCTAssertTrue(PaletteAudit.audit(grey).contains { $0.rule == "data.fat chroma floor" }, describe(PaletteAudit.audit(grey)))
+    }
+
     func testAuditCatchesButtonLabelsWithoutContrast() {
         var broken = HeliosPalette.light
         broken.text.onAccent = RGBA(0xB7D4F0)

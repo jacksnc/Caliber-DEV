@@ -133,6 +133,8 @@ public struct DataColors: Hashable, Sendable {
     }
 
     public static let names = ["energy", "protein", "carbs", "fat", "training", "peptide", "weight", "reference"]
+    /// The six chromatic series colours (weight and reference are neutrals).
+    public static let hueNames = ["energy", "protein", "carbs", "fat", "training", "peptide"]
 
     public func color(named name: String) -> RGBA? {
         switch name {
@@ -281,14 +283,19 @@ public struct HeliosTypeSpec: Hashable, Sendable {
     }
 }
 
+/// Colours that can share one chart, so any two may sit side by side. Distances are OKLab x 100.
 public struct HeliosChartGroup: Hashable, Sendable {
     public var name: String
     public var members: [String]
-    public var minDeltaE: Double
+    /// Smallest distance between any two members under normal colour vision.
+    public var minNormal: Double
+    /// Smallest distance between any two members under protanopia and deuteranopia.
+    public var minCVD: Double
 
-    public init(name: String, members: [String], minDeltaE: Double) {
+    public init(name: String, members: [String], minNormal: Double, minCVD: Double) {
         self.name = name
         self.members = members
-        self.minDeltaE = minDeltaE
+        self.minNormal = minNormal
+        self.minCVD = minCVD
     }
 }
