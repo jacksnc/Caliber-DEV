@@ -246,6 +246,18 @@ final class BarcodeTests: XCTestCase {
         XCTAssertEqual(BarcodeNormalizer.normalize("01000146", symbology: .ean8).candidates.map(\.format), [.ean8])
     }
 
+    func testRealisticUPCEIsAlsoAValidEAN8WithoutASymbology() throws {
+        // 01234565 is the UPC-E of 012345000065. For the five-digit-manufacturer pattern the UPC-E and EAN-8 check-digit
+        // weights are identical, so more than half of all UPC-E codes are ambiguous: the symbology must be passed.
+        let unknown = BarcodeNormalizer.normalize("01234565")
+        XCTAssertEqual(unknown.candidates.map(\.format), [.ean8, .upcE])
+        XCTAssertEqual(unknown.candidates[1].gtin.upcA, "012345000065")
+
+        let scanned = BarcodeNormalizer.normalize("01234565", symbology: .upcE)
+        XCTAssertEqual(scanned.candidates.map(\.format), [.upcE])
+        XCTAssertEqual(scanned.candidates.first?.gtin, GTIN("012345000065"))
+    }
+
     func testEightDigitCodeInvalidForBothReadings() {
         guard case let .invalid(.badCheckDigit(expected, _)) = BarcodeNormalizer.normalize("96385075") else {
             return XCTFail("expected bad check digit")
