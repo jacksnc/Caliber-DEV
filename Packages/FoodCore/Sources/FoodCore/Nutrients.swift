@@ -90,7 +90,7 @@ public struct NutrientSet: Equatable, Sendable, Codable {
     }
 
     /// Removes floating-point noise (e.g. 2.4999999999999996 -> 2.5) without hiding real precision.
-    static func clean(_ value: Double) -> Double {
+    public static func clean(_ value: Double) -> Double {
         (value * 1e6).rounded() / 1e6
     }
 
