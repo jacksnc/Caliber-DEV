@@ -113,9 +113,12 @@ public enum USDAFoodDataCentral {
             guard let code = food["gtinUpc"]?.string?.filter({ $0.isASCII && $0.isNumber }), !code.isEmpty, code.count <= 14 else { return false }
             return String(repeating: "0", count: 14 - code.count) + code == gtin.digits14
         }
-        let newest = matches.max { a, b in
-            (a["modifiedDate"]?.string ?? a["availableDate"]?.string ?? "") < (b["modifiedDate"]?.string ?? b["availableDate"]?.string ?? "")
+        // ISO dates sort lexicographically; the newest listing wins.
+        func listingDate(_ food: JSONValue) -> String {
+            if let modified = food["modifiedDate"]?.string { return modified }
+            return food["availableDate"]?.string ?? ""
         }
+        let newest = matches.max { listingDate($0) < listingDate($1) }
         guard let food = newest else { return .notFound }
         return .found(record(from: food, gtin: gtin, now: now))
     }
