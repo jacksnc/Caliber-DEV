@@ -57,3 +57,16 @@ jobs:
           done < <(find . -name Package.swift -not -path '*/.build/*' -not -path '*/.swiftpm/*' -not -path '*/SourcePackages/*' -print0)
           echo "packages found: $found, failed: $failed"
           [ "$failed" -eq 0 ]
+
+  design-checks:
+    name: Design tokens and Dynamic Type lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generated design tokens are up to date
+        run: python3 scripts/gen_tokens.py --check
+      - name: Script tests
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: Dynamic Type lint (Packages, and App once it exists)
+        run: python3 scripts/lint_dynamic_type.py
