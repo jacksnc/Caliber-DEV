@@ -96,6 +96,15 @@ public enum PaletteAudit {
             }
         }
 
+        // Screen titles and dates sit straight on the canvas, so the two text colours used there are also checked on the
+        // bare backdrops. Coloured text (accent, status) and tertiary text belong on cards; they are not promised on the canvas.
+        for (rule, color) in [("text.primary", palette.text.primary), ("text.secondary", palette.text.secondary)] {
+            let worst = worstContrast(of: color, on: backdrops(of: palette))
+            if worst.ratio < 4.5 {
+                findings.append(AuditFinding(severity: .error, rule: "\(rule) on canvas", value: worst.ratio, required: 4.5, detail: worst.where))
+            }
+        }
+
         // Text on a solid accent fill (primary buttons).
         let onAccent = ColorMath.contrastRatio(palette.text.onAccent, palette.accent.base)
         if onAccent < 4.5 {

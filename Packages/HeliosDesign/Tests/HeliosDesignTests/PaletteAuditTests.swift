@@ -111,6 +111,16 @@ final class PaletteAuditTests: XCTestCase {
         XCTAssertEqual(finding?.required, 4.5)
     }
 
+    func testTextOnTheBareCanvasIsAuditedToo() {
+        // Solid white glass keeps every glass check happy; only the darkened canvas can fail.
+        var palette = HeliosPalette.light
+        palette.glass = GlassLevels(base: RGBA(0xFFFFFF), raised: RGBA(0xFFFFFF), overlay: RGBA(0xFFFFFF))
+        XCTAssertTrue(PaletteAudit.audit(palette).filter { $0.severity == .error }.isEmpty, "precondition: glass alone passes")
+        palette.canvasBottom = RGBA(0x7A8CA6)
+        let findings = PaletteAudit.audit(palette).map(\.rule)
+        XCTAssertTrue(findings.contains("text.secondary on canvas"), "\(findings)")
+    }
+
     // MARK: structure
 
     func testPaletteSelection() {
