@@ -72,8 +72,8 @@
   --border-hairline: rgba(255, 255, 255, 0.12);
   --border-strong: rgba(255, 255, 255, 0.42);
   --text-primary: #F5F7FA;
-  --text-secondary: #B8BFCB;
-  --text-tertiary: #939CAA;
+  --text-secondary: #C4CAD4;
+  --text-tertiary: #A8B1BE;
   --text-on-accent: #06131F;
   --data-energy: #3D96F5;
   --data-protein: #31AA9A;
@@ -122,7 +122,7 @@
   --border-strong: rgba(11, 22, 38, 0.45);
   --text-primary: #0B1626;
   --text-secondary: #41536B;
-  --text-tertiary: #5F7089;
+  --text-tertiary: #566780;
   --text-on-accent: #FFFFFF;
   --data-energy: #0383DD;
   --data-protein: #03918E;

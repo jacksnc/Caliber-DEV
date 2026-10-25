@@ -79,7 +79,7 @@ public struct ShadowToken: Hashable, Sendable {
 public struct TextColors: Hashable, Sendable {
     public var primary: RGBA
     public var secondary: RGBA
-    /// Captions, units and hints only: it clears 3:1 but not 4.5:1 in the standard palettes.
+    /// Captions, units and hints. Quieter than secondary, but still held to 4.5:1 like every other text colour.
     public var tertiary: RGBA
     /// Text drawn on a solid accent fill.
     public var onAccent: RGBA

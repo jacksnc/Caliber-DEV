@@ -15,7 +15,7 @@ extension HeliosPalette {
         opaque: GlassLevels(base: RGBA(0x212327), raised: RGBA(0x282A2E), overlay: RGBA(0x2F3135)),
         border: BorderTokens(highlight: RGBA(0xFFFFFF, alpha: 0.2), lowlight: RGBA(0xFFFFFF, alpha: 0.06), hairline: RGBA(0xFFFFFF, alpha: 0.12), strong: RGBA(0xFFFFFF, alpha: 0.42)),
         shadow: ShadowToken(color: RGBA(0x000000, alpha: 0.45), radius: 24, y: 12),
-        text: TextColors(primary: RGBA(0xF5F7FA), secondary: RGBA(0xB8BFCB), tertiary: RGBA(0x939CAA), onAccent: RGBA(0x06131F)),
+        text: TextColors(primary: RGBA(0xF5F7FA), secondary: RGBA(0xC4CAD4), tertiary: RGBA(0xA8B1BE), onAccent: RGBA(0x06131F)),
         accent: AccentColors(base: RGBA(0x8AD0FF), pressed: RGBA(0x6FC0F5), subtle: RGBA(0x8AD0FF, alpha: 0.16), focus: RGBA(0xBFE4FF), tint: RGBA(0x8AD0FF, alpha: 0.16)),
         data: DataColors(energy: RGBA(0x3D96F5), protein: RGBA(0x31AA9A), carbs: RGBA(0xC07E15), fat: RGBA(0x927CE9), training: RGBA(0x82960E), peptide: RGBA(0xD66A9E), weight: RGBA(0xF5F7FA), reference: RGBA(0x939CAA)),
         status: StatusColors(success: RGBA(0x6FD08C), warning: RGBA(0xF2C14E), danger: RGBA(0xFFA198))
@@ -32,7 +32,7 @@ extension HeliosPalette {
         opaque: GlassLevels(base: RGBA(0xF4F8FD), raised: RGBA(0xF8FAFE), overlay: RGBA(0xFBFCFE)),
         border: BorderTokens(highlight: RGBA(0xFFFFFF, alpha: 0.95), lowlight: RGBA(0xFFFFFF, alpha: 0.55), hairline: RGBA(0x0B1626, alpha: 0.08), strong: RGBA(0x0B1626, alpha: 0.45)),
         shadow: ShadowToken(color: RGBA(0x1B4F9C, alpha: 0.14), radius: 24, y: 10),
-        text: TextColors(primary: RGBA(0x0B1626), secondary: RGBA(0x41536B), tertiary: RGBA(0x5F7089), onAccent: RGBA(0xFFFFFF)),
+        text: TextColors(primary: RGBA(0x0B1626), secondary: RGBA(0x41536B), tertiary: RGBA(0x566780), onAccent: RGBA(0xFFFFFF)),
         accent: AccentColors(base: RGBA(0x0868B8), pressed: RGBA(0x07589C), subtle: RGBA(0x0868B8, alpha: 0.12), focus: RGBA(0x0868B8), tint: RGBA(0xDCEBFF)),
         data: DataColors(energy: RGBA(0x0383DD), protein: RGBA(0x03918E), carbs: RGBA(0x975110), fat: RGBA(0x6E47A4), training: RGBA(0x738C0A), peptide: RGBA(0x8C376B), weight: RGBA(0x0B1626), reference: RGBA(0x5F7089)),
         status: StatusColors(success: RGBA(0x1E7A3C), warning: RGBA(0x8A5A00), danger: RGBA(0xB3261E))

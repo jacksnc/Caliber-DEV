@@ -102,10 +102,13 @@ final class PaletteAuditTests: XCTestCase {
         XCTAssertFalse(PaletteAudit.audit(standard).contains { $0.rule == "border.strong (control edge)" })
     }
 
-    func testIncreasedContrastIsStricterAboutTertiaryText() {
-        var palette = HeliosPalette.darkHighContrast
-        palette.text.tertiary = HeliosPalette.dark.text.tertiary    // 3.3:1 is fine for standard, not for increased contrast
-        XCTAssertTrue(PaletteAudit.audit(palette).contains { $0.rule.hasPrefix("text.tertiary") })
+    func testTertiaryTextIsHeldToTheSameBarAsOtherText() {
+        // The first draft of the dark tertiary colour reached only 3.7:1 on the brightest glass: fine for a glyph, not for text.
+        var palette = HeliosPalette.dark
+        palette.text.tertiary = RGBA(0x939CAA)
+        let finding = PaletteAudit.audit(palette).first { $0.rule.hasPrefix("text.tertiary") }
+        XCTAssertNotNil(finding)
+        XCTAssertEqual(finding?.required, 4.5)
     }
 
     // MARK: structure

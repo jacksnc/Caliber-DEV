@@ -65,7 +65,6 @@ public enum PaletteAudit {
         var findings: [AuditFinding] = []
         let glass = glassSurfaces(of: palette)
         let opaque = opaqueSurfaces(of: palette)
-        let strictTertiary = palette.isHighContrast ? 4.5 : 3.0
 
         struct Check {
             let rule: String
@@ -76,7 +75,7 @@ public enum PaletteAudit {
         let checks: [Check] = [
             Check(rule: "text.primary", color: palette.text.primary, minimum: 4.5, advisory: 7.0),
             Check(rule: "text.secondary", color: palette.text.secondary, minimum: 4.5, advisory: nil),
-            Check(rule: "text.tertiary", color: palette.text.tertiary, minimum: strictTertiary, advisory: nil),
+            Check(rule: "text.tertiary", color: palette.text.tertiary, minimum: 4.5, advisory: nil),
             Check(rule: "accent.base as text or icon", color: palette.accent.base, minimum: 4.5, advisory: nil),
             Check(rule: "accent.focus ring", color: palette.accent.focus, minimum: 3.0, advisory: nil),
             Check(rule: "status.success", color: palette.status.success, minimum: 4.5, advisory: nil),
