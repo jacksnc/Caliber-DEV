@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Helios Today</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@600;700&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="look.css">
+<style>html, body { margin: 0; }</style>
+</head>
+<body>
+<div class="hx hx-screen" data-theme="dark">
+  <div class="hx-body">
+    <header class="hx-head">
+      <div class="stackv">
+        <p class="t-foot c-2">Saturday, October 24</p>
+        <h1 class="t-display">Today</h1>
+      </div>
+      <button class="icon-btn glass raised" aria-label="Profile and settings"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg></button>
+    </header>
+
+    <section class="glass card" aria-label="Fuel">
+      <div class="card-h">
+        <h2 class="t-section">Fuel</h2>
+        <div class="seg" role="group" aria-label="Show">
+          <button aria-pressed="true">Left</button>
+          <button aria-pressed="false">Eaten</button>
+        </div>
+      </div>
+      <div class="row" style="gap:16px">
+        <svg class="chart rings" viewBox="0 0 168 168" role="img" aria-label="Energy 62 percent, protein 79 percent, carbs 49 percent and fat 74 percent of today's targets">
+          <g transform="rotate(-90 84 84)">
+            <circle class="ring-bg" cx="84" cy="84" r="79"/>
+            <circle class="ring s-energy" cx="84" cy="84" r="79" stroke-dasharray="308.81 496.37"/>
+            <circle class="ring-bg" cx="84" cy="84" r="65"/>
+            <circle class="ring s-protein" cx="84" cy="84" r="65" stroke-dasharray="322.19 408.41"/>
+            <circle class="ring-bg" cx="84" cy="84" r="51"/>
+            <circle class="ring s-carbs" cx="84" cy="84" r="51" stroke-dasharray="157.55 320.44"/>
+            <circle class="ring-bg" cx="84" cy="84" r="37"/>
+            <circle class="ring s-fat" cx="84" cy="84" r="37" stroke-dasharray="172.7 232.48"/>
+          </g>
+          <text class="ring-n" x="84" y="87" text-anchor="middle">888</text>
+          <text class="axis-t" x="84" y="104" text-anchor="middle">kcal left</text>
+        </svg>
+        <ul class="legend grow" style="gap:10px">
+          <li class="lg"><span class="dot d-energy"></span><span class="stackv"><span class="t-label c-2">Energy · kcal</span><span class="t-callout num"><b>1,462</b> <span class="t-foot c-2">/ 2,350</span></span></span></li>
+          <li class="lg"><span class="dot d-protein"></span><span class="stackv"><span class="t-label c-2">Protein · g</span><span class="t-callout num"><b>142</b> <span class="t-foot c-2">/ 180</span></span></span></li>
+          <li class="lg"><span class="dot d-carbs"></span><span class="stackv"><span class="t-label c-2">Carbs · g</span><span class="t-callout num"><b>118</b> <span class="t-foot c-2">/ 240</span></span></span></li>
+          <li class="lg"><span class="dot d-fat"></span><span class="stackv"><span class="t-label c-2">Fat · g</span><span class="t-callout num"><b>52</b> <span class="t-foot c-2">/ 70</span></span></span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="glass card" aria-label="Today's training">
+      <div class="row">
+        <span class="avatar"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/></svg></span>
+        <div class="stackv grow">
+          <h2 class="t-section">Push A</h2>
+          <p class="t-foot c-2">Week 3 · 6 exercises · about 55 min</p>
+        </div>
+      </div>
+      <p class="t-sub c-2">Bench press first: 4 × 6, last time 90 kg.</p>
+      <button class="btn primary block">Start workout</button>
+    </section>
+
+    <div class="grid2">
+      <section class="glass raised tile" aria-label="Trend weight">
+        <div class="tile-label"><span class="dot d-weight"></span><span class="t-label">Trend weight</span></div>
+        <div class="row" style="align-items:baseline;gap:4px"><span class="t-metric">82.3</span><span class="t-cap c-2">kg</span></div>
+        <svg class="chart" viewBox="0 0 112 32" role="img" aria-label="Trend weight over the last 14 days, falling">
+          <path class="ln s-weight" d="M4,7.3 L12,10.6 L20,10.6 L28,13.8 L36,14.5 L44,17.6 L52,18.2 L60,17.3 L68,20.6 L76,21.2 L84,23 L92,21.8 L100,24.2 L108,24.7"/>
+          <circle class="f-weight pt-ring" cx="108" cy="24.7" r="4"/>
+        </svg>
+        <p class="t-foot c-2">−0.2 kg this week</p>
+      </section>
+      <section class="glass raised tile" aria-label="Next dose">
+        <div class="tile-label"><span class="dot d-peptide"></span><span class="t-label">Next dose</span></div>
+        <span class="t-section">Semaglutide</span>
+        <p class="t-foot c-2">0.5 mg · 8:00 AM</p>
+        <span class="badge warn"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path class="ico-fill" d="M12 4l9 16H3z"/><path class="ink" d="M12 10v4.2M12 17v.01"/></svg>Overdue by 1 h</span>
+        <button class="link">Log dose<svg class="ico ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </section>
+    </div>
+  </div>
+
+  <nav class="tabbar glass overlay" aria-label="Main">
+    <button class="tab" aria-current="page"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/></svg><span class="t-tab">Today</span></button>
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/></svg><span class="t-tab">Train</span></button>
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5h16a8 8 0 0 1-16 0z"/><path d="M9 7.5c0-1.6 1-2.6 2.2-3M14.5 7.5c0-1.4.8-2.3 1.8-2.8"/></svg><span class="t-tab">Fuel</span></button>
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5M10.5 3.5v5.2L6.6 17a2.6 2.6 0 0 0 2.4 3.6h6a2.6 2.6 0 0 0 2.4-3.6l-3.9-8.3V3.5"/><path d="M8.4 14.5h7.2"/></svg><span class="t-tab">Stack</span></button>
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5v14.5h16"/><path d="M8 14.5l3.4-4.2 3 2.6 4.6-6"/></svg><span class="t-tab">Progress</span></button>
+  </nav>
+
+  <button class="fab" aria-label="Quick log"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+</div>
+<script src="theme.js"></script>
+</body>
+</html>

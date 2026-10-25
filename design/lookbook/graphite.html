@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Helios Graphite</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@600;700&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="look.css">
+<style>html, body { margin: 0; }</style>
+</head>
+<body>
+<div class="hx hx-spec" data-theme="dark">
+  <div class="spec-in">
+    <div class="spec-col">
+      <header class="stackv" style="gap:6px">
+        <p class="t-label c-2">DARK THEME</p>
+        <h1 class="t-hero">Graphite</h1>
+        <p class="t-callout c-2">A near-black canvas with steel-blue ambient light. Cards are translucent white glass over a blurred backdrop.</p>
+      </header>
+
+      <section class="spec-sec" aria-label="Surfaces">
+        <h2 class="t-section">Surfaces</h2>
+        <div class="stage" role="img" aria-label="Three glass levels over the canvas gradient">
+          <i class="blob" style="left:36px;top:18px;width:150px;height:110px;background:var(--accent)"></i>
+          <i class="blob" style="right:30px;top:40px;width:170px;height:120px;background:var(--glow-1-color)"></i>
+          <div class="stage-tiles">
+            <div class="glass tile"><span class="t-section">Base</span><span class="t-foot c-2">White 5%</span><span class="t-cap c-2 num">Opaque #212327</span></div>
+            <div class="glass raised tile"><span class="t-section">Raised</span><span class="t-foot c-2">White 8%</span><span class="t-cap c-2 num">Opaque #282A2E</span></div>
+            <div class="glass overlay tile"><span class="t-section">Overlay</span><span class="t-foot c-2">White 11%</span><span class="t-cap c-2 num">Opaque #2F3135</span></div>
+          </div>
+        </div>
+        <p class="t-foot c-2 num">Canvas #0A0B0E to #15171C. Ambient light #4F6489 at 20% and #3A4256 at 14%. Blur 24, saturation 1.4. The light blobs above are exaggerated to show the blur.</p>
+      </section>
+
+      <section class="spec-sec" aria-label="Text">
+        <h2 class="t-section">Text</h2>
+        <div class="glass card" style="padding:4px var(--space-4)">
+          <div class="crow"><span class="t-display" style="color:var(--text-primary)">Aa</span><div class="stackv"><span class="t-strong">Primary</span><span class="t-foot c-2">Titles and values</span></div><div class="stackv" style="align-items:flex-end"><span class="t-callout num">#F5F7FA</span><span class="t-foot c-2 num">9.4 : 1</span></div></div>
+          <div class="crow"><span class="t-display" style="color:var(--text-secondary)">Aa</span><div class="stackv"><span class="t-strong">Secondary</span><span class="t-foot c-2">Labels and body copy</span></div><div class="stackv" style="align-items:flex-end"><span class="t-callout num">#C4CAD4</span><span class="t-foot c-2 num">6.2 : 1</span></div></div>
+          <div class="crow"><span class="t-display" style="color:var(--text-tertiary)">Aa</span><div class="stackv"><span class="t-strong">Tertiary</span><span class="t-foot c-2">Captions, units and hints</span></div><div class="stackv" style="align-items:flex-end"><span class="t-callout num">#A8B1BE</span><span class="t-foot c-2 num">4.7 : 1</span></div></div>
+          <div class="crow"><span class="btn primary compact" style="min-height:40px;padding:0 12px;width:48px">Aa</span><div class="stackv"><span class="t-strong">On accent</span><span class="t-foot c-2">Label on the primary button</span></div><div class="stackv" style="align-items:flex-end"><span class="t-callout num">#06131F</span><span class="t-foot c-2 num">11.2 : 1</span></div></div>
+        </div>
+        <p class="t-foot c-2">Ratios are the worst case on glass: composited over the brightest backdrop the glass can meet.</p>
+      </section>
+    </div>
+
+    <div class="spec-col">
+      <section class="spec-sec" aria-label="Accent and status">
+        <h2 class="t-section">Accent and status</h2>
+        <div class="sw-grid">
+          <div class="sw"><div class="sw-chip" style="background:#8AD0FF"></div><span class="t-strong">Accent</span><span class="t-cap c-2 num">#8AD0FF · 6.1 : 1</span></div>
+          <div class="sw"><div class="sw-chip" style="background:#6FD08C"></div><span class="t-strong">Success</span><span class="t-cap c-2 num">#6FD08C · 5.4 : 1</span></div>
+          <div class="sw"><div class="sw-chip" style="background:#F2C14E"></div><span class="t-strong">Warning</span><span class="t-cap c-2 num">#F2C14E · 6.0 : 1</span></div>
+          <div class="sw"><div class="sw-chip" style="background:#FFA198"></div><span class="t-strong">Danger</span><span class="t-cap c-2 num">#FFA198 · 5.2 : 1</span></div>
+        </div>
+        <div class="row" style="gap:20px;flex-wrap:wrap">
+          <span class="badge ok"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle class="ico-fill" cx="12" cy="12" r="9.5"/><path class="ink" d="M7.8 12.4l3 3 5.4-6"/></svg>Complete</span>
+          <span class="badge warn"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path class="ico-fill" d="M12 4l9 16H3z"/><path class="ink" d="M12 10v4.2M12 17v.01"/></svg>Check this</span>
+          <span class="badge bad"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path class="ico-fill" d="M8.2 3h7.6L21 8.2v7.6L15.8 21H8.2L3 15.8V8.2z"/><path class="ink" d="M9 9l6 6M15 9l-6 6"/></svg>Failed</span>
+        </div>
+        <p class="t-foot c-2">Status always pairs colour with an icon and words. The accent is the one colour used for actions and selection.</p>
+      </section>
+
+      <section class="spec-sec" aria-label="Series colours">
+        <h2 class="t-section">Series colours</h2>
+        <div class="sw-grid">
+          <div class="sw"><div class="sw-chip" style="background:#3D96F5"></div><span class="t-strong">Energy</span><span class="t-cap c-2 num">#3D96F5 · 3.3</span></div>
+          <div class="sw"><div class="sw-chip" style="background:#31AA9A"></div><span class="t-strong">Protein</span><span class="t-cap c-2 num">#31AA9A · 3.6</span></div>
+          <div class="sw"><div class="sw-chip" style="background:#C07E15"></div><span class="t-strong">Carbs</span><span class="t-cap c-2 num">#C07E15 · 3.0</span></div>
+          <div class="sw"><div class="sw-chip" style="background:#927CE9"></div><span class="t-strong">Fat</span><span class="t-cap c-2 num">#927CE9 · 3.0</span></div>
+          <div class="sw"><div class="sw-chip" style="background:#82960E"></div><span class="t-strong">Training</span><span class="t-cap c-2 num">#82960E · 3.1</span></div>
+          <div class="sw"><div class="sw-chip" style="background:#D66A9E"></div><span class="t-strong">Peptide</span><span class="t-cap c-2 num">#D66A9E · 3.1</span></div>
+          <div class="sw"><div class="sw-chip" style="background:#F5F7FA"></div><span class="t-strong">Weight</span><span class="t-cap c-2 num">#F5F7FA · 9.4</span></div>
+          <div class="sw"><div class="sw-chip" style="background:#939CAA"></div><span class="t-strong">Reference</span><span class="t-cap c-2 num">#939CAA · 3.7</span></div>
+        </div>
+        <p class="t-foot c-2 num">Macros (protein, carbs, fat): closest pair 20.0 apart, and 15.3 or 14.0 for red-green colour blindness. Energy, training and peptide: 23.7, and 13.5 or 13.6. Gates are 15 and 8; the number after each hex is the contrast ratio on glass.</p>
+      </section>
+
+      <section class="spec-sec" aria-label="Shape">
+        <h2 class="t-section">Shape and space</h2>
+        <div class="shape-row">
+          <div class="shape"><i class="glass raised" style="border-radius:12px"></i><span class="t-cap c-2 num">Chip 12</span></div>
+          <div class="shape"><i class="glass raised" style="border-radius:16px"></i><span class="t-cap c-2 num">Button 16</span></div>
+          <div class="shape"><i class="glass raised" style="border-radius:20px"></i><span class="t-cap c-2 num">Tile 20</span></div>
+          <div class="shape"><i class="glass raised" style="border-radius:24px"></i><span class="t-cap c-2 num">Card 24</span></div>
+          <div class="shape"><i class="glass raised" style="border-radius:32px"></i><span class="t-cap c-2 num">Sheet 32</span></div>
+        </div>
+        <p class="t-foot c-2 num">Spacing 4, 8, 12, 16, 20, 24, 32, 40. Every tap target is at least 44.</p>
+      </section>
+    </div>
+  </div>
+</div>
+<script src="theme.js"></script>
+</body>
+</html>

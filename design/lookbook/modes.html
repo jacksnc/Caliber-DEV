@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Helios Accessibility Modes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@600;700&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="look.css">
+<style>html, body { margin: 0; }</style>
+</head>
+<body>
+<div class="hx hx-modes" data-theme="dark">
+  <div class="modes-in">
+    <header class="stackv" style="gap:6px">
+      <h1 class="t-title">Accessibility modes</h1>
+      <p class="t-callout c-2">The same components with the system settings people rely on. Nothing moves; only the surfaces change.</p>
+    </header>
+
+    <section class="stackv" style="gap:8px" aria-label="Standard">
+      <div class="stackv"><h2 class="t-section">Standard</h2><p class="t-foot c-2">Glass: system blur, a thin tint and a lit edge.</p></div>
+      <div class="hx hx-scene mode-scene" data-theme="dark">
+        <div class="scene-in">
+          <div class="glass card" style="padding:12px 14px;gap:8px">
+            <div class="row" style="justify-content:space-between"><h3 class="t-section">Protein</h3><span class="badge ok"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle class="ico-fill" cx="12" cy="12" r="9.5"/><path class="ink" d="M7.8 12.4l3 3 5.4-6"/></svg>On track</span></div>
+            <div class="row" style="align-items:baseline;gap:4px"><span class="t-hero">142</span><span class="t-sub c-2">/ 180 g</span></div>
+            <div class="meter" role="meter" aria-label="Protein" aria-valuemin="0" aria-valuemax="180" aria-valuenow="142"><i style="width:79%"></i></div>
+          </div>
+          <div class="stackv" style="gap:10px">
+            <div class="chip-row"><button class="chip" aria-pressed="true"><svg class="ico ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Today</button><button class="chip" aria-pressed="false">7D</button></div>
+            <div class="row"><button class="btn primary compact grow">Log</button><button class="btn compact glass raised grow">Skip</button></div>
+            <div class="glass raised tile row" style="padding:8px 12px;flex-direction:row">
+              <svg class="chart" viewBox="0 0 36 36" style="width:36px;height:36px;flex:none" role="img" aria-label="Fat 74 percent"><g transform="rotate(-90 18 18)"><circle class="ring-bg" cx="18" cy="18" r="14" style="stroke-width:5"/><circle class="ring s-fat" cx="18" cy="18" r="14" style="stroke-width:5" stroke-dasharray="65.1 87.96"/></g></svg>
+              <div class="stackv"><span class="t-label c-2">Fat</span><span class="t-callout num"><b>52</b> <span class="t-foot c-2">/ 70 g</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stackv" style="gap:8px" aria-label="Reduce Transparency">
+      <div class="stackv"><h2 class="t-section">Reduce Transparency</h2><p class="t-foot c-2">Glass becomes a solid surface of the same tone. No blur; the layout and contrast stay.</p></div>
+      <div class="hx hx-scene mode-scene" data-theme="dark" data-glass="reduced">
+        <div class="scene-in">
+          <div class="glass card" style="padding:12px 14px;gap:8px">
+            <div class="row" style="justify-content:space-between"><h3 class="t-section">Protein</h3><span class="badge ok"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle class="ico-fill" cx="12" cy="12" r="9.5"/><path class="ink" d="M7.8 12.4l3 3 5.4-6"/></svg>On track</span></div>
+            <div class="row" style="align-items:baseline;gap:4px"><span class="t-hero">142</span><span class="t-sub c-2">/ 180 g</span></div>
+            <div class="meter" role="meter" aria-label="Protein" aria-valuemin="0" aria-valuemax="180" aria-valuenow="142"><i style="width:79%"></i></div>
+          </div>
+          <div class="stackv" style="gap:10px">
+            <div class="chip-row"><button class="chip" aria-pressed="true"><svg class="ico ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Today</button><button class="chip" aria-pressed="false">7D</button></div>
+            <div class="row"><button class="btn primary compact grow">Log</button><button class="btn compact glass raised grow">Skip</button></div>
+            <div class="glass raised tile row" style="padding:8px 12px;flex-direction:row">
+              <svg class="chart" viewBox="0 0 36 36" style="width:36px;height:36px;flex:none" role="img" aria-label="Fat 74 percent"><g transform="rotate(-90 18 18)"><circle class="ring-bg" cx="18" cy="18" r="14" style="stroke-width:5"/><circle class="ring s-fat" cx="18" cy="18" r="14" style="stroke-width:5" stroke-dasharray="65.1 87.96"/></g></svg>
+              <div class="stackv"><span class="t-label c-2">Fat</span><span class="t-callout num"><b>52</b> <span class="t-foot c-2">/ 70 g</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stackv" style="gap:8px" aria-label="Increase Contrast">
+      <div class="stackv"><h2 class="t-section">Increase Contrast</h2><p class="t-foot c-2">Glass fades back and every control gets a 1.5 pt edge. Secondary text gets stronger.</p></div>
+      <div class="hx hx-scene mode-scene" data-theme="dark" data-contrast="more">
+        <div class="scene-in">
+          <div class="glass card" style="padding:12px 14px;gap:8px">
+            <div class="row" style="justify-content:space-between"><h3 class="t-section">Protein</h3><span class="badge ok"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle class="ico-fill" cx="12" cy="12" r="9.5"/><path class="ink" d="M7.8 12.4l3 3 5.4-6"/></svg>On track</span></div>
+            <div class="row" style="align-items:baseline;gap:4px"><span class="t-hero">142</span><span class="t-sub c-2">/ 180 g</span></div>
+            <div class="meter" role="meter" aria-label="Protein" aria-valuemin="0" aria-valuemax="180" aria-valuenow="142"><i style="width:79%"></i></div>
+          </div>
+          <div class="stackv" style="gap:10px">
+            <div class="chip-row"><button class="chip" aria-pressed="true"><svg class="ico ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Today</button><button class="chip" aria-pressed="false">7D</button></div>
+            <div class="row"><button class="btn primary compact grow">Log</button><button class="btn compact glass raised grow">Skip</button></div>
+            <div class="glass raised tile row" style="padding:8px 12px;flex-direction:row">
+              <svg class="chart" viewBox="0 0 36 36" style="width:36px;height:36px;flex:none" role="img" aria-label="Fat 74 percent"><g transform="rotate(-90 18 18)"><circle class="ring-bg" cx="18" cy="18" r="14" style="stroke-width:5"/><circle class="ring s-fat" cx="18" cy="18" r="14" style="stroke-width:5" stroke-dasharray="65.1 87.96"/></g></svg>
+              <div class="stackv"><span class="t-label c-2">Fat</span><span class="t-callout num"><b>52</b> <span class="t-foot c-2">/ 70 g</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<script src="theme.js"></script>
+</body>
+</html>

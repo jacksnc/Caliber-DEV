@@ -59,13 +59,15 @@ jobs:
           [ "$failed" -eq 0 ]
 
   design-checks:
-    name: Design tokens and Dynamic Type lint
+    name: Design tokens, look book and Dynamic Type lint
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - name: Generated design tokens are up to date
         run: python3 scripts/gen_tokens.py --check
+      - name: Look book only uses real tokens and prints real numbers
+        run: python3 scripts/check_lookbook.py
       - name: Script tests
         run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - name: Dynamic Type lint (Packages, and App once it exists)
