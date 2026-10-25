@@ -207,6 +207,9 @@ public struct HeliosChip: View {
         .overlay {
             shape.strokeBorder(isSelected ? palette.accent.base.color : palette.border.hairline.color, lineWidth: isSelected ? 1.5 : 1)
         }
+        // The fill stays compact; the tap area is the full minimum target.
+        .frame(minHeight: HeliosTokens.minimumTapTarget)
+        .contentShape(Rectangle())
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
