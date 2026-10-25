@@ -91,3 +91,20 @@ targets keep their v1 digest and identifiers. This is not applied to the live
 SwiftData store, the Foundation locator, hosted SQL, or a user's data. See
 `docs/RECIPE_VERIFICATION.md` for old-save/open, archive-roundtrip, and rehearsal
 evidence. No destructive migration is performed.
+
+## Train SwiftData entities — 2026-10-24
+
+Four additive local entities are registered in the live SwiftData container:
+`TrainingExercise`, `TrainingWorkout`, `TrainingWorkoutExercise`, and
+`TrainingWorkoutSet`. They have no relationship to the existing 15 legacy model
+types, so existing food, profile, diary, Progress, photo, and restaurant rows are
+not rewritten. Workout-to-exercise and exercise-to-set children use cascade
+deletion; an exercise referenced by history is nullified rather than cascading
+through saved workouts. The bundled starter exercise rows are inserted only when
+no bundled rows exist.
+
+This is the first Train runtime slice, not the canonical GRDB cutover. The legacy
+snapshot/restore rehearsal intentionally remains a compatibility proof for the
+original 15 types; training data must be added to the future supported export and
+copy migration before any store-locator switch. No hosted schema or Supabase
+deployment changed.

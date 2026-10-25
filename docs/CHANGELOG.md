@@ -1,10 +1,18 @@
+# Changelog
+
+## 2026-10-24 — Train and profile foundation
+
+- Added a primary Train tab with a searchable original starter library, offline custom exercises, empty-workout start/resume, immediate set persistence, warm-up exclusion, live totals, finish flow, and local history.
+- Replaced the Profile placeholder with account status, local body/activity details, editable calorie/macro goals, and a pure Mifflin–St Jeor starting-target calculator.
+- Added BMI, weekly-loss-rate, and calorie-floor rails plus focused math and SwiftData persistence tests. The result is labeled as an estimate and no health values are uploaded by sign-in.
+- Kept Food Library available from Diary and Settings/Account available from Profile so the primary navigation remains five tabs.
+- The licensed 600+ exercise catalog, full metric-specific set UI, routines, timers, PRs, charts, clinician override, adaptive targets, and cloud sync remain incomplete.
+
 ## 2026-10-15 — Restaurant import workflow prepared
 
 - Added strict permission/source-aware JSON imports, deterministic preview/output checks and an honestly empty production registry.
 - Added immutable categorized menu browsing with portion/macro review and personal custom-item actions; FUEL-13 remains off pending source/release clearance.
 - Production rejects fictional/invalid data. No new real menu dataset, private migration or hosted change occurred.
-
-# Changelog
 
 ## 2026-10-15 — Offline packaged-food barcodes
 

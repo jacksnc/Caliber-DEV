@@ -8,9 +8,7 @@ final class RestaurantCustomizationUITests: XCTestCase {
 
   @MainActor
   private func openRestaurant(_ name: String, in app: XCUIApplication) {
-    let library = app.tabBars.buttons["Food Library"]
-    XCTAssertTrue(library.waitForExistence(timeout: 30))
-    library.tap()
+    app.openFoodLibrary()
     app.buttons["Restaurants"].tap()
     let restaurant = app.buttons[name]
     XCTAssertTrue(restaurant.waitForExistence(timeout: 15))

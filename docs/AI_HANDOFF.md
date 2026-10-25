@@ -7,9 +7,9 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
 ## Project state
 
 - Repository: `Caliber (DEV)` inside the `Caliber (DEV) - Project` folder.
-- Branch: `codex/phase1-foundation`.
-- Latest completed commits: `78691ed` (offline USDA packaged barcode collection)
-  and `64f4826` (permission-gated restaurant menu imports).
+- Active implementation worktree branch: `codex/train-profile-foundation`, based
+  on `db080e9` (reusable recipe builder). The owner's original checkout remains
+  untouched, including its unrelated Xcode scheme preference.
 - Steps 1 and 2 from the owner's requested sequence are complete. Evidence is in
   `docs/PACKAGED_FOOD_VERIFICATION.md` and
   `docs/RESTAURANT_IMPORT_VERIFICATION.md`.
@@ -21,6 +21,15 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
 - Step 3 implementation and all executed checks are complete. Review
   `docs/RECIPE_VERIFICATION.md` for simulator, native math/persistence/archive,
   formatting, build, and limitation evidence.
+- The next slice adds Train and Profile foundations. Train now has additive local
+  SwiftData records, a small original starter library, custom exercises, empty
+  workout start/resume, immediate set persistence, warm-up handling, finish and
+  history. Profile now exposes existing account status, local goals, and a pure
+  guarded Mifflin–St Jeor starting estimate. Review
+  `docs/TRAIN_PROFILE_FOUNDATION_VERIFICATION.md`.
+- App unit tests and the focused Profile UI flow pass on the iPhone 17 simulator.
+  The focused workout UI runner hit an Xcode 27 simulator-clone hang, while its
+  immediate-save, validation, and warm-up persistence tests pass.
 - The production restaurant import registry is intentionally empty because no
   licensed/current restaurant source was supplied. Keep FUEL-13 disabled.
 - The selected Supabase DEV project is deployed for the previously authorized
@@ -57,7 +66,9 @@ work, and commit only the completed task files using a conventional commit.
 
 ## Next task
 
-Step 3 is ready to commit with the paths in `docs/RECIPE_FILES.txt`; preserve the
-unrelated Xcode scheme preference change. For restaurant coverage, continue only
-after the owner provides or approves a source whose current reuse rights can be
-verified; keep FUEL-13 off in the meantime.
+Continue Phase 2 from this Train foundation: add metric-specific set editors and
+the complete set-type model, then previous-performance copy and the rest timer.
+Do not claim TRN-01 complete or import a 600+ exercise/media catalog until a
+specific source's current reuse rights and attribution duties are documented and
+reviewed. Keep FUEL-13 off for the same restaurant-data reason. Preserve the
+owner's unrelated Xcode scheme preference in the original checkout.

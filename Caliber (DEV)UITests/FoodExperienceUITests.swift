@@ -7,8 +7,7 @@ final class FoodExperienceUITests: XCTestCase {
     let app = XCUIApplication()
     app.launchArguments = ["--progress-ui-testing"] + (barcodeFixture ? ["--barcode-fixture"] : [])
     app.launch()
-    XCTAssertTrue(app.tabBars.buttons["Food Library"].waitForExistence(timeout: 20))
-    app.tabBars.buttons["Food Library"].tap()
+    app.openFoodLibrary()
     return app
   }
   @MainActor private func reveal(
@@ -199,8 +198,7 @@ final class FoodExperienceUITests: XCTestCase {
     let app = XCUIApplication()
     app.launchArguments = ["--progress-ui-testing", "--restaurant-menu-fixture"]
     app.launch()
-    XCTAssertTrue(app.tabBars.buttons["Food Library"].waitForExistence(timeout: 20))
-    app.tabBars.buttons["Food Library"].tap()
+    app.openFoodLibrary()
     app.buttons["Restaurants"].tap()
     let restaurant = app.buttons["importedRestaurant-fictional-kitchen"]
     XCTAssertTrue(restaurant.waitForExistence(timeout: 10))

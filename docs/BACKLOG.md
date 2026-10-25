@@ -8,19 +8,19 @@ All listed acceptance tests are planned. Full P0 table/screen/test mappings are 
 
 | ID | Phase | Feature | Current status |
 |---|---|---|---|
-| TRN-01 | 2 | ≥ 600 seeded exercises (target 800+) | not-implemented |
-| TRN-02 | 2 | Unlimited custom exercises (free tier) | not-implemented |
-| TRN-03 | 2 | Metric types | not-implemented |
-| TRN-04 | 2 | Search/filter | not-implemented |
-| TRN-10 | 2 | Start from | not-implemented |
-| TRN-11 | 2 | Set row | not-implemented |
+| TRN-01 | 2 | ≥ 600 seeded exercises (target 800+) | partial-prototype |
+| TRN-02 | 2 | Unlimited custom exercises (free tier) | partial-prototype |
+| TRN-03 | 2 | Metric types | partial-prototype |
+| TRN-04 | 2 | Search/filter | partial-prototype |
+| TRN-10 | 2 | Start from | partial-prototype |
+| TRN-11 | 2 | Set row | partial-prototype |
 | TRN-12 | 2 | Auto-fill the next set from the previous set or plan target; "copy last set"; "fill remaining"; swipe to delete/duplicate; long-pr | not-implemented |
-| TRN-13 | 2 | Set types (color + glyph) | not-implemented |
+| TRN-13 | 2 | Set types (color + glyph) | partial-prototype |
 | TRN-14 | 2 | Supersets, giant sets, circuits | not-implemented |
 | TRN-15 | 2 | Notes | not-implemented |
 | TRN-16 | 2 | Mid-workout edits | not-implemented |
-| TRN-17 | 2 | Live header | not-implemented |
-| TRN-18 | 2 | Finish flow | not-implemented |
+| TRN-17 | 2 | Live header | partial-prototype |
+| TRN-18 | 2 | Finish flow | partial-prototype |
 | TRN-19 | 2 | Bodyweight auto-attached from the latest weigh-in for BW-based exercises and relative-strength math | not-implemented |
 | TRN-30 | 2 | Rest timer | not-implemented |
 | TRN-31 | 2 | Plate calculator | not-implemented |
@@ -34,7 +34,7 @@ All listed acceptance tests are planned. Full P0 table/screen/test mappings are 
 | TRN-61 | 2 | Set-counting mode (user setting) | not-implemented |
 | TRN-62 | 2 | Weekly volume per muscle (sets, tonnage, frequency) versus target bands (MEV/MAV/MRV or custom; common hypertrophy default ~10-20  | not-implemented |
 | TRN-63 | 2 | Muscle heat map on a front/back body figure | not-implemented |
-| TRN-70 | 2 | History as list + calendar; filter by exercise/muscle/routine; note search; edit/delete with automatic PR/stat recompute | not-implemented |
+| TRN-70 | 2 | History as list + calendar; filter by exercise/muscle/routine; note search; edit/delete with automatic PR/stat recompute | partial-prototype |
 | TRN-71 | 2 | Per-exercise stats page (charts in §3) plus a full session table | not-implemented |
 | TRN-72 | 2 | Compare a workout with last time, best, and the average of the last N | not-implemented |
 | TRN-92 | 2 | Full CSV/JSON export of all training data | not-implemented |
@@ -70,7 +70,7 @@ All listed acceptance tests are planned. Full P0 table/screen/test mappings are 
 | FUEL-05 | 4 | Saved meals/templates, day cloning, planned vs eaten | partial-prototype |
 | FUEL-06 | 4 | Water, caffeine, alcohol (units + kcal), non-peptide supplements — quick log | not-implemented |
 | FUEL-07 | 4 | Per-meal notes, hunger/mood tags, photos | partial-prototype |
-| FUEL-20 | 4 | Target setup | not-implemented |
+| FUEL-20 | 4 | Target setup | partial-prototype |
 | FUEL-21 | 4 | Day types | not-implemented |
 | STK-01 | 6 | Compounds | not-implemented |
 | STK-02 | 6 | Protocols | not-implemented |
@@ -83,7 +83,7 @@ All listed acceptance tests are planned. Full P0 table/screen/test mappings are 
 | STK-09 | 6 | Side effects and symptoms | not-implemented |
 | BODY-01 | 4 | Weigh-ins (manual, Health sync, smart-scale CSV), EWMA trend, goal, rate of change, projected date; tags (post-travel, illness…) | partial-prototype |
 | BODY-02 | 4 | Measurements | not-implemented |
-| BODY-07 | 4 | Safety rails (BMI/rate caps, hide-numbers mode, ED-sensitive defaults) — §11 | not-implemented |
+| BODY-07 | 4 | Safety rails (BMI/rate caps, hide-numbers mode, ED-sensitive defaults) — §11 | partial-prototype |
 | PLAT-01 | 1 | Onboarding to first value in ≤ 90 s | not-implemented |
 | PLAT-02 | 1 | Settings | partial-prototype |
 | PLAT-03 | 1 | Accounts and sync | not-implemented |

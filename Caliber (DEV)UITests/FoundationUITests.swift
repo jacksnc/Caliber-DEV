@@ -37,12 +37,12 @@ final class FoundationUITests: XCTestCase {
     app.navigationBars.buttons.element(boundBy: 0).tap()
     app.buttons["exitDemo"].tap()
     XCTAssertTrue(app.staticTexts["No food logged today"].waitForExistence(timeout: 10))
-    app.tabBars.buttons["Food Library"].tap()
+    app.openFoodLibrary()
     XCTAssertTrue(app.buttons["Restaurants"].waitForExistence(timeout: 10))
   }
   @MainActor func testNumberHidingRemovesNumericRoutesAndAllowsNotes() {
     let app = launch()
-    app.tabBars.buttons["Settings"].tap()
+    app.openSettings()
     app.switches["hideNumbers"].coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
     XCTAssertTrue(app.navigationBars["Your Journal"].waitForExistence(timeout: 10))
     XCTAssertFalse(app.tabBars.buttons["Diary"].exists)
@@ -68,7 +68,7 @@ final class FoundationUITests: XCTestCase {
 
   @MainActor func testSelectedDecimalFormatSurvivesProgressSaveAndCancel() {
     let app = launch()
-    app.tabBars.buttons["Settings"].tap()
+    app.openSettings()
     let format = app.buttons["settingsNumberFormat"]
     reveal(format, in: app)
     format.tap()
@@ -94,7 +94,7 @@ final class FoundationUITests: XCTestCase {
 
   @MainActor func testAccountSignInAndDeviceSignOutUseOnlyFixture() {
     let app = launch(additionalArguments: ["--account-ui-testing"])
-    app.tabBars.buttons["Settings"].tap()
+    app.openSettings()
     let open = app.buttons["openAccount"]
     reveal(open, in: app)
     open.tap()
@@ -167,7 +167,7 @@ final class FoundationUITests: XCTestCase {
   }
 
   @MainActor private func openFixtureAccount(in app: XCUIApplication) {
-    app.tabBars.buttons["Settings"].tap()
+    app.openSettings()
     let open = app.buttons["openAccount"]
     reveal(open, in: app)
     open.tap()

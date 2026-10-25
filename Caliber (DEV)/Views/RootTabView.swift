@@ -2,7 +2,7 @@ import CaliberCharts
 import CaliberCore
 import SwiftUI
 
-/// Existing logging screens stay live while Foundation adds Today and settings.
+/// Five primary tabs keep the most common one-handed actions directly reachable.
 struct RootTabView: View {
   @EnvironmentObject private var runtime: FoundationRuntime
   @State private var selection = "today"
@@ -33,14 +33,14 @@ struct RootTabView: View {
         TabView(selection: $selection) {
           TodayFoundationView().tabItem { Label("Today", systemImage: "sun.max") }.tag("today")
           DiaryView().tabItem { Label("Diary", systemImage: "fork.knife") }.tag("diary")
-          FoodLibraryView().tabItem { Label("Food Library", systemImage: "books.vertical") }.tag(
-            "library")
+          TrainHomeView().tabItem {
+            Label("Train", systemImage: "figure.strengthtraining.traditional")
+          }.tag("train")
           ProgressDashboardView().tabItem {
             Label("Progress", systemImage: "chart.line.uptrend.xyaxis")
           }.tag("progress")
-          NavigationStack { FoundationSettingsView() }.tabItem {
-            Label("Settings", systemImage: "gearshape")
-          }.tag("settings")
+          ProfileView().tabItem { Label("Profile", systemImage: "person.crop.circle") }
+            .tag("profile")
         }
       }
     }

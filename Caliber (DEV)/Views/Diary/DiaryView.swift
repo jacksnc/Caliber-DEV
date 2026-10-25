@@ -101,6 +101,16 @@ struct DiaryView: View {
         }
       }
       .navigationTitle("Diary")
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          NavigationLink {
+            FoodLibraryView()
+          } label: {
+            Label("Food Library", systemImage: "books.vertical")
+          }
+          .accessibilityIdentifier("openFoodLibrary")
+        }
+      }
       .sheet(item: $mealTypePresentingSheet) { meal in
         NavigationStack { FoodSearchView(mealType: meal, date: selectedDate) }
       }

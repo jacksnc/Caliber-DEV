@@ -60,7 +60,7 @@ final class FoodShortcutsUITests: XCTestCase {
 
   @MainActor func testRecentFavoriteAndFrequentFoodsReuseTheLatestPortion() {
     let app = launch()
-    app.tabBars.buttons["Food Library"].tap()
+    app.openFoodLibrary()
     app.buttons["openFoodSearch"].tap()
     show("Recent", in: app)
     let recent = app.buttons.matching(
@@ -181,7 +181,7 @@ final class FoodShortcutsUITests: XCTestCase {
 
   @MainActor func testExpandedDatabaseOffersExactHouseholdMeasuresAndHistoricalFavorites() {
     let app = launch(fixture: false)
-    app.tabBars.buttons["Food Library"].tap()
+    app.openFoodLibrary()
     app.buttons["openFoodSearch"].tap()
     let search = app.searchFields.firstMatch
     XCTAssertTrue(search.waitForExistence(timeout: 5))

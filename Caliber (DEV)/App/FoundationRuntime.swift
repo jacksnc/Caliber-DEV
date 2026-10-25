@@ -168,6 +168,8 @@ struct FoundationRootView: View {
         BuildableItemTemplate.self, BuildComponentCategory.self, BuildComponentOption.self,
         SavedMeal.self, SavedMealItem.self, DiaryEntry.self, WeightEntry.self, ProgressEntry.self,
         ProgressPhoto.self, Note.self, UserProfile.self,
+        TrainingExercise.self, TrainingWorkout.self, TrainingWorkoutExercise.self,
+        TrainingWorkoutSet.self,
       ])
       container = try ModelContainer(
         for: schema,

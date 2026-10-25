@@ -8,8 +8,7 @@ final class RecipeBuilderUITests: XCTestCase {
     let app = XCUIApplication()
     app.launchArguments = ["--progress-ui-testing"]
     app.launch()
-    XCTAssertTrue(app.tabBars.buttons["Food Library"].waitForExistence(timeout: 20))
-    app.tabBars.buttons["Food Library"].tap()
+    app.openFoodLibrary()
     app.buttons["openMyMeals"].tap()
     XCTAssertTrue(app.buttons["createRecipe"].waitForExistence(timeout: 8))
     return app
