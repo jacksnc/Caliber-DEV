@@ -7,6 +7,9 @@ struct ProgressDashboardView: View {
   @Environment(\.modelContext) private var modelContext
   @Query(sort: \ProgressEntry.date, order: .reverse) private var entries: [ProgressEntry]
   @Query(sort: \WeightEntry.date) private var weights: [WeightEntry]
+  @Query(sort: \DiaryEntry.date) private var diary: [DiaryEntry]
+  @Query private var profiles: [UserProfile]
+  @State private var range = ProgressRange.month
   @AppStorage("progressWeightUnit") private var unitRawValue = WeightUnit.pounds.rawValue
   @State private var isAddingEntry = false
   @State private var editingEntry: ProgressEntry?
@@ -14,7 +17,11 @@ struct ProgressDashboardView: View {
   @State private var saveError: String?
 
   private var unit: WeightUnit { WeightUnit(rawValue: unitRawValue) ?? .pounds }
-  private var summary: WeightProgressSummary { WeightProgressSummary(entries: weights) }
+  /// Weigh-ins in the selected range; older history is still shown when the range is empty.
+  private var summary: WeightProgressSummary {
+    let inRange = weights.filter { range.contains($0.date) }
+    return WeightProgressSummary(entries: inRange.isEmpty ? weights : inRange)
+  }
   private var todayEntry: ProgressEntry? {
     entries.first { Calendar.current.isDateInToday($0.date) }
   }
@@ -33,8 +40,20 @@ struct ProgressDashboardView: View {
     NavigationStack {
       List {
         Group {
+          ProgressRangePicker(selection: $range)
+            .listRowBackground(Color.clear)
+            .listRowInsets(EdgeInsets())
           Section {
-            WeightTrendChart(summary: summary, unit: unit, addWeight: addToday)
+            WeightTrendChart(
+              summary: summary, unit: unit,
+              rangeName: range == .all ? "since first weigh-in" : "in \(range.spokenName)",
+              addWeight: addToday)
+          }
+          Section {
+            CaloriesWeekCard(entries: diary, goal: profiles.first?.dailyCalorieGoal)
+          }
+          Section {
+            MacroSplitCard(entries: diary)
           }
 
           if entries.isEmpty {

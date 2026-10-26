@@ -8,14 +8,11 @@ struct WeightTrendChart: View {
   @ScaledMetric(relativeTo: .body) private var chartHeight = 210.0
   let summary: WeightProgressSummary
   let unit: WeightUnit
+  var rangeName = "since first weigh-in"
   let addWeight: () -> Void
 
   var body: some View {
     VStack(alignment: .leading, spacing: 16) {
-      Label("Weight trend", systemImage: "chart.xyaxis.line")
-        .font(.headline)
-        .accessibilityAddTraits(.isHeader)
-
       if summary.readings.isEmpty {
         emptyState
       } else {
@@ -53,27 +50,52 @@ struct WeightTrendChart: View {
     .background(Color.accentColor.opacity(0.06), in: RoundedRectangle(cornerRadius: 14))
   }
 
+  /// Look book: "Trend weight" with the latest value large, and the change over the
+  /// selected range on the right.
   private var weightSummary: some View {
-    VStack(alignment: .leading, spacing: 6) {
+    ViewThatFits(in: .horizontal) {
+      HStack(alignment: .top) {
+        latest
+        Spacer(minLength: HeliosTokens.space(3))
+        change.multilineTextAlignment(.trailing)
+      }
+      VStack(alignment: .leading, spacing: HeliosTokens.space(2)) {
+        latest
+        change
+      }
+    }
+  }
+
+  private var latest: some View {
+    VStack(alignment: .leading, spacing: 2) {
+      Text("Trend weight").heliosFont(.metricLabel)
+        .foregroundStyle(theme.palette.text.secondary.color)
       if let latest = summary.latestWeightInPounds {
         Text(
           "\(unit.fromPounds(latest), format: .number.precision(.fractionLength(0...2))) \(unit.symbol)"
         )
-        .font(.title.bold())
+        .heliosFont(.hero)
         .accessibilityIdentifier("latestProgressWeight")
       }
       if let date = summary.readings.last?.date {
         Text("Last weigh-in: \(date.formatted(date: .abbreviated, time: .omitted))")
-          .font(.caption)
-          .foregroundStyle(.secondary)
+          .heliosFont(.caption)
+          .foregroundStyle(theme.palette.text.secondary.color)
       }
-      if let change = summary.changeInPounds {
+    }
+  }
+
+  @ViewBuilder private var change: some View {
+    if let change = summary.changeInPounds {
+      VStack(alignment: .trailing, spacing: 2) {
         Text(
-          "\(unit.fromPounds(change), format: .number.precision(.fractionLength(0...2)).sign(strategy: .always())) \(unit.symbol) since first weigh-in"
+          "\(unit.fromPounds(change), format: .number.precision(.fractionLength(0...2)).sign(strategy: .always())) \(unit.symbol)"
         )
-        .font(.subheadline)
-        .foregroundStyle(.secondary)
+        .heliosFont(.bodyStrong)
+        Text(rangeName).heliosFont(.caption)
+          .foregroundStyle(theme.palette.text.secondary.color)
       }
+      .accessibilityElement(children: .combine)
     }
   }
 
@@ -92,8 +114,9 @@ struct WeightTrendChart: View {
         x: .value("Date", reading.date),
         y: .value("Weight (\(unit.symbol))", unit.fromPounds(reading.weightInPounds))
       )
-      .symbolSize(64)
-      .foregroundStyle(theme.palette.data.weight.color)
+      .symbolSize(reading.id == summary.readings.last?.id ? 80 : 24)
+      .foregroundStyle(
+        theme.palette.data.weight.color.opacity(reading.id == summary.readings.last?.id ? 1 : 0.55))
     }
     .chartYScale(domain: .automatic(includesZero: false))
     .chartYAxisLabel(unit.symbol)
@@ -115,9 +138,6 @@ struct WeightTrendChart: View {
           AxisValueLabel()
         }
       }
-    }
-    .chartPlotStyle { plot in
-      plot.background(Color.accentColor.opacity(0.04))
     }
     .frame(height: chartHeight)
     .accessibilityLabel("Weight history in \(unit.symbol)")
