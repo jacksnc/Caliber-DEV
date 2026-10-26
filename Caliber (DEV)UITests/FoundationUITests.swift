@@ -84,7 +84,7 @@ final class FoundationUITests: XCTestCase {
     app.buttons["addProgressEntry"].tap()
     XCTAssertTrue(weight.waitForExistence(timeout: 5))
     XCTAssertEqual(weight.value as? String, "180,5")
-    weight.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)).tap()
+    weight.focusAtEnd()
     weight.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 5) + "175,25")
     app.buttons["Cancel"].tap()
     app.buttons["addProgressEntry"].tap()

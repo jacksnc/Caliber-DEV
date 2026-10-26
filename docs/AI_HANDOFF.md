@@ -33,6 +33,17 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
   now use a named `RestaurantMenuGroup` instead of a tuple, a separate section
   view, and rows keyed by `persistentModelID` with an explicit closure type,
   because `MenuItem` declares its own `id` beside the one SwiftData supplies.
+  Run 8 (`55ffdfd`) compiled the app on Xcode 16.4 for the first time. All unit
+  tests passed; 9 of 13 UI tests failed on the iOS 18.5 simulator. Five could not
+  find Settings (the last row of Profile's lazy list was never scrolled into
+  view) and one typed into a field before its sheet finished presenting; the test
+  helpers now scroll to Settings and retry until the field has keyboard focus.
+  The rest are system accessibility audits that pass on iOS 27 but flag text on
+  iOS 18.5: clipping at default size on Diary and Restaurants, and "Dynamic Type
+  partially unsupported" on the scanner's no-camera text, Retry Camera and
+  Cancel, and on the demo data table at AX5. The audit gives no element for the
+  clipped text, and the result bundle cannot be downloaded from the cloud
+  sandbox; open the `simulator-results` artifact in Xcode to see them.
   Check the latest GitHub Actions result before merging; local simulator passes
   do not prove CI has passed.
 - Claude imported the seven engine packages from its branch at the owner's
