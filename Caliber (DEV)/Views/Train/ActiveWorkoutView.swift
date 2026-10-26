@@ -188,18 +188,27 @@ private struct TrainingSetRow: View {
       (typeSize.isAccessibilitySize
         ? AnyLayout(VStackLayout(alignment: .leading, spacing: 12))
         : AnyLayout(HStackLayout(spacing: 12))) {
-          Image(systemName: "checkmark.circle.fill").foregroundStyle(
-            theme.palette.status.success.color)
+          setNumber
           VStack(alignment: .leading, spacing: 3) {
             Text(
               "\(set.enteredWeight, format: .number) \(set.enteredWeightUnitRawValue) × \(set.repetitions)"
             )
-            .monospacedDigit()
+            .heliosFont(.metricValue)
             Text(set.isWarmup ? "Warm-up" : rpeSummary)
               .font(.caption)
               .foregroundStyle(.secondary)
           }
           Spacer()
+          // Look book: a completed set keeps a filled check in the accent colour.
+          Image(systemName: "checkmark")
+            .fontWeight(.semibold)
+            .foregroundStyle(theme.palette.text.onAccent.color)
+            .frame(width: 44, height: 44)
+            .background(
+              RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(theme.palette.accent.base.color)
+            )
+            .accessibilityLabel("Completed")
           Button("Undo") {
             do { try TrainingWorkoutLogger.undo(set, in: modelContext) } catch {
               message = "The completed set could not be reopened."
@@ -220,6 +229,7 @@ private struct TrainingSetRow: View {
         (typeSize.isAccessibilitySize
           ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
           : AnyLayout(HStackLayout(spacing: 8))) {
+            setNumber
             field("Weight", text: $weightText, width: 82)
             Text(displayUnit.rawValue).foregroundStyle(.secondary)
             field("Reps", text: $repetitionsText, width: 58)
@@ -227,10 +237,15 @@ private struct TrainingSetRow: View {
             Spacer(minLength: 0)
             Button(action: complete) {
               Image(systemName: "checkmark")
-                .font(.headline)
+                .fontWeight(.semibold)
+                .foregroundStyle(theme.palette.text.secondary.color)
                 .frame(minWidth: 48, minHeight: 48)
+                .background {
+                  GlassBackground(level: .raised, cornerRadius: 12)
+                }
+                .contentShape(Rectangle())
             }
-            .buttonStyle(.heliosPrimary)
+            .buttonStyle(.plain)
             .accessibilityLabel("Complete set \(set.position + 1)")
           }
         Toggle("Warm-up set", isOn: $set.isWarmup)
@@ -247,6 +262,14 @@ private struct TrainingSetRow: View {
     }
   }
 
+  private var setNumber: some View {
+    Text("\(set.position + 1)")
+      .heliosFont(.bodyStrong)
+      .foregroundStyle(theme.palette.text.secondary.color)
+      .frame(minWidth: 24, alignment: .leading)
+      .accessibilityLabel("Set \(set.position + 1)")
+  }
+
   private var rpeSummary: String {
     self.set.rpe.map { "Working set · RPE \($0.formatted(.number))" } ?? "Working set"
   }
@@ -257,9 +280,10 @@ private struct TrainingSetRow: View {
     TextField(label, text: text)
       .keyboardType(.decimalPad)
       .multilineTextAlignment(.center)
+      .heliosFont(.metricValue)
       .frame(maxWidth: typeSize.isAccessibilitySize ? .infinity : width)
       .frame(minHeight: 48)
-      .textFieldStyle(.roundedBorder)
+      .background { GlassBackground(level: .raised, cornerRadius: 12) }
       .accessibilityLabel(label)
   }
 
