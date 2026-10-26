@@ -84,6 +84,7 @@ struct QuickLogSheet: View {
 private struct ProfileAvatarModifier: ViewModifier {
   @State private var showsProfile = false
   @Environment(\.heliosTheme) private var theme
+  @Environment(\.dynamicTypeSize) private var typeSize
 
   func body(content: Content) -> some View {
     content
@@ -104,7 +105,13 @@ private struct ProfileAvatarModifier: ViewModifier {
           .accessibilityIdentifier("openProfile")
         }
       }
-      .sheet(isPresented: $showsProfile) { ProfileView(showsDone: true) }
+      .sheet(isPresented: $showsProfile) {
+        // On iOS 18 the accessibility audit reported text in sheets as only partly
+        // scalable. Passing the presenter's current size on keeps the sheet in step with
+        // it. This sets the size; it never caps it.
+        // helios-lint: allow(dynamic-type-cap)
+        ProfileView(showsDone: true).dynamicTypeSize(typeSize)
+      }
   }
 }
 
