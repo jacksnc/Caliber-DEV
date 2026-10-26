@@ -137,42 +137,9 @@ struct RestaurantDetailView: View {
     ForEach(groupedMenuItems, id: \.category) { group in
       Section {
         ForEach(group.items) { item in
-          NavigationLink {
-            MenuItemDetailView(menuItem: item, mealType: mealType, date: date)
-          } label: {
-            VStack(alignment: .leading, spacing: 2) {
-              HStack {
-                Text(item.name)
-                if item.isCustom {
-                  Text("Custom")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                }
-              }
-              Text(
-                "\(NutritionInput.format(item.baseCalories, locale: locale)) cal · \(NutritionInput.format(item.baseProtein, locale: locale))p \(NutritionInput.format(item.baseCarbs, locale: locale))c \(NutritionInput.format(item.baseFat, locale: locale))f"
-              )
-              .font(.caption)
-              .foregroundStyle(.secondary)
-            }
-          }
-          .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-            // Built-in catalog items are read-only. These two
-            // actions belong only to the user's personal items.
-            if item.isCustom {
-              Button(role: .destructive) {
-                deleteCustomItem(item)
-              } label: {
-                Label("Delete", systemImage: "trash")
-              }
-              Button {
-                editingCustomItem = item
-              } label: {
-                Label("Edit", systemImage: "pencil")
-              }
-              .tint(.blue)
-            }
-          }
+          RestaurantMenuItemRow(
+            item: item, mealType: mealType, date: date,
+            onDelete: { deleteCustomItem(item) }, onEdit: { editingCustomItem = item })
         }
       } header: {
         Text(group.category.displayName)
@@ -194,6 +161,55 @@ struct RestaurantDetailView: View {
       try CustomMenuItemEditor.delete(item: item, in: modelContext)
     } catch {
       menuError = error.localizedDescription
+    }
+  }
+}
+
+/// One menu item. It is its own view so Xcode 16.4 type-checks it separately (D108).
+private struct RestaurantMenuItemRow: View {
+  @Environment(\.locale) private var locale
+  let item: MenuItem
+  let mealType: MealType
+  let date: Date
+  let onDelete: () -> Void
+  let onEdit: () -> Void
+
+  var body: some View {
+    NavigationLink {
+      MenuItemDetailView(menuItem: item, mealType: mealType, date: date)
+    } label: {
+      VStack(alignment: .leading, spacing: 2) {
+        HStack {
+          Text(item.name)
+          if item.isCustom {
+            Text("Custom")
+              .font(.caption)
+              .foregroundStyle(.secondary)
+          }
+        }
+        Text(
+          "\(NutritionInput.format(item.baseCalories, locale: locale)) cal · \(NutritionInput.format(item.baseProtein, locale: locale))p \(NutritionInput.format(item.baseCarbs, locale: locale))c \(NutritionInput.format(item.baseFat, locale: locale))f"
+        )
+        .font(.caption)
+        .foregroundStyle(.secondary)
+      }
+    }
+    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+      // Built-in catalog items are read-only. These two
+      // actions belong only to the user's personal items.
+      if item.isCustom {
+        Button(role: .destructive) {
+          onDelete()
+        } label: {
+          Label("Delete", systemImage: "trash")
+        }
+        Button {
+          onEdit()
+        } label: {
+          Label("Edit", systemImage: "pencil")
+        }
+        .tint(.blue)
+      }
     }
   }
 }

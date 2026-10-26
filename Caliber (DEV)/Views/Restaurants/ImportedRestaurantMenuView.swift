@@ -102,21 +102,35 @@ struct ImportedRestaurantMenuView: View {
     if !items.isEmpty {
       Section {
         ForEach(items, id: \.id) { item in
-          NavigationLink {
-            FoodNutritionReviewView(
-              reference: BundledRestaurantMenuService.reference(
-                item: item, restaurant: restaurant, source: source),
-              meal: mealType, date: date)
-          } label: {
-            VStack(alignment: .leading, spacing: 4) {
-              Text(item.name)
-              Text(item.servingDescription).font(.footnote).foregroundStyle(.secondary)
-            }.frame(minHeight: 48)
-          }.accessibilityIdentifier("importedMenu-" + item.id)
+          ImportedMenuItemRow(
+            item: item, restaurant: restaurant, source: source, mealType: mealType, date: date)
         }
       } header: {
         Text(category.displayName)
       }
     }
+  }
+}
+
+/// One imported menu item. It is its own view so Xcode 16.4 type-checks it separately (D108).
+private struct ImportedMenuItemRow: View {
+  let item: RestaurantMenuCatalogItem
+  let restaurant: RestaurantMenuCatalogRestaurant
+  let source: RestaurantMenuCatalogSource
+  let mealType: MealType
+  let date: Date
+
+  var body: some View {
+    NavigationLink {
+      FoodNutritionReviewView(
+        reference: BundledRestaurantMenuService.reference(
+          item: item, restaurant: restaurant, source: source),
+        meal: mealType, date: date)
+    } label: {
+      VStack(alignment: .leading, spacing: 4) {
+        Text(item.name)
+        Text(item.servingDescription).font(.footnote).foregroundStyle(.secondary)
+      }.frame(minHeight: 48)
+    }.accessibilityIdentifier("importedMenu-" + item.id)
   }
 }
