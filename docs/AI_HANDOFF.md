@@ -28,6 +28,11 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
   Claude split the list into five `@ViewBuilder` properties inside the same
   `Group`; behaviour is unchanged. Only a Linux syntax parse and swift-format
   lint were run on it; GitHub's macOS job is the first real compile.
+  That guess was incomplete: runs 6 and 7 still failed at the same inner ForEach
+  after the split and after the rows became their own views. The menu sections
+  now use a named `RestaurantMenuGroup` instead of a tuple, a separate section
+  view, and rows keyed by `persistentModelID` with an explicit closure type,
+  because `MenuItem` declares its own `id` beside the one SwiftData supplies.
   Check the latest GitHub Actions result before merging; local simulator passes
   do not prove CI has passed.
 - Claude imported the seven engine packages from its branch at the owner's

@@ -41,8 +41,8 @@ struct RestaurantDetailView: View {
     .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
   }
 
-  private var groupedMenuItems: [(category: MenuCategory, items: [MenuItem])] {
-    MenuCategory.displayOrder.compactMap { category in
+  private var groupedMenuItems: [RestaurantMenuGroup] {
+    MenuCategory.displayOrder.compactMap { category -> RestaurantMenuGroup? in
       let items = restaurant.menuItems.filter {
         $0.category == category
           && (query.isEmpty
@@ -50,7 +50,7 @@ struct RestaurantDetailView: View {
               "\(restaurant.name) \($0.name) \(category.displayName)", query: query))
       }
       .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
-      return items.isEmpty ? nil : (category, items)
+      return items.isEmpty ? nil : RestaurantMenuGroup(category: category, items: items)
     }
   }
 
@@ -134,16 +134,10 @@ struct RestaurantDetailView: View {
   }
 
   @ViewBuilder private var menuSections: some View {
-    ForEach(groupedMenuItems, id: \.category) { group in
-      Section {
-        ForEach(group.items) { item in
-          RestaurantMenuItemRow(
-            item: item, mealType: mealType, date: date,
-            onDelete: { deleteCustomItem(item) }, onEdit: { editingCustomItem = item })
-        }
-      } header: {
-        Text(group.category.displayName)
-      }
+    ForEach(groupedMenuItems) { (group: RestaurantMenuGroup) in
+      RestaurantMenuSection(
+        group: group, mealType: mealType, date: date,
+        onDelete: deleteCustomItem, onEdit: { editingCustomItem = $0 })
     }
   }
 
@@ -161,6 +155,36 @@ struct RestaurantDetailView: View {
       try CustomMenuItemEditor.delete(item: item, in: modelContext)
     } catch {
       menuError = error.localizedDescription
+    }
+  }
+}
+
+/// The menu items in one category. A named type rather than a tuple, so nothing about the
+/// nested lists below is left for the compiler to infer (D108).
+private struct RestaurantMenuGroup: Identifiable {
+  let category: MenuCategory
+  let items: [MenuItem]
+  var id: MenuCategory { category }
+}
+
+/// One category section. Its rows are keyed by `persistentModelID` because `MenuItem` also
+/// declares its own `id`, and Xcode 16.4 does not settle which one `Identifiable` means (D108).
+private struct RestaurantMenuSection: View {
+  let group: RestaurantMenuGroup
+  let mealType: MealType
+  let date: Date
+  let onDelete: (MenuItem) -> Void
+  let onEdit: (MenuItem) -> Void
+
+  var body: some View {
+    Section {
+      ForEach(group.items, id: \.persistentModelID) { (item: MenuItem) in
+        RestaurantMenuItemRow(
+          item: item, mealType: mealType, date: date,
+          onDelete: { onDelete(item) }, onEdit: { onEdit(item) })
+      }
+    } header: {
+      Text(group.category.displayName)
     }
   }
 }
