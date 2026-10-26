@@ -124,11 +124,11 @@ private struct TodayFuelCard: View {
       }
       ViewThatFits(in: .horizontal) {
         HStack(spacing: HeliosTokens.space(4)) {
-          rings(rows).frame(width: 150, height: 150)
+          rings(rows).frame(width: 168, height: 168)
           legend(rows)
         }
         VStack(alignment: .leading, spacing: HeliosTokens.space(4)) {
-          rings(rows).frame(width: 150, height: 150).frame(maxWidth: .infinity)
+          rings(rows).frame(width: 168, height: 168).frame(maxWidth: .infinity)
           legend(rows)
         }
       }
@@ -167,10 +167,10 @@ private struct TodayFuelCard: View {
     return MacroRings(
       rings: rows.map { row in
         (progress: row.goal.map { row.eaten / $0 } ?? 0, color: row.color)
-      }
+      }, lineWidth: 9, gap: 3
     ) {
       VStack(spacing: 0) {
-        Text(number(shown, digits: 0)).heliosFont(.display)
+        Text(number(shown, digits: 0)).heliosFont(.metricValue)
         Text(showsLeft && energy.goal != nil ? "\(energy.unit) left" : "\(energy.unit) eaten")
           .heliosFont(.caption)
           .foregroundStyle(theme.palette.text.secondary.color)

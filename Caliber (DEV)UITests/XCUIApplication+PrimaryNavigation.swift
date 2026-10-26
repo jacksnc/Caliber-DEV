@@ -32,6 +32,20 @@ extension XCUIApplication {
       navigationBars["Profile"].waitForNonExistence(timeout: 5), file: file, line: line)
   }
 
+  /// Taps `element` until `target` appears. A tap that lands while a list is still
+  /// decelerating only stops the scroll.
+  @MainActor
+  func tap(
+    _ element: XCUIElement, until target: XCUIElement, file: StaticString = #filePath,
+    line: UInt = #line
+  ) {
+    for _ in 0..<3 {
+      if element.isHittable { element.tap() }
+      if target.waitForExistence(timeout: 3) { return }
+    }
+    XCTFail("\(target) did not appear", file: file, line: line)
+  }
+
   /// Backs out of anything pushed inside the Profile sheet, then closes it.
   @MainActor
   func leaveProfile(file: StaticString = #filePath, line: UInt = #line) {
@@ -63,11 +77,11 @@ extension XCUIElement {
   /// moving, and a tap during that animation leaves nothing focused for `typeText`.
   @MainActor
   func focusAtEnd(file: StaticString = #filePath, line: UInt = #line) {
-    for _ in 0..<5 {
-      coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)).tap()
-      if XCUIApplication().keyboards.firstMatch.waitForExistence(timeout: 1) { return }
-      Thread.sleep(forTimeInterval: 0.5)
-    }
-    XCTFail("The text field never received keyboard focus", file: file, line: line)
+    // CI simulators may have a hardware keyboard attached, so the software keyboard is
+    // not a reliable signal. Let the sheet settle, then tap once.
+    XCTAssertTrue(waitForExistence(timeout: 5), file: file, line: line)
+    Thread.sleep(forTimeInterval: 1)
+    coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)).tap()
+    Thread.sleep(forTimeInterval: 0.5)
   }
 }

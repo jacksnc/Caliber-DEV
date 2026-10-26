@@ -50,6 +50,8 @@ struct RootTabView: View {
         TabView(selection: $selection) {
           ForEach(tabs) { tab in
             screen(for: tab)
+              // The system bar is hidden, but its items still carry names.
+              .tabItem { Label(tab.title, systemImage: tab.symbol) }
               .clearsCaliberTabBar()
               .toolbar(.hidden, for: .tabBar)
               .tag(tab)

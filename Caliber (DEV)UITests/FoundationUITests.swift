@@ -101,8 +101,7 @@ final class FoundationUITests: XCTestCase {
     app.openSettings()
     let open = app.buttons["openAccount"]
     reveal(open, in: app)
-    open.tap()
-    XCTAssertTrue(app.switches["accountConsent"].waitForExistence(timeout: 5))
+    app.tap(open, until: app.switches["accountConsent"])
     XCTAssertFalse(app.buttons["accountConsentContinue"].isEnabled)
     app.switches["accountConsent"].coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5))
       .tap()
@@ -183,9 +182,8 @@ final class FoundationUITests: XCTestCase {
     app.openSettings()
     let open = app.buttons["openAccount"]
     reveal(open, in: app)
-    open.tap()
     let consent = app.switches["accountConsent"]
-    XCTAssertTrue(consent.waitForExistence(timeout: 5))
+    app.tap(open, until: consent)
     consent.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
     app.buttons["accountConsentContinue"].tap()
     XCTAssertTrue(app.textFields["accountEmail"].waitForExistence(timeout: 5))

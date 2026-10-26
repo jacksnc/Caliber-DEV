@@ -56,7 +56,8 @@ final class StackRuntime: ObservableObject {
     var enabled =
       isAllowed && defaults.bool(forKey: Self.enabledKey)
       && defaults.string(forKey: Self.scopeKey) == Self.scopeVersion
-    var unlock = defaults.object(forKey: Self.unlockKey) as? Bool ?? true
+    // Simulators cannot answer the passcode prompt, so isolated UI tests start unlocked.
+    var unlock = defaults.object(forKey: Self.unlockKey) as? Bool ?? !testing
     var estimate = defaults.bool(forKey: Self.estimateKey)
     #if DEBUG
       // Screenshot tests open Stack with fictional entries and no lock.

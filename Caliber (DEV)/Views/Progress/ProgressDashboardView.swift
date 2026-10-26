@@ -49,12 +49,6 @@ struct ProgressDashboardView: View {
               rangeName: range == .all ? "since first weigh-in" : "in \(range.spokenName)",
               addWeight: addToday)
           }
-          Section {
-            CaloriesWeekCard(entries: diary, goal: profiles.first?.dailyCalorieGoal)
-          }
-          Section {
-            MacroSplitCard(entries: diary)
-          }
 
           if entries.isEmpty {
             VStack(alignment: .leading, spacing: 16) {
@@ -112,6 +106,13 @@ struct ProgressDashboardView: View {
               Text("Timeline · \(entries.count) \(entries.count == 1 ? "check-in" : "check-ins")")
             }
 
+          }
+          // Nutrition charts follow the check-ins, which belong with the weight trend.
+          Section {
+            CaloriesWeekCard(entries: diary, goal: profiles.first?.dailyCalorieGoal)
+          }
+          Section {
+            MacroSplitCard(entries: diary)
           }
         }
         .listRowBackground(CaliberRowBackground())
