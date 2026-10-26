@@ -122,7 +122,8 @@ final class ThemeIntegrationUITests: XCTestCase {
     for iconsOnly in [false, true] {
       let app = XCUIApplication()
       app.launchArguments =
-        ["--progress-ui-testing", "--theme-graphite"] + (iconsOnly ? ["--tab-bar-icons-only"] : [])
+        ["--progress-ui-testing", "--theme-graphite", "--stack-fixture"]
+        + (iconsOnly ? ["--tab-bar-icons-only"] : [])
       app.launch()
       XCTAssertTrue(app.tab("Today").waitForExistence(timeout: 20))
       var count = 0

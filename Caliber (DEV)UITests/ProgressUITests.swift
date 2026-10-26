@@ -44,7 +44,9 @@ final class ProgressUITests: XCTestCase {
         XCTAssertEqual(notes.value as? String, "Progress integration check")
         app.buttons["Cancel"].tap()
 
-        let row = app.cells.containing(.staticText, identifier: "Progress integration check").firstMatch
+        // The timeline row's own link, not the first cell that mentions the note.
+        let row = app.descendants(matching: .any)
+            .matching(NSPredicate(format: "identifier BEGINSWITH %@", "progressEntry-")).firstMatch
         XCTAssertTrue(row.waitForExistence(timeout: 5))
         // The swipe does nothing while the check-in sheet is still closing.
         let edit = app.buttons["Edit"]
