@@ -1,8 +1,12 @@
+import CaliberCore
+import HeliosDesign
 import SwiftData
 import SwiftUI
 
 struct TrainHomeView: View {
   @Environment(\.modelContext) private var modelContext
+  @Environment(\.heliosTheme) private var theme
+  @EnvironmentObject private var runtime: FoundationRuntime
   @Query(sort: \TrainingWorkout.startedAt, order: .reverse) private var workouts: [TrainingWorkout]
   @State private var newWorkout: TrainingWorkout?
   @State private var showingNewWorkout = false
@@ -32,11 +36,24 @@ struct TrainHomeView: View {
                 .frame(minHeight: 48, alignment: .leading)
               }
             } else {
-              Button(action: startWorkout) {
-                Label("Start Empty Workout", systemImage: "plus.circle.fill")
-                  .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
+              VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
+                Text(history.first.map { "Last time: \($0.name)" } ?? "Your first session")
+                  .heliosFont(.section)
+                Text(
+                  history.first.map {
+                    "\($0.startedAt.formatted(.dateTime.weekday(.wide).month().day())) · \($0.completedSets.count) sets"
+                  } ?? "Add exercises as you go. Each set saves when you tick it."
+                )
+                .heliosFont(.footnote)
+                .foregroundStyle(theme.palette.text.secondary.color)
+                Button(action: startWorkout) {
+                  Label("Start Workout", systemImage: "plus.circle.fill")
+                    .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.heliosPrimary)
+                .accessibilityIdentifier("startWorkout")
               }
-              .accessibilityIdentifier("startWorkout")
+              .padding(.vertical, HeliosTokens.space(2))
             }
           }
 
@@ -58,13 +75,23 @@ struct TrainHomeView: View {
                 NavigationLink {
                   WorkoutSummaryView(workout: workout)
                 } label: {
-                  VStack(alignment: .leading, spacing: 4) {
-                    Text(workout.name)
-                    Text(
-                      "\(workout.completedSets.count) sets · \(workout.volumeKilograms.formatted(.number.precision(.fractionLength(0...1)))) kg volume"
-                    )
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                  HStack(spacing: HeliosTokens.space(3)) {
+                    Image(systemName: "dumbbell")
+                      .foregroundStyle(theme.palette.data.training.color)
+                      .frame(width: 40, height: 40)
+                      .background(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                          .fill(theme.palette.data.training.color.opacity(0.14))
+                      )
+                      .accessibilityHidden(true)
+                    VStack(alignment: .leading, spacing: 4) {
+                      Text(workout.name).heliosFont(.bodyStrong)
+                      Text(
+                        "\(workout.startedAt.formatted(.dateTime.month().day())) · \(workout.completedSets.count) sets · \(volume(workout)) volume"
+                      )
+                      .heliosFont(.caption)
+                      .foregroundStyle(theme.palette.text.secondary.color)
+                    }
                   }
                   .frame(minHeight: 48, alignment: .leading)
                 }
@@ -94,6 +121,12 @@ struct TrainHomeView: View {
         Text(message ?? "Please try again.")
       }
     }
+  }
+
+  private func volume(_ workout: TrainingWorkout) -> String {
+    let unit = runtime.settings.massUnit
+    let value = unit.fromKilograms(workout.volumeKilograms)
+    return "\(value.formatted(.number.precision(.fractionLength(0...1)))) \(unit.rawValue)"
   }
 
   private func startWorkout() {
