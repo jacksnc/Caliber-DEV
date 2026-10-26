@@ -83,6 +83,7 @@ struct TodayFoundationView: View {
       }
       .caliberScreen()
       .navigationTitle("Today")
+      .profileAvatar()
       .sheet(isPresented: $food) { NavigationStack { FoodSearchView() } }
       .sheet(isPresented: $checkIn) {
         ProgressEntryForm(entry: progress.first { Calendar.current.isDateInToday($0.date) })

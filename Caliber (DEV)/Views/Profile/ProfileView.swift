@@ -3,6 +3,9 @@ import SwiftData
 import SwiftUI
 
 struct ProfileView: View {
+  /// True when Profile is presented as a sheet from the avatar button.
+  var showsDone = false
+  @Environment(\.dismiss) private var dismiss
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var modelContext
   @EnvironmentObject private var account: HostedAccountModel
@@ -31,6 +34,12 @@ struct ProfileView: View {
     NavigationStack {
       Form {
         Group {
+          // Settings comes first: Profile opens from the avatar on every screen.
+          Section("App") {
+            NavigationLink("Settings") { FoundationSettingsView() }
+              .frame(minHeight: 48)
+              .accessibilityIdentifier("openSettings")
+          }
           Section("Account") {
             Label(
               account.isSignedIn ? "Signed in" : "Local profile",
@@ -136,16 +145,18 @@ struct ProfileView: View {
             Text("You can edit these goals after calculation. Calorie safety floors still apply.")
           }
 
-          Section("App") {
-            NavigationLink("Settings") { FoundationSettingsView() }
-              .frame(minHeight: 48)
-              .accessibilityIdentifier("openSettings")
-          }
         }
         .listRowBackground(CaliberRowBackground())
       }
       .caliberScreen()
       .navigationTitle("Profile")
+      .toolbar {
+        if showsDone {
+          ToolbarItem(placement: .confirmationAction) {
+            Button("Done") { dismiss() }.frame(minHeight: 48).accessibilityIdentifier("closeProfile")
+          }
+        }
+      }
       .onAppear(perform: loadOnce)
       .alert(
         "Profile",

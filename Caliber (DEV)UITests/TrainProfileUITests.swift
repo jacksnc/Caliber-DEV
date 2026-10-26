@@ -8,7 +8,7 @@ final class TrainProfileUITests: XCTestCase {
     let app = XCUIApplication()
     app.launchArguments = ["--progress-ui-testing"]
     app.launch()
-    XCTAssertTrue(app.tabBars.buttons["Train"].waitForExistence(timeout: 20))
+    XCTAssertTrue(app.tab("Train").waitForExistence(timeout: 20))
     return app
   }
 
@@ -28,7 +28,7 @@ final class TrainProfileUITests: XCTestCase {
 
   @MainActor func testProfileCalculatesAndSavesLocalGoals() {
     let app = launch()
-    app.tabBars.buttons["Profile"].tap()
+    app.openProfile()
     type("30", into: app.textFields["profileAge"], in: app)
     type("70", into: app.textFields["profileHeight"], in: app)
     type("180", into: app.textFields["profileWeight"], in: app)
@@ -44,7 +44,7 @@ final class TrainProfileUITests: XCTestCase {
 
   @MainActor func testWorkoutSetSavesAndFinishedWorkoutAppearsInHistory() {
     let app = launch()
-    app.tabBars.buttons["Train"].tap()
+    app.tab("Train").tap()
     app.buttons["startWorkout"].tap()
     XCTAssertTrue(app.navigationBars["Active Workout"].waitForExistence(timeout: 5))
     app.buttons["Add Exercise"].firstMatch.tap()

@@ -99,6 +99,7 @@ struct ProgressDashboardView: View {
       }
       .caliberScreen()
       .navigationTitle("Progress")
+      .profileAvatar()
       .toolbar {
         ToolbarItem(placement: .primaryAction) {
           Button(action: addToday) {

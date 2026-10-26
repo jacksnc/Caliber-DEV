@@ -1,27 +1,43 @@
 import XCTest
 
 extension XCUIApplication {
-  /// Food Library moved under Diary when Train became a primary tab.
+  /// Food Library sits under Fuel, which holds the diary.
   @MainActor
   func openFoodLibrary(file: StaticString = #filePath, line: UInt = #line) {
-    let diary = tabBars.buttons["Diary"]
-    XCTAssertTrue(diary.waitForExistence(timeout: 20), file: file, line: line)
-    diary.tap()
+    let fuel = tab("Fuel")
+    XCTAssertTrue(fuel.waitForExistence(timeout: 20), file: file, line: line)
+    fuel.tap()
     let library = buttons["openFoodLibrary"]
     XCTAssertTrue(library.waitForExistence(timeout: 10), file: file, line: line)
     library.tap()
     XCTAssertTrue(navigationBars["Food Library"].waitForExistence(timeout: 10), file: file, line: line)
   }
 
-  /// Settings now lives inside the Profile tab.
+  /// A primary tab in the custom floating bar: "Today", "Train", "Fuel", "Stack" or "Progress".
+  func tab(_ title: String) -> XCUIElement { buttons["tab-" + title.lowercased()] }
+
+  /// Profile opens as a sheet from the avatar at the top right of each primary screen.
+  @MainActor
+  func openProfile(file: StaticString = #filePath, line: UInt = #line) {
+    let avatar = buttons["openProfile"].firstMatch
+    XCTAssertTrue(avatar.waitForExistence(timeout: 20), file: file, line: line)
+    avatar.tap()
+    XCTAssertTrue(navigationBars["Profile"].waitForExistence(timeout: 10), file: file, line: line)
+  }
+
+  @MainActor
+  func closeProfile(file: StaticString = #filePath, line: UInt = #line) {
+    buttons["closeProfile"].tap()
+    XCTAssertTrue(
+      navigationBars["Profile"].waitForNonExistence(timeout: 5), file: file, line: line)
+  }
+
+  /// Settings is the first row of Profile.
   @MainActor
   func openSettings(file: StaticString = #filePath, line: UInt = #line) {
-    let profile = tabBars.buttons["Profile"]
-    XCTAssertTrue(profile.waitForExistence(timeout: 20), file: file, line: line)
-    profile.tap()
+    openProfile(file: file, line: line)
     let settings = buttons["openSettings"]
-    // Settings is the last row of a lazy list. On shorter screens it is not created
-    // until it scrolls into view, so waiting alone never finds it.
+    // The list is lazy: a row that is off screen is not created until it scrolls into view.
     for _ in 0..<8 where !settings.waitForExistence(timeout: 2) || !settings.isHittable {
       swipeUp()
     }

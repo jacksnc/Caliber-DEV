@@ -1,13 +1,23 @@
 import CaliberCharts
 import CaliberCore
 import HeliosDesign
+import SwiftData
 import SwiftUI
 
-/// Five primary tabs keep the most common one-handed actions directly reachable.
+/// The brief's primary tabs (§1.2) under a floating glass bar with a detached Quick Log
+/// button. The system tab bar is hidden; `TabView` still keeps each tab's navigation state.
 struct RootTabView: View {
   @EnvironmentObject private var runtime: FoundationRuntime
   @Environment(\.heliosTheme) private var theme
-  @State private var selection = "today"
+  @Query(sort: \ProgressEntry.date, order: .reverse) private var progress: [ProgressEntry]
+  @State private var selection = CaliberTab.today
+  @State private var showsQuickLog = false
+  @State private var pendingQuickLog: QuickLogAction?
+  @State private var quickLogFood = false
+  @State private var quickLogCheckIn = false
+
+  private var tabs: [CaliberTab] { [.today, .train, .fuel, .progress] }
+
   var body: some View {
     Group {
       if runtime.isDemoMode, let dataset = runtime.demo {
@@ -33,19 +43,50 @@ struct RootTabView: View {
         NumberFreeHomeView()
       } else {
         TabView(selection: $selection) {
-          TodayFoundationView().tabItem { Label("Today", systemImage: "sun.max") }.tag("today")
-          DiaryView().tabItem { Label("Diary", systemImage: "fork.knife") }.tag("diary")
-          TrainHomeView().tabItem {
-            Label("Train", systemImage: "figure.strengthtraining.traditional")
-          }.tag("train")
-          ProgressDashboardView().tabItem {
-            Label("Progress", systemImage: "chart.line.uptrend.xyaxis")
-          }.tag("progress")
-          ProfileView().tabItem { Label("Profile", systemImage: "person.crop.circle") }
-            .tag("profile")
+          ForEach(tabs) { tab in
+            screen(for: tab)
+              .clearsCaliberTabBar()
+              .toolbar(.hidden, for: .tabBar)
+              .tag(tab)
+          }
+        }
+        .overlay(alignment: .bottom) {
+          CaliberTabBar(tabs: tabs, selection: $selection) { showsQuickLog = true }
+            .ignoresSafeArea(.keyboard)
+        }
+        .sheet(isPresented: $showsQuickLog, onDismiss: openPendingQuickLog) {
+          QuickLogSheet(includesDose: false) { action in
+            pendingQuickLog = action
+            showsQuickLog = false
+          }
+        }
+        .sheet(isPresented: $quickLogFood) { NavigationStack { FoodSearchView() } }
+        .sheet(isPresented: $quickLogCheckIn) {
+          ProgressEntryForm(entry: progress.first { Calendar.current.isDateInToday($0.date) })
         }
         .tint(theme.palette.accent.base.color)
       }
+    }
+  }
+
+  @ViewBuilder private func screen(for tab: CaliberTab) -> some View {
+    switch tab {
+    case .today: TodayFoundationView()
+    case .train: TrainHomeView()
+    case .fuel: DiaryView()
+    case .stack: EmptyView()
+    case .progress: ProgressDashboardView()
+    }
+  }
+
+  private func openPendingQuickLog() {
+    guard let action = pendingQuickLog else { return }
+    pendingQuickLog = nil
+    switch action {
+    case .food: quickLogFood = true
+    case .checkIn: quickLogCheckIn = true
+    case .workout: selection = .train
+    case .dose: break
     }
   }
 }

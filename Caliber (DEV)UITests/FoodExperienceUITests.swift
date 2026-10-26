@@ -17,7 +17,8 @@ final class FoodExperienceUITests: XCTestCase {
       let top = app.navigationBars.firstMatch.frame.maxY + 8
       let bottom =
         app.keyboards.firstMatch.exists
-        ? app.keyboards.firstMatch.frame.minY - 8 : app.tabBars.firstMatch.frame.minY - 8
+        ? app.keyboards.firstMatch.frame.minY - 8
+        : app.otherElements["caliberTabBar"].frame.minY - 8
       if element.exists && element.isHittable && element.frame.minY >= top
         && element.frame.maxY <= bottom
       {
@@ -173,7 +174,7 @@ final class FoodExperienceUITests: XCTestCase {
     snapshot("Offline USDA packaged food with a weighed portion", app: app)
     app.buttons["referenceAdd"].tap()
     XCTAssertFalse(app.buttons["referenceAdd"].isEnabled)
-    app.tabBars.buttons["Diary"].tap()
+    app.tab("Fuel").tap()
     XCTAssertEqual(app.staticTexts["diaryCalories"].label, "220.08 calories")
   }
 
@@ -191,7 +192,7 @@ final class FoodExperienceUITests: XCTestCase {
     snapshot("Offline USDA volume serving without gram conversion", app: app)
     app.buttons["referenceAdd"].tap()
     XCTAssertFalse(app.buttons["referenceAdd"].isEnabled)
-    app.tabBars.buttons["Diary"].tap()
+    app.tab("Fuel").tap()
     XCTAssertEqual(app.staticTexts["diaryCalories"].label, "220 calories")
   }
   @MainActor func testImportedFictionalMenuUsesCategoriesAndPersonalReview() {

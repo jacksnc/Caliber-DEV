@@ -76,6 +76,7 @@ struct TrainHomeView: View {
       }
       .caliberScreen()
       .navigationTitle("Train")
+      .profileAvatar()
       .task {
         do { try TrainingExerciseSeeder.seedIfNeeded(in: modelContext) } catch {
           message = "The starter exercise list could not be prepared."

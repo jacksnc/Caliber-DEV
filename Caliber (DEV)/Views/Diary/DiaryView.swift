@@ -57,7 +57,8 @@ struct DiaryView: View {
         .listRowBackground(CaliberRowBackground())
       }
       .caliberScreen()
-      .navigationTitle("Diary")
+      .navigationTitle("Fuel")
+      .profileAvatar()
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
           NavigationLink {

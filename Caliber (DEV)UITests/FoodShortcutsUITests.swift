@@ -6,7 +6,7 @@ final class FoodShortcutsUITests: XCTestCase {
     let app = XCUIApplication()
     app.launchArguments = ["--progress-ui-testing"] + (fixture ? ["--food-reuse-fixture"] : [])
     app.launch()
-    XCTAssertTrue(app.tabBars.buttons["Diary"].waitForExistence(timeout: 20))
+    XCTAssertTrue(app.tab("Fuel").waitForExistence(timeout: 20))
     return app
   }
   @MainActor private func reveal(
@@ -16,7 +16,8 @@ final class FoodShortcutsUITests: XCTestCase {
       let top = app.navigationBars.firstMatch.frame.maxY + 8
       let bottom =
         app.keyboards.firstMatch.exists
-        ? app.keyboards.firstMatch.frame.minY - 8 : app.tabBars.firstMatch.frame.minY - 8
+        ? app.keyboards.firstMatch.frame.minY - 8
+        : app.otherElements["caliberTabBar"].frame.minY - 8
       if element.exists && element.isHittable && element.frame.minY >= top
         && element.frame.maxY <= bottom
       {
@@ -87,13 +88,13 @@ final class FoodShortcutsUITests: XCTestCase {
     show("Frequent", in: app)
     XCTAssertTrue(app.staticTexts["Logged 3 times"].waitForExistence(timeout: 5))
     snapshot("Recent favorites and repeat-food history", app: app)
-    app.tabBars.buttons["Diary"].tap()
+    app.tab("Fuel").tap()
     XCTAssertEqual(app.staticTexts["diaryCalories"].label, "200.5 calories")
   }
 
   @MainActor func testCopyYesterdayLetsYouChooseFoodsAndAddsOnlyOnce() {
     let app = launch()
-    app.tabBars.buttons["Diary"].tap()
+    app.tab("Fuel").tap()
     XCTAssertEqual(app.staticTexts["diaryCalories"].label, "100.25 calories")
     app.buttons["diaryCopyDay"].tap()
     let total = app.staticTexts["copyCalories"]
@@ -116,7 +117,7 @@ final class FoodShortcutsUITests: XCTestCase {
 
   @MainActor func testSameDayMealRepeatKeepsItsCompletedPreviewStable() {
     let app = launch()
-    app.tabBars.buttons["Diary"].tap()
+    app.tab("Fuel").tap()
     let row = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", "diaryEntry-"))
       .firstMatch
     reveal(row, in: app)
@@ -135,7 +136,7 @@ final class FoodShortcutsUITests: XCTestCase {
 
   @MainActor func testOuncesSourcePortionsAndMacroEditsPreserveSelectedMass() {
     let app = launch(fixture: false)
-    app.tabBars.buttons["Diary"].tap()
+    app.tab("Fuel").tap()
     let add = app.buttons["diaryAdd-breakfast"]
     reveal(add, in: app)
     add.tap()
@@ -214,7 +215,7 @@ final class FoodShortcutsUITests: XCTestCase {
     app.navigationBars.buttons.element(boundBy: 0).tap()
     show("Favorites", in: app)
     XCTAssertTrue(app.buttons["favorite-usda-sr-legacy:168878"].waitForExistence(timeout: 5))
-    app.tabBars.buttons["Diary"].tap()
+    app.tab("Fuel").tap()
     XCTAssertEqual(app.staticTexts["diaryCalories"].label, "410.8 calories")
   }
 }

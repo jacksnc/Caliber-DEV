@@ -17,7 +17,7 @@ final class FoundationUITests: XCTestCase {
     XCTAssertEqual(app.switches["scopeConfirmation"].value as? String, "1")
     XCTAssertTrue(proceed.isEnabled)
     proceed.tap()
-    XCTAssertTrue(app.tabBars.buttons["Today"].waitForExistence(timeout: 10))
+    XCTAssertTrue(app.tab("Today").waitForExistence(timeout: 10))
     return app
   }
   @MainActor func testDemoAndExitPreserveEmptyPersonalDiary() {
@@ -45,7 +45,7 @@ final class FoundationUITests: XCTestCase {
     app.openSettings()
     app.switches["hideNumbers"].coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
     XCTAssertTrue(app.navigationBars["Your Journal"].waitForExistence(timeout: 10))
-    XCTAssertFalse(app.tabBars.buttons["Diary"].exists)
+    XCTAssertFalse(app.tab("Fuel").exists)
     app.buttons["Add a Photo or Note"].tap()
     XCTAssertTrue(app.textViews["progressNotes"].waitForExistence(timeout: 5))
     XCTAssertFalse(app.textFields["progressWeight"].exists)
@@ -73,7 +73,7 @@ final class FoundationUITests: XCTestCase {
     reveal(format, in: app)
     format.tap()
     app.buttons["German (Germany)"].tap()
-    app.tabBars.buttons["Progress"].tap()
+    app.tab("Progress").tap()
     app.buttons["addProgressEntry"].tap()
     let weight = app.textFields["progressWeight"]
     XCTAssertTrue(weight.waitForExistence(timeout: 5))
@@ -163,7 +163,7 @@ final class FoundationUITests: XCTestCase {
     methodPicture.lifetime = .keepAlways
     add(methodPicture)
     app.buttons["exitDemo"].tap()
-    XCTAssertTrue(app.tabBars.buttons["Today"].waitForExistence(timeout: 5))
+    XCTAssertTrue(app.tab("Today").waitForExistence(timeout: 5))
   }
 
   @MainActor private func openFixtureAccount(in app: XCUIApplication) {
@@ -210,7 +210,7 @@ final class FoundationUITests: XCTestCase {
   }
   @MainActor func testHostedDeletionKeepsLocalProgressNote() {
     let app = launch(additionalArguments: ["--account-ui-testing"])
-    app.tabBars.buttons["Progress"].tap()
+    app.tab("Progress").tap()
     app.buttons["addProgressEntry"].tap()
     let notes = app.textViews["progressNotes"]
     XCTAssertTrue(notes.waitForExistence(timeout: 5))
@@ -244,7 +244,7 @@ final class FoundationUITests: XCTestCase {
     picture.lifetime = .keepAlways
     add(picture)
     app.navigationBars.buttons.element(boundBy: 0).tap()
-    app.tabBars.buttons["Progress"].tap()
+    app.tab("Progress").tap()
     XCTAssertTrue(app.staticTexts["Kept after hosted deletion"].waitForExistence(timeout: 5))
   }
 

@@ -13,7 +13,7 @@ final class ThemeIntegrationUITests: XCTestCase {
       ]
     }
     app.launch()
-    XCTAssertTrue(app.tabBars.buttons["Today"].waitForExistence(timeout: 20))
+    XCTAssertTrue(app.tab("Today").waitForExistence(timeout: 20))
     return app
   }
 
@@ -38,21 +38,25 @@ final class ThemeIntegrationUITests: XCTestCase {
 
   @MainActor private func inspect(theme: String, largeText: Bool = false) throws {
     let app = launch(theme: theme, largeText: largeText)
-    for tab in ["Today", "Diary", "Train", "Progress", "Profile"] {
-      app.tabBars.buttons[tab].tap()
+    for tab in ["Today", "Train", "Fuel", "Progress"] {
+      app.tab(tab).tap()
       XCTAssertTrue(app.navigationBars[tab].waitForExistence(timeout: 5))
       capture("\(theme)-\(tab)-\(largeText ? "AX5" : "default")", app: app)
       try audit(app, largeText: largeText)
     }
+    app.openProfile()
+    capture("\(theme)-Profile-\(largeText ? "AX5" : "default")", app: app)
+    try audit(app, largeText: largeText)
+    app.closeProfile()
 
-    app.tabBars.buttons["Diary"].tap()
+    app.tab("Fuel").tap()
     app.buttons["openFoodLibrary"].tap()
     app.buttons["Restaurants"].tap()
     XCTAssertTrue(app.navigationBars["Restaurants"].waitForExistence(timeout: 10))
     capture("\(theme)-Restaurants", app: app)
     try audit(app, largeText: largeText)
 
-    app.tabBars.buttons["Today"].tap()
+    app.tab("Today").tap()
     app.buttons["quickLogFood"].tap()
     let barcode = app.buttons["openBarcode"]
     XCTAssertTrue(barcode.waitForExistence(timeout: 10))
@@ -78,19 +82,20 @@ final class ThemeIntegrationUITests: XCTestCase {
     var heights: [[CGFloat]] = []
     for largeText in [false, true] {
       let app = launch(theme: "graphite", largeText: largeText)
-      app.tabBars.buttons["Progress"].tap()
+      app.tab("Progress").tap()
       let progress = app.staticTexts[
         "Keep daily photos, weigh-ins, and notes together. Add any combination that works for you."]
       reveal(progress, app: app)
       let progressHeight = progress.frame.height
       capture("growth-Progress-\(largeText ? "AX5" : "default")", app: app)
-      app.tabBars.buttons["Profile"].tap()
+      app.openProfile()
       let profile = app.staticTexts[
         "These values stay on this device and are used only to make a starting estimate."]
       reveal(profile, app: app)
       let profileHeight = profile.frame.height
       capture("growth-Profile-\(largeText ? "AX5" : "default")", app: app)
-      app.tabBars.buttons["Diary"].tap()
+      app.closeProfile()
+      app.tab("Fuel").tap()
       app.buttons["openFoodLibrary"].tap()
       app.buttons["Restaurants"].tap()
       let restaurant = app.staticTexts[

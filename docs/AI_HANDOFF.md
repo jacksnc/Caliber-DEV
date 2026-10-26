@@ -46,6 +46,13 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
   sandbox; open the `simulator-results` artifact in Xcode to see them.
   Check the latest GitHub Actions result before merging; local simulator passes
   do not prove CI has passed.
+- Owner request 2026-10-26: make the app match the look book closely, including the
+  concept's tabs and a Stack module (D110). Claude is doing this in stages on
+  `astra/foundation`: navigation first (custom tab bar, Quick Log, profile avatar;
+  Diary is now the Fuel tab), then Stack, then restyling each screen. CI now pushes
+  each run's simulator screenshots to the `ci-screenshots` branch so the cloud agent
+  can see them. Avoid editing Navigation, RootTabView, Profile, Today, Diary, Train,
+  Progress, Restaurants and the UI-test navigation helper until this lands.
 - Claude imported the seven engine packages from its branch at the owner's
   request (D109): `HeliosTime`, `TrainingCore`, `NutritionCore`, `StackCore`,
   `InsightsCore`, `FoodCore`, `RestaurantCore`. Nothing links them yet. 402 tests

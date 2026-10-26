@@ -8,7 +8,7 @@ final class ProgressUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["--progress-ui-testing"]
         app.launch()
-        let progress = app.tabBars.buttons["Progress"]
+        let progress = app.tab("Progress")
         XCTAssertTrue(progress.waitForExistence(timeout: 20))
         progress.tap()
         return app
