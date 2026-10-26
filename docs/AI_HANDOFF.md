@@ -21,6 +21,13 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
   slice aligns serialization with Xcode 16 format 77 and the pinned CI toolchain.
   A second run reached compilation and found three ambiguous dynamic-title
   Section initializers; explicit Text headers address that older-compiler issue.
+  The third run still failed in `RestaurantDetailView.swift` (ChartContentBuilder
+  error at the inner ForEach). The real cause was the theme slice wrapping the
+  whole list in one `Group` so one `.listRowBackground` covers it: Xcode 16.4
+  could not type-check that single builder and fell back to a Charts overload.
+  Claude split the list into five `@ViewBuilder` properties inside the same
+  `Group`; behaviour is unchanged. Only a Linux syntax parse and swift-format
+  lint were run on it; GitHub's macOS job is the first real compile.
   Check the latest GitHub Actions result before merging; local simulator passes
   do not prove CI has passed.
 - Steps 1 and 2 from the owner's requested sequence are complete. Evidence is in
