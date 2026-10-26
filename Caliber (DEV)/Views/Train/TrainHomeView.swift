@@ -123,22 +123,26 @@ private struct WorkoutSummaryView: View {
               value: Duration.seconds(completedAt.timeIntervalSince(workout.startedAt)).formatted())
           }
         }
-        ForEach(workout.sortedExercises) { row in
-          Section {
-            ForEach(row.sortedSets.filter { $0.completedAt != nil }) { set in
-              Text(
-                "\(set.enteredWeight, format: .number) \(set.enteredWeightUnitRawValue) × \(set.repetitions)"
-              )
-            }
-          } header: {
-            Text(row.exercise?.name ?? "Deleted exercise")
-          }
-        }
+        ForEach(workout.sortedExercises) { row in exerciseSection(row) }
       }
       .listRowBackground(CaliberRowBackground())
     }
     .caliberScreen()
     .navigationTitle(workout.name)
     .navigationBarTitleDisplayMode(.inline)
+  }
+
+  // Built in its own function: inline, Xcode 16.4 cannot type-check this list and
+  // reports a misleading ChartContentBuilder error (D108).
+  @ViewBuilder private func exerciseSection(_ row: TrainingWorkoutExercise) -> some View {
+    Section {
+      ForEach(row.sortedSets.filter { $0.completedAt != nil }) { set in
+        Text(
+          "\(set.enteredWeight, format: .number) \(set.enteredWeightUnitRawValue) × \(set.repetitions)"
+        )
+      }
+    } header: {
+      Text(row.exercise?.name ?? "Deleted exercise")
+    }
   }
 }

@@ -44,36 +44,7 @@ struct ActiveWorkoutView: View {
           }
         }
 
-        ForEach(workout.sortedExercises) { workoutExercise in
-          Section {
-            ForEach(workoutExercise.sortedSets) { set in
-              TrainingSetRow(set: set, displayUnit: runtime.settings.massUnit)
-                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                  Button("Delete", role: .destructive) { delete(set) }
-                }
-            }
-            Button {
-              do {
-                _ = try TrainingWorkoutLogger.addSet(to: workoutExercise, in: modelContext)
-              } catch { message = "The set could not be added." }
-            } label: {
-              Label("Add Set", systemImage: "plus")
-                .frame(minHeight: 48)
-            }
-          } header: {
-            HStack {
-              Text(workoutExercise.exercise?.name ?? "Deleted exercise")
-              Spacer()
-              Button(role: .destructive) {
-                delete(workoutExercise)
-              } label: {
-                Image(systemName: "trash")
-                  .frame(minWidth: 48, minHeight: 48)
-              }
-              .accessibilityLabel("Remove exercise")
-            }
-          }
-        }
+        ForEach(workout.sortedExercises) { workoutExercise in exerciseSection(workoutExercise) }
       }
       .listRowBackground(CaliberRowBackground())
     }
@@ -151,6 +122,40 @@ struct ActiveWorkoutView: View {
       dismiss()
     } catch {
       message = "The workout could not be finished. Your completed sets are still saved."
+    }
+  }
+
+  // Built in its own function: inline, Xcode 16.4 cannot type-check this list and
+  // reports a misleading ChartContentBuilder error (D108).
+  @ViewBuilder private func exerciseSection(_ workoutExercise: TrainingWorkoutExercise) -> some View
+  {
+    Section {
+      ForEach(workoutExercise.sortedSets) { set in
+        TrainingSetRow(set: set, displayUnit: runtime.settings.massUnit)
+          .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+            Button("Delete", role: .destructive) { delete(set) }
+          }
+      }
+      Button {
+        do {
+          _ = try TrainingWorkoutLogger.addSet(to: workoutExercise, in: modelContext)
+        } catch { message = "The set could not be added." }
+      } label: {
+        Label("Add Set", systemImage: "plus")
+          .frame(minHeight: 48)
+      }
+    } header: {
+      HStack {
+        Text(workoutExercise.exercise?.name ?? "Deleted exercise")
+        Spacer()
+        Button(role: .destructive) {
+          delete(workoutExercise)
+        } label: {
+          Image(systemName: "trash")
+            .frame(minWidth: 48, minHeight: 48)
+        }
+        .accessibilityLabel("Remove exercise")
+      }
     }
   }
 }

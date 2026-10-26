@@ -40,30 +40,7 @@ struct ImportedRestaurantMenuView: View {
             .footnote)
           Link("View Nutrition Source", destination: URL(string: source.url)!).frame(minHeight: 48)
         }
-        ForEach(MenuCategory.displayOrder) { category in
-          let items = restaurant.items.filter {
-            $0.category == category.rawValue && FoodSearchText.matches($0.name, query: search)
-          }
-          if !items.isEmpty {
-            Section {
-              ForEach(items, id: \.id) { item in
-                NavigationLink {
-                  FoodNutritionReviewView(
-                    reference: BundledRestaurantMenuService.reference(
-                      item: item, restaurant: restaurant, source: source),
-                    meal: mealType, date: date)
-                } label: {
-                  VStack(alignment: .leading, spacing: 4) {
-                    Text(item.name)
-                    Text(item.servingDescription).font(.footnote).foregroundStyle(.secondary)
-                  }.frame(minHeight: 48)
-                }.accessibilityIdentifier("importedMenu-" + item.id)
-              }
-            } header: {
-              Text(category.displayName)
-            }
-          }
-        }
+        ForEach(MenuCategory.displayOrder) { category in categorySection(category) }
         if !customItems.isEmpty {
           Section("My Custom Items") {
             ForEach(customItems) { item in
@@ -113,6 +90,33 @@ struct ImportedRestaurantMenuView: View {
       Button("OK", role: .cancel) { error = nil }
     } message: {
       Text(error ?? "Please try again.")
+    }
+  }
+
+  // Built in its own function: inline, Xcode 16.4 cannot type-check this list and
+  // reports a misleading ChartContentBuilder error (D108).
+  @ViewBuilder private func categorySection(_ category: MenuCategory) -> some View {
+    let items = restaurant.items.filter {
+      $0.category == category.rawValue && FoodSearchText.matches($0.name, query: search)
+    }
+    if !items.isEmpty {
+      Section {
+        ForEach(items, id: \.id) { item in
+          NavigationLink {
+            FoodNutritionReviewView(
+              reference: BundledRestaurantMenuService.reference(
+                item: item, restaurant: restaurant, source: source),
+              meal: mealType, date: date)
+          } label: {
+            VStack(alignment: .leading, spacing: 4) {
+              Text(item.name)
+              Text(item.servingDescription).font(.footnote).foregroundStyle(.secondary)
+            }.frame(minHeight: 48)
+          }.accessibilityIdentifier("importedMenu-" + item.id)
+        }
+      } header: {
+        Text(category.displayName)
+      }
     }
   }
 }

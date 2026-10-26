@@ -73,15 +73,7 @@ struct BuildYourOwnView: View {
           )
         }
 
-        ForEach(viewModel.orderedCategories) { category in
-          Section {
-            ForEach(category.options) { option in
-              optionRow(option, in: category)
-            }
-          } header: {
-            Text(category.name + (category.isRequired ? " (required)" : " (optional)"))
-          }
-        }
+        ForEach(viewModel.orderedCategories) { category in categorySection(category) }
 
         MacroOverrideSection(
           itemName: template.name,
@@ -251,6 +243,18 @@ struct BuildYourOwnView: View {
       modelContext.delete(entry)
       modelContext.delete(food)
       saveError = "Couldn't add this meal to your diary. Please try again."
+    }
+  }
+
+  // Built in its own function: inline, Xcode 16.4 cannot type-check this list and
+  // reports a misleading ChartContentBuilder error (D108).
+  @ViewBuilder private func categorySection(_ category: BuildComponentCategory) -> some View {
+    Section {
+      ForEach(category.options) { option in
+        optionRow(option, in: category)
+      }
+    } header: {
+      Text(category.name + (category.isRequired ? " (required)" : " (optional)"))
     }
   }
 }

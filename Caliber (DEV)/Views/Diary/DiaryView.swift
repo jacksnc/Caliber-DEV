@@ -52,60 +52,7 @@ struct DiaryView: View {
             MacroTotalsSummaryView(totals: dailyTotals)
           }
 
-          ForEach(MealType.allCases) { meal in
-            let entries = selectedDayEntries.filter { $0.mealType == meal }
-            Section {
-              if entries.isEmpty {
-                Text("No items yet")
-                  .foregroundStyle(.secondary)
-              } else {
-                ForEach(entries) { entry in
-                  Button {
-                    entryBeingEdited = entry
-                  } label: {
-                    DiaryEntryRow(entry: entry)
-                      .foregroundStyle(.primary)
-                      .frame(maxWidth: .infinity, alignment: .leading)
-                      .contentShape(Rectangle())
-                  }
-                  .buttonStyle(.plain)
-                  .accessibilityHint("Edit this diary entry")
-                  .accessibilityIdentifier("diaryEntry-\(entry.id.uuidString)")
-                  .contextMenu {
-                    if entry.foodItem != nil {
-                      Button("Log Again") { repeatedEntry = entry }
-                      Button("Repeat This Meal") {
-                        copyRequest = DiaryCopyRequest(
-                          date: selectedDate, meal: entry.mealType, sourceDate: selectedDate)
-                      }
-
-                    }
-                  }
-                }
-                .onDelete { offsets in
-                  delete(entries: entries, at: offsets)
-                }
-              }
-            } header: {
-              HStack {
-                Text(meal.displayName)
-                Spacer()
-                Button {
-                  copyRequest = DiaryCopyRequest(date: selectedDate, meal: meal)
-                } label: {
-                  Image(systemName: "doc.on.doc").frame(minWidth: 48, minHeight: 48)
-                }
-                .accessibilityLabel("Copy \(meal.displayName)")
-                .accessibilityIdentifier("diaryCopy-\(meal.rawValue)")
-                Button {
-                  mealTypePresentingSheet = meal
-                } label: {
-                  Image(systemName: "plus.circle").frame(minWidth: 48, minHeight: 48)
-                }.accessibilityLabel("Add to \(meal.displayName)")
-                  .accessibilityIdentifier("diaryAdd-\(meal.rawValue)")
-              }
-            }
-          }
+          ForEach(MealType.allCases) { meal in mealSection(meal) }
         }
         .listRowBackground(CaliberRowBackground())
       }
@@ -145,6 +92,63 @@ struct DiaryView: View {
   private func delete(entries: [DiaryEntry], at offsets: IndexSet) {
     for index in offsets {
       modelContext.delete(entries[index])
+    }
+  }
+
+  // Built in its own function: inline, Xcode 16.4 cannot type-check this list and
+  // reports a misleading ChartContentBuilder error (D108).
+  @ViewBuilder private func mealSection(_ meal: MealType) -> some View {
+    let entries = selectedDayEntries.filter { $0.mealType == meal }
+    Section {
+      if entries.isEmpty {
+        Text("No items yet")
+          .foregroundStyle(.secondary)
+      } else {
+        ForEach(entries) { entry in
+          Button {
+            entryBeingEdited = entry
+          } label: {
+            DiaryEntryRow(entry: entry)
+              .foregroundStyle(.primary)
+              .frame(maxWidth: .infinity, alignment: .leading)
+              .contentShape(Rectangle())
+          }
+          .buttonStyle(.plain)
+          .accessibilityHint("Edit this diary entry")
+          .accessibilityIdentifier("diaryEntry-\(entry.id.uuidString)")
+          .contextMenu {
+            if entry.foodItem != nil {
+              Button("Log Again") { repeatedEntry = entry }
+              Button("Repeat This Meal") {
+                copyRequest = DiaryCopyRequest(
+                  date: selectedDate, meal: entry.mealType, sourceDate: selectedDate)
+              }
+
+            }
+          }
+        }
+        .onDelete { offsets in
+          delete(entries: entries, at: offsets)
+        }
+      }
+    } header: {
+      HStack {
+        Text(meal.displayName)
+        Spacer()
+        Button {
+          copyRequest = DiaryCopyRequest(date: selectedDate, meal: meal)
+        } label: {
+          Image(systemName: "doc.on.doc").frame(minWidth: 48, minHeight: 48)
+        }
+        .accessibilityLabel("Copy \(meal.displayName)")
+        .accessibilityIdentifier("diaryCopy-\(meal.rawValue)")
+        Button {
+          mealTypePresentingSheet = meal
+        } label: {
+          Image(systemName: "plus.circle").frame(minWidth: 48, minHeight: 48)
+        }.accessibilityLabel("Add to \(meal.displayName)")
+          .accessibilityIdentifier("diaryAdd-\(meal.rawValue)")
+      }
     }
   }
 }
