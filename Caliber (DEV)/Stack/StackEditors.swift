@@ -1,4 +1,5 @@
 import HeliosDesign
+import StackCore
 import SwiftData
 import SwiftUI
 
