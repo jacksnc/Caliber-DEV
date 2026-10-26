@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-25 — Native Graphite and Frost integration
+
+- Integrated the owner's Helios token/package work into the real SwiftUI app, with theme selection in Profile → Settings.
+- Added themed canvases and list surfaces across existing routes, glass Today/scanner/timeline cards, responsive nutrition summaries, and consistent chart colors.
+- Added native screen screenshots and Dynamic Type checks; improved large-text workout entry and exercise accessibility labels.
+- No personal model migration, food source import, health math change, hosted deployment, or authentication-policy change.
+
 ## 2026-10-24 — Train and profile foundation
 
 - Added a primary Train tab with a searchable original starter library, offline custom exercises, empty-workout start/resume, immediate set persistence, warm-up exclusion, live totals, finish flow, and local history.
@@ -129,3 +136,9 @@ Existing source work predates this phase and remains locally staged/uncommitted 
 - Recipe diary logs use independent ingredient snapshots; user-edited combined macros produce a separate personal diary entry. Recipe cancel/edit/delete do not rewrite earlier diary rows.
 - Added strict legacy snapshot compatibility and additive normalized-rehearsal v5 metadata. Full verification and limitations are recorded in `docs/RECIPE_VERIFICATION.md`.
 - Added repository instructions and a cross-assistant checkpoint in `AGENTS.md`, `CLAUDE.md`, and `docs/AI_HANDOFF.md`; switching assistants remains a manual, Git-based handoff.
+
+## 2026-10-26 — Published foundation and native theme verification
+
+- Published `astra/foundation` through the existing Train/Profile foundation so Claude can access the real app.
+- Added native theme screenshot/audit and fresh-launch text-growth checks; retain the unresolved default-size system audit in the verification report.
+- Made the iOS CLI runner safe for Python test discovery and excluded generated dependency documentation from the repository link validator.

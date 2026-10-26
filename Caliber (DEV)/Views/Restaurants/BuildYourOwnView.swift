@@ -50,98 +50,102 @@ struct BuildYourOwnView: View {
 
   var body: some View {
     Form {
-      Section {
-        if let totals = diaryTotals {
-          Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
-            .accessibilityIdentifier("builderCalories")
-            .font(.headline)
-          Text(
-            "Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g"
-          )
-          .font(.subheadline)
-          .foregroundStyle(.secondary)
-        } else {
-          Text("Enter valid nutrition and a quantity greater than zero to see the total.")
-            .foregroundStyle(.secondary)
-        }
-      } header: {
-        Text("Diary Total")
-      } footer: {
-        Text(
-          "Includes quantity and any macro adjustment. Swipe left on eligible proteins for Double or Regular. Tap an optional ingredient again to remove it."
-        )
-      }
-
-      ForEach(viewModel.orderedCategories) { category in
+      Group {
         Section {
-          ForEach(category.options) { option in
-            optionRow(option, in: category)
+          if let totals = diaryTotals {
+            Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
+              .accessibilityIdentifier("builderCalories")
+              .font(.headline)
+            Text(
+              "Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g"
+            )
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
+          } else {
+            Text("Enter valid nutrition and a quantity greater than zero to see the total.")
+              .foregroundStyle(.secondary)
           }
         } header: {
-          Text(category.name + (category.isRequired ? " (required)" : " (optional)"))
+          Text("Diary Total")
+        } footer: {
+          Text(
+            "Includes quantity and any macro adjustment. Swipe left on eligible proteins for Double or Regular. Tap an optional ingredient again to remove it."
+          )
         }
-      }
 
-      MacroOverrideSection(
-        itemName: template.name,
-        baseTotals: viewModel.totals,
-        isEditing: $isCustomizingMacros,
-        calories: $editedCalories,
-        protein: $editedProtein,
-        carbs: $editedCarbs,
-        fat: $editedFat
-      )
-
-      Section {
-        LabeledContent("Quantity") {
-          TextField("1", text: $quantity)
-            .keyboardType(.decimalPad)
-            .multilineTextAlignment(.trailing)
-            .accessibilityLabel("Quantity")
-        }
-        Picker("Meal", selection: $mealType) {
-          ForEach(MealType.allCases) { meal in
-            Text(meal.displayName).tag(meal)
+        ForEach(viewModel.orderedCategories) { category in
+          Section {
+            ForEach(category.options) { option in
+              optionRow(option, in: category)
+            }
+          } header: {
+            Text(category.name + (category.isRequired ? " (required)" : " (optional)"))
           }
         }
-        DatePicker("Date", selection: $date, displayedComponents: .date)
-      } header: {
-        Text("Add to Diary")
-      } footer: {
-        Text(
-          "Macro adjustments are for one assembled item; quantity multiplies them. Changing ingredients resets the adjustment."
+
+        MacroOverrideSection(
+          itemName: template.name,
+          baseTotals: viewModel.totals,
+          isEditing: $isCustomizingMacros,
+          calories: $editedCalories,
+          protein: $editedProtein,
+          carbs: $editedCarbs,
+          fat: $editedFat
         )
-      }
 
-      if !viewModel.missingRequiredCategories.isEmpty {
         Section {
+          LabeledContent("Quantity") {
+            TextField("1", text: $quantity)
+              .keyboardType(.decimalPad)
+              .multilineTextAlignment(.trailing)
+              .accessibilityLabel("Quantity")
+          }
+          Picker("Meal", selection: $mealType) {
+            ForEach(MealType.allCases) { meal in
+              Text(meal.displayName).tag(meal)
+            }
+          }
+          DatePicker("Date", selection: $date, displayedComponents: .date)
+        } header: {
+          Text("Add to Diary")
+        } footer: {
           Text(
-            "Choose an option for: \(viewModel.missingRequiredCategories.map(\.name).joined(separator: ", "))."
+            "Macro adjustments are for one assembled item; quantity multiplies them. Changing ingredients resets the adjustment."
           )
-          .foregroundStyle(.secondary)
+        }
+
+        if !viewModel.missingRequiredCategories.isEmpty {
+          Section {
+            Text(
+              "Choose an option for: \(viewModel.missingRequiredCategories.map(\.name).joined(separator: ", "))."
+            )
+            .foregroundStyle(.secondary)
+          }
+        }
+
+        if diaryTotals == nil {
+          Section {
+            Text(
+              "Use numbers of zero or greater for calories and macros, and a quantity greater than zero."
+            )
+            .foregroundStyle(.red)
+          }
+        }
+
+        if let saveError {
+          Section { Text(saveError).foregroundStyle(.red) }
+        }
+
+        if didJustSave {
+          Section {
+            Label("Added to \(mealType.displayName)", systemImage: "checkmark.circle.fill")
+              .foregroundStyle(.green)
+          }
         }
       }
-
-      if diaryTotals == nil {
-        Section {
-          Text(
-            "Use numbers of zero or greater for calories and macros, and a quantity greater than zero."
-          )
-          .foregroundStyle(.red)
-        }
-      }
-
-      if let saveError {
-        Section { Text(saveError).foregroundStyle(.red) }
-      }
-
-      if didJustSave {
-        Section {
-          Label("Added to \(mealType.displayName)", systemImage: "checkmark.circle.fill")
-            .foregroundStyle(.green)
-        }
-      }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .navigationTitle(template.name)
     .toolbar {
       ToolbarItem(placement: .confirmationAction) {

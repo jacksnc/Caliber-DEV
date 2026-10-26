@@ -1,0 +1,116 @@
+import XCTest
+
+/// Screenshots and accessibility checks exercise real routes with isolated test data.
+final class ThemeIntegrationUITests: XCTestCase {
+  override func setUpWithError() throws { continueAfterFailure = true }
+
+  @MainActor private func launch(theme: String, largeText: Bool = false) -> XCUIApplication {
+    let app = XCUIApplication()
+    app.launchArguments = ["--progress-ui-testing", "--theme-\(theme)", "--barcode-fixture"]
+    if largeText {
+      app.launchArguments += [
+        "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL",
+      ]
+    }
+    app.launch()
+    XCTAssertTrue(app.tabBars.buttons["Today"].waitForExistence(timeout: 20))
+    return app
+  }
+
+  @MainActor private func capture(_ name: String, app: XCUIApplication) {
+    let attachment = XCTAttachment(screenshot: app.screenshot())
+    attachment.name = name
+    attachment.lifetime = .keepAlways
+    add(attachment)
+  }
+
+  @MainActor private func audit(_ app: XCUIApplication, largeText: Bool) throws {
+    // Starting at AX5 keeps growing lazy-list rows from disappearing mid-audit.
+    // Default-size clipping is checked separately; text growth is measured below.
+    let types: XCUIAccessibilityAuditType =
+      largeText ? [.dynamicType, .textClipped] : [.textClipped]
+    try app.performAccessibilityAudit(for: types) { issue in
+      print("ACCESSIBILITY: \(issue.compactDescription): \(issue.detailedDescription)")
+      if let element = issue.element { print(element.debugDescription) }
+      return false
+    }
+  }
+
+  @MainActor private func inspect(theme: String, largeText: Bool = false) throws {
+    let app = launch(theme: theme, largeText: largeText)
+    for tab in ["Today", "Diary", "Train", "Progress", "Profile"] {
+      app.tabBars.buttons[tab].tap()
+      XCTAssertTrue(app.navigationBars[tab].waitForExistence(timeout: 5))
+      capture("\(theme)-\(tab)-\(largeText ? "AX5" : "default")", app: app)
+      try audit(app, largeText: largeText)
+    }
+
+    app.tabBars.buttons["Diary"].tap()
+    app.buttons["openFoodLibrary"].tap()
+    app.buttons["Restaurants"].tap()
+    XCTAssertTrue(app.navigationBars["Restaurants"].waitForExistence(timeout: 10))
+    capture("\(theme)-Restaurants", app: app)
+    try audit(app, largeText: largeText)
+
+    app.tabBars.buttons["Today"].tap()
+    app.buttons["quickLogFood"].tap()
+    let barcode = app.buttons["openBarcode"]
+    XCTAssertTrue(barcode.waitForExistence(timeout: 10))
+    for _ in 0..<5 where !barcode.isHittable { app.swipeUp() }
+    barcode.tap()
+    let scan = app.buttons["barcodeOpenCamera"]
+    XCTAssertTrue(scan.waitForExistence(timeout: 10))
+    for _ in 0..<5 where !scan.isHittable { app.swipeUp() }
+    scan.tap()
+    XCTAssertTrue(app.textFields["barcodeManualInput"].waitForExistence(timeout: 10))
+    capture("\(theme)-Scanner", app: app)
+    try audit(app, largeText: largeText)
+  }
+
+  @MainActor private func reveal(_ element: XCUIElement, app: XCUIApplication) {
+    for _ in 0..<8 where !element.isHittable { app.swipeUp() }
+    XCTAssertTrue(element.isHittable)
+  }
+
+  /// Verify the text reported by the normal-size lazy-list audit really grows.
+  /// This compares fresh launches, independent of the system audit's resizing.
+  @MainActor func testTextGrowthAcrossSizes() {
+    var heights: [[CGFloat]] = []
+    for largeText in [false, true] {
+      let app = launch(theme: "graphite", largeText: largeText)
+      app.tabBars.buttons["Progress"].tap()
+      let progress = app.staticTexts[
+        "Keep daily photos, weigh-ins, and notes together. Add any combination that works for you."]
+      reveal(progress, app: app)
+      let progressHeight = progress.frame.height
+      capture("growth-Progress-\(largeText ? "AX5" : "default")", app: app)
+      app.tabBars.buttons["Profile"].tap()
+      let profile = app.staticTexts[
+        "These values stay on this device and are used only to make a starting estimate."]
+      reveal(profile, app: app)
+      let profileHeight = profile.frame.height
+      capture("growth-Profile-\(largeText ? "AX5" : "default")", app: app)
+      app.tabBars.buttons["Diary"].tap()
+      app.buttons["openFoodLibrary"].tap()
+      app.buttons["Restaurants"].tap()
+      let restaurant = app.staticTexts[
+        "Sample menus for now. These are not complete, verified restaurant menus."]
+      reveal(restaurant, app: app)
+      heights.append([progressHeight, profileHeight, restaurant.frame.height])
+      capture("growth-Restaurants-\(largeText ? "AX5" : "default")", app: app)
+      app.terminate()
+    }
+    for (index, name) in ["Progress", "Profile", "Restaurants"].enumerated() {
+      XCTAssertGreaterThan(
+        heights[1][index], heights[0][index] * 1.4,
+        "\(name) text must grow at AX5: \(heights[0][index]) → \(heights[1][index])")
+      print("TEXT GROWTH \(name): \(heights[0][index]) → \(heights[1][index])")
+    }
+  }
+
+  @MainActor func testGraphiteScreens() throws { try inspect(theme: "graphite") }
+  @MainActor func testFrostScreens() throws { try inspect(theme: "frost") }
+  @MainActor func testLargestTextScreens() throws {
+    try inspect(theme: "graphite", largeText: true)
+  }
+}

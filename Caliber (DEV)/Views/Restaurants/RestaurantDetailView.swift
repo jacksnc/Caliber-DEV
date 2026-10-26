@@ -56,85 +56,89 @@ struct RestaurantDetailView: View {
 
   var body: some View {
     List {
-      if let source = RestaurantSourceDirectory.nutritionURL(for: restaurant.name) {
-        Section("Menu Information") {
-          Text(
-            "Built-in values are samples, not a complete verified menu. Check the current restaurant information and adjust your log."
-          ).font(.footnote)
-          Link("Open Official Nutrition", destination: source).frame(minHeight: 48)
+      Group {
+        if let source = RestaurantSourceDirectory.nutritionURL(for: restaurant.name) {
+          Section("Menu Information") {
+            Text(
+              "Built-in values are samples, not a complete verified menu. Check the current restaurant information and adjust your log."
+            ).font(.footnote)
+            Link("Open Official Nutrition", destination: source).frame(minHeight: 48)
+          }
         }
-      }
 
-      if filteredTemplates.isEmpty && groupedMenuItems.isEmpty {
-        if query.isEmpty {
-          ContentUnavailableView(
-            "No Menu Items", systemImage: "fork.knife",
-            description: Text("Tap + to add a custom item to this restaurant."))
-        } else {
-          ContentUnavailableView.search(text: searchText)
+        if filteredTemplates.isEmpty && groupedMenuItems.isEmpty {
+          if query.isEmpty {
+            ContentUnavailableView(
+              "No Menu Items", systemImage: "fork.knife",
+              description: Text("Tap + to add a custom item to this restaurant."))
+          } else {
+            ContentUnavailableView.search(text: searchText)
+          }
         }
-      }
 
-      if !filteredTemplates.isEmpty {
-        Section("Build Your Own") {
-          ForEach(filteredTemplates) { template in
-            NavigationLink(template.name) {
-              BuildYourOwnView(template: template, mealType: mealType, date: date)
+        if !filteredTemplates.isEmpty {
+          Section("Build Your Own") {
+            ForEach(filteredTemplates) { template in
+              NavigationLink(template.name) {
+                BuildYourOwnView(template: template, mealType: mealType, date: date)
+              }
             }
           }
         }
-      }
 
-      ForEach(groupedMenuItems, id: \.category) { group in
-        Section(group.category.displayName) {
-          ForEach(group.items) { item in
-            NavigationLink {
-              MenuItemDetailView(menuItem: item, mealType: mealType, date: date)
-            } label: {
-              VStack(alignment: .leading, spacing: 2) {
-                HStack {
-                  Text(item.name)
-                  if item.isCustom {
-                    Text("Custom")
-                      .font(.caption)
-                      .foregroundStyle(.secondary)
+        ForEach(groupedMenuItems, id: \.category) { group in
+          Section(group.category.displayName) {
+            ForEach(group.items) { item in
+              NavigationLink {
+                MenuItemDetailView(menuItem: item, mealType: mealType, date: date)
+              } label: {
+                VStack(alignment: .leading, spacing: 2) {
+                  HStack {
+                    Text(item.name)
+                    if item.isCustom {
+                      Text("Custom")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    }
                   }
+                  Text(
+                    "\(NutritionInput.format(item.baseCalories, locale: locale)) cal · \(NutritionInput.format(item.baseProtein, locale: locale))p \(NutritionInput.format(item.baseCarbs, locale: locale))c \(NutritionInput.format(item.baseFat, locale: locale))f"
+                  )
+                  .font(.caption)
+                  .foregroundStyle(.secondary)
                 }
-                Text(
-                  "\(NutritionInput.format(item.baseCalories, locale: locale)) cal · \(NutritionInput.format(item.baseProtein, locale: locale))p \(NutritionInput.format(item.baseCarbs, locale: locale))c \(NutritionInput.format(item.baseFat, locale: locale))f"
-                )
-                .font(.caption)
-                .foregroundStyle(.secondary)
               }
-            }
-            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-              // Built-in catalog items are read-only. These two
-              // actions belong only to the user's personal items.
-              if item.isCustom {
-                Button(role: .destructive) {
-                  deleteCustomItem(item)
-                } label: {
-                  Label("Delete", systemImage: "trash")
+              .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                // Built-in catalog items are read-only. These two
+                // actions belong only to the user's personal items.
+                if item.isCustom {
+                  Button(role: .destructive) {
+                    deleteCustomItem(item)
+                  } label: {
+                    Label("Delete", systemImage: "trash")
+                  }
+                  Button {
+                    editingCustomItem = item
+                  } label: {
+                    Label("Edit", systemImage: "pencil")
+                  }
+                  .tint(.blue)
                 }
-                Button {
-                  editingCustomItem = item
-                } label: {
-                  Label("Edit", systemImage: "pencil")
-                }
-                .tint(.blue)
               }
             }
           }
         }
-      }
 
-      Section {
-      } footer: {
-        Text(
-          "Tap an item to review servings and edit your macros. Swipe left on a custom item to edit or delete it. Built-in nutrition is sample data until verified menus are available."
-        )
+        Section {
+        } footer: {
+          Text(
+            "Tap an item to review servings and edit your macros. Swipe left on a custom item to edit or delete it. Built-in nutrition is sample data until verified menus are available."
+          )
+        }
       }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .navigationTitle(restaurant.name)
     .searchable(text: $searchText, prompt: "Search this menu")
     .toolbar {

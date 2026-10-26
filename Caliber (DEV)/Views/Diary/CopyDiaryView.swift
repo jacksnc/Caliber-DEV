@@ -46,79 +46,84 @@ struct CopyDiaryView: View {
   var body: some View {
     NavigationStack {
       Form {
-        Section("Copy From") {
-          DatePicker("Source Day", selection: $sourceDate, displayedComponents: .date)
-            .accessibilityIdentifier("copySourceDay")
-          Picker("Source Meal", selection: $sourceMeal) {
-            Text("Whole Day").tag(Optional<MealType>.none)
-            ForEach(MealType.allCases) { Text($0.displayName).tag(Optional($0)) }
-          }.accessibilityIdentifier("copySourceMeal")
-        }
-        Section("Add To") {
-          Text(destination, format: .dateTime.weekday().month().day().year())
-          Picker("Meal", selection: $destinationMeal) {
-            Text("Original Meals").tag(Optional<MealType>.none)
-            ForEach(MealType.allCases) { Text($0.displayName).tag(Optional($0)) }
-          }.accessibilityIdentifier("copyDestinationMeal")
-          if calendar.isDate(sourceDate, inSameDayAs: destination) {
-            Text("You are copying within the same day.").font(.footnote)
+        Group {
+          Section("Copy From") {
+            DatePicker("Source Day", selection: $sourceDate, displayedComponents: .date)
+              .accessibilityIdentifier("copySourceDay")
+            Picker("Source Meal", selection: $sourceMeal) {
+              Text("Whole Day").tag(Optional<MealType>.none)
+              ForEach(MealType.allCases) { Text($0.displayName).tag(Optional($0)) }
+            }.accessibilityIdentifier("copySourceMeal")
           }
-        }
-        Section {
-          if source.isEmpty { Text("No foods were logged for this day and meal.") }
-          ForEach(source) { entry in
-            Button {
-              if excluded.contains(entry.id) {
-                excluded.remove(entry.id)
-              } else {
-                excluded.insert(entry.id)
-              }
-              didCopy = false
-            } label: {
-              HStack(alignment: .top) {
-                Image(systemName: excluded.contains(entry.id) ? "circle" : "checkmark.circle.fill")
-                VStack(alignment: .leading, spacing: 4) {
-                  Text(entry.foodItem?.name ?? "Missing Food")
-                  if let row = try? DiaryRepeatLogger.preview(entries: [entry]) {
-                    Text(
-                      "\(entry.mealType.displayName) · \(NutritionInput.format(entry.quantity, locale: locale)) portions · \(NutritionInput.format(row.calories, locale: locale)) cal"
-                    ).font(.footnote)
-                  } else {
-                    Text("Portion or nutrition unavailable").font(.footnote)
-                  }
+          Section("Add To") {
+            Text(destination, format: .dateTime.weekday().month().day().year())
+            Picker("Meal", selection: $destinationMeal) {
+              Text("Original Meals").tag(Optional<MealType>.none)
+              ForEach(MealType.allCases) { Text($0.displayName).tag(Optional($0)) }
+            }.accessibilityIdentifier("copyDestinationMeal")
+            if calendar.isDate(sourceDate, inSameDayAs: destination) {
+              Text("You are copying within the same day.").font(.footnote)
+            }
+          }
+          Section {
+            if source.isEmpty { Text("No foods were logged for this day and meal.") }
+            ForEach(source) { entry in
+              Button {
+                if excluded.contains(entry.id) {
+                  excluded.remove(entry.id)
+                } else {
+                  excluded.insert(entry.id)
                 }
-              }.frame(minHeight: 48).foregroundStyle(.primary)
-            }.buttonStyle(.plain)
-              .accessibilityLabel(entry.foodItem?.name ?? "Missing Food")
-              .accessibilityValue(excluded.contains(entry.id) ? "Not selected" : "Selected")
-              .accessibilityIdentifier("copyFood-\(entry.id.uuidString)")
-              .disabled(didCopy)
+                didCopy = false
+              } label: {
+                HStack(alignment: .top) {
+                  Image(
+                    systemName: excluded.contains(entry.id) ? "circle" : "checkmark.circle.fill")
+                  VStack(alignment: .leading, spacing: 4) {
+                    Text(entry.foodItem?.name ?? "Missing Food")
+                    if let row = try? DiaryRepeatLogger.preview(entries: [entry]) {
+                      Text(
+                        "\(entry.mealType.displayName) · \(NutritionInput.format(entry.quantity, locale: locale)) portions · \(NutritionInput.format(row.calories, locale: locale)) cal"
+                      ).font(.footnote)
+                    } else {
+                      Text("Portion or nutrition unavailable").font(.footnote)
+                    }
+                  }
+                }.frame(minHeight: 48).foregroundStyle(.primary)
+              }.buttonStyle(.plain)
+                .accessibilityLabel(entry.foodItem?.name ?? "Missing Food")
+                .accessibilityValue(excluded.contains(entry.id) ? "Not selected" : "Selected")
+                .accessibilityIdentifier("copyFood-\(entry.id.uuidString)")
+                .disabled(didCopy)
+            }
+          } header: {
+            Text("Foods to Copy")
+          } footer: {
+            Text("Select the foods you want. This adds new entries and keeps your original logs.")
           }
-        } header: {
-          Text("Foods to Copy")
-        } footer: {
-          Text("Select the foods you want. This adds new entries and keeps your original logs.")
-        }
-        if let totals {
-          Section("Copy Total") {
+          if let totals {
+            Section("Copy Total") {
+              Text(
+                "\(selected.count) \(selected.count == 1 ? "food" : "foods") · \(NutritionInput.format(totals.calories, locale: locale)) calories"
+              )
+              .accessibilityIdentifier("copyCalories")
+              Text(
+                "Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g"
+              )
+            }
+          } else if !selected.isEmpty {
             Text(
-              "\(selected.count) \(selected.count == 1 ? "food" : "foods") · \(NutritionInput.format(totals.calories, locale: locale)) calories"
-            )
-            .accessibilityIdentifier("copyCalories")
-            Text(
-              "Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g"
+              "A selected food needs a valid name, portion and nutrition. Edit it in the diary or leave it out of this copy."
             )
           }
-        } else if !selected.isEmpty {
-          Text(
-            "A selected food needs a valid name, portion and nutrition. Edit it in the diary or leave it out of this copy."
-          )
+          if didCopy {
+            Label("Foods copied", systemImage: "checkmark.circle").accessibilityIdentifier(
+              "copySaved")
+          }
         }
-        if didCopy {
-          Label("Foods copied", systemImage: "checkmark.circle").accessibilityIdentifier(
-            "copySaved")
-        }
+        .listRowBackground(CaliberRowBackground())
       }
+      .caliberScreen()
       .navigationTitle("Copy Foods")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {

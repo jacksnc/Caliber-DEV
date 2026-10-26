@@ -13,7 +13,10 @@ let package = Package(
     .library(name: "CaliberSeedData", targets: ["CaliberSeedData"]),
     .library(name: "CaliberIntegrations", targets: ["CaliberIntegrations"]),
   ],
-  dependencies: [.package(url: "https://github.com/groue/GRDB.swift.git", exact: "7.9.0")],
+  dependencies: [
+    .package(url: "https://github.com/groue/GRDB.swift.git", exact: "7.9.0"),
+    .package(path: "../HeliosDesign"),
+  ],
   targets: [
     .target(name: "CaliberCore", resources: [.process("Resources")]),
     .target(
@@ -21,7 +24,8 @@ let package = Package(
       dependencies: ["CaliberCore", .product(name: "GRDB", package: "GRDB.swift")],
       resources: [.process("Resources")]),
     .target(
-      name: "CaliberDesignSystem", dependencies: ["CaliberCore"], resources: [.process("Resources")]
+      name: "CaliberDesignSystem", dependencies: ["CaliberCore", "HeliosDesign"],
+      resources: [.process("Resources")]
     ),
     .target(name: "CaliberCharts", dependencies: ["CaliberCore", "CaliberDesignSystem"]),
     .target(name: "CaliberSeedData", dependencies: ["CaliberCore"]),

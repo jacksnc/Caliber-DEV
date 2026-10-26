@@ -45,77 +45,82 @@ struct SavedMealDetailView: View {
 
   var body: some View {
     Form {
-      Section("Nutrition for this Portion") {
-        if let finalTotals {
-          Text("\(NutritionInput.format(finalTotals.calories, locale: locale)) calories")
-            .font(.headline).accessibilityIdentifier("recipePortionCalories")
-          Text(
-            "Protein \(NutritionInput.format(finalTotals.protein, locale: locale))g · Carbs \(NutritionInput.format(finalTotals.carbs, locale: locale))g · Fat \(NutritionInput.format(finalTotals.fat, locale: locale))g"
-          )
-          .font(.subheadline).foregroundStyle(.secondary)
-        } else {
-          Text("Add valid ingredients and portions, then review again.").foregroundStyle(.secondary)
-        }
-      }
-      Section("Portion") {
-        Picker("Unit", selection: $unit) {
-          ForEach(
-            RecipePortionUnit.allCases.filter {
-              $0 == .servings || meal.cookedYieldGrams != nil
-            }
-          ) { option in Text(option.displayName).tag(option) }
-        }.accessibilityIdentifier("recipePortionUnit")
-        RecipeNumberField(
-          unit == .servings ? "Number of servings" : "Cooked weight (g)",
-          text: $amount, identifier: "recipePortionAmount")
-        Text(
-          "Nutrition includes the selected ingredient amounts.\n"
-            + (unit == .servings
-              ? "One serving is one part of the measured batch."
-              : "Cooked grams require the measured cooked batch weight.")
-        )
-        .font(.footnote).foregroundStyle(.secondary)
-      }
-      Section("Ingredients") {
-        ForEach(meal.items) { item in
-          VStack(alignment: .leading, spacing: 3) {
-            Text(item.foodItem?.name ?? "Missing ingredient")
+      Group {
+        Section("Nutrition for this Portion") {
+          if let finalTotals {
+            Text("\(NutritionInput.format(finalTotals.calories, locale: locale)) calories")
+              .font(.headline).accessibilityIdentifier("recipePortionCalories")
             Text(
-              "\(NutritionInput.format(item.quantity, locale: locale)) × \(item.foodItem?.servingDescription ?? "")"
+              "Protein \(NutritionInput.format(finalTotals.protein, locale: locale))g · Carbs \(NutritionInput.format(finalTotals.carbs, locale: locale))g · Fat \(NutritionInput.format(finalTotals.fat, locale: locale))g"
             )
-            .font(.caption).foregroundStyle(.secondary)
-            if item.foodItem == nil {
-              Text("Edit this recipe to restore its missing ingredient.").font(.caption)
-                .foregroundStyle(.red)
+            .font(.subheadline).foregroundStyle(.secondary)
+          } else {
+            Text("Add valid ingredients and portions, then review again.").foregroundStyle(
+              .secondary)
+          }
+        }
+        Section("Portion") {
+          Picker("Unit", selection: $unit) {
+            ForEach(
+              RecipePortionUnit.allCases.filter {
+                $0 == .servings || meal.cookedYieldGrams != nil
+              }
+            ) { option in Text(option.displayName).tag(option) }
+          }.accessibilityIdentifier("recipePortionUnit")
+          RecipeNumberField(
+            unit == .servings ? "Number of servings" : "Cooked weight (g)",
+            text: $amount, identifier: "recipePortionAmount")
+          Text(
+            "Nutrition includes the selected ingredient amounts.\n"
+              + (unit == .servings
+                ? "One serving is one part of the measured batch."
+                : "Cooked grams require the measured cooked batch weight.")
+          )
+          .font(.footnote).foregroundStyle(.secondary)
+        }
+        Section("Ingredients") {
+          ForEach(meal.items) { item in
+            VStack(alignment: .leading, spacing: 3) {
+              Text(item.foodItem?.name ?? "Missing ingredient")
+              Text(
+                "\(NutritionInput.format(item.quantity, locale: locale)) × \(item.foodItem?.servingDescription ?? "")"
+              )
+              .font(.caption).foregroundStyle(.secondary)
+              if item.foodItem == nil {
+                Text("Edit this recipe to restore its missing ingredient.").font(.caption)
+                  .foregroundStyle(.red)
+              }
             }
           }
         }
-      }
-      if isEditing, let portion {
-        MacroOverrideSection(
-          itemName: meal.name, baseTotals: portion, basisLabel: "this portion",
-          isEditing: $isEditing, calories: $calories, protein: $protein,
-          carbs: $carbs, fat: $fat)
-      } else {
-        MacroOverrideSection(
-          itemName: meal.name, baseTotals: portion ?? MacroTotals(), basisLabel: "this portion",
-          isEditing: $isEditing, calories: $calories, protein: $protein,
-          carbs: $carbs, fat: $fat)
-      }
-      Section("Log This Portion") {
-        Picker("Meal", selection: $mealType) {
-          ForEach(MealType.allCases) { Text($0.displayName).tag($0) }
+        if isEditing, let portion {
+          MacroOverrideSection(
+            itemName: meal.name, baseTotals: portion, basisLabel: "this portion",
+            isEditing: $isEditing, calories: $calories, protein: $protein,
+            carbs: $carbs, fat: $fat)
+        } else {
+          MacroOverrideSection(
+            itemName: meal.name, baseTotals: portion ?? MacroTotals(), basisLabel: "this portion",
+            isEditing: $isEditing, calories: $calories, protein: $protein,
+            carbs: $carbs, fat: $fat)
         }
-        DatePicker("Date", selection: $date, displayedComponents: .date)
-      }
-      if didSave {
-        Section {
-          Label("Added to \(mealType.displayName)", systemImage: "checkmark.circle.fill")
-            .foregroundStyle(.green)
+        Section("Log This Portion") {
+          Picker("Meal", selection: $mealType) {
+            ForEach(MealType.allCases) { Text($0.displayName).tag($0) }
+          }
+          DatePicker("Date", selection: $date, displayedComponents: .date)
         }
+        if didSave {
+          Section {
+            Label("Added to \(mealType.displayName)", systemImage: "checkmark.circle.fill")
+              .foregroundStyle(.green)
+          }
+        }
+        if let error { Section { Text(error).foregroundStyle(.red) } }
       }
-      if let error { Section { Text(error).foregroundStyle(.red) } }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .scrollDismissesKeyboard(.interactively)
     .navigationTitle(meal.name)
     .toolbar {

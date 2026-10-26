@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 110;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		F10000000000000000000004 /* CaliberCharts in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000004 /* CaliberCharts */; };
 		F10000000000000000000005 /* CaliberSeedData in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000005 /* CaliberSeedData */; };
 		F10000000000000000000006 /* CaliberIntegrations in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000006 /* CaliberIntegrations */; };
+		F10000000000000000000007 /* HeliosDesign in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000007 /* HeliosDesign */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 				F10000000000000000000004 /* CaliberCharts in Frameworks */,
 				F10000000000000000000005 /* CaliberSeedData in Frameworks */,
 				F10000000000000000000006 /* CaliberIntegrations in Frameworks */,
+				F10000000000000000000007 /* HeliosDesign in Frameworks */,
 			);
 		};
 		3E24D9A43075DFA50059733A /* Frameworks */ = {
@@ -125,6 +127,7 @@
 				F20000000000000000000004 /* CaliberCharts */,
 				F20000000000000000000005 /* CaliberSeedData */,
 				F20000000000000000000006 /* CaliberIntegrations */,
+				F20000000000000000000007 /* HeliosDesign */,
 			);
 			productName = "Caliber (DEV)";
 			productReference = 3E24D99A3075DFA40059733A /* Caliber (DEV).app */;
@@ -206,6 +209,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				F30000000000000000000001 /* XCLocalSwiftPackageReference "Packages/CaliberFoundation" */,
+				F30000000000000000000002 /* XCLocalSwiftPackageReference "Packages/HeliosDesign" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3E24D99B3075DFA40059733A /* Products */;
@@ -609,6 +613,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/CaliberFoundation;
 		};
+		F30000000000000000000002 /* XCLocalSwiftPackageReference "Packages/HeliosDesign" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/HeliosDesign;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -635,6 +643,10 @@
 		F20000000000000000000006 /* CaliberIntegrations */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CaliberIntegrations;
+		};
+		F20000000000000000000007 /* HeliosDesign */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HeliosDesign;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

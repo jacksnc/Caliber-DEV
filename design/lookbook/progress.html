@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Helios Progress</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@600;700&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="look.css">
+<style>html, body { margin: 0; }</style>
+</head>
+<body>
+<div class="hx hx-screen" data-theme="dark">
+  <div class="hx-body">
+    <header class="hx-head">
+      <h1 class="t-display">Progress</h1>
+      <button class="icon-btn glass raised" aria-label="Profile and settings"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg></button>
+    </header>
+
+    <div class="seg block" role="group" aria-label="Period">
+      <button aria-pressed="false">7D</button>
+      <button aria-pressed="true">30D</button>
+      <button aria-pressed="false">90D</button>
+      <button aria-pressed="false">All</button>
+    </div>
+
+    <section class="glass card" aria-label="Trend weight">
+      <div class="card-h" style="align-items:flex-start">
+        <div class="stackv">
+          <p class="t-label c-2">Trend weight</p>
+          <p class="row" style="align-items:baseline;gap:4px"><span class="t-hero">82.3</span><span class="t-sub c-2">kg</span></p>
+        </div>
+        <div class="stackv" style="align-items:flex-end">
+          <p class="t-strong num">−1.4 kg</p>
+          <p class="t-foot c-2">in 30 days</p>
+        </div>
+      </div>
+      <svg class="chart" viewBox="0 0 326 104" role="img" aria-label="Trend weight fell from 83.7 to 82.3 kilograms over 30 days; daily weigh-ins are shown as faint dots">
+        <path class="grid" d="M34,64.7 H318"/><text class="axis-t" x="0" y="68.7">82</text>
+        <path class="grid" d="M34,36.3 H318"/><text class="axis-t" x="0" y="40.3">83</text>
+        <path class="grid" d="M34,8 H318"/><text class="axis-t" x="0" y="12">84</text>
+        <g class="f-weight" fill-opacity="0.4"><circle cx="34" cy="16.5" r="3"/><circle cx="43.5" cy="25" r="3"/><circle cx="52.9" cy="10.8" r="3"/><circle cx="62.4" cy="22.2" r="3"/><circle cx="71.9" cy="30.7" r="3"/><circle cx="81.3" cy="19.3" r="3"/><circle cx="90.8" cy="33.5" r="3"/><circle cx="100.3" cy="27.8" r="3"/><circle cx="109.7" cy="39.2" r="3"/><circle cx="119.2" cy="30.7" r="3"/><circle cx="128.7" cy="42" r="3"/><circle cx="138.1" cy="36.3" r="3"/><circle cx="147.6" cy="47.7" r="3"/><circle cx="157.1" cy="39.2" r="3"/><circle cx="166.5" cy="44.8" r="3"/><circle cx="176" cy="53.3" r="3"/><circle cx="185.5" cy="36.3" r="3"/><circle cx="194.9" cy="50.5" r="3"/><circle cx="204.4" cy="56.2" r="3"/><circle cx="213.9" cy="44.8" r="3"/><circle cx="223.3" cy="59" r="3"/><circle cx="232.8" cy="50.5" r="3"/><circle cx="242.3" cy="61.8" r="3"/><circle cx="251.7" cy="53.3" r="3"/><circle cx="261.2" cy="47.7" r="3"/><circle cx="270.7" cy="64.7" r="3"/><circle cx="280.1" cy="56.2" r="3"/><circle cx="289.6" cy="61.8" r="3"/><circle cx="299.1" cy="50.5" r="3"/><circle cx="308.5" cy="64.7" r="3"/><circle cx="318" cy="59" r="3"/></g>
+        <path class="ln s-weight" d="M34,16.5 L43.5,18.2 L52.9,16.7 L62.4,17.8 L71.9,20.4 L81.3,20.2 L90.8,22.8 L100.3,23.8 L109.7,26.9 L119.2,27.7 L128.7,30.5 L138.1,31.7 L147.6,34.9 L157.1,35.7 L166.5,37.6 L176,40.7 L185.5,39.8 L194.9,42 L204.4,44.8 L213.9,44.8 L223.3,47.7 L232.8,48.2 L242.3,50.9 L251.7,51.4 L261.2,50.7 L270.7,53.5 L280.1,54 L289.6,55.6 L299.1,54.6 L308.5,56.6 L318,57.1"/>
+        <circle class="f-weight pt-ring" cx="318" cy="57.1" r="5"/>
+        <text class="axis-t" x="28" y="98" text-anchor="start">Sep 24</text>
+        <text class="axis-t" x="100.3" y="98" text-anchor="middle">Oct 1</text>
+        <text class="axis-t" x="166.5" y="98" text-anchor="middle">Oct 8</text>
+        <text class="axis-t" x="232.8" y="98" text-anchor="middle">Oct 15</text>
+        <text class="axis-t" x="324" y="98" text-anchor="end">Oct 24</text>
+      </svg>
+    </section>
+
+    <section class="glass card" aria-label="Calories, last 7 days">
+      <div class="card-h">
+        <h2 class="t-section">Calories</h2>
+        <p class="t-foot c-2">Last 7 days · today so far</p>
+      </div>
+      <svg class="chart" viewBox="0 0 326 112" role="img" aria-label="Daily calories against a 2,350 target: 2,310, 2,480, 2,190, 2,640, 2,350, 2,080 and 1,462 so far today">
+        <path class="grid" d="M34,86 H322"/><text class="axis-t" x="0" y="90">0</text>
+        <path class="grid" d="M34,59.3 H322"/><text class="axis-t" x="0" y="63.3">1K</text>
+        <path class="grid" d="M34,32.7 H322"/><text class="axis-t" x="0" y="36.7">2K</text>
+        <path class="grid" d="M34,6 H322"/><text class="axis-t" x="0" y="10">3K</text>
+        <path class="f-energy" d="M43.6,86 V28.4 Q43.6,24.4 47.6,24.4 H61.6 Q65.6,24.4 65.6,28.4 V86 Z"/>
+        <path class="f-energy" d="M84.7,86 V23.9 Q84.7,19.9 88.7,19.9 H102.7 Q106.7,19.9 106.7,23.9 V86 Z"/>
+        <path class="f-energy" d="M125.9,86 V31.6 Q125.9,27.6 129.9,27.6 H143.9 Q147.9,27.6 147.9,31.6 V86 Z"/>
+        <path class="f-energy" d="M167,86 V19.6 Q167,15.6 171,15.6 H185 Q189,15.6 189,19.6 V86 Z"/>
+        <path class="f-energy" d="M208.1,86 V27.3 Q208.1,23.3 212.1,23.3 H226.1 Q230.1,23.3 230.1,27.3 V86 Z"/>
+        <path class="f-energy" d="M249.3,86 V34.5 Q249.3,30.5 253.3,30.5 H267.3 Q271.3,30.5 271.3,34.5 V86 Z"/>
+        <path class="f-energy" fill-opacity="0.5" d="M290.4,86 V51 Q290.4,47 294.4,47 H308.4 Q312.4,47 312.4,51 V86 Z"/>
+        <path class="ln s-reference" stroke-width="1.5" d="M34,23.3 H322"/>
+        <text class="axis-t" x="322" y="18.3" text-anchor="end">Target 2,350</text>
+        <text class="axis-t" x="54.6" y="106" text-anchor="middle">Sun</text>
+        <text class="axis-t" x="95.7" y="106" text-anchor="middle">Mon</text>
+        <text class="axis-t" x="136.9" y="106" text-anchor="middle">Tue</text>
+        <text class="axis-t" x="178" y="106" text-anchor="middle">Wed</text>
+        <text class="axis-t" x="219.1" y="106" text-anchor="middle">Thu</text>
+        <text class="axis-t" x="260.3" y="106" text-anchor="middle">Fri</text>
+        <text class="axis-t" x="301.4" y="106" text-anchor="middle">Today</text>
+      </svg>
+    </section>
+
+    <section class="glass card" aria-label="Macro split, 7-day average">
+      <div class="card-h">
+        <h2 class="t-section">Macro split</h2>
+        <p class="t-foot c-2">Share of calories, 7-day average</p>
+      </div>
+      <svg class="chart" viewBox="0 0 326 24" role="img" aria-label="Protein 27 percent, carbs 43 percent, fat 29 percent of calories">
+        <path class="f-protein" d="M4,0 H87.6 V24 H4 Q0,24 0,20 V4 Q0,0 4,0 Z"/>
+        <path class="f-carbs" d="M89.6,0 H229.4 V24 H89.6 Z"/>
+        <path class="f-fat" d="M231.4,0 H322 Q326,0 326,4 V20 Q326,24 322,24 H231.4 Z"/>
+      </svg>
+      <ul style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+        <li class="lg"><span class="dot d-protein"></span><span class="stackv"><span class="t-label c-2">Protein</span><span class="t-callout num"><b>27%</b> <span class="t-foot c-2">148 g</span></span></span></li>
+        <li class="lg"><span class="dot d-carbs"></span><span class="stackv"><span class="t-label c-2">Carbs</span><span class="t-callout num"><b>43%</b> <span class="t-foot c-2">236 g</span></span></span></li>
+        <li class="lg"><span class="dot d-fat"></span><span class="stackv"><span class="t-label c-2">Fat</span><span class="t-callout num"><b>29%</b> <span class="t-foot c-2">71 g</span></span></span></li>
+      </ul>
+    </section>
+  </div>
+
+  <nav class="tabbar glass overlay" aria-label="Main">
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/></svg><span class="t-tab">Today</span></button>
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/></svg><span class="t-tab">Train</span></button>
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5h16a8 8 0 0 1-16 0z"/><path d="M9 7.5c0-1.6 1-2.6 2.2-3M14.5 7.5c0-1.4.8-2.3 1.8-2.8"/></svg><span class="t-tab">Fuel</span></button>
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5M10.5 3.5v5.2L6.6 17a2.6 2.6 0 0 0 2.4 3.6h6a2.6 2.6 0 0 0 2.4-3.6l-3.9-8.3V3.5"/><path d="M8.4 14.5h7.2"/></svg><span class="t-tab">Stack</span></button>
+    <button class="tab" aria-current="page"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5v14.5h16"/><path d="M8 14.5l3.4-4.2 3 2.6 4.6-6"/></svg><span class="t-tab">Progress</span></button>
+  </nav>
+  <button class="fab" aria-label="Quick log"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+</div>
+<script src="theme.js"></script>
+</body>
+</html>

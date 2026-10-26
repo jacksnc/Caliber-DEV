@@ -78,93 +78,102 @@ struct FoodNutritionReviewView: View {
 
   var body: some View {
     Form {
-      Section("Food") {
-        Text(reference.name).font(.headline).accessibilityIdentifier("referenceFoodName")
-        Text(reference.sourceNote).font(.footnote)
-        if FoodCatalogSourceType.contains(key: reference.id) {
-          Button {
-            if !favorites.setFavorite(!favorites.isFavorite(reference.id), for: reference.id) {
-              saveError = FoodFavoriteEditor.EditError.limitReached.errorDescription
-            }
-          } label: {
-            Label(
-              favorites.isFavorite(reference.id) ? "Remove Favorite" : "Favorite Food",
-              systemImage: favorites.isFavorite(reference.id) ? "star.fill" : "star"
-            )
-            .frame(minHeight: 48)
-          }.accessibilityIdentifier("referenceFavorite")
-            .accessibilityValue(favorites.isFavorite(reference.id) ? "Favorite" : "Not a favorite")
+      Group {
+        Section("Food") {
+          Text(reference.name).font(.headline).accessibilityIdentifier("referenceFoodName")
+          Text(reference.sourceNote).font(.footnote)
+          if FoodCatalogSourceType.contains(key: reference.id) {
+            Button {
+              if !favorites.setFavorite(!favorites.isFavorite(reference.id), for: reference.id) {
+                saveError = FoodFavoriteEditor.EditError.limitReached.errorDescription
+              }
+            } label: {
+              Label(
+                favorites.isFavorite(reference.id) ? "Remove Favorite" : "Favorite Food",
+                systemImage: favorites.isFavorite(reference.id) ? "star.fill" : "star"
+              )
+              .frame(minHeight: 48)
+            }.accessibilityIdentifier("referenceFavorite")
+              .accessibilityValue(
+                favorites.isFavorite(reference.id) ? "Favorite" : "Not a favorite")
+          }
         }
-      }
-      Section {
-        if reference.basisGrams != nil {
-          Picker("Portion Unit", selection: $choiceID) {
-            ForEach(FoodPortionUnit.allCases) { Text($0.displayName).tag($0.rawValue) }
-            ForEach(sourceServings) { serving in
-              Text(serving.label).tag(serving.id)
-            }
-          }.accessibilityIdentifier("referenceUnit")
-        }
-        VStack(alignment: .leading, spacing: 8) {
-          Text(amountLabel)
-          TextField(amountLabel, text: $amount).keyboardType(.decimalPad)
-            .focused($amountHasFocus)
-            .multilineTextAlignment(.trailing).accessibilityIdentifier(inputID)
-            .frame(maxWidth: .infinity, minHeight: 48)
-        }
-        Text("Nutrition basis: \(reference.basisDescription)").font(.footnote)
-        if let serving = selectedServing {
-          Text("\(serving.label) = \(NutritionInput.format(serving.gramWeight, locale: locale)) g")
-            .font(.footnote).accessibilityIdentifier("referenceServingWeight")
-        }
-      } header: {
-        Text("Portion")
-      } footer: {
-        Text(
-          reference.basisGrams == nil
-            ? "Use portions of the stated serving. No weight conversion is assumed."
-            : "oz means weight ounces. Listed measures use source weights for this food. Changing units keeps the same amount of food; enter 1 to use one listed measure."
-        )
-      }
-      Section("Nutrition for this log") {
-        if let final {
-          Text("\(NutritionInput.format(final.calories, locale: locale)) calories").font(.headline)
-            .accessibilityIdentifier("referenceCalories")
-          Text(
-            "Protein \(NutritionInput.format(final.protein, locale: locale))g · Carbs \(NutritionInput.format(final.carbs, locale: locale))g · Fat \(NutritionInput.format(final.fat, locale: locale))g"
-          )
-        } else {
-          Text("Enter a portion above zero and valid nutrition values.")
-        }
-      }
-      if let portion {
-        MacroOverrideSection(
-          itemName: reference.name, baseTotals: portion,
-          basisLabel: reference.basisGrams == nil ? "per source portion" : "for this portion",
-          isEditing: $isEditing,
-          calories: $calories, protein: $protein, carbs: $carbs, fat: $fat)
-      }
-      Section("Add to Diary") {
-        Picker("Meal", selection: $meal) {
-          ForEach(MealType.allCases) { Text($0.displayName).tag($0) }
-        }.accessibilityIdentifier("referenceMeal")
-        DatePicker("Date", selection: $date, displayedComponents: .date)
-        Toggle("Save to My Foods", isOn: $saveToLibrary)
-      }
-      Section("Nutrition Source") {
-        Text(reference.attribution).font(.footnote)
-        Link("View Source", destination: reference.sourceURL).frame(minHeight: 48)
-        Text(
-          "You can adjust nutrition for this portion before logging. Edits apply to your copy. Changing the amount resets edits; changing units keeps the same portion."
-        ).font(.footnote)
-      }
-      if didSave {
         Section {
-          Label("Added to \(meal.displayName)", systemImage: "checkmark.circle")
-            .accessibilityIdentifier("referenceSaved")
+          if reference.basisGrams != nil {
+            Picker("Portion Unit", selection: $choiceID) {
+              ForEach(FoodPortionUnit.allCases) { Text($0.displayName).tag($0.rawValue) }
+              ForEach(sourceServings) { serving in
+                Text(serving.label).tag(serving.id)
+              }
+            }.accessibilityIdentifier("referenceUnit")
+          }
+          VStack(alignment: .leading, spacing: 8) {
+            Text(amountLabel)
+            TextField(amountLabel, text: $amount).keyboardType(.decimalPad)
+              .focused($amountHasFocus)
+              .multilineTextAlignment(.trailing).accessibilityIdentifier(inputID)
+              .frame(maxWidth: .infinity, minHeight: 48)
+          }
+          Text("Nutrition basis: \(reference.basisDescription)").font(.footnote)
+          if let serving = selectedServing {
+            Text(
+              "\(serving.label) = \(NutritionInput.format(serving.gramWeight, locale: locale)) g"
+            )
+            .font(.footnote).accessibilityIdentifier("referenceServingWeight")
+          }
+        } header: {
+          Text("Portion")
+        } footer: {
+          Text(
+            reference.basisGrams == nil
+              ? "Use portions of the stated serving. No weight conversion is assumed."
+              : "oz means weight ounces. Listed measures use source weights for this food. Changing units keeps the same amount of food; enter 1 to use one listed measure."
+          )
+        }
+        Section("Nutrition for this log") {
+          if let final {
+            Text("\(NutritionInput.format(final.calories, locale: locale)) calories").font(
+              .headline
+            )
+            .accessibilityIdentifier("referenceCalories")
+            Text(
+              "Protein \(NutritionInput.format(final.protein, locale: locale))g · Carbs \(NutritionInput.format(final.carbs, locale: locale))g · Fat \(NutritionInput.format(final.fat, locale: locale))g"
+            )
+          } else {
+            Text("Enter a portion above zero and valid nutrition values.")
+          }
+        }
+        if let portion {
+          MacroOverrideSection(
+            itemName: reference.name, baseTotals: portion,
+            basisLabel: reference.basisGrams == nil ? "per source portion" : "for this portion",
+            isEditing: $isEditing,
+            calories: $calories, protein: $protein, carbs: $carbs, fat: $fat)
+        }
+        Section("Add to Diary") {
+          Picker("Meal", selection: $meal) {
+            ForEach(MealType.allCases) { Text($0.displayName).tag($0) }
+          }.accessibilityIdentifier("referenceMeal")
+          DatePicker("Date", selection: $date, displayedComponents: .date)
+          Toggle("Save to My Foods", isOn: $saveToLibrary)
+        }
+        Section("Nutrition Source") {
+          Text(reference.attribution).font(.footnote)
+          Link("View Source", destination: reference.sourceURL).frame(minHeight: 48)
+          Text(
+            "You can adjust nutrition for this portion before logging. Edits apply to your copy. Changing the amount resets edits; changing units keeps the same portion."
+          ).font(.footnote)
+        }
+        if didSave {
+          Section {
+            Label("Added to \(meal.displayName)", systemImage: "checkmark.circle")
+              .accessibilityIdentifier("referenceSaved")
+          }
         }
       }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .scrollDismissesKeyboard(.interactively)
     .navigationTitle("Review Food")
     .toolbar {

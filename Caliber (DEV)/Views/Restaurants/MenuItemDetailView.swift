@@ -80,71 +80,75 @@ struct MenuItemDetailView: View {
 
   var body: some View {
     Form {
-      Section("Nutrition for this log") {
-        if let totals = loggedTotals {
-          Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
-            .font(.headline)
-          Text(
-            "Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g"
-          )
-          .font(.subheadline)
-          .foregroundStyle(.secondary)
-        } else {
-          Text("Enter a quantity above zero and valid, nonnegative nutrition values.")
+      Group {
+        Section("Nutrition for this log") {
+          if let totals = loggedTotals {
+            Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
+              .font(.headline)
+            Text(
+              "Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g"
+            )
+            .font(.subheadline)
             .foregroundStyle(.secondary)
+          } else {
+            Text("Enter a quantity above zero and valid, nonnegative nutrition values.")
+              .foregroundStyle(.secondary)
+          }
         }
-      }
 
-      if !menuItem.modifiers.isEmpty {
-        Section("Customize") {
-          ForEach(menuItem.modifiers) { modifier in
-            Button {
-              toggle(modifier)
-            } label: {
-              HStack {
-                Text(modifier.name)
-                  .foregroundStyle(.primary)
-                Spacer()
-                if selectedModifierIDs.contains(modifier.id) {
-                  Image(systemName: "checkmark")
-                    .foregroundStyle(.tint)
+        if !menuItem.modifiers.isEmpty {
+          Section("Customize") {
+            ForEach(menuItem.modifiers) { modifier in
+              Button {
+                toggle(modifier)
+              } label: {
+                HStack {
+                  Text(modifier.name)
+                    .foregroundStyle(.primary)
+                  Spacer()
+                  if selectedModifierIDs.contains(modifier.id) {
+                    Image(systemName: "checkmark")
+                      .foregroundStyle(.tint)
+                  }
                 }
               }
             }
           }
         }
-      }
 
-      MacroOverrideSection(
-        itemName: menuItem.name,
-        baseTotals: customizedTotals,
-        isEditing: $isCustomizingMacros,
-        calories: $editedCalories,
-        protein: $editedProtein,
-        carbs: $editedCarbs,
-        fat: $editedFat
-      )
+        MacroOverrideSection(
+          itemName: menuItem.name,
+          baseTotals: customizedTotals,
+          isEditing: $isCustomizingMacros,
+          calories: $editedCalories,
+          protein: $editedProtein,
+          carbs: $editedCarbs,
+          fat: $editedFat
+        )
 
-      Section("Add to Diary") {
-        LabeledContent("Quantity") {
-          TextField("Quantity", text: $quantity).multilineTextAlignment(.trailing)
+        Section("Add to Diary") {
+          LabeledContent("Quantity") {
+            TextField("Quantity", text: $quantity).multilineTextAlignment(.trailing)
+          }
+          .keyboardType(.decimalPad)
+          Picker("Meal", selection: $mealType) {
+            ForEach(MealType.allCases) { meal in
+              Text(meal.displayName).tag(meal)
+            }
+          }
+          DatePicker("Date", selection: $date, displayedComponents: .date)
         }
-        .keyboardType(.decimalPad)
-        Picker("Meal", selection: $mealType) {
-          ForEach(MealType.allCases) { meal in
-            Text(meal.displayName).tag(meal)
+
+        if didJustSave {
+          Section {
+            Label("Added to \(mealType.displayName)", systemImage: "checkmark.circle.fill")
+              .foregroundStyle(.green)
           }
         }
-        DatePicker("Date", selection: $date, displayedComponents: .date)
       }
-
-      if didJustSave {
-        Section {
-          Label("Added to \(mealType.displayName)", systemImage: "checkmark.circle.fill")
-            .foregroundStyle(.green)
-        }
-      }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .alert(
       "Couldn't Save Food",
       isPresented: Binding(get: { saveError != nil }, set: { if !$0 { saveError = nil } })

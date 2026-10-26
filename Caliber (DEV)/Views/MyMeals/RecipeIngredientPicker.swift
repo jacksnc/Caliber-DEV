@@ -41,82 +41,86 @@ struct RecipeIngredientPicker: View {
             initialIngredient: initialIngredient, onAdd: add)
         } else {
           List {
-            Section {
-              NavigationLink {
-                RecipeManualIngredientForm(onAdd: add)
-              } label: {
-                Label("Enter Ingredient Manually", systemImage: "square.and.pencil")
-                  .frame(minHeight: 48)
-              }
-              .accessibilityIdentifier("recipeManualIngredient")
-            } footer: {
-              Text(
-                "Choose the food's preparation and your actual portion. Check a current label when available."
-              )
-            }
-
-            if !matchingSavedFoods.isEmpty {
-              Section("My Foods") {
-                ForEach(matchingSavedFoods) { food in
-                  NavigationLink {
-                    RecipeSavedIngredientForm(
-                      source: RecipeIngredientDraft(
-                        name: food.name, servingDescription: food.servingDescription,
-                        totals: MacroTotals(
-                          calories: food.calories, protein: food.proteinGrams,
-                          carbs: food.carbGrams, fat: food.fatGrams),
-                        sourceType: food.sourceType),
-                      onAdd: add)
-                  } label: {
-                    VStack(alignment: .leading, spacing: 4) {
-                      Text(food.name)
-                      Text(food.servingDescription)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    }
+            Group {
+              Section {
+                NavigationLink {
+                  RecipeManualIngredientForm(onAdd: add)
+                } label: {
+                  Label("Enter Ingredient Manually", systemImage: "square.and.pencil")
                     .frame(minHeight: 48)
-                  }
-                  .accessibilityIdentifier("recipeIngredientSaved-\(food.id.uuidString)")
                 }
-              }
-            }
-
-            Section {
-              if isLoading {
-                ProgressView("Searching Offline Foods")
-                  .frame(minHeight: 48)
-              } else if let searchError {
-                Text(searchError)
-                  .foregroundStyle(.secondary)
-              } else if results.isEmpty {
+                .accessibilityIdentifier("recipeManualIngredient")
+              } footer: {
                 Text(
-                  "No matching offline foods. Try another name or enter the ingredient manually."
+                  "Choose the food's preparation and your actual portion. Check a current label when available."
                 )
-                .foregroundStyle(.secondary)
-              } else {
-                ForEach(results) { entry in
-                  NavigationLink {
-                    RecipeCatalogIngredientForm(entry: entry, onAdd: add)
-                  } label: {
-                    VStack(alignment: .leading, spacing: 4) {
-                      Text(entry.name)
-                      Text(entry.sourceType.shortLabel)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+              }
+
+              if !matchingSavedFoods.isEmpty {
+                Section("My Foods") {
+                  ForEach(matchingSavedFoods) { food in
+                    NavigationLink {
+                      RecipeSavedIngredientForm(
+                        source: RecipeIngredientDraft(
+                          name: food.name, servingDescription: food.servingDescription,
+                          totals: MacroTotals(
+                            calories: food.calories, protein: food.proteinGrams,
+                            carbs: food.carbGrams, fat: food.fatGrams),
+                          sourceType: food.sourceType),
+                        onAdd: add)
+                    } label: {
+                      VStack(alignment: .leading, spacing: 4) {
+                        Text(food.name)
+                        Text(food.servingDescription)
+                          .font(.caption)
+                          .foregroundStyle(.secondary)
+                      }
+                      .frame(minHeight: 48)
                     }
-                    .frame(minHeight: 48)
+                    .accessibilityIdentifier("recipeIngredientSaved-\(food.id.uuidString)")
                   }
-                  .accessibilityIdentifier("recipeIngredientCatalog-\(entry.id)")
                 }
               }
-            } header: {
-              Text("Offline Foods")
-            } footer: {
-              Text(
-                "Up to 50 matches are shown in each list. Search more specifically to narrow the results."
-              )
+
+              Section {
+                if isLoading {
+                  ProgressView("Searching Offline Foods")
+                    .frame(minHeight: 48)
+                } else if let searchError {
+                  Text(searchError)
+                    .foregroundStyle(.secondary)
+                } else if results.isEmpty {
+                  Text(
+                    "No matching offline foods. Try another name or enter the ingredient manually."
+                  )
+                  .foregroundStyle(.secondary)
+                } else {
+                  ForEach(results) { entry in
+                    NavigationLink {
+                      RecipeCatalogIngredientForm(entry: entry, onAdd: add)
+                    } label: {
+                      VStack(alignment: .leading, spacing: 4) {
+                        Text(entry.name)
+                        Text(entry.sourceType.shortLabel)
+                          .font(.caption)
+                          .foregroundStyle(.secondary)
+                      }
+                      .frame(minHeight: 48)
+                    }
+                    .accessibilityIdentifier("recipeIngredientCatalog-\(entry.id)")
+                  }
+                }
+              } header: {
+                Text("Offline Foods")
+              } footer: {
+                Text(
+                  "Up to 50 matches are shown in each list. Search more specifically to narrow the results."
+                )
+              }
             }
+            .listRowBackground(CaliberRowBackground())
           }
+          .caliberScreen()
           .searchable(text: $query, prompt: "Search foods or ingredients")
           .scrollDismissesKeyboard(.interactively)
           .navigationTitle("Choose Ingredient")
@@ -185,28 +189,32 @@ private struct RecipeCatalogIngredientForm: View {
 
   var body: some View {
     Form {
-      Section {
-        Text(entry.name)
-        Text(reference.attribution)
-          .font(.caption)
-          .foregroundStyle(.secondary)
-      } footer: {
-        Text(reference.sourceNote)
+      Group {
+        Section {
+          Text(entry.name)
+          Text(reference.attribution)
+            .font(.caption)
+            .foregroundStyle(.secondary)
+        } footer: {
+          Text(reference.sourceNote)
+        }
+        Section {
+          RecipeIngredientNumberField(
+            label: "Grams", text: $grams, identifier: "recipeIngredientQuantity")
+        } header: {
+          Text("Ingredient Portion")
+        } footer: {
+          Text(
+            "Enter a weight greater than zero. Nutrition is calculated from the source's 100 g values."
+          )
+        }
+        if let draft {
+          RecipeIngredientTotals(totals: draft.totals)
+        }
       }
-      Section {
-        RecipeIngredientNumberField(
-          label: "Grams", text: $grams, identifier: "recipeIngredientQuantity")
-      } header: {
-        Text("Ingredient Portion")
-      } footer: {
-        Text(
-          "Enter a weight greater than zero. Nutrition is calculated from the source's 100 g values."
-        )
-      }
-      if let draft {
-        RecipeIngredientTotals(totals: draft.totals)
-      }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .scrollDismissesKeyboard(.interactively)
     .navigationTitle("Ingredient Portion")
     .toolbar {
@@ -245,33 +253,37 @@ private struct RecipeSavedIngredientForm: View {
 
   var body: some View {
     Form {
-      Section {
-        Text(source.name)
-        Text(source.servingDescription)
-          .foregroundStyle(.secondary)
-      } footer: {
-        Text("Use the original saved portion. Changes here apply only to this recipe ingredient.")
-      }
-      Section {
-        RecipeIngredientNumberField(
-          label: "Number of Source Portions", text: $quantity,
-          identifier: "recipeIngredientQuantity")
-      } header: {
-        Text("Ingredient Portion")
-      } footer: {
-        Text("Enter a portion count greater than zero. A half portion is 0.5.")
-      }
-      if let draft {
-        RecipeIngredientTotals(totals: draft.totals.scaled(by: draft.quantity))
-      } else {
+      Group {
         Section {
-          Text(
-            "This ingredient needs a valid portion and complete nutrition before it can be added."
-          )
-          .foregroundStyle(.secondary)
+          Text(source.name)
+          Text(source.servingDescription)
+            .foregroundStyle(.secondary)
+        } footer: {
+          Text("Use the original saved portion. Changes here apply only to this recipe ingredient.")
+        }
+        Section {
+          RecipeIngredientNumberField(
+            label: "Number of Source Portions", text: $quantity,
+            identifier: "recipeIngredientQuantity")
+        } header: {
+          Text("Ingredient Portion")
+        } footer: {
+          Text("Enter a portion count greater than zero. A half portion is 0.5.")
+        }
+        if let draft {
+          RecipeIngredientTotals(totals: draft.totals.scaled(by: draft.quantity))
+        } else {
+          Section {
+            Text(
+              "This ingredient needs a valid portion and complete nutrition before it can be added."
+            )
+            .foregroundStyle(.secondary)
+          }
         }
       }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .scrollDismissesKeyboard(.interactively)
     .navigationTitle("Ingredient Portion")
     .toolbar {
@@ -345,37 +357,41 @@ private struct RecipeManualIngredientForm: View {
 
   var body: some View {
     Form {
-      Section("Ingredient") {
-        TextField("Ingredient Name", text: $name)
-          .frame(minHeight: 48)
-          .accessibilityIdentifier("recipeIngredientName")
-        TextField("Source Portion, e.g. 100 g or 1 piece", text: $serving)
-          .frame(minHeight: 48)
-          .accessibilityIdentifier("recipeIngredientServing")
+      Group {
+        Section("Ingredient") {
+          TextField("Ingredient Name", text: $name)
+            .frame(minHeight: 48)
+            .accessibilityIdentifier("recipeIngredientName")
+          TextField("Source Portion, e.g. 100 g or 1 piece", text: $serving)
+            .frame(minHeight: 48)
+            .accessibilityIdentifier("recipeIngredientServing")
+        }
+        Section {
+          RecipeIngredientNumberField(
+            label: "Calories", text: $calories, identifier: "recipeIngredientCalories")
+          RecipeIngredientNumberField(
+            label: "Protein (g)", text: $protein, identifier: "recipeIngredientProtein")
+          RecipeIngredientNumberField(
+            label: "Carbohydrates (g)", text: $carbs, identifier: "recipeIngredientCarbs")
+          RecipeIngredientNumberField(
+            label: "Fat (g)", text: $fat, identifier: "recipeIngredientFat")
+        } header: {
+          Text("Nutrition for One Source Portion")
+        } footer: {
+          Text("Enter all four values from the label for the portion above, including any zeros.")
+        }
+        Section("Amount Used in the Recipe") {
+          RecipeIngredientNumberField(
+            label: "Number of Source Portions", text: $quantity,
+            identifier: "recipeIngredientQuantity")
+        }
+        if let draft {
+          RecipeIngredientTotals(totals: draft.totals.scaled(by: draft.quantity))
+        }
       }
-      Section {
-        RecipeIngredientNumberField(
-          label: "Calories", text: $calories, identifier: "recipeIngredientCalories")
-        RecipeIngredientNumberField(
-          label: "Protein (g)", text: $protein, identifier: "recipeIngredientProtein")
-        RecipeIngredientNumberField(
-          label: "Carbohydrates (g)", text: $carbs, identifier: "recipeIngredientCarbs")
-        RecipeIngredientNumberField(
-          label: "Fat (g)", text: $fat, identifier: "recipeIngredientFat")
-      } header: {
-        Text("Nutrition for One Source Portion")
-      } footer: {
-        Text("Enter all four values from the label for the portion above, including any zeros.")
-      }
-      Section("Amount Used in the Recipe") {
-        RecipeIngredientNumberField(
-          label: "Number of Source Portions", text: $quantity,
-          identifier: "recipeIngredientQuantity")
-      }
-      if let draft {
-        RecipeIngredientTotals(totals: draft.totals.scaled(by: draft.quantity))
-      }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .scrollDismissesKeyboard(.interactively)
     .navigationTitle("Manual Ingredient")
     .toolbar {

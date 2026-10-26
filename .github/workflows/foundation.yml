@@ -19,6 +19,13 @@ jobs:
         run: python3 scripts/verify_phase1.py
       - name: Foundation Swift style
         run: python3 scripts/lint_foundation.py
+      - name: Design tokens and accessibility lint
+        run: |
+          python3 scripts/gen_tokens.py --check
+          python3 scripts/check_lookbook.py
+          python3 scripts/lint_dynamic_type.py --strict 'Caliber (DEV)' Packages
+          python3 -m unittest discover -s scripts -p 'test_*.py'
+          swift test --package-path Packages/HeliosDesign
       - name: Package tests
         run: swift test --package-path Packages/CaliberFoundation --scratch-path "$RUNNER_TEMP/CaliberSwift"
       - name: App and isolated UI tests

@@ -54,73 +54,77 @@ struct RecipeEditorView: View {
   var body: some View {
     NavigationStack {
       Form {
-        Section("Recipe or Meal") {
-          TextField("Name", text: $name).accessibilityIdentifier("recipeName")
-          RecipeNumberField("Batch servings", text: $servings, identifier: "recipeBatchServings")
-        }
-        Section("Ingredients for the Whole Batch") {
-          ForEach(ingredients) { ingredient in
+        Group {
+          Section("Recipe or Meal") {
+            TextField("Name", text: $name).accessibilityIdentifier("recipeName")
+            RecipeNumberField("Batch servings", text: $servings, identifier: "recipeBatchServings")
+          }
+          Section("Ingredients for the Whole Batch") {
+            ForEach(ingredients) { ingredient in
+              Button {
+                editingIngredient = ingredient
+              } label: {
+                VStack(alignment: .leading, spacing: 4) {
+                  Text(ingredient.name).foregroundStyle(.primary)
+                  Text(
+                    "\(NutritionInput.format(ingredient.quantity, locale: locale)) × \(ingredient.servingDescription)"
+                  )
+                  .font(.footnote).foregroundStyle(.secondary)
+                }.frame(minHeight: 48)
+              }
+            }
+            .onDelete { ingredients.remove(atOffsets: $0) }
             Button {
-              editingIngredient = ingredient
+              adding = true
             } label: {
-              VStack(alignment: .leading, spacing: 4) {
-                Text(ingredient.name).foregroundStyle(.primary)
-                Text(
-                  "\(NutritionInput.format(ingredient.quantity, locale: locale)) × \(ingredient.servingDescription)"
-                )
-                .font(.footnote).foregroundStyle(.secondary)
-              }.frame(minHeight: 48)
-            }
+              Label("Add Ingredient", systemImage: "plus").frame(minHeight: 48)
+            }.accessibilityIdentifier("recipeAddIngredient")
           }
-          .onDelete { ingredients.remove(atOffsets: $0) }
-          Button {
-            adding = true
-          } label: {
-            Label("Add Ingredient", systemImage: "plus").frame(minHeight: 48)
-          }.accessibilityIdentifier("recipeAddIngredient")
-        }
-        Section {
-          RecipeNumberField(
-            "Cooked batch weight (g)", text: $cooked, identifier: "recipeCookedGrams")
-          RecipeNumberField("Raw batch weight (g)", text: $raw, identifier: "recipeRawGrams")
-          if let factor = batch?.rawToCookedFactor {
-            Text("Raw → cooked yield factor: \(NutritionInput.format(factor, locale: locale))")
-              .accessibilityIdentifier("recipeYieldFactor")
-          }
-        } header: {
-          Text("Measured Weights — Optional")
-        } footer: {
-          Text(
-            "Cooked weight enables logging cooked grams. Enter both measured weights to see cooked ÷ raw yield. Weight changes do not change batch nutrition; adjust ingredients for additions or discarded food."
-          )
-        }
-        if let batch {
-          Section("Nutrition") {
-            Text(
-              "Whole batch: \(NutritionInput.format(batch.totals.calories, locale: locale)) calories"
-            )
-            .accessibilityIdentifier("recipeBatchCalories")
-            if let serving = try? batch.portion(amount: 1, unit: .servings) {
-              Text(
-                "Per serving: \(NutritionInput.format(serving.calories, locale: locale)) calories"
-              )
-              .accessibilityIdentifier("recipePerServingCalories")
-              Text(
-                "Protein \(NutritionInput.format(serving.protein, locale: locale))g · Carbs \(NutritionInput.format(serving.carbs, locale: locale))g · Fat \(NutritionInput.format(serving.fat, locale: locale))g"
-              )
-              .font(.footnote)
-            }
-          }
-        } else {
           Section {
+            RecipeNumberField(
+              "Cooked batch weight (g)", text: $cooked, identifier: "recipeCookedGrams")
+            RecipeNumberField("Raw batch weight (g)", text: $raw, identifier: "recipeRawGrams")
+            if let factor = batch?.rawToCookedFactor {
+              Text("Raw → cooked yield factor: \(NutritionInput.format(factor, locale: locale))")
+                .accessibilityIdentifier("recipeYieldFactor")
+            }
+          } header: {
+            Text("Measured Weights — Optional")
+          } footer: {
             Text(
-              initialError
-                ?? "Add ingredients and a positive serving count. Optional weights must be positive numbers when entered."
-            ).font(.footnote)
+              "Cooked weight enables logging cooked grams. Enter both measured weights to see cooked ÷ raw yield. Weight changes do not change batch nutrition; adjust ingredients for additions or discarded food."
+            )
           }
+          if let batch {
+            Section("Nutrition") {
+              Text(
+                "Whole batch: \(NutritionInput.format(batch.totals.calories, locale: locale)) calories"
+              )
+              .accessibilityIdentifier("recipeBatchCalories")
+              if let serving = try? batch.portion(amount: 1, unit: .servings) {
+                Text(
+                  "Per serving: \(NutritionInput.format(serving.calories, locale: locale)) calories"
+                )
+                .accessibilityIdentifier("recipePerServingCalories")
+                Text(
+                  "Protein \(NutritionInput.format(serving.protein, locale: locale))g · Carbs \(NutritionInput.format(serving.carbs, locale: locale))g · Fat \(NutritionInput.format(serving.fat, locale: locale))g"
+                )
+                .font(.footnote)
+              }
+            }
+          } else {
+            Section {
+              Text(
+                initialError
+                  ?? "Add ingredients and a positive serving count. Optional weights must be positive numbers when entered."
+              ).font(.footnote)
+            }
+          }
+          if let error { Section { Text(error).foregroundStyle(.red) } }
         }
-        if let error { Section { Text(error).foregroundStyle(.red) } }
+        .listRowBackground(CaliberRowBackground())
       }
+      .caliberScreen()
       .scrollDismissesKeyboard(.interactively)
       .navigationTitle(meal == nil ? "New Recipe or Meal" : "Edit Recipe or Meal")
       .navigationBarTitleDisplayMode(.inline)

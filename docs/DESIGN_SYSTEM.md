@@ -1,4 +1,8 @@
-# Design system proposal
+# Design system
+
+The native app now consumes `Packages/HeliosDesign` and `design/tokens.json`. See `DESIGN.md` for the imported Graphite/Frost specification and `THEME_INTEGRATION_VERIFICATION.md` for app evidence. The proposal below is retained as the original component contract; its old `architecture/design-tokens.json` palette is not the runtime color source.
+
+## Original proposal
 
 Machine-readable values: `architecture/design-tokens.json`. Semantic tokens are the only way product views choose color/type/spacing. Dark is initial theme; light and OLED use the same semantics. Red is reserved for safety. Domain hue is stable for Train/Fuel/Stack/Body. Gains/losses and intake overages use neutral labels and geometry, not good/bad colors.
 

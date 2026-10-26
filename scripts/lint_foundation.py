@@ -90,4 +90,6 @@ paths += [ROOT / p for p in [
     'Caliber (DEV)/Views/Restaurants/ImportedRestaurantMenuView.swift',
     'Caliber (DEV)Tests/ImportedRestaurantMenuTests.swift',
 ]]
+paths += [ROOT / 'Caliber (DEV)/Views/Components/CaliberAppearance.swift']
+paths += [ROOT / 'Caliber (DEV)UITests/ThemeIntegrationUITests.swift']
 subprocess.run(['xcrun', 'swift-format', 'lint', '--strict', *map(str, paths)], cwd=ROOT, check=True)

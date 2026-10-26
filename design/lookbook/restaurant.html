@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Helios Restaurants</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@600;700&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="look.css">
+<style>html, body { margin: 0; }</style>
+</head>
+<body>
+<div class="hx hx-screen" data-theme="dark">
+  <div class="hx-body">
+    <header class="hx-head">
+      <div class="stackv">
+        <p class="t-foot c-2">Fuel</p>
+        <h1 class="t-display">Restaurants</h1>
+      </div>
+      <button class="icon-btn glass raised" aria-label="Profile and settings"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg></button>
+    </header>
+
+    <div class="field glass raised"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>Search restaurants and dishes</div>
+
+    <div class="chip-scroll" role="group" aria-label="Restaurants">
+      <button class="chip" aria-pressed="true"><svg class="ico ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Taco Tangent</button>
+      <button class="chip" aria-pressed="false">Burger Barn</button>
+      <button class="chip" aria-pressed="false">Bean There Coffee</button>
+    </div>
+
+    <section class="glass card" aria-label="Meals that fit">
+      <div class="card-h">
+        <div class="stackv">
+          <h2 class="t-section">Fits your dinner</h2>
+          <p class="t-foot c-2 num">585–715 kcal · protein 35 g or more</p>
+        </div>
+        <button class="link">Edit<svg class="ico ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+
+      <ul class="stackv" style="gap:12px">
+        <li class="glass raised tile" style="gap:10px">
+          <div class="row" style="align-items:flex-start">
+            <div class="stackv grow">
+              <h3 class="t-strong">Burrito Bowl</h3>
+              <p class="t-callout num"><b>650</b> kcal <span class="c-2">· P 38 · C 72 · F 22 g</span></p>
+            </div>
+            <span class="badge ok"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle class="ico-fill" cx="12" cy="12" r="9.5"/><path class="ink" d="M7.8 12.4l3 3 5.4-6"/></svg>Fits</span>
+          </div>
+          <p class="t-label c-2">Bowl protein</p>
+          <div class="chip-row">
+            <button class="chip sm" aria-pressed="true"><svg class="ico ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Chicken</button>
+            <button class="chip sm" aria-pressed="false">Steak +30</button>
+            <button class="chip sm" aria-pressed="false">Tofu −30</button>
+          </div>
+          <button class="btn primary block compact">Log Burrito Bowl</button>
+        </li>
+        <li class="glass raised tile">
+          <h3 class="t-strong">Chicken Taco + 2 Asada Tacos</h3>
+          <div class="row" style="justify-content:space-between">
+            <p class="t-callout num"><b>600</b> kcal <span class="c-2">· P 36 · C 56 · F 26 g</span></p>
+            <span class="badge ok"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle class="ico-fill" cx="12" cy="12" r="9.5"/><path class="ink" d="M7.8 12.4l3 3 5.4-6"/></svg>Fits</span>
+          </div>
+        </li>
+        <li class="glass raised tile">
+          <h3 class="t-strong">2 Chicken Tacos + Asada Taco</h3>
+          <div class="row" style="justify-content:space-between">
+            <p class="t-callout num"><b>570</b> kcal <span class="c-2">· P 39 · C 55 · F 22 g</span></p>
+            <span class="badge warn"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path class="ico-fill" d="M12 4l9 16H3z"/><path class="ink" d="M12 10v4.2M12 17v.01"/></svg>Close</span>
+          </div>
+          <p class="t-foot c-2">15 kcal under your range</p>
+        </li>
+      </ul>
+    </section>
+
+    <p class="t-cap c-2" style="padding:0 4px">Demo menu: a fictional restaurant, sample numbers.</p>
+  </div>
+
+  <nav class="tabbar glass overlay" aria-label="Main">
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/></svg><span class="t-tab">Today</span></button>
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/></svg><span class="t-tab">Train</span></button>
+    <button class="tab" aria-current="page"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5h16a8 8 0 0 1-16 0z"/><path d="M9 7.5c0-1.6 1-2.6 2.2-3M14.5 7.5c0-1.4.8-2.3 1.8-2.8"/></svg><span class="t-tab">Fuel</span></button>
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5M10.5 3.5v5.2L6.6 17a2.6 2.6 0 0 0 2.4 3.6h6a2.6 2.6 0 0 0 2.4-3.6l-3.9-8.3V3.5"/><path d="M8.4 14.5h7.2"/></svg><span class="t-tab">Stack</span></button>
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5v14.5h16"/><path d="M8 14.5l3.4-4.2 3 2.6 4.6-6"/></svg><span class="t-tab">Progress</span></button>
+  </nav>
+  <button class="fab" aria-label="Quick log"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+</div>
+<script src="theme.js"></script>
+</body>
+</html>

@@ -38,9 +38,11 @@ struct MyFoodsView: View {
               .foregroundStyle(.secondary)
             }
           }
+          .listRowBackground(CaliberRowBackground())
         }
       }
     }
+    .caliberScreen()
     .navigationTitle("My Foods")
   }
 }

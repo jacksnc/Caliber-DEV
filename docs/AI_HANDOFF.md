@@ -7,9 +7,20 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
 ## Project state
 
 - Repository: `Caliber (DEV)` inside the `Caliber (DEV) - Project` folder.
-- Active implementation worktree branch: `codex/train-profile-foundation`, based
-  on `db080e9` (reusable recipe builder). The owner's original checkout remains
-  untouched, including its unrelated Xcode scheme preference.
+- Active branch: `astra/foundation` in the main project checkout. The existing
+  app history through `2db865d` was pushed and independently verified on GitHub
+  on 2026-10-26. Xcode now has the owner's repository-scoped GitHub account.
+- Current slice: native Graphite/Frost integration, imported selectively from
+  Claude commit `d017a1aaecbad29372bb93ead3ac98cabec153fa`. See
+  `docs/THEME_INTEGRATION_VERIFICATION.md` for evidence and remaining limits.
+  Local validation includes 14 user-flow tests, four theme/text-growth tests,
+  a two-test final scanner/Frost rerun, package/unit suites and 115 Python tests.
+  The default-size automatic Dynamic Type audit remains an explicit open item;
+  do not claim full accessibility/device certification.
+- The first GitHub iOS job rejected project format 110 before compiling. This
+  slice aligns serialization with Xcode 16 format 77 and the pinned CI toolchain.
+  Check the latest GitHub Actions result before merging; local simulator passes
+  do not prove CI has passed.
 - Steps 1 and 2 from the owner's requested sequence are complete. Evidence is in
   `docs/PACKAGED_FOOD_VERIFICATION.md` and
   `docs/RESTAURANT_IMPORT_VERIFICATION.md`.
@@ -27,9 +38,9 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
   history. Profile now exposes existing account status, local goals, and a pure
   guarded Mifflin–St Jeor starting estimate. Review
   `docs/TRAIN_PROFILE_FOUNDATION_VERIFICATION.md`.
-- App unit tests and the focused Profile UI flow pass on the iPhone 17 simulator.
-  The focused workout UI runner hit an Xcode 27 simulator-clone hang, while its
-  immediate-save, validation, and warm-up persistence tests pass.
+- App unit tests and the focused Profile/workout UI flows pass on the iPhone 17
+  simulator. The exercise picker now exposes an explicit accessible name, fixing
+  the workout runner's earlier lookup failure.
 - The production restaurant import registry is intentionally empty because no
   licensed/current restaurant source was supplied. Keep FUEL-13 disabled.
 - The selected Supabase DEV project is deployed for the previously authorized
@@ -66,7 +77,10 @@ work, and commit only the completed task files using a conventional commit.
 
 ## Next task
 
-Continue Phase 2 from this Train foundation: add metric-specific set editors and
+Finish the native theme verification gates listed in
+`docs/THEME_INTEGRATION_VERIFICATION.md`, including a physical iPhone check and
+minimum-supported-iOS execution. Then continue Phase 2 from this Train foundation:
+add metric-specific set editors and
 the complete set-type model, then previous-performance copy and the rest timer.
 Do not claim TRN-01 complete or import a 600+ exercise/media catalog until a
 specific source's current reuse rights and attribution duties are documented and

@@ -108,3 +108,7 @@ snapshot/restore rehearsal intentionally remains a compatibility proof for the
 original 15 types; training data must be added to the future supported export and
 copy migration before any store-locator switch. No hosted schema or Supabase
 deployment changed.
+
+## Helios app integration — 2026-10-25
+
+No SwiftData, GRDB, hosted, or user-data migration. Existing `system`, `light`, `dark`, and `oled` preference values remain valid; only the displayed light/dark names become Frost/Graphite. Test appearance overrides run only in DEBUG when an isolated UI-testing mode is active.

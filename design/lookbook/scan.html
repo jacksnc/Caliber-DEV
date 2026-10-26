@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Helios Scan</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@600;700&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="look.css">
+<style>html, body { margin: 0; }</style>
+</head>
+<body>
+<div class="hx hx-screen" data-theme="dark">
+  <div class="cam" aria-hidden="true">
+    <i style="left:-40px; top:430px; width:170px; height:250px; background:linear-gradient(160deg,#7a5440,#3a2822)"></i>
+    <i style="left:120px; top:380px; width:140px; height:300px; background:linear-gradient(160deg,#45617a,#1f2c3a)"></i>
+    <i style="left:260px; top:450px; width:170px; height:230px; background:linear-gradient(160deg,#66693f,#2b2d1b)"></i>
+    <i style="left:20px; top:40px; width:120px; height:90px; background:#56637d; opacity:0.45"></i>
+    <i style="left:250px; top:30px; width:160px; height:110px; background:#7a6a58; opacity:0.35"></i>
+  </div>
+
+  <div class="hx-body" style="padding-bottom:0">
+    <header class="row" style="justify-content:space-between">
+      <button class="icon-btn glass overlay" aria-label="Close scanner"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div class="pill glass overlay" role="group" aria-label="Scan mode">
+        <button aria-pressed="true">Barcode</button>
+        <button aria-pressed="false">Label</button>
+        <button aria-pressed="false">Search</button>
+      </div>
+      <button class="icon-btn glass overlay" aria-label="Torch"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3L5.5 13.5h5.8L10 21l8-10.5h-5.8z"/></svg></button>
+    </header>
+    <div class="hint glass overlay"><span class="badge ok"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle class="ico-fill" cx="12" cy="12" r="9.5"/><path class="ink" d="M7.8 12.4l3 3 5.4-6"/></svg>Barcode read</span></div>
+  </div>
+
+  <div class="vf" aria-hidden="true">
+    <b></b><b></b><b></b><b></b>
+    <div class="code">
+      <svg viewBox="0 0 228 64" role="img" aria-label="UPC-A barcode 0 12345 67890 5"><g fill="#11151c"><rect x="0" y="0" width="2.4" height="64"/><rect x="4.8" y="0" width="2.4" height="64"/><rect x="14.4" y="0" width="4.8" height="64"/><rect x="21.6" y="0" width="2.4" height="64"/><rect x="28.8" y="0" width="4.8" height="64"/><rect x="38.4" y="0" width="2.4" height="64"/><rect x="45.6" y="0" width="2.4" height="64"/><rect x="52.8" y="0" width="4.8" height="64"/><rect x="60" y="0" width="9.6" height="64"/><rect x="72" y="0" width="2.4" height="64"/><rect x="76.8" y="0" width="2.4" height="64"/><rect x="86.4" y="0" width="4.8" height="64"/><rect x="93.6" y="0" width="4.8" height="64"/><rect x="105.6" y="0" width="2.4" height="64"/><rect x="110.4" y="0" width="2.4" height="64"/><rect x="115.2" y="0" width="2.4" height="64"/><rect x="120" y="0" width="2.4" height="64"/><rect x="124.8" y="0" width="2.4" height="64"/><rect x="136.8" y="0" width="2.4" height="64"/><rect x="146.4" y="0" width="2.4" height="64"/><rect x="153.6" y="0" width="2.4" height="64"/><rect x="160.8" y="0" width="2.4" height="64"/><rect x="170.4" y="0" width="7.2" height="64"/><rect x="180" y="0" width="2.4" height="64"/><rect x="187.2" y="0" width="7.2" height="64"/><rect x="199.2" y="0" width="2.4" height="64"/><rect x="204" y="0" width="2.4" height="64"/><rect x="211.2" y="0" width="7.2" height="64"/><rect x="220.8" y="0" width="2.4" height="64"/><rect x="225.6" y="0" width="2.4" height="64"/></g></svg>
+      <span class="t-label num" style="letter-spacing:0.18em">0 12345 67890 5</span>
+    </div>
+  </div>
+
+  <section class="sheet glass overlay" aria-label="Scanned product">
+    <div class="grabber"></div>
+    <div class="row">
+      <div class="thumb glass raised"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8"/></svg></div>
+      <div class="stackv grow">
+        <h2 class="t-title">Oat &amp; Honey Bar</h2>
+        <p class="t-foot c-2">Maple Ridge Foods · sample product</p>
+      </div>
+    </div>
+    <div class="chip-row">
+      <button class="chip" aria-pressed="true"><svg class="ico ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>1 bar · 42 g</button>
+      <button class="chip" aria-pressed="false">100 g</button>
+      <button class="chip" aria-pressed="false">Other</button>
+    </div>
+    <div class="macro-strip">
+      <div class="glass raised tile"><div class="tile-label"><span class="dot d-energy"></span><span class="t-label">Energy</span></div><span class="t-metric">190</span><span class="t-cap c-2">kcal</span></div>
+      <div class="glass raised tile"><div class="tile-label"><span class="dot d-protein"></span><span class="t-label">Protein</span></div><span class="t-metric">4</span><span class="t-cap c-2">g</span></div>
+      <div class="glass raised tile"><div class="tile-label"><span class="dot d-carbs"></span><span class="t-label">Carbs</span></div><span class="t-metric">29</span><span class="t-cap c-2">g</span></div>
+      <div class="glass raised tile"><div class="tile-label"><span class="dot d-fat"></span><span class="t-label">Fat</span></div><span class="t-metric">7</span><span class="t-cap c-2">g</span></div>
+    </div>
+    <div class="stackv gap2">
+      <span class="badge ok"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle class="ico-fill" cx="12" cy="12" r="9.5"/><path class="ink" d="M7.8 12.4l3 3 5.4-6"/></svg>Complete nutrition · 2 sources agree</span>
+      <span class="badge warn"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path class="ico-fill" d="M12 4l9 16H3z"/><path class="ink" d="M12 10v4.2M12 17v.01"/></svg>Allergen hints: oats, wheat, milk. Check the pack.</span>
+    </div>
+    <div class="row">
+      <div class="stepper">
+        <button class="round glass raised" aria-label="Fewer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+        <span class="num">1</span>
+        <button class="round glass raised" aria-label="More"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+      </div>
+      <button class="btn primary grow">Add to Snack</button>
+    </div>
+  </section>
+</div>
+<script src="theme.js"></script>
+</body>
+</html>

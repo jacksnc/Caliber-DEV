@@ -13,44 +13,48 @@ struct FoodLibraryView: View {
   var body: some View {
     NavigationStack {
       List {
-        Section {
-          NavigationLink {
-            FoodSearchView()
-          } label: {
-            Label("Search Foods", systemImage: "magnifyingglass").frame(minHeight: 48)
-          }.accessibilityIdentifier("openFoodSearch")
-          NavigationLink {
-            BarcodeFoodLookupView()
-          } label: {
-            Label("Scan a Barcode", systemImage: "barcode.viewfinder").frame(minHeight: 48)
-          }.accessibilityIdentifier("openBarcode")
+        Group {
+          Section {
+            NavigationLink {
+              FoodSearchView()
+            } label: {
+              Label("Search Foods", systemImage: "magnifyingglass").frame(minHeight: 48)
+            }.accessibilityIdentifier("openFoodSearch")
+            NavigationLink {
+              BarcodeFoodLookupView()
+            } label: {
+              Label("Scan a Barcode", systemImage: "barcode.viewfinder").frame(minHeight: 48)
+            }.accessibilityIdentifier("openBarcode")
 
-          NavigationLink {
-            RestaurantListView()
-          } label: {
-            Label("Restaurants", systemImage: "building.2")
+            NavigationLink {
+              RestaurantListView()
+            } label: {
+              Label("Restaurants", systemImage: "building.2")
+            }
+
+            NavigationLink {
+              MyMealsView()
+            } label: {
+              Label("My Meals", systemImage: "square.stack.3d.up")
+            }.accessibilityIdentifier("openMyMeals")
+
+            NavigationLink {
+              MyFoodsView()
+            } label: {
+              Label("My Foods", systemImage: "carrot")
+            }
+          } header: {
+            Text("Browse")
+          } footer: {
+            Text(
+              databaseSummary
+                + " Restaurant menus currently contain sample values and your custom items."
+            )
           }
-
-          NavigationLink {
-            MyMealsView()
-          } label: {
-            Label("My Meals", systemImage: "square.stack.3d.up")
-          }.accessibilityIdentifier("openMyMeals")
-
-          NavigationLink {
-            MyFoodsView()
-          } label: {
-            Label("My Foods", systemImage: "carrot")
-          }
-        } header: {
-          Text("Browse")
-        } footer: {
-          Text(
-            databaseSummary
-              + " Restaurant menus currently contain sample values and your custom items."
-          )
         }
+        .listRowBackground(CaliberRowBackground())
       }
+      .caliberScreen()
       .navigationTitle("Food Library")
       .task {
         let catalog = await BundledFoodSearchService.prepared()

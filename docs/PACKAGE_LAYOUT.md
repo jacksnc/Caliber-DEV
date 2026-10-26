@@ -31,3 +31,7 @@ A `RepositoryCommand` owns atomic persistence; a view model owns presentation/ca
 Android later shares SQL/JSON conventions, test vectors and algorithm specifications, not SwiftUI or SwiftData. Keep tests for each implementation against the same fixtures to avoid subtly different health math.
 
 Schema and registry files are complete Phase-0 artifacts. Future implementation test IDs in requirements.json are planned contracts, not passing tests or placeholder runtime code.
+
+## Current design integration
+
+`Packages/HeliosDesign` is the imported design implementation from the owner's Claude branch. The app links it directly; `CaliberDesignSystem` adapts its semantic colors for existing `CaliberCharts` callers. Dependency direction is App/CaliberDesignSystem → HeliosDesign → SwiftUI/Foundation; it has no health-data or network dependency. `design/tokens.json` generates the Swift tokens and the look-book CSS.

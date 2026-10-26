@@ -94,126 +94,130 @@ struct FoodSearchView: View {
           || !matchingMeals.isEmpty || !matchingMenuItems.isEmpty || !matchingBuilders.isEmpty
       }
     return List {
-      Section {
-        if searchService == nil { ProgressView("Opening food database…") }
-        Picker("Show", selection: $scope) {
-          ForEach(FoodSearchScope.allCases) { Text($0.rawValue).tag($0) }
-        }.accessibilityIdentifier("foodSearchScope")
-        if scope == .all {
-          NavigationLink {
-            BarcodeFoodLookupView(mealType: mealType, date: date)
-          } label: {
-            Label("Scan a Barcode", systemImage: "barcode.viewfinder").frame(minHeight: 48)
-          }.accessibilityIdentifier("openBarcode")
-          Button {
-            isPresentingManualEntry = true
-          } label: {
-            Label("Enter Food Manually", systemImage: "square.and.pencil").frame(minHeight: 48)
-          }.accessibilityIdentifier("foodSearchManual")
-          NavigationLink {
-            RestaurantListView(mealType: mealType, date: date)
-          } label: {
-            Label("Browse Restaurants", systemImage: "building.2").frame(minHeight: 48)
-          }
-        }
-      } footer: {
-        Text(
-          "Search USDA foods, saved foods and meals, or restaurant menus offline. Recent and frequent foods use your logged history. Check the preparation and portion before adding."
-        )
-      }
-      if let searchError { Section { Text(searchError) } }
-      if let catalogError {
+      Group {
         Section {
-          Text(catalogError)
-          Button("Retry Restaurant Loading") { Task { await loadCatalog() } }
+          if searchService == nil { ProgressView("Opening food database…") }
+          Picker("Show", selection: $scope) {
+            ForEach(FoodSearchScope.allCases) { Text($0.rawValue).tag($0) }
+          }.accessibilityIdentifier("foodSearchScope")
+          if scope == .all {
+            NavigationLink {
+              BarcodeFoodLookupView(mealType: mealType, date: date)
+            } label: {
+              Label("Scan a Barcode", systemImage: "barcode.viewfinder").frame(minHeight: 48)
+            }.accessibilityIdentifier("openBarcode")
+            Button {
+              isPresentingManualEntry = true
+            } label: {
+              Label("Enter Food Manually", systemImage: "square.and.pencil").frame(minHeight: 48)
+            }.accessibilityIdentifier("foodSearchManual")
+            NavigationLink {
+              RestaurantListView(mealType: mealType, date: date)
+            } label: {
+              Label("Browse Restaurants", systemImage: "building.2").frame(minHeight: 48)
+            }
+          }
+        } footer: {
+          Text(
+            "Search USDA foods, saved foods and meals, or restaurant menus offline. Recent and frequent foods use your logged history. Check the preparation and portion before adding."
+          )
         }
-      }
-      if (scope == .all || scope == .favorites) && hasFavorites {
-        Section("Favorites") {
-          ForEach(catalogFavorites) { catalogLink($0, favorite: true) }
-          ForEach(personalFavorites) { reuseLink($0, prefix: "favorite") }
+        if let searchError { Section { Text(searchError) } }
+        if let catalogError {
+          Section {
+            Text(catalogError)
+            Button("Retry Restaurant Loading") { Task { await loadCatalog() } }
+          }
         }
-      }
-      if (scope == .all || scope == .recent) && !recent.isEmpty {
-        Section("Recent Foods") { ForEach(recent) { reuseLink($0, prefix: "recent") } }
-      }
-      if scope == .frequent && !frequent.isEmpty {
-        Section("Frequently Logged") { ForEach(frequent) { reuseLink($0, prefix: "frequent") } }
-      }
-      if scope == .all {
-        if !matchingSavedFoods.isEmpty {
-          Section("My Foods") {
-            ForEach(matchingSavedFoods) { food in
-              NavigationLink {
-                SavedFoodDetailView(food: food, mealType: mealType, date: date)
-              } label: {
-                VStack(alignment: .leading, spacing: 3) {
-                  Text(food.name)
-                  Text(food.servingDescription).font(.footnote).foregroundStyle(.secondary)
-                }.frame(minHeight: 48)
+        if (scope == .all || scope == .favorites) && hasFavorites {
+          Section("Favorites") {
+            ForEach(catalogFavorites) { catalogLink($0, favorite: true) }
+            ForEach(personalFavorites) { reuseLink($0, prefix: "favorite") }
+          }
+        }
+        if (scope == .all || scope == .recent) && !recent.isEmpty {
+          Section("Recent Foods") { ForEach(recent) { reuseLink($0, prefix: "recent") } }
+        }
+        if scope == .frequent && !frequent.isEmpty {
+          Section("Frequently Logged") { ForEach(frequent) { reuseLink($0, prefix: "frequent") } }
+        }
+        if scope == .all {
+          if !matchingSavedFoods.isEmpty {
+            Section("My Foods") {
+              ForEach(matchingSavedFoods) { food in
+                NavigationLink {
+                  SavedFoodDetailView(food: food, mealType: mealType, date: date)
+                } label: {
+                  VStack(alignment: .leading, spacing: 3) {
+                    Text(food.name)
+                    Text(food.servingDescription).font(.footnote).foregroundStyle(.secondary)
+                  }.frame(minHeight: 48)
+                }
+              }
+            }
+          }
+          if !matchingMeals.isEmpty {
+            Section("My Meals") {
+              ForEach(matchingMeals) { meal in
+                NavigationLink {
+                  SavedMealDetailView(meal: meal, mealType: mealType, date: date)
+                } label: {
+                  VStack(alignment: .leading) {
+                    Text(meal.name)
+                    Text("\(meal.items.count) foods").font(.footnote)
+                  }.frame(minHeight: 48)
+                }
+              }
+            }
+          }
+          if !catalogFoods.isEmpty {
+            Section("USDA Foods") { ForEach(catalogFoods) { catalogLink($0) } }
+          }
+          if !matchingBuilders.isEmpty {
+            Section("Build a Restaurant Meal") {
+              ForEach(matchingBuilders) { template in
+                NavigationLink {
+                  BuildYourOwnView(template: template, mealType: mealType, date: date)
+                } label: {
+                  VStack(alignment: .leading) {
+                    Text(template.name)
+                    Text(template.restaurant?.name ?? "Restaurant").font(.footnote)
+                  }.frame(minHeight: 48)
+                }
+              }
+            }
+          }
+          if !matchingMenuItems.isEmpty {
+            Section("Restaurant Menu Items") {
+              ForEach(matchingMenuItems) { item in
+                NavigationLink {
+                  MenuItemDetailView(menuItem: item, mealType: mealType, date: date)
+                } label: {
+                  VStack(alignment: .leading, spacing: 3) {
+                    Text(item.name)
+                    Text("\(item.restaurant?.name ?? "Restaurant") · \(item.category.displayName)")
+                      .font(.footnote)
+                  }.frame(minHeight: 48)
+                }
               }
             }
           }
         }
-        if !matchingMeals.isEmpty {
-          Section("My Meals") {
-            ForEach(matchingMeals) { meal in
-              NavigationLink {
-                SavedMealDetailView(meal: meal, mealType: mealType, date: date)
-              } label: {
-                VStack(alignment: .leading) {
-                  Text(meal.name)
-                  Text("\(meal.items.count) foods").font(.footnote)
-                }.frame(minHeight: 48)
-              }
-            }
-          }
-        }
-        if !catalogFoods.isEmpty {
-          Section("USDA Foods") { ForEach(catalogFoods) { catalogLink($0) } }
-        }
-        if !matchingBuilders.isEmpty {
-          Section("Build a Restaurant Meal") {
-            ForEach(matchingBuilders) { template in
-              NavigationLink {
-                BuildYourOwnView(template: template, mealType: mealType, date: date)
-              } label: {
-                VStack(alignment: .leading) {
-                  Text(template.name)
-                  Text(template.restaurant?.name ?? "Restaurant").font(.footnote)
-                }.frame(minHeight: 48)
-              }
-            }
-          }
-        }
-        if !matchingMenuItems.isEmpty {
-          Section("Restaurant Menu Items") {
-            ForEach(matchingMenuItems) { item in
-              NavigationLink {
-                MenuItemDetailView(menuItem: item, mealType: mealType, date: date)
-              } label: {
-                VStack(alignment: .leading, spacing: 3) {
-                  Text(item.name)
-                  Text("\(item.restaurant?.name ?? "Restaurant") · \(item.category.displayName)")
-                    .font(.footnote)
-                }.frame(minHeight: 48)
-              }
-            }
-          }
+        if !hasResults && (scope != .all || searchService != nil) {
+          ContentUnavailableView(
+            scope == .all
+              ? "No Foods Found"
+              : scope == .favorites ? "No Favorites Yet" : "No \(scope.rawValue) Foods Yet",
+            systemImage: "magnifyingglass",
+            description: Text(
+              scope == .favorites
+                ? "Favorite a USDA food or a personal food to keep it here."
+                : "Try another search or log a food to build your history."))
         }
       }
-      if !hasResults && (scope != .all || searchService != nil) {
-        ContentUnavailableView(
-          scope == .all
-            ? "No Foods Found"
-            : scope == .favorites ? "No Favorites Yet" : "No \(scope.rawValue) Foods Yet",
-          systemImage: "magnifyingglass",
-          description: Text(
-            scope == .favorites
-              ? "Favorite a USDA food or a personal food to keep it here."
-              : "Try another search or log a food to build your history."))
-      }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .navigationTitle("Search Foods")
     .accessibilityIdentifier("foodSearchScreen")
     .searchable(

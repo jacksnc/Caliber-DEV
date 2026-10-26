@@ -10,18 +10,22 @@ struct AddRestaurantView: View {
   var body: some View {
     NavigationStack {
       Form {
-        Section {
-          TextField("Restaurant Name", text: $name).textInputAutocapitalization(.words)
-            .accessibilityIdentifier("newRestaurantName")
-        } header: {
-          Text("Restaurant")
-        } footer: {
-          Text(
-            "Add a local restaurant or another location, then create your own menu items from its nutrition information."
-          )
+        Group {
+          Section {
+            TextField("Restaurant Name", text: $name).textInputAutocapitalization(.words)
+              .accessibilityIdentifier("newRestaurantName")
+          } header: {
+            Text("Restaurant")
+          } footer: {
+            Text(
+              "Add a local restaurant or another location, then create your own menu items from its nutrition information."
+            )
+          }
+          if let error { Text(error).foregroundStyle(.secondary) }
         }
-        if let error { Text(error).foregroundStyle(.secondary) }
+        .listRowBackground(CaliberRowBackground())
       }
+      .caliberScreen()
       .navigationTitle("Add Restaurant")
       .toolbar {
         ToolbarItem(placement: .cancellationAction) {

@@ -2,6 +2,7 @@ import CaliberCore
 import CaliberDatabase
 import CaliberSeedData
 import Combine
+import HeliosDesign
 import SwiftData
 import SwiftUI
 
@@ -53,6 +54,13 @@ final class FoundationRuntime: ObservableObject {
     {
       loaded.massUnit = prior == "kilograms" ? .kilograms : .pounds
     }
+    #if DEBUG
+      // Appearance tests use isolated preferences and an in-memory health store.
+      if testing {
+        if ProcessInfo.processInfo.arguments.contains("--theme-graphite") { loaded.theme = .dark }
+        if ProcessInfo.processInfo.arguments.contains("--theme-frost") { loaded.theme = .light }
+      }
+    #endif
     settings = loaded
     account = HostedAccountModel.configured(testing: testing, defaults: defaults)
     let base =
@@ -147,6 +155,8 @@ struct FoundationRootView: View {
     .environmentObject(runtime.account)
     .environmentObject(runtime.foodLibraryPreferences)
     .defaultAppStorage(runtime.preferenceStore)
+    .environment(\.caliberOLED, runtime.settings.theme == .oled)
+    .heliosThemed()
     .preferredColorScheme(runtime.colorScheme)
     .environment(\.locale, Locale(identifier: runtime.settings.localeIdentifier))
     .environment(\.calendar, runtime.settings.calendar)
@@ -193,24 +203,29 @@ private struct AdultWelcomeView: View {
   var body: some View {
     NavigationStack {
       Form {
-        Section {
-          Text("One place for your daily logs").font(.title2.bold())
-          Text(
-            "Caliber helps you record and understand your information. It does not provide medical advice, diagnosis, or treatment. Consult a licensed clinician for medical decisions."
-          )
+        Group {
+          Section {
+            Text("One place for your daily logs").font(.title2.bold())
+            Text(
+              "Caliber helps you record and understand your information. It does not provide medical advice, diagnosis, or treatment. Consult a licensed clinician for medical decisions."
+            )
+          }
+          Section {
+            Toggle("I am 18 or older", isOn: $adult).accessibilityIdentifier("adultConfirmation")
+            Toggle("I understand the app's scope", isOn: $understood).accessibilityIdentifier(
+              "scopeConfirmation")
+            Text("Only your confirmation is saved. A date of birth is not required.").font(
+              .footnote)
+          }
+          Button("Continue") {
+            runtime.settings.ageConfirmed = adult
+            runtime.settings.disclaimerAccepted = understood
+          }.disabled(!adult || !understood).frame(minHeight: 48).accessibilityIdentifier(
+            "welcomeContinue")
         }
-        Section {
-          Toggle("I am 18 or older", isOn: $adult).accessibilityIdentifier("adultConfirmation")
-          Toggle("I understand the app's scope", isOn: $understood).accessibilityIdentifier(
-            "scopeConfirmation")
-          Text("Only your confirmation is saved. A date of birth is not required.").font(.footnote)
-        }
-        Button("Continue") {
-          runtime.settings.ageConfirmed = adult
-          runtime.settings.disclaimerAccepted = understood
-        }.disabled(!adult || !understood).frame(minHeight: 48).accessibilityIdentifier(
-          "welcomeContinue")
-      }.navigationTitle("Welcome to Caliber")
+        .listRowBackground(CaliberRowBackground())
+      }
+      .caliberScreen().navigationTitle("Welcome to Caliber")
     }
   }
 }

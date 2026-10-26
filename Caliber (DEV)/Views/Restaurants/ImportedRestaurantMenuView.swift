@@ -30,55 +30,61 @@ struct ImportedRestaurantMenuView: View {
 
   var body: some View {
     List {
-      Section("Menu Information") {
-        if fictional { Text("Fictional test menu").accessibilityIdentifier("fictionalMenuNotice") }
-        Text("Source: \(source.name) · Retrieved \(source.retrievedOn)").font(.footnote)
-        Text("Compare the serving with your order. Your logged nutrition can be edited.").font(
-          .footnote)
-        Link("View Nutrition Source", destination: URL(string: source.url)!).frame(minHeight: 48)
-      }
-      ForEach(MenuCategory.displayOrder) { category in
-        let items = restaurant.items.filter {
-          $0.category == category.rawValue && FoodSearchText.matches($0.name, query: search)
-        }
-        if !items.isEmpty {
-          Section(category.displayName) {
-            ForEach(items, id: \.id) { item in
-              NavigationLink {
-                FoodNutritionReviewView(
-                  reference: BundledRestaurantMenuService.reference(
-                    item: item, restaurant: restaurant, source: source),
-                  meal: mealType, date: date)
-              } label: {
-                VStack(alignment: .leading, spacing: 4) {
-                  Text(item.name)
-                  Text(item.servingDescription).font(.footnote).foregroundStyle(.secondary)
-                }.frame(minHeight: 48)
-              }.accessibilityIdentifier("importedMenu-" + item.id)
-            }
+      Group {
+        Section("Menu Information") {
+          if fictional {
+            Text("Fictional test menu").accessibilityIdentifier("fictionalMenuNotice")
           }
+          Text("Source: \(source.name) · Retrieved \(source.retrievedOn)").font(.footnote)
+          Text("Compare the serving with your order. Your logged nutrition can be edited.").font(
+            .footnote)
+          Link("View Nutrition Source", destination: URL(string: source.url)!).frame(minHeight: 48)
         }
-      }
-      if !customItems.isEmpty {
-        Section("My Custom Items") {
-          ForEach(customItems) { item in
-            NavigationLink {
-              MenuItemDetailView(menuItem: item, mealType: mealType, date: date)
-            } label: {
-              Text(item.name).frame(minHeight: 48)
-            }
-            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-              Button("Delete", role: .destructive) {
-                do { try CustomMenuItemEditor.delete(item: item, in: context) } catch {
-                  self.error = error.localizedDescription
-                }
+        ForEach(MenuCategory.displayOrder) { category in
+          let items = restaurant.items.filter {
+            $0.category == category.rawValue && FoodSearchText.matches($0.name, query: search)
+          }
+          if !items.isEmpty {
+            Section(category.displayName) {
+              ForEach(items, id: \.id) { item in
+                NavigationLink {
+                  FoodNutritionReviewView(
+                    reference: BundledRestaurantMenuService.reference(
+                      item: item, restaurant: restaurant, source: source),
+                    meal: mealType, date: date)
+                } label: {
+                  VStack(alignment: .leading, spacing: 4) {
+                    Text(item.name)
+                    Text(item.servingDescription).font(.footnote).foregroundStyle(.secondary)
+                  }.frame(minHeight: 48)
+                }.accessibilityIdentifier("importedMenu-" + item.id)
               }
-              Button("Edit") { editing = item }.tint(.blue)
+            }
+          }
+        }
+        if !customItems.isEmpty {
+          Section("My Custom Items") {
+            ForEach(customItems) { item in
+              NavigationLink {
+                MenuItemDetailView(menuItem: item, mealType: mealType, date: date)
+              } label: {
+                Text(item.name).frame(minHeight: 48)
+              }
+              .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                Button("Delete", role: .destructive) {
+                  do { try CustomMenuItemEditor.delete(item: item, in: context) } catch {
+                    self.error = error.localizedDescription
+                  }
+                }
+                Button("Edit") { editing = item }.tint(.blue)
+              }
             }
           }
         }
       }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .navigationTitle(restaurant.name)
     .searchable(text: $search, prompt: "Search this menu")
     .toolbar {

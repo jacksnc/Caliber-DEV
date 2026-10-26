@@ -312,3 +312,9 @@ These entries preserve the existing requirement priorities. They are unfinished 
 - A draft-first recipe builder now combines offline USDA foods, My Foods, and manually entered portions. It calculates batch/per-serving totals and measured cooked-gram portions without inventing mass, yield, or retained nutrients; review `RECIPE_VERIFICATION.md` for evidence and limits.
 - Saved recipes can be edited/deleted independently from previously logged diary snapshots. The calculator/editor path is tested; iOS simulator UI rerun, physical-device checks, and broader FUEL-04 acceptance remain separate gates.
 - The next restaurant step still needs a current menu dataset or documented permission, rights evidence, and validated samples before FUEL-13 can be enabled.
+
+## Native theme integration — 2026-10-25
+
+- Graphite/Frost now apply to native screens through the imported Helios package, including food/restaurant forms, scanner controls, Profile, Train, and Progress. This does not implement the remaining full look-book interactions, floating Quick Log, or all P0 charts.
+- Physical iPhone camera/rendering/VoiceOver checks and iOS 17 execution remain open. Keep simulator evidence distinct from device or release certification.
+- Foundation history is now published on `astra/foundation` (verified 2026-10-26). Native theme verification and remaining accessibility/device gates are tracked in `THEME_INTEGRATION_VERIFICATION.md` and `AI_HANDOFF.md`.

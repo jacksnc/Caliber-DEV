@@ -112,6 +112,10 @@ def check_contracts():
 def check_links():
     count = 0
     for path in ROOT.rglob('*.md'):
+        # Dependency checkouts and build products are not project documentation.
+        if any(part in {'.build', '.git', '.swiftpm', 'node_modules'}
+               for part in path.relative_to(ROOT).parts):
+            continue
         # Strip code blocks to avoid interpreting example Markdown as file links.
         body = re.sub(r'```.*?```', '', path.read_text(), flags=re.S)
         for match in re.finditer(r'\[[^\]]+\]\(([^)]+)\)', body):

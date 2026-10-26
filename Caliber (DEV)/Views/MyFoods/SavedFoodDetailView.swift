@@ -61,71 +61,75 @@ struct SavedFoodDetailView: View {
 
   var body: some View {
     Form {
-      Section {
-        Text(food.servingDescription).font(.footnote)
-        Button {
-          do {
-            try FoodFavoriteEditor.setFavorite(
-              !favorites.isFavorite(favoriteKey), food: food, preferences: favorites,
-              in: modelContext)
-          } catch { saveError = error.localizedDescription }
-        } label: {
-          Label(
-            favorites.isFavorite(favoriteKey) ? "Remove Favorite" : "Favorite Food",
-            systemImage: favorites.isFavorite(favoriteKey) ? "star.fill" : "star"
-          ).frame(minHeight: 48)
-        }.accessibilityIdentifier("savedFoodFavorite")
-      } footer: {
-        Text("Favorites also stay in My Foods for reuse.")
-      }
+      Group {
+        Section {
+          Text(food.servingDescription).font(.footnote)
+          Button {
+            do {
+              try FoodFavoriteEditor.setFavorite(
+                !favorites.isFavorite(favoriteKey), food: food, preferences: favorites,
+                in: modelContext)
+            } catch { saveError = error.localizedDescription }
+          } label: {
+            Label(
+              favorites.isFavorite(favoriteKey) ? "Remove Favorite" : "Favorite Food",
+              systemImage: favorites.isFavorite(favoriteKey) ? "star.fill" : "star"
+            ).frame(minHeight: 48)
+          }.accessibilityIdentifier("savedFoodFavorite")
+        } footer: {
+          Text("Favorites also stay in My Foods for reuse.")
+        }
 
-      Section("Nutrition for this log") {
-        if let totals = loggedTotals {
-          Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
-            .font(.headline)
-          Text(
-            "Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g"
-          )
-          .font(.subheadline)
-          .foregroundStyle(.secondary)
-        } else {
-          Text("Enter a quantity above zero and valid, nonnegative nutrition values.")
+        Section("Nutrition for this log") {
+          if let totals = loggedTotals {
+            Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
+              .font(.headline)
+            Text(
+              "Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g"
+            )
+            .font(.subheadline)
             .foregroundStyle(.secondary)
-        }
-      }
-
-      MacroOverrideSection(
-        itemName: food.name,
-        baseTotals: baseTotals,
-        isEditing: $isCustomizingMacros,
-        calories: $editedCalories,
-        protein: $editedProtein,
-        carbs: $editedCarbs,
-        fat: $editedFat
-      )
-
-      Section("Add to Diary") {
-        LabeledContent("Quantity") {
-          TextField("Quantity", text: $quantity).multilineTextAlignment(.trailing)
-            .accessibilityIdentifier("savedFoodQuantity")
-        }
-        .keyboardType(.decimalPad)
-        Picker("Meal", selection: $mealType) {
-          ForEach(MealType.allCases) { meal in
-            Text(meal.displayName).tag(meal)
+          } else {
+            Text("Enter a quantity above zero and valid, nonnegative nutrition values.")
+              .foregroundStyle(.secondary)
           }
         }
-        DatePicker("Date", selection: $date, displayedComponents: .date)
-      }
 
-      if didJustSave {
-        Section {
-          Label("Added to \(mealType.displayName)", systemImage: "checkmark.circle.fill")
-            .accessibilityIdentifier("savedFoodSaved")
-            .foregroundStyle(.green)
+        MacroOverrideSection(
+          itemName: food.name,
+          baseTotals: baseTotals,
+          isEditing: $isCustomizingMacros,
+          calories: $editedCalories,
+          protein: $editedProtein,
+          carbs: $editedCarbs,
+          fat: $editedFat
+        )
+
+        Section("Add to Diary") {
+          LabeledContent("Quantity") {
+            TextField("Quantity", text: $quantity).multilineTextAlignment(.trailing)
+              .accessibilityIdentifier("savedFoodQuantity")
+          }
+          .keyboardType(.decimalPad)
+          Picker("Meal", selection: $mealType) {
+            ForEach(MealType.allCases) { meal in
+              Text(meal.displayName).tag(meal)
+            }
+          }
+          DatePicker("Date", selection: $date, displayedComponents: .date)
+        }
+
+        if didJustSave {
+          Section {
+            Label("Added to \(mealType.displayName)", systemImage: "checkmark.circle.fill")
+              .accessibilityIdentifier("savedFoodSaved")
+              .foregroundStyle(.green)
+          }
         }
       }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .alert(
       "Couldn't Save Food",
       isPresented: Binding(get: { saveError != nil }, set: { if !$0 { saveError = nil } })

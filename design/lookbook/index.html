@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Helios Look Book</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0a0b0e; color: #f5f7fa; font: 400 16px/1.5 -apple-system, "Inter", system-ui, sans-serif; }
+  main { padding: 48px 40px 64px; display: flex; flex-direction: column; gap: 56px; width: max-content; min-width: 100%; }
+  header { max-width: 760px; display: flex; flex-direction: column; gap: 12px; }
+  h1 { margin: 0; font: 600 40px/1.1 -apple-system, "Inter", system-ui, sans-serif; letter-spacing: -0.01em; }
+  h2 { margin: 0 0 16px; font: 600 28px/1.2 -apple-system, "Inter", system-ui, sans-serif; letter-spacing: -0.01em; }
+  p { margin: 0; color: #c4cad4; }
+  section > p { margin: -8px 0 20px; max-width: 760px; }
+  .strip { display: flex; gap: 40px; align-items: flex-start; }
+  iframe { border: 0; flex: none; background: #0a0b0e; }
+  .phone { width: 390px; height: 844px; border-radius: 44px; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14); }
+  .sheet-wide { width: 1120px; height: 860px; border-radius: 28px; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14); }
+  .sheet-narrow { width: 620px; height: 930px; border-radius: 28px; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14); }
+  small { color: #a8b1be; display: block; margin-top: 8px; font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Helios look book</h1>
+    <p>One interface in two themes: Graphite, a transparent grey-and-black dark theme, and Frost, a white and light-blue light theme. Every colour, radius and size on these boards comes from <code>design/tokens.json</code>. All figures are sample data, and the restaurant is a fictional demo menu.</p>
+  </header>
+
+  <section>
+    <h2>Graphite</h2>
+    <div class="strip">
+      <iframe class="phone" src="today.html?theme=dark" title="Today, Graphite"></iframe>
+      <iframe class="phone" src="scan.html?theme=dark" title="Barcode scan, Graphite"></iframe>
+      <iframe class="phone" src="restaurant.html?theme=dark" title="Restaurants, Graphite"></iframe>
+      <iframe class="phone" src="progress.html?theme=dark" title="Progress, Graphite"></iframe>
+      <iframe class="phone" src="stack.html?theme=dark" title="Stack, Graphite"></iframe>
+      <iframe class="phone" src="train.html?theme=dark" title="Train, Graphite"></iframe>
+    </div>
+  </section>
+
+  <section>
+    <h2>Frost</h2>
+    <div class="strip">
+      <iframe class="phone" src="today.html?theme=light" title="Today, Frost"></iframe>
+      <iframe class="phone" src="scan.html?theme=light" title="Barcode scan, Frost"></iframe>
+      <iframe class="phone" src="restaurant.html?theme=light" title="Restaurants, Frost"></iframe>
+      <iframe class="phone" src="progress.html?theme=light" title="Progress, Frost"></iframe>
+      <iframe class="phone" src="stack.html?theme=light" title="Stack, Frost"></iframe>
+      <iframe class="phone" src="train.html?theme=light" title="Train, Frost"></iframe>
+    </div>
+  </section>
+
+  <section>
+    <h2>Palettes</h2>
+    <p>Contrast ratios are the worst case on glass, composited over the brightest (dark) or darkest (light) backdrop the glass can meet.</p>
+    <div class="strip">
+      <iframe class="sheet-wide" src="graphite.html" title="Graphite palette"></iframe>
+      <iframe class="sheet-wide" src="frost.html" title="Frost palette"></iframe>
+    </div>
+  </section>
+
+  <section>
+    <h2>Accessibility modes</h2>
+    <div class="strip">
+      <iframe class="sheet-narrow" src="modes.html?theme=dark" title="Accessibility modes, Graphite"></iframe>
+      <iframe class="sheet-narrow" src="modes.html?theme=light" title="Accessibility modes, Frost"></iframe>
+    </div>
+  </section>
+</main>
+</body>
+</html>

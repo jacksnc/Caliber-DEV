@@ -15,6 +15,7 @@ public struct ChartCard: View {
   @Environment(\.calendar) private var calendar
   @Environment(\.timeZone) private var timeZone
   @Environment(\.colorScheme) private var scheme
+  @Environment(\.colorSchemeContrast) private var contrast
   @Environment(\.dynamicTypeSize) private var dynamicType
   @ScaledMetric(relativeTo: .body) private var chartHeight: CGFloat = 180
 
@@ -47,7 +48,7 @@ public struct ChartCard: View {
   }
   public var body: some View {
     let window = window
-    let palette = CaliberTheme.palette(scheme: scheme)
+    let palette = CaliberTheme.palette(scheme: scheme, increasedContrast: contrast == .increased)
     VStack(alignment: .leading, spacing: 12) {
       HStack(alignment: .top) {
         VStack(alignment: .leading, spacing: 4) {
@@ -248,6 +249,7 @@ public struct DemoDashboard: View {
   let hidesNumbers: Bool
   @State private var showSimulation = false
   @Environment(\.colorScheme) private var scheme
+  @Environment(\.colorSchemeContrast) private var contrast
   @Environment(\.locale) private var locale
   public init(dataset: DemoDataset, hidesNumbers: Bool = false) {
     self.dataset = dataset
@@ -266,7 +268,7 @@ public struct DemoDashboard: View {
     return value
   }
   public var body: some View {
-    let palette = CaliberTheme.palette(scheme: scheme)
+    let palette = CaliberTheme.palette(scheme: scheme, increasedContrast: contrast == .increased)
     ScrollView {
       LazyVStack(alignment: .leading, spacing: 20) {
         Label(copy("Fictional demo • Separate from your logs"), systemImage: "sparkles").font(

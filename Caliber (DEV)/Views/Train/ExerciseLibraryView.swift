@@ -18,38 +18,47 @@ struct ExerciseLibraryView: View {
 
   var body: some View {
     List {
-      if filtered.isEmpty {
-        ContentUnavailableView.search(text: searchText)
-      } else {
-        ForEach(filtered) { exercise in
-          VStack(alignment: .leading, spacing: 4) {
-            HStack {
-              Text(exercise.name)
-              if exercise.isCustom {
-                Text("Custom").font(.caption2).foregroundStyle(.secondary)
+      Group {
+        if filtered.isEmpty {
+          ContentUnavailableView.search(text: searchText)
+        } else {
+          ForEach(filtered) { exercise in
+            VStack(alignment: .leading, spacing: 4) {
+              HStack {
+                Text(exercise.name)
+                if exercise.isCustom {
+                  Text("Custom").font(.caption2).foregroundStyle(.secondary)
+                }
               }
+              Text(exercise.metricType.displayName)
+                .font(.caption)
+                .foregroundStyle(.secondary)
             }
-            Text(exercise.metricType.displayName)
-              .font(.caption)
-              .foregroundStyle(.secondary)
-          }
-          .frame(minHeight: 48, alignment: .leading)
-          .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-            if exercise.isCustom && exercise.workoutExercises.isEmpty {
-              Button("Delete", role: .destructive) {
-                modelContext.delete(exercise)
-                do { try modelContext.save() }
-                catch { message = "The custom exercise could not be deleted." }
+            .frame(minHeight: 48, alignment: .leading)
+            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+              if exercise.isCustom && exercise.workoutExercises.isEmpty {
+                Button("Delete", role: .destructive) {
+                  modelContext.delete(exercise)
+                  do { try modelContext.save() } catch {
+                    message = "The custom exercise could not be deleted."
+                  }
+                }
               }
             }
           }
         }
       }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .navigationTitle("Exercises")
     .searchable(text: $searchText, prompt: "Name or alias")
     .toolbar {
-      Button { showingAdd = true } label: { Label("Add Exercise", systemImage: "plus") }
+      Button {
+        showingAdd = true
+      } label: {
+        Label("Add Exercise", systemImage: "plus")
+      }
     }
     .sheet(isPresented: $showingAdd) { CustomExerciseView() }
     .alert(
@@ -78,15 +87,19 @@ private struct CustomExerciseView: View {
   var body: some View {
     NavigationStack {
       Form {
-        Section("Exercise") {
-          TextField("Name", text: $name)
-          TextField("Aliases (optional)", text: $aliases)
-          LabeledContent("Logging style", value: metric.displayName)
-          Text("More logging styles will appear as their set editors are added.")
-            .font(.footnote)
-            .foregroundStyle(.secondary)
+        Group {
+          Section("Exercise") {
+            TextField("Name", text: $name)
+            TextField("Aliases (optional)", text: $aliases)
+            LabeledContent("Logging style", value: metric.displayName)
+            Text("More logging styles will appear as their set editors are added.")
+              .font(.footnote)
+              .foregroundStyle(.secondary)
+          }
         }
+        .listRowBackground(CaliberRowBackground())
       }
+      .caliberScreen()
       .navigationTitle("Custom Exercise")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {

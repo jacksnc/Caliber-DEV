@@ -35,73 +35,87 @@ struct RestaurantListView: View {
 
   var body: some View {
     List {
-      if let importedCatalog {
-        if importedCatalog.restaurants.isEmpty {
-          Section("Imported Menus") {
-            Text(
-              "New restaurant menus are pending an approved data source. Sample menus and your custom items are available below."
-            ).font(.footnote)
-              .accessibilityIdentifier("restaurantSourcePending")
-          }
-        } else {
-          Section(importedCatalog.fictional ? "Fictional Test Menus" : "Imported Menus") {
-            ForEach(
-              importedCatalog.restaurants.filter {
-                FoodSearchText.matches($0.name, query: searchText)
-              }, id: \.id
-            ) { restaurant in
-              if let source = importedCatalog.sources.first(where: { $0.id == restaurant.sourceID })
-              {
-                NavigationLink(restaurant.name) {
-                  ImportedRestaurantMenuView(
-                    restaurant: restaurant, source: source, fictional: importedCatalog.fictional,
-                    mealType: mealType, date: date)
-                }.accessibilityIdentifier("importedRestaurant-" + restaurant.id)
+      Group {
+        Section {
+          Text("Search restaurants").font(.headline)
+          TextField("Name", text: $searchText)
+            .font(.body).padding(.vertical, 8).frame(minHeight: 48)
+            .accessibilityLabel("Search restaurants")
+            .accessibilityIdentifier("restaurantSearch")
+        }
+        if let importedCatalog {
+          if importedCatalog.restaurants.isEmpty {
+            Section("Imported Menus") {
+              Text(
+                "New restaurant menus are pending an approved data source. Sample menus and your custom items are available below."
+              ).font(.footnote)
+                .accessibilityIdentifier("restaurantSourcePending")
+            }
+          } else {
+            Section(importedCatalog.fictional ? "Fictional Test Menus" : "Imported Menus") {
+              ForEach(
+                importedCatalog.restaurants.filter {
+                  FoodSearchText.matches($0.name, query: searchText)
+                }, id: \.id
+              ) { restaurant in
+                if let source = importedCatalog.sources.first(where: {
+                  $0.id == restaurant.sourceID
+                }) {
+                  NavigationLink(restaurant.name) {
+                    ImportedRestaurantMenuView(
+                      restaurant: restaurant, source: source, fictional: importedCatalog.fictional,
+                      mealType: mealType, date: date)
+                  }.accessibilityIdentifier("importedRestaurant-" + restaurant.id)
+                }
               }
             }
           }
         }
-      }
-      if let importError { Section { Text(importError).font(.footnote) } }
+        if let importError { Section { Text(importError).font(.footnote) } }
 
-      if let loadError {
-        Section {
-          Label(loadError, systemImage: "exclamationmark.triangle")
-            .foregroundStyle(.secondary)
-          Button("Try Again") {
-            Task { await loadCatalog() }
-          }
-        }
-      }
-
-      if isLoading && restaurants.isEmpty {
-        ProgressView("Loading restaurants…")
-      } else if filteredRestaurants.isEmpty && loadError == nil {
-        ContentUnavailableView.search(text: searchText)
-      } else {
-        Section {
-          ForEach(filteredRestaurants) { restaurant in
-            NavigationLink {
-              RestaurantDetailView(restaurant: restaurant, mealType: mealType, date: date)
-            } label: {
-              VStack(alignment: .leading, spacing: 3) {
-                Text(restaurant.name)
-                Text(
-                  "\(restaurant.menuItems.count) items · \(restaurant.buildableTemplates.count) builders"
-                )
-                .font(.caption).foregroundStyle(.secondary)
-              }.frame(minHeight: 48)
+        if let loadError {
+          Section {
+            Label(loadError, systemImage: "exclamationmark.triangle")
+              .foregroundStyle(.secondary)
+            Button("Try Again") {
+              Task { await loadCatalog() }
             }
-            .accessibilityLabel(restaurant.name)
-            .accessibilityValue(
-              "\(restaurant.menuItems.count) menu items and \(restaurant.buildableTemplates.count) builders"
-            )
           }
-        } footer: {
-          Text("Sample menus for now. These are not complete, verified restaurant menus.")
+        }
+
+        if isLoading && restaurants.isEmpty {
+          ProgressView("Loading restaurants…")
+        } else if filteredRestaurants.isEmpty && loadError == nil {
+          ContentUnavailableView.search(text: searchText)
+        } else {
+          Section {
+            ForEach(filteredRestaurants) { restaurant in
+              NavigationLink {
+                RestaurantDetailView(restaurant: restaurant, mealType: mealType, date: date)
+              } label: {
+                VStack(alignment: .leading, spacing: 3) {
+                  Text(restaurant.name)
+                  Text(
+                    "\(restaurant.menuItems.count) items · \(restaurant.buildableTemplates.count) builders"
+                  )
+                  .font(.caption).foregroundStyle(.secondary)
+                }.frame(minHeight: 48)
+              }
+              .accessibilityLabel(restaurant.name)
+              .accessibilityValue(
+                "\(restaurant.menuItems.count) menu items and \(restaurant.buildableTemplates.count) builders"
+              )
+            }
+          } footer: {
+            Text("Sample menus for now. These are not complete, verified restaurant menus.").font(
+              .footnote
+            ).fixedSize(horizontal: false, vertical: true)
+          }
         }
       }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .navigationTitle("Restaurants")
     .toolbar {
       ToolbarItem(placement: .primaryAction) {
@@ -114,7 +128,6 @@ struct RestaurantListView: View {
       }
     }
     .sheet(isPresented: $isAddingRestaurant) { AddRestaurantView() }
-    .searchable(text: $searchText, prompt: "Search restaurants")
     .task {
       await loadCatalog()
       do {

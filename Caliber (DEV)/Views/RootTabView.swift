@@ -1,10 +1,12 @@
 import CaliberCharts
 import CaliberCore
+import HeliosDesign
 import SwiftUI
 
 /// Five primary tabs keep the most common one-handed actions directly reachable.
 struct RootTabView: View {
   @EnvironmentObject private var runtime: FoundationRuntime
+  @Environment(\.heliosTheme) private var theme
   @State private var selection = "today"
   var body: some View {
     Group {
@@ -42,6 +44,7 @@ struct RootTabView: View {
           ProfileView().tabItem { Label("Profile", systemImage: "person.crop.circle") }
             .tag("profile")
         }
+        .tint(theme.palette.accent.base.color)
       }
     }
   }

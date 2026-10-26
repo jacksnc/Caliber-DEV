@@ -1,4 +1,5 @@
 import Foundation
+import HeliosDesign
 import SwiftUI
 
 public enum CaliberTheme {
@@ -28,29 +29,21 @@ public enum CaliberTheme {
   public static let cardRadius: CGFloat = 18
   public static let controlRadius: CGFloat = 12
   public static let cardPadding: CGFloat = 16
-  public static func palette(scheme: ColorScheme) -> Palette {
-    palette(appearance: scheme == .dark ? .dark : .light)
+  public static func palette(scheme: ColorScheme, increasedContrast: Bool = false) -> Palette {
+    palette(appearance: scheme == .dark ? .dark : .light, increasedContrast: increasedContrast)
   }
-  /// Semantic colors are loaded directly from the reviewed JSON resource.
-  public static func palette(appearance: Appearance) -> Palette {
-    let colors = document.themes[appearance.rawValue] ?? document.themes["dark"]!
-    func color(_ name: String) -> Color { Color(hex: colors[name] ?? "#F3F6FA") }
+  /// Compatibility adapter: existing charts use the same tokens as the app.
+  public static func palette(appearance: Appearance, increasedContrast: Bool = false) -> Palette {
+    let colors = HeliosPalette.palette(
+      dark: appearance != .light, increasedContrast: increasedContrast)
     return Palette(
-      background: color("background"), surface: color("surface"), text: color("text"),
-      secondaryText: color("secondaryText"), border: color("border"), accent: color("accent"),
-      train: color("train"), fuel: color("fuel"), stack: color("stack"), body: color("body"))
+      background: appearance == .oled ? .black : colors.canvasTop.color,
+      surface: colors.opaque.base.color, text: colors.text.primary.color,
+      secondaryText: colors.text.secondary.color, border: colors.border.hairline.color,
+      accent: colors.accent.base.color, train: colors.data.training.color,
+      fuel: colors.data.energy.color, stack: colors.data.peptide.color,
+      body: colors.data.weight.color)
   }
-  private struct TokenDocument: Decodable, Sendable { let themes: [String: [String: String]] }
-  private static let document: TokenDocument = {
-    guard let url = Bundle.module.url(forResource: "design-tokens", withExtension: "json"),
-      let data = try? Data(contentsOf: url),
-      let tokens = try? JSONDecoder().decode(TokenDocument.self, from: data),
-      ["dark", "light", "oled"].allSatisfy({ tokens.themes[$0] != nil })
-    else {
-      preconditionFailure("Caliber design tokens are missing or invalid")
-    }
-    return tokens
-  }()
 }
 
 /// A shared string catalog allows translations without changing the views.
@@ -73,13 +66,14 @@ public struct CaliberEmptyState: View {
   private let message: String
   private let symbol: String
   @Environment(\.colorScheme) private var scheme
+  @Environment(\.colorSchemeContrast) private var contrast
   public init(title: String, message: String, symbol: String = "chart.xyaxis.line") {
     self.title = title
     self.message = message
     self.symbol = symbol
   }
   public var body: some View {
-    let palette = CaliberTheme.palette(scheme: scheme)
+    let palette = CaliberTheme.palette(scheme: scheme, increasedContrast: contrast == .increased)
     VStack(spacing: 12) {
       Image(systemName: symbol).font(.title).accessibilityHidden(true)
       Text(title).font(.headline).foregroundStyle(palette.text)

@@ -1,8 +1,10 @@
 import CaliberCore
+import HeliosDesign
 import SwiftData
 import SwiftUI
 
 struct ActiveWorkoutView: View {
+  @Environment(\.dynamicTypeSize) private var typeSize
   @Environment(\.dismiss) private var dismiss
   @Environment(\.modelContext) private var modelContext
   @EnvironmentObject private var runtime: FoundationRuntime
@@ -13,58 +15,69 @@ struct ActiveWorkoutView: View {
 
   var body: some View {
     List {
-      Section {
-        HStack {
-          stat("Sets", value: String(workout.completedSets.count))
-          Spacer()
-          stat(
-            "Volume",
-            value:
-              "\(runtime.settings.massUnit.fromKilograms(workout.volumeKilograms).formatted(.number.precision(.fractionLength(0...1)))) \(runtime.settings.massUnit.rawValue)")
-        }
-        TextField("Workout name", text: $workout.name)
-          .onSubmit(saveWorkoutMetadata)
-      }
-
-      if workout.exercises.isEmpty {
-        ContentUnavailableView {
-          Label("Add Your First Exercise", systemImage: "figure.strengthtraining.traditional")
-        } description: {
-          Text("Choose an exercise, then enter weight and reps. A set saves as soon as you tap the checkmark.")
-        } actions: {
-          Button("Add Exercise") { showingExercisePicker = true }
-            .buttonStyle(.borderedProminent)
-        }
-      }
-
-      ForEach(workout.sortedExercises) { workoutExercise in
+      Group {
         Section {
-          ForEach(workoutExercise.sortedSets) { set in
-            TrainingSetRow(set: set, displayUnit: runtime.settings.massUnit)
-              .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                Button("Delete", role: .destructive) { delete(set) }
-              }
-          }
-          Button {
-            do { _ = try TrainingWorkoutLogger.addSet(to: workoutExercise, in: modelContext) }
-            catch { message = "The set could not be added." }
-          } label: {
-            Label("Add Set", systemImage: "plus")
-              .frame(minHeight: 48)
-          }
-        } header: {
-          HStack {
-            Text(workoutExercise.exercise?.name ?? "Deleted exercise")
-            Spacer()
-            Button(role: .destructive) { delete(workoutExercise) } label: {
-              Image(systemName: "trash")
-                .frame(minWidth: 48, minHeight: 48)
+          (typeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading)) : AnyLayout(HStackLayout())) {
+              stat("Sets", value: String(workout.completedSets.count))
+              Spacer()
+              stat(
+                "Volume",
+                value:
+                  "\(runtime.settings.massUnit.fromKilograms(workout.volumeKilograms).formatted(.number.precision(.fractionLength(0...1)))) \(runtime.settings.massUnit.rawValue)"
+              )
             }
-            .accessibilityLabel("Remove exercise")
+          TextField("Workout name", text: $workout.name)
+            .onSubmit(saveWorkoutMetadata)
+        }
+
+        if workout.exercises.isEmpty {
+          ContentUnavailableView {
+            Label("Add Your First Exercise", systemImage: "figure.strengthtraining.traditional")
+          } description: {
+            Text(
+              "Choose an exercise, then enter weight and reps. A set saves as soon as you tap the checkmark."
+            )
+          } actions: {
+            Button("Add Exercise") { showingExercisePicker = true }
+              .buttonStyle(.heliosPrimary)
+          }
+        }
+
+        ForEach(workout.sortedExercises) { workoutExercise in
+          Section {
+            ForEach(workoutExercise.sortedSets) { set in
+              TrainingSetRow(set: set, displayUnit: runtime.settings.massUnit)
+                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                  Button("Delete", role: .destructive) { delete(set) }
+                }
+            }
+            Button {
+              do {
+                _ = try TrainingWorkoutLogger.addSet(to: workoutExercise, in: modelContext)
+              } catch { message = "The set could not be added." }
+            } label: {
+              Label("Add Set", systemImage: "plus")
+                .frame(minHeight: 48)
+            }
+          } header: {
+            HStack {
+              Text(workoutExercise.exercise?.name ?? "Deleted exercise")
+              Spacer()
+              Button(role: .destructive) {
+                delete(workoutExercise)
+              } label: {
+                Image(systemName: "trash")
+                  .frame(minWidth: 48, minHeight: 48)
+              }
+              .accessibilityLabel("Remove exercise")
+            }
           }
         }
       }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .navigationTitle("Active Workout")
     .navigationBarTitleDisplayMode(.inline)
     .toolbar {
@@ -113,14 +126,12 @@ struct ActiveWorkoutView: View {
   }
 
   private func saveWorkoutMetadata() {
-    do { try modelContext.save() }
-    catch { message = "The workout name could not be saved." }
+    do { try modelContext.save() } catch { message = "The workout name could not be saved." }
   }
 
   private func delete(_ set: TrainingWorkoutSet) {
     modelContext.delete(set)
-    do { try modelContext.save() }
-    catch {
+    do { try modelContext.save() } catch {
       modelContext.rollback()
       message = "The set could not be deleted."
     }
@@ -128,8 +139,7 @@ struct ActiveWorkoutView: View {
 
   private func delete(_ exercise: TrainingWorkoutExercise) {
     modelContext.delete(exercise)
-    do { try modelContext.save() }
-    catch {
+    do { try modelContext.save() } catch {
       modelContext.rollback()
       message = "The exercise could not be removed."
     }
@@ -146,6 +156,8 @@ struct ActiveWorkoutView: View {
 }
 
 private struct TrainingSetRow: View {
+  @Environment(\.dynamicTypeSize) private var typeSize
+  @Environment(\.heliosTheme) private var theme
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var modelContext
   @Bindable var set: TrainingWorkoutSet
@@ -168,53 +180,63 @@ private struct TrainingSetRow: View {
 
   var body: some View {
     if set.completedAt != nil {
-      HStack(spacing: 12) {
-        Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
-        VStack(alignment: .leading, spacing: 3) {
-          Text(
-            "\(set.enteredWeight, format: .number) \(set.enteredWeightUnitRawValue) × \(set.repetitions)"
-          )
-          .monospacedDigit()
-          Text(set.isWarmup ? "Warm-up" : rpeSummary)
-            .font(.caption)
-            .foregroundStyle(.secondary)
+      (typeSize.isAccessibilitySize
+        ? AnyLayout(VStackLayout(alignment: .leading, spacing: 12))
+        : AnyLayout(HStackLayout(spacing: 12))) {
+          Image(systemName: "checkmark.circle.fill").foregroundStyle(
+            theme.palette.status.success.color)
+          VStack(alignment: .leading, spacing: 3) {
+            Text(
+              "\(set.enteredWeight, format: .number) \(set.enteredWeightUnitRawValue) × \(set.repetitions)"
+            )
+            .monospacedDigit()
+            Text(set.isWarmup ? "Warm-up" : rpeSummary)
+              .font(.caption)
+              .foregroundStyle(.secondary)
+          }
+          Spacer()
+          Button("Undo") {
+            do { try TrainingWorkoutLogger.undo(set, in: modelContext) } catch {
+              message = "The completed set could not be reopened."
+            }
+          }
+          .frame(minHeight: 48)
         }
-        Spacer()
-        Button("Undo") {
-          do { try TrainingWorkoutLogger.undo(set, in: modelContext) }
-          catch { message = "The completed set could not be reopened." }
+        .alert(
+          "Set",
+          isPresented: Binding(get: { message != nil }, set: { if !$0 { message = nil } })
+        ) {
+          Button("OK", role: .cancel) { message = nil }
+        } message: {
+          Text(message ?? "Please try again.")
         }
-        .frame(minHeight: 48)
-      }
-      .alert(
-        "Set",
-        isPresented: Binding(get: { message != nil }, set: { if !$0 { message = nil } })
-      ) { Button("OK", role: .cancel) { message = nil } } message: {
-        Text(message ?? "Please try again.")
-      }
     } else {
       VStack(alignment: .leading, spacing: 10) {
-        HStack(spacing: 8) {
-          field("Weight", text: $weightText, width: 82)
-          Text(displayUnit.rawValue).foregroundStyle(.secondary)
-          field("Reps", text: $repetitionsText, width: 58)
-          field("RPE", text: $rpeText, width: 58)
-          Spacer(minLength: 0)
-          Button(action: complete) {
-            Image(systemName: "checkmark")
-              .font(.headline)
-              .frame(width: 48, height: 48)
+        (typeSize.isAccessibilitySize
+          ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
+          : AnyLayout(HStackLayout(spacing: 8))) {
+            field("Weight", text: $weightText, width: 82)
+            Text(displayUnit.rawValue).foregroundStyle(.secondary)
+            field("Reps", text: $repetitionsText, width: 58)
+            field("RPE", text: $rpeText, width: 58)
+            Spacer(minLength: 0)
+            Button(action: complete) {
+              Image(systemName: "checkmark")
+                .font(.headline)
+                .frame(minWidth: 48, minHeight: 48)
+            }
+            .buttonStyle(.heliosPrimary)
+            .accessibilityLabel("Complete set \(set.position + 1)")
           }
-          .buttonStyle(.borderedProminent)
-          .accessibilityLabel("Complete set \(set.position + 1)")
-        }
         Toggle("Warm-up set", isOn: $set.isWarmup)
           .onChange(of: set.isWarmup) { _, _ in try? modelContext.save() }
       }
       .alert(
         "Check This Set",
         isPresented: Binding(get: { message != nil }, set: { if !$0 { message = nil } })
-      ) { Button("OK", role: .cancel) { message = nil } } message: {
+      ) {
+        Button("OK", role: .cancel) { message = nil }
+      } message: {
         Text(message ?? "Please check the values.")
       }
     }
@@ -230,7 +252,7 @@ private struct TrainingSetRow: View {
     TextField(label, text: text)
       .keyboardType(.decimalPad)
       .multilineTextAlignment(.center)
-      .frame(width: width)
+      .frame(maxWidth: typeSize.isAccessibilitySize ? .infinity : width)
       .frame(minHeight: 48)
       .textFieldStyle(.roundedBorder)
       .accessibilityLabel(label)
@@ -278,7 +300,11 @@ private struct ExercisePickerView: View {
           }
           .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
         }
+        .accessibilityLabel(exercise.name)
+        .accessibilityValue(exercise.metricType.displayName)
+        .listRowBackground(CaliberRowBackground())
       }
+      .caliberScreen()
       .navigationTitle("Add Exercise")
       .searchable(text: $searchText)
       .toolbar {

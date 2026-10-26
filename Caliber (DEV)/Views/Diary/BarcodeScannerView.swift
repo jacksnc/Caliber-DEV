@@ -1,10 +1,12 @@
 @preconcurrency import AVFoundation
+import HeliosDesign
 import SwiftUI
 import UIKit
 
 /// Present this view as a sheet. It returns one validated barcode for the
 /// caller's food lookup; neither camera frames nor photos leave this screen.
 struct BarcodeScannerView: View {
+  @Environment(\.heliosTheme) private var theme
   @Environment(\.dismiss) private var dismiss
   @Environment(\.scenePhase) private var scenePhase
   @Environment(\.openURL) private var openURL
@@ -20,26 +22,37 @@ struct BarcodeScannerView: View {
     NavigationStack {
       ScrollView {
         VStack(alignment: .leading, spacing: 20) {
-          cameraArea
+          VStack(alignment: .leading, spacing: 12) { cameraArea }
+            .glassCard()
 
           VStack(alignment: .leading, spacing: 8) {
             Text("Enter Barcode")
               .font(.headline)
-            Text("Type the numbers below the barcode, including any leading zeroes.")
-              .font(.subheadline)
-              .foregroundStyle(.secondary)
-            TextField("8, 12, 13, or 14 digits", text: $manualValue)
-              .keyboardType(.numberPad)
-              .textInputAutocapitalization(.never)
-              .autocorrectionDisabled()
-              .font(.title3.monospacedDigit())
-              .padding(.horizontal, 12)
-              .frame(minHeight: 48)
-              .background(.quaternary, in: RoundedRectangle(cornerRadius: 10))
-              .focused($isEditingManualCode)
-              .accessibilityLabel("Barcode digits")
-              .accessibilityIdentifier("barcodeManualInput")
-              .onChange(of: manualValue) { _, _ in validationMessage = nil }
+            Text(
+              "Type the numbers below the barcode, including any leading zeroes. Use 8, 12, 13, or 14 digits."
+            )
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
+            TextField(
+              "Digits", text: $manualValue,
+              prompt: Text("Digits").foregroundStyle(theme.palette.text.secondary.color)
+            )
+            .keyboardType(.numberPad)
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
+            .font(.title3.monospacedDigit())
+            .padding(.horizontal, 12)
+            .padding(.vertical, 12)
+            .frame(minHeight: 48)
+            .background(theme.palette.opaque.raised.color, in: RoundedRectangle(cornerRadius: 10))
+            .overlay {
+              RoundedRectangle(cornerRadius: 10)
+                .strokeBorder(theme.palette.border.strong.color, lineWidth: 1)
+            }
+            .focused($isEditingManualCode)
+            .accessibilityLabel("Barcode digits")
+            .accessibilityIdentifier("barcodeManualInput")
+            .onChange(of: manualValue) { _, _ in validationMessage = nil }
 
             if let validationMessage {
               Text(validationMessage)
@@ -54,7 +67,7 @@ struct BarcodeScannerView: View {
               Text("Find Food")
                 .frame(maxWidth: .infinity, minHeight: 48)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.heliosPrimary)
             .disabled(
               manualValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || didFinish
             )
@@ -66,23 +79,29 @@ struct BarcodeScannerView: View {
             .font(.footnote)
             .foregroundStyle(.secondary)
           }
+          .glassCard()
         }
         .padding()
       }
+      .caliberScreen()
       .scrollDismissesKeyboard(.interactively)
       .navigationTitle("Scan Barcode")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
-        ToolbarItem(placement: .cancellationAction) {
-          Button("Cancel", action: cancel)
-            .frame(minWidth: 48, minHeight: 48)
-            .accessibilityIdentifier("barcodeCancel")
-        }
         ToolbarItemGroup(placement: .keyboard) {
           Spacer()
           Button("Done") { isEditingManualCode = false }
             .frame(minWidth: 48, minHeight: 48)
         }
+      }
+      .safeAreaInset(edge: .bottom) {
+        Button(action: cancel) {
+          Text("Cancel").font(.body).frame(maxWidth: .infinity, minHeight: 48)
+        }
+        .buttonStyle(.heliosSecondary)
+        .accessibilityIdentifier("barcodeCancel")
+        .padding(.horizontal).padding(.vertical, 8)
+        .background { CaliberRowBackground() }
       }
       .onAppear { capture.start() }
       .onDisappear {

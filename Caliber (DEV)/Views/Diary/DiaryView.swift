@@ -3,6 +3,7 @@
 //  Caliber (DEV)
 //
 
+import HeliosDesign
 import SwiftData
 import SwiftUI
 
@@ -31,75 +32,84 @@ struct DiaryView: View {
   var body: some View {
     NavigationStack {
       List {
-        Section {
-          DatePicker("Diary date", selection: $selectedDate, displayedComponents: .date)
-            .accessibilityIdentifier("diaryDate")
-          Button {
-            copyRequest = DiaryCopyRequest(date: selectedDate, meal: nil)
-          } label: {
-            Label("Copy a Day", systemImage: "doc.on.doc").frame(minHeight: 48)
-          }
-          .accessibilityIdentifier("diaryCopyDay")
-        }
-        Section {
-          MacroTotalsSummaryView(totals: dailyTotals)
-        }
-
-        ForEach(MealType.allCases) { meal in
-          let entries = selectedDayEntries.filter { $0.mealType == meal }
+        Group {
           Section {
-            if entries.isEmpty {
-              Text("No items yet")
-                .foregroundStyle(.secondary)
-            } else {
-              ForEach(entries) { entry in
-                Button {
-                  entryBeingEdited = entry
-                } label: {
-                  DiaryEntryRow(entry: entry)
-                    .foregroundStyle(.primary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .contentShape(Rectangle())
-                }
-                .buttonStyle(.plain)
-                .accessibilityHint("Edit this diary entry")
-                .accessibilityIdentifier("diaryEntry-\(entry.id.uuidString)")
-                .contextMenu {
-                  if entry.foodItem != nil {
-                    Button("Log Again") { repeatedEntry = entry }
-                    Button("Repeat This Meal") {
-                      copyRequest = DiaryCopyRequest(
-                        date: selectedDate, meal: entry.mealType, sourceDate: selectedDate)
-                    }
+            DatePicker("Diary date", selection: $selectedDate, displayedComponents: .date)
+              .accessibilityIdentifier("diaryDate")
+            Button {
+              copyRequest = DiaryCopyRequest(date: selectedDate, meal: nil)
+            } label: {
+              Label {
+                Text("Copy a Day").fixedSize(horizontal: false, vertical: true)
+              } icon: {
+                Image(systemName: "doc.on.doc")
+              }
+              .frame(minHeight: 48)
+            }
+            .accessibilityIdentifier("diaryCopyDay")
+          }
+          Section {
+            MacroTotalsSummaryView(totals: dailyTotals)
+          }
 
+          ForEach(MealType.allCases) { meal in
+            let entries = selectedDayEntries.filter { $0.mealType == meal }
+            Section {
+              if entries.isEmpty {
+                Text("No items yet")
+                  .foregroundStyle(.secondary)
+              } else {
+                ForEach(entries) { entry in
+                  Button {
+                    entryBeingEdited = entry
+                  } label: {
+                    DiaryEntryRow(entry: entry)
+                      .foregroundStyle(.primary)
+                      .frame(maxWidth: .infinity, alignment: .leading)
+                      .contentShape(Rectangle())
+                  }
+                  .buttonStyle(.plain)
+                  .accessibilityHint("Edit this diary entry")
+                  .accessibilityIdentifier("diaryEntry-\(entry.id.uuidString)")
+                  .contextMenu {
+                    if entry.foodItem != nil {
+                      Button("Log Again") { repeatedEntry = entry }
+                      Button("Repeat This Meal") {
+                        copyRequest = DiaryCopyRequest(
+                          date: selectedDate, meal: entry.mealType, sourceDate: selectedDate)
+                      }
+
+                    }
                   }
                 }
+                .onDelete { offsets in
+                  delete(entries: entries, at: offsets)
+                }
               }
-              .onDelete { offsets in
-                delete(entries: entries, at: offsets)
+            } header: {
+              HStack {
+                Text(meal.displayName)
+                Spacer()
+                Button {
+                  copyRequest = DiaryCopyRequest(date: selectedDate, meal: meal)
+                } label: {
+                  Image(systemName: "doc.on.doc").frame(minWidth: 48, minHeight: 48)
+                }
+                .accessibilityLabel("Copy \(meal.displayName)")
+                .accessibilityIdentifier("diaryCopy-\(meal.rawValue)")
+                Button {
+                  mealTypePresentingSheet = meal
+                } label: {
+                  Image(systemName: "plus.circle").frame(minWidth: 48, minHeight: 48)
+                }.accessibilityLabel("Add to \(meal.displayName)")
+                  .accessibilityIdentifier("diaryAdd-\(meal.rawValue)")
               }
-            }
-          } header: {
-            HStack {
-              Text(meal.displayName)
-              Spacer()
-              Button {
-                copyRequest = DiaryCopyRequest(date: selectedDate, meal: meal)
-              } label: {
-                Image(systemName: "doc.on.doc").frame(minWidth: 48, minHeight: 48)
-              }
-              .accessibilityLabel("Copy \(meal.displayName)")
-              .accessibilityIdentifier("diaryCopy-\(meal.rawValue)")
-              Button {
-                mealTypePresentingSheet = meal
-              } label: {
-                Image(systemName: "plus.circle").frame(minWidth: 48, minHeight: 48)
-              }.accessibilityLabel("Add to \(meal.displayName)")
-                .accessibilityIdentifier("diaryAdd-\(meal.rawValue)")
             }
           }
         }
+        .listRowBackground(CaliberRowBackground())
       }
+      .caliberScreen()
       .navigationTitle("Diary")
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
@@ -157,19 +167,35 @@ private struct DiaryEntryRow: View {
 
 private struct MacroTotalsSummaryView: View {
   @Environment(\.locale) private var locale
+  @Environment(\.heliosTheme) private var theme
+  @Environment(\.dynamicTypeSize) private var typeSize
   let totals: MacroTotals
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 4) {
+    VStack(alignment: .leading, spacing: 12) {
       Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
-        .font(.headline).accessibilityIdentifier("diaryCalories")
-      Text(
-        "Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g"
-      )
-      .font(.subheadline)
-      .foregroundStyle(.secondary)
-    }
-    .padding(.vertical, 4)
+        .heliosFont(.metricValue).accessibilityIdentifier("diaryCalories")
+      LazyVGrid(
+        columns: Array(
+          repeating: GridItem(.flexible(), alignment: .top),
+          count: typeSize.isAccessibilitySize ? 1 : 3), spacing: 8
+      ) {
+        macro("Protein", value: totals.protein, color: theme.palette.data.protein.color)
+        macro("Carbs", value: totals.carbs, color: theme.palette.data.carbs.color)
+        macro("Fat", value: totals.fat, color: theme.palette.data.fat.color)
+      }
+    }.padding(.vertical, 8)
+  }
+
+  private func macro(_ title: LocalizedStringKey, value: Double, color: Color) -> some View {
+    VStack(alignment: .leading, spacing: 6) {
+      HStack {
+        Circle().fill(color).frame(width: 8, height: 8).accessibilityHidden(true)
+        Text(title).font(.caption)
+      }
+      Text("\(NutritionInput.format(value, locale: locale)) g").font(.headline).monospacedDigit()
+    }.frame(maxWidth: .infinity, alignment: .leading)
+      .accessibilityElement(children: .combine)
   }
 }
 

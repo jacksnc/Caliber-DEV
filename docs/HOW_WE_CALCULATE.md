@@ -181,3 +181,7 @@ assumed. The user can instead enter a manual ingredient with explicit portion
 macros, including a current package label. Every logged serving is a personal
 snapshot; a personal macro override replaces the portion values for that diary
 entry only.
+
+## Theme integration — 2026-10-25
+
+Graphite/Frost changes presentation only. Today and Diary still use the same `MacroCalculator` totals; weight charts still display recorded readings. No goal, portion, nutrient, workout-volume, or weight calculation changed. Color and placement never change a saved value.

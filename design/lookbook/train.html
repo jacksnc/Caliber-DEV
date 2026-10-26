@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Helios Train</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@600;700&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="look.css">
+<style>html, body { margin: 0; }</style>
+</head>
+<body>
+<div class="hx hx-screen" data-theme="dark">
+  <div class="hx-body">
+    <header class="hx-head">
+      <div class="stackv">
+        <p class="t-foot c-2 num">Week 3 · 00:42:18</p>
+        <h1 class="t-display">Push A</h1>
+      </div>
+      <div class="timer glass raised" role="timer" aria-label="Rest timer, 1 minute 24 seconds left">
+        <svg class="ico ico-sm c-acc" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke-opacity="0.35"/><path d="M12 3.5a8.5 8.5 0 0 1 8.2 6.3"/></svg>
+        <span class="t-foot c-2">Rest</span><span class="num">1:24</span>
+      </div>
+    </header>
+
+    <section class="glass card" aria-label="Bench Press">
+      <div class="card-h" style="align-items:flex-start">
+        <div class="stackv">
+          <h2 class="t-section">Bench Press</h2>
+          <p class="t-foot c-2 num">Barbell · best e1RM 118 kg</p>
+        </div>
+        <svg class="chart" viewBox="0 0 80 28" style="width:80px;height:28px" role="img" aria-label="Estimated one-rep max rising over the last 8 sessions, from 109 to 118 kilograms">
+          <path class="ln s-training" d="M4,22.2 L14.3,18.5 L24.6,16.7 L34.9,13.1 L45.1,14.9 L55.4,9.5 L65.7,7.6 L76,5.8"/>
+          <circle class="f-training pt-ring" cx="76" cy="5.8" r="4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="set-grid t-label c-2" style="padding-bottom:6px"><span>Set</span><span>Previous</span><span style="text-align:center">kg</span><span style="text-align:center">Reps</span><span></span></div>
+        <div class="set-rows">
+          <div class="set-grid">
+            <span class="t-callout c-2 num">1</span><span class="t-callout c-2 num">90 × 6</span>
+            <input class="input-box" value="92.5" inputmode="decimal" aria-label="Set 1 weight in kilograms"><input class="input-box" value="6" inputmode="numeric" aria-label="Set 1 reps">
+            <button class="check-box done" aria-pressed="true" aria-label="Set 1 done"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+          </div>
+          <div class="set-grid">
+            <span class="t-callout c-2 num">2</span><span class="t-callout c-2 num">90 × 6</span>
+            <input class="input-box" value="92.5" inputmode="decimal" aria-label="Set 2 weight in kilograms"><input class="input-box" value="6" inputmode="numeric" aria-label="Set 2 reps">
+            <button class="check-box done" aria-pressed="true" aria-label="Set 2 done"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+          </div>
+          <div class="set-grid">
+            <span class="t-callout num">3</span><span class="t-callout c-2 num">90 × 6</span>
+            <input class="input-box active" value="92.5" inputmode="decimal" aria-label="Set 3 weight in kilograms"><input class="input-box active" value="6" inputmode="numeric" aria-label="Set 3 reps">
+            <button class="check-box" aria-pressed="false" aria-label="Set 3 done"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+          </div>
+          <div class="set-grid">
+            <span class="t-callout c-2 num">4</span><span class="t-callout c-2 num">90 × 5</span>
+            <input class="input-box c-2" value="92.5" inputmode="decimal" aria-label="Set 4 weight in kilograms"><input class="input-box c-2" value="6" inputmode="numeric" aria-label="Set 4 reps">
+            <button class="check-box" aria-pressed="false" aria-label="Set 4 done"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <button class="link" style="align-self:flex-start"><svg class="ico ico-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add set</button>
+    </section>
+
+    <section class="glass card" style="padding:12px var(--space-4)" aria-label="Next exercise">
+      <div class="row">
+        <span class="avatar"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/></svg></span>
+        <div class="stackv grow">
+          <h3 class="t-strong">Incline Dumbbell Press</h3>
+          <p class="t-foot c-2 num">3 × 8–10 · last 32 kg × 9</p>
+        </div>
+        <svg class="ico c-2" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </div>
+    </section>
+
+    <section class="glass card" style="padding:12px var(--space-4)" aria-label="Exercise after that">
+      <div class="row">
+        <span class="avatar"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/></svg></span>
+        <div class="stackv grow">
+          <h3 class="t-strong">Cable Fly</h3>
+          <p class="t-foot c-2 num">3 × 12–15 · last 14 kg × 14</p>
+        </div>
+        <svg class="ico c-2" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </div>
+    </section>
+
+    <button class="btn block glass raised">Finish workout</button>
+  </div>
+
+  <nav class="tabbar glass overlay" aria-label="Main">
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/></svg><span class="t-tab">Today</span></button>
+    <button class="tab" aria-current="page"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/></svg><span class="t-tab">Train</span></button>
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5h16a8 8 0 0 1-16 0z"/><path d="M9 7.5c0-1.6 1-2.6 2.2-3M14.5 7.5c0-1.4.8-2.3 1.8-2.8"/></svg><span class="t-tab">Fuel</span></button>
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5M10.5 3.5v5.2L6.6 17a2.6 2.6 0 0 0 2.4 3.6h6a2.6 2.6 0 0 0 2.4-3.6l-3.9-8.3V3.5"/><path d="M8.4 14.5h7.2"/></svg><span class="t-tab">Stack</span></button>
+    <button class="tab"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5v14.5h16"/><path d="M8 14.5l3.4-4.2 3 2.6 4.6-6"/></svg><span class="t-tab">Progress</span></button>
+  </nav>
+  <button class="fab" aria-label="Quick log"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+</div>
+<script src="theme.js"></script>
+</body>
+</html>

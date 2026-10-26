@@ -14,67 +14,72 @@ struct TrainHomeView: View {
   var body: some View {
     NavigationStack {
       List {
-        Section("Workout") {
-          if let activeWorkout {
-            NavigationLink {
-              ActiveWorkoutView(workout: activeWorkout)
-            } label: {
-              VStack(alignment: .leading, spacing: 4) {
-                Label("Resume Workout", systemImage: "play.fill")
-                  .font(.headline)
-                Text(
-                  "\(activeWorkout.completedSets.count) completed sets · started \(activeWorkout.startedAt.formatted(date: .omitted, time: .shortened))"
-                )
-                .font(.caption)
-                .foregroundStyle(.secondary)
-              }
-              .frame(minHeight: 48, alignment: .leading)
-            }
-          } else {
-            Button(action: startWorkout) {
-              Label("Start Empty Workout", systemImage: "plus.circle.fill")
-                .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
-            }
-            .accessibilityIdentifier("startWorkout")
-          }
-        }
-
-        Section("Library") {
-          NavigationLink {
-            ExerciseLibraryView()
-          } label: {
-            Label("Exercises", systemImage: "figure.strengthtraining.traditional")
-              .frame(minHeight: 48)
-          }
-        }
-
-        Section("History") {
-          if history.isEmpty {
-            Text("Finished workouts will appear here.")
-              .foregroundStyle(.secondary)
-          } else {
-            ForEach(history.prefix(20)) { workout in
+        Group {
+          Section("Workout") {
+            if let activeWorkout {
               NavigationLink {
-                WorkoutSummaryView(workout: workout)
+                ActiveWorkoutView(workout: activeWorkout)
               } label: {
                 VStack(alignment: .leading, spacing: 4) {
-                  Text(workout.name)
+                  Label("Resume Workout", systemImage: "play.fill")
+                    .font(.headline)
                   Text(
-                    "\(workout.completedSets.count) sets · \(workout.volumeKilograms.formatted(.number.precision(.fractionLength(0...1)))) kg volume"
+                    "\(activeWorkout.completedSets.count) completed sets · started \(activeWorkout.startedAt.formatted(date: .omitted, time: .shortened))"
                   )
                   .font(.caption)
                   .foregroundStyle(.secondary)
                 }
                 .frame(minHeight: 48, alignment: .leading)
               }
+            } else {
+              Button(action: startWorkout) {
+                Label("Start Empty Workout", systemImage: "plus.circle.fill")
+                  .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
+              }
+              .accessibilityIdentifier("startWorkout")
+            }
+          }
+
+          Section("Library") {
+            NavigationLink {
+              ExerciseLibraryView()
+            } label: {
+              Label("Exercises", systemImage: "figure.strengthtraining.traditional")
+                .frame(minHeight: 48)
+            }
+          }
+
+          Section("History") {
+            if history.isEmpty {
+              Text("Finished workouts will appear here.")
+                .foregroundStyle(.secondary)
+            } else {
+              ForEach(history.prefix(20)) { workout in
+                NavigationLink {
+                  WorkoutSummaryView(workout: workout)
+                } label: {
+                  VStack(alignment: .leading, spacing: 4) {
+                    Text(workout.name)
+                    Text(
+                      "\(workout.completedSets.count) sets · \(workout.volumeKilograms.formatted(.number.precision(.fractionLength(0...1)))) kg volume"
+                    )
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                  }
+                  .frame(minHeight: 48, alignment: .leading)
+                }
+              }
             }
           }
         }
+        .listRowBackground(CaliberRowBackground())
       }
+      .caliberScreen()
       .navigationTitle("Train")
       .task {
-        do { try TrainingExerciseSeeder.seedIfNeeded(in: modelContext) }
-        catch { message = "The starter exercise list could not be prepared." }
+        do { try TrainingExerciseSeeder.seedIfNeeded(in: modelContext) } catch {
+          message = "The starter exercise list could not be prepared."
+        }
       }
       .navigationDestination(isPresented: $showingNewWorkout) {
         if let newWorkout { ActiveWorkoutView(workout: newWorkout) }
@@ -105,28 +110,32 @@ private struct WorkoutSummaryView: View {
 
   var body: some View {
     List {
-      Section("Summary") {
-        LabeledContent("Completed sets", value: String(workout.completedSets.count))
-        LabeledContent(
-          "Volume",
-          value:
-            "\(workout.volumeKilograms.formatted(.number.precision(.fractionLength(0...1)))) kg")
-        if let completedAt = workout.completedAt {
+      Group {
+        Section("Summary") {
+          LabeledContent("Completed sets", value: String(workout.completedSets.count))
           LabeledContent(
-            "Duration",
-            value: Duration.seconds(completedAt.timeIntervalSince(workout.startedAt)).formatted())
+            "Volume",
+            value:
+              "\(workout.volumeKilograms.formatted(.number.precision(.fractionLength(0...1)))) kg")
+          if let completedAt = workout.completedAt {
+            LabeledContent(
+              "Duration",
+              value: Duration.seconds(completedAt.timeIntervalSince(workout.startedAt)).formatted())
+          }
         }
-      }
-      ForEach(workout.sortedExercises) { row in
-        Section(row.exercise?.name ?? "Deleted exercise") {
-          ForEach(row.sortedSets.filter { $0.completedAt != nil }) { set in
-            Text(
-              "\(set.enteredWeight, format: .number) \(set.enteredWeightUnitRawValue) × \(set.repetitions)"
-            )
+        ForEach(workout.sortedExercises) { row in
+          Section(row.exercise?.name ?? "Deleted exercise") {
+            ForEach(row.sortedSets.filter { $0.completedAt != nil }) { set in
+              Text(
+                "\(set.enteredWeight, format: .number) \(set.enteredWeightUnitRawValue) × \(set.repetitions)"
+              )
+            }
           }
         }
       }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .navigationTitle(workout.name)
     .navigationBarTitleDisplayMode(.inline)
   }

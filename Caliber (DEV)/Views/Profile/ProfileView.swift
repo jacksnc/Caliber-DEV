@@ -30,112 +30,121 @@ struct ProfileView: View {
   var body: some View {
     NavigationStack {
       Form {
-        Section("Account") {
-          Label(
-            account.isSignedIn ? "Signed in" : "Local profile",
-            systemImage: account.isSignedIn
-              ? "person.crop.circle.badge.checkmark" : "person.crop.circle")
-          NavigationLink("Account & Sync") { HostedAccountView() }
-            .frame(minHeight: 48)
-          Text(
-            account.isSignedIn
-              ? "Your account is connected. Health, food, workout, and photo data still stay on this device."
-              : "An account is optional. Your profile and logs work offline on this device."
-          )
-          .font(.footnote)
-          .foregroundStyle(.secondary)
-        }
+        Group {
+          Section("Account") {
+            Label(
+              account.isSignedIn ? "Signed in" : "Local profile",
+              systemImage: account.isSignedIn
+                ? "person.crop.circle.badge.checkmark" : "person.crop.circle")
+            NavigationLink("Account & Sync") { HostedAccountView() }
+              .frame(minHeight: 48)
+            Text(
+              account.isSignedIn
+                ? "Your account is connected. Health, food, workout, and photo data still stay on this device."
+                : "An account is optional. Your profile and logs work offline on this device."
+            )
+            .font(.footnote)
+            .foregroundStyle(.secondary)
+          }
 
-        Section {
-          numericField("Age", text: $ageText, suffix: "years", identifier: "profileAge")
-          numericField(
-            "Height", text: $heightText, suffix: distanceUnit.rawValue,
-            identifier: "profileHeight")
-          numericField(
-            "Weight", text: $weightText, suffix: massUnit.rawValue,
-            identifier: "profileWeight")
-          Picker("Activity", selection: $activity) {
-            ForEach(ActivityLevel.allCases) { Text($0.displayName).tag($0) }
+          Section {
+            numericField("Age", text: $ageText, suffix: "years", identifier: "profileAge")
+            numericField(
+              "Height", text: $heightText, suffix: distanceUnit.rawValue,
+              identifier: "profileHeight")
+            numericField(
+              "Weight", text: $weightText, suffix: massUnit.rawValue,
+              identifier: "profileWeight")
+            Picker(selection: $activity) {
+              ForEach(ActivityLevel.allCases) { Text($0.displayName).tag($0) }
+            } label: {
+              Text("Activity").font(.body)
+            }
+          } header: {
+            Text("Body and Activity")
+          } footer: {
+            Text("These values stay on this device and are used only to make a starting estimate.")
+              .font(.footnote).fixedSize(horizontal: false, vertical: true)
           }
-        } header: {
-          Text("Body and Activity")
-        } footer: {
-          Text("These values stay on this device and are used only to make a starting estimate.")
-        }
 
-        Section {
-          Picker("Equation form", selection: $coefficient) {
-            Text("+5 coefficient").tag(EnergyEquationCoefficient.plusFive)
-            Text("−161 coefficient").tag(
-              EnergyEquationCoefficient.minusOneHundredSixtyOne)
+          Section {
+            Picker("Equation form", selection: $coefficient) {
+              Text("+5 coefficient").tag(EnergyEquationCoefficient.plusFive)
+              Text("−161 coefficient").tag(
+                EnergyEquationCoefficient.minusOneHundredSixtyOne)
+            }
+            Picker("Goal", selection: $goal) {
+              ForEach(EnergyGoal.allCases, id: \.self) { Text(goalName($0)).tag($0) }
+            }
+            if goal == .cut || goal == .leanBulk || goal == .bulk {
+              Picker("Weekly rate", selection: $weeklyRatePercent) {
+                ForEach([0.25, 0.5, 0.75, 1.0], id: \.self) { value in
+                  Text("\(value, format: .number)% body weight").tag(value)
+                }
+              }
+            }
+            Button("Calculate and Save Goals", action: calculateAndSave)
+              .frame(minHeight: 48)
+              .accessibilityIdentifier("profileCalculate")
+          } header: {
+            Text("Calorie Estimate")
+          } footer: {
+            Text(
+              "Choose the published equation form explicitly. Caliber does not infer it from your name, appearance, or gender identity. The result is an estimate, not medical advice."
+            )
           }
-          Picker("Goal", selection: $goal) {
-            ForEach(EnergyGoal.allCases, id: \.self) { Text(goalName($0)).tag($0) }
-          }
-          if goal == .cut || goal == .leanBulk || goal == .bulk {
-            Picker("Weekly rate", selection: $weeklyRatePercent) {
-              ForEach([0.25, 0.5, 0.75, 1.0], id: \.self) { value in
-                Text("\(value, format: .number)% body weight").tag(value)
+
+          if let estimate {
+            Section("Estimate Details") {
+              LabeledContent("Resting estimate", value: energy(estimate.restingEnergy))
+              LabeledContent("Maintenance estimate", value: energy(estimate.maintenanceEnergy))
+              LabeledContent("Saved calorie goal", value: energy(estimate.calorieTarget))
+                .accessibilityIdentifier("profileSavedCalorieGoal")
+              LabeledContent(
+                "Macro starting point",
+                value:
+                  "\(estimate.proteinGrams.rounded().formatted(.number))g P · \(estimate.carbohydrateGrams.rounded().formatted(.number))g C · \(estimate.fatGrams.rounded().formatted(.number))g F"
+              )
+              LabeledContent(
+                "Fiber starting point",
+                value: "\(estimate.fiberGrams.rounded().formatted(.number)) g")
+              if estimate.floorWasApplied {
+                Label(
+                  "The safety floor was applied instead of saving the lower calculated value.",
+                  systemImage: "exclamationmark.shield"
+                )
+                .foregroundStyle(.orange)
               }
             }
           }
-          Button("Calculate and Save Goals", action: calculateAndSave)
-            .frame(minHeight: 48)
-            .accessibilityIdentifier("profileCalculate")
-        } header: {
-          Text("Calorie Estimate")
-        } footer: {
-          Text(
-            "Choose the published equation form explicitly. Caliber does not infer it from your name, appearance, or gender identity. The result is an estimate, not medical advice."
-          )
-        }
 
-        if let estimate {
-          Section("Estimate Details") {
-            LabeledContent("Resting estimate", value: energy(estimate.restingEnergy))
-            LabeledContent("Maintenance estimate", value: energy(estimate.maintenanceEnergy))
-            LabeledContent("Saved calorie goal", value: energy(estimate.calorieTarget))
-              .accessibilityIdentifier("profileSavedCalorieGoal")
-            LabeledContent(
-              "Macro starting point",
-              value:
-                "\(estimate.proteinGrams.rounded().formatted(.number))g P · \(estimate.carbohydrateGrams.rounded().formatted(.number))g C · \(estimate.fatGrams.rounded().formatted(.number))g F")
-            LabeledContent(
-              "Fiber starting point",
-              value: "\(estimate.fiberGrams.rounded().formatted(.number)) g")
-            if estimate.floorWasApplied {
-              Label(
-                "The safety floor was applied instead of saving the lower calculated value.",
-                systemImage: "exclamationmark.shield")
-                .foregroundStyle(.orange)
-            }
+          Section {
+            numericField(
+              "Calories", text: $calorieText, suffix: "kcal", identifier: "profileCalories")
+            numericField(
+              "Protein", text: $proteinText, suffix: "g", identifier: "profileProtein")
+            numericField(
+              "Carbohydrates", text: $carbohydrateText, suffix: "g",
+              identifier: "profileCarbohydrates")
+            numericField("Fat", text: $fatText, suffix: "g", identifier: "profileFat")
+            Button("Save Edited Goals", action: saveEditedGoals)
+              .frame(minHeight: 48)
+              .accessibilityIdentifier("profileSaveGoals")
+          } header: {
+            Text("Daily Goals")
+          } footer: {
+            Text("You can edit these goals after calculation. Calorie safety floors still apply.")
+          }
+
+          Section("App") {
+            NavigationLink("Settings") { FoundationSettingsView() }
+              .frame(minHeight: 48)
+              .accessibilityIdentifier("openSettings")
           }
         }
-
-        Section {
-          numericField(
-            "Calories", text: $calorieText, suffix: "kcal", identifier: "profileCalories")
-          numericField(
-            "Protein", text: $proteinText, suffix: "g", identifier: "profileProtein")
-          numericField(
-            "Carbohydrates", text: $carbohydrateText, suffix: "g",
-            identifier: "profileCarbohydrates")
-          numericField("Fat", text: $fatText, suffix: "g", identifier: "profileFat")
-          Button("Save Edited Goals", action: saveEditedGoals)
-            .frame(minHeight: 48)
-            .accessibilityIdentifier("profileSaveGoals")
-        } header: {
-          Text("Daily Goals")
-        } footer: {
-          Text("You can edit these goals after calculation. Calorie safety floors still apply.")
-        }
-
-        Section("App") {
-          NavigationLink("Settings") { FoundationSettingsView() }
-            .frame(minHeight: 48)
-            .accessibilityIdentifier("openSettings")
-        }
+        .listRowBackground(CaliberRowBackground())
       }
+      .caliberScreen()
       .navigationTitle("Profile")
       .onAppear(perform: loadOnce)
       .alert(
@@ -259,7 +268,9 @@ struct ProfileView: View {
       distanceUnit == .centimeters ? enteredHeight : enteredHeight * 2.54
     let age: Int
     if requireAge {
-      guard let parsed = Int(ageText), String(parsed) == ageText.trimmingCharacters(in: .whitespacesAndNewlines) else {
+      guard let parsed = Int(ageText),
+        String(parsed) == ageText.trimmingCharacters(in: .whitespacesAndNewlines)
+      else {
         throw EnergyTargetError.invalidAge
       }
       age = parsed

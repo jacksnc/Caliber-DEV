@@ -14,35 +14,39 @@ struct MyMealsView: View {
 
   var body: some View {
     List {
-      if savedMeals.isEmpty {
-        ContentUnavailableView(
-          "No Saved Recipes or Meals", systemImage: "square.stack.3d.up",
-          description: Text("Tap + to combine ingredients and save batch servings."))
-      }
-      ForEach(savedMeals) { meal in
-        NavigationLink {
-          SavedMealDetailView(meal: meal)
-        } label: {
-          VStack(alignment: .leading, spacing: 4) {
-            Text(meal.name)
-            if let batch = try? RecipeEditor.batch(for: meal),
-              let serving = try? batch.portion(amount: 1, unit: .servings)
-            {
-              Text(
-                "\(NutritionInput.format(serving.calories, locale: locale)) cal per serving · \(NutritionInput.format(meal.servings, locale: locale)) servings"
-              )
-              .font(.footnote).foregroundStyle(.secondary)
-            } else {
-              Text("Needs ingredient review").font(.footnote)
+      Group {
+        if savedMeals.isEmpty {
+          ContentUnavailableView(
+            "No Saved Recipes or Meals", systemImage: "square.stack.3d.up",
+            description: Text("Tap + to combine ingredients and save batch servings."))
+        }
+        ForEach(savedMeals) { meal in
+          NavigationLink {
+            SavedMealDetailView(meal: meal)
+          } label: {
+            VStack(alignment: .leading, spacing: 4) {
+              Text(meal.name)
+              if let batch = try? RecipeEditor.batch(for: meal),
+                let serving = try? batch.portion(amount: 1, unit: .servings)
+              {
+                Text(
+                  "\(NutritionInput.format(serving.calories, locale: locale)) cal per serving · \(NutritionInput.format(meal.servings, locale: locale)) servings"
+                )
+                .font(.footnote).foregroundStyle(.secondary)
+              } else {
+                Text("Needs ingredient review").font(.footnote)
+              }
+            }.frame(minHeight: 48)
+          }.accessibilityIdentifier("savedRecipe-" + meal.name)
+            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+              Button("Delete", role: .destructive) { deleting = meal }
+              Button("Edit") { editing = meal }.tint(.blue)
             }
-          }.frame(minHeight: 48)
-        }.accessibilityIdentifier("savedRecipe-" + meal.name)
-          .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-            Button("Delete", role: .destructive) { deleting = meal }
-            Button("Edit") { editing = meal }.tint(.blue)
-          }
+        }
       }
+      .listRowBackground(CaliberRowBackground())
     }
+    .caliberScreen()
     .navigationTitle("My Meals")
     .toolbar {
       ToolbarItem(placement: .primaryAction) {
