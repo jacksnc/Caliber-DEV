@@ -1,4 +1,5 @@
 import CaliberDatabase
+import HeliosDesign
 import SwiftData
 import SwiftUI
 
@@ -11,6 +12,7 @@ import SwiftUI
 struct RestaurantListView: View {
   @EnvironmentObject private var runtime: FoundationRuntime
   @Environment(\.modelContext) private var modelContext
+  @Environment(\.heliosTheme) private var theme
   @Query(sort: \Restaurant.name) private var restaurants: [Restaurant]
 
   let mealType: MealType
@@ -36,13 +38,21 @@ struct RestaurantListView: View {
   var body: some View {
     List {
       Group {
-        Section {
-          Text("Search restaurants").font(.headline)
-          TextField("Name", text: $searchText)
-            .font(.body).padding(.vertical, 8).frame(minHeight: 48)
+        // Look book: one glass search field above the list.
+        HStack(spacing: HeliosTokens.space(2)) {
+          Image(systemName: "magnifyingglass")
+            .foregroundStyle(theme.palette.text.secondary.color)
+            .accessibilityHidden(true)
+          TextField("Search restaurants", text: $searchText, axis: .vertical)
+            .heliosFont(.body)
             .accessibilityLabel("Search restaurants")
             .accessibilityIdentifier("restaurantSearch")
         }
+        .padding(.horizontal, HeliosTokens.space(4))
+        .frame(minHeight: 52)
+        .background { GlassBackground(level: .raised, cornerRadius: 16) }
+        .listRowBackground(Color.clear)
+        .listRowInsets(EdgeInsets())
         if let importedCatalog {
           if importedCatalog.restaurants.isEmpty {
             Section("Imported Menus") {
@@ -93,13 +103,25 @@ struct RestaurantListView: View {
               NavigationLink {
                 RestaurantDetailView(restaurant: restaurant, mealType: mealType, date: date)
               } label: {
-                VStack(alignment: .leading, spacing: 3) {
-                  Text(restaurant.name)
-                  Text(
-                    "\(restaurant.menuItems.count) items · \(restaurant.buildableTemplates.count) builders"
-                  )
-                  .font(.caption).foregroundStyle(.secondary)
-                }.frame(minHeight: 48)
+                HStack(spacing: HeliosTokens.space(3)) {
+                  Image(systemName: "fork.knife")
+                    .foregroundStyle(theme.palette.accent.base.color)
+                    .frame(width: 40, height: 40)
+                    .background(
+                      RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(theme.palette.accent.subtle.color)
+                    )
+                    .accessibilityHidden(true)
+                  VStack(alignment: .leading, spacing: 3) {
+                    Text(restaurant.name).heliosFont(.bodyStrong)
+                    Text(
+                      "\(restaurant.menuItems.count) items · \(restaurant.buildableTemplates.count) builders"
+                    )
+                    .heliosFont(.caption)
+                    .foregroundStyle(theme.palette.text.secondary.color)
+                  }
+                }
+                .frame(minHeight: 48)
               }
               .accessibilityLabel(restaurant.name)
               .accessibilityValue(
