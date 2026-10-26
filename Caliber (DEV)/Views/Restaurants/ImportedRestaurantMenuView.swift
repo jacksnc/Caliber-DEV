@@ -45,7 +45,7 @@ struct ImportedRestaurantMenuView: View {
             $0.category == category.rawValue && FoodSearchText.matches($0.name, query: search)
           }
           if !items.isEmpty {
-            Section(category.displayName) {
+            Section {
               ForEach(items, id: \.id) { item in
                 NavigationLink {
                   FoodNutritionReviewView(
@@ -59,6 +59,8 @@ struct ImportedRestaurantMenuView: View {
                   }.frame(minHeight: 48)
                 }.accessibilityIdentifier("importedMenu-" + item.id)
               }
+            } header: {
+              Text(category.displayName)
             }
           }
         }

@@ -87,7 +87,7 @@ struct RestaurantDetailView: View {
         }
 
         ForEach(groupedMenuItems, id: \.category) { group in
-          Section(group.category.displayName) {
+          Section {
             ForEach(group.items) { item in
               NavigationLink {
                 MenuItemDetailView(menuItem: item, mealType: mealType, date: date)
@@ -126,6 +126,8 @@ struct RestaurantDetailView: View {
                 }
               }
             }
+          } header: {
+            Text(group.category.displayName)
           }
         }
 

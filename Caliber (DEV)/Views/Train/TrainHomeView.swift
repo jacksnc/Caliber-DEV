@@ -124,12 +124,14 @@ private struct WorkoutSummaryView: View {
           }
         }
         ForEach(workout.sortedExercises) { row in
-          Section(row.exercise?.name ?? "Deleted exercise") {
+          Section {
             ForEach(row.sortedSets.filter { $0.completedAt != nil }) { set in
               Text(
                 "\(set.enteredWeight, format: .number) \(set.enteredWeightUnitRawValue) × \(set.repetitions)"
               )
             }
+          } header: {
+            Text(row.exercise?.name ?? "Deleted exercise")
           }
         }
       }

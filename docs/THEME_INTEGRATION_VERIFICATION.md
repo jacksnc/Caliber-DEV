@@ -101,6 +101,13 @@ object types. This is the Xcode 16 format in the
 [Xcodeproj compatibility map](https://github.com/CocoaPods/Xcodeproj/blob/master/lib/xcodeproj/constants.rb).
 Local format-77 build passes (`/tmp/caliber-helios-compatible-build.log`). A fresh CI run verifies the pinned older compiler separately from app logic.
 
+The next CI run opened the compatible project, then reported ChartContentBuilder
+availability errors for the dynamic-title Section initializers nested inside
+restaurant and workout lists. Those three sections now use explicit Text headers.
+[Compiler diagnostic run](https://github.com/jacksnc/Caliber-DEV/actions/runs/40381170297).
+No rows, nutrition, or workout values change. The affected-flow rerun passed all four tests
+in `/tmp/caliber-helios-sections.xcresult`; the next CI run checks Xcode 16.4.
+
 ## Reproduce
 
 From the repository root:

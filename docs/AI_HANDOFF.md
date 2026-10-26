@@ -19,6 +19,8 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
   do not claim full accessibility/device certification.
 - The first GitHub iOS job rejected project format 110 before compiling. This
   slice aligns serialization with Xcode 16 format 77 and the pinned CI toolchain.
+  A second run reached compilation and found three ambiguous dynamic-title
+  Section initializers; explicit Text headers address that older-compiler issue.
   Check the latest GitHub Actions result before merging; local simulator passes
   do not prove CI has passed.
 - Steps 1 and 2 from the owner's requested sequence are complete. Evidence is in

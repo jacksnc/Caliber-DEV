@@ -142,3 +142,5 @@ Existing source work predates this phase and remains locally staged/uncommitted 
 - Published `astra/foundation` through the existing Train/Profile foundation so Claude can access the real app.
 - Added native theme screenshot/audit and fresh-launch text-growth checks; retain the unresolved default-size system audit in the verification report.
 - Made the iOS CLI runner safe for Python test discovery and excluded generated dependency documentation from the repository link validator.
+
+- Follow-up: use explicit SwiftUI section headers in restaurant menus and workout history for Xcode 16.4 compilation.
