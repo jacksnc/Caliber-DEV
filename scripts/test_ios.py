@@ -24,7 +24,8 @@ def main():
         '-parallel-testing-enabled', 'NO', '-collect-test-diagnostics', 'never',
         '-only-testing:Caliber (DEV)Tests', '-only-testing:Caliber (DEV)UITests/FoundationUITests',
         '-only-testing:Caliber (DEV)UITests/ProgressUITests',
-        '-only-testing:Caliber (DEV)UITests/ThemeIntegrationUITests', 'CODE_SIGNING_ALLOWED=NO'
+        '-only-testing:Caliber (DEV)UITests/ThemeIntegrationUITests',
+        '-only-testing:Caliber (DEV)UITests/StackUITests', 'CODE_SIGNING_ALLOWED=NO'
     ], cwd=ROOT, check=True)
 
 

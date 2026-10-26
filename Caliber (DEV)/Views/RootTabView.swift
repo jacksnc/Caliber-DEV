@@ -8,6 +8,7 @@ import SwiftUI
 /// button. The system tab bar is hidden; `TabView` still keeps each tab's navigation state.
 struct RootTabView: View {
   @EnvironmentObject private var runtime: FoundationRuntime
+  @EnvironmentObject private var stack: StackRuntime
   @Environment(\.heliosTheme) private var theme
   @Query(sort: \ProgressEntry.date, order: .reverse) private var progress: [ProgressEntry]
   @State private var selection = CaliberTab.today
@@ -16,7 +17,11 @@ struct RootTabView: View {
   @State private var quickLogFood = false
   @State private var quickLogCheckIn = false
 
-  private var tabs: [CaliberTab] { [.today, .train, .fuel, .progress] }
+  /// Stack is listed only after the person opts in (brief §1.2, §5.1).
+  private var tabs: [CaliberTab] {
+    stack.isEnabled
+      ? [.today, .train, .fuel, .stack, .progress] : [.today, .train, .fuel, .progress]
+  }
 
   var body: some View {
     Group {
@@ -55,7 +60,7 @@ struct RootTabView: View {
             .ignoresSafeArea(.keyboard)
         }
         .sheet(isPresented: $showsQuickLog, onDismiss: openPendingQuickLog) {
-          QuickLogSheet(includesDose: false) { action in
+          QuickLogSheet(includesDose: stack.isEnabled) { action in
             pendingQuickLog = action
             showsQuickLog = false
           }
@@ -74,7 +79,7 @@ struct RootTabView: View {
     case .today: TodayFoundationView()
     case .train: TrainHomeView()
     case .fuel: DiaryView()
-    case .stack: EmptyView()
+    case .stack: StackHomeView()
     case .progress: ProgressDashboardView()
     }
   }
@@ -86,7 +91,8 @@ struct RootTabView: View {
     case .food: quickLogFood = true
     case .checkIn: quickLogCheckIn = true
     case .workout: selection = .train
-    case .dose: break
+    // Doses are logged from Stack, behind its lock.
+    case .dose: selection = .stack
     }
   }
 }

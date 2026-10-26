@@ -14,6 +14,8 @@
 		F10000000000000000000005 /* CaliberSeedData in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000005 /* CaliberSeedData */; };
 		F10000000000000000000006 /* CaliberIntegrations in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000006 /* CaliberIntegrations */; };
 		F10000000000000000000007 /* HeliosDesign in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000007 /* HeliosDesign */; };
+		F10000000000000000000008 /* StackCore in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000008 /* StackCore */; };
+		F10000000000000000000009 /* HeliosTime in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000009 /* HeliosTime */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,8 @@
 				F10000000000000000000005 /* CaliberSeedData in Frameworks */,
 				F10000000000000000000006 /* CaliberIntegrations in Frameworks */,
 				F10000000000000000000007 /* HeliosDesign in Frameworks */,
+				F10000000000000000000008 /* StackCore in Frameworks */,
+				F10000000000000000000009 /* HeliosTime in Frameworks */,
 			);
 		};
 		3E24D9A43075DFA50059733A /* Frameworks */ = {
@@ -128,6 +132,8 @@
 				F20000000000000000000005 /* CaliberSeedData */,
 				F20000000000000000000006 /* CaliberIntegrations */,
 				F20000000000000000000007 /* HeliosDesign */,
+				F20000000000000000000008 /* StackCore */,
+				F20000000000000000000009 /* HeliosTime */,
 			);
 			productName = "Caliber (DEV)";
 			productReference = 3E24D99A3075DFA40059733A /* Caliber (DEV).app */;
@@ -210,6 +216,8 @@
 			packageReferences = (
 				F30000000000000000000001 /* XCLocalSwiftPackageReference "Packages/CaliberFoundation" */,
 				F30000000000000000000002 /* XCLocalSwiftPackageReference "Packages/HeliosDesign" */,
+				F30000000000000000000003 /* XCLocalSwiftPackageReference "Packages/StackCore" */,
+				F30000000000000000000004 /* XCLocalSwiftPackageReference "Packages/HeliosTime" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3E24D99B3075DFA40059733A /* Products */;
@@ -617,6 +625,14 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/HeliosDesign;
 		};
+		F30000000000000000000003 /* XCLocalSwiftPackageReference "Packages/StackCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/StackCore;
+		};
+		F30000000000000000000004 /* XCLocalSwiftPackageReference "Packages/HeliosTime" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/HeliosTime;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -647,6 +663,14 @@
 		F20000000000000000000007 /* HeliosDesign */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HeliosDesign;
+		};
+		F20000000000000000000008 /* StackCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StackCore;
+		};
+		F20000000000000000000009 /* HeliosTime */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HeliosTime;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

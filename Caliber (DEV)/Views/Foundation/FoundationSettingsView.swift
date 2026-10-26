@@ -26,6 +26,7 @@ struct FoundationSettingsView: View {
             "Number-free mode keeps photos and notes available and hides numerical editors, charts, and their accessibility labels."
           ).font(.footnote)
         }
+        StackSettingsSection()
         Section("Units") {
           Picker("Weight", selection: $runtime.settings.massUnit) {
             ForEach(MassUnit.allCases, id: \.self) { Text($0.rawValue).tag($0) }
@@ -97,7 +98,7 @@ struct FoundationSettingsView: View {
             "Caliber is a logging and education tool, not medical advice, diagnosis, or treatment. Consult a licensed clinician for medical decisions."
           )
           Text(
-            "Stack is disabled. Advanced feature flags remain off until their implementations and release checks pass."
+            "Stack is off until you turn it on under Modules. Other advanced features remain off until their implementations and release checks pass."
           ).font(.footnote)
         }
       }

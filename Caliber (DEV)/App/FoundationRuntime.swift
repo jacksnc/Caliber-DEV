@@ -15,6 +15,7 @@ final class FoundationRuntime: ObservableObject {
   @Published var message: String?
   let foodLibraryPreferences: FoodLibraryPreferences
   let account: HostedAccountModel
+  let stack: StackRuntime
   let testing: Bool
   var preferenceStore: UserDefaults { defaults }
   private let defaults: UserDefaults
@@ -63,6 +64,7 @@ final class FoundationRuntime: ObservableObject {
     #endif
     settings = loaded
     account = HostedAccountModel.configured(testing: testing, defaults: defaults)
+    stack = StackRuntime(defaults: defaults, testing: testing)
     let base =
       testing
       ? FileManager.default.temporaryDirectory.appendingPathComponent("CaliberUITestFoundation")
@@ -153,6 +155,7 @@ struct FoundationRootView: View {
       }
     }
     .environmentObject(runtime.account)
+    .environmentObject(runtime.stack)
     .environmentObject(runtime.foodLibraryPreferences)
     .defaultAppStorage(runtime.preferenceStore)
     .environment(\.caliberOLED, runtime.settings.theme == .oled)

@@ -6,7 +6,9 @@ final class ThemeIntegrationUITests: XCTestCase {
 
   @MainActor private func launch(theme: String, largeText: Bool = false) -> XCUIApplication {
     let app = XCUIApplication()
-    app.launchArguments = ["--progress-ui-testing", "--theme-\(theme)", "--barcode-fixture"]
+    app.launchArguments = [
+      "--progress-ui-testing", "--theme-\(theme)", "--barcode-fixture", "--stack-fixture",
+    ]
     if largeText {
       app.launchArguments += [
         "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL",
@@ -38,7 +40,7 @@ final class ThemeIntegrationUITests: XCTestCase {
 
   @MainActor private func inspect(theme: String, largeText: Bool = false) throws {
     let app = launch(theme: theme, largeText: largeText)
-    for tab in ["Today", "Train", "Fuel", "Progress"] {
+    for tab in ["Today", "Train", "Fuel", "Stack", "Progress"] {
       app.tab(tab).tap()
       XCTAssertTrue(app.navigationBars[tab].waitForExistence(timeout: 5))
       capture("\(theme)-\(tab)-\(largeText ? "AX5" : "default")", app: app)

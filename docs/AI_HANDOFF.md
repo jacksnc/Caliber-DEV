@@ -49,7 +49,10 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
 - Owner request 2026-10-26: make the app match the look book closely, including the
   concept's tabs and a Stack module (D110). Claude is doing this in stages on
   `astra/foundation`: navigation first (custom tab bar, Quick Log, profile avatar;
-  Diary is now the Fuel tab), then Stack, then restyling each screen. CI now pushes
+  Diary is now the Fuel tab), then Stack (first slice in D111: opt-in under
+  Settings → Modules, separate store, lock, today's doses, supply, default-off
+  estimate; `StackUITests` and `StackPlannerTests` cover it), then restyling each
+  screen. CI now pushes
   each run's simulator screenshots to the `ci-screenshots` branch so the cloud agent
   can see them. Avoid editing Navigation, RootTabView, Profile, Today, Diary, Train,
   Progress, Restaurants and the UI-test navigation helper until this lands.

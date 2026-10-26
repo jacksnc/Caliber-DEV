@@ -72,13 +72,13 @@ All listed acceptance tests are planned. Full P0 table/screen/test mappings are 
 | FUEL-07 | 4 | Per-meal notes, hunger/mood tags, photos | partial-prototype |
 | FUEL-20 | 4 | Target setup | partial-prototype |
 | FUEL-21 | 4 | Day types | not-implemented |
-| STK-01 | 6 | Compounds | not-implemented |
-| STK-02 | 6 | Protocols | not-implemented |
-| STK-03 | 6 | Schedule engine | not-implemented |
-| STK-04 | 6 | Dose log | not-implemented |
+| STK-01 | 6 | Compounds | partial-prototype |
+| STK-02 | 6 | Protocols | partial-prototype |
+| STK-03 | 6 | Schedule engine | partial-prototype |
+| STK-04 | 6 | Dose log | partial-prototype |
 | STK-05 | 6 | Reminders | not-implemented |
 | STK-06 | 6 | Reconstitution and draw calculator — math only; it never suggests a dose | not-implemented |
-| STK-07 | 6 | Inventory | not-implemented |
+| STK-07 | 6 | Inventory | partial-prototype |
 | STK-08 | 6 | Injection-site tracking | not-implemented |
 | STK-09 | 6 | Side effects and symptoms | not-implemented |
 | BODY-01 | 4 | Weigh-ins (manual, Health sync, smart-scale CSV), EWMA trend, goal, rate of change, projected date; tags (post-travel, illness…) | partial-prototype |
@@ -185,13 +185,13 @@ All listed acceptance tests are planned. Full P0 table/screen/test mappings are 
 | FUEL-25 | 4 | GLP-1 support mode | not-implemented |
 | FUEL-26 | 4 | Intermittent fasting | not-implemented |
 | FUEL-28 | 4 | Health score (0-10, transparent) | not-implemented |
-| STK-10 | 6 | Estimated active level | not-implemented |
+| STK-10 | 6 | Estimated active level | partial-prototype |
 | STK-11 | 6 | Bloodwork and biomarkers | not-implemented |
 | STK-12 | 6 | Clinician/coach report (PDF/PNG) | not-implemented |
 | STK-13 | 6 | Cost tracking | not-implemented |
 | STK-14 | 6 | General medication/supplement tracking on the same engine ("my stack" view) | not-implemented |
 | STK-15 | 6 | Check-ins | not-implemented |
-| STK-20 | 6 | Privacy and discretion | not-implemented |
+| STK-20 | 6 | Privacy and discretion | partial-prototype |
 | BODY-03 | 7 | Progress photos | partial-prototype |
 | BODY-04 | 7 | Sleep, HRV, resting HR, steps and active energy from Health/wearables (read-only); a transparent readiness composite (documented w | not-implemented |
 | AI-01 | 5 | Universal Logger | not-implemented |
