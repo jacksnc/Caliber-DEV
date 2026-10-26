@@ -22,11 +22,14 @@ class CollectScreenshotsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as raw, tempfile.TemporaryDirectory() as out:
             Path(raw, 'one.png').write_bytes(b'1')
             Path(raw, 'two.png').write_bytes(b'2')
+            Path(raw, 'three.png').write_bytes(b'3')
             Path(raw, 'notes.txt').write_text('skip')
             Path(raw, 'manifest.json').write_text(json.dumps([
                 {'exportedFileName': 'one.png', 'suggestedHumanReadableName': 'Screen'},
-                {'exportedFileName': 'two.png', 'suggestedHumanReadableName': 'Screen'}]))
-            self.assertEqual(subject.collect(Path(raw), Path(out)), ['Screen.png', 'Screen-2.png'])
+                {'exportedFileName': 'two.png', 'suggestedHumanReadableName': 'Screen'},
+                {'exportedFileName': 'three.png', 'suggestedHumanReadableName': 'Screen'}]))
+            self.assertEqual(
+                sorted(subject.collect(Path(raw), Path(out))), ['Screen-2.png', 'Screen-3.png', 'Screen.png'])
 
     def test_works_without_manifest(self):
         with tempfile.TemporaryDirectory() as raw, tempfile.TemporaryDirectory() as out:

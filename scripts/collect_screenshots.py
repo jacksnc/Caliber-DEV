@@ -51,10 +51,10 @@ def collect(source, destination):
     for path in sorted(source.rglob('*')):
         if path.suffix.lower() not in IMAGE_SUFFIXES:
             continue
-        target = destination / clean(names.get(path.name, path.name), path.suffix.lower())
-        counter = 2
+        base = destination / clean(names.get(path.name, path.name), path.suffix.lower())
+        target, counter = base, 2
         while target.exists():
-            target = target.with_name(f'{target.stem}-{counter}{target.suffix}')
+            target = base.with_name(f'{base.stem}-{counter}{base.suffix}')
             counter += 1
         shutil.copyfile(path, target)
         copied.append(target.name)

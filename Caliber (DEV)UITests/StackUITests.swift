@@ -21,8 +21,7 @@ final class StackUITests: XCTestCase {
     scope.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
     app.buttons["stackTurnOn"].tap()
     XCTAssertTrue(app.switches["stackLockToggle"].waitForExistence(timeout: 5))
-    app.navigationBars.buttons.element(boundBy: 0).tap()
-    app.closeProfile()
+    app.leaveProfile()
 
     let stack = app.tab("Stack")
     XCTAssertTrue(stack.waitForExistence(timeout: 5))

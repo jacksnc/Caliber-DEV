@@ -72,7 +72,11 @@ final class FoundationUITests: XCTestCase {
     let format = app.buttons["settingsNumberFormat"]
     reveal(format, in: app)
     format.tap()
-    app.buttons["German (Germany)"].tap()
+    // The menu does not open if the tap lands while Settings is still sliding in.
+    let german = app.buttons["German (Germany)"]
+    for _ in 0..<3 where !german.waitForExistence(timeout: 2) { format.tap() }
+    german.tap()
+    app.leaveProfile()
     app.tab("Progress").tap()
     app.buttons["addProgressEntry"].tap()
     let weight = app.textFields["progressWeight"]
@@ -118,6 +122,15 @@ final class FoundationUITests: XCTestCase {
     XCTAssertEqual(app.staticTexts["accountMessage"].label, "Signed out on this device.")
   }
 
+  /// Every issue is printed with its element, so CI logs say what failed; none is suppressed.
+  @MainActor private func audit(_ app: XCUIApplication) throws {
+    try app.performAccessibilityAudit(for: [.dynamicType, .textClipped, .hitRegion]) { issue in
+      print("ACCESSIBILITY: \(issue.compactDescription): \(issue.detailedDescription)")
+      if let element = issue.element { print(element.debugDescription) }
+      return false
+    }
+  }
+
   @MainActor func testDemoAtLargestTextSizeHasUsableChartRoutes() throws {
     let app = launch()
     app.terminate()
@@ -133,14 +146,14 @@ final class FoundationUITests: XCTestCase {
     XCTAssertTrue(app.buttons["exitDemo"].waitForExistence(timeout: 30))
     reveal(table, in: app)
     XCTAssertGreaterThanOrEqual(table.frame.height, 48)
-    try app.performAccessibilityAudit(for: [.dynamicType, .textClipped, .hitRegion])
+    try audit(app)
     let picture = XCTAttachment(screenshot: app.screenshot())
     picture.name = "Foundation demo AX5"
     picture.lifetime = .keepAlways
     add(picture)
     table.tap()
     XCTAssertTrue(app.navigationBars["Body weight"].waitForExistence(timeout: 5))
-    try app.performAccessibilityAudit(for: [.dynamicType, .textClipped, .hitRegion])
+    try audit(app)
     let tablePicture = XCTAttachment(screenshot: app.screenshot())
     tablePicture.name = "Foundation data table AX5"
     tablePicture.lifetime = .keepAlways
@@ -157,7 +170,7 @@ final class FoundationUITests: XCTestCase {
     XCTAssertGreaterThanOrEqual(info.frame.height, 48)
     info.tap()
     XCTAssertTrue(app.navigationBars["Method"].waitForExistence(timeout: 5))
-    try app.performAccessibilityAudit(for: [.dynamicType, .textClipped, .hitRegion])
+    try audit(app)
     let methodPicture = XCTAttachment(screenshot: app.screenshot())
     methodPicture.name = "Foundation calculation method AX5"
     methodPicture.lifetime = .keepAlways
@@ -243,7 +256,7 @@ final class FoundationUITests: XCTestCase {
     picture.name = "Hosted deletion fixture"
     picture.lifetime = .keepAlways
     add(picture)
-    app.navigationBars.buttons.element(boundBy: 0).tap()
+    app.leaveProfile()
     app.tab("Progress").tap()
     XCTAssertTrue(app.staticTexts["Kept after hosted deletion"].waitForExistence(timeout: 5))
   }

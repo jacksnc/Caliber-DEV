@@ -32,6 +32,16 @@ extension XCUIApplication {
       navigationBars["Profile"].waitForNonExistence(timeout: 5), file: file, line: line)
   }
 
+  /// Backs out of anything pushed inside the Profile sheet, then closes it.
+  @MainActor
+  func leaveProfile(file: StaticString = #filePath, line: UInt = #line) {
+    let close = buttons["closeProfile"]
+    for _ in 0..<4 where !close.isHittable {
+      navigationBars.buttons.element(boundBy: 0).tap()
+    }
+    closeProfile(file: file, line: line)
+  }
+
   /// Settings is the first row of Profile.
   @MainActor
   func openSettings(file: StaticString = #filePath, line: UInt = #line) {
@@ -55,7 +65,7 @@ extension XCUIElement {
   func focusAtEnd(file: StaticString = #filePath, line: UInt = #line) {
     for _ in 0..<5 {
       coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)).tap()
-      if (value(forKey: "hasKeyboardFocus") as? Bool) == true { return }
+      if XCUIApplication().keyboards.firstMatch.waitForExistence(timeout: 1) { return }
       Thread.sleep(forTimeInterval: 0.5)
     }
     XCTFail("The text field never received keyboard focus", file: file, line: line)

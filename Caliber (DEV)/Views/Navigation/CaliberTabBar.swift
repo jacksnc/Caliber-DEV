@@ -89,10 +89,11 @@ private struct CaliberTabButton: View {
           .scaledToFit()
           .fontWeight(isSelected ? .semibold : .regular)
           .frame(width: 22, height: 22)
-        // Five labels cannot grow inside one bar. At accessibility sizes the bar shows
-        // icons only and long-press shows the large content viewer, as the system bar does.
-        if !typeSize.isAccessibilitySize {
-          Text(tab.title).font(.caption2.weight(.medium))
+        // Five labels cannot grow inside one bar. Above the xLarge text size the bar
+        // shows icons only and long-press shows the large content viewer, as the system
+        // bar does. The visible label is decoration: the button carries the name.
+        if typeSize <= .xLarge {
+          Text(tab.title).font(.caption2.weight(.medium)).accessibilityHidden(true)
         }
       }
       .frame(maxWidth: .infinity, minHeight: 56)
