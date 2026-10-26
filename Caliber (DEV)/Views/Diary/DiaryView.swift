@@ -133,8 +133,16 @@ struct DiaryView: View {
         }
       }
     } header: {
-      HStack {
-        Text(meal.displayName)
+      HStack(alignment: .firstTextBaseline) {
+        VStack(alignment: .leading, spacing: 0) {
+          Text(meal.displayName).heliosFont(.section).textCase(nil)
+          if !entries.isEmpty {
+            Text(
+              "\(NutritionInput.format(MacroCalculator.totals(for: entries).calories, locale: locale)) cal"
+            )
+            .heliosFont(.caption).textCase(nil)
+          }
+        }
         Spacer()
         Button {
           copyRequest = DiaryCopyRequest(date: selectedDate, meal: meal)
@@ -178,8 +186,20 @@ private struct MacroTotalsSummaryView: View {
 
   var body: some View {
     VStack(alignment: .leading, spacing: 12) {
-      Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
-        .heliosFont(.metricValue).accessibilityIdentifier("diaryCalories")
+      HStack(spacing: HeliosTokens.space(3)) {
+        // Rings show each macro's share of the day's calories, as on Today and Progress.
+        MacroRings(
+          rings: [
+            (progress: share(totals.protein * 4), color: theme.palette.data.protein.color),
+            (progress: share(totals.carbs * 4), color: theme.palette.data.carbs.color),
+            (progress: share(totals.fat * 9), color: theme.palette.data.fat.color),
+          ], lineWidth: 6, gap: 2
+        ) { EmptyView() }
+        .frame(width: 52, height: 52)
+        .accessibilityHidden(true)
+        Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
+          .heliosFont(.metricValue).accessibilityIdentifier("diaryCalories")
+      }
       LazyVGrid(
         columns: Array(
           repeating: GridItem(.flexible(), alignment: .top),
@@ -190,6 +210,11 @@ private struct MacroTotalsSummaryView: View {
         macro("Fat", value: totals.fat, color: theme.palette.data.fat.color)
       }
     }.padding(.vertical, 8)
+  }
+
+  private func share(_ calories: Double) -> Double {
+    let total = totals.protein * 4 + totals.carbs * 4 + totals.fat * 9
+    return total > 0 ? calories / total : 0
   }
 
   private func macro(_ title: LocalizedStringKey, value: Double, color: Color) -> some View {
