@@ -59,7 +59,8 @@ final class ThemeIntegrationUITests: XCTestCase {
     try audit(app, largeText: largeText)
 
     app.tab("Today").tap()
-    app.buttons["quickLogFood"].tap()
+    app.buttons["quickLog"].tap()
+    app.buttons["quickLog-food"].tap()
     let barcode = app.buttons["openBarcode"]
     XCTAssertTrue(barcode.waitForExistence(timeout: 10))
     for _ in 0..<5 where !barcode.isHittable { app.swipeUp() }

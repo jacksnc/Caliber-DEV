@@ -122,3 +122,15 @@ extension View {
     }
   }
 }
+
+private struct SelectCaliberTabKey: EnvironmentKey {
+  static let defaultValue: @MainActor (CaliberTab) -> Void = { _ in }
+}
+
+extension EnvironmentValues {
+  /// Lets a card on one tab send the person to another, e.g. Today's "Start workout".
+  var selectCaliberTab: @MainActor (CaliberTab) -> Void {
+    get { self[SelectCaliberTabKey.self] }
+    set { self[SelectCaliberTabKey.self] = newValue }
+  }
+}

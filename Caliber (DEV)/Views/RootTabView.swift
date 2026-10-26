@@ -55,6 +55,7 @@ struct RootTabView: View {
               .tag(tab)
           }
         }
+        .environment(\.selectCaliberTab) { selection = $0 }
         .overlay(alignment: .bottom) {
           CaliberTabBar(tabs: tabs, selection: $selection) { showsQuickLog = true }
             .ignoresSafeArea(.keyboard)
