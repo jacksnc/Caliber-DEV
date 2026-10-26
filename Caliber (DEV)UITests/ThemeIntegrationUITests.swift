@@ -116,6 +116,25 @@ final class ThemeIntegrationUITests: XCTestCase {
     }
   }
 
+  /// Not a pass/fail check: prints how many clipped-text issues Today reports with and
+  /// without the tab labels, to locate the issues the audit reports without an element.
+  @MainActor func testClippedTextDiagnostic() {
+    for iconsOnly in [false, true] {
+      let app = XCUIApplication()
+      app.launchArguments =
+        ["--progress-ui-testing", "--theme-graphite"] + (iconsOnly ? ["--tab-bar-icons-only"] : [])
+      app.launch()
+      XCTAssertTrue(app.tab("Today").waitForExistence(timeout: 20))
+      var count = 0
+      try? app.performAccessibilityAudit(for: [.textClipped]) { _ in
+        count += 1
+        return true
+      }
+      print("DIAGNOSTIC clipped iconsOnly=\(iconsOnly) count=\(count)")
+      app.terminate()
+    }
+  }
+
   @MainActor func testGraphiteScreens() throws { try inspect(theme: "graphite") }
   @MainActor func testFrostScreens() throws { try inspect(theme: "frost") }
   @MainActor func testLargestTextScreens() throws {

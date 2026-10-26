@@ -88,8 +88,7 @@ final class FoundationUITests: XCTestCase {
     app.buttons["addProgressEntry"].tap()
     XCTAssertTrue(weight.waitForExistence(timeout: 5))
     XCTAssertEqual(weight.value as? String, "180,5")
-    weight.focusAtEnd()
-    weight.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 5) + "175,25")
+    weight.replaceText("175,25")
     app.buttons["Cancel"].tap()
     app.buttons["addProgressEntry"].tap()
     XCTAssertTrue(weight.waitForExistence(timeout: 5))
@@ -98,10 +97,9 @@ final class FoundationUITests: XCTestCase {
 
   @MainActor func testAccountSignInAndDeviceSignOutUseOnlyFixture() {
     let app = launch(additionalArguments: ["--account-ui-testing"])
-    app.openSettings()
-    let open = app.buttons["openAccount"]
-    reveal(open, in: app)
-    app.tap(open, until: app.switches["accountConsent"])
+    // Account opens from Profile's own row, near the top, so no scrolling is needed.
+    app.openProfile()
+    app.tap(app.buttons["profileAccount"], until: app.switches["accountConsent"])
     XCTAssertFalse(app.buttons["accountConsentContinue"].isEnabled)
     app.switches["accountConsent"].coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5))
       .tap()
@@ -179,11 +177,9 @@ final class FoundationUITests: XCTestCase {
   }
 
   @MainActor private func openFixtureAccount(in app: XCUIApplication) {
-    app.openSettings()
-    let open = app.buttons["openAccount"]
-    reveal(open, in: app)
+    app.openProfile()
     let consent = app.switches["accountConsent"]
-    app.tap(open, until: consent)
+    app.tap(app.buttons["profileAccount"], until: consent)
     consent.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
     app.buttons["accountConsentContinue"].tap()
     XCTAssertTrue(app.textFields["accountEmail"].waitForExistence(timeout: 5))

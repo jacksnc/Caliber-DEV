@@ -45,13 +45,16 @@ final class ProgressUITests: XCTestCase {
         app.buttons["Cancel"].tap()
 
         let row = app.cells.containing(.staticText, identifier: "Progress integration check").firstMatch
-        row.swipeLeft()
-        app.buttons["Edit"].tap()
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        // The swipe does nothing while the check-in sheet is still closing.
+        let edit = app.buttons["Edit"]
+        for _ in 0..<3 where !edit.exists {
+            row.swipeLeft()
+            _ = edit.waitForExistence(timeout: 2)
+        }
+        edit.tap()
         XCTAssertTrue(weight.waitForExistence(timeout: 5))
-        let oldText = weight.value as? String ?? ""
-        // Place the caret at the end before replacing the whole value.
-        weight.focusAtEnd()
-        weight.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: oldText.count) + "179.25")
+        weight.replaceText("179.25")
         save.tap()
         XCTAssertTrue(app.staticTexts["latestProgressWeight"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.staticTexts["latestProgressWeight"].label.contains("179.25"))

@@ -72,16 +72,23 @@ extension XCUIApplication {
 }
 
 extension XCUIElement {
-  /// Taps near the trailing edge, so the caret lands after any existing text, and retries
-  /// until the field has keyboard focus. A field in a sheet exists before the sheet stops
-  /// moving, and a tap during that animation leaves nothing focused for `typeText`.
+  /// Replaces a text field's whole value. Placing the caret by coordinate proved unreliable
+  /// on CI, so this focuses the field, selects everything from the edit menu and types over it.
   @MainActor
-  func focusAtEnd(file: StaticString = #filePath, line: UInt = #line) {
-    // CI simulators may have a hardware keyboard attached, so the software keyboard is
-    // not a reliable signal. Let the sheet settle, then tap once.
+  func replaceText(_ text: String, file: StaticString = #filePath, line: UInt = #line) {
     XCTAssertTrue(waitForExistence(timeout: 5), file: file, line: line)
+    // A field in a sheet exists before the sheet stops moving.
     Thread.sleep(forTimeInterval: 1)
-    coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)).tap()
-    Thread.sleep(forTimeInterval: 0.5)
+    tap()
+    press(forDuration: 1.2)
+    let selectAll = XCUIApplication().menuItems["Select All"]
+    if selectAll.waitForExistence(timeout: 3) {
+      selectAll.tap()
+    } else {
+      // No menu: the caret is in the field, so delete generously before typing.
+      let length = (value as? String)?.count ?? 0
+      typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: length + 2))
+    }
+    typeText(text)
   }
 }

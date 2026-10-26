@@ -74,6 +74,15 @@ struct CaliberTabBar: View {
 }
 
 private struct CaliberTabButton: View {
+  /// Diagnostic for the accessibility audit (ThemeIntegrationUITests): draw icons only.
+  static let iconsOnly: Bool = {
+    #if DEBUG
+      ProcessInfo.processInfo.arguments.contains("--tab-bar-icons-only")
+    #else
+      false
+    #endif
+  }()
+
   let tab: CaliberTab
   let isSelected: Bool
   let action: () -> Void
@@ -92,7 +101,7 @@ private struct CaliberTabButton: View {
         // Five labels cannot grow inside one bar. Above the xLarge text size the bar
         // shows icons only and long-press shows the large content viewer, as the system
         // bar does. The visible label is decoration: the button carries the name.
-        if typeSize <= .xLarge {
+        if typeSize <= .xLarge && !Self.iconsOnly {
           Text(tab.title).font(.caption2.weight(.medium)).accessibilityHidden(true)
         }
       }

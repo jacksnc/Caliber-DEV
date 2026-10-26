@@ -47,6 +47,7 @@ struct ProfileView: View {
                 ? "person.crop.circle.badge.checkmark" : "person.crop.circle")
             NavigationLink("Account & Sync") { HostedAccountView() }
               .frame(minHeight: 48)
+              .accessibilityIdentifier("profileAccount")
             Text(
               account.isSignedIn
                 ? "Your account is connected. Health, food, workout, and photo data still stay on this device."
