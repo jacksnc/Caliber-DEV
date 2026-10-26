@@ -30,6 +30,14 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
   lint were run on it; GitHub's macOS job is the first real compile.
   Check the latest GitHub Actions result before merging; local simulator passes
   do not prove CI has passed.
+- Claude imported the seven engine packages from its branch at the owner's
+  request (D109): `HeliosTime`, `TrainingCore`, `NutritionCore`, `StackCore`,
+  `InsightsCore`, `FoodCore`, `RestaurantCore`. Nothing links them yet. 402 tests
+  pass locally on Swift 6.1.3 (Linux), and a new Foundation CI step runs them.
+  Before wiring one into a screen, reconcile it with `HOW_WE_CALCULATE.md`
+  (for example `TrainingCore` e1RM vs the planned rules, `NutritionCore` vs
+  Profile's Mifflin–St Jeor estimate), and keep `RestaurantCore.DishEstimator`
+  unused: AGENTS.md forbids estimating restaurant nutrition.
 - Steps 1 and 2 from the owner's requested sequence are complete. Evidence is in
   `docs/PACKAGED_FOOD_VERIFICATION.md` and
   `docs/RESTAURANT_IMPORT_VERIFICATION.md`.

@@ -35,3 +35,7 @@ Schema and registry files are complete Phase-0 artifacts. Future implementation 
 ## Current design integration
 
 `Packages/HeliosDesign` is the imported design implementation from the owner's Claude branch. The app links it directly; `CaliberDesignSystem` adapts its semantic colors for existing `CaliberCharts` callers. Dependency direction is App/CaliberDesignSystem → HeliosDesign → SwiftUI/Foundation; it has no health-data or network dependency. `design/tokens.json` generates the Swift tokens and the look-book CSS.
+
+## Imported engine packages
+
+`Packages/HeliosTime`, `TrainingCore`, `NutritionCore`, `StackCore`, `InsightsCore`, `FoodCore` and `RestaurantCore` are pure Swift engines imported from the owner's Claude branch (D109). Each depends only on Foundation and, where needed, `HeliosTime` (`RestaurantCore` also uses `FoodCore`). They match the `CaliberCore` rule (Core → Foundation only) but remain separate packages until each is reviewed against `HOW_WE_CALCULATE.md`, then linked by the feature that needs it. CI runs their tests in the Foundation workflow; the app does not link them yet.

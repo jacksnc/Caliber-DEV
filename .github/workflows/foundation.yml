@@ -28,6 +28,13 @@ jobs:
           swift test --package-path Packages/HeliosDesign
       - name: Package tests
         run: swift test --package-path Packages/CaliberFoundation --scratch-path "$RUNNER_TEMP/CaliberSwift"
+      - name: Engine package tests
+        run: |
+          for package in HeliosTime TrainingCore NutritionCore StackCore InsightsCore FoodCore RestaurantCore; do
+            echo "::group::$package"
+            swift test --package-path "Packages/$package" --scratch-path "$RUNNER_TEMP/Engines/$package"
+            echo "::endgroup::"
+          done
       - name: App and isolated UI tests
         run: python3 scripts/test_ios.py --output "$RUNNER_TEMP/CaliberIOS"
       - uses: actions/upload-artifact@v4
