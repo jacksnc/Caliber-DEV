@@ -18,6 +18,9 @@ struct BarcodeScannerView: View {
   @FocusState private var isEditingManualCode: Bool
 
   let onScanned: (String) -> Void
+  /// Look book: the camera's mode switcher. Picking another mode closes this camera and the
+  /// caller opens that tool. Nil hides the switcher.
+  var onSwitchMode: ((FoodCaptureMode) -> Void)?
 
   var body: some View {
     NavigationStack {
@@ -201,11 +204,46 @@ struct BarcodeScannerView: View {
       .accessibilityLabel("Cancel")
       .accessibilityIdentifier("barcodeCancel")
       Spacer()
-      Text("Scan barcode").heliosFont(.section)
-        .accessibilityAddTraits(.isHeader)
+      if let onSwitchMode {
+        modePicker(onSwitchMode)
+      } else {
+        Text("Scan barcode").heliosFont(.section)
+          .accessibilityAddTraits(.isHeader)
+      }
       Spacer()
       Color.clear.frame(width: 48, height: 48).accessibilityHidden(true)
     }
+  }
+
+  private func modePicker(_ onSwitchMode: @escaping (FoodCaptureMode) -> Void) -> some View {
+    HStack(spacing: 2) {
+      ForEach(FoodCaptureMode.allCases) { mode in
+        Button {
+          guard mode != .barcode else { return }
+          didFinish = true
+          capture.stop()
+          onSwitchMode(mode)
+          dismiss()
+        } label: {
+          Text(mode.title)
+            .heliosFont(.footnote)
+            .padding(.horizontal, HeliosTokens.space(2))
+            .frame(minHeight: 36)
+            .foregroundStyle(
+              mode == .barcode ? theme.palette.accent.base.color : theme.palette.text.primary.color
+            )
+            .background {
+              if mode == .barcode { Capsule().fill(theme.palette.accent.subtle.color) }
+            }
+            .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(mode == .barcode ? [.isSelected] : [])
+        .accessibilityIdentifier("captureMode-\(mode.rawValue)")
+      }
+    }
+    .padding(4)
+    .background { GlassBackground(level: .raised, cornerRadius: 24) }
   }
 
   /// The look book's camera frame when there is no live preview.
@@ -305,6 +343,20 @@ private struct ViewfinderBrackets: View {
         }
       }
       .stroke(.white, style: StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round))
+    }
+  }
+}
+
+/// The look book's capture modes on the camera screen.
+enum FoodCaptureMode: String, CaseIterable, Identifiable {
+  case barcode, label, photo, search
+  var id: String { rawValue }
+  var title: LocalizedStringKey {
+    switch self {
+    case .barcode: "Barcode"
+    case .label: "Label"
+    case .photo: "Photo"
+    case .search: "Search"
     }
   }
 }

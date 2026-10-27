@@ -115,6 +115,25 @@ final class ThemeIntegrationUITests: XCTestCase {
     try audit(app, largeText: false)
   }
 
+  /// The camera's mode switcher opens the label scanner in place of the barcode camera.
+  @MainActor func testScannerModeSwitcherOpensLabelScan() throws {
+    let app = launch(theme: "graphite")
+    app.buttons["quickLog"].tap()
+    app.buttons["quickLog-food"].tap()
+    let barcode = app.buttons["openBarcode"]
+    XCTAssertTrue(barcode.waitForExistence(timeout: 10))
+    reveal(barcode, app: app)
+    barcode.tap()
+    let scan = app.buttons["barcodeOpenCamera"]
+    XCTAssertTrue(scan.waitForExistence(timeout: 10))
+    scan.tap()
+    let label = app.buttons["captureMode-label"]
+    XCTAssertTrue(label.waitForExistence(timeout: 10))
+    capture("graphite-ScannerModes", app: app)
+    label.tap()
+    XCTAssertTrue(app.buttons["labelChoosePhoto"].waitForExistence(timeout: 10))
+  }
+
   /// A typed list matched item by item against the offline libraries.
   @MainActor func testGraphiteSmartSearch() throws {
     let app = launch(theme: "graphite", showcase: true)

@@ -107,6 +107,8 @@ private struct BarcodeLookupContent: View {
   @State private var showsScanner = false
   @State private var showsManualFood = false
   @State private var showsReview = false
+  @State private var switchedMode: FoodCaptureMode?
+  @Environment(\.dismiss) private var dismiss
   @State private var lookupTask: Task<Void, Never>?
   @FocusState private var codeHasFocus: Bool
 
@@ -210,10 +212,24 @@ private struct BarcodeLookupContent: View {
       }
     }
     .fullScreenCover(isPresented: $showsScanner) {
-      BarcodeScannerView { value in code = value }
+      BarcodeScannerView(onScanned: { value in code = value }) { mode in
+        if mode == .search {
+          // Back to food search, which this screen was opened from.
+          Task { @MainActor in dismiss() }
+        } else {
+          switchedMode = mode
+        }
+      }
     }
     .sheet(isPresented: $showsManualFood) {
       AddFoodView(mealType: mealType, date: date)
+    }
+    .navigationDestination(item: $switchedMode) { mode in
+      switch mode {
+      case .label: LabelScannerView(mealType: mealType, date: date)
+      case .photo: PhotoEstimateView(mealType: mealType, date: date)
+      case .barcode, .search: EmptyView()
+      }
     }
     .navigationDestination(isPresented: $showsReview) {
       if let product = coordinator.product {
