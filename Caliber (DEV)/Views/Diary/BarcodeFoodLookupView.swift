@@ -106,6 +106,7 @@ private struct BarcodeLookupContent: View {
   @State private var code = ""
   @State private var showsScanner = false
   @State private var showsManualFood = false
+  @State private var showsReview = false
   @State private var lookupTask: Task<Void, Never>?
   @FocusState private var codeHasFocus: Bool
 
@@ -180,12 +181,14 @@ private struct BarcodeLookupContent: View {
         if let product = coordinator.product {
           Section("Product Found") {
             BarcodeProductCard(product: product)
-            NavigationLink {
-              FoodNutritionReviewView(reference: .barcode(product), meal: mealType, date: date)
+            // Look book: one primary action under the result card.
+            Button {
+              showsReview = true
             } label: {
-              Text("Review and Log").heliosFont(.bodyStrong)
-                .fixedSize(horizontal: false, vertical: true).frame(minHeight: 48)
-            }.accessibilityIdentifier("barcodeReview")
+              Text("Review and Log").frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.heliosPrimary)
+            .accessibilityIdentifier("barcodeReview")
           }
         }
         Section {
@@ -209,6 +212,11 @@ private struct BarcodeLookupContent: View {
     }
     .sheet(isPresented: $showsManualFood) {
       AddFoodView(mealType: mealType, date: date)
+    }
+    .navigationDestination(isPresented: $showsReview) {
+      if let product = coordinator.product {
+        FoodNutritionReviewView(reference: .barcode(product), meal: mealType, date: date)
+      }
     }
     .onChange(of: code) { _, _ in
       lookupTask?.cancel()
