@@ -12,13 +12,13 @@ struct RestaurantFitTests {
       category: .entree)
   }
 
-  @Test func windowCentresOnWhatIsLeftToday() throws {
+  @Test func windowIsAMealOutOfWhatIsLeftToday() throws {
     var eaten = MacroTotals()
     eaten.calories = 1462
     eaten.protein = 142
     let window = try #require(RestaurantFit.window(goal: 2350, proteinGoal: 180, eaten: eaten))
-    #expect(window.minCalories == 799)
-    #expect(window.maxCalories == 977)
+    #expect(window.minCalories == 400)
+    #expect(window.maxCalories == 888)
     #expect(window.minProtein == 15)
   }
 

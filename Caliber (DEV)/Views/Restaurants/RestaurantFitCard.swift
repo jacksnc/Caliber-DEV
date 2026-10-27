@@ -20,29 +20,29 @@ enum RestaurantFit {
     var id: PersistentIdentifier { item.persistentModelID }
   }
 
-  /// A meal window around the calories left today (±10%), asking for 40% of the protein
-  /// left, rounded down to 5 g. Nil when no calorie goal is set or nothing is left.
+  /// A meal-sized window: from 45% of the calories left today, rounded to 5 kcal, up to all
+  /// of them, asking for 40% of the protein left, rounded down to 5 g. Nil when no calorie
+  /// goal is set or nothing is left.
   static func window(goal: Double?, proteinGoal: Double?, eaten: MacroTotals) -> Window? {
     guard let goal, goal > 0 else { return nil }
     let left = goal - eaten.calories
     guard left >= 150 else { return nil }
     let proteinLeft = max(0, (proteinGoal ?? 0) - eaten.protein)
     return Window(
-      minCalories: (left * 0.9).rounded(), maxCalories: (left * 1.1).rounded(),
+      minCalories: (left * 0.45 / 5).rounded() * 5, maxCalories: left.rounded(),
       minProtein: (proteinLeft * 0.4 / 5).rounded(.down) * 5)
   }
 
-  /// Items inside the window are "fits"; within a further 10% of calories, or 80% of the
-  /// protein, are "close". Closest to the window's centre first, at most `limit`.
+  /// Items inside the window are "fits"; from 80% of its floor to 10% over its ceiling, with
+  /// 80% of the protein, are "close". Closest to the window's centre first, at most `limit`.
   static func matches(in items: [MenuItem], window: Window, limit: Int = 3) -> [Match] {
     let centre = (window.minCalories + window.maxCalories) / 2
-    let slack = (window.maxCalories - window.minCalories) / 2
     return items.compactMap { item -> Match? in
       let kcal = item.baseCalories
       guard kcal.isFinite, kcal > 0 else { return nil }
       let calorieOK = kcal >= window.minCalories && kcal <= window.maxCalories
       let proteinOK = item.baseProtein >= window.minProtein
-      let nearCalories = abs(kcal - centre) <= slack * 2
+      let nearCalories = kcal >= window.minCalories * 0.8 && kcal <= window.maxCalories * 1.1
       let nearProtein = item.baseProtein >= window.minProtein * 0.8
       let verdict: Verdict
       if calorieOK && proteinOK {
