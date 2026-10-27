@@ -269,7 +269,45 @@ private struct TrainingSetRow: View {
   }
 
   var body: some View {
-    if set.completedAt != nil {
+    if set.completedAt != nil && !typeSize.isAccessibilitySize {
+      // Look book: a finished set stays in the grid with a filled tick; tapping the tick
+      // reopens it.
+      HStack(spacing: 8) {
+        setNumber
+        Text(previous ?? "–")
+          .heliosFont(.footnote)
+          .foregroundStyle(theme.palette.text.secondary.color)
+          .frame(width: 64, alignment: .leading)
+          .accessibilityLabel(previous.map { "Previous \($0)" } ?? "No previous set")
+        value(
+          "\(set.enteredWeight.formatted(.number)) \(set.enteredWeightUnitRawValue)",
+          shown: set.enteredWeight.formatted(.number), width: 76)
+        value("\(set.repetitions) reps", shown: String(set.repetitions), width: 58)
+        Spacer(minLength: 0)
+        Button(action: reopen) {
+          Image(systemName: "checkmark")
+            .fontWeight(.semibold)
+            .foregroundStyle(theme.palette.text.onAccent.color)
+            .frame(minWidth: 48, minHeight: 48)
+            .background(
+              RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(theme.palette.accent.base.color)
+            )
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Set \(set.position + 1) completed")
+        .accessibilityHint("Reopens the set")
+      }
+      .alert(
+        "Set",
+        isPresented: Binding(get: { message != nil }, set: { if !$0 { message = nil } })
+      ) {
+        Button("OK", role: .cancel) { message = nil }
+      } message: {
+        Text(message ?? "Please try again.")
+      }
+    } else if set.completedAt != nil {
       (typeSize.isAccessibilitySize
         ? AnyLayout(VStackLayout(alignment: .leading, spacing: 12))
         : AnyLayout(HStackLayout(spacing: 12))) {
@@ -294,12 +332,8 @@ private struct TrainingSetRow: View {
                 .fill(theme.palette.accent.base.color)
             )
             .accessibilityLabel("Completed")
-          Button("Undo") {
-            do { try TrainingWorkoutLogger.undo(set, in: modelContext) } catch {
-              message = "The completed set could not be reopened."
-            }
-          }
-          .frame(minHeight: 48)
+          Button("Undo", action: reopen)
+            .frame(minHeight: 48)
         }
         .alert(
           "Set",
@@ -368,6 +402,23 @@ private struct TrainingSetRow: View {
       .foregroundStyle(theme.palette.text.secondary.color)
       .frame(minWidth: 24, alignment: .leading)
       .accessibilityLabel("Set \(set.position + 1)")
+  }
+
+  private func reopen() {
+    do { try TrainingWorkoutLogger.undo(set, in: modelContext) } catch {
+      message = "The completed set could not be reopened."
+    }
+  }
+
+  /// A logged value in the grid, drawn like the entry field it replaced.
+  private func value(_ label: String, shown: String, width: CGFloat) -> some View {
+    Text(shown)
+      .heliosFont(.metricValue)
+      .fixedSize(horizontal: false, vertical: true)
+      .frame(width: width)
+      .frame(minHeight: 48)
+      .background { GlassBackground(level: .raised, cornerRadius: 12) }
+      .accessibilityLabel(label)
   }
 
   private var rpeSummary: String {
