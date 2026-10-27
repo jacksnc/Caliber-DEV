@@ -56,6 +56,11 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
   each run's simulator screenshots to the `ci-screenshots` branch so the cloud agent
   can see them. Avoid editing Navigation, RootTabView, Profile, Today, Diary, Train,
   Progress, Restaurants and the UI-test navigation helper until this lands.
+- CI (D112): the macOS 15 / Xcode 16.4 job builds the app and runs unit tests; a
+  new macOS 26 job runs the UI tests and accessibility audits on the newest Xcode 26
+  and publishes screenshots to `ci-screenshots`. Before that move, runs 13-17 on
+  iOS 18.5 still reported unlocated clipped text on every screen; a probe showed the
+  tab labels were not the cause.
 - Claude imported the seven engine packages from its branch at the owner's
   request (D109): `HeliosTime`, `TrainingCore`, `NutritionCore`, `StackCore`,
   `InsightsCore`, `FoodCore`, `RestaurantCore`. Nothing links them yet. 402 tests

@@ -9,14 +9,12 @@ jobs:
   ios:
     runs-on: macos-15
     timeout-minutes: 45
-    permissions:
-      contents: write # only to push screenshots to the ci-screenshots branch
     env:
       DEVELOPER_DIR: /Applications/Xcode_16.4.app/Contents/Developer
     steps:
       - uses: actions/checkout@v4
       - name: Toolchain
-        run: xcodebuild -version && swift --version && ls -d /Applications/Xcode*
+        run: xcodebuild -version && swift --version
       - name: Contracts and migration fixtures
         run: python3 scripts/verify_phase1.py
       - name: Foundation Swift style
@@ -37,6 +35,24 @@ jobs:
             swift test --package-path "Packages/$package" --scratch-path "$RUNNER_TEMP/Engines/$package"
             echo "::endgroup::"
           done
+      # Proves the app still builds against the iOS 18 SDK (deployment target stays 17).
+      - name: App build and unit tests on Xcode 16.4
+        run: python3 scripts/test_ios.py --unit-only --output "$RUNNER_TEMP/CaliberIOS"
+  # UI tests and accessibility audits run on the newest Xcode on macOS 26, close to the
+  # Xcode the owner develops with. The iOS 18.5 audit flagged text that passes there (D112).
+  ui:
+    runs-on: macos-26
+    timeout-minutes: 45
+    permissions:
+      contents: write # only to push screenshots to the ci-screenshots branch
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: |
+          ls -d /Applications/Xcode*.app
+          xcode="$(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)"
+          echo "DEVELOPER_DIR=$xcode/Contents/Developer" >> "$GITHUB_ENV"
+          DEVELOPER_DIR="$xcode/Contents/Developer" xcodebuild -version
       - name: App and isolated UI tests
         run: python3 scripts/test_ios.py --output "$RUNNER_TEMP/CaliberIOS"
       - uses: actions/upload-artifact@v4

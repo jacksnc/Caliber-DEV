@@ -82,6 +82,11 @@ private struct TodayFuelCard: View {
   @Environment(\.heliosTheme) private var theme
   @Environment(\.locale) private var locale
   @State private var showsLeft = true
+  /// The ring grows with text size so its centre label always has room.
+  @ScaledMetric(relativeTo: .title3) private var scaledRing = 168.0
+  @Environment(\.dynamicTypeSize) private var typeSize
+  /// Never wider than the card; at accessibility sizes the figure moves below the ring.
+  private var ringSize: Double { min(scaledRing, 240) }
 
   private struct Row: Identifiable {
     let id: String
@@ -124,11 +129,20 @@ private struct TodayFuelCard: View {
       }
       ViewThatFits(in: .horizontal) {
         HStack(spacing: HeliosTokens.space(4)) {
-          rings(rows).frame(width: 168, height: 168)
+          rings(rows).frame(width: ringSize, height: ringSize)
           legend(rows)
         }
         VStack(alignment: .leading, spacing: HeliosTokens.space(4)) {
-          rings(rows).frame(width: 168, height: 168).frame(maxWidth: .infinity)
+          rings(rows).frame(width: ringSize, height: ringSize).frame(maxWidth: .infinity)
+          if typeSize.isAccessibilitySize {
+            let energy = rows[0]
+            ringFigure(
+              showsLeft && energy.goal != nil
+                ? max(0, (energy.goal ?? 0) - energy.eaten) : energy.eaten, energy: energy
+            )
+            .frame(maxWidth: .infinity)
+            .accessibilityHidden(true)
+          }
           legend(rows)
         }
       }
@@ -169,12 +183,7 @@ private struct TodayFuelCard: View {
         (progress: row.goal.map { row.eaten / $0 } ?? 0, color: row.color)
       }, lineWidth: 9, gap: 3
     ) {
-      VStack(spacing: 0) {
-        Text(number(shown, digits: 0)).heliosFont(.metricValue)
-        Text(showsLeft && energy.goal != nil ? "\(energy.unit) left" : "\(energy.unit) eaten")
-          .heliosFont(.caption)
-          .foregroundStyle(theme.palette.text.secondary.color)
-      }
+      if !typeSize.isAccessibilitySize { ringFigure(shown, energy: energy) }
     }
     .accessibilityElement(children: .ignore)
     .accessibilityLabel(
@@ -182,6 +191,16 @@ private struct TodayFuelCard: View {
         showsLeft && energy.goal != nil
           ? "\(number(shown, digits: 0)) \(energy.unit) left today"
           : "\(number(shown, digits: 0)) \(energy.unit) eaten today"))
+  }
+
+  private func ringFigure(_ shown: Double, energy: Row) -> some View {
+    VStack(spacing: 0) {
+      Text(number(shown, digits: 0)).heliosFont(.metricValue)
+      Text(showsLeft && energy.goal != nil ? "\(energy.unit) left" : "\(energy.unit) eaten")
+        .heliosFont(.caption)
+        .foregroundStyle(theme.palette.text.secondary.color)
+    }
+    .multilineTextAlignment(.center)
   }
 
   private func legend(_ rows: [Row]) -> some View {
