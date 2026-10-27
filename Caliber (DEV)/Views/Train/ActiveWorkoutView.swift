@@ -154,6 +154,26 @@ struct ActiveWorkoutView: View {
     return []
   }
 
+  /// The heaviest finished working set of this exercise in earlier workouts, as logged
+  /// ("200 lb × 6"); more repetitions break a tie. A record, not an estimate.
+  private func bestSet(for workoutExercise: TrainingWorkoutExercise) -> String? {
+    guard let exerciseID = workoutExercise.exercise?.id else { return nil }
+    let sets =
+      allWorkouts
+      .filter { $0.completedAt != nil && $0.id != workout.id }
+      .flatMap(\.sortedExercises)
+      .filter { $0.exercise?.id == exerciseID }
+      .flatMap(\.sortedSets)
+      .filter { $0.completedAt != nil && !$0.isWarmup && $0.repetitions > 0 }
+    guard
+      let best = sets.max(by: {
+        ($0.weightKilograms, $0.repetitions) < ($1.weightKilograms, $1.repetitions)
+      })
+    else { return nil }
+    return
+      "\(best.enteredWeight.formatted(.number.precision(.fractionLength(0...1)))) \(best.enteredWeightUnitRawValue) × \(best.repetitions)"
+  }
+
   private func duration(since start: Date, now: Date) -> String {
     let seconds = max(0, Int(now.timeIntervalSince(start)))
     return String(format: "%02d:%02d:%02d", seconds / 3600, seconds / 60 % 60, seconds % 60)
@@ -209,6 +229,29 @@ struct ActiveWorkoutView: View {
   {
     Section {
       let previous = previousSets(for: workoutExercise)
+      // Look book: the exercise names its card, with a fact from history under it.
+      HStack(alignment: .top) {
+        VStack(alignment: .leading, spacing: 2) {
+          Text(workoutExercise.exercise?.name ?? "Deleted exercise")
+            .heliosFont(.section)
+            .accessibilityAddTraits(.isHeader)
+          if let best = bestSet(for: workoutExercise) {
+            Text("Best set \(best)")
+              .heliosFont(.footnote)
+              .foregroundStyle(theme.palette.text.secondary.color)
+          }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        Button(role: .destructive) {
+          delete(workoutExercise)
+        } label: {
+          Image(systemName: "trash")
+            .frame(minWidth: 48, minHeight: 48)
+        }
+        .buttonStyle(.plain)
+        .foregroundStyle(theme.palette.text.secondary.color)
+        .accessibilityLabel("Remove exercise")
+      }
       columnHeader
       ForEach(workoutExercise.sortedSets) { set in
         TrainingSetRow(
@@ -226,18 +269,6 @@ struct ActiveWorkoutView: View {
       } label: {
         Label("Add Set", systemImage: "plus")
           .frame(minHeight: 48)
-      }
-    } header: {
-      HStack {
-        Text(workoutExercise.exercise?.name ?? "Deleted exercise")
-        Spacer()
-        Button(role: .destructive) {
-          delete(workoutExercise)
-        } label: {
-          Image(systemName: "trash")
-            .frame(minWidth: 48, minHeight: 48)
-        }
-        .accessibilityLabel("Remove exercise")
       }
     }
   }
