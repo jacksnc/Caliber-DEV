@@ -161,6 +161,7 @@ struct BarcodeScannerView: View {
       cameraPlaceholder
       Label(message, systemImage: "camera.fill")
         .foregroundStyle(.secondary)
+        .fixedSize(horizontal: false, vertical: true)
         .accessibilityIdentifier("barcodeCameraUnavailable")
       Button {
         capture.retry()
@@ -180,34 +181,32 @@ struct BarcodeScannerView: View {
   }
 
   private var topBar: some View {
-    HStack {
-      Button(action: cancel) {
-        Image(systemName: "xmark")
-          .font(.body.weight(.semibold))
-          .foregroundStyle(theme.palette.text.primary.color)
-          .frame(width: 48, height: 48)
-          .background { GlassBackground(level: .raised, cornerRadius: 24) }
-          .contentShape(Circle())
-      }
-      .buttonStyle(.plain)
-      .accessibilityLabel("Cancel")
-      .accessibilityIdentifier("barcodeCancel")
-      // Large text scrolls the modes sideways instead of shrinking them.
-      ScrollView(.horizontal) {
-        if let onSwitchMode {
-          modePicker(onSwitchMode)
-        } else {
-          Text("Scan barcode").heliosFont(.section)
-            .accessibilityAddTraits(.isHeader)
-            .frame(minHeight: 48)
+    VStack(alignment: .leading, spacing: 12) {
+      HStack {
+        Button(action: cancel) {
+          Image(systemName: "xmark")
+            .font(.body.weight(.semibold))
+            .foregroundStyle(theme.palette.text.primary.color)
+            .frame(width: 48, height: 48)
+            .background { GlassBackground(level: .raised, cornerRadius: 24) }
+            .contentShape(Circle())
         }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Cancel")
+        .accessibilityIdentifier("barcodeCancel")
+        Text("Scan barcode").heliosFont(.section)
+          .accessibilityAddTraits(.isHeader)
+          .fixedSize(horizontal: false, vertical: true)
+          .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
       }
-      .scrollIndicators(.hidden)
+      if let onSwitchMode { modePicker(onSwitchMode) }
     }
   }
 
+  /// Four equal segments across the width. Large text wraps inside each segment, so every
+  /// mode stays on screen and nothing is clipped or scrolled away.
   private func modePicker(_ onSwitchMode: @escaping (FoodCaptureMode) -> Void) -> some View {
-    HStack(spacing: 2) {
+    HStack(alignment: .top, spacing: 2) {
       ForEach(FoodCaptureMode.allCases) { mode in
         Button {
           guard mode != .barcode else { return }
@@ -218,15 +217,21 @@ struct BarcodeScannerView: View {
         } label: {
           Text(mode.title)
             .heliosFont(.footnote)
-            .padding(.horizontal, HeliosTokens.space(2))
-            .frame(minHeight: 36)
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
+            .padding(.horizontal, 4)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, minHeight: 44)
             .foregroundStyle(
               mode == .barcode ? theme.palette.accent.base.color : theme.palette.text.primary.color
             )
             .background {
-              if mode == .barcode { Capsule().fill(theme.palette.accent.subtle.color) }
+              if mode == .barcode {
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                  .fill(theme.palette.accent.subtle.color)
+              }
             }
-            .contentShape(Capsule())
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
         .accessibilityAddTraits(mode == .barcode ? [.isSelected] : [])
