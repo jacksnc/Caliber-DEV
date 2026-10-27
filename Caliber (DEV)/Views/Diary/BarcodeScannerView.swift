@@ -3,8 +3,8 @@ import HeliosDesign
 import SwiftUI
 import UIKit
 
-/// Present this view as a sheet. It returns one validated barcode for the
-/// caller's food lookup; neither camera frames nor photos leave this screen.
+/// Present this view full screen, as the look book draws it. It returns one validated
+/// barcode for the caller's food lookup; neither camera frames nor photos leave this screen.
 struct BarcodeScannerView: View {
   @Environment(\.heliosTheme) private var theme
   @Environment(\.dismiss) private var dismiss

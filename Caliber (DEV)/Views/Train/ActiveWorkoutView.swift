@@ -413,7 +413,7 @@ private struct TrainingSetRow: View {
   /// A logged value in the grid, drawn like the entry field it replaced.
   private func value(_ label: String, shown: String, width: CGFloat) -> some View {
     Text(shown)
-      .heliosFont(.metricValue)
+      .heliosFont(.bodyStrong)
       .fixedSize(horizontal: false, vertical: true)
       .frame(width: width)
       .frame(minHeight: 48)
@@ -431,7 +431,7 @@ private struct TrainingSetRow: View {
     TextField(label, text: text)
       .keyboardType(.decimalPad)
       .multilineTextAlignment(.center)
-      .heliosFont(.metricValue)
+      .heliosFont(.bodyStrong)
       .frame(maxWidth: typeSize.isAccessibilitySize ? .infinity : width)
       .frame(minHeight: 48)
       .background { GlassBackground(level: .raised, cornerRadius: 12) }

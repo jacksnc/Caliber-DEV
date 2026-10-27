@@ -134,7 +134,7 @@ private struct BarcodeLookupContent: View {
           .frame(minWidth: 48, minHeight: 48).accessibilityIdentifier("barcodeKeyboardDone")
       }
     }
-    .sheet(isPresented: $showsScanner) {
+    .fullScreenCover(isPresented: $showsScanner) {
       BarcodeScannerView { value in code = value }
     }
     .sheet(isPresented: $showsManualFood) {
