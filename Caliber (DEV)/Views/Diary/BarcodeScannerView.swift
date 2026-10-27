@@ -23,8 +23,9 @@ struct BarcodeScannerView: View {
     NavigationStack {
       ScrollView {
         VStack(alignment: .leading, spacing: 20) {
+          // Look book: the camera fills the top, with a close button over it instead of a bar.
+          if !typeSize.isAccessibilitySize { topBar }
           VStack(alignment: .leading, spacing: 12) { cameraArea }
-            .glassCard()
 
           VStack(alignment: .leading, spacing: 8) {
             Text("Enter Barcode")
@@ -88,6 +89,7 @@ struct BarcodeScannerView: View {
       .scrollDismissesKeyboard(.interactively)
       .navigationTitle("Scan Barcode")
       .navigationBarTitleDisplayMode(.inline)
+      .toolbar(typeSize.isAccessibilitySize ? .visible : .hidden, for: .navigationBar)
       .toolbar {
         ToolbarItemGroup(placement: .keyboard) {
           Spacer()
@@ -96,13 +98,16 @@ struct BarcodeScannerView: View {
         }
       }
       .safeAreaInset(edge: .bottom) {
-        Button(action: cancel) {
-          Text("Cancel").font(.body).frame(maxWidth: .infinity, minHeight: 48)
+        // At accessibility sizes a full-width button gives the label room to grow.
+        if typeSize.isAccessibilitySize {
+          Button(action: cancel) {
+            Text("Cancel").font(.body).frame(maxWidth: .infinity, minHeight: 48)
+          }
+          .buttonStyle(.heliosSecondary)
+          .accessibilityIdentifier("barcodeCancel")
+          .padding(.horizontal).padding(.vertical, 8)
+          .background { CaliberRowBackground() }
         }
-        .buttonStyle(.heliosSecondary)
-        .accessibilityIdentifier("barcodeCancel")
-        .padding(.horizontal).padding(.vertical, 8)
-        .background { CaliberRowBackground() }
       }
       .onAppear { capture.start() }
       .onDisappear {
@@ -135,7 +140,7 @@ struct BarcodeScannerView: View {
     case .scanning:
       if let session = capture.previewSession {
         BarcodeCameraPreview(session: session)
-          .frame(height: 360)
+          .frame(height: 420)
           .overlay { ViewfinderBrackets().padding(28).accessibilityHidden(true) }
           .clipShape(RoundedRectangle(cornerRadius: HeliosTokens.radius.card, style: .continuous))
           .accessibilityLabel("Live barcode camera preview")
@@ -182,11 +187,32 @@ struct BarcodeScannerView: View {
     }
   }
 
+  private var topBar: some View {
+    HStack {
+      Button(action: cancel) {
+        Image(systemName: "xmark")
+          .font(.body.weight(.semibold))
+          .foregroundStyle(theme.palette.text.primary.color)
+          .frame(width: 48, height: 48)
+          .background { GlassBackground(level: .raised, cornerRadius: 24) }
+          .contentShape(Circle())
+      }
+      .buttonStyle(.plain)
+      .accessibilityLabel("Cancel")
+      .accessibilityIdentifier("barcodeCancel")
+      Spacer()
+      Text("Scan barcode").heliosFont(.section)
+        .accessibilityAddTraits(.isHeader)
+      Spacer()
+      Color.clear.frame(width: 48, height: 48).accessibilityHidden(true)
+    }
+  }
+
   /// The look book's camera frame when there is no live preview.
   private var cameraPlaceholder: some View {
     RoundedRectangle(cornerRadius: HeliosTokens.radius.card, style: .continuous)
       .fill(Color.black.opacity(0.55))
-      .frame(height: 200)
+      .frame(height: 300)
       .overlay { ViewfinderBrackets().padding(28) }
       .overlay {
         Image(systemName: "barcode.viewfinder")
