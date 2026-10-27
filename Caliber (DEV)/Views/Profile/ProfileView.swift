@@ -6,6 +6,7 @@ struct ProfileView: View {
   /// True when Profile is presented as a sheet from the avatar button.
   var showsDone = false
   @Environment(\.dismiss) private var dismiss
+  @Environment(\.dynamicTypeSize) private var typeSize
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var modelContext
   @EnvironmentObject private var account: HostedAccountModel
@@ -152,10 +153,29 @@ struct ProfileView: View {
       .caliberScreen()
       .navigationTitle("Profile")
       .toolbar {
-        if showsDone {
+        // Navigation-bar text stops growing at accessibility sizes, so there Done moves to a
+        // full-width button that can grow, as Exit Demo does.
+        if showsDone && !typeSize.isAccessibilitySize {
           ToolbarItem(placement: .confirmationAction) {
-            Button("Done") { dismiss() }.frame(minHeight: 48).accessibilityIdentifier("closeProfile")
+            Button("Done") { dismiss() }.frame(minHeight: 48).accessibilityIdentifier(
+              "closeProfile")
           }
+        }
+      }
+      .safeAreaInset(edge: .bottom) {
+        if showsDone && typeSize.isAccessibilitySize {
+          Button {
+            dismiss()
+          } label: {
+            Text("Done").font(.body.weight(.semibold))
+              .fixedSize(horizontal: false, vertical: true)
+              .frame(maxWidth: .infinity, minHeight: 48)
+              .contentShape(Rectangle())
+          }
+          .buttonStyle(.plain).foregroundStyle(.tint)
+          .accessibilityIdentifier("closeProfile")
+          .padding(.horizontal).padding(.vertical, 8)
+          .background(.bar)
         }
       }
       .onAppear(perform: loadOnce)
