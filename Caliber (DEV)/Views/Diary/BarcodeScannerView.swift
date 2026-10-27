@@ -134,12 +134,13 @@ struct BarcodeScannerView: View {
     case .scanning:
       if let session = capture.previewSession {
         BarcodeCameraPreview(session: session)
-          .frame(height: 240)
-          .clipShape(RoundedRectangle(cornerRadius: 16))
+          .frame(height: 360)
+          .overlay { ViewfinderBrackets().padding(28).accessibilityHidden(true) }
+          .clipShape(RoundedRectangle(cornerRadius: HeliosTokens.radius.card, style: .continuous))
           .accessibilityLabel("Live barcode camera preview")
           .accessibilityIdentifier("barcodeCameraPreview")
       }
-      Text("Hold the barcode steady inside the camera view.")
+      Label("Hold the barcode inside the frame", systemImage: "barcode.viewfinder")
         .font(.subheadline)
         .foregroundStyle(.secondary)
     case .requestingPermission:
@@ -156,8 +157,9 @@ struct BarcodeScannerView: View {
       } label: {
         Text("Open Settings").frame(maxWidth: .infinity, minHeight: 48)
       }
-      .buttonStyle(.bordered)
+      .buttonStyle(.heliosSecondary)
     case .unavailable(let message):
+      cameraPlaceholder
       Label(message, systemImage: "camera.fill")
         .foregroundStyle(.secondary)
         .accessibilityIdentifier("barcodeCameraUnavailable")
@@ -166,7 +168,7 @@ struct BarcodeScannerView: View {
       } label: {
         Text("Retry Camera").frame(maxWidth: .infinity, minHeight: 48)
       }
-      .buttonStyle(.bordered)
+      .buttonStyle(.heliosSecondary)
     case .idle:
       Label(
         isEditingManualCode
@@ -176,6 +178,20 @@ struct BarcodeScannerView: View {
       )
       .foregroundStyle(.secondary)
     }
+  }
+
+  /// The look book's camera frame when there is no live preview.
+  private var cameraPlaceholder: some View {
+    RoundedRectangle(cornerRadius: HeliosTokens.radius.card, style: .continuous)
+      .fill(Color.black.opacity(0.55))
+      .frame(height: 200)
+      .overlay { ViewfinderBrackets().padding(28) }
+      .overlay {
+        Image(systemName: "barcode.viewfinder")
+          .resizable().scaledToFit().frame(width: 56, height: 56)
+          .foregroundStyle(.white.opacity(0.6))
+      }
+      .accessibilityHidden(true)
   }
 
   private func complete(with rawValue: String) {
@@ -239,6 +255,28 @@ private final class BarcodePreviewUIView: UIView {
     }
     if connection.isVideoRotationAngleSupported(angle) {
       connection.videoRotationAngle = angle
+    }
+  }
+}
+
+/// Four white corner marks around the scan area. White on video in both themes
+/// (DESIGN.md: camera screens are the exception to theming).
+private struct ViewfinderBrackets: View {
+  var body: some View {
+    GeometryReader { proxy in
+      let size = proxy.size
+      let arm = min(size.width, size.height) * 0.16
+      Path { path in
+        for (x, y, dx, dy) in [
+          (0.0, 0.0, 1.0, 1.0), (size.width, 0.0, -1.0, 1.0),
+          (0.0, size.height, 1.0, -1.0), (size.width, size.height, -1.0, -1.0),
+        ] {
+          path.move(to: CGPoint(x: x + dx * arm, y: y))
+          path.addLine(to: CGPoint(x: x, y: y))
+          path.addLine(to: CGPoint(x: x, y: y + dy * arm))
+        }
+      }
+      .stroke(.white, style: StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round))
     }
   }
 }

@@ -9,6 +9,9 @@ struct ActiveWorkoutView: View {
   @Environment(\.modelContext) private var modelContext
   @EnvironmentObject private var runtime: FoundationRuntime
   @Bindable var workout: TrainingWorkout
+  @Query(sort: \TrainingWorkout.startedAt, order: .reverse) private var allWorkouts:
+    [TrainingWorkout]
+  @Environment(\.heliosTheme) private var theme
   @State private var showingExercisePicker = false
   @State private var showingFinishConfirmation = false
   @State private var message: String?
@@ -16,6 +19,25 @@ struct ActiveWorkoutView: View {
   var body: some View {
     List {
       Group {
+        // Look book: elapsed time over the workout name, with the rest since the last set.
+        TimelineView(.periodic(from: .now, by: 1)) { context in
+          HStack(alignment: .top) {
+            CaliberHeader(
+              LocalizedStringKey(workout.name), identifier: "ActiveWorkout",
+              overline: Text(
+                "\(duration(since: workout.startedAt, now: context.date)) · \(workout.completedSets.count) sets"
+              ))
+            if let rest = restSince(now: context.date) {
+              Label("Rest \(rest)", systemImage: "timer")
+                .heliosFont(.footnote)
+                .padding(.horizontal, HeliosTokens.space(3))
+                .frame(minHeight: 36)
+                .background { GlassBackground(level: .raised, cornerRadius: 18) }
+                .accessibilityLabel("Rest \(rest)")
+            }
+          }
+        }
+        .caliberHeaderRow()
         Section {
           (typeSize.isAccessibilitySize
             ? AnyLayout(VStackLayout(alignment: .leading)) : AnyLayout(HStackLayout())) {
@@ -45,6 +67,18 @@ struct ActiveWorkoutView: View {
         }
 
         ForEach(workout.sortedExercises) { workoutExercise in exerciseSection(workoutExercise) }
+
+        if !workout.exercises.isEmpty {
+          Button {
+            showingFinishConfirmation = true
+          } label: {
+            Text("Finish workout").frame(maxWidth: .infinity)
+          }
+          .buttonStyle(.heliosSecondary)
+          .disabled(workout.completedSets.isEmpty)
+          .accessibilityIdentifier("finishWorkoutBottom")
+          .caliberHeaderRow()
+        }
       }
       .listRowBackground(CaliberRowBackground())
     }
@@ -89,6 +123,49 @@ struct ActiveWorkoutView: View {
     }
   }
 
+  /// Set · Previous · weight · Reps, as in the look book's set grid.
+  @ViewBuilder private var columnHeader: some View {
+    if !typeSize.isAccessibilitySize {
+      HStack(spacing: 8) {
+        Text("Set").frame(minWidth: 24, alignment: .leading)
+        Text("Previous").frame(width: 72, alignment: .leading)
+        Text(runtime.settings.massUnit.rawValue).frame(width: 82)
+        Text("Reps").frame(width: 58)
+        Spacer(minLength: 0)
+      }
+      .heliosFont(.caption)
+      .foregroundStyle(theme.palette.text.secondary.color)
+      .accessibilityHidden(true)
+    }
+  }
+
+  /// The same exercise's working sets from the most recent finished workout, as "200 × 6".
+  private func previousSets(for workoutExercise: TrainingWorkoutExercise) -> [String] {
+    guard let exerciseID = workoutExercise.exercise?.id else { return [] }
+    for past in allWorkouts where past.completedAt != nil && past.id != workout.id {
+      guard
+        let match = past.sortedExercises.first(where: { $0.exercise?.id == exerciseID })
+      else { continue }
+      return match.sortedSets.filter { $0.completedAt != nil }.map {
+        "\($0.enteredWeight.formatted(.number.precision(.fractionLength(0...1)))) × \($0.repetitions)"
+      }
+    }
+    return []
+  }
+
+  private func duration(since start: Date, now: Date) -> String {
+    let seconds = max(0, Int(now.timeIntervalSince(start)))
+    return String(format: "%02d:%02d:%02d", seconds / 3600, seconds / 60 % 60, seconds % 60)
+  }
+
+  /// Time since the last completed set, shown for ten minutes after it.
+  private func restSince(now: Date) -> String? {
+    guard let last = workout.completedSets.compactMap(\.completedAt).max() else { return nil }
+    let seconds = Int(now.timeIntervalSince(last))
+    guard seconds >= 0, seconds < 600 else { return nil }
+    return String(format: "%d:%02d", seconds / 60, seconds % 60)
+  }
+
   private func stat(_ label: String, value: String) -> some View {
     VStack(alignment: .leading, spacing: 2) {
       Text(value).font(.title3.bold()).monospacedDigit()
@@ -130,11 +207,16 @@ struct ActiveWorkoutView: View {
   @ViewBuilder private func exerciseSection(_ workoutExercise: TrainingWorkoutExercise) -> some View
   {
     Section {
+      let previous = previousSets(for: workoutExercise)
+      columnHeader
       ForEach(workoutExercise.sortedSets) { set in
-        TrainingSetRow(set: set, displayUnit: runtime.settings.massUnit)
-          .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-            Button("Delete", role: .destructive) { delete(set) }
-          }
+        TrainingSetRow(
+          set: set, displayUnit: runtime.settings.massUnit,
+          previous: previous.indices.contains(set.position) ? previous[set.position] : nil
+        )
+        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+          Button("Delete", role: .destructive) { delete(set) }
+        }
       }
       Button {
         do {
@@ -167,14 +249,16 @@ private struct TrainingSetRow: View {
   @Environment(\.modelContext) private var modelContext
   @Bindable var set: TrainingWorkoutSet
   let displayUnit: MassUnit
+  let previous: String?
   @State private var weightText: String
   @State private var repetitionsText: String
   @State private var rpeText: String
   @State private var message: String?
 
-  init(set: TrainingWorkoutSet, displayUnit: MassUnit) {
+  init(set: TrainingWorkoutSet, displayUnit: MassUnit, previous: String? = nil) {
     self.set = set
     self.displayUnit = displayUnit
+    self.previous = previous
     _weightText = State(
       initialValue: set.weightKilograms == 0
         ? "" : String(format: "%g", displayUnit.fromKilograms(set.weightKilograms)))
@@ -230,8 +314,18 @@ private struct TrainingSetRow: View {
           ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
           : AnyLayout(HStackLayout(spacing: 8))) {
             setNumber
+            if !typeSize.isAccessibilitySize {
+              Text(previous ?? "–")
+                .heliosFont(.footnote)
+                .foregroundStyle(theme.palette.text.secondary.color)
+                .frame(width: 72, alignment: .leading)
+                .accessibilityLabel(previous.map { "Previous \($0)" } ?? "No previous set")
+            }
             field("Weight", text: $weightText, width: 82)
-            Text(displayUnit.rawValue).foregroundStyle(.secondary)
+            // The grid header names the unit; at accessibility sizes rows stack, so repeat it.
+            if typeSize.isAccessibilitySize {
+              Text(displayUnit.rawValue).foregroundStyle(.secondary)
+            }
             field("Reps", text: $repetitionsText, width: 58)
             field("RPE", text: $rpeText, width: 58)
             Spacer(minLength: 0)
