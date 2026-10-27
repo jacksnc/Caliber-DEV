@@ -63,7 +63,7 @@ enum RestaurantFit {
   }
 }
 
-/// Look book: restaurant chips and "Fits your day" above the restaurant list.
+/// Look book: restaurant chips and "Fits your dinner" (by meal) above the restaurant list.
 struct RestaurantFitCard: View {
   let restaurants: [Restaurant]
   let mealType: MealType
@@ -98,7 +98,7 @@ struct RestaurantFitCard: View {
         }
         VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
           VStack(alignment: .leading, spacing: 2) {
-            SectionHeader("Fits your day")
+            SectionHeader(title)
             Text(
               "\(number(window.minCalories))–\(number(window.maxCalories)) kcal · protein \(number(window.minProtein)) g or more"
             )
@@ -127,6 +127,16 @@ struct RestaurantFitCard: View {
         .glassCard()
       }
       .accessibilityIdentifier("restaurantFitCard")
+    }
+  }
+
+  /// Look book: "Fits your dinner", for the meal being logged.
+  private var title: LocalizedStringKey {
+    switch mealType {
+    case .breakfast: "Fits your breakfast"
+    case .lunch: "Fits your lunch"
+    case .dinner: "Fits your dinner"
+    case .snack: "Fits your snack"
     }
   }
 
