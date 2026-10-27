@@ -48,6 +48,16 @@ final class ProgressUITests: XCTestCase {
         let row = app.descendants(matching: .any)
             .matching(NSPredicate(format: "identifier BEGINSWITH %@", "progressEntry-")).firstMatch
         XCTAssertTrue(row.waitForExistence(timeout: 5))
+        // Scroll the row clear of the floating tab bar first, as a person would.
+        let tabBar = app.descendants(matching: .any)["caliberTabBar"]
+        for _ in 0..<8 {
+            let limit = tabBar.exists ? tabBar.frame.minY : app.frame.maxY
+            if row.isHittable && row.frame.maxY < limit && row.frame.minY > 120 { break }
+            // Short drags, so the row cannot overshoot past the top.
+            let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.55))
+            let distance: CGFloat = row.frame.minY <= 120 ? 180 : -180
+            start.press(forDuration: 0.05, thenDragTo: start.withOffset(CGVector(dx: 0, dy: distance)))
+        }
         // The swipe does nothing while the check-in sheet is still closing.
         let edit = app.buttons["Edit"]
         for _ in 0..<3 where !edit.exists {

@@ -84,8 +84,8 @@ struct ActiveWorkoutView: View {
       .listRowBackground(CaliberRowBackground())
     }
     .caliberScreen()
-    .navigationTitle("Active Workout")
-    .navigationBarTitleDisplayMode(.inline)
+    // The workout name is the header below; the bar keeps only its buttons.
+    .compactNavigationTitle("Active Workout")
     .toolbar {
       ToolbarItem(placement: .topBarLeading) {
         Button("Add Exercise") { showingExercisePicker = true }
@@ -129,8 +129,8 @@ struct ActiveWorkoutView: View {
     if !typeSize.isAccessibilitySize {
       HStack(spacing: 8) {
         Text("Set").frame(minWidth: 24, alignment: .leading)
-        Text("Previous").frame(width: 72, alignment: .leading)
-        Text(runtime.settings.massUnit.rawValue).frame(width: 82)
+        Text("Previous").frame(width: 64, alignment: .leading)
+        Text(runtime.settings.massUnit.rawValue).frame(width: 76)
         Text("Reps").frame(width: 58)
         Spacer(minLength: 0)
       }
@@ -319,16 +319,15 @@ private struct TrainingSetRow: View {
               Text(previous ?? "–")
                 .heliosFont(.footnote)
                 .foregroundStyle(theme.palette.text.secondary.color)
-                .frame(width: 72, alignment: .leading)
+                .frame(width: 64, alignment: .leading)
                 .accessibilityLabel(previous.map { "Previous \($0)" } ?? "No previous set")
             }
-            field("Weight", text: $weightText, width: 82)
+            field("Weight", text: $weightText, width: 76)
             // The grid header names the unit; at accessibility sizes rows stack, so repeat it.
             if typeSize.isAccessibilitySize {
               Text(displayUnit.rawValue).foregroundStyle(.secondary)
             }
             field("Reps", text: $repetitionsText, width: 58)
-            field("RPE", text: $rpeText, width: 58)
             Spacer(minLength: 0)
             Button(action: complete) {
               Image(systemName: "checkmark")
@@ -343,8 +342,14 @@ private struct TrainingSetRow: View {
             .buttonStyle(.plain)
             .accessibilityLabel("Complete set \(set.position + 1)")
           }
-        Toggle("Warm-up set", isOn: $set.isWarmup)
-          .onChange(of: set.isWarmup) { _, _ in try? modelContext.save() }
+        // The look book's grid is Set · Previous · weight · Reps; RPE and warm-up sit below.
+        (typeSize.isAccessibilitySize
+          ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
+          : AnyLayout(HStackLayout(spacing: 12))) {
+            Toggle("Warm-up set", isOn: $set.isWarmup)
+              .onChange(of: set.isWarmup) { _, _ in try? modelContext.save() }
+            field("RPE", text: $rpeText, width: 58)
+          }
       }
       .alert(
         "Check This Set",

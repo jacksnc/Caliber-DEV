@@ -46,7 +46,7 @@ final class TrainProfileUITests: XCTestCase {
     let app = launch()
     app.tab("Train").tap()
     app.buttons["startWorkout"].tap()
-    XCTAssertTrue(app.navigationBars["Active Workout"].waitForExistence(timeout: 5))
+    XCTAssertTrue(app.screenTitle("ActiveWorkout").waitForExistence(timeout: 5))
     app.buttons["Add Exercise"].firstMatch.tap()
     let bench = app.buttons["Bench Press"]
     XCTAssertTrue(bench.waitForExistence(timeout: 5))
