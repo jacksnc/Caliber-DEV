@@ -56,9 +56,17 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
   each run's simulator screenshots to the `ci-screenshots` branch so the cloud agent
   can see them. Avoid editing Navigation, RootTabView, Profile, Today, Diary, Train,
   Progress, Restaurants and the UI-test navigation helper until this lands.
+- CI is green at `1979c44` (run 20, 2026-10-27): lint, packages, engine packages,
+  an Xcode 16.4 app build with all unit tests (iOS 18.5 SDK), the backend, and all
+  15 UI tests with their accessibility audits on macOS 26 / Xcode 26.6 (iOS 26.5
+  simulator; no Xcode 27 is installed on GitHub's image).
 - CI (D112): the macOS 15 / Xcode 16.4 job builds the app and runs unit tests; a
-  new macOS 26 job runs the UI tests and accessibility audits on the newest Xcode 26
-  and publishes screenshots to `ci-screenshots`. Before that move, runs 13-17 on
+  macOS 26 job runs the UI tests and accessibility audits on the newest installed
+  Xcode and publishes screenshots to `ci-screenshots`.
+- Still needed by hand: run on a physical iPhone (glass blur, Face ID lock for
+  Stack, scanner camera); check an iOS 17 or 18 device, which UI tests no longer
+  cover; review the restyled screens against `design/lookbook/`. Stack's release
+  gates in COMPLIANCE.md are untouched and remain open. Before that move, runs 13-17 on
   iOS 18.5 still reported unlocated clipped text on every screen; a probe showed the
   tab labels were not the cause.
 - Claude imported the seven engine packages from its branch at the owner's
