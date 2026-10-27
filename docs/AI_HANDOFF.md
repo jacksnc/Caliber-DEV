@@ -60,6 +60,22 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
   an Xcode 16.4 app build with all unit tests (iOS 18.5 SDK), the backend, and all
   15 UI tests with their accessibility audits on macOS 26 / Xcode 26.6 (iOS 26.5
   simulator; no Xcode 27 is installed on GitHub's image).
+- Look-book polish on 2026-10-27 (Claude, runs 23-29): showcase screenshots
+  (`--showcase-fixture`, plus `--showcase-workout` for `graphite-Workout-default`);
+  Progress draws the §9.3 trend line; Fits your <meal> uses 45-100% of calories
+  left; list screens put `CaliberHeader` in the first section header; the
+  scanner is a full-screen cover with a close button; the workout grid is
+  Set · Previous · weight · Reps with RPE beside warm-up, and finished sets keep
+  a filled tick that reopens them; each exercise card shows its best logged set;
+  Train's card lists the last workout and "Repeat" copies it as open, pre-filled
+  sets (`TrainingWorkoutLogger.repeating`, unit-tested).
+- Known intermittent audit failures, all at AX5 and present before this work:
+  "Dynamic Type partially unsupported" on the scanner's Enter Barcode heading,
+  no-camera text and Retry Camera (also with the full-screen cover) and on Exit
+  Demo; plus an occasional failed tap on `accountEmail`. They pass on some runs
+  with no code change. Not suppressed; still to explain.
+- Owner decision pending: the look book's "best e1RM" needs a formula choice
+  (HOW_WE_CALCULATE, training estimates); the app shows the best logged set.
 - CI (D112): the macOS 15 / Xcode 16.4 job builds the app and runs unit tests; a
   macOS 26 job runs the UI tests and accessibility audits on the newest installed
   Xcode and publishes screenshots to `ci-screenshots`.

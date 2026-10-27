@@ -124,6 +124,7 @@ struct TrainHomeView: View {
           .accessibilityHidden(true)
         VStack(alignment: .leading, spacing: 2) {
           Text(last?.name ?? "Your first session").heliosFont(.section)
+            .fixedSize(horizontal: false, vertical: true)
           Text(
             last.map {
               "Last time \($0.startedAt.formatted(.dateTime.weekday(.wide).month().day())) · \($0.completedSets.count) sets"
@@ -131,6 +132,7 @@ struct TrainHomeView: View {
           )
           .heliosFont(.footnote)
           .foregroundStyle(theme.palette.text.secondary.color)
+          .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
       }
@@ -139,9 +141,11 @@ struct TrainHomeView: View {
           ForEach(last.sortedExercises) { row in
             HStack(alignment: .firstTextBaseline) {
               Text(row.exercise?.name ?? "Deleted exercise").heliosFont(.callout)
+                .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)
               Text(summary(row)).heliosFont(.footnote)
                 .foregroundStyle(theme.palette.text.secondary.color)
+                .fixedSize(horizontal: false, vertical: true)
             }
             .accessibilityElement(children: .combine)
           }
