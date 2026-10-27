@@ -498,3 +498,49 @@ func invocationRegionRejectsMalformedOrHeaderLikeValues(_ region: String) {
     await client.requests.first { $0.url?.path.hasSuffix("auth/sign-out") == true })
   #expect(request.value(forHTTPHeaderField: "Authorization") == "Bearer " + saved.accessToken)
 }
+
+private struct RecordingPhotoClient: GatewayHTTPClient {
+  let reply: String
+  let seen = Recorder()
+  final class Recorder: @unchecked Sendable {
+    var request: URLRequest?
+  }
+  func send(_ request: URLRequest) async throws -> (Data, Int) {
+    seen.request = request
+    return (Data(reply.utf8), 200)
+  }
+}
+@Test func photoEstimateSendsOnlyTheImageWithTheSessionAndChecksTheReply() async throws {
+  let configuration = try CloudConfiguration(endpoint: URL(string: "https://example.invalid/api")!)
+  let client = RecordingPhotoClient(
+    reply:
+      #"{"items":[{"name":"banana","grams":118,"confidence":"high"}],"model":"m","promptVersion":"v"}"#
+  )
+  let gateway = CloudGateway(
+    configuration: configuration, http: client, vault: MemorySessionStorage(fixtureSession()))
+  let proposal = try await gateway.proposeFoodItems(jpegBase64: "/9j/AAAA")
+  #expect(proposal.items == [FoodPhotoItem(name: "banana", grams: 118, confidence: "high")])
+  let request = try #require(client.seen.request)
+  #expect(request.url?.path == "/api/ai/food-photo")
+  #expect(request.value(forHTTPHeaderField: "Authorization") == "Bearer fictional-access")
+  #expect(request.timeoutInterval == 60)
+  let body = try #require(request.httpBody)
+  #expect(
+    try JSONSerialization.jsonObject(with: body) as? [String: String] == ["image": "/9j/AAAA"])
+
+  let invented = CloudGateway(
+    configuration: configuration,
+    http: RecordingPhotoClient(
+      reply:
+        #"{"items":[{"name":"x","grams":0,"confidence":"high"}],"model":"m","promptVersion":"v"}"#
+    ),
+    vault: MemorySessionStorage(fixtureSession()))
+  await #expect(throws: GatewayError.invalidResponse) {
+    try await invented.proposeFoodItems(jpegBase64: "/9j/AAAA")
+  }
+  let signedOut = CloudGateway(
+    configuration: configuration, http: client, vault: MemorySessionStorage())
+  await #expect(throws: GatewayError.unauthorized) {
+    try await signedOut.proposeFoodItems(jpegBase64: "/9j/AAAA")
+  }
+}

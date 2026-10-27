@@ -112,3 +112,5 @@ deployment changed.
 ## Helios app integration — 2026-10-25
 
 No SwiftData, GRDB, hosted, or user-data migration. Existing `system`, `light`, `dark`, and `oled` preference values remain valid; only the displayed light/dark names become Frost/Graphite. Test appearance overrides run only in DEBUG when an isolated UI-testing mode is active.
+
+`005_food_photo_budget.sql` (2026-10-27, Claude) adds the `food-photo` budget route for FUEL-10 photo estimates, keeping existing routes, counters and grants. It is **not applied** to the hosted DEV project. Apply it only when turning photo estimates on (D114); local PGlite tests cover it (`backend/tests/food_photo_test.ts`).

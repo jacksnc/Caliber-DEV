@@ -187,3 +187,11 @@ entry only.
 ## Theme integration — 2026-10-25
 
 Graphite/Frost changes presentation only. Today and Diary still use the same `MacroCalculator` totals; weight charts still display recorded readings. No goal, portion, nutrient, workout-volume, or weight calculation changed. Color and placement never change a saved value.
+
+## Photo estimates (FUEL-10, preview)
+
+A meal photo's foods and gram weights are **estimates proposed by a vision model** (`claude-opus-5-5`, prompt `food-photo-v1`), shown with its confidence. The model supplies no calories or macros. Each item is matched to a USDA food and opened in the normal review with the proposed grams, where the person can change the food or the weight; energy and macros are the database's per-100 g values times the confirmed grams, as for any USDA food. Nothing is logged without that confirmation. Accuracy has not been measured yet: the brief's food-photo eval (≥200 meals, median and P90 absolute % error for kcal and protein) is still to be built.
+
+## Nutrition labels (FUEL-11) and typed lists (FUEL-12)
+
+A label photo is read on the device; `LabelParser` cross-checks each amount with its % Daily Value and flags a calorie total that disagrees with 4P + 4C + 9F beyond label rounding. Values that were not read stay empty. In a typed list ("2 eggs, a banana"), an amount becomes a portion only as grams, ounces or one of the source's listed servings; otherwise the person chooses.

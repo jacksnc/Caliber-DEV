@@ -129,6 +129,12 @@ struct FoodSearchView: View {
               Label("Scan a Nutrition Label", systemImage: "doc.text.viewfinder")
                 .frame(minHeight: 48)
             }.accessibilityIdentifier("openLabelScan")
+            NavigationLink {
+              PhotoEstimateView(mealType: mealType, date: date)
+            } label: {
+              Label("Estimate from a Photo", systemImage: "camera.viewfinder")
+                .frame(minHeight: 48)
+            }.accessibilityIdentifier("openPhotoEstimate")
             Button {
               isPresentingManualEntry = true
             } label: {

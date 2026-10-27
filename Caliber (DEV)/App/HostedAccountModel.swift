@@ -47,6 +47,16 @@ final class HostedAccountModel: ObservableObject {
         vault: SessionVault(service: project?.sessionService ?? "Caliber.Foundation.Unconfigured")),
       defaults: defaults)
   }
+  /// FUEL-10 photo estimates use the signed-in session; the provider key stays on the server.
+  var canEstimatePhotos: Bool { isAvailable && isSignedIn && gateway is any FoodPhotoGateway }
+
+  func estimateFoodPhoto(jpegBase64: String) async throws -> FoodPhotoProposal {
+    guard isSignedIn, let photos = gateway as? any FoodPhotoGateway else {
+      throw GatewayError.unauthorized
+    }
+    return try await photos.proposeFoodItems(jpegBase64: jpegBase64)
+  }
+
   func acceptAccountConsent() {
     guard isAvailable, !isBusy else { return }
     defaults.set(AccountAccessConsent.version, forKey: Self.consentKey)

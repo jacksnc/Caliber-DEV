@@ -5,6 +5,7 @@ import {
   recordAccountConsent,
   revokeEphemeralSession,
 } from "./account_lifecycle.ts";
+import { type FoodPhotoProposer, foodPhotoRoute } from "./food_photo.ts";
 
 export interface GatewayConfig {
   supabaseURL: string;
@@ -78,6 +79,7 @@ export function gateway(
   config: GatewayConfig,
   http: HTTP = fetch,
   authBudget: AuthBudget = unavailableAuthBudget,
+  foodPhoto?: FoodPhotoProposer,
 ) {
   const base = new URL(config.supabaseURL);
   if (base.protocol !== "https:" || base.username || base.password) {
@@ -102,6 +104,7 @@ export function gateway(
           "account/delete",
           "sync/push",
           "sync/pull",
+          "ai/food-photo",
         ].includes(route)
       ) {
         return reply({ error: "not_found" }, 404);
@@ -109,7 +112,11 @@ export function gateway(
       const body = JSON.parse(
         await boundedBody(
           request,
-          route.startsWith("sync/") ? 9_000_000 : 8192,
+          route.startsWith("sync/")
+            ? 9_000_000
+            : route === "ai/food-photo"
+            ? 2_100_000
+            : 8192,
         ),
       );
       if (!body || typeof body !== "object" || Array.isArray(body)) {
@@ -131,6 +138,27 @@ export function gateway(
           http,
           authBudget,
         );
+      }
+      if (route === "ai/food-photo") {
+        // Supabase Auth checks the session; the subject keys the account's photo budget.
+        const verifySubject = async (authorization: string) => {
+          const response = await http(new URL("/auth/v1/user", base), {
+            headers: { apikey: config.publishableKey, authorization },
+            redirect: "error",
+            signal: AbortSignal.timeout(5000),
+          });
+          if (!response.ok) return null;
+          const user = await response.json();
+          return typeof user?.id === "string" ? user.id : null;
+        };
+        const result = await foodPhotoRoute(
+          body,
+          request.headers.get("authorization"),
+          verifySubject,
+          authBudget,
+          foodPhoto,
+        );
+        return reply(result.body, result.status, result.headers ?? {});
       }
       const upstreamHeaders: Record<string, string> = {
         apikey: config.publishableKey,

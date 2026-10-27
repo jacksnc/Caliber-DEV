@@ -93,6 +93,28 @@ final class ThemeIntegrationUITests: XCTestCase {
     try audit(app, largeText: false)
   }
 
+  /// FUEL-10 with a sample proposal: the switch is off until turned on, and each proposed food
+  /// is matched to the offline database.
+  @MainActor func testGraphitePhotoEstimate() throws {
+    let app = launch(theme: "graphite", showcase: true, extra: ["--photo-fixture"])
+    app.buttons["quickLog"].tap()
+    app.buttons["quickLog-food"].tap()
+    let photo = app.buttons["openPhotoEstimate"]
+    XCTAssertTrue(photo.waitForExistence(timeout: 10))
+    reveal(photo, app: app)
+    photo.tap()
+    let enabled = app.switches["photoEstimatesEnabled"]
+    XCTAssertTrue(enabled.waitForExistence(timeout: 10))
+    XCTAssertEqual(enabled.value as? String, "0")
+    enabled.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
+    let sample = app.buttons["photoUseSample"]
+    XCTAssertTrue(sample.waitForExistence(timeout: 10))
+    sample.tap()
+    XCTAssertTrue(app.descendants(matching: .any)["photoResults"].waitForExistence(timeout: 15))
+    capture("graphite-PhotoEstimate", app: app)
+    try audit(app, largeText: false)
+  }
+
   /// A typed list matched item by item against the offline libraries.
   @MainActor func testGraphiteSmartSearch() throws {
     let app = launch(theme: "graphite", showcase: true)

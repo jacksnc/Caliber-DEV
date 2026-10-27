@@ -343,6 +343,20 @@ public actor CloudGateway: SyncTransport {
       "sync/pull", body: Request(ownerID: ownerID, after: after, limit: max(1, min(limit, 100))),
       token: token.value, authenticatedGeneration: token.generation)
   }
+  public func proposeFoodItems(jpegBase64: String) async throws -> FoodPhotoProposal {
+    struct Request: Encodable { let image: String }
+    let token = try await accessToken()
+    let proposal: FoodPhotoProposal = try await request(
+      "ai/food-photo", body: Request(image: jpegBase64), token: token.value,
+      authenticatedGeneration: token.generation, timeout: 60)
+    guard proposal.items.count <= 8,
+      proposal.items.allSatisfy({ item in
+        !item.name.isEmpty && item.grams.isFinite && item.grams >= 1 && item.grams <= 3000
+          && ["low", "medium", "high"].contains(item.confidence)
+      })
+    else { throw GatewayError.invalidResponse }
+    return proposal
+  }
   private func accessToken() async throws -> (value: String, generation: UUID) {
     guard configuration != nil else { throw GatewayError.unconfigured }
     let attempt = generation
@@ -362,12 +376,13 @@ public actor CloudGateway: SyncTransport {
     guard session.expiresAt > Date() else { throw GatewayError.invalidResponse }
   }
   private func request<Input: Encodable, Output: Decodable>(
-    _ path: String, body: Input, token: String?, authenticatedGeneration: UUID? = nil
+    _ path: String, body: Input, token: String?, authenticatedGeneration: UUID? = nil,
+    timeout: TimeInterval = 20
   ) async throws -> Output {
     guard let configuration else { throw GatewayError.unconfigured }
     var request = URLRequest(url: configuration.endpoint.appendingPathComponent(path))
     request.httpMethod = "POST"
-    request.timeoutInterval = 20
+    request.timeoutInterval = timeout
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue("no-store", forHTTPHeaderField: "Cache-Control")
     if let region = configuration.region {

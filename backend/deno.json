@@ -4,6 +4,9 @@
     "test": "deno test --allow-read --allow-env tests"
   },
   "compilerOptions": { "strict": true },
-  "imports": { "@electric-sql/pglite": "npm:@electric-sql/pglite@0.3.14" },
+  "imports": {
+    "@anthropic-ai/sdk": "npm:@anthropic-ai/sdk@0.137.0",
+    "@electric-sql/pglite": "npm:@electric-sql/pglite@0.3.14"
+  },
   "nodeModulesDir": "none"
 }
