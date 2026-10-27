@@ -93,6 +93,21 @@ final class ThemeIntegrationUITests: XCTestCase {
     try audit(app, largeText: false)
   }
 
+  /// A typed list matched item by item against the offline libraries.
+  @MainActor func testGraphiteSmartSearch() throws {
+    let app = launch(theme: "graphite", showcase: true)
+    app.buttons["quickLog"].tap()
+    app.buttons["quickLog-food"].tap()
+    let search = app.searchFields.firstMatch
+    XCTAssertTrue(search.waitForExistence(timeout: 10))
+    search.tap()
+    search.typeText("2 eggs, a banana\n")
+    let banana = app.descendants(matching: .any)["listMatch-banana"]
+    XCTAssertTrue(banana.waitForExistence(timeout: 15))
+    capture("graphite-SmartSearch", app: app)
+    try audit(app, largeText: false)
+  }
+
   /// A nutrition label read into the manual form. The sample text stands in for the photo,
   /// which a simulator cannot take.
   @MainActor func testGraphiteLabelScan() throws {

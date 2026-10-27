@@ -25,10 +25,25 @@ struct FoodNutritionReviewView: View {
   @State private var convertedText: String?
   @FocusState private var amountHasFocus: Bool
 
-  init(reference: FoodNutritionReference, meal: MealType = .snack, date: Date = .now) {
+  /// `portion` starts the form on an amount the person typed in search ("2 slices"); it is
+  /// only ever grams, ounces or one of the source's listed servings.
+  init(
+    reference: FoodNutritionReference, meal: MealType = .snack, date: Date = .now,
+    portion: (choiceID: String, amount: Double)? = nil
+  ) {
     self.reference = reference
-    _amount = State(initialValue: reference.basisGrams.map { NutritionInput.format($0) } ?? "1")
-    _choiceID = State(initialValue: reference.basisGrams == nil ? "portions" : "grams")
+    let typed = portion.flatMap { portion -> (String, Double)? in
+      guard reference.basisGrams != nil,
+        ["grams", "ounces"].contains(portion.choiceID)
+          || reference.servings.contains(where: { $0.id == portion.choiceID && $0.isValid })
+      else { return nil }
+      return (portion.choiceID, portion.amount)
+    }
+    _amount = State(
+      initialValue: typed.map { NutritionInput.format($0.1) }
+        ?? reference.basisGrams.map { NutritionInput.format($0) } ?? "1")
+    _choiceID = State(
+      initialValue: typed?.0 ?? (reference.basisGrams == nil ? "portions" : "grams"))
     _meal = State(initialValue: meal)
     _date = State(initialValue: date)
   }

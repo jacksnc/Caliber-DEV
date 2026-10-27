@@ -177,7 +177,7 @@ All listed acceptance tests are planned. Full P0 table/screen/test mappings are 
 | VZ-X9 | 7 | Dose-cycle overlay | not-implemented |
 | FUEL-10 | 5 | Photo scan → items + estimated grams + confidence | not-implemented |
 | FUEL-11 | 5 | Barcode + label | partial-prototype |
-| FUEL-12 | 5 | Voice/text | not-implemented |
+| FUEL-12 | 5 | Voice/text | partial-prototype |
 | FUEL-13 | 5 | Restaurants | partial-prototype |
 | FUEL-22 | 4 | Adaptive targets (your own implementation, MacroFactor-inspired) | not-implemented |
 | FUEL-23 | 4 | Per-meal targets (protein distribution), grams-or-% toggle, net carbs | not-implemented |

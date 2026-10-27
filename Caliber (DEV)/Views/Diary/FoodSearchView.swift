@@ -34,8 +34,24 @@ struct FoodSearchView: View {
   @State private var catalogError: String?
   @State private var isPresentingManualEntry = false
   @State private var favoriteError: String?
+  /// Each food in a typed list ("2 eggs, a banana") with its best match.
+  @State private var listMatches: [ListMatch] = []
   private var query: String { searchText.trimmingCharacters(in: .whitespacesAndNewlines) }
-  private func matches(_ text: String) -> Bool { FoodSearchText.matches(text, query: query) }
+  private var phrases: [FoodPhrase] { SmartFoodQuery.phrases(in: query) }
+  private var isList: Bool { SmartFoodQuery.isList(phrases) }
+  /// A list searches item by item below; the sections search the whole text, allowing one typo
+  /// when the exact words find nothing in the person's own foods and menus.
+  private func matches(_ text: String) -> Bool {
+    FoodSearchText.matches(text, query: query)
+      || (!hasExactLocalMatch && FoodSearchText.fuzzyMatches(text, query: query))
+  }
+  private var hasExactLocalMatch: Bool {
+    query.isEmpty
+      || savedFoods.contains { FoodSearchText.matches($0.name, query: query) }
+      || restaurants.flatMap(\.menuItems).contains {
+        FoodSearchText.matches($0.name, query: query)
+      }
+  }
   private var usage: [ReusableFood] {
     FoodReuseIndex.build(
       entries: entries, savedFoods: savedFoods,
@@ -91,6 +107,7 @@ struct FoodSearchView: View {
       case .frequent: !frequent.isEmpty
       case .all:
         hasFavorites || !recent.isEmpty || !catalogFoods.isEmpty || !matchingSavedFoods.isEmpty
+          || (isList && !listMatches.isEmpty)
           || !matchingMeals.isEmpty || !matchingMenuItems.isEmpty || !matchingBuilders.isEmpty
       }
     return List {
@@ -127,6 +144,17 @@ struct FoodSearchView: View {
           Text(
             "Search USDA foods, saved foods and meals, or restaurant menus offline. Recent and frequent foods use your logged history. Check the preparation and portion before adding."
           )
+        }
+        if isList && !listMatches.isEmpty {
+          Section {
+            ForEach(listMatches) { listRow($0) }
+          } header: {
+            Text("Your list")
+          } footer: {
+            Text(
+              "Each food opens its own review. Amounts you typed are used only with a listed serving or a weight."
+            )
+          }
         }
         if let searchError { Section { Text(searchError) } }
         if let catalogError {
@@ -228,7 +256,7 @@ struct FoodSearchView: View {
     .accessibilityIdentifier("foodSearchScreen")
     .searchable(
       text: $searchText, placement: .navigationBarDrawer(displayMode: .always),
-      prompt: "Search foods, meals, or restaurants"
+      prompt: "Search, or list foods: 2 eggs, a banana"
     )
     .task(id: query) {
       do {
@@ -236,6 +264,10 @@ struct FoodSearchView: View {
         try Task.checkCancellation()
         searchService = service
         catalogFoods = try service.catalogSearch(query: query, limit: 50)
+        if catalogFoods.isEmpty && !isList {
+          catalogFoods = try Self.fuzzyCatalogSearch(query, service: service)
+        }
+        listMatches = isList ? try matchList(phrases, service: service) : []
         searchError = nil
       } catch is CancellationError {} catch {
         catalogFoods = []
@@ -255,6 +287,76 @@ struct FoodSearchView: View {
       Text(favoriteError ?? "Please try again.")
     }
   }
+  struct ListMatch: Identifiable {
+    let phrase: FoodPhrase
+    let saved: FoodItem?
+    let catalog: FoodCatalogEntry?
+    var id: String { phrase.id }
+  }
+
+  /// The person's own saved foods first, then the USDA catalog, with one typo allowed.
+  private func matchList(_ phrases: [FoodPhrase], service: BundledFoodSearchService) throws
+    -> [ListMatch]
+  {
+    try phrases.prefix(8).map { phrase in
+      let saved =
+        savedFoods.first { FoodSearchText.matches($0.name, query: phrase.terms) }
+        ?? savedFoods.first { FoodSearchText.fuzzyMatches($0.name, query: phrase.terms) }
+      var catalog = try service.catalogSearch(query: phrase.terms, limit: 1).first
+      if catalog == nil {
+        catalog = try Self.fuzzyCatalogSearch(phrase.terms, service: service).first
+      }
+      return ListMatch(phrase: phrase, saved: saved, catalog: saved == nil ? catalog : nil)
+    }
+  }
+
+  /// Searches by the first three letters of each word, then keeps names within one typo.
+  private static func fuzzyCatalogSearch(_ query: String, service: BundledFoodSearchService)
+    throws -> [FoodCatalogEntry]
+  {
+    let words = FoodSearchText.normalized(query).split(separator: " ")
+    guard words.contains(where: { $0.count >= 4 }) else { return [] }
+    let stems = words.map { String($0.prefix(3)) }.joined(separator: " ")
+    return try service.catalogSearch(query: stems, limit: 200)
+      .filter { FoodSearchText.fuzzyMatches($0.name, query: query) }
+      .prefix(50).map { $0 }
+  }
+
+  @ViewBuilder private func listRow(_ match: ListMatch) -> some View {
+    let amount = match.phrase.quantity.map {
+      "\(NutritionInput.format($0, locale: locale))\(match.phrase.unit.map { " \($0)" } ?? "") · "
+    }
+    if let saved = match.saved {
+      NavigationLink {
+        SavedFoodDetailView(
+          food: saved, initialQuantity: match.phrase.quantity ?? 1, mealType: mealType, date: date)
+      } label: {
+        listLabel(match.phrase.text, detail: "\(amount ?? "")\(saved.name) · My Foods")
+      }
+      .accessibilityIdentifier("listMatch-\(match.phrase.terms)")
+    } else if let food = match.catalog {
+      NavigationLink {
+        FoodNutritionReviewView(
+          reference: .usda(food), meal: mealType, date: date,
+          portion: SmartFoodQuery.portion(
+            for: match.phrase, servings: food.servings.map { ($0.id, $0.label) }))
+      } label: {
+        listLabel(match.phrase.text, detail: "\(amount ?? "")\(food.name) · USDA")
+      }
+      .accessibilityIdentifier("listMatch-\(match.phrase.terms)")
+    } else {
+      listLabel(match.phrase.text, detail: "No match. Search for it on its own or enter it.")
+    }
+  }
+
+  private func listLabel(_ title: String, detail: String) -> some View {
+    VStack(alignment: .leading, spacing: 3) {
+      Text(title.capitalized(with: locale))
+      Text(detail).font(.footnote).foregroundStyle(.secondary)
+    }
+    .frame(minHeight: 48)
+  }
+
   private func catalogLink(_ food: FoodCatalogEntry, favorite: Bool = false) -> some View {
     NavigationLink {
       FoodNutritionReviewView(reference: .usda(food), meal: mealType, date: date)
