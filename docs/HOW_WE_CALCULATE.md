@@ -10,7 +10,7 @@ Calories and macros are independently editable. The app preserves the entered or
 
 **Weight units:** one pound equals 0.45359237 kilograms; conversion multiplies or divides by that factor. Current `WeightEntry` storage is in pounds. Future canonical-kilogram migration must preserve the original entered number/unit and existing records.
 
-**Current progress summary:** the latest positive finite reading and the change from the first to last reading. The inspected `WeightProgressSummary` does **not** implement a smoothed trend, expenditure estimate or projected date. `NutritionInput` rejects negative/non-finite macro values and nonpositive quantities. These code observations are not a new execution or audit of all app paths.
+**Current progress summary:** the latest positive finite reading, the change from the first to last reading, and the smoothed weight trend below. Progress shows the trend's latest value as "Trend weight" and its change across the selected range; the dots are the raw readings. The trend uses `NutritionCore.WeightTrend` (α = 0.1, one mean reading per local day) over every saved weigh-in, so a short range does not restart it. `WeightProgressSummary` does **not** implement an expenditure estimate or projected date. `NutritionInput` rejects negative/non-finite macro values and nonpositive quantities. These code observations are not a new execution or audit of all app paths.
 
 ## Future calculation principles
 
@@ -114,7 +114,7 @@ Chart ranges use the dataset's local calendar: the last week, month, three month
 
 New unit helpers use 1 lb = 0.45359237 kg, 1 inch = 2.54 cm, 1 kcal = 4.184 kJ and 1 US fl oz = 29.5735295625 mL; °F = °C × 9/5 + 32. Original entered text and unit are preserved separately. Grouping/partial numeric strings, negative mass and nonfinite values are rejected by the new strict parser. Existing food/Progress input adapters retain their prior behavior until their focused locale audit is completed.
 
-The existing Progress graph remains a raw reading graph. Foundation does not yet implement the EWMA, expenditure, strength or dose engines in §9.3. Demo training volume is synthetic seeded data, not a verified live Train calculation.
+The Progress graph draws raw readings as dots and the §9.3 EWMA trend as a line. Foundation does not yet use the expenditure, strength or dose engines in §9.3. Demo training volume is synthetic seeded data, not a verified live Train calculation.
 
 
 ## Editable decimal inputs

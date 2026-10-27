@@ -20,7 +20,7 @@ struct ProgressDashboardView: View {
   /// Weigh-ins in the selected range; older history is still shown when the range is empty.
   private var summary: WeightProgressSummary {
     let inRange = weights.filter { range.contains($0.date) }
-    return WeightProgressSummary(entries: inRange.isEmpty ? weights : inRange)
+    return WeightProgressSummary(entries: inRange.isEmpty ? weights : inRange, history: weights)
   }
   private var todayEntry: ProgressEntry? {
     entries.first { Calendar.current.isDateInToday($0.date) }

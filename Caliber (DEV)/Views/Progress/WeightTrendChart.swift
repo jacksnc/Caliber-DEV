@@ -24,9 +24,11 @@ struct WeightTrendChart: View {
             .font(.caption)
             .foregroundStyle(.secondary)
         } else {
-          Text("Each dot is a recorded weigh-in. Dates run from oldest to newest.")
-            .font(.caption)
-            .foregroundStyle(.secondary)
+          Text(
+            "Each dot is a recorded weigh-in; the line is the smoothed trend. Dates run from oldest to newest."
+          )
+          .font(.caption)
+          .foregroundStyle(.secondary)
         }
       }
     }
@@ -70,7 +72,7 @@ struct WeightTrendChart: View {
     VStack(alignment: .leading, spacing: 2) {
       Text("Trend weight").heliosFont(.metricLabel)
         .foregroundStyle(theme.palette.text.secondary.color)
-      if let latest = summary.latestWeightInPounds {
+      if let latest = summary.latestTrendInPounds ?? summary.latestWeightInPounds {
         Text(
           "\(unit.fromPounds(latest), format: .number.precision(.fractionLength(0...2))) \(unit.symbol)"
         )
@@ -86,7 +88,7 @@ struct WeightTrendChart: View {
   }
 
   @ViewBuilder private var change: some View {
-    if let change = summary.changeInPounds {
+    if let change = summary.trendChangeInPounds ?? summary.changeInPounds {
       VStack(alignment: .trailing, spacing: 2) {
         Text(
           "\(unit.fromPounds(change), format: .number.precision(.fractionLength(0...2)).sign(strategy: .always())) \(unit.symbol)"
@@ -100,23 +102,36 @@ struct WeightTrendChart: View {
   }
 
   private var chart: some View {
-    Chart(summary.readings) { reading in
-      // Straight segments connect actual readings without inventing peaks
-      // between them; days without a weight never become zero-weight dots.
-      LineMark(
-        x: .value("Date", reading.date),
-        y: .value("Weight (\(unit.symbol))", unit.fromPounds(reading.weightInPounds))
-      )
-      .lineStyle(StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
-      .foregroundStyle(theme.palette.data.weight.color)
-
-      PointMark(
-        x: .value("Date", reading.date),
-        y: .value("Weight (\(unit.symbol))", unit.fromPounds(reading.weightInPounds))
-      )
-      .symbolSize(reading.id == summary.readings.last?.id ? 80 : 24)
-      .foregroundStyle(
-        theme.palette.data.weight.color.opacity(reading.id == summary.readings.last?.id ? 1 : 0.55))
+    let color = theme.palette.data.weight.color
+    return Chart {
+      // Each dot is one real weigh-in; days without one stay empty, never zero.
+      ForEach(summary.readings) { reading in
+        PointMark(
+          x: .value("Date", reading.date),
+          y: .value("Weight (\(unit.symbol))", unit.fromPounds(reading.weightInPounds))
+        )
+        .symbolSize(22)
+        .foregroundStyle(color.opacity(0.5))
+      }
+      // The smoothed trend (brief §9.3) joins only days that have a weigh-in.
+      ForEach(summary.trend) { point in
+        LineMark(
+          x: .value("Date", point.date),
+          y: .value("Trend (\(unit.symbol))", unit.fromPounds(point.pounds)),
+          series: .value("Series", "Trend")
+        )
+        .interpolationMethod(.monotone)
+        .lineStyle(StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round))
+        .foregroundStyle(color)
+      }
+      if let last = summary.trend.last {
+        PointMark(
+          x: .value("Date", last.date),
+          y: .value("Trend (\(unit.symbol))", unit.fromPounds(last.pounds))
+        )
+        .symbolSize(90)
+        .foregroundStyle(color)
+      }
     }
     .chartYScale(domain: .automatic(includesZero: false))
     .chartYAxisLabel(unit.symbol)

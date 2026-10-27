@@ -339,8 +339,9 @@ private struct TodayWeightTile: View {
 
   var body: some View {
     let unit = runtime.settings.massUnit
-    let readings = WeightProgressSummary(entries: entries).readings.suffix(14)
-    let values = readings.map { unit.fromKilograms($0.weightInPounds * 0.45359237) }
+    // The smoothed trend (brief §9.3), as on Progress, not the latest raw reading.
+    let trend = Array(WeightProgressSummary(entries: entries).trend.suffix(14))
+    let values = trend.map { unit.fromKilograms($0.pounds * 0.45359237) }
     VStack(alignment: .leading, spacing: HeliosTokens.space(1)) {
       HStack(spacing: HeliosTokens.space(1)) {
         Circle().fill(theme.palette.data.weight.color).frame(width: 8, height: 8)
@@ -359,7 +360,7 @@ private struct TodayWeightTile: View {
             .frame(height: 28)
             .accessibilityHidden(true)
         }
-        Text(weekChange(readings: Array(readings), unit: unit)).heliosFont(.caption)
+        Text(weekChange(trend: trend, unit: unit)).heliosFont(.caption)
           .foregroundStyle(theme.palette.text.secondary.color)
       } else {
         Text("Add a weigh-in to see your trend.").heliosFont(.footnote)
@@ -371,13 +372,13 @@ private struct TodayWeightTile: View {
     .accessibilityElement(children: .combine)
   }
 
-  private func weekChange(readings: [WeightEntry], unit: MassUnit) -> String {
+  private func weekChange(trend: [WeightProgressSummary.TrendReading], unit: MassUnit) -> String {
     let since = Calendar.current.date(byAdding: .day, value: -7, to: .now) ?? .now
-    let week = readings.filter { $0.date >= since }
+    let week = trend.filter { $0.date >= since }
     guard let first = week.first, let last = week.last, week.count > 1 else {
       return "No change to show this week"
     }
-    let change = unit.fromKilograms((last.weightInPounds - first.weightInPounds) * 0.45359237)
+    let change = unit.fromKilograms((last.pounds - first.pounds) * 0.45359237)
     let text = UnitFormatting.number(abs(change), locale: locale)
     if abs(change) < 0.05 { return "About the same this week" }
     return change < 0

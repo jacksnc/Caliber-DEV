@@ -16,6 +16,7 @@
 		F10000000000000000000007 /* HeliosDesign in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000007 /* HeliosDesign */; };
 		F10000000000000000000008 /* StackCore in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000008 /* StackCore */; };
 		F10000000000000000000009 /* HeliosTime in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000009 /* HeliosTime */; };
+		F1000000000000000000000A /* NutritionCore in Frameworks */ = {isa = PBXBuildFile; productRef = F2000000000000000000000A /* NutritionCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 				F10000000000000000000007 /* HeliosDesign in Frameworks */,
 				F10000000000000000000008 /* StackCore in Frameworks */,
 				F10000000000000000000009 /* HeliosTime in Frameworks */,
+				F1000000000000000000000A /* NutritionCore in Frameworks */,
 			);
 		};
 		3E24D9A43075DFA50059733A /* Frameworks */ = {
@@ -134,6 +136,7 @@
 				F20000000000000000000007 /* HeliosDesign */,
 				F20000000000000000000008 /* StackCore */,
 				F20000000000000000000009 /* HeliosTime */,
+				F2000000000000000000000A /* NutritionCore */,
 			);
 			productName = "Caliber (DEV)";
 			productReference = 3E24D99A3075DFA40059733A /* Caliber (DEV).app */;
@@ -218,6 +221,7 @@
 				F30000000000000000000002 /* XCLocalSwiftPackageReference "Packages/HeliosDesign" */,
 				F30000000000000000000003 /* XCLocalSwiftPackageReference "Packages/StackCore" */,
 				F30000000000000000000004 /* XCLocalSwiftPackageReference "Packages/HeliosTime" */,
+				F30000000000000000000005 /* XCLocalSwiftPackageReference "Packages/NutritionCore" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3E24D99B3075DFA40059733A /* Products */;
@@ -633,6 +637,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/HeliosTime;
 		};
+		F30000000000000000000005 /* XCLocalSwiftPackageReference "Packages/NutritionCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/NutritionCore;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -671,6 +679,10 @@
 		F20000000000000000000009 /* HeliosTime */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HeliosTime;
+		};
+		F2000000000000000000000A /* NutritionCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NutritionCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

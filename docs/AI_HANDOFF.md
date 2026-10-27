@@ -71,7 +71,10 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
   tab labels were not the cause.
 - Claude imported the seven engine packages from its branch at the owner's
   request (D109): `HeliosTime`, `TrainingCore`, `NutritionCore`, `StackCore`,
-  `InsightsCore`, `FoodCore`, `RestaurantCore`. Nothing links them yet. 402 tests
+  `InsightsCore`, `FoodCore`, `RestaurantCore`. The app links `HeliosTime`,
+  `StackCore` (Stack) and `NutritionCore` (only `WeightTrend`, the §9.3 EWMA that
+  draws Progress's trend line and Today's trend weight; it matches the
+  HOW_WE_CALCULATE row). The rest are not linked yet. 402 tests
   pass locally on Swift 6.1.3 (Linux), and a new Foundation CI step runs them.
   Before wiring one into a screen, reconcile it with `HOW_WE_CALCULATE.md`
   (for example `TrainingCore` e1RM vs the planned rules, `NutritionCore` vs

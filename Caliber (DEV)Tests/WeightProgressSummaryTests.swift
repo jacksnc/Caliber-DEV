@@ -41,4 +41,29 @@ struct WeightProgressSummaryTests {
         #expect(summary.latestWeightInPounds == 150.5)
         #expect(summary.changeInPounds == nil)
     }
+
+    @Test("The trend follows brief §9.3 and keeps its history across a shorter range")
+    func smoothedTrend() throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = try #require(TimeZone(identifier: "America/Chicago"))
+        let start = try #require(calendar.date(from: DateComponents(year: 2026, month: 3, day: 1, hour: 7)))
+        func day(_ offset: Int, _ pounds: Double) -> WeightEntry {
+            WeightEntry(date: calendar.date(byAdding: .day, value: offset, to: start)!, weightInPounds: pounds)
+        }
+        let history = [day(0, 200), day(1, 190), day(3, 190)]
+
+        let full = WeightProgressSummary(entries: history, calendar: calendar)
+        #expect(full.trend.count == 3)
+        #expect(abs(full.trend[0].pounds - 200) < 0.0001)
+        // One day: gain 0.1. Two days: gain 1 − 0.9² = 0.19.
+        #expect(abs(full.trend[1].pounds - 199) < 0.0001)
+        #expect(abs(full.trend[2].pounds - (199 - 0.19 * 9)) < 0.0001)
+        #expect(abs((full.trendChangeInPounds ?? 0) - (199 - 0.19 * 9 - 200)) < 0.0001)
+
+        // A range holding only the last day still carries the earlier trend.
+        let recent = WeightProgressSummary(entries: [history[2]], history: history, calendar: calendar)
+        #expect(recent.trend.count == 1)
+        #expect(abs((recent.latestTrendInPounds ?? 0) - full.trend[2].pounds) < 0.0001)
+        #expect(recent.trendChangeInPounds == nil)
+    }
 }
