@@ -15,12 +15,16 @@ struct StackPlannerTests {
   /// Monday 2026-10-26 09:12 UTC.
   private let now = Date(timeIntervalSince1970: 1_793_005_920)
 
-  private func context() throws -> ModelContext {
-    let container = try ModelContainer(
+  /// Held for the whole test: a context outlives nothing once its container is released.
+  private let container: ModelContainer
+
+  init() throws {
+    container = try ModelContainer(
       for: StackStore.schema,
       configurations: ModelConfiguration(schema: StackStore.schema, isStoredInMemoryOnly: true))
-    return container.mainContext
   }
+
+  private func context() throws -> ModelContext { container.mainContext }
 
   private func at(_ hour: Int, _ minute: Int = 0, daysAgo: Int = 0) -> Date {
     let day = calendar.date(byAdding: .day, value: -daysAgo, to: calendar.startOfDay(for: now))!

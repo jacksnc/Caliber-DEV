@@ -38,8 +38,8 @@ jobs:
       # Proves the app still builds against the iOS 18 SDK (deployment target stays 17).
       - name: App build and unit tests on Xcode 16.4
         run: python3 scripts/test_ios.py --unit-only --output "$RUNNER_TEMP/CaliberIOS"
-  # UI tests and accessibility audits run on the newest Xcode on macOS 26, close to the
-  # Xcode the owner develops with. The iOS 18.5 audit flagged text that passes there (D112).
+  # UI tests and accessibility audits run on the newest Xcode on macOS 26, as close as
+  # possible to the Xcode the owner develops with. The iOS 18.5 audit flagged text that passes there (D112).
   ui:
     runs-on: macos-26
     timeout-minutes: 45
@@ -50,7 +50,9 @@ jobs:
       - name: Toolchain
         run: |
           ls -d /Applications/Xcode*.app
-          xcode="$(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)"
+          # Newest installed Xcode, including a 27 preview when the image has one: the
+          # owner develops on Xcode 27.
+          xcode="$(ls -d /Applications/Xcode_2[6-9]*.app | sort -V | tail -1)"
           echo "DEVELOPER_DIR=$xcode/Contents/Developer" >> "$GITHUB_ENV"
           DEVELOPER_DIR="$xcode/Contents/Developer" xcodebuild -version
       - name: App and isolated UI tests

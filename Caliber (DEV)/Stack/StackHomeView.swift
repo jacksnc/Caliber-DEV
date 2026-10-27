@@ -399,16 +399,14 @@ private struct StackSupplyCard: View {
     let left = StackPlanner.remainingSupply(of: compound) ?? 0
     let fraction = Double(left) / Double(max(1, compound.supplyDoses))
     VStack(alignment: .leading, spacing: HeliosTokens.space(2)) {
-      ViewThatFits(in: .horizontal) {
-        HStack {
-          Text("\(compound.name) \(compound.form.title.lowercased())").heliosFont(.bodyStrong)
-          Spacer()
-          Text("\(left) of \(compound.supplyDoses) doses left").heliosFont(.callout)
-        }
-        VStack(alignment: .leading) {
-          Text("\(compound.name) \(compound.form.title.lowercased())").heliosFont(.bodyStrong)
-          Text("\(left) of \(compound.supplyDoses) doses left").heliosFont(.callout)
-        }
+      // Both lines wrap rather than truncate as text grows.
+      HStack(alignment: .firstTextBaseline) {
+        Text("\(compound.name) \(compound.form.title.lowercased())").heliosFont(.bodyStrong)
+          .fixedSize(horizontal: false, vertical: true)
+        Spacer(minLength: HeliosTokens.space(2))
+        Text("\(left) of \(compound.supplyDoses) doses left").heliosFont(.callout)
+          .multilineTextAlignment(.trailing)
+          .fixedSize(horizontal: false, vertical: true)
       }
       GeometryReader { proxy in
         ZStack(alignment: .leading) {

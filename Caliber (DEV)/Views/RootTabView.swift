@@ -10,7 +10,6 @@ struct RootTabView: View {
   @EnvironmentObject private var runtime: FoundationRuntime
   @EnvironmentObject private var stack: StackRuntime
   @Environment(\.heliosTheme) private var theme
-  @Environment(\.dynamicTypeSize) private var typeSize
   @Query(sort: \ProgressEntry.date, order: .reverse) private var progress: [ProgressEntry]
   @State private var selection = CaliberTab.today
   @State private var showsQuickLog = false
@@ -69,11 +68,7 @@ struct RootTabView: View {
             showsQuickLog = false
           }
         }
-        .sheet(isPresented: $quickLogFood) {
-          // Passes the presenter's current text size on; see ProfileAvatarModifier.
-          // helios-lint: allow(dynamic-type-cap)
-          NavigationStack { FoodSearchView() }.dynamicTypeSize(typeSize)
-        }
+        .sheet(isPresented: $quickLogFood) { NavigationStack { FoodSearchView() } }
         .sheet(isPresented: $quickLogCheckIn) {
           ProgressEntryForm(entry: progress.first { Calendar.current.isDateInToday($0.date) })
         }
