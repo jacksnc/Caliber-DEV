@@ -1,4 +1,77 @@
+import HeliosDesign
 import SwiftUI
+
+/// Look book: the scan result card. Values are the provider's, for its stated basis; the
+/// review screen is where the person checks them against the package and logs.
+private struct BarcodeProductCard: View {
+  let product: BarcodeNutritionProduct
+  @Environment(\.heliosTheme) private var theme
+  @Environment(\.locale) private var locale
+
+  var body: some View {
+    let data = theme.palette.data
+    VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
+      HStack(alignment: .top, spacing: HeliosTokens.space(3)) {
+        Image(systemName: "shippingbox")
+          .foregroundStyle(theme.palette.text.secondary.color)
+          .frame(width: 44, height: 44)
+          .background(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+              .fill(theme.palette.opaque.raised.color)
+          )
+          .accessibilityHidden(true)
+        VStack(alignment: .leading, spacing: 2) {
+          Text(product.name).heliosFont(.section)
+            .fixedSize(horizontal: false, vertical: true)
+          Text(
+            [product.brand, product.sourceName].compactMap { $0 }.filter { !$0.isEmpty }
+              .joined(separator: " · ")
+          )
+          .heliosFont(.footnote)
+          .foregroundStyle(theme.palette.text.secondary.color)
+          .fixedSize(horizontal: false, vertical: true)
+        }
+      }
+      Text("Per \(product.basisDescription)")
+        .heliosFont(.caption)
+        .foregroundStyle(theme.palette.text.secondary.color)
+        .fixedSize(horizontal: false, vertical: true)
+      ViewThatFits(in: .horizontal) {
+        HStack(spacing: HeliosTokens.space(2)) { tiles(data) }
+        VStack(alignment: .leading, spacing: HeliosTokens.space(2)) { tiles(data) }
+      }
+      Label(product.sourceNote, systemImage: "exclamationmark.triangle.fill")
+        .heliosFont(.caption)
+        .foregroundStyle(theme.palette.text.secondary.color)
+        .fixedSize(horizontal: false, vertical: true)
+    }
+    .padding(.vertical, HeliosTokens.space(1))
+  }
+
+  @ViewBuilder private func tiles(_ data: DataColors) -> some View {
+    tile("Energy", value: product.calories, unit: "kcal", color: data.energy.color)
+    tile("Protein", value: product.proteinGrams, unit: "g", color: data.protein.color)
+    tile("Carbs", value: product.carbGrams, unit: "g", color: data.carbs.color)
+    tile("Fat", value: product.fatGrams, unit: "g", color: data.fat.color)
+  }
+
+  private func tile(_ title: String, value: Double, unit: String, color: Color) -> some View {
+    VStack(alignment: .leading, spacing: 2) {
+      HStack(spacing: 4) {
+        Circle().fill(color).frame(width: 7, height: 7).accessibilityHidden(true)
+        Text(title).heliosFont(.caption)
+          .foregroundStyle(theme.palette.text.secondary.color)
+      }
+      Text(NutritionInput.format(value, locale: locale)).heliosFont(.bodyStrong)
+      Text(unit).heliosFont(.caption)
+        .foregroundStyle(theme.palette.text.secondary.color)
+    }
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .padding(HeliosTokens.space(2))
+    .background { GlassBackground(level: .raised, cornerRadius: HeliosTokens.radius.tile) }
+    .accessibilityElement(children: .combine)
+  }
+}
 
 struct BarcodeFoodLookupView: View {
   @EnvironmentObject private var runtime: FoundationRuntime
@@ -106,15 +179,11 @@ private struct BarcodeLookupContent: View {
         }
         if let product = coordinator.product {
           Section("Product Found") {
+            BarcodeProductCard(product: product)
             NavigationLink {
               FoodNutritionReviewView(reference: .barcode(product), meal: mealType, date: date)
             } label: {
-              VStack(alignment: .leading, spacing: 4) {
-                Text(product.name)
-                if let brand = product.brand, !brand.isEmpty { Text(brand).font(.subheadline) }
-                Text(product.basisDescription).font(.footnote).foregroundStyle(.secondary)
-                Text("Review Nutrition").font(.subheadline)
-              }.frame(minHeight: 48)
+              Text("Review and Log").heliosFont(.bodyStrong).frame(minHeight: 48)
             }.accessibilityIdentifier("barcodeReview")
           }
         }

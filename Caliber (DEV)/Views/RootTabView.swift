@@ -28,21 +28,10 @@ struct RootTabView: View {
       if runtime.isDemoMode, let dataset = runtime.demo {
         NavigationStack {
           DemoDashboard(dataset: dataset, hidesNumbers: runtime.settings.hideNumbers)
-        }
-        .safeAreaInset(edge: .bottom) {
-          // A full-width control gives large text room to grow and stays reachable while scrolling.
-          Button {
-            runtime.isDemoMode = false
-          } label: {
-            Text("Exit Demo").font(.body)
-              .fixedSize(horizontal: false, vertical: true)
-              .frame(maxWidth: .infinity, minHeight: 48)
-              .contentShape(Rectangle())
-          }
-          .buttonStyle(.plain).foregroundStyle(.tint)
-          .accessibilityIdentifier("exitDemo")
-          .padding(.horizontal).padding(.vertical, 8)
-          .background(.bar)
+            // A full-width control gives large text room to grow and stays reachable while
+            // scrolling. It belongs to the dashboard, as Profile's Done does; pushed chart
+            // pages go back to it with the back button.
+            .safeAreaInset(edge: .bottom) { exitDemoBar }
         }
       } else if runtime.settings.hideNumbers {
         NumberFreeHomeView()
@@ -75,6 +64,21 @@ struct RootTabView: View {
         .tint(theme.palette.accent.base.color)
       }
     }
+  }
+
+  private var exitDemoBar: some View {
+    Button {
+      runtime.isDemoMode = false
+    } label: {
+      Text("Exit Demo").font(.body)
+        .fixedSize(horizontal: false, vertical: true)
+        .frame(maxWidth: .infinity, minHeight: 48)
+        .contentShape(Rectangle())
+    }
+    .buttonStyle(.plain).foregroundStyle(.tint)
+    .accessibilityIdentifier("exitDemo")
+    .padding(.horizontal).padding(.vertical, 8)
+    .background(.bar)
   }
 
   @ViewBuilder private func screen(for tab: CaliberTab) -> some View {

@@ -171,6 +171,9 @@ final class FoundationUITests: XCTestCase {
     methodPicture.name = "Foundation calculation method AX5"
     methodPicture.lifetime = .keepAlways
     add(methodPicture)
+    // Exit Demo belongs to the dashboard; the chart pages go back to it first.
+    app.navigationBars.buttons.element(boundBy: 0).tap()
+    XCTAssertTrue(app.buttons["exitDemo"].waitForExistence(timeout: 5))
     app.buttons["exitDemo"].tap()
     XCTAssertTrue(app.tab("Today").waitForExistence(timeout: 5))
   }

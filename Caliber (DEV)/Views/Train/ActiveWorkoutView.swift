@@ -14,33 +14,42 @@ struct ActiveWorkoutView: View {
   @Environment(\.heliosTheme) private var theme
   @State private var showingExercisePicker = false
   @State private var showingFinishConfirmation = false
+  @State private var showingRename = false
+  @State private var draftName = ""
   @State private var message: String?
+
+  private var volume: String {
+    let unit = runtime.settings.massUnit
+    let value = unit.fromKilograms(workout.volumeKilograms)
+    return "\(value.formatted(.number.precision(.fractionLength(0...1)))) \(unit.rawValue)"
+  }
 
   var body: some View {
     List {
       Group {
         Section {
-          (typeSize.isAccessibilitySize
-            ? AnyLayout(VStackLayout(alignment: .leading)) : AnyLayout(HStackLayout())) {
-              stat("Sets", value: String(workout.completedSets.count))
-              Spacer()
-              stat(
-                "Volume",
-                value:
-                  "\(runtime.settings.massUnit.fromKilograms(workout.volumeKilograms).formatted(.number.precision(.fractionLength(0...1)))) \(runtime.settings.massUnit.rawValue)"
-              )
-            }
-          TextField("Workout name", text: $workout.name)
-            .onSubmit(saveWorkoutMetadata)
         } header: {
-          // Look book: elapsed time over the workout name, with the rest since the last set.
+          // Look book: elapsed time, sets and volume over the workout name, with the rest
+          // since the last set. The pencil renames the workout.
           TimelineView(.periodic(from: .now, by: 1)) { context in
             HStack(alignment: .top) {
               CaliberHeader(
                 LocalizedStringKey(workout.name), identifier: "ActiveWorkout",
                 overline: Text(
-                  "\(duration(since: workout.startedAt, now: context.date)) · \(workout.completedSets.count) sets"
+                  "\(duration(since: workout.startedAt, now: context.date)) · \(workout.completedSets.count) sets · \(volume)"
                 ))
+              Button {
+                draftName = workout.name
+                showingRename = true
+              } label: {
+                Image(systemName: "pencil")
+                  .foregroundStyle(theme.palette.text.secondary.color)
+                  .frame(width: 48, height: 48)
+                  .contentShape(Rectangle())
+              }
+              .buttonStyle(.plain)
+              .accessibilityLabel("Rename workout")
+              .accessibilityIdentifier("renameWorkout")
               if let rest = restSince(now: context.date) {
                 Label("Rest \(rest)", systemImage: "timer")
                   .heliosFont(.footnote)
@@ -122,6 +131,12 @@ struct ActiveWorkoutView: View {
     } message: {
       Text(message ?? "Please try again.")
     }
+    .alert("Rename Workout", isPresented: $showingRename) {
+      TextField("Workout name", text: $draftName)
+        .accessibilityIdentifier("workoutNameField")
+      Button("Cancel", role: .cancel) {}
+      Button("Save") { rename() }
+    }
   }
 
   /// Set · Previous · weight · Reps, as in the look book's set grid.
@@ -187,15 +202,16 @@ struct ActiveWorkoutView: View {
     return String(format: "%d:%02d", seconds / 60, seconds % 60)
   }
 
-  private func stat(_ label: String, value: String) -> some View {
-    VStack(alignment: .leading, spacing: 2) {
-      Text(value).font(.title3.bold()).monospacedDigit()
-      Text(label).font(.caption).foregroundStyle(.secondary)
+  /// A blank name keeps the current one.
+  private func rename() {
+    let name = draftName.trimmingCharacters(in: .whitespacesAndNewlines)
+    guard !name.isEmpty, name != workout.name else { return }
+    let previous = workout.name
+    workout.name = name
+    do { try modelContext.save() } catch {
+      workout.name = previous
+      message = "The workout name could not be saved."
     }
-  }
-
-  private func saveWorkoutMetadata() {
-    do { try modelContext.save() } catch { message = "The workout name could not be saved." }
   }
 
   private func delete(_ set: TrainingWorkoutSet) {
