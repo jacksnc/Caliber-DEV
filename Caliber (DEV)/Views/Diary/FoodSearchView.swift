@@ -308,7 +308,7 @@ struct FoodSearchView: View {
       let saved =
         savedFoods.first { FoodSearchText.matches($0.name, query: phrase.terms) }
         ?? savedFoods.first { FoodSearchText.fuzzyMatches($0.name, query: phrase.terms) }
-      var candidates = try service.catalogSearch(query: phrase.terms, limit: 30)
+      var candidates = try service.catalogSearch(query: phrase.terms, limit: 200)
       if candidates.isEmpty {
         candidates = try Self.fuzzyCatalogSearch(phrase.terms, service: service)
       }

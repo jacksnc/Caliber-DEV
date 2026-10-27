@@ -189,7 +189,12 @@ enum CatalogMatch {
     let first = segments.first ?? []
     let words = segments.flatMap { $0 }
     var score = words.count
-    if first.starts(with: query) || first == query { score -= 100 }
+    // "Rice, white, cooked" is rice; "Rice crackers" only starts with it.
+    if first == query {
+      score -= 100
+    } else if first.starts(with: query) {
+      score -= 60
+    }
     if words.contains(where: processed.contains) { score += 20 }
     // "Whole" marks a food's default form ("Egg, whole" rather than "Egg, white").
     if words.contains("whole") { score -= 2 }
