@@ -139,6 +139,8 @@ struct PhotoEstimateView: View {
       ForEach(matches) { match in row(match) }
     }
     .glassCard()
+    // A container identifier would replace the identifiers of the links inside it.
+    .accessibilityElement(children: .contain)
     .accessibilityIdentifier("photoResults")
   }
 

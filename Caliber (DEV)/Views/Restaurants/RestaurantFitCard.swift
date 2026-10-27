@@ -126,6 +126,8 @@ struct RestaurantFitCard: View {
         }
         .glassCard()
       }
+      // A container identifier would replace the identifiers of the rows inside it.
+      .accessibilityElement(children: .contain)
       .accessibilityIdentifier("restaurantFitCard")
     }
   }

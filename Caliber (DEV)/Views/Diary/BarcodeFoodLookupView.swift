@@ -182,17 +182,20 @@ private struct BarcodeLookupContent: View {
         }
         if let product = coordinator.product {
           Section("Product Found") {
-            BarcodeProductCard(product: product)
-            // Look book: one primary action under the result card.
-            Button {
-              showsReview = true
-            } label: {
-              Text("Review and Log")
-                .fixedSize(horizontal: false, vertical: true)
-                .frame(maxWidth: .infinity)
+            // Look book: one primary action under the result card, in the same row as
+            // Train's session card, rather than a list row of its own.
+            VStack(spacing: 12) {
+              BarcodeProductCard(product: product)
+              Button {
+                showsReview = true
+              } label: {
+                Text("Review and Log")
+                  .fixedSize(horizontal: false, vertical: true)
+                  .frame(maxWidth: .infinity)
+              }
+              .buttonStyle(.heliosPrimary)
+              .accessibilityIdentifier("barcodeReview")
             }
-            .buttonStyle(.heliosPrimary)
-            .accessibilityIdentifier("barcodeReview")
           }
         }
         Section {

@@ -121,6 +121,8 @@ struct LabelScannerView: View {
         .fixedSize(horizontal: false, vertical: true)
     }
     .glassCard()
+    // A container identifier would replace the identifiers of the buttons inside it.
+    .accessibilityElement(children: .contain)
     .accessibilityIdentifier("labelResult")
   }
 

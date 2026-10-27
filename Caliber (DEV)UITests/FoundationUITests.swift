@@ -103,8 +103,7 @@ final class FoundationUITests: XCTestCase {
     app.openProfile()
     app.tap(app.buttons["profileAccount"], until: app.switches["accountConsent"])
     XCTAssertFalse(app.buttons["accountConsentContinue"].isEnabled)
-    app.switches["accountConsent"].coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5))
-      .tap()
+    turnOn(app.switches["accountConsent"])
     app.buttons["accountConsentContinue"].tap()
     let email = app.textFields["accountEmail"]
     XCTAssertTrue(email.waitForExistence(timeout: 5))
@@ -178,12 +177,21 @@ final class FoundationUITests: XCTestCase {
     XCTAssertTrue(app.tab("Today").waitForExistence(timeout: 5))
   }
 
+  /// A tap that lands while a screen is still settling can be lost; retry until it is on.
+  @MainActor private func turnOn(_ toggle: XCUIElement) {
+    for _ in 0..<3 where toggle.value as? String != "1" {
+      toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
+    }
+    XCTAssertEqual(toggle.value as? String, "1")
+  }
+
   @MainActor private func openFixtureAccount(in app: XCUIApplication) {
     app.openProfile()
     let consent = app.switches["accountConsent"]
     app.tap(app.buttons["profileAccount"], until: consent)
-    consent.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
+    turnOn(consent)
     app.buttons["accountConsentContinue"].tap()
+    XCTAssertTrue(app.textFields["accountEmail"].waitForExistence(timeout: 5))
     XCTAssertTrue(app.textFields["accountEmail"].waitForExistence(timeout: 5))
   }
   @MainActor func testRecoveryUsesCodeWithoutSigningIn() {
