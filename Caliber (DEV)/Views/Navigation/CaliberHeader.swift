@@ -45,7 +45,14 @@ extension View {
       }
   }
 
-  /// A header row for screens built on `List`.
+  /// The screen header on a `List`, as its first section's header: a header is not clipped
+  /// to the section's rounded shape the way a row is, and sits at the top of the list.
+  func caliberSectionHeader() -> some View {
+    textCase(nil)
+      .listRowInsets(EdgeInsets(top: 0, leading: 4, bottom: HeliosTokens.space(2), trailing: 4))
+  }
+
+  /// A full-width row without a card, such as a closing button.
   func caliberHeaderRow() -> some View {
     listRowBackground(Color.clear)
       .listRowSeparator(.hidden)

@@ -33,7 +33,6 @@ struct DiaryView: View {
     NavigationStack {
       List {
         Group {
-          CaliberHeader("Fuel", identifier: "Fuel", overline: Text("Diary")).caliberHeaderRow()
           Section {
             DatePicker("Diary date", selection: $selectedDate, displayedComponents: .date)
               .accessibilityIdentifier("diaryDate")
@@ -48,6 +47,9 @@ struct DiaryView: View {
               .frame(minHeight: 48)
             }
             .accessibilityIdentifier("diaryCopyDay")
+          } header: {
+            CaliberHeader("Fuel", identifier: "Fuel", overline: Text("Diary"))
+              .caliberSectionHeader()
           }
           Section {
             MacroTotalsSummaryView(totals: dailyTotals)

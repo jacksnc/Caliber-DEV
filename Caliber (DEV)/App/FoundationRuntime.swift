@@ -198,7 +198,8 @@ struct FoundationRootView: View {
           let container
         {
           try ShowcaseUITestFixture.seed(
-            in: container.mainContext, now: .now, calendar: runtime.settings.calendar)
+            in: container.mainContext, now: .now, calendar: runtime.settings.calendar,
+            activeWorkout: ProcessInfo.processInfo.arguments.contains("--showcase-workout"))
         }
       #endif
     } catch { failed = true }

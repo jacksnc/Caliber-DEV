@@ -19,25 +19,6 @@ struct ActiveWorkoutView: View {
   var body: some View {
     List {
       Group {
-        // Look book: elapsed time over the workout name, with the rest since the last set.
-        TimelineView(.periodic(from: .now, by: 1)) { context in
-          HStack(alignment: .top) {
-            CaliberHeader(
-              LocalizedStringKey(workout.name), identifier: "ActiveWorkout",
-              overline: Text(
-                "\(duration(since: workout.startedAt, now: context.date)) · \(workout.completedSets.count) sets"
-              ))
-            if let rest = restSince(now: context.date) {
-              Label("Rest \(rest)", systemImage: "timer")
-                .heliosFont(.footnote)
-                .padding(.horizontal, HeliosTokens.space(3))
-                .frame(minHeight: 36)
-                .background { GlassBackground(level: .raised, cornerRadius: 18) }
-                .accessibilityLabel("Rest \(rest)")
-            }
-          }
-        }
-        .caliberHeaderRow()
         Section {
           (typeSize.isAccessibilitySize
             ? AnyLayout(VStackLayout(alignment: .leading)) : AnyLayout(HStackLayout())) {
@@ -51,6 +32,26 @@ struct ActiveWorkoutView: View {
             }
           TextField("Workout name", text: $workout.name)
             .onSubmit(saveWorkoutMetadata)
+        } header: {
+          // Look book: elapsed time over the workout name, with the rest since the last set.
+          TimelineView(.periodic(from: .now, by: 1)) { context in
+            HStack(alignment: .top) {
+              CaliberHeader(
+                LocalizedStringKey(workout.name), identifier: "ActiveWorkout",
+                overline: Text(
+                  "\(duration(since: workout.startedAt, now: context.date)) · \(workout.completedSets.count) sets"
+                ))
+              if let rest = restSince(now: context.date) {
+                Label("Rest \(rest)", systemImage: "timer")
+                  .heliosFont(.footnote)
+                  .padding(.horizontal, HeliosTokens.space(3))
+                  .frame(minHeight: 36)
+                  .background { GlassBackground(level: .raised, cornerRadius: 18) }
+                  .accessibilityLabel("Rest \(rest)")
+              }
+            }
+          }
+          .caliberSectionHeader()
         }
 
         if workout.exercises.isEmpty {

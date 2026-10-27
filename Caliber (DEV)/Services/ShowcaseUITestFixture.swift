@@ -6,7 +6,10 @@
   /// look book's populated boards. Used only with `--showcase-fixture` and the isolated
   /// in-memory test store. Every value is invented.
   @MainActor enum ShowcaseUITestFixture {
-    static func seed(in context: ModelContext, now: Date, calendar: Calendar) throws {
+    /// `activeWorkout` adds a session in progress, for the workout screen's screenshot.
+    static func seed(
+      in context: ModelContext, now: Date, calendar: Calendar, activeWorkout: Bool = false
+    ) throws {
       guard try context.fetchCount(FetchDescriptor<UserProfile>()) == 0 else { return }
       context.insert(
         UserProfile(
@@ -39,6 +42,8 @@
         context.insert(WeightEntry(date: date, weightInPounds: pounds))
       }
 
+      let bench = TrainingExercise(name: "Bench Press", isCustom: false)
+      context.insert(bench)
       // Yesterday's finished session, so Today and Train have a last workout to show.
       if let yesterday = calendar.date(byAdding: .day, value: -1, to: today),
         let started = calendar.date(byAdding: .hour, value: 18, to: yesterday)
@@ -46,8 +51,6 @@
         let workout = TrainingWorkout(name: "Push A", startedAt: started)
         workout.completedAt = started.addingTimeInterval(55 * 60)
         context.insert(workout)
-        let bench = TrainingExercise(name: "Bench Press", isCustom: false)
-        context.insert(bench)
         let entry = TrainingWorkoutExercise(position: 0, exercise: bench)
         entry.workout = workout
         context.insert(entry)
@@ -60,6 +63,31 @@
           set.completedAt = started.addingTimeInterval(Double(index + 1) * 240)
           set.workoutExercise = entry
           context.insert(set)
+        }
+      }
+      if activeWorkout {
+        // Today's session, 42 minutes in: two bench sets ticked, two still to do.
+        let started = now.addingTimeInterval(-42 * 60)
+        let workout = TrainingWorkout(name: "Push A", startedAt: started)
+        context.insert(workout)
+        let incline = TrainingExercise(name: "Incline Dumbbell Press", isCustom: false)
+        context.insert(incline)
+        for (position, exercise, sets) in [(0, bench, 4), (1, incline, 3)] {
+          let entry = TrainingWorkoutExercise(position: position, exercise: exercise)
+          entry.workout = workout
+          context.insert(entry)
+          for index in 0..<sets {
+            let set = TrainingWorkoutSet(position: index)
+            set.enteredWeight = position == 0 ? 205 : 70
+            set.enteredWeightUnitRawValue = "lb"
+            set.weightKilograms = set.enteredWeight * 0.45359237
+            set.repetitions = position == 0 ? 6 : 10
+            if position == 0 && index < 2 {
+              set.completedAt = started.addingTimeInterval(Double(index + 1) * 300)
+            }
+            set.workoutExercise = entry
+            context.insert(set)
+          }
         }
       }
       try context.save()

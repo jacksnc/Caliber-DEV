@@ -78,6 +78,24 @@ final class ThemeIntegrationUITests: XCTestCase {
     try audit(app, largeText: largeText)
   }
 
+  /// The look book's workout board: a session in progress with ticked and open sets.
+  @MainActor func testGraphiteWorkout() throws {
+    let app = XCUIApplication()
+    app.launchArguments = [
+      "--progress-ui-testing", "--theme-graphite", "--stack-fixture", "--showcase-fixture",
+      "--showcase-workout",
+    ]
+    app.launch()
+    XCTAssertTrue(app.tab("Train").waitForExistence(timeout: 20))
+    app.tab("Train").tap()
+    let resume = app.buttons["resumeWorkout"]
+    XCTAssertTrue(resume.waitForExistence(timeout: 5))
+    resume.tap()
+    XCTAssertTrue(app.screenTitle("ActiveWorkout").waitForExistence(timeout: 5))
+    capture("graphite-Workout-default", app: app)
+    try audit(app, largeText: false)
+  }
+
   @MainActor private func reveal(_ element: XCUIElement, app: XCUIApplication) {
     for _ in 0..<8 where !element.isHittable { app.swipeUp() }
     XCTAssertTrue(element.isHittable)

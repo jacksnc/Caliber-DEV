@@ -40,10 +40,13 @@ struct ProgressDashboardView: View {
     NavigationStack {
       List {
         Group {
-          CaliberHeader("Progress", identifier: "Progress").caliberHeaderRow()
-          ProgressRangePicker(selection: $range)
-            .listRowBackground(Color.clear)
-            .listRowInsets(EdgeInsets())
+          Section {
+            ProgressRangePicker(selection: $range)
+              .listRowBackground(Color.clear)
+              .listRowInsets(EdgeInsets())
+          } header: {
+            CaliberHeader("Progress", identifier: "Progress").caliberSectionHeader()
+          }
           Section {
             WeightTrendChart(
               summary: summary, unit: unit,

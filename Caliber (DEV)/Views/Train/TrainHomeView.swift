@@ -19,8 +19,7 @@ struct TrainHomeView: View {
     NavigationStack {
       List {
         Group {
-          CaliberHeader("Train", identifier: "Train").caliberHeaderRow()
-          Section("Workout") {
+          Section {
             if let activeWorkout {
               NavigationLink {
                 ActiveWorkoutView(workout: activeWorkout)
@@ -36,6 +35,7 @@ struct TrainHomeView: View {
                 }
                 .frame(minHeight: 48, alignment: .leading)
               }
+              .accessibilityIdentifier("resumeWorkout")
             } else {
               VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
                 Text(history.first.map { "Last time: \($0.name)" } ?? "Your first session")
@@ -56,6 +56,8 @@ struct TrainHomeView: View {
               }
               .padding(.vertical, HeliosTokens.space(2))
             }
+          } header: {
+            CaliberHeader("Train", identifier: "Train").caliberSectionHeader()
           }
 
           Section("Library") {
