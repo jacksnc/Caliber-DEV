@@ -269,10 +269,12 @@ struct ActiveWorkoutView: View {
         .accessibilityLabel("Remove exercise")
       }
       columnHeader
+      let nextSetID = workoutExercise.sortedSets.first { $0.completedAt == nil }?.id
       ForEach(workoutExercise.sortedSets) { set in
         TrainingSetRow(
           set: set, displayUnit: runtime.settings.massUnit,
-          previous: previous.indices.contains(set.position) ? previous[set.position] : nil
+          previous: previous.indices.contains(set.position) ? previous[set.position] : nil,
+          isNext: set.id == nextSetID
         )
         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
           Button("Delete", role: .destructive) { delete(set) }
@@ -298,15 +300,21 @@ private struct TrainingSetRow: View {
   @Bindable var set: TrainingWorkoutSet
   let displayUnit: MassUnit
   let previous: String?
+  /// Only the next open set shows its warm-up switch and RPE, keeping the grid as compact
+  /// as the look book's.
+  let isNext: Bool
   @State private var weightText: String
   @State private var repetitionsText: String
   @State private var rpeText: String
   @State private var message: String?
 
-  init(set: TrainingWorkoutSet, displayUnit: MassUnit, previous: String? = nil) {
+  init(
+    set: TrainingWorkoutSet, displayUnit: MassUnit, previous: String? = nil, isNext: Bool = true
+  ) {
     self.set = set
     self.displayUnit = displayUnit
     self.previous = previous
+    self.isNext = isNext
     _weightText = State(
       initialValue: set.weightKilograms == 0
         ? "" : String(format: "%g", displayUnit.fromKilograms(set.weightKilograms)))
@@ -423,14 +431,17 @@ private struct TrainingSetRow: View {
             .buttonStyle(.plain)
             .accessibilityLabel("Complete set \(set.position + 1)")
           }
-        // The look book's grid is Set · Previous · weight · Reps; RPE and warm-up sit below.
-        (typeSize.isAccessibilitySize
-          ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
-          : AnyLayout(HStackLayout(spacing: 12))) {
-            Toggle("Warm-up set", isOn: $set.isWarmup)
-              .onChange(of: set.isWarmup) { _, _ in try? modelContext.save() }
-            field("RPE", text: $rpeText, width: 58)
-          }
+        // The look book's grid is Set · Previous · weight · Reps; RPE and warm-up sit below
+        // the next set to do.
+        if isNext || set.isWarmup || !rpeText.isEmpty {
+          (typeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
+            : AnyLayout(HStackLayout(spacing: 12))) {
+              Toggle("Warm-up set", isOn: $set.isWarmup)
+                .onChange(of: set.isWarmup) { _, _ in try? modelContext.save() }
+              field("RPE", text: $rpeText, width: 58)
+            }
+        }
       }
       .alert(
         "Check This Set",

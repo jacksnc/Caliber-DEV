@@ -183,7 +183,8 @@ private struct BarcodeLookupContent: View {
             NavigationLink {
               FoodNutritionReviewView(reference: .barcode(product), meal: mealType, date: date)
             } label: {
-              Text("Review and Log").heliosFont(.bodyStrong).frame(minHeight: 48)
+              Text("Review and Log").heliosFont(.bodyStrong)
+                .fixedSize(horizontal: false, vertical: true).frame(minHeight: 48)
             }.accessibilityIdentifier("barcodeReview")
           }
         }

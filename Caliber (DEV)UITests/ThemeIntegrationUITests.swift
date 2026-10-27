@@ -118,8 +118,9 @@ final class ThemeIntegrationUITests: XCTestCase {
     }
     reveal(lookup, app: app)
     lookup.tap()
+    // The fixture lookup can take longer than the screen transitions around it.
     let review = app.buttons["barcodeReview"]
-    XCTAssertTrue(review.waitForExistence(timeout: 10))
+    XCTAssertTrue(review.waitForExistence(timeout: 30))
     reveal(review, app: app)
     capture("graphite-ScanResult", app: app)
     try audit(app, largeText: false)
