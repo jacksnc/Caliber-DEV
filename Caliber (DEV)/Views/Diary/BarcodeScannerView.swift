@@ -10,6 +10,7 @@ struct BarcodeScannerView: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(\.scenePhase) private var scenePhase
   @Environment(\.openURL) private var openURL
+  @Environment(\.dynamicTypeSize) private var typeSize
   @StateObject private var capture = BarcodeCaptureService()
   @State private var manualValue = ""
   @State private var validationMessage: String?
@@ -159,7 +160,8 @@ struct BarcodeScannerView: View {
       }
       .buttonStyle(.heliosSecondary)
     case .unavailable(let message):
-      cameraPlaceholder
+      // Decorative only; at accessibility sizes the message and actions need the room.
+      if !typeSize.isAccessibilitySize { cameraPlaceholder }
       Label(message, systemImage: "camera.fill")
         .foregroundStyle(.secondary)
         .accessibilityIdentifier("barcodeCameraUnavailable")

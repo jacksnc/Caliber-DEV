@@ -216,9 +216,11 @@ private struct TodayFuelCard: View {
           }
           HStack(alignment: .firstTextBaseline, spacing: 2) {
             Text(number(row.eaten, digits: row.id == "energy" ? 0 : 1)).heliosFont(.bodyStrong)
+              .fixedSize(horizontal: false, vertical: true)
             if let goal = row.goal {
               Text("/ \(number(goal, digits: 0))").heliosFont(.footnote)
                 .foregroundStyle(theme.palette.text.secondary.color)
+                .fixedSize(horizontal: false, vertical: true)
             }
           }
         }

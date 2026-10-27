@@ -104,6 +104,7 @@ struct RestaurantFitCard: View {
             )
             .heliosFont(.footnote)
             .foregroundStyle(theme.palette.text.secondary.color)
+            .fixedSize(horizontal: false, vertical: true)
           }
           let matches = RestaurantFit.matches(in: selected.menuItems, window: window)
           if matches.isEmpty {
@@ -135,6 +136,7 @@ struct RestaurantFitCard: View {
       HStack(alignment: .firstTextBaseline) {
         Text(item.name).heliosFont(.bodyStrong)
           .foregroundStyle(theme.palette.text.primary.color)
+          .fixedSize(horizontal: false, vertical: true)
           .frame(maxWidth: .infinity, alignment: .leading)
         switch match.verdict {
         case .fits: StatusBadge(.success, "Fits")
@@ -146,6 +148,7 @@ struct RestaurantFitCard: View {
       )
       .heliosFont(.footnote)
       .foregroundStyle(theme.palette.text.secondary.color)
+      .fixedSize(horizontal: false, vertical: true)
     }
     .padding(HeliosTokens.space(3))
     .frame(minHeight: 48)
