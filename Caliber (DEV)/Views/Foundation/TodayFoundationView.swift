@@ -209,10 +209,10 @@ private struct TodayFuelCard: View {
         VStack(alignment: .leading, spacing: 0) {
           HStack(spacing: HeliosTokens.space(1)) {
             Circle().fill(row.color).frame(width: 8, height: 8).accessibilityHidden(true)
-            Text(row.title).heliosFont(.metricLabel)
+            // One text, so the name and unit wrap together in a narrow legend.
+            (Text(row.title) + Text(" · \(row.unit)")).heliosFont(.metricLabel)
               .foregroundStyle(theme.palette.text.secondary.color)
-            Text("· \(row.unit)").heliosFont(.metricLabel)
-              .foregroundStyle(theme.palette.text.secondary.color)
+              .fixedSize(horizontal: false, vertical: true)
           }
           HStack(alignment: .firstTextBaseline, spacing: 2) {
             Text(number(row.eaten, digits: row.id == "energy" ? 0 : 1)).heliosFont(.bodyStrong)
