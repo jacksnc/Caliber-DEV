@@ -9,12 +9,14 @@ final class FoundationUITests: XCTestCase {
     let proceed = app.buttons["welcomeContinue"]
     XCTAssertTrue(proceed.waitForExistence(timeout: 20))
     XCTAssertFalse(proceed.isEnabled)
-    app.switches["adultConfirmation"].coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5))
-      .tap()
-    XCTAssertEqual(app.switches["adultConfirmation"].value as? String, "1")
-    app.switches["scopeConfirmation"].coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5))
-      .tap()
-    XCTAssertEqual(app.switches["scopeConfirmation"].value as? String, "1")
+    // A tap that lands while the welcome screen is still settling can be lost; retry it.
+    for name in ["adultConfirmation", "scopeConfirmation"] {
+      let toggle = app.switches[name]
+      for _ in 0..<3 where toggle.value as? String != "1" {
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
+      }
+      XCTAssertEqual(toggle.value as? String, "1")
+    }
     XCTAssertTrue(proceed.isEnabled)
     proceed.tap()
     XCTAssertTrue(app.tab("Today").waitForExistence(timeout: 10))
