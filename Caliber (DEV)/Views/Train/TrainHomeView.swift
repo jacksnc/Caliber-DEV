@@ -176,15 +176,17 @@ struct TrainHomeView: View {
     .padding(.vertical, HeliosTokens.space(2))
   }
 
-  /// "4 × 6 · 200 lb": finished working sets and the top logged weight.
+  /// "4 sets · top 200 lb × 6": finished working sets and the heaviest of them.
   private func summary(_ row: TrainingWorkoutExercise) -> String {
     let sets = row.sortedSets.filter { $0.completedAt != nil && !$0.isWarmup }
-    guard let top = sets.max(by: { $0.weightKilograms < $1.weightKilograms }) else {
-      return "No sets"
-    }
-    let reps = Set(sets.map(\.repetitions)).count == 1 ? "\(sets[0].repetitions)" : "varied"
+    guard
+      let top = sets.max(by: {
+        ($0.weightKilograms, $0.repetitions) < ($1.weightKilograms, $1.repetitions)
+      })
+    else { return "No sets" }
+    let weight = top.enteredWeight.formatted(.number.precision(.fractionLength(0...1)))
     return
-      "\(sets.count) × \(reps) · \(top.enteredWeight.formatted(.number.precision(.fractionLength(0...1)))) \(top.enteredWeightUnitRawValue)"
+      "\(sets.count) \(sets.count == 1 ? "set" : "sets") · top \(weight) \(top.enteredWeightUnitRawValue) × \(top.repetitions)"
   }
 
   private func repeatWorkout(_ last: TrainingWorkout) {
