@@ -92,6 +92,39 @@ final class ThemeIntegrationUITests: XCTestCase {
     try audit(app, largeText: false)
   }
 
+  /// The look book's scan result: the fictional fixture product found by its barcode.
+  @MainActor func testGraphiteScanResult() throws {
+    let app = launch(theme: "graphite", showcase: true)
+    app.buttons["quickLog"].tap()
+    app.buttons["quickLog-food"].tap()
+    let barcode = app.buttons["openBarcode"]
+    XCTAssertTrue(barcode.waitForExistence(timeout: 10))
+    reveal(barcode, app: app)
+    barcode.tap()
+    let scan = app.buttons["barcodeOpenCamera"]
+    XCTAssertTrue(scan.waitForExistence(timeout: 10))
+    scan.tap()
+    let input = app.textFields["barcodeManualInput"]
+    XCTAssertTrue(input.waitForExistence(timeout: 10))
+    input.tap()
+    input.typeText("012345678905")
+    app.buttons["barcodeConfirm"].tap()
+    let lookup = app.buttons["barcodeLookup"]
+    XCTAssertTrue(lookup.waitForExistence(timeout: 10))
+    let permission = app.switches["barcodePermission"]
+    reveal(permission, app: app)
+    if permission.value as? String != "1" {
+      permission.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
+    }
+    reveal(lookup, app: app)
+    lookup.tap()
+    let review = app.buttons["barcodeReview"]
+    XCTAssertTrue(review.waitForExistence(timeout: 10))
+    reveal(review, app: app)
+    capture("graphite-ScanResult", app: app)
+    try audit(app, largeText: false)
+  }
+
   @MainActor private func reveal(_ element: XCUIElement, app: XCUIApplication) {
     for _ in 0..<8 where !element.isHittable { app.swipeUp() }
     XCTAssertTrue(element.isHittable)
