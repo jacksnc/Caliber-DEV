@@ -10,7 +10,6 @@ struct BarcodeScannerView: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(\.scenePhase) private var scenePhase
   @Environment(\.openURL) private var openURL
-  @Environment(\.dynamicTypeSize) private var typeSize
   @StateObject private var capture = BarcodeCaptureService()
   @State private var manualValue = ""
   @State private var validationMessage: String?
@@ -27,7 +26,9 @@ struct BarcodeScannerView: View {
       ScrollView {
         VStack(alignment: .leading, spacing: 20) {
           // Look book: the camera fills the top, with a close button over it instead of a bar.
-          if !typeSize.isAccessibilitySize { topBar }
+          // One layout at every text size: a layout that changes with the size is rebuilt
+          // while the accessibility audit measures it.
+          topBar
           VStack(alignment: .leading, spacing: 12) { cameraArea }
 
           VStack(alignment: .leading, spacing: 8) {
@@ -92,24 +93,12 @@ struct BarcodeScannerView: View {
       .scrollDismissesKeyboard(.interactively)
       .navigationTitle("Scan Barcode")
       .navigationBarTitleDisplayMode(.inline)
-      .toolbar(typeSize.isAccessibilitySize ? .visible : .hidden, for: .navigationBar)
+      .toolbar(.hidden, for: .navigationBar)
       .toolbar {
         ToolbarItemGroup(placement: .keyboard) {
           Spacer()
           Button("Done") { isEditingManualCode = false }
             .frame(minWidth: 48, minHeight: 48)
-        }
-      }
-      .safeAreaInset(edge: .bottom) {
-        // At accessibility sizes a full-width button gives the label room to grow.
-        if typeSize.isAccessibilitySize {
-          Button(action: cancel) {
-            Text("Cancel").font(.body).frame(maxWidth: .infinity, minHeight: 48)
-          }
-          .buttonStyle(.heliosSecondary)
-          .accessibilityIdentifier("barcodeCancel")
-          .padding(.horizontal).padding(.vertical, 8)
-          .background { CaliberRowBackground() }
         }
       }
       .onAppear { capture.start() }
@@ -168,8 +157,8 @@ struct BarcodeScannerView: View {
       }
       .buttonStyle(.heliosSecondary)
     case .unavailable(let message):
-      // Decorative only; at accessibility sizes the message and actions need the room.
-      if !typeSize.isAccessibilitySize { cameraPlaceholder }
+      // Decorative; the scroll view leaves room for the message and actions below it.
+      cameraPlaceholder
       Label(message, systemImage: "camera.fill")
         .foregroundStyle(.secondary)
         .accessibilityIdentifier("barcodeCameraUnavailable")
@@ -203,15 +192,17 @@ struct BarcodeScannerView: View {
       .buttonStyle(.plain)
       .accessibilityLabel("Cancel")
       .accessibilityIdentifier("barcodeCancel")
-      Spacer()
-      if let onSwitchMode {
-        modePicker(onSwitchMode)
-      } else {
-        Text("Scan barcode").heliosFont(.section)
-          .accessibilityAddTraits(.isHeader)
+      // Large text scrolls the modes sideways instead of shrinking them.
+      ScrollView(.horizontal) {
+        if let onSwitchMode {
+          modePicker(onSwitchMode)
+        } else {
+          Text("Scan barcode").heliosFont(.section)
+            .accessibilityAddTraits(.isHeader)
+            .frame(minHeight: 48)
+        }
       }
-      Spacer()
-      Color.clear.frame(width: 48, height: 48).accessibilityHidden(true)
+      .scrollIndicators(.hidden)
     }
   }
 

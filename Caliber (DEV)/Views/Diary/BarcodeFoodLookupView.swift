@@ -61,10 +61,13 @@ private struct BarcodeProductCard: View {
         Circle().fill(color).frame(width: 7, height: 7).accessibilityHidden(true)
         Text(title).heliosFont(.caption)
           .foregroundStyle(theme.palette.text.secondary.color)
+          .fixedSize(horizontal: false, vertical: true)
       }
       Text(NutritionInput.format(value, locale: locale)).heliosFont(.bodyStrong)
+        .fixedSize(horizontal: false, vertical: true)
       Text(unit).heliosFont(.caption)
         .foregroundStyle(theme.palette.text.secondary.color)
+        .fixedSize(horizontal: false, vertical: true)
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .padding(HeliosTokens.space(2))
