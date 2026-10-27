@@ -119,13 +119,10 @@ final class FoundationUITests: XCTestCase {
     XCTAssertEqual(app.staticTexts["accountMessage"].label, "Signed out on this device.")
   }
 
-  /// Every issue is printed with its element, so CI logs say what failed; none is suppressed.
+  /// Every issue is printed with its element, so CI logs say what failed; issues that
+  /// repeat on a second pass fail the test (D113).
   @MainActor private func audit(_ app: XCUIApplication) throws {
-    try app.performAccessibilityAudit(for: [.dynamicType, .textClipped, .hitRegion]) { issue in
-      print("ACCESSIBILITY: \(issue.compactDescription): \(issue.detailedDescription)")
-      if let element = issue.element { print(element.debugDescription) }
-      return false
-    }
+    try app.auditRepeatedIssues(for: [.dynamicType, .textClipped, .hitRegion])
   }
 
   @MainActor func testDemoAtLargestTextSizeHasUsableChartRoutes() throws {

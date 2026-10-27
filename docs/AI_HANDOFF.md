@@ -73,7 +73,8 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
   "Dynamic Type partially unsupported" on the scanner's Enter Barcode heading,
   no-camera text and Retry Camera (also with the full-screen cover) and on Exit
   Demo; plus an occasional failed tap on `accountEmail`. They pass on some runs
-  with no code change. Not suppressed; still to explain.
+  with no code change; run 30 flagged Stack the same way. D113 now fails only
+  issues that repeat on a second audit pass, printing both passes. Still to explain.
 - Owner decision pending: the look book's "best e1RM" needs a formula choice
   (HOW_WE_CALCULATE, training estimates); the app shows the best logged set.
 - CI (D112): the macOS 15 / Xcode 16.4 job builds the app and runs unit tests; a

@@ -35,11 +35,7 @@ final class ThemeIntegrationUITests: XCTestCase {
     // Default-size clipping is checked separately; text growth is measured below.
     let types: XCUIAccessibilityAuditType =
       largeText ? [.dynamicType, .textClipped] : [.textClipped]
-    try app.performAccessibilityAudit(for: types) { issue in
-      print("ACCESSIBILITY: \(issue.compactDescription): \(issue.detailedDescription)")
-      if let element = issue.element { print(element.debugDescription) }
-      return false
-    }
+    try app.auditRepeatedIssues(for: types)
   }
 
   @MainActor private func inspect(theme: String, largeText: Bool = false) throws {
