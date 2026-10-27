@@ -25,9 +25,18 @@ struct AddFoodView: View {
   @State private var didJustSave = false
   @State private var saveError: String?
 
-  init(mealType: MealType, date: Date) {
+  /// `prefill` comes from a scanned label or a confirmed estimate; every field stays editable.
+  init(mealType: MealType, date: Date, prefill: FoodEntryPrefill? = nil) {
     _mealType = State(initialValue: mealType)
     _date = State(initialValue: date)
+    if let prefill {
+      _name = State(initialValue: prefill.name)
+      _servingDescription = State(initialValue: prefill.servingDescription)
+      _calories = State(initialValue: prefill.calories)
+      _protein = State(initialValue: prefill.protein)
+      _carbs = State(initialValue: prefill.carbs)
+      _fat = State(initialValue: prefill.fat)
+    }
   }
 
   private var totals: MacroTotals? {

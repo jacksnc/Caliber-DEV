@@ -5,12 +5,13 @@ final class ThemeIntegrationUITests: XCTestCase {
   override func setUpWithError() throws { continueAfterFailure = true }
 
   @MainActor private func launch(
-    theme: String, largeText: Bool = false, showcase: Bool = false
+    theme: String, largeText: Bool = false, showcase: Bool = false, extra: [String] = []
   ) -> XCUIApplication {
     let app = XCUIApplication()
-    app.launchArguments = [
-      "--progress-ui-testing", "--theme-\(theme)", "--barcode-fixture", "--stack-fixture",
-    ]
+    app.launchArguments =
+      [
+        "--progress-ui-testing", "--theme-\(theme)", "--barcode-fixture", "--stack-fixture",
+      ] + extra
     // Filled, fictional data so screenshots compare with the look book's populated boards.
     if showcase { app.launchArguments.append("--showcase-fixture") }
     if largeText {
@@ -92,6 +93,30 @@ final class ThemeIntegrationUITests: XCTestCase {
     try audit(app, largeText: false)
   }
 
+  /// A nutrition label read into the manual form. The sample text stands in for the photo,
+  /// which a simulator cannot take.
+  @MainActor func testGraphiteLabelScan() throws {
+    let app = launch(theme: "graphite", showcase: true, extra: ["--label-fixture"])
+    app.buttons["quickLog"].tap()
+    app.buttons["quickLog-food"].tap()
+    let label = app.buttons["openLabelScan"]
+    XCTAssertTrue(label.waitForExistence(timeout: 10))
+    reveal(label, app: app)
+    label.tap()
+    let sample = app.buttons["labelUseSample"]
+    XCTAssertTrue(sample.waitForExistence(timeout: 10))
+    sample.tap()
+    let use = app.buttons["labelUseValues"]
+    XCTAssertTrue(use.waitForExistence(timeout: 10))
+    capture("graphite-LabelScan", app: app)
+    try audit(app, largeText: false)
+    reveal(use, app: app)
+    use.tap()
+    let calories = app.textFields["Calories"]
+    XCTAssertTrue(calories.waitForExistence(timeout: 10))
+    XCTAssertEqual(calories.value as? String, "230")
+  }
+
   /// The look book's scan result: the fictional fixture product found by its barcode.
   @MainActor func testGraphiteScanResult() throws {
     let app = launch(theme: "graphite", showcase: true)
@@ -118,9 +143,12 @@ final class ThemeIntegrationUITests: XCTestCase {
     }
     reveal(lookup, app: app)
     lookup.tap()
-    // The fixture lookup can take longer than the screen transitions around it.
+    // The result row is created only when the list scrolls to it.
     let review = app.buttons["barcodeReview"]
-    XCTAssertTrue(review.waitForExistence(timeout: 30))
+    for _ in 0..<8 where !review.exists {
+      app.swipeUp()
+      _ = review.waitForExistence(timeout: 2)
+    }
     reveal(review, app: app)
     capture("graphite-ScanResult", app: app)
     try audit(app, largeText: false)

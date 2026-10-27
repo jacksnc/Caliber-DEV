@@ -185,7 +185,9 @@ private struct BarcodeLookupContent: View {
             Button {
               showsReview = true
             } label: {
-              Text("Review and Log").frame(maxWidth: .infinity)
+              Text("Review and Log")
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity)
             }
             .buttonStyle(.heliosPrimary)
             .accessibilityIdentifier("barcodeReview")

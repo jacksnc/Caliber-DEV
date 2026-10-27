@@ -17,6 +17,7 @@
 		F10000000000000000000008 /* StackCore in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000008 /* StackCore */; };
 		F10000000000000000000009 /* HeliosTime in Frameworks */ = {isa = PBXBuildFile; productRef = F20000000000000000000009 /* HeliosTime */; };
 		F1000000000000000000000A /* NutritionCore in Frameworks */ = {isa = PBXBuildFile; productRef = F2000000000000000000000A /* NutritionCore */; };
+		F1000000000000000000000B /* FoodCore in Frameworks */ = {isa = PBXBuildFile; productRef = F2000000000000000000000B /* FoodCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 				F10000000000000000000008 /* StackCore in Frameworks */,
 				F10000000000000000000009 /* HeliosTime in Frameworks */,
 				F1000000000000000000000A /* NutritionCore in Frameworks */,
+				F1000000000000000000000B /* FoodCore in Frameworks */,
 			);
 		};
 		3E24D9A43075DFA50059733A /* Frameworks */ = {
@@ -137,6 +139,7 @@
 				F20000000000000000000008 /* StackCore */,
 				F20000000000000000000009 /* HeliosTime */,
 				F2000000000000000000000A /* NutritionCore */,
+				F2000000000000000000000B /* FoodCore */,
 			);
 			productName = "Caliber (DEV)";
 			productReference = 3E24D99A3075DFA40059733A /* Caliber (DEV).app */;
@@ -222,6 +225,7 @@
 				F30000000000000000000003 /* XCLocalSwiftPackageReference "Packages/StackCore" */,
 				F30000000000000000000004 /* XCLocalSwiftPackageReference "Packages/HeliosTime" */,
 				F30000000000000000000005 /* XCLocalSwiftPackageReference "Packages/NutritionCore" */,
+				F30000000000000000000006 /* XCLocalSwiftPackageReference "Packages/FoodCore" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3E24D99B3075DFA40059733A /* Products */;
@@ -410,7 +414,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Scan food barcodes. Camera images stay on your device.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Scan food barcodes and nutrition labels. Camera images stay on your device.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -453,7 +457,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Scan food barcodes. Camera images stay on your device.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Scan food barcodes and nutrition labels. Camera images stay on your device.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -641,6 +645,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/NutritionCore;
 		};
+		F30000000000000000000006 /* XCLocalSwiftPackageReference "Packages/FoodCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/FoodCore;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -683,6 +691,10 @@
 		F2000000000000000000000A /* NutritionCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NutritionCore;
+		};
+		F2000000000000000000000B /* FoodCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FoodCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

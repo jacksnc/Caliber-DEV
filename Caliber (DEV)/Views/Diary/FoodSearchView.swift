@@ -106,6 +106,12 @@ struct FoodSearchView: View {
             } label: {
               Label("Scan a Barcode", systemImage: "barcode.viewfinder").frame(minHeight: 48)
             }.accessibilityIdentifier("openBarcode")
+            NavigationLink {
+              LabelScannerView(mealType: mealType, date: date)
+            } label: {
+              Label("Scan a Nutrition Label", systemImage: "doc.text.viewfinder")
+                .frame(minHeight: 48)
+            }.accessibilityIdentifier("openLabelScan")
             Button {
               isPresentingManualEntry = true
             } label: {

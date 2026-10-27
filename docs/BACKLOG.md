@@ -176,7 +176,7 @@ All listed acceptance tests are planned. Full P0 table/screen/test mappings are 
 | VZ-X8 | 7 | Clinician/coach report | not-implemented |
 | VZ-X9 | 7 | Dose-cycle overlay | not-implemented |
 | FUEL-10 | 5 | Photo scan → items + estimated grams + confidence | not-implemented |
-| FUEL-11 | 5 | Barcode + label | not-implemented |
+| FUEL-11 | 5 | Barcode + label | partial-prototype |
 | FUEL-12 | 5 | Voice/text | not-implemented |
 | FUEL-13 | 5 | Restaurants | partial-prototype |
 | FUEL-22 | 4 | Adaptive targets (your own implementation, MacroFactor-inspired) | not-implemented |
