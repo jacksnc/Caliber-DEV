@@ -19,9 +19,9 @@ struct TodayFoundationView: View {
     NavigationStack {
       ScrollView {
         VStack(alignment: .leading, spacing: HeliosTokens.space(4)) {
-          Text(Date.now, format: .dateTime.weekday(.wide).month(.wide).day())
-            .heliosFont(.subheadline)
-            .foregroundStyle(theme.palette.text.secondary.color)
+          CaliberHeader(
+            "Today", identifier: "Today",
+            overline: Text(Date.now, format: .dateTime.weekday(.wide).month(.wide).day()))
           TodayFuelCard(entries: today, profile: profiles.first)
           TodayTrainCard(workouts: workouts)
           tiles
@@ -30,7 +30,7 @@ struct TodayFoundationView: View {
         .padding()
       }
       .caliberScreen()
-      .navigationTitle("Today")
+      .compactNavigationTitle("Today")
       .profileAvatar()
     }
   }
@@ -426,7 +426,7 @@ private struct TodayDoseTile: View {
           }
           content
           HStack(spacing: 2) {
-            Text("Open Stack")
+            Text(isDue ? "Log dose" : "Open Stack")
             Image(systemName: "chevron.right").accessibilityHidden(true)
           }
           .heliosFont(.footnote)
@@ -448,16 +448,25 @@ private struct TodayDoseTile: View {
       Text("Locked").heliosFont(.bodyStrong)
       Text("Open Stack to see today's doses.").heliosFont(.caption)
         .foregroundStyle(theme.palette.text.secondary.color)
-    } else if let next = nextDose() {
+    } else if case let (next, compound)? = nextDose() {
       Text(next.compoundName).heliosFont(.bodyStrong)
         .foregroundStyle(theme.palette.text.primary.color)
-      Text(next.scheduledAt.formatted(.dateTime.weekday(.abbreviated).hour().minute()))
-        .heliosFont(.caption)
-        .foregroundStyle(theme.palette.text.secondary.color)
+      Text(
+        "\(StackText.amount(compound)) · \(next.scheduledAt.formatted(date: .omitted, time: .shortened))"
+      )
+      .heliosFont(.caption)
+      .foregroundStyle(theme.palette.text.secondary.color)
       if next.scheduledAt < .now {
-        Label("Due now", systemImage: "exclamationmark.triangle.fill")
+        Label(
+          "Overdue by \(StackText.duration(from: next.scheduledAt, to: .now))",
+          systemImage: "exclamationmark.triangle.fill"
+        )
+        .heliosFont(.caption)
+        .foregroundStyle(theme.palette.status.warning.color)
+      } else if !calendar.isDateInToday(next.scheduledAt) {
+        Text(next.scheduledAt, format: .dateTime.weekday(.wide))
           .heliosFont(.caption)
-          .foregroundStyle(theme.palette.status.warning.color)
+          .foregroundStyle(theme.palette.text.secondary.color)
       }
     } else {
       Text("Nothing scheduled").heliosFont(.bodyStrong)
@@ -465,11 +474,18 @@ private struct TodayDoseTile: View {
     }
   }
 
-  private func nextDose() -> StackScheduledDose? {
+  private var isDue: Bool {
+    guard !stack.requiresUnlock, let next = nextDose()?.0 else { return false }
+    return next.scheduledAt <= .now
+  }
+
+  private func nextDose() -> (StackScheduledDose, StackCompound)? {
     guard let context = stack.container?.mainContext,
-      let compounds = try? context.fetch(FetchDescriptor<StackCompound>())
+      let compounds = try? context.fetch(FetchDescriptor<StackCompound>()),
+      let next = StackPlanner.next(for: compounds, now: .now, calendar: calendar),
+      let compound = compounds.first(where: { $0.name == next.compoundName })
     else { return nil }
-    return StackPlanner.next(for: compounds, now: .now, calendar: calendar)
+    return (next, compound)
   }
 }
 

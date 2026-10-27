@@ -13,6 +13,11 @@ extension XCUIApplication {
     XCTAssertTrue(navigationBars["Food Library"].waitForExistence(timeout: 10), file: file, line: line)
   }
 
+  /// The compact header a primary screen draws in place of a large navigation title.
+  func screenTitle(_ title: String) -> XCUIElement {
+    descendants(matching: .any)["screenTitle-" + title]
+  }
+
   /// A primary tab in the custom floating bar: "Today", "Train", "Fuel", "Stack" or "Progress".
   func tab(_ title: String) -> XCUIElement { buttons["tab-" + title.lowercased()] }
 

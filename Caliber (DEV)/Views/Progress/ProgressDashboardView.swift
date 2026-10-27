@@ -40,6 +40,7 @@ struct ProgressDashboardView: View {
     NavigationStack {
       List {
         Group {
+          CaliberHeader("Progress", identifier: "Progress").caliberHeaderRow()
           ProgressRangePicker(selection: $range)
             .listRowBackground(Color.clear)
             .listRowInsets(EdgeInsets())
@@ -118,7 +119,7 @@ struct ProgressDashboardView: View {
         .listRowBackground(CaliberRowBackground())
       }
       .caliberScreen()
-      .navigationTitle("Progress")
+      .compactNavigationTitle("Progress")
       .profileAvatar()
       .toolbar {
         ToolbarItem(placement: .primaryAction) {

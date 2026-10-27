@@ -23,7 +23,7 @@ struct StackHomeView: View {
         }
       }
       .caliberScreen()
-      .navigationTitle("Stack")
+      .compactNavigationTitle("Stack")
       .profileAvatar()
     }
   }
@@ -52,6 +52,7 @@ private struct StackDashboard: View {
     TimelineView(.periodic(from: .now, by: 60)) { timeline in
       ScrollView {
         VStack(alignment: .leading, spacing: HeliosTokens.space(4)) {
+          CaliberHeader("Stack", identifier: "Stack")
           if compounds.isEmpty {
             emptyCard
           } else {

@@ -53,6 +53,9 @@ struct RestaurantListView: View {
         .background { GlassBackground(level: .raised, cornerRadius: 16) }
         .listRowBackground(Color.clear)
         .listRowInsets(EdgeInsets())
+        RestaurantFitCard(restaurants: filteredRestaurants, mealType: mealType, date: date)
+          .listRowBackground(Color.clear)
+          .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0))
         if let importedCatalog {
           if importedCatalog.restaurants.isEmpty {
             Section("Imported Menus") {

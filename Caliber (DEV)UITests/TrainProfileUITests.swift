@@ -57,7 +57,7 @@ final class TrainProfileUITests: XCTestCase {
     XCTAssertTrue(app.staticTexts["135 lb × 8"].waitForExistence(timeout: 5))
     app.buttons["finishWorkout"].tap()
     app.buttons["Finish Workout"].tap()
-    XCTAssertTrue(app.navigationBars["Train"].waitForExistence(timeout: 5))
+    XCTAssertTrue(app.screenTitle("Train").waitForExistence(timeout: 5))
     XCTAssertTrue(
       app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "1 sets")).firstMatch
         .waitForExistence(timeout: 5))

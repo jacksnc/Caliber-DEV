@@ -19,6 +19,7 @@ struct TrainHomeView: View {
     NavigationStack {
       List {
         Group {
+          CaliberHeader("Train", identifier: "Train").caliberHeaderRow()
           Section("Workout") {
             if let activeWorkout {
               NavigationLink {
@@ -102,7 +103,7 @@ struct TrainHomeView: View {
         .listRowBackground(CaliberRowBackground())
       }
       .caliberScreen()
-      .navigationTitle("Train")
+      .compactNavigationTitle("Train")
       .profileAvatar()
       .task {
         do { try TrainingExerciseSeeder.seedIfNeeded(in: modelContext) } catch {

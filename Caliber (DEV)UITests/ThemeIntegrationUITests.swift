@@ -4,11 +4,15 @@ import XCTest
 final class ThemeIntegrationUITests: XCTestCase {
   override func setUpWithError() throws { continueAfterFailure = true }
 
-  @MainActor private func launch(theme: String, largeText: Bool = false) -> XCUIApplication {
+  @MainActor private func launch(
+    theme: String, largeText: Bool = false, showcase: Bool = false
+  ) -> XCUIApplication {
     let app = XCUIApplication()
     app.launchArguments = [
       "--progress-ui-testing", "--theme-\(theme)", "--barcode-fixture", "--stack-fixture",
     ]
+    // Filled, fictional data so screenshots compare with the look book's populated boards.
+    if showcase { app.launchArguments.append("--showcase-fixture") }
     if largeText {
       app.launchArguments += [
         "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL",
@@ -39,10 +43,10 @@ final class ThemeIntegrationUITests: XCTestCase {
   }
 
   @MainActor private func inspect(theme: String, largeText: Bool = false) throws {
-    let app = launch(theme: theme, largeText: largeText)
+    let app = launch(theme: theme, largeText: largeText, showcase: true)
     for tab in ["Today", "Train", "Fuel", "Stack", "Progress"] {
       app.tab(tab).tap()
-      XCTAssertTrue(app.navigationBars[tab].waitForExistence(timeout: 5))
+      XCTAssertTrue(app.screenTitle(tab).waitForExistence(timeout: 5))
       capture("\(theme)-\(tab)-\(largeText ? "AX5" : "default")", app: app)
       try audit(app, largeText: largeText)
     }

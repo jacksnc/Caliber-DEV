@@ -194,6 +194,12 @@ struct FoundationRootView: View {
           try FoodReuseUITestFixture.seed(
             in: container.mainContext, calendar: runtime.settings.calendar)
         }
+        if runtime.testing && ProcessInfo.processInfo.arguments.contains("--showcase-fixture"),
+          let container
+        {
+          try ShowcaseUITestFixture.seed(
+            in: container.mainContext, now: .now, calendar: runtime.settings.calendar)
+        }
       #endif
     } catch { failed = true }
   }

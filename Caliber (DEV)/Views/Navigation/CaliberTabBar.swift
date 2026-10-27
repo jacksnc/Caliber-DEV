@@ -20,10 +20,10 @@ enum CaliberTab: String, CaseIterable, Identifiable {
 
   var symbol: String {
     switch self {
-    case .today: "sun.max"
+    case .today: "target"
     case .train: "dumbbell"
     case .fuel: "fork.knife"
-    case .stack: "cross.vial"
+    case .stack: "flask"
     case .progress: "chart.line.uptrend.xyaxis"
     }
   }

@@ -33,6 +33,7 @@ struct DiaryView: View {
     NavigationStack {
       List {
         Group {
+          CaliberHeader("Fuel", identifier: "Fuel", overline: Text("Diary")).caliberHeaderRow()
           Section {
             DatePicker("Diary date", selection: $selectedDate, displayedComponents: .date)
               .accessibilityIdentifier("diaryDate")
@@ -57,7 +58,7 @@ struct DiaryView: View {
         .listRowBackground(CaliberRowBackground())
       }
       .caliberScreen()
-      .navigationTitle("Fuel")
+      .compactNavigationTitle("Fuel")
       .profileAvatar()
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
