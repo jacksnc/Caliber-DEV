@@ -448,7 +448,7 @@ private struct TodayDoseTile: View {
       Text("Locked").heliosFont(.bodyStrong)
       Text("Open Stack to see today's doses.").heliosFont(.caption)
         .foregroundStyle(theme.palette.text.secondary.color)
-    } else if case let (next, compound)? = nextDose() {
+    } else if case (let next, let compound)? = nextDose() {
       Text(next.compoundName).heliosFont(.bodyStrong)
         .foregroundStyle(theme.palette.text.primary.color)
       Text(
