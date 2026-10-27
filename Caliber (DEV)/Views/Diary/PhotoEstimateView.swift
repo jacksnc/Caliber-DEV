@@ -211,12 +211,13 @@ struct PhotoEstimateView: View {
     }
     let service = await BundledFoodSearchService.prepared()
     matches = proposal.items.map { item in
-      let food =
-        (try? service.catalogSearch(query: item.name, limit: 1).first)
-        ?? (try? service.catalogSearch(
-          query: item.name.split(separator: ",").first.map(String.init) ?? item.name, limit: 1
-        ).first)
-      return PhotoMatch(item: item, food: food)
+      // "rice, white, cooked": search the full name, then the food itself, and rank by it.
+      let head = item.name.split(separator: ",").first.map(String.init) ?? item.name
+      var candidates = (try? service.catalogSearch(query: item.name, limit: 30)) ?? []
+      if candidates.isEmpty {
+        candidates = (try? service.catalogSearch(query: head, limit: 30)) ?? []
+      }
+      return PhotoMatch(item: item, food: CatalogMatch.best(for: head, in: candidates))
     }
   }
 

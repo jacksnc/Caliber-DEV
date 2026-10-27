@@ -161,3 +161,42 @@ extension FoodSearchText {
     return previous[b.count]
   }
 }
+
+/// Picks the database food a list item or photo item most plausibly means. The catalog search
+/// finds every name containing the words ("banana" also finds "Peppers, banana"), so this
+/// prefers names that start with the food, then plain forms over processed ones, then shorter
+/// names. The person still sees the matched name and can choose another.
+enum CatalogMatch {
+  static func best(for terms: String, in candidates: [FoodCatalogEntry]) -> FoodCatalogEntry? {
+    let query = FoodSearchText.normalized(terms).split(separator: " ").map {
+      SmartFoodQuery.singular(String($0))
+    }
+    guard !query.isEmpty else { return candidates.first }
+    return candidates.enumerated().min { lhs, rhs in
+      let left = score(lhs.element.name, query: query)
+      let right = score(rhs.element.name, query: query)
+      return left == right ? lhs.offset < rhs.offset : left < right
+    }?.element
+  }
+
+  /// Lower is better.
+  static func score(_ name: String, query: [String]) -> Int {
+    let segments = name.split(separator: ",").map {
+      FoodSearchText.normalized(String($0)).split(separator: " ").map {
+        SmartFoodQuery.singular(String($0))
+      }
+    }
+    let first = segments.first ?? []
+    let words = segments.flatMap { $0 }
+    var score = words.count
+    if first.starts(with: query) || first == query { score -= 100 }
+    if words.contains(where: processed.contains) { score += 20 }
+    // "Whole" marks a food's default form ("Egg, whole" rather than "Egg, white").
+    if words.contains("whole") { score -= 2 }
+    return score
+  }
+
+  private static let processed: Set<String> = [
+    "dried", "dehydrated", "powder", "powdered", "frozen", "canned", "concentrate", "flour",
+  ]
+}

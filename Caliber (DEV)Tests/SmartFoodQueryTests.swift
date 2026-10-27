@@ -49,3 +49,18 @@ struct SmartFoodQueryTests {
     #expect(!FoodSearchText.fuzzyMatches("Chicken breast", query: "salmon"))
   }
 }
+
+@Suite("Catalog match ranking")
+struct CatalogMatchTests {
+  @Test func plainFoodOutranksNamesThatOnlyContainIt() {
+    #expect(
+      CatalogMatch.score("Bananas, raw", query: ["banana"])
+        < CatalogMatch.score("Peppers, banana or Hungarian wax, seeded, raw", query: ["banana"]))
+    #expect(
+      CatalogMatch.score("Egg, whole, raw, fresh", query: ["egg"])
+        < CatalogMatch.score("Egg, white, dried", query: ["egg"]))
+    #expect(
+      CatalogMatch.score("Egg, whole, raw, fresh", query: ["egg"])
+        < CatalogMatch.score("Egg, white, raw", query: ["egg"]))
+  }
+}

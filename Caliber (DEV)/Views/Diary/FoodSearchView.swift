@@ -308,10 +308,11 @@ struct FoodSearchView: View {
       let saved =
         savedFoods.first { FoodSearchText.matches($0.name, query: phrase.terms) }
         ?? savedFoods.first { FoodSearchText.fuzzyMatches($0.name, query: phrase.terms) }
-      var catalog = try service.catalogSearch(query: phrase.terms, limit: 1).first
-      if catalog == nil {
-        catalog = try Self.fuzzyCatalogSearch(phrase.terms, service: service).first
+      var candidates = try service.catalogSearch(query: phrase.terms, limit: 30)
+      if candidates.isEmpty {
+        candidates = try Self.fuzzyCatalogSearch(phrase.terms, service: service)
       }
+      let catalog = CatalogMatch.best(for: phrase.terms, in: candidates)
       return ListMatch(phrase: phrase, saved: saved, catalog: saved == nil ? catalog : nil)
     }
   }
