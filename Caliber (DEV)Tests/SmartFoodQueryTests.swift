@@ -65,5 +65,8 @@ struct CatalogMatchTests {
     #expect(
       CatalogMatch.score("Rice, white, long-grain, regular, cooked", query: ["rice"])
         < CatalogMatch.score("Rice crackers", query: ["rice"]))
+    #expect(
+      CatalogMatch.score("Rice, white, long-grain, regular, cooked", query: ["rice"])
+        < CatalogMatch.score("Rice, white, glutinous, unenriched, cooked", query: ["rice"]))
   }
 }

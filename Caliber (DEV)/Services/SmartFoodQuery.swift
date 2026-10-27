@@ -196,6 +196,8 @@ enum CatalogMatch {
       score -= 60
     }
     if words.contains(where: processed.contains) { score += 20 }
+    // Specialty variants ("glutinous", "unenriched") are rarely what a plain name means.
+    if words.contains(where: uncommon.contains) { score += 5 }
     // "Whole" marks a food's default form ("Egg, whole" rather than "Egg, white").
     if words.contains("whole") { score -= 2 }
     return score
@@ -203,5 +205,9 @@ enum CatalogMatch {
 
   private static let processed: Set<String> = [
     "dried", "dehydrated", "powder", "powdered", "frozen", "canned", "concentrate", "flour",
+  ]
+
+  private static let uncommon: Set<String> = [
+    "glutinous", "unenriched", "imitation", "babyfood", "baby", "infant",
   ]
 }
