@@ -67,6 +67,41 @@ private func trainingContainer() throws -> ModelContainer {
   #expect(set.repetitions == 0)
 }
 
+@MainActor @Test func repeatingCopiesFinishedSetsAsOpenSets() throws {
+  let container = try trainingContainer()
+  let context = ModelContext(container)
+  context.autosaveEnabled = false
+  let bench = TrainingExercise(name: "Repeat Bench")
+  let fly = TrainingExercise(name: "Repeat Fly")
+  context.insert(bench)
+  context.insert(fly)
+  let last = try TrainingWorkoutLogger.start(in: context)
+  last.name = "Push A"
+  let benchRow = try TrainingWorkoutLogger.addExercise(bench, to: last, in: context)
+  for reps in ["6", "5"] {
+    let set = try #require(benchRow.sortedSets.last { $0.completedAt == nil })
+    try TrainingWorkoutLogger.complete(
+      set, weightText: "200", repetitionsText: reps, rpeText: "9",
+      unit: .pounds, locale: Locale(identifier: "en_US"), in: context)
+    _ = try TrainingWorkoutLogger.addSet(to: benchRow, in: context)
+  }
+  _ = try TrainingWorkoutLogger.addExercise(fly, to: last, in: context)
+  try TrainingWorkoutLogger.finish(last, in: context)
+
+  let next = try TrainingWorkoutLogger.repeating(last, in: context)
+  #expect(next.name == "Push A")
+  #expect(next.isActive)
+  #expect(next.completedSets.isEmpty)
+  let rows = next.sortedExercises
+  #expect(rows.map { $0.exercise?.name } == ["Repeat Bench", "Repeat Fly"])
+  // Two finished bench sets become two open ones; the unfinished third is not copied.
+  #expect(rows[0].sortedSets.map(\.repetitions) == [6, 5])
+  #expect(rows[0].sortedSets.allSatisfy { $0.enteredWeight == 200 && $0.rpe == nil })
+  // An exercise with nothing finished still gets one empty set to fill in.
+  #expect(rows[1].sortedSets.count == 1)
+  #expect(rows[1].sortedSets[0].repetitions == 0)
+}
+
 @MainActor @Test func warmupIsExcludedFromWorkoutVolume() throws {
   let container = try trainingContainer()
   let context = ModelContext(container)

@@ -37,24 +37,7 @@ struct TrainHomeView: View {
               }
               .accessibilityIdentifier("resumeWorkout")
             } else {
-              VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
-                Text(history.first.map { "Last time: \($0.name)" } ?? "Your first session")
-                  .heliosFont(.section)
-                Text(
-                  history.first.map {
-                    "\($0.startedAt.formatted(.dateTime.weekday(.wide).month().day())) · \($0.completedSets.count) sets"
-                  } ?? "Add exercises as you go. Each set saves when you tick it."
-                )
-                .heliosFont(.footnote)
-                .foregroundStyle(theme.palette.text.secondary.color)
-                Button(action: startWorkout) {
-                  Label("Start Workout", systemImage: "plus.circle.fill")
-                    .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.heliosPrimary)
-                .accessibilityIdentifier("startWorkout")
-              }
-              .padding(.vertical, HeliosTokens.space(2))
+              startCard(last: history.first)
             }
           } header: {
             CaliberHeader("Train", identifier: "Train").caliberSectionHeader()
@@ -123,6 +106,89 @@ struct TrainHomeView: View {
       } message: {
         Text(message ?? "Please try again.")
       }
+    }
+  }
+
+  /// Look book: the session card names the last workout and lists its exercises, with
+  /// "Repeat" filling a new session from what was logged then.
+  private func startCard(last: TrainingWorkout?) -> some View {
+    VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
+      HStack(spacing: HeliosTokens.space(3)) {
+        Image(systemName: "dumbbell")
+          .foregroundStyle(theme.palette.data.training.color)
+          .frame(width: 40, height: 40)
+          .background(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+              .fill(theme.palette.data.training.color.opacity(0.14))
+          )
+          .accessibilityHidden(true)
+        VStack(alignment: .leading, spacing: 2) {
+          Text(last?.name ?? "Your first session").heliosFont(.section)
+          Text(
+            last.map {
+              "Last time \($0.startedAt.formatted(.dateTime.weekday(.wide).month().day())) · \($0.completedSets.count) sets"
+            } ?? "Add exercises as you go. Each set saves when you tick it."
+          )
+          .heliosFont(.footnote)
+          .foregroundStyle(theme.palette.text.secondary.color)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+      }
+      if let last {
+        VStack(alignment: .leading, spacing: HeliosTokens.space(2)) {
+          ForEach(last.sortedExercises) { row in
+            HStack(alignment: .firstTextBaseline) {
+              Text(row.exercise?.name ?? "Deleted exercise").heliosFont(.callout)
+                .frame(maxWidth: .infinity, alignment: .leading)
+              Text(summary(row)).heliosFont(.footnote)
+                .foregroundStyle(theme.palette.text.secondary.color)
+            }
+            .accessibilityElement(children: .combine)
+          }
+        }
+        Button {
+          repeatWorkout(last)
+        } label: {
+          Label("Repeat \(last.name)", systemImage: "arrow.clockwise")
+            .frame(maxWidth: .infinity)
+        }
+        .buttonStyle(.heliosPrimary)
+        .accessibilityIdentifier("repeatWorkout")
+      }
+      if last == nil {
+        Button(action: startWorkout) {
+          Label("Start Workout", systemImage: "plus").frame(maxWidth: .infinity)
+        }
+        .buttonStyle(.heliosPrimary)
+        .accessibilityIdentifier("startWorkout")
+      } else {
+        Button(action: startWorkout) {
+          Label("Empty workout", systemImage: "plus").frame(maxWidth: .infinity)
+        }
+        .buttonStyle(.heliosSecondary)
+        .accessibilityIdentifier("startWorkout")
+      }
+    }
+    .padding(.vertical, HeliosTokens.space(2))
+  }
+
+  /// "4 × 6 · 200 lb": finished working sets and the top logged weight.
+  private func summary(_ row: TrainingWorkoutExercise) -> String {
+    let sets = row.sortedSets.filter { $0.completedAt != nil && !$0.isWarmup }
+    guard let top = sets.max(by: { $0.weightKilograms < $1.weightKilograms }) else {
+      return "No sets"
+    }
+    let reps = Set(sets.map(\.repetitions)).count == 1 ? "\(sets[0].repetitions)" : "varied"
+    return
+      "\(sets.count) × \(reps) · \(top.enteredWeight.formatted(.number.precision(.fractionLength(0...1)))) \(top.enteredWeightUnitRawValue)"
+  }
+
+  private func repeatWorkout(_ last: TrainingWorkout) {
+    do {
+      newWorkout = try TrainingWorkoutLogger.repeating(last, in: modelContext)
+      showingNewWorkout = true
+    } catch {
+      message = "The workout could not be started. Your existing data was not changed."
     }
   }
 

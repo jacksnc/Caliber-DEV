@@ -83,7 +83,9 @@
             set.weightKilograms = set.enteredWeight * 0.45359237
             set.repetitions = position == 0 ? 6 : 10
             if position == 0 && index < 2 {
-              set.completedAt = started.addingTimeInterval(Double(index + 1) * 300)
+              // The second set finished 84 seconds ago, so the rest timer shows.
+              set.completedAt =
+                index == 1 ? now.addingTimeInterval(-84) : started.addingTimeInterval(300)
             }
             set.workoutExercise = entry
             context.insert(set)

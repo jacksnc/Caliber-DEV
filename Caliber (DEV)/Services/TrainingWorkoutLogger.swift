@@ -26,6 +26,45 @@ enum TrainingWorkoutLogger {
     return workout
   }
 
+  /// Starts a session with an earlier workout's name and exercises: one open set for each set
+  /// finished last time, filled with the weight and repetitions logged then. Nothing is marked
+  /// complete, and RPE is left blank because effort must not be assumed.
+  static func repeating(
+    _ previous: TrainingWorkout, in context: ModelContext, date: Date = .now
+  ) throws -> TrainingWorkout {
+    let workout = TrainingWorkout(name: previous.name, startedAt: date)
+    context.insert(workout)
+    for (position, row) in previous.sortedExercises.enumerated() {
+      guard let exercise = row.exercise else { continue }
+      let copy = TrainingWorkoutExercise(position: position, exercise: exercise)
+      context.insert(copy)
+      workout.exercises.append(copy)
+      copy.workout = workout
+      let finished = row.sortedSets.filter { $0.completedAt != nil }
+      for index in 0..<max(finished.count, 1) {
+        let set = TrainingWorkoutSet(position: index)
+        if finished.indices.contains(index) {
+          let old = finished[index]
+          set.enteredWeight = old.enteredWeight
+          set.enteredWeightUnitRawValue = old.enteredWeightUnitRawValue
+          set.weightKilograms = old.weightKilograms
+          set.repetitions = old.repetitions
+          set.isWarmup = old.isWarmup
+        }
+        context.insert(set)
+        copy.sets.append(set)
+        set.workoutExercise = copy
+      }
+    }
+    do {
+      try context.save()
+    } catch {
+      context.rollback()
+      throw error
+    }
+    return workout
+  }
+
   static func addExercise(
     _ exercise: TrainingExercise, to workout: TrainingWorkout, in context: ModelContext
   ) throws -> TrainingWorkoutExercise {
