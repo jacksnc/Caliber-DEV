@@ -39,3 +39,12 @@ Schema and registry files are complete Phase-0 artifacts. Future implementation 
 ## Imported engine packages
 
 `Packages/HeliosTime`, `TrainingCore`, `NutritionCore`, `StackCore`, `InsightsCore`, `FoodCore` and `RestaurantCore` are pure Swift engines imported from the owner's Claude branch (D109). Each depends only on Foundation and, where needed, `HeliosTime` (`RestaurantCore` also uses `FoodCore`). They match the `CaliberCore` rule (Core → Foundation only) but remain separate packages until each is reviewed against `HOW_WE_CALCULATE.md`, then linked by the feature that needs it. CI runs their tests in the Foundation workflow; the app does not link them yet.
+
+## Workout input and deadline boundary
+
+`CaliberFoundation/Sources/CaliberCore/Training` contains Foundation-only metric
+validation, counting values and a versioned rest-deadline value. The existing app
+TrainingWorkoutLogger/History/RestTimer adapters own SwiftData queries and saves.
+Screens consume these APIs; the pure values import neither SwiftData nor SwiftUI.
+Imported TrainingCore's e1RM/PR APIs remain unlinked pending M01/M02 reconciliation.
+See WORKOUT_ENGINE_HANDOFF.md for the separate branch and integration contract.

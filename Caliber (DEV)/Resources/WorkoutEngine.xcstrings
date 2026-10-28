@@ -1,0 +1,138 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "Enter a weight of zero or greater.": {
+      "comment": "Workout input validation or saved-command error.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a weight of zero or greater."
+          }
+        }
+      }
+    },
+    "Enter a whole number of repetitions greater than zero.": {
+      "comment": "Workout input validation or saved-command error.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a whole number of repetitions greater than zero."
+          }
+        }
+      }
+    },
+    "Enter RPE from 0 to 10, nonnegative RIR, or leave effort blank.": {
+      "comment": "Workout input validation or saved-command error.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter RPE from 0 to 10, nonnegative RIR, or leave effort blank."
+          }
+        }
+      }
+    },
+    "Enter a duration in seconds greater than zero.": {
+      "comment": "Workout input validation or saved-command error.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a duration in seconds greater than zero."
+          }
+        }
+      }
+    },
+    "Enter a distance greater than zero.": {
+      "comment": "Workout input validation or saved-command error.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a distance greater than zero."
+          }
+        }
+      }
+    },
+    "Add a body weight before completing this set.": {
+      "comment": "Workout input validation or saved-command error.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add a body weight before completing this set."
+          }
+        }
+      }
+    },
+    "Assistance cannot exceed the body weight recorded for this set.": {
+      "comment": "Workout input validation or saved-command error.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Assistance cannot exceed the body weight recorded for this set."
+          }
+        }
+      }
+    },
+    "Give the custom set type a name.": {
+      "comment": "Workout input validation or saved-command error.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Give the custom set type a name."
+          }
+        }
+      }
+    },
+    "Rest must be greater than zero and no longer than 24 hours.": {
+      "comment": "Workout input validation or saved-command error.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rest must be greater than zero and no longer than 24 hours."
+          }
+        }
+      }
+    },
+    "This workout or set cannot be changed by that action.": {
+      "comment": "Workout input validation or saved-command error.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This workout or set cannot be changed by that action."
+          }
+        }
+      }
+    },
+    "Choose a previous set with the same exercise measurements.": {
+      "comment": "Workout input validation or saved-command error.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a previous set with the same exercise measurements."
+          }
+        }
+      }
+    },
+    "One of the values is too large to save.": {
+      "comment": "Workout input validation or saved-command error.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One of the values is too large to save."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

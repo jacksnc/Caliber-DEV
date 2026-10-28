@@ -54,7 +54,8 @@ final class TrainProfileUITests: XCTestCase {
     type("135", into: app.textFields["Weight"], in: app)
     type("8", into: app.textFields["Reps"], in: app)
     app.buttons["Complete set 1"].tap()
-    XCTAssertTrue(app.staticTexts["135 lb × 8"].waitForExistence(timeout: 5))
+    // The look-book grid exposes saved weight and reps as separate cells.
+    XCTAssertTrue(app.buttons["Set 1 completed"].waitForExistence(timeout: 5))
     app.buttons["finishWorkout"].tap()
     app.buttons["Finish Workout"].tap()
     XCTAssertTrue(app.screenTitle("Train").waitForExistence(timeout: 5))

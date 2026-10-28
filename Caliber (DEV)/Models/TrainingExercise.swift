@@ -1,3 +1,4 @@
+import CaliberCore
 import Foundation
 import SwiftData
 
@@ -13,6 +14,8 @@ enum ExerciseMetricType: String, Codable, CaseIterable, Identifiable {
   case distanceAndDuration
 
   var id: String { rawValue }
+
+  var coreMetric: WorkoutMetric { WorkoutMetric(rawValue: rawValue)! }
 
   var displayName: String {
     switch self {
@@ -39,6 +42,7 @@ final class TrainingExercise {
   var metricTypeRawValue: String
   var isCustom: Bool
   var isFavorite: Bool
+  var defaultRestSeconds: Double? = nil
   var createdAt: Date
 
   @Relationship(deleteRule: .nullify, inverse: \TrainingWorkoutExercise.exercise)

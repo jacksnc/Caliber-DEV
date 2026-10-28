@@ -1,0 +1,31 @@
+Test Suite 'All tests' started at 2026-10-27 21:14:58.965.
+Test Suite 'All tests' passed at 2026-10-27 21:14:58.967.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.002) seconds
+Test Suite 'All tests' started at 2026-10-27 21:14:59.122.
+Test Suite 'All tests' passed at 2026-10-27 21:14:59.123.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'All tests' started at 2026-10-27 21:14:59.256.
+Test Suite 'All tests' passed at 2026-10-27 21:14:59.257.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'All tests' started at 2026-10-27 21:14:59.335.
+Test Suite 'CaliberCoreTests.xctest' started at 2026-10-27 21:14:59.336.
+Test Suite 'WorkoutRestTimerTests' started at 2026-10-27 21:14:59.336.
+Test Suite 'WorkoutRestTimerTests' passed at 2026-10-27 21:14:59.339.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.003 (0.004) seconds
+Test Suite 'WorkoutSetMetricsTests' started at 2026-10-27 21:14:59.339.
+Test Suite 'WorkoutSetMetricsTests' passed at 2026-10-27 21:14:59.343.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+Test Suite 'CaliberCoreTests.xctest' passed at 2026-10-27 21:14:59.343.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.006 (0.007) seconds
+Test Suite 'All tests' passed at 2026-10-27 21:14:59.343.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.006 (0.007) seconds
+Test Suite 'All tests' started at 2026-10-27 21:14:59.550.
+Test Suite 'All tests' passed at 2026-10-27 21:14:59.551.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+✔ Test run with 3 tests in 0 suites passed after 0.012 seconds.
+✔ Test run with 33 tests in 0 suites passed after 0.008 seconds.
+➜ Test referenceCatalogFullDatasetMeasurementWhenSupplied() skipped.
+➜ Test packagedCatalogFullDatasetMeasurementWhenSupplied() skipped.
+✔ Test run with 56 tests in 0 suites passed after 7.238 seconds.
+✔ Test run with 12 tests in 0 suites passed after 0.005 seconds.
+✔ Test run with 9 tests in 1 suite passed after 0.001 seconds.

@@ -318,3 +318,10 @@ These entries preserve the existing requirement priorities. They are unfinished 
 - Graphite/Frost now apply to native screens through the imported Helios package, including food/restaurant forms, scanner controls, Profile, Train, and Progress. This does not implement the remaining full look-book interactions, floating Quick Log, or all P0 charts.
 - Physical iPhone camera/rendering/VoiceOver checks and iOS 17 execution remain open. Keep simulator evidence distinct from device or release certification.
 - Foundation history is now published on `astra/foundation` (verified 2026-10-26). Native theme verification and remaining accessibility/device gates are tracked in `THEME_INTEGRATION_VERIFICATION.md` and `AI_HANDOFF.md`.
+
+## Workout engine checkpoint — 2026-10-27 (separate Codex branch)
+
+- TRN-03/11/12/13/19: pure nine-metric validation, optional set snapshots, captured latest body weight, independent set-type counting, previous-performance lookup/copy and saved duplicate/fill/reorder/delete commands are implemented on `codex/workout-engine`. UI controls remain coordinated with Claude; these requirements are still partial.
+- TRN-30: persisted optional deadlines, ±15-second adjustment, skip, explicit next-set start and measured rest storage are implemented. Screen controls, per-kind defaults, notifications/Live Activity, sound/voice/haptics and locked-device validation remain open. No full timer completion claim.
+- Reconcile imported TrainingCore's single-rep convention, invalid-RPE/nonfinite inputs and configurable warm-up PR inclusion with M01/M02 before linking e1RM/PR outputs. This branch does not require another formula decision or activate those estimates.
+- Add training and its new fields to protected export/restore and canonical append-only revision storage before any cutover. The legacy 15-model rehearsal remains unchanged. See WORKOUT_ENGINE_HANDOFF.md.

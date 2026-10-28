@@ -144,3 +144,10 @@ Existing source work predates this phase and remains locally staged/uncommitted 
 - Made the iOS CLI runner safe for Python test discovery and excluded generated dependency documentation from the repository link validator.
 
 - Follow-up: use explicit SwiftUI section headers in restaurant menus and workout history for Xcode 16.4 compilation.
+
+## 2026-10-27 — Workout engine on a separate branch
+
+- Added tested pure input rules for nine exercise metrics, explicit units, RPE/RIR, all set kinds and independent counting policies.
+- Added optional SwiftData metric/body-weight/effort/distance/duration/rest snapshots; retained legacy completed-set values.
+- Added saved previous-set copy, fill, duplication, order and deletion commands; copies clear completion and observed effort/body weight.
+- Added durable optional rest deadlines and explicit actual-rest capture, with a Claude integration handoff. No screen, color or hosted changes.

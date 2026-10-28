@@ -66,7 +66,7 @@ jobs:
       # The result bundle can only be opened in Xcode. Push its screenshots to a branch
       # so they can be viewed on GitHub or fetched with git. The branch keeps one run.
       - name: Publish screenshots
-        if: always() && github.event_name == 'push'
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/astra/foundation'
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}

@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-27",
+  "branch": "codex/workout-engine",
+  "base": "116d46a",
+  "toolchain": "Xcode 27.1 (27A9275), iPhone 17 QA simulator, iOS 27.0",
+  "native": {
+    "xctest": 10,
+    "swift_testing": 212,
+    "workout_ui": 1,
+    "result": "pass"
+  },
+  "foundation_package": {
+    "xctest": 10,
+    "swift_testing_reported": 113,
+    "optional_dataset_measurements_skipped": 2,
+    "result": "pass"
+  },
+  "remaining": [
+    "UI controls for the new APIs",
+    "OS notifications and Live Activities",
+    "Minimum-iOS and physical-device checks",
+    "Training export/canonical revisions",
+    "Full Phase 2 coverage and performance gates"
+  ],
+  "logs": {
+    "native": {
+      "full_local_log": "/tmp/caliber-workout-ready.log",
+      "full_log_sha256": "3bf175acab66c5960c0845807b8cd25917ca81a17297a76401cac7dba69dc71f",
+      "summary": "native.log"
+    },
+    "package": {
+      "full_local_log": "/tmp/caliber-workout-package-complete.log",
+      "full_log_sha256": "489b15d6b8dac7c12d63f5e00d61dc57e288457808d1ab27f7e6e6f099b2ce7d",
+      "summary": "package.log"
+    },
+    "contracts": {
+      "full_local_log": "/tmp/caliber-workout-contracts-final.log",
+      "full_log_sha256": "d3e914814260c2ea884cc37dda0d0d5de64abc244efa7f046fac3b244a2142d8",
+      "summary": "contracts.log"
+    },
+    "lint": {
+      "full_local_log": "/tmp/caliber-workout-lint-publish.log",
+      "full_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": "lint.log"
+    },
+    "typography": {
+      "full_local_log": "/tmp/caliber-workout-typography.log",
+      "full_log_sha256": "13fccde8628b367d041636b4f994bb3ea1cdbed8dd845cb826611e137ed5c4e8",
+      "summary": "typography.log"
+    }
+  }
+}

@@ -4,6 +4,18 @@ This file is the shared checkpoint for work across Codex and Claude. The Git
 checkout and its commits are the source of truth; neither assistant inherits the
 other's chat automatically, and there is no automatic credit-exhaustion trigger.
 
+## Parallel workout engine branch — Codex, 2026-10-27
+
+The owner authorized separate work while Claude handles visuals. Codex is working
+in `/Users/jcrock/Documents/Codex/Caliber-workout-engine` on
+`codex/workout-engine`, based on `116d46a`. Its models/services and pure tests
+and local verification are described in [WORKOUT_ENGINE_HANDOFF](WORKOUT_ENGINE_HANDOFF.md) and
+[WORKOUT_ENGINE_VERIFICATION](WORKOUT_ENGINE_VERIFICATION.md). No screens or
+colors were edited. Keep Claude's navigation/visual work on `astra/foundation`;
+integrate the engine branch deliberately after reviewing its checks and adapter
+contract. This branch's CI publishes no shared screenshot branch, so Claude's
+visual evidence is not overwritten.
+
 ## Project state
 
 - Repository: `Caliber (DEV)` inside the `Caliber (DEV) - Project` folder.
