@@ -321,13 +321,17 @@ private struct TodayTrainCard: View {
   private func detail(active: TrainingWorkout?, last: TrainingWorkout?) -> String {
     if let active {
       return
-        "In progress since \(active.startedAt.formatted(date: .omitted, time: .shortened)) · \(active.exercises.count) exercises"
+        "In progress since \(active.startedAt.formatted(date: .omitted, time: .shortened)) · \(Self.exerciseCount(active))"
     }
     if let last {
       return
-        "Last time \(last.startedAt.formatted(.dateTime.weekday(.wide))) · \(last.exercises.count) exercises"
+        "Last time \(last.startedAt.formatted(.dateTime.weekday(.wide))) · \(Self.exerciseCount(last))"
     }
     return "No workouts yet"
+  }
+
+  private static func exerciseCount(_ workout: TrainingWorkout) -> String {
+    workout.exercises.count == 1 ? "1 exercise" : "\(workout.exercises.count) exercises"
   }
 
   private func hint(_ last: TrainingWorkout?) -> String? {
