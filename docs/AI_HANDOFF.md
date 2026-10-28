@@ -4,6 +4,19 @@ This file is the shared checkpoint for work across Codex and Claude. The Git
 checkout and its commits are the source of truth; neither assistant inherits the
 other's chat automatically, and there is no automatic credit-exhaustion trigger.
 
+## Parallel pass 2 — owner authorized, 2026-10-28
+
+The owner authorized implementation and task distribution across Codex, Claude
+Opus 5.5 and Gemini 4 Argon, using separate GitHub branches/clones.
+[The coordination pack](parallel/pass2/README.md) is the current ownership and
+dispatch contract. Codex owns goal setup and integration, Claude the next native
+visual pass, Gemini food-entry convenience. Shared base also incorporates
+Claude's scanner/accessibility and grammar fixes through `c9413af`. External
+assignments are ready; they are not claimed running until their chats/handoffs
+confirm it. The owner must start those external chats with the supplied briefs.
+The first batch excludes water/Health, adaptive coaching, micronutrients, meal
+planning, new providers and broad menu data imports. Existing P1/P2 gates remain.
+
 ## Recording review — Codex, 2026-10-28
 
 The owner supplied three screen recordings and asked for missing functional and

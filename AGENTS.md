@@ -21,3 +21,12 @@ tests, and the relevant Xcode tests. Use a conventional commit per completed
 phase. Never stage unrelated files or use `git add -A` without inspecting every
 path first. If tasks are performed concurrently, use separate Git worktrees;
 never edit the same checkout from two agents at once.
+
+## Active parallel pass 2
+
+While working on a branch assigned by `docs/parallel/pass2/README.md`, follow its
+file ownership boundaries. Claude and Gemini update their role-specific handoff
+in that directory instead of competing edits to shared planning documents; Codex
+aggregates those into AI_HANDOFF/BACKLOG/DECISIONS/CHANGELOG/method/migration docs.
+This changes coordination only; safety, math, licensing and verification rules
+above still apply. Report cross-boundary changes to Codex for integration.

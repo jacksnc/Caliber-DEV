@@ -273,3 +273,13 @@ Visible menu items and promotional statements are not tested workflows. Record
 ideas as proposals mapped to the existing brief, preserving P0/P1/P2 priorities,
 calorie/privacy gates, and Caliber's Helios identity. No new calculation or
 implementation is authorized by the review itself. See RECORDING_FEATURE_REVIEW.
+
+## PP01 — Three-agent pass 2 ownership (2026-10-28)
+
+The owner selected separate GitHub clones/branches. Codex owns goal storage,
+routing, common verification and integration; Claude owns shared visual
+components/Today/Progress presentation; Gemini owns food-entry convenience.
+Freeze shared APIs and stable test IDs; role handoffs replace competing edits to
+central planning docs during the pass. First slice is bounded to goals + visual
+polish + food-entry convenience; no implicit P1 activation or P2 promotion. See
+`docs/parallel/pass2/README.md`.

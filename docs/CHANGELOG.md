@@ -176,3 +176,12 @@ Existing source work predates this phase and remains locally staged/uncommitted 
   existing capabilities, implementation evidence and suggested build order.
 - Documentation only; no application, calculation, schema, provider or user-data
   changes. Recording media and private details remain outside the repository.
+
+## 2026-10-28 — Parallel pass 2 dispatch
+
+- Combined current native polish/review with Claude's latest scanner and grammar
+  fixes; preserved all working branches.
+- Added a shared branch/file ownership contract and concrete briefs/handoffs for
+  Codex goal setup, Claude visual refinement and Gemini food-entry convenience.
+- External work requires its own chat to be started; no external agent execution
+  or integration is claimed by preparing these assignments.
