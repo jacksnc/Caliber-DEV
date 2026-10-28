@@ -454,12 +454,12 @@ private struct TodayDoseTile: View {
       .glassCard()
       .accessibilityIdentifier("todayNextDose")
       // Opening the store publishes a change, so it happens after the first render.
-      .task { if !stack.requiresUnlock { stack.open() } }
+      .task(id: stack.isLocked) { if !stack.isLocked { stack.open() } }
     }
   }
 
   @ViewBuilder private var content: some View {
-    if stack.requiresUnlock {
+    if stack.isLocked {
       Text("Locked").heliosFont(.bodyStrong)
       Text("Open Stack to see today's doses.").heliosFont(.caption)
         .foregroundStyle(theme.palette.text.secondary.color)
@@ -490,7 +490,7 @@ private struct TodayDoseTile: View {
   }
 
   private var isDue: Bool {
-    guard !stack.requiresUnlock, let next = nextDose()?.0 else { return false }
+    guard !stack.isLocked, let next = nextDose()?.0 else { return false }
     return next.scheduledAt <= .now
   }
 
