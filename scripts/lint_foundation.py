@@ -117,4 +117,13 @@ paths += [ROOT / p for p in [
     'Caliber (DEV)/Services/ShowcaseUITestFixture.swift',
     'Caliber (DEV)UITests/LookbookPolishUITests.swift',
 ]]
+paths += [ROOT / p for p in [
+    'Caliber (DEV)/Models/NutritionGoalSetup.swift',
+    'Caliber (DEV)/Services/GoalSetupEditor.swift',
+    'Caliber (DEV)/ViewModels/GoalSetupDraft.swift',
+    'Caliber (DEV)/Views/Profile/ProfileView.swift',
+    'Caliber (DEV)Tests/GoalSetupPersistenceTests.swift',
+    'Caliber (DEV)UITests/GoalSetupUITests.swift',
+]]
+paths += sorted((ROOT / 'Caliber (DEV)/Views/Profile/GoalSetup').glob('*.swift'))
 subprocess.run(['xcrun', 'swift-format', 'lint', '--strict', *map(str, paths)], cwd=ROOT, check=True)

@@ -14,12 +14,17 @@ final class TrainProfileUITests: XCTestCase {
 
   @MainActor
   private func reveal(_ element: XCUIElement, in app: XCUIApplication) {
-    XCTAssertTrue(element.waitForExistence(timeout: 10))
     // A full-screen swipe can move a form field past the top while its numeric
     // keyboard is open. Short drags follow the field in either direction.
-    for _ in 0..<12 {
-      if element.exists && element.isHittable { break }
+    for _ in 0..<16 {
       let top = app.navigationBars.firstMatch.frame.maxY
+      let bottom =
+        app.keyboards.firstMatch.exists ? app.keyboards.firstMatch.frame.minY : app.frame.maxY
+      if element.exists && element.isHittable && element.frame.minY > top
+        && element.frame.maxY < bottom - 8
+      {
+        break
+      }
       let delta: CGFloat = element.exists && element.frame.minY < top ? 140 : -140
       let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.4))
       start.press(forDuration: 0.05, thenDragTo: start.withOffset(CGVector(dx: 0, dy: delta)))
@@ -49,6 +54,7 @@ final class TrainProfileUITests: XCTestCase {
         .exists)
     app.alerts["Profile"].buttons["OK"].tap()
     let savedGoal = app.descendants(matching: .any)["profileSavedCalorieGoal"]
+    reveal(savedGoal, in: app)
     XCTAssertTrue(savedGoal.waitForExistence(timeout: 5))
   }
 

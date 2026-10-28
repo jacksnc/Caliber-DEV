@@ -4,7 +4,7 @@ import Foundation
 ///
 /// The app asks the user to choose explicitly. It never infers a coefficient
 /// from a name, appearance, or gender identity.
-public enum EnergyEquationCoefficient: String, CaseIterable, Sendable {
+public enum EnergyEquationCoefficient: String, Codable, CaseIterable, Sendable {
   case plusFive
   case minusOneHundredSixtyOne
 
@@ -24,7 +24,7 @@ public enum EnergyEquationCoefficient: String, CaseIterable, Sendable {
   }
 }
 
-public enum EnergyGoal: String, CaseIterable, Sendable {
+public enum EnergyGoal: String, Codable, CaseIterable, Sendable {
   case cut
   case maintain
   case leanBulk
@@ -40,7 +40,7 @@ public enum EnergyGoal: String, CaseIterable, Sendable {
   }
 }
 
-public struct EnergyTargetInput: Equatable, Sendable {
+public struct EnergyTargetInput: Codable, Equatable, Sendable {
   public var weightKilograms: Double
   public var heightCentimeters: Double
   public var ageYears: Int

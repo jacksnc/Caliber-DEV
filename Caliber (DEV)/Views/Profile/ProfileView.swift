@@ -12,6 +12,14 @@ struct ProfileView: View {
   @EnvironmentObject private var account: HostedAccountModel
   @EnvironmentObject private var runtime: FoundationRuntime
   @Query private var profiles: [UserProfile]
+  @Query(sort: \NutritionGoalSetup.updatedAt, order: .reverse) private var setups:
+    [NutritionGoalSetup]
+  @State private var showsGoalSetup = false
+
+  private var currentSetup: GoalSetupPlan? {
+    guard let id = profiles.first?.id else { return nil }
+    return setups.first { $0.profileID == id }?.plan
+  }
 
   @State private var ageText = ""
   @State private var heightText = ""
@@ -40,6 +48,10 @@ struct ProfileView: View {
             NavigationLink("Settings") { FoundationSettingsView() }
               .frame(minHeight: 48)
               .accessibilityIdentifier("openSettings")
+            if !runtime.settings.hideNumbers {
+              Button("Set up nutrition goals") { showsGoalSetup = true }
+                .frame(minHeight: 48).accessibilityIdentifier("openGoalSetup")
+            }
           }
           Section("Account") {
             Label(
@@ -56,6 +68,12 @@ struct ProfileView: View {
             )
             .font(.footnote)
             .foregroundStyle(.secondary)
+          }
+
+          if let plan = currentSetup, let profile = profiles.first, !runtime.settings.hideNumbers {
+            Section("Your nutrition plan") {
+              GoalSetupSummary(plan: plan, profile: profile, mass: massUnit)
+            }
           }
 
           Section {
@@ -179,6 +197,15 @@ struct ProfileView: View {
         }
       }
       .onAppear(perform: loadOnce)
+      .sheet(
+        isPresented: $showsGoalSetup,
+        onDismiss: {
+          didLoad = false
+          loadOnce()
+        }
+      ) {
+        GoalSetupView(profile: profiles.first, mass: massUnit, length: distanceUnit)
+      }
       .alert(
         "Profile",
         isPresented: Binding(get: { message != nil }, set: { if !$0 { message = nil } })
@@ -213,6 +240,13 @@ struct ProfileView: View {
     let weightKilograms = profile.startingWeight * 0.45359237
     weightText = number(massUnit.fromKilograms(weightKilograms))
     activity = profile.activityLevel
+    if let plan = currentSetup {
+      ageText = String(plan.input.ageYears)
+      coefficient = plan.input.coefficient
+      goal = plan.input.goal
+      weeklyRatePercent =
+        plan.input.weeklyWeightChangePercent > 0 ? plan.input.weeklyWeightChangePercent : 0.5
+    }
     calorieText = number(profile.dailyCalorieGoal)
     proteinText = number(profile.proteinGoal)
     carbohydrateText = number(profile.carbGoal)
@@ -235,7 +269,8 @@ struct ProfileView: View {
       try persist(
         body: body, calories: result.calorieTarget.rounded(),
         protein: result.proteinGrams.rounded(),
-        carbohydrates: result.carbohydrateGrams.rounded(), fat: result.fatGrams.rounded())
+        carbohydrates: result.carbohydrateGrams.rounded(), fat: result.fatGrams.rounded(),
+        recordSetup: true)
       estimate = result
       message = "Your estimated daily goals were saved on this device."
     } catch {
@@ -245,7 +280,7 @@ struct ProfileView: View {
 
   private func saveEditedGoals() {
     do {
-      let body = try bodyValues(requireAge: false)
+      let body = try bodyValues(requireAge: currentSetup != nil)
       let calories = try positive(calorieText)
       let protein = try nonnegative(proteinText)
       let carbohydrates = try nonnegative(carbohydrateText)
@@ -265,8 +300,30 @@ struct ProfileView: View {
   }
 
   private func persist(
-    body: BodyValues, calories: Double, protein: Double, carbohydrates: Double, fat: Double
+    body: BodyValues, calories: Double, protein: Double, carbohydrates: Double, fat: Double,
+    recordSetup: Bool = false
   ) throws {
+    if recordSetup || currentSetup != nil {
+      let input = EnergyTargetInput(
+        weightKilograms: body.weightKilograms, heightCentimeters: body.heightCentimeters,
+        ageYears: body.age, coefficient: coefficient,
+        activityMultiplier: activity.activityMultiplier,
+        weeklyWeightChangePercent: goal == .maintain || goal == .recomp ? 0 : weeklyRatePercent,
+        goal: goal)
+      let target = currentSetup?.input.goal == goal ? currentSetup?.targetWeightKilograms : nil
+      let plan = try GoalSetupPlanner.make(
+        input: input, targetWeightKilograms: target,
+        targetReferenceWeightKilograms: target == nil
+          ? nil : currentSetup?.targetReferenceWeightKilograms,
+        editedTargets: GoalMacroTargets(
+          calories: calories, protein: protein, carbohydrates: carbohydrates, fat: fat))
+      try GoalSetupEditor.save(plan, replacing: profiles.first, in: modelContext)
+      calorieText = number(calories)
+      proteinText = number(protein)
+      carbohydrateText = number(carbohydrates)
+      fatText = number(fat)
+      return
+    }
     let profile: UserProfile
     if let existing = profiles.first {
       profile = existing
@@ -324,7 +381,7 @@ struct ProfileView: View {
   }
 
   private func number(_ value: Double) -> String {
-    UnitFormatting.number(value, locale: locale, fractionDigits: 1)
+    NumericInputText.string(value, locale: locale)
   }
 
   private func energy(_ value: Double) -> String {
@@ -342,7 +399,10 @@ struct ProfileView: View {
   }
 
   private func errorMessage(_ error: Error) -> String {
-    switch error as? EnergyTargetError {
+    if error is GoalSetupError || error is QuantityError {
+      return GoalSetupMessages.message(for: error)
+    }
+    return switch error as? EnergyTargetError {
     case .invalidAge: "Enter an age from 18 through 120."
     case .invalidMeasurement: "Enter valid height, weight, and goal numbers greater than zero."
     case .invalidActivityMultiplier: "Choose a valid activity level."

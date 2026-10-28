@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-10-28 — Guided starting goals
+
+- Added optional four-step nutrition setup, explicit equation/activity selection,
+  optional directional weight target and editable calorie/macro review.
+- Save updates local profile targets; cancel leaves them intact. Existing users
+  can open setup from Profile without being forced through a new welcome.
+- Added additive storage, locale/unit/failure tests and native UI coverage. The
+  existing energy formulas and hosted services remain unchanged.
+- New guided metadata still needs legacy export/canonical migration adapters.
+
 ## 2026-10-25 — Native Graphite and Frost integration
 
 - Integrated the owner's Helios token/package work into the real SwiftUI app, with theme selection in Profile → Settings.
