@@ -1,3 +1,4 @@
+import HeliosDesign
 import SwiftData
 import SwiftUI
 
@@ -9,7 +10,8 @@ private enum FoodSearchScope: String, CaseIterable, Identifiable {
   var id: String { rawValue }
 }
 
-/// Search and repeat foods offline. Every result still opens a portion review.
+/// Unified offline food-entry workspace. Every route carries the destination meal and date,
+/// and every quick action opens an editable portion and macro review before logging.
 struct FoodSearchView: View {
   @Environment(\.locale) private var locale
   @Environment(\.calendar) private var calendar
@@ -20,31 +22,39 @@ struct FoodSearchView: View {
   @Query(sort: \DiaryEntry.date, order: .reverse) private var entries: [DiaryEntry]
   @Query(sort: \SavedMeal.name) private var savedMeals: [SavedMeal]
   @Query(sort: \Restaurant.name) private var restaurants: [Restaurant]
+
   let mealType: MealType
   let date: Date
+
   init(mealType: MealType = .snack, date: Date = .now) {
     self.mealType = mealType
     self.date = date
   }
+
   @State private var searchService: BundledFoodSearchService?
   @State private var searchText = ""
   @State private var scope = FoodSearchScope.all
   @State private var catalogFoods: [FoodCatalogEntry] = []
   @State private var searchError: String?
   @State private var catalogError: String?
-  @State private var isPresentingManualEntry = false
+  @State private var manualEntryRequest: FoodEntryPass2ManualRequest?
+  @State private var activeRoute: FoodEntryPass2Route?
+  @State private var quickReviewTarget: FoodEntryPass2QuickReviewTarget?
   @State private var favoriteError: String?
   /// Each food in a typed list ("2 eggs, a banana") with its best match.
   @State private var listMatches: [ListMatch] = []
+
   private var query: String { searchText.trimmingCharacters(in: .whitespacesAndNewlines) }
   private var phrases: [FoodPhrase] { SmartFoodQuery.phrases(in: query) }
   private var isList: Bool { SmartFoodQuery.isList(phrases) }
+
   /// A list searches item by item below; the sections search the whole text, allowing one typo
   /// when the exact words find nothing in the person's own foods and menus.
   private func matches(_ text: String) -> Bool {
     FoodSearchText.matches(text, query: query)
       || (!hasExactLocalMatch && FoodSearchText.fuzzyMatches(text, query: query))
   }
+
   private var hasExactLocalMatch: Bool {
     query.isEmpty
       || savedFoods.contains { FoodSearchText.matches($0.name, query: query) }
@@ -52,6 +62,7 @@ struct FoodSearchView: View {
         FoodSearchText.matches($0.name, query: query)
       }
   }
+
   private var usage: [ReusableFood] {
     FoodReuseIndex.build(
       entries: entries, savedFoods: savedFoods,
@@ -59,6 +70,7 @@ struct FoodSearchView: View {
     )
     .filter { matches($0.food.name + " " + $0.food.servingDescription) }
   }
+
   private var catalogFavorites: [FoodCatalogEntry] {
     favorites.favoriteKeys.sorted().compactMap { key -> FoodCatalogEntry? in
       guard FoodCatalogSourceType.contains(key: key),
@@ -68,18 +80,22 @@ struct FoodSearchView: View {
       return food
     }.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
   }
+
   private var matchingSavedFoods: [FoodItem] {
     savedFoods.filter { matches($0.name + " " + $0.servingDescription) }
   }
+
   private var matchingMeals: [SavedMeal] {
     savedMeals.filter { matches($0.name) || $0.items.contains { matches($0.foodItem?.name ?? "") } }
   }
+
   private var matchingMenuItems: [MenuItem] {
     restaurants.flatMap(\.menuItems).filter {
       matches("\($0.restaurant?.name ?? "") \($0.name) \($0.category.displayName)")
     }
     .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
   }
+
   private var matchingBuilders: [BuildableItemTemplate] {
     restaurants.flatMap(\.buildableTemplates).filter {
       matches(
@@ -91,15 +107,15 @@ struct FoodSearchView: View {
   var body: some View {
     // Build the history index once per render; changing a search does not store another copy.
     let foods = usage
-    let recent = FoodReuseIndex.recent(foods, limit: scope == .all ? 5 : 30)
+    let recent = FoodReuseIndex.recent(foods, limit: scope == .all ? 8 : 30)
     let frequent = scope == .frequent ? FoodReuseIndex.frequent(foods, limit: 30) : []
     let personalFavorites = foods.filter { $0.food.isSavedToLibrary && favorites.isFavorite($0.id) }
       .sorted {
         $0.food.name == $1.food.name
           ? $0.id < $1.id : $0.food.name.localizedStandardCompare($1.food.name) == .orderedAscending
       }
-    let catalogFavorites = self.catalogFavorites
-    let hasFavorites = !personalFavorites.isEmpty || !catalogFavorites.isEmpty
+    let currentCatalogFavorites = self.catalogFavorites
+    let hasFavorites = !personalFavorites.isEmpty || !currentCatalogFavorites.isEmpty
     let hasResults: Bool =
       switch scope {
       case .favorites: hasFavorites
@@ -110,160 +126,35 @@ struct FoodSearchView: View {
           || (isList && !listMatches.isEmpty)
           || !matchingMeals.isEmpty || !matchingMenuItems.isEmpty || !matchingBuilders.isEmpty
       }
+
     return List {
       Group {
-        Section {
-          if searchService == nil { ProgressView("Opening food database…") }
-          Picker("Show", selection: $scope) {
-            ForEach(FoodSearchScope.allCases) { Text($0.rawValue).tag($0) }
-          }.accessibilityIdentifier("foodSearchScope")
-          if scope == .all {
-            NavigationLink {
-              BarcodeFoodLookupView(mealType: mealType, date: date)
-            } label: {
-              Label("Scan a Barcode", systemImage: "barcode.viewfinder").frame(minHeight: 48)
-            }.accessibilityIdentifier("openBarcode")
-            NavigationLink {
-              LabelScannerView(mealType: mealType, date: date)
-            } label: {
-              Label("Scan a Nutrition Label", systemImage: "doc.text.viewfinder")
-                .frame(minHeight: 48)
-            }.accessibilityIdentifier("openLabelScan")
-            NavigationLink {
-              PhotoEstimateView(mealType: mealType, date: date)
-            } label: {
-              Label("Estimate from a Photo", systemImage: "camera.viewfinder")
-                .frame(minHeight: 48)
-            }.accessibilityIdentifier("openPhotoEstimate")
-            Button {
-              isPresentingManualEntry = true
-            } label: {
-              Label("Enter Food Manually", systemImage: "square.and.pencil").frame(minHeight: 48)
-            }.accessibilityIdentifier("foodSearchManual")
-            NavigationLink {
-              RestaurantListView(mealType: mealType, date: date)
-            } label: {
-              Label("Browse Restaurants", systemImage: "building.2").frame(minHeight: 48)
-            }
-          }
-        } footer: {
-          Text(
-            "Search USDA foods, saved foods and meals, or restaurant menus offline. Recent and frequent foods use your logged history. Check the preparation and portion before adding."
-          )
-        }
-        if isList && !listMatches.isEmpty {
-          Section {
-            ForEach(listMatches) { listRow($0) }
-          } header: {
-            Text("Your list")
-          } footer: {
-            Text(
-              "Each food opens its own review. Amounts you typed are used only with a listed serving or a weight."
-            )
-          }
-        }
-        if let searchError { Section { Text(searchError) } }
-        if let catalogError {
-          Section {
-            Text(catalogError)
-            Button("Retry Restaurant Loading") { Task { await loadCatalog() } }
-          }
-        }
-        if (scope == .all || scope == .favorites) && hasFavorites {
-          Section("Favorites") {
-            ForEach(catalogFavorites) { catalogLink($0, favorite: true) }
-            ForEach(personalFavorites) { reuseLink($0, prefix: "favorite") }
-          }
-        }
-        if (scope == .all || scope == .recent) && !recent.isEmpty {
-          Section("Recent Foods") { ForEach(recent) { reuseLink($0, prefix: "recent") } }
-        }
-        if scope == .frequent && !frequent.isEmpty {
-          Section("Frequently Logged") { ForEach(frequent) { reuseLink($0, prefix: "frequent") } }
-        }
-        if scope == .all {
-          if !matchingSavedFoods.isEmpty {
-            Section("My Foods") {
-              ForEach(matchingSavedFoods) { food in
-                NavigationLink {
-                  SavedFoodDetailView(food: food, mealType: mealType, date: date)
-                } label: {
-                  VStack(alignment: .leading, spacing: 3) {
-                    Text(food.name)
-                    Text(food.servingDescription).font(.footnote).foregroundStyle(.secondary)
-                  }.frame(minHeight: 48)
-                }
-              }
-            }
-          }
-          if !matchingMeals.isEmpty {
-            Section("My Meals") {
-              ForEach(matchingMeals) { meal in
-                NavigationLink {
-                  SavedMealDetailView(meal: meal, mealType: mealType, date: date)
-                } label: {
-                  VStack(alignment: .leading) {
-                    Text(meal.name)
-                    Text("\(meal.items.count) foods").font(.footnote)
-                  }.frame(minHeight: 48)
-                }
-              }
-            }
-          }
-          if !catalogFoods.isEmpty {
-            Section("USDA Foods") { ForEach(catalogFoods) { catalogLink($0) } }
-          }
-          if !matchingBuilders.isEmpty {
-            Section("Build a Restaurant Meal") {
-              ForEach(matchingBuilders) { template in
-                NavigationLink {
-                  BuildYourOwnView(template: template, mealType: mealType, date: date)
-                } label: {
-                  VStack(alignment: .leading) {
-                    Text(template.name)
-                    Text(template.restaurant?.name ?? "Restaurant").font(.footnote)
-                  }.frame(minHeight: 48)
-                }
-              }
-            }
-          }
-          if !matchingMenuItems.isEmpty {
-            Section("Restaurant Menu Items") {
-              ForEach(matchingMenuItems) { item in
-                NavigationLink {
-                  MenuItemDetailView(menuItem: item, mealType: mealType, date: date)
-                } label: {
-                  VStack(alignment: .leading, spacing: 3) {
-                    Text(item.name)
-                    Text("\(item.restaurant?.name ?? "Restaurant") · \(item.category.displayName)")
-                      .font(.footnote)
-                  }.frame(minHeight: 48)
-                }
-              }
-            }
-          }
-        }
-        if !hasResults && (scope != .all || searchService != nil) {
-          ContentUnavailableView(
-            scope == .all
-              ? "No Foods Found"
-              : scope == .favorites ? "No Favorites Yet" : "No \(scope.rawValue) Foods Yet",
-            systemImage: "magnifyingglass",
-            description: Text(
-              scope == .favorites
-                ? "Favorite a USDA food or a personal food to keep it here."
-                : "Try another search or log a food to build your history."))
-        }
+        hubSection
+        scopeSection
+        listSection
+        errorSections
+        recentSection(recent)
+        frequentSection(frequent)
+        favoritesSection(
+          catalogFavorites: currentCatalogFavorites,
+          personalFavorites: personalFavorites
+        )
+        allScopeSections
+        emptyOrCreateSection(hasResults: hasResults)
       }
       .listRowBackground(CaliberRowBackground())
     }
     .caliberScreen()
     .navigationTitle("Search Foods")
+    .toolbar(.visible, for: .navigationBar)
     .accessibilityIdentifier("foodSearchScreen")
     .searchable(
       text: $searchText, placement: .navigationBarDrawer(displayMode: .always),
-      prompt: "Search, or list foods: 2 eggs, a banana"
+      prompt: "Search"
     )
+    .navigationDestination(item: $activeRoute) { route in
+      destinationView(for: route)
+    }
     .task(id: query) {
       do {
         let service = await BundledFoodSearchService.prepared()
@@ -281,8 +172,12 @@ struct FoodSearchView: View {
       }
     }
     .task { await loadCatalog() }
-    .sheet(isPresented: $isPresentingManualEntry) {
-      AddFoodView(mealType: mealType, date: date).presentationDragIndicator(.visible)
+    .sheet(item: $manualEntryRequest) { request in
+      AddFoodView(mealType: mealType, date: date, prefill: request.prefill)
+        .presentationDragIndicator(.visible)
+    }
+    .sheet(item: $quickReviewTarget) { target in
+      FoodEntryPass2QuickReviewSheet(target: target, mealType: mealType, date: date)
     }
     .alert(
       "Couldn't Update Favorite",
@@ -293,6 +188,259 @@ struct FoodSearchView: View {
       Text(favoriteError ?? "Please try again.")
     }
   }
+
+  private var hubSection: some View {
+    Section {
+      FoodEntryPass2HubCard(
+        mealType: mealType,
+        date: date,
+        savedFoodsCount: savedFoods.count,
+        savedMealsCount: savedMeals.count,
+        onSelectRoute: { activeRoute = $0 },
+        onManualEntry: {
+          openManualEntry(prefillName: query.isEmpty || isList ? nil : query)
+        }
+      )
+      .caliberCardRow()
+    }
+  }
+
+  private var scopeSection: some View {
+    Section {
+      if searchService == nil {
+        ProgressView("Opening food database…")
+      }
+      Picker("Show", selection: $scope) {
+        ForEach(FoodSearchScope.allCases) { option in
+          Text(option.rawValue).tag(option)
+        }
+      }
+      .accessibilityIdentifier("foodSearchScope")
+    } footer: {
+      Text(
+        "Search USDA foods, saved foods and meals, or restaurant menus offline—or type a list like \"2 eggs, a banana\". Tap + to review a portion right away."
+      )
+    }
+  }
+
+  @ViewBuilder
+  private var listSection: some View {
+    if isList && !listMatches.isEmpty {
+      Section {
+        ForEach(listMatches) { listRow($0) }
+      } header: {
+        Text("Your list")
+      } footer: {
+        Text(
+          "Each food opens its own review. Amounts you typed are used only with a listed serving or a weight."
+        )
+      }
+    }
+  }
+
+  @ViewBuilder
+  private var errorSections: some View {
+    if let searchError {
+      Section {
+        Text(searchError)
+      }
+    }
+    if let catalogError {
+      Section {
+        Text(catalogError)
+        Button("Retry Restaurant Loading") {
+          Task { await loadCatalog() }
+        }
+      }
+    }
+  }
+
+  @ViewBuilder
+  private func recentSection(_ recent: [ReusableFood]) -> some View {
+    if (scope == .all || scope == .recent) && !recent.isEmpty {
+      Section {
+        ForEach(recent) { reuseRow($0, prefix: "recent") }
+      } header: {
+        Text("Recent Foods")
+      }
+    }
+  }
+
+  @ViewBuilder
+  private func frequentSection(_ frequent: [ReusableFood]) -> some View {
+    if scope == .frequent && !frequent.isEmpty {
+      Section {
+        ForEach(frequent) { reuseRow($0, prefix: "frequent") }
+      } header: {
+        Text("Frequently Logged")
+      }
+    }
+  }
+
+  @ViewBuilder
+  private func favoritesSection(
+    catalogFavorites: [FoodCatalogEntry],
+    personalFavorites: [ReusableFood]
+  ) -> some View {
+    if (scope == .all || scope == .favorites)
+      && (!catalogFavorites.isEmpty || !personalFavorites.isEmpty)
+    {
+      Section {
+        ForEach(catalogFavorites) { catalogRow($0, favorite: true) }
+        ForEach(personalFavorites) { reuseRow($0, prefix: "favorite") }
+      } header: {
+        Text("Favorites")
+      }
+    }
+  }
+
+  @ViewBuilder
+  private var allScopeSections: some View {
+    if scope == .all {
+      if !matchingSavedFoods.isEmpty {
+        Section {
+          ForEach(matchingSavedFoods) { savedFoodRow($0) }
+        } header: {
+          Text("My Foods")
+        }
+      }
+      if !matchingMeals.isEmpty {
+        Section {
+          ForEach(matchingMeals) { savedMealRow($0) }
+        } header: {
+          Text("My Meals")
+        }
+      }
+      if !catalogFoods.isEmpty {
+        Section {
+          ForEach(catalogFoods) { catalogRow($0) }
+        } header: {
+          Text("USDA Foods")
+        }
+      }
+      if !matchingBuilders.isEmpty {
+        Section {
+          ForEach(matchingBuilders) { template in
+            NavigationLink {
+              BuildYourOwnView(template: template, mealType: mealType, date: date)
+            } label: {
+              VStack(alignment: .leading, spacing: 3) {
+                Text(template.name)
+                Text(template.restaurant?.name ?? "Restaurant").font(.footnote)
+              }.frame(minHeight: 48)
+            }
+          }
+        } header: {
+          Text("Build a Restaurant Meal")
+        }
+      }
+      if !matchingMenuItems.isEmpty {
+        Section {
+          ForEach(matchingMenuItems) { item in
+            NavigationLink {
+              MenuItemDetailView(menuItem: item, mealType: mealType, date: date)
+            } label: {
+              VStack(alignment: .leading, spacing: 3) {
+                Text(item.name)
+                Text("\(item.restaurant?.name ?? "Restaurant") · \(item.category.displayName)")
+                  .font(.footnote)
+              }.frame(minHeight: 48)
+            }
+          }
+        } header: {
+          Text("Restaurant Menu Items")
+        }
+      }
+    }
+  }
+
+  @ViewBuilder
+  private func emptyOrCreateSection(hasResults: Bool) -> some View {
+    if !hasResults && (scope != .all || searchService != nil) {
+      Section {
+        FoodEntryPass2EmptyStateCard(
+          title: emptyStateTitle,
+          symbol: "magnifyingglass",
+          message: emptyStateMessage,
+          query: isList ? "" : query,
+          showsSearchAllAction: scope != .all,
+          onSearchAll: { scope = .all },
+          onCreateManualFood: {
+            openManualEntry(prefillName: isList ? nil : query)
+          }
+        )
+        .caliberCardRow()
+      }
+    } else if !query.isEmpty && !isList {
+      Section {
+        Button {
+          openManualEntry(prefillName: query)
+        } label: {
+          Label("Create Custom Food", systemImage: "plus.circle")
+            .frame(minHeight: 48)
+        }
+        .accessibilityIdentifier("foodSearchCreateFromQuery")
+      }
+    }
+  }
+
+  private var emptyStateTitle: String {
+    if !query.isEmpty {
+      return scope == .all ? "No Foods Found" : "No Matching \(scope.rawValue) Foods"
+    }
+    return switch scope {
+    case .all: "No Foods Found"
+    case .favorites: "No Favorites Yet"
+    case .recent: "No Recent Foods Yet"
+    case .frequent: "No Frequent Foods Yet"
+    }
+  }
+
+  private var emptyStateMessage: String {
+    if !query.isEmpty && scope != .all {
+      return
+        "Your search stays filled in—check All Foods or create a personal food for \(mealType.displayName)."
+    }
+    if scope == .favorites {
+      return "Star a USDA food or a personal food to keep it ready here."
+    }
+    return "Try another search or enter the food's label values manually."
+  }
+
+  @ViewBuilder
+  private func destinationView(for route: FoodEntryPass2Route) -> some View {
+    switch route {
+    case .barcode:
+      BarcodeFoodLookupView(mealType: mealType, date: date)
+    case .labelScan:
+      LabelScannerView(mealType: mealType, date: date)
+    case .photoEstimate:
+      PhotoEstimateView(mealType: mealType, date: date)
+    case .myFoods:
+      MyFoodsView(mealType: mealType, date: date)
+    case .myMeals:
+      MyMealsView(mealType: mealType, date: date)
+    case .restaurants:
+      RestaurantListView(mealType: mealType, date: date)
+    }
+  }
+
+  private func openManualEntry(prefillName: String?) {
+    let trimmed = prefillName?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+    let prefill =
+      trimmed.isEmpty
+      ? nil
+      : FoodEntryPrefill(
+        name: trimmed,
+        servingDescription: "",
+        calories: "",
+        protein: "",
+        carbs: "",
+        fat: ""
+      )
+    manualEntryRequest = FoodEntryPass2ManualRequest(prefill: prefill)
+  }
+
   struct ListMatch: Identifiable {
     let phrase: FoodPhrase
     let saved: FoodItem?
@@ -329,30 +477,66 @@ struct FoodSearchView: View {
       .prefix(50).map { $0 }
   }
 
-  @ViewBuilder private func listRow(_ match: ListMatch) -> some View {
+  @ViewBuilder
+  private func listRow(_ match: ListMatch) -> some View {
     let amount = match.phrase.quantity.map {
       "\(NutritionInput.format($0, locale: locale))\(match.phrase.unit.map { " \($0)" } ?? "") · "
     }
     if let saved = match.saved {
-      NavigationLink {
-        SavedFoodDetailView(
-          food: saved, initialQuantity: match.phrase.quantity ?? 1, mealType: mealType, date: date)
-      } label: {
-        listLabel(match.phrase.text, detail: "\(amount ?? "")\(saved.name) · My Foods")
+      let initialQuantity = match.phrase.quantity ?? 1
+      HStack(spacing: HeliosTokens.space(2)) {
+        NavigationLink {
+          SavedFoodDetailView(
+            food: saved, initialQuantity: initialQuantity, mealType: mealType, date: date)
+        } label: {
+          listLabel(match.phrase.text, detail: "\(amount ?? "")\(saved.name) · My Foods")
+        }
+        .accessibilityIdentifier("listMatch-\(match.phrase.terms)")
+
+        FoodEntryPass2QuickReviewButton(
+          foodName: saved.name,
+          identifier: "foodEntryQuickReview-list-\(match.phrase.terms)"
+        ) {
+          quickReviewTarget = .savedFood(
+            key: "list-\(match.phrase.id)",
+            food: saved,
+            quantity: initialQuantity
+          )
+        }
       }
-      .accessibilityIdentifier("listMatch-\(match.phrase.terms)")
     } else if let food = match.catalog {
-      NavigationLink {
-        FoodNutritionReviewView(
-          reference: .usda(food), meal: mealType, date: date,
-          portion: SmartFoodQuery.portion(
-            for: match.phrase, servings: food.servings.map { ($0.id, $0.label) }))
-      } label: {
-        listLabel(match.phrase.text, detail: "\(amount ?? "")\(food.name) · USDA")
+      let resolvedPortion = SmartFoodQuery.portion(
+        for: match.phrase, servings: food.servings.map { ($0.id, $0.label) })
+      HStack(spacing: HeliosTokens.space(2)) {
+        NavigationLink {
+          FoodNutritionReviewView(
+            reference: .usda(food),
+            meal: mealType,
+            date: date,
+            portion: resolvedPortion
+          )
+        } label: {
+          listLabel(match.phrase.text, detail: "\(amount ?? "")\(food.name) · USDA")
+        }
+        .accessibilityIdentifier("listMatch-\(match.phrase.terms)")
+
+        FoodEntryPass2QuickReviewButton(
+          foodName: food.name,
+          identifier: "foodEntryQuickReview-list-\(match.phrase.terms)"
+        ) {
+          quickReviewTarget = .catalogFood(food, portion: resolvedPortion)
+        }
       }
-      .accessibilityIdentifier("listMatch-\(match.phrase.terms)")
     } else {
-      listLabel(match.phrase.text, detail: "No match. Search for it on its own or enter it.")
+      Button {
+        openManualEntry(prefillName: match.phrase.terms.capitalized(with: locale))
+      } label: {
+        listLabel(
+          match.phrase.text,
+          detail: "No match — tap to enter manually for \(mealType.displayName)."
+        )
+      }
+      .accessibilityIdentifier("listCreate-\(match.phrase.terms)")
     }
   }
 
@@ -364,47 +548,123 @@ struct FoodSearchView: View {
     .frame(minHeight: 48)
   }
 
-  private func catalogLink(_ food: FoodCatalogEntry, favorite: Bool = false) -> some View {
-    NavigationLink {
-      FoodNutritionReviewView(reference: .usda(food), meal: mealType, date: date)
-    } label: {
-      VStack(alignment: .leading, spacing: 3) {
-        Text(food.name)
-        Text(
-          "100 g · \(NutritionInput.format(food.nutritionPer100g.calories, locale: locale)) cal · \(food.sourceType.shortLabel)"
-        ).font(.caption).foregroundStyle(.secondary)
-      }.frame(minHeight: 48)
-    }.accessibilityIdentifier(favorite ? "favorite-\(food.id)" : "catalogFood-\(food.fdcID)")
-  }
-  private func reuseLink(_ usage: ReusableFood, prefix: String) -> some View {
-    NavigationLink {
-      SavedFoodDetailView(
-        food: usage.food, initialQuantity: usage.quantity, mealType: mealType, date: date)
-    } label: {
-      VStack(alignment: .leading, spacing: 3) {
-        Text(usage.food.name)
-        Text(
-          "\(NutritionInput.format(usage.quantity, locale: locale)) × \(usage.food.servingDescription) · \(NutritionInput.format(usage.food.calories * usage.quantity, locale: locale)) cal"
-        ).font(.footnote).foregroundStyle(.secondary)
-        if prefix == "frequent" {
-          Text("Logged \(usage.logCount) \(usage.logCount == 1 ? "time" : "times")").font(.caption)
-        }
-      }.frame(minHeight: 48)
-    }.accessibilityIdentifier("\(prefix)-\(usage.id)")
-      .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-        Button {
-          do {
-            try FoodFavoriteEditor.setFavorite(
-              !favorites.isFavorite(usage.id), food: usage.food, preferences: favorites,
-              in: modelContext)
-          } catch { favoriteError = error.localizedDescription }
-        } label: {
-          Label(
-            favorites.isFavorite(usage.id) ? "Unfavorite" : "Favorite",
-            systemImage: favorites.isFavorite(usage.id) ? "star.slash" : "star")
-        }.tint(.blue)
+  private func savedFoodRow(_ food: FoodItem) -> some View {
+    HStack(spacing: HeliosTokens.space(2)) {
+      NavigationLink {
+        SavedFoodDetailView(food: food, mealType: mealType, date: date)
+      } label: {
+        VStack(alignment: .leading, spacing: 3) {
+          Text(food.name)
+          Text(food.servingDescription).font(.footnote).foregroundStyle(.secondary)
+        }.frame(minHeight: 48)
       }
+
+      FoodEntryPass2QuickReviewButton(
+        foodName: food.name,
+        identifier: "foodEntryQuickReview-savedFood-\(food.id.uuidString)"
+      ) {
+        quickReviewTarget = .savedFood(
+          key: "savedFood-\(food.id.uuidString)",
+          food: food,
+          quantity: 1
+        )
+      }
+    }
   }
+
+  private func savedMealRow(_ meal: SavedMeal) -> some View {
+    HStack(spacing: HeliosTokens.space(2)) {
+      NavigationLink {
+        SavedMealDetailView(meal: meal, mealType: mealType, date: date)
+      } label: {
+        VStack(alignment: .leading, spacing: 3) {
+          Text(meal.name)
+          Text("\(meal.items.count) \(meal.items.count == 1 ? "food" : "foods")")
+            .font(.footnote)
+            .foregroundStyle(.secondary)
+        }.frame(minHeight: 48)
+      }
+
+      FoodEntryPass2QuickReviewButton(
+        foodName: meal.name,
+        identifier: "foodEntryQuickReview-savedMeal-\(meal.id.uuidString)"
+      ) {
+        quickReviewTarget = .savedMeal(meal)
+      }
+    }
+  }
+
+  private func catalogRow(_ food: FoodCatalogEntry, favorite: Bool = false) -> some View {
+    HStack(spacing: HeliosTokens.space(2)) {
+      NavigationLink {
+        FoodNutritionReviewView(reference: .usda(food), meal: mealType, date: date)
+      } label: {
+        VStack(alignment: .leading, spacing: 3) {
+          Text(food.name)
+          Text(
+            "100 g · \(NutritionInput.format(food.nutritionPer100g.calories, locale: locale)) cal · \(food.sourceType.shortLabel)"
+          ).font(.caption).foregroundStyle(.secondary)
+        }.frame(minHeight: 48)
+      }
+      .accessibilityIdentifier(favorite ? "favorite-\(food.id)" : "catalogFood-\(food.fdcID)")
+
+      FoodEntryPass2QuickReviewButton(
+        foodName: food.name,
+        identifier:
+          favorite
+          ? "foodEntryQuickReview-favorite-\(food.id)"
+          : "foodEntryQuickReview-catalog-\(food.fdcID)"
+      ) {
+        quickReviewTarget = .catalogFood(food, portion: nil)
+      }
+    }
+  }
+
+  private func reuseRow(_ usage: ReusableFood, prefix: String) -> some View {
+    HStack(spacing: HeliosTokens.space(2)) {
+      NavigationLink {
+        SavedFoodDetailView(
+          food: usage.food, initialQuantity: usage.quantity, mealType: mealType, date: date)
+      } label: {
+        VStack(alignment: .leading, spacing: 3) {
+          Text(usage.food.name)
+          Text(
+            "\(NutritionInput.format(usage.quantity, locale: locale)) × \(usage.food.servingDescription) · \(NutritionInput.format(usage.food.calories * usage.quantity, locale: locale)) cal"
+          ).font(.footnote).foregroundStyle(.secondary)
+          if prefix == "frequent" {
+            Text("Logged \(usage.logCount) \(usage.logCount == 1 ? "time" : "times")")
+              .font(.caption)
+          }
+        }.frame(minHeight: 48)
+      }
+      .accessibilityIdentifier("\(prefix)-\(usage.id)")
+
+      FoodEntryPass2QuickReviewButton(
+        foodName: usage.food.name,
+        identifier: "foodEntryQuickReview-\(prefix)-\(usage.id)"
+      ) {
+        quickReviewTarget = .savedFood(
+          key: "\(prefix)-\(usage.id)",
+          food: usage.food,
+          quantity: usage.quantity
+        )
+      }
+    }
+    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+      Button {
+        do {
+          try FoodFavoriteEditor.setFavorite(
+            !favorites.isFavorite(usage.id), food: usage.food, preferences: favorites,
+            in: modelContext)
+        } catch { favoriteError = error.localizedDescription }
+      } label: {
+        Label(
+          favorites.isFavorite(usage.id) ? "Unfavorite" : "Favorite",
+          systemImage: favorites.isFavorite(usage.id) ? "star.slash" : "star")
+      }.tint(.blue)
+    }
+  }
+
   private func loadCatalog() async {
     do {
       try await RestaurantCatalogSeeder.seedIfNeeded(in: modelContext)

@@ -15,6 +15,7 @@ struct SavedFoodDetailView: View {
   @Environment(\.modelContext) private var modelContext
   @EnvironmentObject private var favorites: FoodLibraryPreferences
   let food: FoodItem
+  let onDismiss: (() -> Void)?
 
   @State private var quantity: String = "1"
   @State private var mealType: MealType = .snack
@@ -28,9 +29,15 @@ struct SavedFoodDetailView: View {
   @State private var editedCarbs = ""
   @State private var editedFat = ""
 
-  init(food: FoodItem, initialQuantity: Double = 1, mealType: MealType = .snack, date: Date = .now)
-  {
+  init(
+    food: FoodItem,
+    initialQuantity: Double = 1,
+    mealType: MealType = .snack,
+    date: Date = .now,
+    onDismiss: (() -> Void)? = nil
+  ) {
     self.food = food
+    self.onDismiss = onDismiss
     _quantity = State(initialValue: NutritionInput.format(initialQuantity))
     _mealType = State(initialValue: mealType)
     _date = State(initialValue: date)
@@ -52,7 +59,7 @@ struct SavedFoodDetailView: View {
   }
 
   private var loggedTotals: MacroTotals? {
-    guard !didJustSave, let totals = finalTotals,
+    guard let totals = finalTotals,
       let amount = NutritionInput.quantity(quantity, locale: locale)
     else { return nil }
     let scaled = totals.scaled(by: amount)
@@ -80,19 +87,18 @@ struct SavedFoodDetailView: View {
           Text("Favorites also stay in My Foods for reuse.")
         }
 
-        Section("Nutrition for this log") {
+        Section {
           if let totals = loggedTotals {
             Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
               .font(.headline)
-            Text(
-              "Protein \(NutritionInput.format(totals.protein, locale: locale))g · Carbs \(NutritionInput.format(totals.carbs, locale: locale))g · Fat \(NutritionInput.format(totals.fat, locale: locale))g"
-            )
-            .font(.subheadline)
-            .foregroundStyle(.secondary)
+              .accessibilityIdentifier("savedFoodCalories")
+            FoodEntryPass2MacroSummaryRow(totals: totals)
           } else {
             Text("Enter a quantity above zero and valid, nonnegative nutrition values.")
               .foregroundStyle(.secondary)
           }
+        } header: {
+          Text("Nutrition for this log")
         }
 
         MacroOverrideSection(
@@ -105,18 +111,25 @@ struct SavedFoodDetailView: View {
           fat: $editedFat
         )
 
-        Section("Add to Diary") {
-          LabeledContent("Quantity") {
-            TextField("Quantity", text: $quantity).multilineTextAlignment(.trailing)
+        Section {
+          VStack(alignment: .leading, spacing: 6) {
+            Text("Quantity")
+            TextField("Quantity", text: $quantity)
+              .keyboardType(.decimalPad)
+              .multilineTextAlignment(.trailing)
+              .frame(maxWidth: .infinity, minHeight: 48)
               .accessibilityIdentifier("savedFoodQuantity")
           }
-          .keyboardType(.decimalPad)
           Picker("Meal", selection: $mealType) {
             ForEach(MealType.allCases) { meal in
               Text(meal.displayName).tag(meal)
             }
           }
+          .accessibilityIdentifier("savedFoodMeal")
           DatePicker("Date", selection: $date, displayedComponents: .date)
+            .accessibilityIdentifier("savedFoodDate")
+        } header: {
+          Text("Add to Diary")
         }
 
         if didJustSave {
@@ -146,6 +159,7 @@ struct SavedFoodDetailView: View {
     .onChange(of: mealType) { _, _ in didJustSave = false }
     .onChange(of: date) { _, _ in didJustSave = false }
     .navigationTitle(food.name)
+    .toolbar(.visible, for: .navigationBar)
     .onAppear {
       guard !preparedLocale else { return }
       quantity = NutritionInput.reformatted(quantity, from: .current, to: locale)
@@ -153,6 +167,14 @@ struct SavedFoodDetailView: View {
     }
     .scrollDismissesKeyboard(.interactively)
     .toolbar {
+      if let onDismiss {
+        ToolbarItem(placement: .cancellationAction) {
+          Button(didJustSave ? "Done" : "Cancel", action: onDismiss)
+            .frame(minHeight: 48)
+            .accessibilityIdentifier("foodEntryQuickReviewClose")
+        }
+      }
+
       ToolbarItem(placement: .keyboard) {
         Button("Done") {
           UIApplication.shared.sendAction(
