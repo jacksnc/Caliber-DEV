@@ -4,6 +4,17 @@ This file is the shared checkpoint for work across Codex and Claude. The Git
 checkout and its commits are the source of truth; neither assistant inherits the
 other's chat automatically, and there is no automatic credit-exhaustion trigger.
 
+## Goal setup implementation — Codex, 2026-10-28
+
+The guided starting-goal slice is implemented on `codex/goal-setup-pass-2`.
+See [GOAL_SETUP_VERIFICATION](GOAL_SETUP_VERIFICATION.md) and
+[Codex handoff](parallel/pass2/CODEX_HANDOFF.md) for complete files, tests and
+additive storage limitations. Existing users retain targets until an explicit
+save. New metadata requires future archive/canonical adapters before export or
+live cutover. Claude has delivered visual branch `d956269`; Codex is integrating
+and running native checks. Gemini's remote food-entry branch remains at the seed
+base on the latest fetch. These are observed statuses, not assumed completion.
+
 ## Parallel pass 2 — owner authorized, 2026-10-28
 
 The owner authorized implementation and task distribution across Codex, Claude

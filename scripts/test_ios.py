@@ -7,6 +7,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 UI_SUITES = [
+    '-only-testing:Caliber (DEV)UITests/GoalSetupUITests',
     '-only-testing:Caliber (DEV)UITests/FoundationUITests',
     '-only-testing:Caliber (DEV)UITests/ProgressUITests',
     '-only-testing:Caliber (DEV)UITests/ThemeIntegrationUITests',

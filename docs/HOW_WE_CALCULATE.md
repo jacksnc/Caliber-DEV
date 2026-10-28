@@ -218,3 +218,22 @@ methods; smaller chart heights only affect layout. Workout Previous uses the
 existing tested history service and converts canonical kilograms into the current
 mass unit before formatting. No new dose forecasts, nutrition estimates or e1RM
 values were introduced for visual similarity.
+
+
+## Guided starting-goal setup — 2026-10-28
+
+The four-step setup reuses the existing starting-target engine above; no energy
+formula changes. Equation form is explicit, adult age is entered without a birth
+date, and activity is applied once. Daily calorie/macro edits are saved only on
+confirmation. All values must be finite/nonnegative; calories retain the engine's
+selected-form floor. Macro energy must be finite but need not equal entered kcal.
+These product guards do not establish clinical suitability or a universal safe
+intake. Existing clinical screening/release gates remain.
+
+A new optional cut target must be below the entered reference weight and at/above
+BMI 18.5; gain targets must be higher. The reference is retained when reopening
+an unchanged target so achieving it does not invalidate daily-goal edits. A new
+goal clears the old target. This is target metadata, not a forecast or a weigh-in.
+No finish date or adaptive recommendation is shown. Canonical measurement caches
+prevent repeated unit-conversion drift; editable locale numbers have no grouping
+or scientific notation and retain precision independently from display rounding.

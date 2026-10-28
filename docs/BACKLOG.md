@@ -351,3 +351,13 @@ screen; micronutrients need source/persistence work. Personalization, voice and
 other P1 paths remain gated; meal planning remains P2. Social/referral features
 are optional proposals. No competitor assets or private recording frames are
 imported, and menu-history screenshots do not grant restaurant dataset rights.
+
+
+## Guided goal setup checkpoint — 2026-10-28
+
+FUEL-20/BODY-07 remain partial. Four-step explicit starting-goal setup, optional
+weight target, editable final targets, Profile re-entry and safe local saves are
+implemented. No weigh-in is inferred. Existing calorie/rate/BMI guards remain;
+clinical eligibility/screening, adaptive coaching, projections, Health and full
+portability are still open. Add NutritionGoalSetup to legacy archive/normalized
+adapters before live cutover or full export. See GOAL_SETUP_VERIFICATION.

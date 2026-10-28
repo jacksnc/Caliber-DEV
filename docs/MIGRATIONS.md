@@ -1,5 +1,20 @@
 # Migration contract v1
 
+## Guided goal setup addition — 2026-10-28
+
+The active SwiftData schema adds `NutritionGoalSetup` without changing existing
+`UserProfile` properties or the store locator. Versioned JSON stores explicit
+calculation inputs, optional target/reference weight and reviewed targets, linked
+by profile UUID. A disposable disk test opens an old UserProfile-only store with
+the additive entity and verifies unchanged IDs/targets before an explicit save.
+No real store is deleted or replaced.
+
+The older 15-model archive and normalized rehearsal do not yet include this new
+entity. Profile daily targets remain, but guided input/target metadata would be
+absent. Extend/reconcile those adapters and protected export tests before live
+cutover or full export release. Neither is activated here. See
+[GOAL_SETUP_VERIFICATION](GOAL_SETUP_VERIFICATION.md).
+
 ## What is delivered
 
 Complete SQLite SQL proposals in `architecture/schema/core/001_v1.up.sql` and `stack/001_v1.up.sql`, empty-schema inverses, a deterministic schema generator, table manifest and executable Python standard-library tests. These files are not linked into the existing app and never open an app data container. Schema version1 is a fresh target-store version, not an in-place SwiftData migration number. Requires SQLite≥3.37 with JSON1; the executed host tests used SQLite3.54.0. Actual GRDB/iOS/SQLCipher combinations must be verified in Phase1.

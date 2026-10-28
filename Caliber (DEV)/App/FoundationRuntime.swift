@@ -12,6 +12,8 @@ final class FoundationRuntime: ObservableObject {
   @Published private(set) var demo: DemoDataset?
   @Published private(set) var isLoadingDemo = false
   @Published var isDemoMode = false
+  // Presentation state only; existing installations are not enrolled in setup again.
+  @Published var completedWelcomeThisSession = false
   @Published var message: String?
   let foodLibraryPreferences: FoodLibraryPreferences
   let account: HostedAccountModel
@@ -136,7 +138,7 @@ struct FoundationRootView: View {
     Group {
       if let container {
         if runtime.settings.ageConfirmed && runtime.settings.disclaimerAccepted {
-          RootTabView().modelContainer(container)
+          GoalSetupHostView().modelContainer(container)
         } else {
           AdultWelcomeView()
         }
@@ -180,7 +182,7 @@ struct FoundationRootView: View {
         FoodItem.self, Restaurant.self, MenuItem.self, MenuItemModifier.self,
         BuildableItemTemplate.self, BuildComponentCategory.self, BuildComponentOption.self,
         SavedMeal.self, SavedMealItem.self, DiaryEntry.self, WeightEntry.self, ProgressEntry.self,
-        ProgressPhoto.self, Note.self, UserProfile.self,
+        ProgressPhoto.self, Note.self, UserProfile.self, NutritionGoalSetup.self,
         TrainingExercise.self, TrainingWorkout.self, TrainingWorkoutExercise.self,
         TrainingWorkoutSet.self,
       ])
@@ -228,6 +230,7 @@ private struct AdultWelcomeView: View {
               .footnote)
           }
           Button("Continue") {
+            runtime.completedWelcomeThisSession = true
             runtime.settings.ageConfirmed = adult
             runtime.settings.disclaimerAccepted = understood
           }.disabled(!adult || !understood).frame(minHeight: 48).accessibilityIdentifier(

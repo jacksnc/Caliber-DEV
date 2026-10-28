@@ -283,3 +283,16 @@ Freeze shared APIs and stable test IDs; role handoffs replace competing edits to
 central planning docs during the pass. First slice is bounded to goals + visual
 polish + food-entry convenience; no implicit P1 activation or P2 promotion. See
 `docs/parallel/pass2/README.md`.
+
+
+## GS01 — Draft-first guided nutrition setup (2026-10-28)
+
+Reuse the current starting-energy engine, unchanged UserProfile read model and
+local SwiftData container. Add a separate versioned NutritionGoalSetup entity
+for explicit age/equation/input/target metadata. Save once after review; cancel
+writes no health rows. Use an ephemeral fresh-welcome flag plus a local preference
+to avoid enrolling existing users again. Tests use the runtime's isolated suite.
+Retain full-precision canonical inputs and ungrouped locale text. Preserve the
+original reference for unchanged weight targets; changing the goal clears them.
+Legacy archive support is a documented export/cutover gate, not silently assumed.
+No hosted, provider, licensed-menu or clinical-policy change.
