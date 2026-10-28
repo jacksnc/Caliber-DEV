@@ -93,6 +93,20 @@ final class ThemeIntegrationUITests: XCTestCase {
     try audit(app, largeText: false)
   }
 
+  /// A focused regression for the scanner header/modes when the system audits AX5.
+  @MainActor func testScannerLargestTextLayout() throws {
+    let app = launch(theme: "graphite", largeText: true)
+    app.buttons["quickLog"].tap()
+    app.buttons["quickLog-food"].tap()
+    let barcode = app.buttons["openBarcode"]
+    reveal(barcode, app: app)
+    barcode.tap()
+    app.buttons["barcodeOpenCamera"].tap()
+    XCTAssertTrue(app.textFields["barcodeManualInput"].waitForExistence(timeout: 10))
+    capture("graphite-Scanner-AX5", app: app)
+    try audit(app, largeText: true)
+  }
+
   /// FUEL-10 with a sample proposal: the switch is off until turned on, and each proposed food
   /// is matched to the offline database.
   @MainActor func testGraphitePhotoEstimate() throws {

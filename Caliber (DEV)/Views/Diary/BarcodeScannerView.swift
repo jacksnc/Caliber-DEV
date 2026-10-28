@@ -182,16 +182,11 @@ struct BarcodeScannerView: View {
 
   private var topBar: some View {
     VStack(alignment: .leading, spacing: 12) {
-      // Words never break mid-word: the title moves under the close button when it would.
-      ViewThatFits(in: .horizontal) {
-        HStack(spacing: 12) {
-          closeButton
-          title.fixedSize()
-        }
-        VStack(alignment: .leading, spacing: 8) {
-          closeButton
-          title
-        }
+      // Let the title wrap vertically inside its real width. Fixed-size trial
+      // titles in ViewThatFits can become clipped nodes during a text-size audit.
+      HStack(alignment: .top, spacing: 12) {
+        closeButton
+        title.frame(maxWidth: .infinity, alignment: .leading)
       }
       if let onSwitchMode { modePicker(onSwitchMode) }
     }
