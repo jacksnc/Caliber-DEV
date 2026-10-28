@@ -182,64 +182,97 @@ struct BarcodeScannerView: View {
 
   private var topBar: some View {
     VStack(alignment: .leading, spacing: 12) {
-      HStack {
-        Button(action: cancel) {
-          Image(systemName: "xmark")
-            .font(.body.weight(.semibold))
-            .foregroundStyle(theme.palette.text.primary.color)
-            .frame(width: 48, height: 48)
-            .background { GlassBackground(level: .raised, cornerRadius: 24) }
-            .contentShape(Circle())
+      // Words never break mid-word: the title moves under the close button when it would.
+      ViewThatFits(in: .horizontal) {
+        HStack(spacing: 12) {
+          closeButton
+          title.fixedSize()
         }
-        .buttonStyle(.plain)
-        .accessibilityLabel("Cancel")
-        .accessibilityIdentifier("barcodeCancel")
-        Text("Scan barcode").heliosFont(.section)
-          .accessibilityAddTraits(.isHeader)
-          .fixedSize(horizontal: false, vertical: true)
-          .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
+        VStack(alignment: .leading, spacing: 8) {
+          closeButton
+          title
+        }
       }
       if let onSwitchMode { modePicker(onSwitchMode) }
     }
   }
 
-  /// Four equal segments across the width. Large text wraps inside each segment, so every
-  /// mode stays on screen and nothing is clipped or scrolled away.
+  private var closeButton: some View {
+    Button(action: cancel) {
+      Image(systemName: "xmark")
+        .font(.body.weight(.semibold))
+        .foregroundStyle(theme.palette.text.primary.color)
+        .frame(width: 48, height: 48)
+        .background { GlassBackground(level: .raised, cornerRadius: 24) }
+        .contentShape(Circle())
+    }
+    .buttonStyle(.plain)
+    .accessibilityLabel("Cancel")
+    .accessibilityIdentifier("barcodeCancel")
+  }
+
+  private var title: some View {
+    Text("Scan barcode").heliosFont(.section)
+      .accessibilityAddTraits(.isHeader)
+      .fixedSize(horizontal: false, vertical: true)
+      .frame(minHeight: 48, alignment: .leading)
+  }
+
+  /// The look book's segmented modes. When the words do not fit in one row they move to two
+  /// rows, then to one per row, so a mode name is never split or cut off.
   private func modePicker(_ onSwitchMode: @escaping (FoodCaptureMode) -> Void) -> some View {
-    HStack(alignment: .top, spacing: 2) {
-      ForEach(FoodCaptureMode.allCases) { mode in
-        Button {
-          guard mode != .barcode else { return }
-          didFinish = true
-          capture.stop()
-          onSwitchMode(mode)
-          dismiss()
-        } label: {
-          Text(mode.title)
-            .heliosFont(.footnote)
-            .multilineTextAlignment(.center)
-            .fixedSize(horizontal: false, vertical: true)
-            .padding(.horizontal, 4)
-            .padding(.vertical, 8)
-            .frame(maxWidth: .infinity, minHeight: 44)
-            .foregroundStyle(
-              mode == .barcode ? theme.palette.accent.base.color : theme.palette.text.primary.color
-            )
-            .background {
-              if mode == .barcode {
-                RoundedRectangle(cornerRadius: 20, style: .continuous)
-                  .fill(theme.palette.accent.subtle.color)
-              }
-            }
-            .contentShape(Rectangle())
+    let modes = FoodCaptureMode.allCases
+    return ViewThatFits(in: .horizontal) {
+      HStack(spacing: 2) {
+        ForEach(modes) { modeButton($0, onSwitchMode).fixedSize() }
+      }
+      Grid(horizontalSpacing: 2, verticalSpacing: 2) {
+        GridRow {
+          ForEach(modes.prefix(2)) { modeButton($0, onSwitchMode).fixedSize() }
         }
-        .buttonStyle(.plain)
-        .accessibilityAddTraits(mode == .barcode ? [.isSelected] : [])
-        .accessibilityIdentifier("captureMode-\(mode.rawValue)")
+        GridRow {
+          ForEach(modes.suffix(2)) { modeButton($0, onSwitchMode).fixedSize() }
+        }
+      }
+      VStack(spacing: 2) {
+        ForEach(modes) { modeButton($0, onSwitchMode) }
       }
     }
     .padding(4)
+    .frame(maxWidth: .infinity)
     .background { GlassBackground(level: .raised, cornerRadius: 24) }
+  }
+
+  private func modeButton(
+    _ mode: FoodCaptureMode, _ onSwitchMode: @escaping (FoodCaptureMode) -> Void
+  ) -> some View {
+    Button {
+      guard mode != .barcode else { return }
+      didFinish = true
+      capture.stop()
+      onSwitchMode(mode)
+      dismiss()
+    } label: {
+      Text(mode.title)
+        .heliosFont(.footnote)
+        .multilineTextAlignment(.center)
+        .padding(.horizontal, HeliosTokens.space(3))
+        .padding(.vertical, 8)
+        .frame(maxWidth: .infinity, minHeight: 44)
+        .foregroundStyle(
+          mode == .barcode ? theme.palette.accent.base.color : theme.palette.text.primary.color
+        )
+        .background {
+          if mode == .barcode {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+              .fill(theme.palette.accent.subtle.color)
+          }
+        }
+        .contentShape(Rectangle())
+    }
+    .buttonStyle(.plain)
+    .accessibilityAddTraits(mode == .barcode ? [.isSelected] : [])
+    .accessibilityIdentifier("captureMode-\(mode.rawValue)")
   }
 
   /// The look book's camera frame when there is no live preview.

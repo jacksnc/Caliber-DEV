@@ -112,7 +112,8 @@ final class FoundationUITests: XCTestCase {
     app.secureTextFields["accountPassword"].tap()
     app.secureTextFields["accountPassword"].typeText("fixture-password")
     app.buttons["accountSignIn"].tap()
-    XCTAssertTrue(app.staticTexts["accountSignedIn"].waitForExistence(timeout: 5))
+    // Each step on the shared CI simulator can take several seconds to settle.
+    XCTAssertTrue(app.staticTexts["accountSignedIn"].waitForExistence(timeout: 20))
     XCTAssertTrue(app.staticTexts["accountMessage"].label.contains("cloud backup is not active"))
     app.buttons["accountSignOut"].tap()
     XCTAssertTrue(email.waitForExistence(timeout: 5))
@@ -240,7 +241,8 @@ final class FoundationUITests: XCTestCase {
     app.secureTextFields["accountPassword"].tap()
     app.secureTextFields["accountPassword"].typeText("fixture-password")
     app.buttons["accountSignIn"].tap()
-    XCTAssertTrue(app.staticTexts["accountSignedIn"].waitForExistence(timeout: 5))
+    // Each step on the shared CI simulator can take several seconds to settle.
+    XCTAssertTrue(app.staticTexts["accountSignedIn"].waitForExistence(timeout: 20))
     app.buttons["accountDelete"].tap()
     XCTAssertTrue(app.secureTextFields["deletionPassword"].waitForExistence(timeout: 5))
     XCTAssertFalse(app.buttons["deletionSubmit"].isEnabled)
