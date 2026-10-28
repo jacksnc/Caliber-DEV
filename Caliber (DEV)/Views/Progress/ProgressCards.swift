@@ -59,14 +59,7 @@ struct ProgressRangePicker: View {
             )
             .frame(maxWidth: .infinity, minHeight: 44)
             .background {
-              if isSelected {
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                  .fill(theme.palette.accent.subtle.color)
-                  .overlay {
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                      .strokeBorder(theme.palette.accent.base.color, lineWidth: 1.5)
-                  }
-              }
+              if isSelected { HeliosSegmentHighlight(cornerRadius: 12) }
             }
             .contentShape(Rectangle())
         }
@@ -77,20 +70,9 @@ struct ProgressRangePicker: View {
       }
     }
     .padding(4)
-    .background {
-      RoundedRectangle(cornerRadius: 16, style: .continuous)
-        .fill(
-          theme.reduceTransparency
-            ? theme.palette.opaque.raised.color : theme.palette.glass.raised.color
-        )
-        .overlay {
-          RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .strokeBorder(
-              theme.palette.isHighContrast
-                ? theme.palette.border.strong.color : theme.palette.border.hairline.color,
-              lineWidth: theme.palette.isHighContrast ? 1.5 : 1)
-        }
-    }
+    .background { HeliosSegmentTrack(cornerRadius: 16) }
+    .accessibilityElement(children: .contain)
+    .accessibilityLabel("Weight trend range")
   }
 }
 
@@ -152,6 +134,13 @@ struct CaloriesWeekCard: View {
       .accessibilityElement()
       .accessibilityLabel("Calories for the last seven days")
       .accessibilityValue(summary(days, unit: unit))
+      // Empty bars and a logged zero look alike, so say plainly when nothing was logged.
+      if days.allSatisfy({ $0.value == 0 }) {
+        Text("No food logged in the last 7 days.")
+          .heliosFont(.callout)
+          .foregroundStyle(theme.palette.text.secondary.color)
+          .fixedSize(horizontal: false, vertical: true)
+      }
     }
     .accessibilityIdentifier("progressCalories")
   }
@@ -210,13 +199,16 @@ struct MacroSplitCard: View {
     ]
     let energy = parts.reduce(0) { $0 + $1.2 }
     VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
-      HStack(alignment: .firstTextBaseline) {
-        Text("Macro split").heliosFont(.section)
-          .accessibilityAddTraits(.isHeader)
-        Text("Share of calories, 7-day average")
-          .heliosFont(.footnote)
-          .foregroundStyle(theme.palette.text.secondary.color)
-          .fixedSize(horizontal: false, vertical: true)
+      ViewThatFits(in: .horizontal) {
+        HStack(alignment: .firstTextBaseline, spacing: 8) {
+          Text("Macro split").heliosFont(.section).accessibilityAddTraits(.isHeader)
+          Spacer(minLength: 8)
+          splitDetail
+        }
+        VStack(alignment: .leading, spacing: 4) {
+          Text("Macro split").heliosFont(.section).accessibilityAddTraits(.isHeader)
+          splitDetail
+        }
       }
       if energy > 0 {
         GeometryReader { proxy in
@@ -242,6 +234,13 @@ struct MacroSplitCard: View {
     }
     .accessibilityElement(children: .combine)
     .accessibilityIdentifier("progressMacroSplit")
+  }
+
+  private var splitDetail: some View {
+    Text("Share of calories, 7-day average")
+      .heliosFont(.footnote)
+      .foregroundStyle(theme.palette.text.secondary.color)
+      .fixedSize(horizontal: false, vertical: true)
   }
 
   @ViewBuilder

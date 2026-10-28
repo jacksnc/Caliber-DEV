@@ -33,6 +33,7 @@ public struct HeliosGallery: View {
                         typeScale
                         metrics
                         buttons
+                        emptyState
                         swatches
                     }
                     .padding(HeliosTokens.space(4))
@@ -102,6 +103,17 @@ public struct HeliosGallery: View {
                 StatusBadge(.danger, "Over your limit")
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            .glassCard()
+        }
+
+        private var emptyState: some View {
+            HeliosEmptyState(
+                symbol: "chart.xyaxis.line",
+                title: "Nothing to chart yet",
+                message: "Add a reading and it appears here."
+            ) {
+                Button("Add reading") {}.buttonStyle(.heliosSecondary)
+            }
             .glassCard()
         }
 

@@ -5,6 +5,7 @@ import SwiftUI
 /// Daily check-ins stay on this device, alongside the user's food diary.
 struct ProgressDashboardView: View {
   @Environment(\.modelContext) private var modelContext
+  @Environment(\.heliosTheme) private var theme
   @Query(sort: \ProgressEntry.date, order: .reverse) private var entries: [ProgressEntry]
   @Query(sort: \WeightEntry.date) private var weights: [WeightEntry]
   @Query(sort: \DiaryEntry.date) private var diary: [DiaryEntry]
@@ -36,14 +37,29 @@ struct ProgressDashboardView: View {
       .sorted { $0.month > $1.month }
   }
 
+  private var timelineDetail: String {
+    guard !entries.isEmpty else { return "No check-ins yet" }
+    let count = entries.count == 1 ? "1 check-in" : "\(entries.count) check-ins"
+    return "\(count) · newest first · swipe to edit or delete"
+  }
+
   var body: some View {
     NavigationStack {
       List {
         Group {
+          // The range row scopes only the weight trend directly below it.
           Section {
             ProgressRangePicker(selection: $range)
+              .padding(.bottom, HeliosTokens.space(2))
               .listRowBackground(Color.clear)
+              .listRowSeparator(.hidden)
               .listRowInsets(EdgeInsets())
+            WeightTrendChart(
+              summary: summary, unit: unit,
+              rangeName: range == .all ? "since first weigh-in" : "in \(range.spokenName)",
+              addWeight: addToday
+            )
+            .caliberCardRow()
           } header: {
             CaliberHeader(
               "Progress", identifier: "Progress", action: addToday,
@@ -51,41 +67,39 @@ struct ProgressDashboardView: View {
             )
             .caliberSectionHeader()
           }
-          Section {
-            WeightTrendChart(
-              summary: summary, unit: unit,
-              rangeName: range == .all ? "since first weigh-in" : "in \(range.spokenName)",
-              addWeight: addToday
-            )
-            .caliberCardRow()
-          }
 
-          // The three overview cards match the reference; the full check-in timeline follows.
+          // Food cards are always the last seven days, whatever weight range is selected.
           Section {
             CaloriesWeekCard(entries: diary, goal: profiles.first?.dailyCalorieGoal)
               .caliberCardRow()
+          } header: {
+            ProgressSectionHeader(
+              "Nutrition", detail: "Last 7 days · not affected by the range above",
+              identifier: "progressNutritionHeader")
           }
           Section {
             MacroSplitCard(entries: diary)
               .caliberCardRow()
           }
-          if entries.isEmpty {
-            VStack(alignment: .leading, spacing: 16) {
-              Label("Your Progress", systemImage: "photo.on.rectangle.angled")
-                .font(.title2.bold())
-              Text(
-                "Keep daily photos, weigh-ins, and notes together. Add any combination that works for you."
-              )
-              .font(.body).fixedSize(horizontal: false, vertical: true)
-              Button("Add Check-In", action: addToday)
-                .buttonStyle(.heliosPrimary)
-            }.caliberCardRow()
-          } else {
-            Section {
+
+          Section {
+            if entries.isEmpty {
+              HeliosEmptyState(
+                symbol: "photo.on.rectangle.angled",
+                title: "Your Progress",
+                message:
+                  "Keep daily photos, weigh-ins, and notes together. Add any combination that works for you."
+              ) {
+                Button("Add Check-In", action: addToday)
+                  .buttonStyle(.heliosPrimary)
+                  .accessibilityIdentifier("progressEmptyAddCheckIn")
+              }
+              .caliberCardRow()
+            } else {
               ForEach(timelineMonths, id: \.month) { group in
                 Text(group.month, format: .dateTime.month(.wide).year())
-                  .font(.headline)
-                  .foregroundStyle(.secondary)
+                  .heliosFont(.section)
+                  .foregroundStyle(theme.palette.text.secondary.color)
                   .listRowBackground(Color.clear)
                   .listRowSeparator(.hidden)
                   .listRowInsets(EdgeInsets(top: 12, leading: 28, bottom: 12, trailing: 16))
@@ -121,10 +135,10 @@ struct ProgressDashboardView: View {
                   }
                 }
               }
-            } header: {
-              Text("Timeline · \(entries.count) \(entries.count == 1 ? "check-in" : "check-ins")")
             }
-
+          } header: {
+            ProgressSectionHeader(
+              "Timeline", detail: timelineDetail, identifier: "progressTimelineHeader")
           }
         }
       }
@@ -175,6 +189,38 @@ struct ProgressDashboardView: View {
       deletingEntry = nil
       saveError = error.localizedDescription
     }
+  }
+}
+
+/// A section heading on the bare canvas: primary title, secondary detail (both audited on canvas).
+private struct ProgressSectionHeader: View {
+  let title: LocalizedStringKey
+  let detail: String
+  let identifier: String
+  @Environment(\.heliosTheme) private var theme
+
+  init(_ title: LocalizedStringKey, detail: String, identifier: String) {
+    self.title = title
+    self.detail = detail
+    self.identifier = identifier
+  }
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 2) {
+      Text(title)
+        .heliosFont(.section)
+        .foregroundStyle(theme.palette.text.primary.color)
+        .accessibilityAddTraits(.isHeader)
+      Text(detail)
+        .heliosFont(.footnote)
+        .foregroundStyle(theme.palette.text.secondary.color)
+        .fixedSize(horizontal: false, vertical: true)
+    }
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .padding(.top, HeliosTokens.space(2))
+    .caliberSectionHeader()
+    .accessibilityElement(children: .combine)
+    .accessibilityIdentifier(identifier)
   }
 }
 
