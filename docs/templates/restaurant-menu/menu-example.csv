@@ -1,0 +1,6 @@
+restaurant_id,item_id,name,category,serving_description,serving_grams,calories,protein_g,carbs_g,fat_g
+fictional-example-bistro,fictional-bistro-rice-plate,Fictional Rice Plate,entree,"1 fictional plate, including the listed side",420,540,38,49,21
+fictional-example-bistro,fictional-bistro-greens,Fictional Greens,side,"1 fictional side, dressing included",,110,4,10,6
+fictional-example-bistro,fictional-bistro-water,Fictional Plain Water,drink,1 fictional cup; no mass inferred from its volume,,0,0,0,0
+fictional-example-bistro,fictional-bistro-starter,Fictional Starter,Appetizers,1 fictional portion; software test only,,120,4,15,5
+fictional-example-bistro,fictional-bistro-dessert,Fictional Dessert,Desserts,1 fictional portion; software test only,,200,3,30,8

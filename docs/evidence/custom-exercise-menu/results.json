@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-27",
+  "branch": "codex/workout-engine",
+  "results": {
+    "native_units": 225,
+    "custom_exercise_ui_flows": 2,
+    "python_tests": 130,
+    "restaurant_reader_tests": 11,
+    "result": "pass"
+  },
+  "notes": [
+    "The unit run passed; its first two UI attempts failed on library reveal and were corrected before the separate green UI rerun.",
+    "No shipped restaurant catalog, production flag or private schema changed."
+  ],
+  "logs": {
+    "native-units": {
+      "local_full_log": "/tmp/caliber-custom-exercise2.log",
+      "sha256": "87010eb4dd7f69a30c9fd3e260549419ff848c1040829a54b98a54f1760d11de",
+      "summary": "native-units.log"
+    },
+    "native-ui": {
+      "local_full_log": "/tmp/caliber-custom-exercise3.log",
+      "sha256": "5584c89918e4c2912408fffa865579995a9199727f1003a3c41d43248f8a414d",
+      "summary": "native-ui.log"
+    },
+    "python": {
+      "local_full_log": "/tmp/caliber-custom-menu-all-python.log",
+      "sha256": "f39fa6d21e75b5c3810166070eb6ca63b6be44dcc6fe2f63c8b6906bc8394495",
+      "summary": "python.log"
+    },
+    "menu-package": {
+      "local_full_log": "/tmp/caliber-custom-menu-package.log",
+      "sha256": "84df86cd7007b4c0546a025e8afd16ec9daf04c2b63f3209ce1ff4d76f39a043",
+      "summary": "menu-package.log"
+    },
+    "lint": {
+      "local_full_log": "/tmp/caliber-custom-menu-lint-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": "lint.log"
+    },
+    "typography": {
+      "local_full_log": "/tmp/caliber-custom-menu-type-final.log",
+      "sha256": "4b7036b8188caa0fb4024a820fef7250418deb09d94324dea038278f2df6e6cc",
+      "summary": "typography.log"
+    },
+    "contracts": {
+      "local_full_log": "/tmp/caliber-custom-menu-contracts-final.log",
+      "sha256": "fdb8685c98e67cd164f5d99f394b774839367acd72ffb4f8c45269d14fc90e25",
+      "summary": "contracts.log"
+    }
+  }
+}

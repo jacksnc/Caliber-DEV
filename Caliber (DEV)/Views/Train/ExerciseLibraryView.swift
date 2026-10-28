@@ -52,12 +52,16 @@ struct ExerciseLibraryView: View {
     }
     .caliberScreen()
     .navigationTitle("Exercises")
-    .searchable(text: $searchText, prompt: "Name or alias")
+    .searchable(
+      text: $searchText, placement: .navigationBarDrawer(displayMode: .always),
+      prompt: "Name or alias"
+    )
     .toolbar {
       Button {
         showingAdd = true
       } label: {
         Label("Add Exercise", systemImage: "plus")
+          .accessibilityIdentifier("libraryCreateExercise")
       }
     }
     .sheet(isPresented: $showingAdd) { CustomExerciseView() }
@@ -68,69 +72,6 @@ struct ExerciseLibraryView: View {
       Button("OK", role: .cancel) { message = nil }
     } message: {
       Text(message ?? "Please try again.")
-    }
-  }
-}
-
-private struct CustomExerciseView: View {
-  @Environment(\.dismiss) private var dismiss
-  @Environment(\.modelContext) private var modelContext
-  @State private var name = ""
-  @State private var aliases = ""
-  @State private var metric = ExerciseMetricType.weightAndReps
-  @State private var message: String?
-
-  private var canSave: Bool {
-    !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-  }
-
-  var body: some View {
-    NavigationStack {
-      Form {
-        Group {
-          Section("Exercise") {
-            TextField("Name", text: $name)
-            TextField("Aliases (optional)", text: $aliases)
-            LabeledContent("Logging style", value: metric.displayName)
-            Text("More logging styles will appear as their set editors are added.")
-              .font(.footnote)
-              .foregroundStyle(.secondary)
-          }
-        }
-        .listRowBackground(CaliberRowBackground())
-      }
-      .caliberScreen()
-      .navigationTitle("Custom Exercise")
-      .navigationBarTitleDisplayMode(.inline)
-      .toolbar {
-        ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
-        ToolbarItem(placement: .confirmationAction) {
-          Button("Save", action: save).disabled(!canSave)
-        }
-      }
-      .alert(
-        "Couldn't Save Exercise",
-        isPresented: Binding(get: { message != nil }, set: { if !$0 { message = nil } })
-      ) {
-        Button("OK", role: .cancel) { message = nil }
-      } message: {
-        Text(message ?? "Please try again.")
-      }
-    }
-  }
-
-  private func save() {
-    let exercise = TrainingExercise(
-      name: name.trimmingCharacters(in: .whitespacesAndNewlines),
-      aliases: aliases.trimmingCharacters(in: .whitespacesAndNewlines),
-      metricType: metric)
-    modelContext.insert(exercise)
-    do {
-      try modelContext.save()
-      dismiss()
-    } catch {
-      modelContext.rollback()
-      message = "The custom exercise could not be saved."
     }
   }
 }

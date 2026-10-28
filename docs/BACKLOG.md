@@ -325,3 +325,8 @@ These entries preserve the existing requirement priorities. They are unfinished 
 - TRN-30: persisted optional deadlines, ±15-second adjustment, skip, explicit next-set start and measured rest storage are implemented. Screen controls, per-kind defaults, notifications/Live Activity, sound/voice/haptics and locked-device validation remain open. No full timer completion claim.
 - Reconcile imported TrainingCore's single-rep convention, invalid-RPE/nonfinite inputs and configurable warm-up PR inclusion with M01/M02 before linking e1RM/PR outputs. This branch does not require another formula decision or activate those estimates.
 - Add training and its new fields to protected export/restore and canonical append-only revision storage before any cutover. The legacy 15-model rehearsal remains unchanged. See WORKOUT_ENGINE_HANDOFF.md.
+
+## Custom exercise and menu format — 2026-10-27
+
+- TRN-02: missing exercises can now be created from the live picker, with a prefilled name, and reused in the library. Cancel and duplicate protection are tested. Creation currently uses weight/reps; muscle/equipment/media metadata and the other metric editors remain open.
+- FUEL-13: spreadsheet-friendly CSV preparation and the once-per-source metadata format are available in RESTAURANT_MENU_TEMPLATE.md. The existing source-aware importer validates staged output; no real menu dataset was imported and the production flag remains off. Component/modifier imports, permitted current sources and release validation remain open.

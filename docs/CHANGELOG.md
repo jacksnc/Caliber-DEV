@@ -151,3 +151,9 @@ Existing source work predates this phase and remains locally staged/uncommitted 
 - Added optional SwiftData metric/body-weight/effort/distance/duration/rest snapshots; retained legacy completed-set values.
 - Added saved previous-set copy, fill, duplication, order and deletion commands; copies clear completion and observed effort/body weight.
 - Added durable optional rest deadlines and explicit actual-rest capture, with a Claude integration handoff. No screen, color or hosted changes.
+
+## 2026-10-27 — Custom exercise shortcut and menu CSV
+
+- Added a shared custom-exercise form to the workout picker and library. Missing-search creation prefills the name and adds the saved exercise to the current session.
+- Added explicit blank/duplicate validation and stable UI identifiers, retaining Cancel and existing personal-row deletion behavior.
+- Added a blank restaurant menu CSV, a complete fictional example, source metadata, preparation CLI and beginner guide. Reused existing nutrient/source/category validation; production data and flags stay unchanged.

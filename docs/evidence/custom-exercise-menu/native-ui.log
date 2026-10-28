@@ -1,0 +1,14 @@
+Test Suite 'Selected tests' started at 2026-10-27 23:46:55.060.
+Test Suite 'Caliber (DEV)UITests.xctest' started at 2026-10-27 23:46:55.060.
+Test Suite 'CustomExerciseUITests' started at 2026-10-27 23:46:55.060.
+Test Case '-[Caliber__DEV_UITests.CustomExerciseUITests testCancelDoesNotAddExerciseAndLibraryCreationStillWorks]' started.
+Test Case '-[Caliber__DEV_UITests.CustomExerciseUITests testCancelDoesNotAddExerciseAndLibraryCreationStillWorks]' passed (23.845 seconds).
+Test Case '-[Caliber__DEV_UITests.CustomExerciseUITests testMissingExerciseCanBeCreatedInWorkoutAndReusedFromLibrary]' started.
+Test Case '-[Caliber__DEV_UITests.CustomExerciseUITests testMissingExerciseCanBeCreatedInWorkoutAndReusedFromLibrary]' passed (29.379 seconds).
+Test Suite 'CustomExerciseUITests' passed at 2026-10-27 23:47:48.289.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 53.224 (53.229) seconds
+Test Suite 'Caliber (DEV)UITests.xctest' passed at 2026-10-27 23:47:48.299.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 53.224 (53.239) seconds
+Test Suite 'Selected tests' passed at 2026-10-27 23:47:48.300.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 53.224 (53.240) seconds
+** TEST SUCCEEDED **

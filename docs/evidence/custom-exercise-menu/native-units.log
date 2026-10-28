@@ -1,0 +1,490 @@
+Test Suite 'All tests' started at 2026-10-27 23:43:54.666.
+Test Suite 'Caliber (DEV)Tests.xctest' started at 2026-10-27 23:43:54.668.
+Test Suite 'BarcodeValueTests' started at 2026-10-27 23:43:54.668.
+Test Suite 'BarcodeValueTests' passed at 2026-10-27 23:43:54.692.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.021 (0.024) seconds
+Test Suite 'Caliber__DEV_Tests' started at 2026-10-27 23:43:54.692.
+Test Suite 'Caliber__DEV_Tests' passed at 2026-10-27 23:43:55.242.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.549 (0.550) seconds
+Test Suite 'Caliber (DEV)Tests.xctest' passed at 2026-10-27 23:43:55.242.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.570 (0.574) seconds
+Test Suite 'All tests' passed at 2026-10-27 23:43:55.242.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.570 (0.576) seconds
+◇ Test run started.
+◇ Test barcodePermissionAndValidationGateEveryRequest() started.
+✔ Test barcodePermissionAndValidationGateEveryRequest() passed after 0.005 seconds.
+◇ Test barcodePermissionIsVersionedAndSurvivesOnlyUntilWithdrawal() started.
+✔ Test barcodePermissionIsVersionedAndSurvivesOnlyUntilWithdrawal() passed after 0.002 seconds.
+◇ Test barcodeEquivalentEANAcceptedAndMismatchedProductRejected() started.
+✔ Test barcodeEquivalentEANAcceptedAndMismatchedProductRejected() passed after 0.001 seconds.
+◇ Test lateBarcodeResultCannotPublishAfterWithdrawalOrCancellation(withdraw:) started.
+◇ Test case passing 1 argument withdraw → true to lateBarcodeResultCannotPublishAfterWithdrawalOrCancellation(withdraw:) started.
+◇ Test arbitraryBarcodeErrorsNeverExposeProviderBody() started.
+✔ Test arbitraryBarcodeErrorsNeverExposeProviderBody() passed after 0.001 seconds.
+◇ Test bundledBarcodeProviderIsDisabledUntilOwnerSetup() started.
+✔ Test bundledBarcodeProviderIsDisabledUntilOwnerSetup() passed after 0.001 seconds.
+◇ Test canceledBarcodeLookupDoesNotStartAProviderRequest() started.
+✔ Test canceledBarcodeLookupDoesNotStartAProviderRequest() passed after 0.001 seconds.
+◇ Suite "Barcode provider parsing and privacy" started.
+◇ Test "A complete v3.6 per-serving label preserves fractions and total carbohydrate" started.
+✔ Test "A complete v3.6 per-serving label preserves fractions and total carbohydrate" passed after 0.002 seconds.
+◇ Test "A lookup requests only the barcode and required fields from the fixed staging host" started.
+✔ Test "A lookup requests only the barcode and required fields from the fixed staging host" passed after 0.001 seconds.
+◇ Test "Production does not receive the shared staging credentials" started.
+✔ Test "Production does not receive the shared staging credentials" passed after 0.001 seconds.
+◇ Test "Missing nutrients and net-carbohydrate-only labels never become zero or total carbs" started.
+✔ Test "Missing nutrients and net-carbohydrate-only labels never become zero or total carbs" passed after 0.002 seconds.
+◇ Test "Explicit zeros are valid; unknown or contradictory basis is not" started.
+✔ Test "Explicit zeros are valid; unknown or contradictory basis is not" passed after 0.001 seconds.
+◇ Test "Volume stays volume, and an explicit 100 gram basis stays mass" started.
+✔ Test "Volume stays volume, and an explicit 100 gram basis stays mass" passed after 0.001 seconds.
+◇ Test "A complete serving takes priority over a complete 100 gram input set" started.
+✔ Test "A complete serving takes priority over a complete 100 gram input set" passed after 0.001 seconds.
+◇ Test "Corrupt JSON, wrong product identity, old schema and unexpected MIME are rejected" started.
+✔ Test "Corrupt JSON, wrong product identity, old schema and unexpected MIME are rejected" passed after 0.001 seconds.
+◇ Test "Not found, provider downtime, redirects and offline errors are distinct" started.
+✔ Test "Not found, provider downtime, redirects and offline errors are distinct" passed after 0.003 seconds.
+◇ Test "Ten requests per minute and the provider's Retry-After stop additional traffic" started.
+✔ Test "Ten requests per minute and the provider's Retry-After stop additional traffic" passed after 0.007 seconds.
+◇ Test "Unconfigured services and invalid codes never send requests" started.
+✔ Test "Unconfigured services and invalid codes never send requests" passed after 0.001 seconds.
+◇ Test "OFF's documented leading-zero normalization keeps the scanned UPC intact" started.
+✔ Test "OFF's documented leading-zero normalization keeps the scanned UPC intact" passed after 0.001 seconds.
+✔ Suite "Barcode provider parsing and privacy" passed after 0.019 seconds.
+◇ Suite "Build your own meal" started.
+◇ Test "A required entrée is needed, while optional protein may be skipped" started.
+✔ Test "A required entrée is needed, while optional protein may be skipped" passed after 0.007 seconds.
+◇ Test "Totals sum selected ingredients and preserve fractional grams" started.
+✔ Test "Totals sum selected ingredients and preserve fractional grams" passed after 0.001 seconds.
+◇ Test "Double scales only the chosen ingredient; Regular keeps it selected" started.
+✔ Test "Double scales only the chosen ingredient; Regular keeps it selected" passed after 0.001 seconds.
+◇ Test "Optional single choice can be removed, including its double portion" started.
+✔ Test "Optional single choice can be removed, including its double portion" passed after 0.001 seconds.
+◇ Test "Swiping a replacement protein clears the previous double portion" started.
+✔ Test "Swiping a replacement protein clears the previous double portion" passed after 0.001 seconds.
+◇ Test "Tapping a replacement protein clears the previous double portion" started.
+✔ Test "Tapping a replacement protein clears the previous double portion" passed after 0.001 seconds.
+◇ Test "Removing one topping keeps the other selected topping" started.
+✔ Test "Removing one topping keeps the other selected topping" passed after 0.001 seconds.
+◇ Test "Entrée format cannot be doubled like an ingredient" started.
+✔ Test "Entrée format cannot be doubled like an ingredient" passed after 0.001 seconds.
+◇ Test "Unsupported options cannot be doubled or selected by the double action" started.
+✔ Test "Unsupported options cannot be doubled or selected by the double action" passed after 0.001 seconds.
+◇ Test "An eligible protein cannot be doubled through the wrong category" started.
+✔ Test "An eligible protein cannot be doubled through the wrong category" passed after 0.001 seconds.
+✔ Suite "Build your own meal" passed after 0.010 seconds.
+◇ Suite CustomExerciseEditorTests started.
+◇ Test customExerciseIsSavedAndCanBeLoggedWithoutAnAccount() started.
+✔ Test customExerciseIsSavedAndCanBeLoggedWithoutAnAccount() passed after 0.076 seconds.
+◇ Test blankNamesDoNotCreateRows() started.
+✔ Test blankNamesDoNotCreateRows() passed after 0.006 seconds.
+◇ Test duplicateNamesRespectCaseSpacingAccentsAndExistingSeedRows() started.
+✔ Test duplicateNamesRespectCaseSpacingAccentsAndExistingSeedRows() passed after 0.010 seconds.
+✔ Suite CustomExerciseEditorTests passed after 0.093 seconds.
+◇ Suite "Custom restaurant menu items" started.
+◇ Test "Creating an item persists its trimmed name, category, custom flag, and restaurant" started.
+✔ Test "Creating an item persists its trimmed name, category, custom flag, and restaurant" passed after 0.028 seconds.
+◇ Test "Editing updates the same custom row and leaves already logged nutrition unchanged" started.
+✔ Test "Editing updates the same custom row and leaves already logged nutrition unchanged" passed after 0.020 seconds.
+◇ Test "Deleting a custom item keeps logged foods and detaches their optional menu links" started.
+✔ Test "Deleting a custom item keeps logged foods and detaches their optional menu links" passed after 0.019 seconds.
+◇ Test "Built-in menu items cannot be edited or deleted" started.
+✔ Test "Built-in menu items cannot be edited or deleted" passed after 0.008 seconds.
+◇ Test "Invalid nutrition or an empty name cannot create menu items" started.
+✔ Test "Invalid nutrition or an empty name cannot create menu items" passed after 0.002 seconds.
+◇ Test "Editing cannot move a custom item to another restaurant" started.
+✔ Test "Editing cannot move a custom item to another restaurant" passed after 0.003 seconds.
+◇ Test "A failed creation removes only its new row and preserves unrelated pending changes" started.
+✔ Test "A failed creation removes only its new row and preserves unrelated pending changes" passed after 0.009 seconds.
+◇ Test "A failed edit restores the original menu values without rolling back other work" started.
+✔ Test "A failed edit restores the original menu values without rolling back other work" passed after 0.006 seconds.
+◇ Test "A failed deletion restores the custom item and links without rolling back other work" started.
+✔ Test "A failed deletion restores the custom item and links without rolling back other work" passed after 0.011 seconds.
+✔ Suite "Custom restaurant menu items" passed after 0.111 seconds.
+◇ Test previousDiaryDayFollowsLocalCalendarAcrossDST(month:day:hours:) started.
+◇ Test case passing 3 arguments month → 3, day → 9, hours → 23.0 to previousDiaryDayFollowsLocalCalendarAcrossDST(month:day:hours:) started.
+◇ Suite "Diary entry editing" started.
+◇ Test "Editing a log preserves catalog, saved-meal, and other diary nutrition" started.
+✔ Test "Editing a log preserves catalog, saved-meal, and other diary nutrition" passed after 0.009 seconds.
+◇ Test "A failed save restores this entry without discarding unrelated pending changes" started.
+✔ Test "A failed save restores this entry without discarding unrelated pending changes" passed after 0.009 seconds.
+◇ Test "Invalid quantities are rejected before a diary entry is changed" started.
+◇ Test case passing 1 argument quantity → 0.0 to "Invalid quantities are rejected before a diary entry is changed" started.
+✔ Suite "Diary entry editing" passed after 0.032 seconds.
+◇ Suite "Repeat diary entries" started.
+◇ Test "Preview and copies preserve baseline portions, notes and independent food identities" started.
+✔ Test "Preview and copies preserve baseline portions, notes and independent food identities" passed after 0.008 seconds.
+◇ Test "A meal override applies to each copy and separate repeat requests remain intentional" started.
+✔ Test "A meal override applies to each copy and separate repeat requests remain intentional" passed after 0.006 seconds.
+◇ Test "Failed persistence removes only the attempted copies, preserving unrelated drafts" started.
+✔ Test "Failed persistence removes only the attempted copies, preserving unrelated drafts" passed after 0.011 seconds.
+◇ Test "Every invalid source is checked before insertion" started.
+◇ Test case passing 1 argument invalid → .missingFood to "Every invalid source is checked before insertion" started.
+◇ Test "Empty input, duplicate source identities and aggregate overflow reject the whole request" started.
+✔ Test "Empty input, duplicate source identities and aggregate overflow reject the whole request" passed after 0.003 seconds.
+◇ Test "Non-finite destination dates are rejected without persistence" started.
+◇ Test case passing 1 argument value → inf to "Non-finite destination dates are rejected without persistence" started.
+◇ Test "Source values are frozen before persistence can change another pending edit" started.
+✔ Test "Source values are frozen before persistence can change another pending edit" passed after 0.006 seconds.
+◇ Test "Menu links from another context resolve the same identity in the destination" started.
+✔ Test "Menu links from another context resolve the same identity in the destination" passed after 0.007 seconds.
+◇ Test "Missing destination menu provenance fails before any rows are inserted" started.
+✔ Test "Missing destination menu provenance fails before any rows are inserted" passed after 0.009 seconds.
+◇ Test "A menu item pending deletion cannot become a new copy's provenance" started.
+✔ Test "A menu item pending deletion cannot become a new copy's provenance" passed after 0.003 seconds.
+◇ Test "Calendar-selected previous days stay correct across 23-hour and 25-hour days" started.
+◇ Test case passing 1 argument month → 3 to "Calendar-selected previous days stay correct across 23-hour and 25-hour days" started.
+✔ Suite "Repeat diary entries" passed after 0.134 seconds.
+◇ Suite "Expanded offline food database" started.
+◇ Test "All original Foundation IDs and nutrient values survive the indexed import" started.
+✔ Test "All original Foundation IDs and nutrient values survive the indexed import" passed after 0.319 seconds.
+◇ Test "Legacy foods carry historical attribution and keep preparations distinct" started.
+✔ Test "Legacy foods carry historical attribution and keep preparations distinct" passed after 0.001 seconds.
+◇ Test "Two cooked-rice cups use the stated 158 gram measure exactly once" started.
+✔ Test "Two cooked-rice cups use the stated 158 gram measure exactly once" passed after 0.004 seconds.
+◇ Test "A two-tablespoon source measure already includes both tablespoons" started.
+✔ Test "A two-tablespoon source measure already includes both tablespoons" passed after 0.001 seconds.
+◇ Test "Portion choice conversion keeps mass and fractional measures" started.
+✔ Test "Portion choice conversion keeps mass and fractional measures" passed after 0.001 seconds.
+◇ Test "Legacy favorites reopen alongside existing Foundation favorites" started.
+✔ Test "Legacy favorites reopen alongside existing Foundation favorites" passed after 0.007 seconds.
+✔ Suite "Expanded offline food database" passed after 0.333 seconds.
+◇ Suite "Offline USDA food catalog" started.
+◇ Test "The production bundle contains 8,104 complete foods and traceable IDs" started.
+✔ Test "The production bundle contains 8,104 complete foods and traceable IDs" passed after 0.001 seconds.
+◇ Test "Actual USDA macro values retain the edible 100 gram basis" started.
+✔ Test "Actual USDA macro values retain the edible 100 gram basis" passed after 0.001 seconds.
+◇ Test "A 150 gram cooked portion makes an editable copy without changing its source" started.
+✔ Test "A 150 gram cooked portion makes an editable copy without changing its source" passed after 0.001 seconds.
+◇ Test "Search accepts case, accents, punctuation, prefixes and words in any order" started.
+✔ Test "Search accepts case, accents, punctuation, prefixes and words in any order" passed after 0.007 seconds.
+◇ Test "Ranking favors an exact word over a longer prefix and is deterministic" started.
+✔ Test "Ranking favors an exact word over a longer prefix and is deterministic" passed after 0.009 seconds.
+◇ Test "The compatibility protocol returns independent 100 gram food objects" started.
+✔ Test "The compatibility protocol returns independent 100 gram food objects" passed after 0.001 seconds.
+◇ Test "Missing, corrupt, duplicate or incorrectly based source data fails closed" started.
+✔ Test "Missing, corrupt, duplicate or incorrectly based source data fails closed" passed after 0.019 seconds.
+◇ Test "Zero, negative, nonfinite and overflowing portions cannot become diary foods" started.
+✔ Test "Zero, negative, nonfinite and overflowing portions cannot become diary foods" passed after 0.001 seconds.
+✔ Suite "Offline USDA food catalog" passed after 0.038 seconds.
+◇ Test personalFavoriteRemainsSavedAfterItsDiaryEntryIsRemoved() started.
+✔ Test personalFavoriteRemainsSavedAfterItsDiaryEntryIsRemoved() passed after 0.009 seconds.
+◇ Test failedPersonalFavoriteDoesNotChangePreferencesOrUnrelatedDrafts() started.
+✔ Test failedPersonalFavoriteDoesNotChangePreferencesOrUnrelatedDrafts() passed after 0.007 seconds.
+◇ Test incompletePersonalFoodCannotBecomeAnInvisibleFavorite(text:) started.
+◇ Test case passing 1 argument text → "" to incompletePersonalFoodCannotBecomeAnInvisibleFavorite(text:) started.
+◇ Suite "Local food favorite preferences" started.
+◇ Test "Favorites reopen from sorted opaque keys and preserve unrelated settings" started.
+✔ Test "Favorites reopen from sorted opaque keys and preserve unrelated settings" passed after 0.002 seconds.
+◇ Test "Only positive canonical USDA IDs and 64 hex personal hashes can be stored" started.
+✔ Test "Only positive canonical USDA IDs and 64 hex personal hashes can be stored" passed after 0.002 seconds.
+◇ Test "Mixed corrupted values are sanitized while valid unique keys survive" started.
+✔ Test "Mixed corrupted values are sanitized while valid unique keys survive" passed after 0.002 seconds.
+◇ Test "The bound refuses new favorites until a slot is freed without deleting existing choices" started.
+✔ Test "The bound refuses new favorites until a slot is freed without deleting existing choices" passed after 0.184 seconds.
+◇ Test "Oversized stored lists are bounded deterministically after deduplicating" started.
+✔ Test "Oversized stored lists are bounded deterministically after deduplicating" passed after 0.009 seconds.
+✔ Suite "Local food favorite preferences" passed after 0.201 seconds.
+◇ Test weightOuncesAndSourcePortionsScaleTheExplicitBasisOnce() started.
+✔ Test weightOuncesAndSourcePortionsScaleTheExplicitBasisOnce() passed after 0.001 seconds.
+◇ Test unknownMassCanOnlyUseTheOriginalPortionMultiplier() started.
+✔ Test unknownMassCanOnlyUseTheOriginalPortionMultiplier() passed after 0.001 seconds.
+◇ Test invalidPortionsAndBasisNeverBecomeValidLogs(value:) started.
+◇ Test case passing 1 argument value → 0.0 to invalidPortionsAndBasisNeverBecomeValidLogs(value:) started.
+◇ Test portionOverflowUnderflowAndLocalizedInputAreExplicit() started.
+✔ Test portionOverflowUnderflowAndLocalizedInputAreExplicit() passed after 0.009 seconds.
+◇ Suite "Derived food reuse index" started.
+◇ Test "Equivalent personal copies keep one stable, opaque key" started.
+✔ Test "Equivalent personal copies keep one stable, opaque key" passed after 0.001 seconds.
+◇ Test "Preparation, portion, source and even tiny edited macro differences remain distinct" started.
+✔ Test "Preparation, portion, source and even tiny edited macro differences remain distinct" passed after 0.001 seconds.
+◇ Test "Different restaurant menu identities never merge otherwise identical foods" started.
+✔ Test "Different restaurant menu identities never merge otherwise identical foods" passed after 0.001 seconds.
+◇ Test "Copies deduplicate, logged rows count once and the newest serving quantity wins" started.
+✔ Test "Copies deduplicate, logged rows count once and the newest serving quantity wins" passed after 0.001 seconds.
+◇ Test "Equal dates and duplicate saved foods resolve independently of fetch order" started.
+✔ Test "Equal dates and duplicate saved foods resolve independently of fetch order" passed after 0.001 seconds.
+◇ Test "The supplied cutoff is inclusive and never uses a different wall-clock date" started.
+✔ Test "The supplied cutoff is inclusive and never uses a different wall-clock date" passed after 0.001 seconds.
+◇ Test "Incomplete sources, invalid quantities, dates and overflowing totals are excluded" started.
+✔ Test "Incomplete sources, invalid quantities, dates and overflowing totals are excluded" passed after 0.001 seconds.
+◇ Test "Saved-only foods are reusable but do not appear in recent or frequent history" started.
+✔ Test "Saved-only foods are reusable but do not appear in recent or frequent history" passed after 0.001 seconds.
+◇ Test "Recent and frequent rank by different evidence and enforce requested limits" started.
+✔ Test "Recent and frequent rank by different evidence and enforce requested limits" passed after 0.001 seconds.
+◇ Test "Equal frequency and recency use stable food IDs rather than fetch order" started.
+✔ Test "Equal frequency and recency use stable food IDs rather than fetch order" passed after 0.001 seconds.
+✔ Suite "Derived food reuse index" passed after 0.003 seconds.
+◇ Test failedAccountRestoreCanBeRetriedWithoutRestart() started.
+✔ Test failedAccountRestoreCanBeRetriedWithoutRestart() passed after 0.002 seconds.
+◇ Test failedAccountRestoreCanClearSessionOffline() started.
+✔ Test failedAccountRestoreCanClearSessionOffline() passed after 0.001 seconds.
+◇ Test pendingDeploymentCannotContactAccountGateway() started.
+✔ Test pendingDeploymentCannotContactAccountGateway() passed after 0.001 seconds.
+◇ Test rateLimitedAccountShowsWaitMessageAndLeavesLocalLogsUsable() started.
+✔ Test rateLimitedAccountShowsWaitMessageAndLeavesLocalLogsUsable() passed after 0.001 seconds.
+◇ Test missingConsentPreventsRestoreSignInAndRecovery() started.
+✔ Test missingConsentPreventsRestoreSignInAndRecovery() passed after 0.002 seconds.
+◇ Test accountRecoveryFailureLeavesSessionAndLocalWorkAlone() started.
+✔ Test accountRecoveryFailureLeavesSessionAndLocalWorkAlone() passed after 0.001 seconds.
+◇ Test productionRestaurantRegistryIsHonestlyEmpty() started.
+✔ Test productionRestaurantRegistryIsHonestlyEmpty() passed after 0.001 seconds.
+◇ Test importedRestaurantPortionLogsAnEditableCopyWithoutSourceRows() started.
+✔ Test importedRestaurantPortionLogsAnEditableCopyWithoutSourceRows() passed after 0.017 seconds.
+◇ Test importedUnweighedRestaurantServingNeverInventsGrams() started.
+✔ Test importedUnweighedRestaurantServingNeverInventsGrams() passed after 0.001 seconds.
+◇ Suite "Nutrition label scan" started.
+◇ Test fdaSamplePanelFillsTheFormPerServing() started.
+✔ Test fdaSamplePanelFillsTheFormPerServing() passed after 0.002 seconds.
+◇ Test europeanTableIsPer100GramsAndSaysSo() started.
+✔ Test europeanTableIsPer100GramsAndSaysSo() passed after 0.001 seconds.
+◇ Test missingValuesStayEmptyInsteadOfBeingGuessed() started.
+✔ Test missingValuesStayEmptyInsteadOfBeingGuessed() passed after 0.001 seconds.
+✔ Suite "Nutrition label scan" passed after 0.003 seconds.
+◇ Test restorePreservesPhotosCustomNutritionAndStandaloneWeightWithoutChangingSource() started.
+✔ Test restorePreservesPhotosCustomNutritionAndStandaloneWeightWithoutChangingSource() passed after 0.085 seconds.
+◇ Test failedRestoreLeavesSourceAndUnrelatedFilesIntactAndRetryWorks() started.
+✔ Test failedRestoreLeavesSourceAndUnrelatedFilesIntactAndRetryWorks() passed after 0.065 seconds.
+◇ Test restorePreservesIntegerRanksWithoutPassingThroughDouble(order:) started.
+◇ Test case passing 1 argument order → -9223372036854775808 to restorePreservesIntegerRanksWithoutPassingThroughDouble(order:) started.
+◇ Test invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+◇ Test case passing 1 argument kind → "boolean nutrition" to invalidRestoresNeverTouchSourceOrCreateFiles(kind:) started.
+◇ Test orphanedOptionalLinksAndEmptySnapshotRestoreWithoutInventedRecords() started.
+✔ Test orphanedOptionalLinksAndEmptySnapshotRestoreWithoutInventedRecords() passed after 0.018 seconds.
+◇ Test inconsistentInverseLinksCannotSilentlyRepairARehearsal() started.
+✔ Test inconsistentInverseLinksCannotSilentlyRepairARehearsal() passed after 0.039 seconds.
+◇ Test legacyShadowCopyPreservesPhotosRelationshipsAndOriginalUnits() started.
+✔ Test legacyShadowCopyPreservesPhotosRelationshipsAndOriginalUnits() passed after 0.360 seconds.
+◇ Suite "MacroCalculator" started.
+◇ Test "Totals are zero for an empty list of entries" started.
+✔ Test "Totals are zero for an empty list of entries" passed after 0.001 seconds.
+◇ Test "Totals sum macros across multiple entries" started.
+✔ Test "Totals sum macros across multiple entries" passed after 0.001 seconds.
+◇ Test "Quantity scales an entry's macros" started.
+✔ Test "Quantity scales an entry's macros" passed after 0.001 seconds.
+◇ Test "Totals filtered by meal type only include that meal" started.
+✔ Test "Totals filtered by meal type only include that meal" passed after 0.001 seconds.
+◇ Test "Totals sum macros across SavedMealItems, scaled by each item's quantity" started.
+✔ Test "Totals sum macros across SavedMealItems, scaled by each item's quantity" passed after 0.001 seconds.
+✔ Suite "MacroCalculator" passed after 0.001 seconds.
+◇ Suite "Nutrition input" started.
+◇ Test "Fractional grams survive enabling and saving an adjustment" started.
+✔ Test "Fractional grams survive enabling and saving an adjustment" passed after 0.001 seconds.
+◇ Test "Decimal-comma input is accepted in the matching locale" started.
+✔ Test "Decimal-comma input is accepted in the matching locale" passed after 0.007 seconds.
+◇ Test "Invalid values cannot silently fall back to catalog nutrition" started.
+✔ Test "Invalid values cannot silently fall back to catalog nutrition" passed after 0.001 seconds.
+◇ Test "Overflow after scaling is not a valid diary total" started.
+✔ Test "Overflow after scaling is not a valid diary total" passed after 0.001 seconds.
+◇ Test "Locale changes keep every finite nutrition value intact" started.
+✔ Test "Locale changes keep every finite nutrition value intact" passed after 0.001 seconds.
+◇ Test "The selected decimal format controls quantities and all macro fields" started.
+✔ Test "The selected decimal format controls quantities and all macro fields" passed after 0.001 seconds.
+✔ Suite "Nutrition input" passed after 0.008 seconds.
+◇ Test packagedMassBasisScalesToItsSourceServingOnce() started.
+✔ Test packagedMassBasisScalesToItsSourceServingOnce() passed after 0.001 seconds.
+◇ Test packagedVolumeBasisNeverTurnsIntoGrams() started.
+✔ Test packagedVolumeBasisNeverTurnsIntoGrams() passed after 0.001 seconds.
+◇ Test packagedSourceServingRejectsInvalidQuantity(_:) started.
+◇ Test case passing 1 argument quantity → 0.0 to packagedSourceServingRejectsInvalidQuantity(_:) started.
+◇ Test packagedProductCannotReturnAnotherBarcodeOrUnknownBasis() started.
+✔ Test packagedProductCannotReturnAnotherBarcodeOrUnknownBasis() passed after 0.001 seconds.
+◇ Test localBarcodeWorksWithoutOnlinePermissionOrExternalCalls() started.
+✔ Test localBarcodeWorksWithoutOnlinePermissionOrExternalCalls() passed after 0.001 seconds.
+◇ Test aLocalMissCannotStartAnOnlineRequestWithoutPermission() started.
+✔ Test aLocalMissCannotStartAnOnlineRequestWithoutPermission() passed after 0.001 seconds.
+◇ Test cancelingALocalMissCannotLeakTheOldCodeOnline() started.
+✔ Test cancelingALocalMissCannotLeakTheOldCodeOnline() passed after 0.001 seconds.
+◇ Test anUnconfiguredOnlineProviderDoesNotHideOfflineMisses() started.
+✔ Test anUnconfiguredOnlineProviderDoesNotHideOfflineMisses() passed after 0.001 seconds.
+◇ Test bundledPackagedCollectionResolvesRealMassAndVolumeRecordsOffline() started.
+✔ Test bundledPackagedCollectionResolvesRealMassAndVolumeRecordsOffline() passed after 0.670 seconds.
+◇ Suite "Daily progress check-ins" started.
+◇ Test "A check-in persists its day, trimmed note, owned weight, and ordered photos" started.
+✔ Test "A check-in persists its day, trimmed note, owned weight, and ordered photos" passed after 0.004 seconds.
+◇ Test "Each optional field can be the only content" started.
+◇ Test case passing 1 argument field → "weight" to "Each optional field can be the only content" started.
+◇ Test "Photos, order, weight, and notes survive reopening a disk-backed store" started.
+✔ Test "Photos, order, weight, and notes survive reopening a disk-backed store" passed after 0.087 seconds.
+◇ Test "Empty content, invalid weight, and malformed photo drafts do not create rows" started.
+✔ Test "Empty content, invalid weight, and malformed photo drafts do not create rows" passed after 0.008 seconds.
+◇ Test "Only one check-in is allowed per calendar day, including a daylight-saving transition" started.
+✔ Test "Only one check-in is allowed per calendar day, including a daylight-saving transition" passed after 0.005 seconds.
+◇ Test "Editing preserves entry, weight and photo IDs while persisting a new photo order" started.
+✔ Test "Editing preserves entry, weight and photo IDs while persisting a new photo order" passed after 0.006 seconds.
+◇ Test "Removing weight and photos deletes only those owned by the edited check-in" started.
+✔ Test "Removing weight and photos deletes only those owned by the edited check-in" passed after 0.006 seconds.
+◇ Test "Deleting a check-in cascades to its owned weight/photos and preserves standalone weigh-ins" started.
+✔ Test "Deleting a check-in cascades to its owned weight/photos and preserves standalone weigh-ins" passed after 0.006 seconds.
+◇ Test "A failed create leaves no progress rows and preserves unrelated pending work" started.
+✔ Test "A failed create leaves no progress rows and preserves unrelated pending work" passed after 0.008 seconds.
+◇ Test "A failed edit restores removed data, order, and relationships without discarding other work" started.
+✔ Test "A failed edit restores removed data, order, and relationships without discarding other work" passed after 0.010 seconds.
+◇ Test "A failed edit adding weight and photos leaves a notes-only entry unchanged" started.
+✔ Test "A failed edit adding weight and photos leaves a notes-only entry unchanged" passed after 0.021 seconds.
+◇ Test "A failed delete restores owned rows and permits a later successful deletion" started.
+✔ Test "A failed delete restores owned rows and permits a later successful deletion" passed after 0.005 seconds.
+✔ Suite "Daily progress check-ins" passed after 0.187 seconds.
+◇ Suite "Progress photo import" started.
+◇ Test "Large photos become bounded JPEGs with the original metadata removed" started.
+✔ Test "Large photos become bounded JPEGs with the original metadata removed" passed after 0.110 seconds.
+◇ Test "Camera orientation is applied to the pixels before saving" started.
+✔ Test "Camera orientation is applied to the pixels before saving" passed after 0.008 seconds.
+◇ Test "Small photos keep their dimensions instead of being enlarged" started.
+✔ Test "Small photos keep their dimensions instead of being enlarged" passed after 0.001 seconds.
+◇ Test "Invalid and empty input are rejected" started.
+✔ Test "Invalid and empty input are rejected" passed after 0.003 seconds.
+✔ Suite "Progress photo import" passed after 0.123 seconds.
+◇ Test recipeBatchGoldenMeasuredYieldAndServingsHaveTheSamePortion() started.
+✔ Test recipeBatchGoldenMeasuredYieldAndServingsHaveTheSamePortion() passed after 0.001 seconds.
+◇ Test recipeBatchPreservesFractionalIngredientsServingsAndLargerPortions() started.
+✔ Test recipeBatchPreservesFractionalIngredientsServingsAndLargerPortions() passed after 0.001 seconds.
+◇ Test recipeBatchNeverInfersCookedWeightRawWeightOrNutrientRetention() started.
+✔ Test recipeBatchNeverInfersCookedWeightRawWeightOrNutrientRetention() passed after 0.002 seconds.
+◇ Test recipeBatchRejectsInvalidIngredientQuantitiesAndMeasuredMetadata(_:) started.
+◇ Test case passing 1 argument value → 0.0 to recipeBatchRejectsInvalidIngredientQuantitiesAndMeasuredMetadata(_:) started.
+◇ Test recipeBatchRejectsIncompleteOrInvalidNutritionInEveryNutrient(_:) started.
+◇ Test case passing 1 argument value → -0.1 to recipeBatchRejectsIncompleteOrInvalidNutritionInEveryNutrient(_:) started.
+◇ Test recipeBatchIngredientBoundsAndExplicitZeroNutritionRemainDistinct() started.
+✔ Test recipeBatchIngredientBoundsAndExplicitZeroNutritionRemainDistinct() passed after 0.001 seconds.
+◇ Test recipeBatchRejectsInvalidPortionsForBothUnits(_:) started.
+◇ Test case passing 1 argument amount → 0.0 to recipeBatchRejectsInvalidPortionsForBothUnits(_:) started.
+◇ Test recipeBatchRejectsIngredientAggregateAndPortionOverflow() started.
+✔ Test recipeBatchRejectsIngredientAggregateAndPortionOverflow() passed after 0.001 seconds.
+◇ Test recipeBatchRejectsRatioFactorAndNutrientUnderflow() started.
+✔ Test recipeBatchRejectsRatioFactorAndNutrientUnderflow() passed after 0.001 seconds.
+◇ Test recipeBatchPortionUnitsAndErrorsArePlainAndStable() started.
+✔ Test recipeBatchPortionUnitsAndErrorsArePlainAndStable() passed after 0.001 seconds.
+◇ Test recipeSaveSnapshotsIngredientsAndLogsSelectedCookedWeight() started.
+✔ Test recipeSaveSnapshotsIngredientsAndLogsSelectedCookedWeight() passed after 0.034 seconds.
+◇ Test recipeMealOverrideLogsOneEditableEntryWithoutChangingIngredients() started.
+✔ Test recipeMealOverrideLogsOneEditableEntryWithoutChangingIngredients() passed after 0.007 seconds.
+◇ Test failedRecipeEditRestoresOnlyItsPriorMealAndKeepsOtherDrafts() started.
+✔ Test failedRecipeEditRestoresOnlyItsPriorMealAndKeepsOtherDrafts() passed after 0.016 seconds.
+◇ Test failedRecipeLogLeavesNoPartialDiaryRowsOrFoodCopies() started.
+✔ Test failedRecipeLogLeavesNoPartialDiaryRowsOrFoodCopies() passed after 0.007 seconds.
+◇ Test failedRecipeDeleteCanRetryWithoutDeletingDiaryOrFoodLibrary() started.
+✔ Test failedRecipeDeleteCanRetryWithoutDeletingDiaryOrFoodLibrary() passed after 0.012 seconds.
+◇ Test recipeEditorRejectsMissingOrUnweighedPortionBeforeAnyWrite() started.
+✔ Test recipeEditorRejectsMissingOrUnweighedPortionBeforeAnyWrite() passed after 0.010 seconds.
+◇ Test recipeDefaultsKeepTheExactLegacySavedMealPayload() started.
+✔ Test recipeDefaultsKeepTheExactLegacySavedMealPayload() passed after 0.019 seconds.
+◇ Test recipeMetadataSurvivesArchiveRestoreAndIndependentRead(_:) started.
+◇ Test case passing 1 argument variant → "servings only" to recipeMetadataSurvivesArchiveRestoreAndIndependentRead(_:) started.
+◇ Test recipeRestoreRejectsInvalidMetadataWithoutChangingSource(_:) started.
+◇ Test case passing 1 argument kind → "partial extension" to recipeRestoreRejectsInvalidMetadataWithoutChangingSource(_:) started.
+◇ Test recipeRestoreFailureKeepsOriginalSnapshotAndCanRetry() started.
+✔ Test recipeRestoreFailureKeepsOriginalSnapshotAndCanRetry() passed after 0.030 seconds.
+◇ Test referencedFoodLoggingScalesOnceAndPreservesEditablePersonalValues() started.
+✔ Test referencedFoodLoggingScalesOnceAndPreservesEditablePersonalValues() passed after 0.006 seconds.
+◇ Test referencePortionRejectsInvalidWeightsAndQuantities(value:) started.
+◇ Test case passing 1 argument value → 0.0 to referencePortionRejectsInvalidWeightsAndQuantities(value:) started.
+◇ Test failedReferenceLogKeepsUnrelatedPendingDraft() started.
+✔ Test failedReferenceLogKeepsUnrelatedPendingDraft() passed after 0.005 seconds.
+◇ Test liquidReferencesNeverUseAnAssumedDensity() started.
+✔ Test liquidReferencesNeverUseAnAssumedDensity() passed after 0.001 seconds.
+◇ Test personalRestaurantNamesAreUniqueAndSearchMatchesAllWords() started.
+✔ Test personalRestaurantNamesAreUniqueAndSearchMatchesAllWords() passed after 0.010 seconds.
+◇ Suite "Restaurant catalog seeding" started.
+◇ Test "Repeated loading stores the catalog only once and persists its items" started.
+✔ Test "Repeated loading stores the catalog only once and persists its items" passed after 0.014 seconds.
+◇ Test "Existing catalog and diary data survive the targeted veggie correction" started.
+✔ Test "Existing catalog and diary data survive the targeted veggie correction" passed after 0.019 seconds.
+◇ Test "Fresh Chipotle catalog enables double portions only for its eligible proteins" started.
+✔ Test "Fresh Chipotle catalog enables double portions only for its eligible proteins" passed after 0.012 seconds.
+◇ Test "Existing Chipotle portions are corrected and saved without replacing custom nutrition" started.
+✔ Test "Existing Chipotle portions are corrected and saved without replacing custom nutrition" passed after 0.007 seconds.
+◇ Test "A canceled fetch cannot insert a returned catalog" started.
+✔ Test "A canceled fetch cannot insert a returned catalog" passed after 0.011 seconds.
+✔ Suite "Restaurant catalog seeding" passed after 0.067 seconds.
+◇ Suite "Restaurant fit ranking" started.
+◇ Test windowIsAMealOutOfWhatIsLeftToday() started.
+✔ Test windowIsAMealOutOfWhatIsLeftToday() passed after 0.001 seconds.
+◇ Test noGoalOrNothingLeftMeansNoWindow() started.
+✔ Test noGoalOrNothingLeftMeansNoWindow() passed after 0.001 seconds.
+◇ Test fitsComeFirstThenCloseAndMissesAreLeftOut() started.
+✔ Test fitsComeFirstThenCloseAndMissesAreLeftOut() passed after 0.001 seconds.
+✔ Suite "Restaurant fit ranking" passed after 0.001 seconds.
+◇ Suite "Smart food search" started.
+◇ Test listSplitsIntoFoodsWithAmounts() started.
+✔ Test listSplitsIntoFoodsWithAmounts() passed after 0.001 seconds.
+◇ Test namesWithAndStayTogether() started.
+✔ Test namesWithAndStayTogether() passed after 0.001 seconds.
+◇ Test fractionsAndGrams() started.
+✔ Test fractionsAndGrams() passed after 0.001 seconds.
+◇ Test portionUsesOnlyListedServings() started.
+✔ Test portionUsesOnlyListedServings() passed after 0.001 seconds.
+◇ Test oneTypoStillMatches() started.
+✔ Test oneTypoStillMatches() passed after 0.001 seconds.
+✔ Suite "Smart food search" passed after 0.001 seconds.
+◇ Suite "Catalog match ranking" started.
+◇ Test plainFoodOutranksNamesThatOnlyContainIt() started.
+✔ Test plainFoodOutranksNamesThatOnlyContainIt() passed after 0.001 seconds.
+✔ Suite "Catalog match ranking" passed after 0.001 seconds.
+◇ Suite "Stack bookkeeping" started.
+◇ Test overdueDoseIsDueAndLoggingMarksItTaken() started.
+✔ Test overdueDoseIsDueAndLoggingMarksItTaken() passed after 0.029 seconds.
+◇ Test skippedDoseIsNeitherTakenNorOpen() started.
+✔ Test skippedDoseIsNeitherTakenNorOpen() passed after 0.005 seconds.
+◇ Test pausedAndAsNeededCompoundsHaveNoSchedule() started.
+✔ Test pausedAndAsNeededCompoundsHaveNoSchedule() passed after 0.004 seconds.
+◇ Test weekdayScheduleOnlyMatchesChosenDays() started.
+✔ Test weekdayScheduleOnlyMatchesChosenDays() passed after 0.004 seconds.
+◇ Test supplyCountsDownFromItsStartDate() started.
+✔ Test supplyCountsDownFromItsStartDate() passed after 0.005 seconds.
+◇ Test secondDoseSoonAfterTheLastIsFlagged() started.
+✔ Test secondDoseSoonAfterTheLastIsFlagged() passed after 0.006 seconds.
+◇ Test estimateNeedsHalfLifeAndSource() started.
+✔ Test estimateNeedsHalfLifeAndSource() passed after 0.005 seconds.
+◇ Test decimalsRoundTripInTheUsersLocale() started.
+✔ Test decimalsRoundTripInTheUsersLocale() passed after 0.012 seconds.
+✔ Suite "Stack bookkeeping" passed after 0.073 seconds.
+◇ Test completedSetIsImmediatelyDurableAndWorkoutResumes() started.
+✔ Test completedSetIsImmediatelyDurableAndWorkoutResumes() passed after 0.021 seconds.
+◇ Test invalidSetDoesNotOverwriteSavedValues() started.
+✔ Test invalidSetDoesNotOverwriteSavedValues() passed after 0.007 seconds.
+◇ Test repeatingCopiesFinishedSetsAsOpenSets() started.
+✔ Test repeatingCopiesFinishedSetsAsOpenSets() passed after 0.016 seconds.
+◇ Test warmupIsExcludedFromWorkoutVolume() started.
+✔ Test warmupIsExcludedFromWorkoutVolume() passed after 0.008 seconds.
+◇ Suite WeightProgressSummaryTests started.
+◇ Test "No weigh-ins means no invented weight or change" started.
+✔ Test "No weigh-ins means no invented weight or change" passed after 0.001 seconds.
+◇ Test "A single weigh-in shows a weight without claiming a trend" started.
+✔ Test "A single weigh-in shows a weight without claiming a trend" passed after 0.001 seconds.
+◇ Test "Weights sort by date and preserve fractional changes in either direction" started.
+✔ Test "Weights sort by date and preserve fractional changes in either direction" passed after 0.001 seconds.
+◇ Test "Invalid old data cannot corrupt the chart or summary" started.
+✔ Test "Invalid old data cannot corrupt the chart or summary" passed after 0.001 seconds.
+◇ Test "The trend follows brief §9.3 and keeps its history across a shorter range" started.
+✔ Test "The trend follows brief §9.3 and keeps its history across a shorter range" passed after 0.001 seconds.
+✔ Suite WeightProgressSummaryTests passed after 0.003 seconds.
+◇ Suite "Weight unit conversion" started.
+◇ Test "Pounds remain unchanged" started.
+✔ Test "Pounds remain unchanged" passed after 0.001 seconds.
+◇ Test "One pound is exactly 0.45359237 kilograms" started.
+✔ Test "One pound is exactly 0.45359237 kilograms" passed after 0.001 seconds.
+◇ Test "Finite weights survive conversion in either direction" started.
+◇ Test case passing 1 argument value → 0.01 to "Finite weights survive conversion in either direction" started.
+✔ Suite "Weight unit conversion" passed after 0.001 seconds.
+◇ Suite WorkoutEnginePersistenceTests started.
+◇ Test allMetricsAndTimerSurviveClosedDiskStore() started.
+✔ Test allMetricsAndTimerSurviveClosedDiskStore() passed after 0.070 seconds.
+◇ Test copyingAndEditingDoNotDuplicateCompletionOrEffort() started.
+✔ Test copyingAndEditingDoNotDuplicateCompletionOrEffort() passed after 0.013 seconds.
+◇ Test invalidInputOrRestDoesNotOverwriteCompletedSet() started.
+✔ Test invalidInputOrRestDoesNotOverwriteCompletedSet() passed after 0.008 seconds.
+◇ Test previousPerformanceUsesLastFinishedMatchingGymAndMetric() started.
+✔ Test previousPerformanceUsesLastFinishedMatchingGymAndMetric() passed after 0.019 seconds.
+◇ Test capturedBodyweightAndExerciseMetricDoNotChangeWithSourceEdits() started.
+✔ Test capturedBodyweightAndExerciseMetricDoNotChangeWithSourceEdits() passed after 0.009 seconds.
+◇ Test warmupCompatibilityAndLegacyVolumeRemainCorrect() started.
+✔ Test warmupCompatibilityAndLegacyVolumeRemainCorrect() passed after 0.007 seconds.
+◇ Test timerSkipUndoDeleteAndFinishHaveExplicitLifecycles() started.
+✔ Test timerSkipUndoDeleteAndFinishHaveExplicitLifecycles() passed after 0.009 seconds.
+◇ Test missingOrFutureBodyweightDoesNotCompleteASet() started.
+✔ Test missingOrFutureBodyweightDoesNotCompleteASet() passed after 0.004 seconds.
+✔ Suite WorkoutEnginePersistenceTests passed after 0.143 seconds.
+◇ Test workoutEngineOpensPreEngineDiskStoreWithoutChangingOldSets() started.
+✔ Test workoutEngineOpensPreEngineDiskStoreWithoutChangingOldSets() passed after 1.224 seconds.
+✔ Test run with 215 tests in 23 suites passed after 5.028 seconds.

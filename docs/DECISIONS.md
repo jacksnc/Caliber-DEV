@@ -237,3 +237,11 @@ The owner's “Go” accepted ADR-001's native iOS / later Android amendment. Ph
 | WE03 | Add optional SwiftData snapshots and per-kind independent counting flags; legacy completed rows keep weight × reps until explicit edit. | Avoid retroactively treating old duration/BW exercise rows as measured duration or captured bodyweight. BW snapshots retain the reading ID/time/value; copies clear observations and effort. |
 | WE04 | Persist an absolute optional rest deadline with a 24-hour configurable maximum; record actual rest only at explicit next-set start. | Completing another set includes working time. No rest time is fabricated from a target expiry, skip or completion interval. Notifications/Live Activities remain integration work. |
 | WE05 | Select previous performance by latest finished time before this workout, matching exercise, gym and metric. | A nil gym is a distinct scope; stable UUID tie-breaks avoid nondeterministic repeats. No future/active/incompatible history enters the previous column. |
+
+## Custom exercise and menu preparation — 2026-10-27
+
+| ID | Choice | Reason / consequence |
+| --- | --- | --- |
+| WE06 | Reuse one custom-exercise form in the library and workout picker, with a create action for empty search results. Save first, then select after the sheet closes. | The owner explicitly requested creating missing exercises; changes stay on the separate branch. Names are prefilled, Cancel writes nothing, exact normalized duplicate names cannot overwrite the existing list, and current creation uses the supported weight/reps editor. |
+| WE07 | Add a ten-column UTF-8 CSV plus once-per-source/restaurant JSON metadata, converting into the existing importer input. | Entrées/sides/drinks/appetizers/desserts use existing categories; all nutrients must be explicit, unknown serving grams stay nil, rights validation is reused, and staging never activates FUEL-13 or overwrites the shipped catalog. |
+| WE08 | Refresh the owner's local Xcode checkout through a separate preview branch and preserve local preference/catalog edits with backups. | The owner asked for the local build update while Claude continues remote visual work; no force-push or replacement of Claude's branch is needed. |

@@ -10,10 +10,15 @@ The owner authorized separate work while Claude handles visuals. Codex is workin
 in `/Users/jcrock/Documents/Codex/Caliber-workout-engine` on
 `codex/workout-engine`, based on `116d46a`. Its models/services and pure tests
 and local verification are described in [WORKOUT_ENGINE_HANDOFF](WORKOUT_ENGINE_HANDOFF.md) and
-[WORKOUT_ENGINE_VERIFICATION](WORKOUT_ENGINE_VERIFICATION.md). No screens or
-colors were edited. Keep Claude's navigation/visual work on `astra/foundation`;
-integrate the engine branch deliberately after reviewing its checks and adapter
-contract. This branch's CI publishes no shared screenshot branch, so Claude's
+[WORKOUT_ENGINE_VERIFICATION](WORKOUT_ENGINE_VERIFICATION.md). The first engine commit changed no screens or colors. The owner's subsequent
+manual-exercise request adds only the picker shortcut and shared creation form;
+see [CUSTOM_EXERCISE_MENU_VERIFICATION](CUSTOM_EXERCISE_MENU_VERIFICATION.md). Keep Claude's navigation/visual work on `astra/foundation`;
+integrate the branch deliberately after reviewing its checks and adapter
+contract. The engine commit `23db8f2` passed all three GitHub jobs (run
+40614365696). The new CSV guide is [RESTAURANT_MENU_TEMPLATE](RESTAURANT_MENU_TEMPLATE.md).
+The owner also requested updating the local Xcode build; preserve the unrelated
+scheme preference and both generated localization catalogs when refreshing that
+checkout, and keep Claude's remote visual branch separate. This branch's CI publishes no shared screenshot branch, so Claude's
 visual evidence is not overwritten.
 
 ## Project state

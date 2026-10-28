@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "fictional": true,
+  "sources": [
+    {
+      "id": "fictional-menu-source",
+      "name": "Fictional restaurant importer example — not a real menu",
+      "url": "https://restaurant-example.invalid/nutrition",
+      "retrievedOn": "2026-10-27",
+      "license": {
+        "status": "fixture",
+        "permissionReference": "Fictional test data authored for this importer example. This is not an approval or a license for any real restaurant dataset.",
+        "attribution": "Caliber fictional importer fixture. Nutrition values are invented for software tests; do not use them to log an actual meal."
+      }
+    }
+  ],
+  "restaurants": [
+    {
+      "id": "fictional-example-bistro",
+      "name": "Fictional Example Bistro",
+      "sourceID": "fictional-menu-source",
+      "items": []
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+✔ Test restaurantMenuErrorsContainNoPathsRawNutritionOrPermissionReferences() passed after 0.010 seconds.
+✔ Test restaurantMenuAllowsUnusedSourcesAndEmptyItemArrays() passed after 0.010 seconds.
+✔ Test restaurantMenuEmptyProductionRegistryRequiresNoFabricatedLicense() passed after 0.011 seconds.
+✔ Test restaurantMenuPermissionIsAnOpaqueDeclarationRatherThanAnAutomaticLegalApproval() passed after 0.011 seconds.
+✔ Test restaurantMenuFictionalDataRequiresExplicitOptInAndRetainsEverySourceValue() passed after 0.011 seconds.
+✔ Test restaurantMenuRejectsDuplicateJSONKeysIncludingEscapesAtEveryObjectLevel() passed after 0.011 seconds.
+✔ Test restaurantMenuProductionRejectsExampleHostsEvenWithApprovedDeclaration(_:) with 7 test cases passed after 0.010 seconds.
+✔ Test restaurantMenuRejectsUnsafeSourceURLs(_:) with 7 test cases passed after 0.010 seconds.
+✔ Test restaurantMenuRejectsUnknownMissingMalformedAndDuplicateData(_:) with 44 test cases passed after 0.011 seconds.
+✔ Test restaurantMenuNameLookupFoldsAccentsCaseAndWidthWithoutChangingIdentity() passed after 0.011 seconds.
+✔ Test restaurantMenuRejectsOversizedCountsDataDeepNestingAndMalformedJSON() passed after 0.718 seconds.
+✔ Test run with 11 tests in 0 suites passed after 0.718 seconds.

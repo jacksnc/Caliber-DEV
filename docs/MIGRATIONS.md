@@ -120,3 +120,7 @@ No SwiftData, GRDB, hosted, or user-data migration. Existing `system`, `light`, 
 `codex/workout-engine` adds only optional nil-default SwiftData properties to the four existing Train entities: exercise rest default, workout gym/deadline payload, row metric snapshot, and set measurement/bodyweight/effort/kind/counting/side/rest snapshots. No entities are removed or renamed. The pre-existing `isWarmup` field and weight/reps completion API remain compatible with the current screen. Every old completed set keeps its old rep-tonnage interpretation until an explicit edit; no historical body weight or duration is invented.
 
 A disposable disk test creates the exact former four model shapes, closes their container, then opens the new schema and checks original IDs, values, relationships and volume. It never opens or migrates a personal store. Future merge/use performs SwiftData's supported additive migration; minimum-iOS runtime verification remains required. These fields do not enter the separate canonical GRDB rehearsal, hosted SQL or the 15-model legacy archive. Training export/revision storage must be completed before a store-locator cutover.
+
+## Custom exercise shortcut and menu CSV — 2026-10-27
+
+No additional model, private-data, hosted or catalog migration. Manual exercise creation saves the existing TrainingExercise shape. CSV preparation writes separate staging JSON accepted by the existing importer; the shipped RestaurantMenuCatalog.json remains byte-for-byte unchanged. The sample inputs are visibly fictional and are not app resources.

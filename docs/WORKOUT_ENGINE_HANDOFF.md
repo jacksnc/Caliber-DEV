@@ -4,8 +4,10 @@
 
 Codex owns `codex/workout-engine`, based on `116d46a` from `astra/foundation`.
 The checkout is `/Users/jcrock/Documents/Codex/Caliber-workout-engine`.
-Claude continues visual work on `astra/foundation`. This branch changes no
-screen, theme, navigation, token, catalog, hosted service or account setting.
+Claude continues visual work on `astra/foundation`. The initial engine commit changes no screen, theme, navigation, token, catalog,
+hosted service or account setting. The owner subsequently requested a manual
+exercise shortcut; that follow-up touches the picker and shared creation form
+only and is documented in CUSTOM_EXERCISE_MENU_VERIFICATION.md.
 Integrate this branch after its checks; do not replace Claude's screen files.
 
 ## Plan

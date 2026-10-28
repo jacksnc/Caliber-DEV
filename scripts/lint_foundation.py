@@ -102,4 +102,11 @@ paths += [ROOT / p for p in [
     'Caliber (DEV)Tests/WorkoutEnginePersistenceTests.swift',
     'Caliber (DEV)Tests/WorkoutLegacyMigrationTests.swift',
 ]]
+paths += [ROOT / p for p in [
+    'Caliber (DEV)/Services/CustomExerciseEditor.swift',
+    'Caliber (DEV)/Views/Train/CustomExerciseView.swift',
+    'Caliber (DEV)/Views/Train/ExerciseLibraryView.swift',
+    'Caliber (DEV)Tests/CustomExerciseEditorTests.swift',
+    'Caliber (DEV)UITests/CustomExerciseUITests.swift',
+]]
 subprocess.run(['xcrun', 'swift-format', 'lint', '--strict', *map(str, paths)], cwd=ROOT, check=True)

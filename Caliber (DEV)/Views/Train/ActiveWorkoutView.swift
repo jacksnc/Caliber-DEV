@@ -512,6 +512,8 @@ private struct ExercisePickerView: View {
   @Environment(\.dismiss) private var dismiss
   @Query(sort: \TrainingExercise.name) private var exercises: [TrainingExercise]
   @State private var searchText = ""
+  @State private var showingCustomExercise = false
+  @State private var createdExercise: TrainingExercise?
   let onSelect: (TrainingExercise) -> Void
 
   private var filtered: [TrainingExercise] {
@@ -525,29 +527,64 @@ private struct ExercisePickerView: View {
 
   var body: some View {
     NavigationStack {
-      List(filtered) { exercise in
-        Button {
-          onSelect(exercise)
-          dismiss()
-        } label: {
-          VStack(alignment: .leading, spacing: 4) {
-            Text(exercise.name).foregroundStyle(.primary)
-            Text(exercise.metricType.displayName)
-              .font(.caption)
-              .foregroundStyle(.secondary)
+      List {
+        if filtered.isEmpty {
+          Button {
+            showingCustomExercise = true
+          } label: {
+            Label(
+              String(localized: "Create Custom Exercise", table: "CustomExercises"),
+              systemImage: "plus"
+            )
+            .frame(minHeight: 48)
           }
-          .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
+          .accessibilityIdentifier("pickerCreateMissingExercise")
+          .listRowBackground(CaliberRowBackground())
         }
-        .accessibilityLabel(exercise.name)
-        .accessibilityValue(exercise.metricType.displayName)
-        .listRowBackground(CaliberRowBackground())
+        ForEach(filtered) { exercise in
+          Button {
+            onSelect(exercise)
+            dismiss()
+          } label: {
+            VStack(alignment: .leading, spacing: 4) {
+              Text(exercise.name).foregroundStyle(.primary)
+              Text(exercise.metricType.displayName)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
+          }
+          .accessibilityLabel(exercise.name)
+          .accessibilityValue(exercise.metricType.displayName)
+          .listRowBackground(CaliberRowBackground())
+        }
       }
       .caliberScreen()
       .navigationTitle("Add Exercise")
       .searchable(text: $searchText)
       .toolbar {
         ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
+        ToolbarItem(placement: .primaryAction) {
+          Button {
+            showingCustomExercise = true
+          } label: {
+            Label(
+              String(localized: "Create Exercise", table: "CustomExercises"), systemImage: "plus")
+          }
+          .accessibilityIdentifier("pickerCreateExercise")
+        }
+      }
+      .sheet(isPresented: $showingCustomExercise, onDismiss: addCreatedExercise) {
+        CustomExerciseView(initialName: searchText) { createdExercise = $0 }
       }
     }
+  }
+
+  /// Wait for the creation sheet to close before closing its presenting picker.
+  private func addCreatedExercise() {
+    guard let exercise = createdExercise else { return }
+    createdExercise = nil
+    onSelect(exercise)
+    dismiss()
   }
 }
