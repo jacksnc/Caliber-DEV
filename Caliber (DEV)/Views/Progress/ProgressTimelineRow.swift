@@ -25,8 +25,8 @@ struct ProgressTimelineRow: View {
 
       VStack(alignment: .leading, spacing: 12) {
         Text(dateLabel)
-          .font(.subheadline.weight(.semibold))
-          .foregroundStyle(.secondary)
+          .heliosFont(.metricLabel)
+          .foregroundStyle(theme.palette.text.secondary.color)
           .fixedSize(horizontal: false, vertical: true)
           .accessibilityLabel(entry.date.formatted(date: .complete, time: .omitted))
 
@@ -40,18 +40,19 @@ struct ProgressTimelineRow: View {
           } icon: {
             Image(systemName: "scalemass")
           }
-          .font(.headline)
+          .heliosFont(.bodyStrong)
           .foregroundStyle(theme.palette.accent.base.color)
           .padding(.horizontal, 10)
           .padding(.vertical, 7)
           .background(
-            theme.palette.accent.base.color.opacity(0.09), in: RoundedRectangle(cornerRadius: 10))
+            theme.palette.accent.subtle.color,
+            in: RoundedRectangle(cornerRadius: HeliosTokens.radius.chip, style: .continuous))
         }
 
         if !entry.notes.isEmpty {
           Text(entry.notes)
-            .font(.subheadline)
-            .foregroundStyle(.primary)
+            .heliosFont(.subheadline)
+            .foregroundStyle(theme.palette.text.primary.color)
             .lineLimit(3)
             .fixedSize(horizontal: false, vertical: true)
         }
@@ -66,7 +67,11 @@ struct ProgressTimelineRow: View {
           path.move(to: CGPoint(x: 8, y: isFirst ? 26 : 0))
           path.addLine(to: CGPoint(x: 8, y: isLast ? 26 : geometry.size.height))
         }
-        .stroke(theme.palette.accent.base.color.opacity(0.22), lineWidth: 2)
+        // Increase Contrast swaps the faint rail for the audited strong edge.
+        .stroke(
+          theme.palette.isHighContrast
+            ? theme.palette.border.strong.color : theme.palette.accent.base.color.opacity(0.22),
+          lineWidth: 2)
 
         Circle()
           .fill(theme.palette.accent.base.color)
@@ -92,14 +97,17 @@ struct ProgressTimelineRow: View {
                 .aspectRatio(contentMode: entry.photos.count == 1 ? .fit : .fill)
             } else {
               Image(systemName: "photo")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(theme.palette.text.secondary.color)
             }
           }
           .frame(minWidth: 0, maxWidth: .infinity)
           .frame(height: 150)
           .clipped()
-          .background(Color(uiColor: .tertiarySystemGroupedBackground))
-          .clipShape(RoundedRectangle(cornerRadius: 10))
+          .background(
+            theme.reduceTransparency
+              ? theme.palette.opaque.raised.color : theme.palette.glass.raised.color
+          )
+          .clipShape(RoundedRectangle(cornerRadius: HeliosTokens.radius.chip, style: .continuous))
           .overlay(alignment: .bottomTrailing) {
             if index == 2 && entry.photos.count > 3 {
               Text("+\(entry.photos.count - 3)")
@@ -115,8 +123,8 @@ struct ProgressTimelineRow: View {
         }
       }
       Text("\(entry.photos.count) \(entry.photos.count == 1 ? "photo" : "photos") · Tap to view")
-        .font(.caption)
-        .foregroundStyle(.secondary)
+        .heliosFont(.caption)
+        .foregroundStyle(theme.palette.text.secondary.color)
     }
   }
 

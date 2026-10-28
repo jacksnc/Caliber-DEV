@@ -19,6 +19,7 @@ struct WeightTrendChart: View {
       } else {
         weightSummary
         chart
+        legend
       }
     }
     .sheet(isPresented: $showsMethod) {
@@ -46,20 +47,15 @@ struct WeightTrendChart: View {
   }
 
   private var emptyState: some View {
-    VStack(alignment: .leading, spacing: 12) {
-      Text("See your weight over time")
-        .font(.title3.weight(.semibold))
-      Text(
+    HeliosEmptyState(
+      symbol: "scalemass",
+      title: "See your weight over time",
+      message:
         "Add a weight to any daily check-in to start your graph. Photos and notes are always optional."
-      )
-      .font(.subheadline)
-      .foregroundStyle(.secondary)
+    ) {
       Button("Log Weight", action: addWeight)
-        .buttonStyle(.bordered)
+        .buttonStyle(.heliosSecondary)
     }
-    .frame(maxWidth: .infinity, alignment: .leading)
-    .padding(16)
-    .background(Color.accentColor.opacity(0.06), in: RoundedRectangle(cornerRadius: 14))
   }
 
   /// Look book: "Trend weight" with the latest value large, and the change over the
@@ -126,6 +122,29 @@ struct WeightTrendChart: View {
           .foregroundStyle(theme.palette.text.secondary.color)
       }
       .accessibilityElement(children: .combine)
+    }
+  }
+
+  /// Names both marks next to the chart; the method sheet explains them in full.
+  private var legend: some View {
+    let color = theme.palette.data.weight.color
+    return ViewThatFits(in: .horizontal) {
+      HStack(spacing: HeliosTokens.space(4)) { legendItems(color) }
+      VStack(alignment: .leading, spacing: HeliosTokens.space(1)) { legendItems(color) }
+    }
+    .heliosFont(.caption)
+    .foregroundStyle(theme.palette.text.secondary.color)
+    .accessibilityHidden(true)
+  }
+
+  @ViewBuilder private func legendItems(_ color: Color) -> some View {
+    HStack(spacing: HeliosTokens.space(1)) {
+      Circle().fill(color.opacity(0.5)).frame(width: 8, height: 8)
+      Text("Weigh-in")
+    }
+    HStack(spacing: HeliosTokens.space(1)) {
+      Capsule().fill(color).frame(width: 16, height: 2)
+      Text("Smoothed trend")
     }
   }
 

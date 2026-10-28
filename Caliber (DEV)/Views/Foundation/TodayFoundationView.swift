@@ -95,6 +95,7 @@ private struct TodayFuelCard: View {
   @EnvironmentObject private var runtime: FoundationRuntime
   @Environment(\.heliosTheme) private var theme
   @Environment(\.locale) private var locale
+  @Environment(\.caliberProfileAction) private var openProfile
   @State private var showsLeft = true
   /// The ring grows with text size so its centre label always has room.
   @ScaledMetric(relativeTo: .title3) private var scaledRing = 168.0
@@ -140,20 +141,7 @@ private struct TodayFuelCard: View {
             modeChip("Eaten", isLeft: false)
           }
           .padding(3)
-          .background {
-            RoundedRectangle(cornerRadius: 14, style: .continuous)
-              .fill(
-                theme.reduceTransparency
-                  ? theme.palette.opaque.raised.color : theme.palette.glass.raised.color
-              )
-              .overlay {
-                RoundedRectangle(cornerRadius: 14, style: .continuous)
-                  .strokeBorder(
-                    theme.palette.isHighContrast
-                      ? theme.palette.border.strong.color : theme.palette.border.hairline.color,
-                    lineWidth: theme.palette.isHighContrast ? 1.5 : 1)
-              }
-          }
+          .background { HeliosSegmentTrack(cornerRadius: 14) }
         }
       }
       ViewThatFits(in: .horizontal) {
@@ -176,17 +164,36 @@ private struct TodayFuelCard: View {
         }
       }
       if entries.isEmpty {
-        Text("No food logged today")
+        Label("No food logged today", systemImage: "fork.knife")
           .heliosFont(.callout)
           .foregroundStyle(theme.palette.text.secondary.color)
       }
-      if rows[0].goal == nil {
-        Text("Set daily goals in Profile to see what is left.")
-          .heliosFont(.footnote)
-          .foregroundStyle(theme.palette.text.secondary.color)
-      }
+      if rows[0].goal == nil { goalHint }
     }
     .glassCard()
+  }
+
+  /// Without goals the rings cannot show what is left; the hint opens Profile when it can.
+  @ViewBuilder private var goalHint: some View {
+    if let openProfile {
+      Button(action: openProfile) {
+        HStack(spacing: 2) {
+          Text("Set daily goals in Profile to see what is left.")
+            .fixedSize(horizontal: false, vertical: true)
+          Image(systemName: "chevron.right").accessibilityHidden(true)
+        }
+        .heliosFont(.footnote)
+        .foregroundStyle(theme.palette.accent.base.color)
+        .frame(minHeight: 44, alignment: .leading)
+        .contentShape(Rectangle())
+      }
+      .buttonStyle(.plain)
+      .accessibilityIdentifier("todaySetGoals")
+    } else {
+      Text("Set daily goals in Profile to see what is left.")
+        .heliosFont(.footnote)
+        .foregroundStyle(theme.palette.text.secondary.color)
+    }
   }
 
   private func goal(_ value: Double?) -> Double? {
@@ -205,14 +212,7 @@ private struct TodayFuelCard: View {
         .padding(.horizontal, 12)
         .frame(minHeight: 38)
         .background {
-          if showsLeft == isLeft {
-            RoundedRectangle(cornerRadius: 11, style: .continuous)
-              .fill(theme.palette.accent.subtle.color)
-              .overlay {
-                RoundedRectangle(cornerRadius: 11, style: .continuous)
-                  .strokeBorder(theme.palette.accent.base.color, lineWidth: 1.5)
-              }
-          }
+          if showsLeft == isLeft { HeliosSegmentHighlight(cornerRadius: 11) }
         }
         .padding(.vertical, 3)
         .contentShape(Rectangle())
@@ -330,7 +330,7 @@ private struct TodayTrainCard: View {
           .frame(width: 40, height: 40)
           .background(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-              .fill(theme.palette.accent.base.color.opacity(0.14))
+              .fill(theme.palette.accent.subtle.color)
           )
           .accessibilityHidden(true)
         VStack(alignment: .leading, spacing: 2) {
