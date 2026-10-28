@@ -11,7 +11,7 @@ struct StackHomeView: View {
 
   var body: some View {
     NavigationStack {
-      StackLockGate(requiresUnlock: stack.requiresUnlock) {
+      StackLockGate {
         if let container = stack.container {
           StackDashboard().modelContainer(container)
         } else if stack.failedToOpen {

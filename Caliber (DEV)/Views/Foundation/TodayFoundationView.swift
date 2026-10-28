@@ -13,7 +13,13 @@ struct TodayFoundationView: View {
   @Query(sort: \WeightEntry.date) private var weights: [WeightEntry]
   @Environment(\.heliosTheme) private var theme
   @Environment(\.dynamicTypeSize) private var typeSize
-  private var today: [DiaryEntry] { diary.filter { Calendar.current.isDateInToday($0.date) } }
+  @Environment(\.scenePhase) private var scenePhase
+  /// The day shown. Refreshed at midnight and when the app returns, so an app left open
+  /// overnight does not keep showing yesterday.
+  @State private var day = Date.now
+  private var today: [DiaryEntry] {
+    diary.filter { Calendar.current.isDate($0.date, inSameDayAs: day) }
+  }
 
   var body: some View {
     NavigationStack {
@@ -21,7 +27,7 @@ struct TodayFoundationView: View {
         VStack(alignment: .leading, spacing: HeliosTokens.space(4)) {
           CaliberHeader(
             "Today", identifier: "Today",
-            overline: Text(Date.now, format: .dateTime.weekday(.wide).month(.wide).day()))
+            overline: Text(day, format: .dateTime.weekday(.wide).month(.wide).day()))
           TodayFuelCard(entries: today, profile: profiles.first)
           TodayTrainCard(workouts: workouts)
           tiles
@@ -32,6 +38,12 @@ struct TodayFoundationView: View {
       .caliberScreen()
       .compactNavigationTitle("Today")
       .profileAvatar()
+    }
+    .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
+      day = .now
+    }
+    .onChange(of: scenePhase) { _, phase in
+      if phase == .active { day = .now }
     }
   }
 
@@ -442,12 +454,12 @@ private struct TodayDoseTile: View {
       .glassCard()
       .accessibilityIdentifier("todayNextDose")
       // Opening the store publishes a change, so it happens after the first render.
-      .task { if !stack.requiresUnlock { stack.open() } }
+      .task(id: stack.isLocked) { if !stack.isLocked { stack.open() } }
     }
   }
 
   @ViewBuilder private var content: some View {
-    if stack.requiresUnlock {
+    if stack.isLocked {
       Text("Locked").heliosFont(.bodyStrong)
       Text("Open Stack to see today's doses.").heliosFont(.caption)
         .foregroundStyle(theme.palette.text.secondary.color)
@@ -478,7 +490,7 @@ private struct TodayDoseTile: View {
   }
 
   private var isDue: Bool {
-    guard !stack.requiresUnlock, let next = nextDose()?.0 else { return false }
+    guard !stack.isLocked, let next = nextDose()?.0 else { return false }
     return next.scheduledAt <= .now
   }
 

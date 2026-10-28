@@ -33,6 +33,11 @@ final class StackRuntime: ObservableObject {
   @Published var requiresUnlock: Bool {
     didSet { defaults.set(requiresUnlock, forKey: Self.unlockKey) }
   }
+  /// Unlocked for this visit to the app. Shared so Today's dose tile follows Stack's lock;
+  /// it resets when the app goes to the background and is never saved.
+  @Published var isUnlocked = false
+  /// Whether Stack's names and amounts must stay hidden right now.
+  var isLocked: Bool { requiresUnlock && !isUnlocked }
   /// STK-10 is a P1 feature behind `feature.stk-10`, off by default
   /// (architecture/feature-flags.json).
   @Published var showsEstimate: Bool {
@@ -150,16 +155,15 @@ enum StackStore {
 /// Asks for Face ID, Touch ID or the device passcode before Stack is shown (STK-20, D19),
 /// and covers Stack whenever the app is not active so it never appears in the app switcher.
 struct StackLockGate<Content: View>: View {
-  let requiresUnlock: Bool
   @ViewBuilder let content: () -> Content
+  @EnvironmentObject private var stack: StackRuntime
   @Environment(\.scenePhase) private var scenePhase
   @Environment(\.heliosTheme) private var theme
-  @State private var isUnlocked = false
   @State private var message: String?
 
   var body: some View {
     ZStack {
-      if !requiresUnlock || isUnlocked {
+      if !stack.isLocked {
         content()
       } else {
         locked
@@ -169,7 +173,7 @@ struct StackLockGate<Content: View>: View {
       }
     }
     .onChange(of: scenePhase) { _, phase in
-      if phase == .background { isUnlocked = false }
+      if phase == .background { stack.isUnlocked = false }
     }
   }
 
@@ -207,13 +211,13 @@ struct StackLockGate<Content: View>: View {
       // pretending the lock works.
       message =
         "Set a device passcode in Settings to lock Stack. Until then it opens without a lock."
-      isUnlocked = true
+      stack.isUnlocked = true
       return
     }
     context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "Unlock Stack") {
       success, _ in
       Task { @MainActor in
-        isUnlocked = success
+        stack.isUnlocked = success
         if !success { message = "Stack stays locked. Try again when you are ready." }
       }
     }
