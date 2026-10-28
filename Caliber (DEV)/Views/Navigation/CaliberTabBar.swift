@@ -68,6 +68,17 @@ struct CaliberTabBar: View {
     }
     .padding(.horizontal, HeliosTokens.space(4))
     .padding(.bottom, HeliosTokens.space(2))
+    // Content scrolling under the bar fades out instead of showing through the glass.
+    .background(alignment: .bottom) {
+      LinearGradient(
+        colors: [theme.palette.opaque.base.color.opacity(0), theme.palette.opaque.base.color],
+        startPoint: .top, endPoint: .bottom
+      )
+      .padding(.top, -HeliosTokens.space(6))
+      .ignoresSafeArea(edges: .bottom)
+      .allowsHitTesting(false)
+      .accessibilityHidden(true)
+    }
     .accessibilityElement(children: .contain)
     .accessibilityIdentifier("caliberTabBar")
   }
