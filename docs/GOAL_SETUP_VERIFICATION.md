@@ -69,7 +69,7 @@ precision; display rounding remains separate.
 
 ## Verification evidence
 
-Local checks use fictional inputs on the iOS 27.1 simulator. Foundation package:
+Local checks use fictional inputs on the iOS 27.0 simulator. Foundation package:
 10 XCTest cases and 120 Swift Testing declarations pass, with two optional full
 dataset skips. Existing golden energy vectors remain green. Full native unit
 suite: 10 XCTest cases and 222 Swift Testing declarations pass. New persistence

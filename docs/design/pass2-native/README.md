@@ -1,6 +1,6 @@
 # Pass 2 native evidence
 
-Real SwiftUI screens on the iPhone 17 simulator / iOS 27.1, captured by
+Real SwiftUI screens on the iPhone 17 simulator / iOS 27.0, captured by
 ThemeIntegrationUITests and VisualPass2UITests. Every health/dose/food value is
 from fictional in-memory showcase data, not the owner's store. No private
 recording frames, account values or camera photos are included.

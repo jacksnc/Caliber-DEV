@@ -361,3 +361,14 @@ implemented. No weigh-in is inferred. Existing calorie/rate/BMI guards remain;
 clinical eligibility/screening, adaptive coaching, projections, Health and full
 portability are still open. Add NutritionGoalSetup to legacy archive/normalized
 adapters before live cutover or full export. See GOAL_SETUP_VERIFICATION.
+
+
+## Pass 2 native visual checkpoint — 2026-10-28
+
+Claude's d956269 is integrated with Codex goal setup and native integration fixes
+in 3a5e7bd. Progress hierarchy, shared segments/empty states, Today goal entry and
+Settings preview tiles are implemented. 232 native unit checks and 13 distinct
+UI scenarios pass across the combined run/focused corrections. This does not
+close whole chart/privacy/nutrition requirements. Gemini food entry is pending
+its pushed handoff and a final run on its separate simulator. Physical-device,
+minimum-iOS, clinical, export/cutover and performance gates remain open.

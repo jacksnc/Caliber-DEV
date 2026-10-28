@@ -44,3 +44,12 @@ If iOS tooling is unavailable, label native checks **UNTESTED** with exact comma
 
 Update only [your handoff](GEMINI_HANDOFF.md), commit conventional changes, push
 your branch and return its commit/PR. Codex handles integration and the local build.
+
+
+## Native runner on the shared Mac
+
+Use `-destination 'platform=iOS Simulator,id=4387978B-A0DF-4A04-9525-19805A4340E0'`
+(**Caliber Food Entry QA**, iOS 27.0 / iPhone 17). Codex created this dedicated
+simulator; boot it when needed. Do not target the owner's ordinary iPhone 17 or
+Codex's Lookbook QA. The earlier run on the ordinary simulator overlapped an app
+installation; rerun final UI checks on the dedicated device before handoff.

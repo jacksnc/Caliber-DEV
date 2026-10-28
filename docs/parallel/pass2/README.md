@@ -101,3 +101,19 @@ Only Codex refreshes the owner's local preview, preserving their edits/data.
 Next batch after this integration: shared date strip, manual hydration, progress
 detail, then consented Health integration. Adaptive coaching, micronutrients,
 meal planning and social features remain separate, gated work.
+
+
+## Shared Mac simulator ownership
+
+Separate clones also need separate simulator UDIDs. Codex uses **Caliber Lookbook
+QA** (`60A77BA7-5A23-4A5B-8405-B089F66D6B9F`). Gemini uses the newly created
+**Caliber Food Entry QA** (`4387978B-A0DF-4A04-9525-19805A4340E0`), iOS 27.0 /
+iPhone 17; it is created, not booted. Keep the owner's ordinary iPhone 17
+(`384D80B9-60DE-4538-B135-00D31BB69D2E`) free from parallel tests/installations.
+
+Gemini's earlier local food UI run overlapped a Codex installation on the ordinary
+simulator. Codex stopped interacting with that device and verified its final
+preview on its separate QA simulator. Gemini must rerun its final native UI
+checks on the dedicated food simulator before claiming a clean handoff; an
+interrupted run is not evidence of a food-source defect. Do not reinstall a
+simulator's app while another contributor owns an active run there.

@@ -115,3 +115,24 @@ adds no new chart engine and does not certify device frame/search budgets. Email
 sender setup remains deferred. FUEL-13 and all prior provider/privacy gates stay
 as before. Recommended next step: review/integrate Gemini's food-entry handoff,
 then choose the next bounded date-strip/manual-hydration batch.
+
+
+## Local preview delivery
+
+The owner's `codex/local-preview` checkout was fast-forwarded to integrated code
+`3a5e7bd`. All three pre-existing scheme/localization edits were restored and
+verified byte-for-byte. Xcode's automatic project-format 77→110 rewrite was
+preserved outside Git and the repository's format 77 retained.
+
+A complete simulator data backup remains outside Git. Installation preserved all
+model/photo/settings files; only eight OS-managed saved-scene/launch-snapshot
+files were invalidated. The main iPhone simulator was then found running Gemini's
+food-entry UI tests, so Codex stopped using it. Gemini's final UI run must be
+repeated on its new dedicated simulator before integration.
+
+The exact verified binary is installed and open on **Caliber Lookbook QA**, with
+explicit fictional in-memory showcase arguments. Manual native verification
+opened Profile → Set up nutrition goals, canceled without changing the fixture,
+then returned to the revised Progress screen. The ordinary iPhone simulator is
+not claimed as a final personal-store smoke pass. Open the updated Xcode project
+and run normally after the peer run finishes. No personal goals were seeded.

@@ -4,6 +4,22 @@ This file is the shared checkpoint for work across Codex and Claude. The Git
 checkout and its commits are the source of truth; neither assistant inherits the
 other's chat automatically, and there is no automatic credit-exhaustion trigger.
 
+## Pass 2 delivery checkpoint — 2026-10-28
+
+Integrated code is `3a5e7bd` on published `codex/pass2-integration`; the owner's
+local-preview source is updated with all three original edits preserved. Final
+native evidence and remaining gates are in
+[INTEGRATION_VERIFICATION](parallel/pass2/INTEGRATION_VERIFICATION.md). The exact
+verified app is open on **Caliber Lookbook QA** with fictional in-memory data.
+
+Gemini's food branch still points to seed `96e8068` on the latest fetch; local
+food tests were observed, but no delivered food changes are claimed. A simulator
+installation overlapped that peer's ordinary-iPhone run. Codex stopped using the
+ordinary simulator; Gemini must rerun final UI checks on its new dedicated
+**Caliber Food Entry QA** (`4387978B-A0DF-4A04-9525-19805A4340E0`) before handoff.
+See the role brief and shared Mac simulator ownership section. Integrate its
+reviewed branch next; leave providers/Health/menu-license gates unchanged.
+
 ## Goal setup implementation — Codex, 2026-10-28
 
 The guided starting-goal slice is implemented on `codex/goal-setup-pass-2`.
