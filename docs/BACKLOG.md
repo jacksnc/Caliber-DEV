@@ -339,3 +339,15 @@ These entries preserve the existing requirement priorities. They are unfinished 
   token audits alone do not certify rendered contrast.
 - Keep concept-only dose forecasts, provider consensus and e1RM displays out of
   shipped screens until their existing correctness/privacy/licensing gates pass.
+
+## Recording-derived feature review — 2026-10-28 (proposals)
+
+See [RECORDING_FEATURE_REVIEW](RECORDING_FEATURE_REVIEW.md) for 28 functional
+opportunities and 12 visual patterns compared to live commit `955a91b`. Priorities
+and flags above are unchanged. Suggested sequencing: guided goal setup → shared
+food-entry workspace → week strip/manual water → consented Health integration →
+progress detail. Adaptive coaching has isolated core functions, not a completed
+screen; micronutrients need source/persistence work. Personalization, voice and
+other P1 paths remain gated; meal planning remains P2. Social/referral features
+are optional proposals. No competitor assets or private recording frames are
+imported, and menu-history screenshots do not grant restaurant dataset rights.

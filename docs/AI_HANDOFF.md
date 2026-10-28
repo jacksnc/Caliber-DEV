@@ -4,6 +4,24 @@ This file is the shared checkpoint for work across Codex and Claude. The Git
 checkout and its commits are the source of truth; neither assistant inherits the
 other's chat automatically, and there is no automatic credit-exhaustion trigger.
 
+## Recording review — Codex, 2026-10-28
+
+The owner supplied three screen recordings and asked for missing functional and
+visual features to gather, not implementation. The comparison against the current
+native build (`955a91b`) is in [RECORDING_FEATURE_REVIEW](RECORDING_FEATURE_REVIEW.md),
+on isolated branch `codex/recording-feature-review`. It includes 28 functional
+opportunities, 12 visual patterns, timestamps, missing/partial/core-only status,
+existing brief IDs and a proposed sequence. Visible-only menu/promotional items
+are distinguished from demonstrated screens. No app code, math, schema, feature
+flag, user setting or provider changed. Do not treat the proposed sequence as
+approval to enable P1/P2 work. Original videos/frames and personal health/account
+or purchase details are not in Git. The main checkout's existing scheme and
+localization edits remain untouched.
+
+Recommended next slice: short guided goal setup over the current calculator,
+then a shared food-entry workspace; retain existing editable macros, food reuse,
+recipes, charts, photo/notes check-ins and all privacy/safety gates.
+
 ## Look-book alignment — Codex, 2026-10-28
 
 The owner's latest request explicitly authorizes improving the native visuals to

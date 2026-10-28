@@ -262,3 +262,14 @@ existing opaque/high-contrast fallbacks remain in place. See LOOKBOOK_ALIGNMENT.
 LB02: Decorative header symbols keep fixed artwork inside 44pt targets; range
 controls use two columns at accessibility sizes so their labels do not split.
 Text itself remains uncapped and scales with Dynamic Type.
+
+## RV00 — Recording analysis before implementation (2026-10-28)
+
+Treat the three owner-supplied clips as read-only feature/layout references.
+Compare observations to connected app code, distinguishing partial screens from
+isolated core packages. Keep original recordings/frames and private health,
+account and payment details outside Git; store a generic timestamped review.
+Visible menu items and promotional statements are not tested workflows. Record
+ideas as proposals mapped to the existing brief, preserving P0/P1/P2 priorities,
+calorie/privacy gates, and Caliber's Helios identity. No new calculation or
+implementation is authorized by the review itself. See RECORDING_FEATURE_REVIEW.

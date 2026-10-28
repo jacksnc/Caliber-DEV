@@ -168,3 +168,11 @@ Existing source work predates this phase and remains locally staged/uncommitted 
   opt-in/lock and menu provenance gates. Added focused UI regression checks.
 - Fictional screenshot data now has a full seven-day calorie chart; real stores
   and nutrition/weight/dosing math are unchanged.
+
+## 2026-10-28 — Recording feature and visual review
+
+- Reviewed three owner-supplied recordings against native build `955a91b`.
+- Added a timestamped matrix of 28 functional opportunities, 12 visual patterns,
+  existing capabilities, implementation evidence and suggested build order.
+- Documentation only; no application, calculation, schema, provider or user-data
+  changes. Recording media and private details remain outside the repository.
