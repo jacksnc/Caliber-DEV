@@ -52,6 +52,7 @@ struct ExerciseLibraryView: View {
     }
     .caliberScreen()
     .navigationTitle("Exercises")
+    .toolbar(.visible, for: .navigationBar)
     .searchable(
       text: $searchText, placement: .navigationBarDrawer(displayMode: .always),
       prompt: "Name or alias"

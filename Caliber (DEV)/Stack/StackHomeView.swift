@@ -11,15 +11,21 @@ struct StackHomeView: View {
 
   var body: some View {
     NavigationStack {
-      StackLockGate {
-        if let container = stack.container {
-          StackDashboard().modelContainer(container)
-        } else if stack.failedToOpen {
-          ContentUnavailableView(
-            "Stack could not be opened", systemImage: "externaldrive.badge.exclamationmark",
-            description: Text("Your entries have been kept. Restart the app and try again."))
-        } else {
-          ProgressView().task { stack.open() }
+      VStack(spacing: 0) {
+        if stack.isLocked {
+          CaliberHeader("Stack", identifier: "Stack")
+            .padding(.horizontal, HeliosTokens.space(4))
+        }
+        StackLockGate {
+          if let container = stack.container {
+            StackDashboard().modelContainer(container)
+          } else if stack.failedToOpen {
+            ContentUnavailableView(
+              "Stack could not be opened", systemImage: "externaldrive.badge.exclamationmark",
+              description: Text("Your entries have been kept. Restart the app and try again."))
+          } else {
+            ProgressView().task { stack.open() }
+          }
         }
       }
       .caliberScreen()
@@ -52,7 +58,9 @@ private struct StackDashboard: View {
     TimelineView(.periodic(from: .now, by: 60)) { timeline in
       ScrollView {
         VStack(alignment: .leading, spacing: HeliosTokens.space(4)) {
-          CaliberHeader("Stack", identifier: "Stack")
+          CaliberHeader(
+            "Stack", identifier: "Stack", action: { isAdding = true },
+            actionLabel: "Add to Stack", actionIdentifier: "stackAddCompound")
           if compounds.isEmpty {
             emptyCard
           } else {
@@ -69,17 +77,9 @@ private struct StackDashboard: View {
           }
           StackScopeNote()
         }
-        .padding()
-      }
-    }
-    .toolbar {
-      ToolbarItem(placement: .topBarLeading) {
-        Button {
-          isAdding = true
-        } label: {
-          Label("Add to Stack", systemImage: "plus")
-        }
-        .accessibilityIdentifier("stackAddCompound")
+        .padding(.horizontal, HeliosTokens.space(4))
+        .padding(.top, HeliosTokens.space(1))
+        .padding(.bottom, HeliosTokens.space(4))
       }
     }
     .sheet(isPresented: $isAdding) { StackCompoundEditor(compound: nil) }

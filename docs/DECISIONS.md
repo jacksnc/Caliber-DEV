@@ -245,3 +245,20 @@ The owner's “Go” accepted ADR-001's native iOS / later Android amendment. Ph
 | WE06 | Reuse one custom-exercise form in the library and workout picker, with a create action for empty search results. Save first, then select after the sheet closes. | The owner explicitly requested creating missing exercises; changes stay on the separate branch. Names are prefilled, Cancel writes nothing, exact normalized duplicate names cannot overwrite the existing list, and current creation uses the supported weight/reps editor. |
 | WE07 | Add a ten-column UTF-8 CSV plus once-per-source/restaurant JSON metadata, converting into the existing importer input. | Entrées/sides/drinks/appetizers/desserts use existing categories; all nutrients must be explicit, unknown serving grams stay nil, rights validation is reused, and staging never activates FUEL-13 or overwrites the shipped catalog. |
 | WE08 | Refresh the owner's local Xcode checkout through a separate preview branch and preserve local preference/catalog edits with backups. | The owner asked for the local build update while Claude continues remote visual work; no force-push or replacement of Claude's branch is needed. |
+
+## LB01 — Native look-book alignment (2026-10-28)
+
+Use the owner's 16-page PDF as a visual reference and keep all native interaction
+and truthful data. Rounded scalable headings, inline profile actions, token-tinted
+cards, compact chart cards and one expanded workout exercise approximate its
+layout. Native pushed screens retain their back buttons. Preserve drafts in the
+parent while cards collapse. Keep optional RPE/warm-up behind Set options, and
+keep configured effort/warm-up visible. Two-decimal weight display is retained.
+A source-only visual reference does not authorize fake food, doses, e1RM or
+provider consensus. No schema or calculation change is required. Full material
+on base cards was rejected after simulator comparison because it added gray;
+existing opaque/high-contrast fallbacks remain in place. See LOOKBOOK_ALIGNMENT.
+
+LB02: Decorative header symbols keep fixed artwork inside 44pt targets; range
+controls use two columns at accessibility sizes so their labels do not split.
+Text itself remains uncapped and scales with Dynamic Type.

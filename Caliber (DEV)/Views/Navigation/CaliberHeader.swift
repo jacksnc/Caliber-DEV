@@ -1,43 +1,90 @@
 import HeliosDesign
 import SwiftUI
 
-/// The look book's screen header: an optional small overline above a compact title, drawn
-/// in the content instead of the system large title.
+/// The look book places the avatar beside the title, inside the content header.
+/// It must not reserve a second, empty navigation bar above that header.
 struct CaliberHeader: View {
   let title: LocalizedStringKey
   var overline: Text?
   var identifier: String
+  var showsProfile: Bool
+  var action: (() -> Void)?
+  var actionLabel: LocalizedStringKey
+  var actionIdentifier: String
   @Environment(\.heliosTheme) private var theme
+  @Environment(\.caliberProfileAction) private var openProfile
 
-  init(_ title: LocalizedStringKey, identifier: String, overline: Text? = nil) {
+  init(
+    _ title: LocalizedStringKey, identifier: String, overline: Text? = nil,
+    showsProfile: Bool = true, action: (() -> Void)? = nil,
+    actionLabel: LocalizedStringKey = "Add", actionIdentifier: String = ""
+  ) {
     self.title = title
     self.identifier = identifier
     self.overline = overline
+    self.showsProfile = showsProfile
+    self.action = action
+    self.actionLabel = actionLabel
+    self.actionIdentifier = actionIdentifier
   }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 2) {
-      if let overline {
-        overline
-          .heliosFont(.footnote)
-          .foregroundStyle(theme.palette.text.secondary.color)
+    HStack(alignment: .bottom, spacing: HeliosTokens.space(2)) {
+      VStack(alignment: .leading, spacing: 2) {
+        if let overline {
+          overline.heliosFont(.footnote)
+            .foregroundStyle(theme.palette.text.secondary.color)
+        }
+        Text(title)
+          .font(.system(.title, design: .rounded, weight: .medium))
+          .foregroundStyle(theme.palette.text.primary.color)
+          .fixedSize(horizontal: false, vertical: true)
+          .accessibilityAddTraits(.isHeader)
+          .accessibilityIdentifier("screenTitle-" + identifier)
       }
-      Text(title)
-        .font(.title.weight(.medium))
-        .foregroundStyle(theme.palette.text.primary.color)
-        .accessibilityAddTraits(.isHeader)
-        .accessibilityIdentifier("screenTitle-" + identifier)
+      .frame(maxWidth: .infinity, alignment: .leading)
+      if let action {
+        Button(action: action) {
+          Image(systemName: "plus")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 18, height: 18)
+            .frame(width: 44, height: 44)
+            .foregroundStyle(theme.palette.accent.base.color)
+            .background { GlassBackground(level: .raised, cornerRadius: 22) }
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(Text(actionLabel))
+        .accessibilityIdentifier(actionIdentifier)
+      }
+      if showsProfile, let openProfile {
+        Button(action: openProfile) {
+          Image(systemName: "person")
+            .resizable()
+            .scaledToFit()
+            .fontWeight(.medium)
+            .frame(width: 20, height: 20)
+            .foregroundStyle(theme.palette.text.primary.color)
+            .frame(width: 44, height: 44)
+            .background { GlassBackground(level: .raised, cornerRadius: 22) }
+            .contentShape(Circle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Profile and Settings")
+        .accessibilityIdentifier("openProfile")
+      }
     }
-    .frame(maxWidth: .infinity, alignment: .leading)
+    .frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
   }
 }
 
 extension View {
-  /// Keeps the navigation title for VoiceOver and back buttons, but leaves the bar empty so
-  /// the screen can draw `CaliberHeader` itself.
-  func compactNavigationTitle(_ title: LocalizedStringKey) -> some View {
+  /// Primary screens draw their own header. Pushed destinations can retain the
+  /// system back button without duplicating the visible title.
+  func compactNavigationTitle(_ title: LocalizedStringKey, hidesBar: Bool = true) -> some View {
     navigationTitle(title)
       .navigationBarTitleDisplayMode(.inline)
+      .toolbar(hidesBar ? .hidden : .visible, for: .navigationBar)
       .toolbar {
         ToolbarItem(placement: .principal) {
           Color.clear.frame(width: 1, height: 1).accessibilityHidden(true)
@@ -45,17 +92,23 @@ extension View {
       }
   }
 
-  /// The screen header on a `List`, as its first section's header: a header is not clipped
-  /// to the section's rounded shape the way a row is, and sits at the top of the list.
   func caliberSectionHeader() -> some View {
     textCase(nil)
-      .listRowInsets(EdgeInsets(top: 0, leading: 4, bottom: HeliosTokens.space(2), trailing: 4))
+      .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: HeliosTokens.space(2), trailing: 0))
   }
 
-  /// A full-width row without a card, such as a closing button.
   func caliberHeaderRow() -> some View {
     listRowBackground(Color.clear)
       .listRowSeparator(.hidden)
       .listRowInsets(EdgeInsets(top: 0, leading: 4, bottom: 4, trailing: 4))
+  }
+
+  /// A complete chart/card owns its padding, corners and lit edge. Native row
+  /// padding must not turn it into a small card inside an opaque list cell.
+  func caliberCardRow() -> some View {
+    glassCard()
+      .listRowInsets(EdgeInsets())
+      .listRowBackground(Color.clear)
+      .listRowSeparator(.hidden)
   }
 }

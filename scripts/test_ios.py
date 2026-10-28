@@ -11,6 +11,8 @@ UI_SUITES = [
     '-only-testing:Caliber (DEV)UITests/ProgressUITests',
     '-only-testing:Caliber (DEV)UITests/ThemeIntegrationUITests',
     '-only-testing:Caliber (DEV)UITests/StackUITests',
+    '-only-testing:Caliber (DEV)UITests/LookbookPolishUITests',
+    '-only-testing:Caliber (DEV)UITests/CustomExerciseUITests',
 ]
 def main():
     parser = argparse.ArgumentParser()

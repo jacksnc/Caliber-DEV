@@ -63,11 +63,11 @@ struct TrainHomeView: View {
                 } label: {
                   HStack(spacing: HeliosTokens.space(3)) {
                     Image(systemName: "dumbbell")
-                      .foregroundStyle(theme.palette.data.training.color)
+                      .foregroundStyle(theme.palette.accent.base.color)
                       .frame(width: 40, height: 40)
                       .background(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
-                          .fill(theme.palette.data.training.color.opacity(0.14))
+                          .fill(theme.palette.accent.base.color.opacity(0.14))
                       )
                       .accessibilityHidden(true)
                     VStack(alignment: .leading, spacing: 4) {
@@ -87,6 +87,8 @@ struct TrainHomeView: View {
         }
         .listRowBackground(CaliberRowBackground())
       }
+      .contentMargins(.top, 0, for: .scrollContent)
+      .listSectionSpacing(12)
       .caliberScreen()
       .compactNavigationTitle("Train")
       .profileAvatar()
@@ -115,11 +117,11 @@ struct TrainHomeView: View {
     VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
       HStack(spacing: HeliosTokens.space(3)) {
         Image(systemName: "dumbbell")
-          .foregroundStyle(theme.palette.data.training.color)
+          .foregroundStyle(theme.palette.accent.base.color)
           .frame(width: 40, height: 40)
           .background(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-              .fill(theme.palette.data.training.color.opacity(0.14))
+              .fill(theme.palette.accent.base.color.opacity(0.14))
           )
           .accessibilityHidden(true)
         VStack(alignment: .leading, spacing: 2) {
@@ -238,6 +240,7 @@ private struct WorkoutSummaryView: View {
     }
     .caliberScreen()
     .navigationTitle(workout.name)
+    .toolbar(.visible, for: .navigationBar)
     .navigationBarTitleDisplayMode(.inline)
   }
 

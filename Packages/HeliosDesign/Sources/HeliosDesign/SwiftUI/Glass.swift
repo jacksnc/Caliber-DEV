@@ -1,7 +1,7 @@
 #if canImport(SwiftUI)
 import SwiftUI
 
-/// A translucent surface: system blur, a thin white (or dark-on-light) tint, a lit edge and a soft shadow.
+/// A translucent token tint, lit edge and soft shadow; floating overlays add a restrained system blur.
 /// With Reduce Transparency it becomes an opaque surface of the same tone; with Increase Contrast it gets a strong edge.
 public struct GlassBackground: View {
     private let level: GlassLevel
@@ -20,7 +20,13 @@ public struct GlassBackground: View {
             if theme.reduceTransparency {
                 shape.fill(palette.opaque[level].color)
             } else {
-                shape.fill(.ultraThinMaterial)
+                // The canvas already supplies soft, static ambient light. A full
+                // system material adds an un-tokened neutral tint (especially on
+                // recent iOS), turning Graphite cards gray. Use the audited tint
+                // directly; floating overlays retain a restrained backdrop blur.
+                if level == .overlay {
+                    shape.fill(.ultraThinMaterial).opacity(0.15)
+                }
                 shape.fill(palette.glass[level].color)
             }
         }

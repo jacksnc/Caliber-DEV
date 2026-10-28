@@ -24,7 +24,7 @@ struct TodayFoundationView: View {
   var body: some View {
     NavigationStack {
       ScrollView {
-        VStack(alignment: .leading, spacing: HeliosTokens.space(4)) {
+        VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
           CaliberHeader(
             "Today", identifier: "Today",
             overline: Text(day, format: .dateTime.weekday(.wide).month(.wide).day()))
@@ -33,7 +33,9 @@ struct TodayFoundationView: View {
           tiles
           demoCard
         }
-        .padding()
+        .padding(.horizontal, HeliosTokens.space(4))
+        .padding(.top, HeliosTokens.space(1))
+        .padding(.bottom, HeliosTokens.space(4))
       }
       .caliberScreen()
       .compactNavigationTitle("Today")
@@ -133,9 +135,24 @@ private struct TodayFuelCard: View {
       HStack {
         SectionHeader("Fuel")
         if rows[0].goal != nil {
-          HStack(spacing: HeliosTokens.space(1)) {
+          HStack(spacing: 2) {
             modeChip("Left", isLeft: true)
             modeChip("Eaten", isLeft: false)
+          }
+          .padding(3)
+          .background {
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+              .fill(
+                theme.reduceTransparency
+                  ? theme.palette.opaque.raised.color : theme.palette.glass.raised.color
+              )
+              .overlay {
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                  .strokeBorder(
+                    theme.palette.isHighContrast
+                      ? theme.palette.border.strong.color : theme.palette.border.hairline.color,
+                    lineWidth: theme.palette.isHighContrast ? 1.5 : 1)
+              }
           }
         }
       }
@@ -181,9 +198,28 @@ private struct TodayFuelCard: View {
     Button {
       showsLeft = isLeft
     } label: {
-      HeliosChip(title, isSelected: showsLeft == isLeft)
+      Text(title).heliosFont(.footnote)
+        .foregroundStyle(
+          showsLeft == isLeft ? theme.palette.accent.base.color : theme.palette.text.secondary.color
+        )
+        .padding(.horizontal, 12)
+        .frame(minHeight: 38)
+        .background {
+          if showsLeft == isLeft {
+            RoundedRectangle(cornerRadius: 11, style: .continuous)
+              .fill(theme.palette.accent.subtle.color)
+              .overlay {
+                RoundedRectangle(cornerRadius: 11, style: .continuous)
+                  .strokeBorder(theme.palette.accent.base.color, lineWidth: 1.5)
+              }
+          }
+        }
+        .padding(.vertical, 3)
+        .contentShape(Rectangle())
     }
     .buttonStyle(.plain)
+    .accessibilityAddTraits(showsLeft == isLeft ? [.isSelected] : [])
+    .accessibilityIdentifier(isLeft ? "fuelMode-left" : "fuelMode-eaten")
   }
 
   private func rings(_ rows: [Row]) -> some View {
@@ -290,11 +326,11 @@ private struct TodayTrainCard: View {
     VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
       HStack(spacing: HeliosTokens.space(3)) {
         Image(systemName: "dumbbell")
-          .foregroundStyle(theme.palette.data.training.color)
+          .foregroundStyle(theme.palette.accent.base.color)
           .frame(width: 40, height: 40)
           .background(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-              .fill(theme.palette.data.training.color.opacity(0.14))
+              .fill(theme.palette.accent.base.color.opacity(0.14))
           )
           .accessibilityHidden(true)
         VStack(alignment: .leading, spacing: 2) {
@@ -338,7 +374,7 @@ private struct TodayTrainCard: View {
     guard let top = sets.max(by: { $0.weightKilograms < $1.weightKilograms }) else { return nil }
     let weight = top.enteredWeight.formatted(.number.precision(.fractionLength(0...1)))
     return
-      "\(name) first: \(sets.count) sets last time, top set \(weight) \(top.enteredWeightUnitRawValue) × \(top.repetitions)."
+      "\(name): \(sets.count) sets · top \(weight) \(top.enteredWeightUnitRawValue) × \(top.repetitions)"
   }
 }
 
@@ -402,20 +438,29 @@ private struct TodayWeightTile: View {
 struct Sparkline: View {
   let values: [Double]
   let color: Color
+  @Environment(\.heliosTheme) private var theme
 
   var body: some View {
     GeometryReader { proxy in
       let low = values.min() ?? 0
       let span = max((values.max() ?? 0) - low, 0.0001)
-      Path { path in
-        for (index, value) in values.enumerated() {
-          let point = CGPoint(
-            x: proxy.size.width * Double(index) / Double(max(values.count - 1, 1)),
-            y: proxy.size.height * (1 - (value - low) / span))
-          if index == 0 { path.move(to: point) } else { path.addLine(to: point) }
+      ZStack(alignment: .topLeading) {
+        Path { path in
+          for (index, value) in values.enumerated() {
+            let point = CGPoint(
+              x: proxy.size.width * Double(index) / Double(max(values.count - 1, 1)),
+              y: proxy.size.height * (1 - (value - low) / span))
+            if index == 0 { path.move(to: point) } else { path.addLine(to: point) }
+          }
+        }
+        .stroke(color, style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
+        if let last = values.last {
+          Circle().fill(color)
+            .overlay { Circle().strokeBorder(theme.palette.opaque.base.color, lineWidth: 2) }
+            .frame(width: 10, height: 10)
+            .position(x: proxy.size.width, y: proxy.size.height * (1 - (last - low) / span))
         }
       }
-      .stroke(color, style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
     }
   }
 }

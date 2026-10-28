@@ -124,3 +124,10 @@ A disposable disk test creates the exact former four model shapes, closes their 
 ## Custom exercise shortcut and menu CSV — 2026-10-27
 
 No additional model, private-data, hosted or catalog migration. Manual exercise creation saves the existing TrainingExercise shape. CSV preparation writes separate staging JSON accepted by the existing importer; the shipped RestaurantMenuCatalog.json remains byte-for-byte unchanged. The sample inputs are visibly fictional and are not app resources.
+
+## 2026-10-28 — Look-book alignment
+
+No migration. Presentation, DEBUG-only fictional screenshot fixtures and UI test
+helpers change; persisted schemas, production food data and provider settings do
+not. Parent workout draft caching lasts for the active screen, as before; it does
+not introduce a new persistent draft format.

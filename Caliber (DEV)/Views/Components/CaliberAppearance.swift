@@ -33,7 +33,9 @@ struct CaliberRowBackground: View {
 
   var body: some View {
     Rectangle()
-      .fill(theme.palette.opaque.base.color)
+      .fill(
+        theme.reduceTransparency ? theme.palette.opaque.base.color : theme.palette.glass.base.color
+      )
       .overlay {
         if theme.palette.isHighContrast {
           Rectangle().strokeBorder(theme.palette.border.strong.color, lineWidth: 1.5)

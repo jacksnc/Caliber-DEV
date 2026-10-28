@@ -45,15 +45,30 @@ struct ProgressDashboardView: View {
               .listRowBackground(Color.clear)
               .listRowInsets(EdgeInsets())
           } header: {
-            CaliberHeader("Progress", identifier: "Progress").caliberSectionHeader()
+            CaliberHeader(
+              "Progress", identifier: "Progress", action: addToday,
+              actionLabel: "Add Check-In", actionIdentifier: "addProgressEntry"
+            )
+            .caliberSectionHeader()
           }
           Section {
             WeightTrendChart(
               summary: summary, unit: unit,
               rangeName: range == .all ? "since first weigh-in" : "in \(range.spokenName)",
-              addWeight: addToday)
+              addWeight: addToday
+            )
+            .caliberCardRow()
           }
 
+          // The three overview cards match the reference; the full check-in timeline follows.
+          Section {
+            CaloriesWeekCard(entries: diary, goal: profiles.first?.dailyCalorieGoal)
+              .caliberCardRow()
+          }
+          Section {
+            MacroSplitCard(entries: diary)
+              .caliberCardRow()
+          }
           if entries.isEmpty {
             VStack(alignment: .leading, spacing: 16) {
               Label("Your Progress", systemImage: "photo.on.rectangle.angled")
@@ -64,7 +79,7 @@ struct ProgressDashboardView: View {
               .font(.body).fixedSize(horizontal: false, vertical: true)
               Button("Add Check-In", action: addToday)
                 .buttonStyle(.heliosPrimary)
-            }.padding(.vertical, 8)
+            }.caliberCardRow()
           } else {
             Section {
               ForEach(timelineMonths, id: \.month) { group in
@@ -111,27 +126,13 @@ struct ProgressDashboardView: View {
             }
 
           }
-          // Nutrition charts follow the check-ins, which belong with the weight trend.
-          Section {
-            CaloriesWeekCard(entries: diary, goal: profiles.first?.dailyCalorieGoal)
-          }
-          Section {
-            MacroSplitCard(entries: diary)
-          }
         }
-        .listRowBackground(CaliberRowBackground())
       }
+      .contentMargins(.top, 0, for: .scrollContent)
+      .listSectionSpacing(12)
       .caliberScreen()
       .compactNavigationTitle("Progress")
       .profileAvatar()
-      .toolbar {
-        ToolbarItem(placement: .primaryAction) {
-          Button(action: addToday) {
-            Label("Add Check-In", systemImage: "plus")
-          }
-          .accessibilityIdentifier("addProgressEntry")
-        }
-      }
       .sheet(isPresented: $isAddingEntry) { ProgressEntryForm() }
       .sheet(item: $editingEntry) { ProgressEntryForm(entry: $0) }
       .alert(
@@ -216,6 +217,7 @@ private struct ProgressEntryDetailView: View {
     }
     .caliberScreen()
     .navigationTitle(entry.date.formatted(date: .abbreviated, time: .omitted))
+    .toolbar(.visible, for: .navigationBar)
     .navigationBarTitleDisplayMode(.inline)
     .toolbar {
       Button("Edit") { isEditing = true }

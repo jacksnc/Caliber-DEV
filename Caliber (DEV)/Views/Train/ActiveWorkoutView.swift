@@ -17,6 +17,12 @@ struct ActiveWorkoutView: View {
   @State private var showingRename = false
   @State private var draftName = ""
   @State private var message: String?
+  @State private var expandedExerciseID: UUID?
+  @State private var hasChosenExpansion = false
+  @State private var showsSetOptions = false
+  // A collapsed card must keep values the person has typed but not completed.
+  @State private var setDrafts: [UUID: WorkoutSetDraft] = [:]
+  @FocusState private var focusedSetField: String?
 
   private var volume: String {
     let unit = runtime.settings.massUnit
@@ -37,7 +43,7 @@ struct ActiveWorkoutView: View {
                 LocalizedStringKey(workout.name), identifier: "ActiveWorkout",
                 overline: Text(
                   "\(duration(since: workout.startedAt, now: context.date)) · \(workout.completedSets.count) sets · \(volume)"
-                ))
+                ), showsProfile: false)
               Button {
                 draftName = workout.name
                 showingRename = true
@@ -92,10 +98,18 @@ struct ActiveWorkoutView: View {
       }
       .listRowBackground(CaliberRowBackground())
     }
+    .contentMargins(.top, 0, for: .scrollContent)
+    .listSectionSpacing(12)
     .caliberScreen()
+    .scrollDismissesKeyboard(.interactively)
     // The workout name is the header below; the bar keeps only its buttons.
-    .compactNavigationTitle("Active Workout")
+    .compactNavigationTitle("Active Workout", hidesBar: false)
     .toolbar {
+      ToolbarItemGroup(placement: .keyboard) {
+        Spacer()
+        Button("Done") { focusedSetField = nil }
+          .accessibilityIdentifier("workoutKeyboardDone")
+      }
       ToolbarItem(placement: .topBarLeading) {
         Button("Add Exercise") { showingExercisePicker = true }
       }
@@ -108,7 +122,8 @@ struct ActiveWorkoutView: View {
     .sheet(isPresented: $showingExercisePicker) {
       ExercisePickerView { exercise in
         do {
-          _ = try TrainingWorkoutLogger.addExercise(exercise, to: workout, in: modelContext)
+          let added = try TrainingWorkoutLogger.addExercise(exercise, to: workout, in: modelContext)
+          expandedExerciseID = added.id
         } catch {
           message = "The exercise could not be added."
         }
@@ -144,12 +159,14 @@ struct ActiveWorkoutView: View {
     if !typeSize.isAccessibilitySize {
       HStack(spacing: 8) {
         Text("Set").frame(minWidth: 24, alignment: .leading)
-        Text("Previous").frame(width: 64, alignment: .leading)
+        Text("Previous").fixedSize(horizontal: false, vertical: true)
+          .frame(width: 64, alignment: .leading)
         Text(runtime.settings.massUnit.rawValue).frame(width: 76)
         Text("Reps").frame(width: 58)
         Spacer(minLength: 0)
       }
       .heliosFont(.caption)
+      .frame(minHeight: 32)
       .foregroundStyle(theme.palette.text.secondary.color)
       .accessibilityHidden(true)
     }
@@ -157,16 +174,12 @@ struct ActiveWorkoutView: View {
 
   /// The same exercise's working sets from the most recent finished workout, as "200 × 6".
   private func previousSets(for workoutExercise: TrainingWorkoutExercise) -> [String] {
-    guard let exerciseID = workoutExercise.exercise?.id else { return [] }
-    for past in allWorkouts where past.completedAt != nil && past.id != workout.id {
-      guard
-        let match = past.sortedExercises.first(where: { $0.exercise?.id == exerciseID })
-      else { continue }
-      return match.sortedSets.filter { $0.completedAt != nil }.map {
-        "\($0.enteredWeight.formatted(.number.precision(.fractionLength(0...1)))) × \($0.repetitions)"
-      }
+    let sets =
+      (try? TrainingWorkoutHistory.previousSets(for: workoutExercise, in: modelContext)) ?? []
+    return sets.map {
+      let value = runtime.settings.massUnit.fromKilograms($0.weightKilograms)
+      return "\(value.formatted(.number.precision(.fractionLength(0...1)))) × \($0.repetitions)"
     }
-    return []
   }
 
   /// The heaviest finished working set of this exercise in earlier workouts, as logged
@@ -239,57 +252,123 @@ struct ActiveWorkoutView: View {
     }
   }
 
+  private func draftBinding(for set: TrainingWorkoutSet) -> Binding<WorkoutSetDraft> {
+    Binding {
+      if let saved = setDrafts[set.id] { return saved }
+      var draft = WorkoutSetDraft()
+      draft.massUnit = runtime.settings.massUnit
+      draft.weight =
+        set.weightKilograms == 0
+        ? ""
+        : String(format: "%g", runtime.settings.massUnit.fromKilograms(set.weightKilograms))
+      draft.repetitions = set.repetitions == 0 ? "" : String(set.repetitions)
+      draft.effort = set.rpe.map { String(format: "%g", $0) } ?? ""
+      return draft
+    } set: {
+      setDrafts[set.id] = $0
+    }
+  }
+
   // Built in its own function: inline, Xcode 16.4 cannot type-check this list and
   // reports a misleading ChartContentBuilder error (D108).
   @ViewBuilder private func exerciseSection(_ workoutExercise: TrainingWorkoutExercise) -> some View
   {
+    let expanded =
+      expandedExerciseID == workoutExercise.id
+      || (!hasChosenExpansion && expandedExerciseID == nil
+        && workout.sortedExercises.first?.id == workoutExercise.id)
     Section {
       let previous = previousSets(for: workoutExercise)
-      // Look book: the exercise names its card, with a fact from history under it.
-      HStack(alignment: .top) {
-        VStack(alignment: .leading, spacing: 2) {
-          Text(workoutExercise.exercise?.name ?? "Deleted exercise")
-            .heliosFont(.section)
-            .accessibilityAddTraits(.isHeader)
-          if let best = bestSet(for: workoutExercise) {
-            Text("Best set \(best)")
-              .heliosFont(.footnote)
-              .foregroundStyle(theme.palette.text.secondary.color)
-          }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        Button(role: .destructive) {
-          delete(workoutExercise)
+      HStack(alignment: .center, spacing: 8) {
+        Button {
+          hasChosenExpansion = true
+          expandedExerciseID = expanded ? nil : workoutExercise.id
         } label: {
-          Image(systemName: "trash")
-            .frame(minWidth: 48, minHeight: 48)
+          HStack(spacing: 12) {
+            if !expanded {
+              Image(systemName: "dumbbell")
+                .foregroundStyle(theme.palette.accent.base.color)
+                .frame(width: 40, height: 40)
+                .background(
+                  theme.palette.accent.subtle.color, in: RoundedRectangle(cornerRadius: 12)
+                )
+                .accessibilityHidden(true)
+            }
+            VStack(alignment: .leading, spacing: 2) {
+              Text(workoutExercise.exercise?.name ?? "Deleted exercise")
+                .heliosFont(.section)
+                .foregroundStyle(theme.palette.text.primary.color)
+                .fixedSize(horizontal: false, vertical: true)
+              if let best = bestSet(for: workoutExercise) {
+                Text("Best set \(best)").heliosFont(.footnote)
+                  .foregroundStyle(theme.palette.text.secondary.color)
+              }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            if !expanded {
+              Image(systemName: "chevron.right")
+                .foregroundStyle(theme.palette.text.secondary.color)
+                .accessibilityHidden(true)
+            }
+          }
+          .frame(minHeight: 48)
+          .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .foregroundStyle(theme.palette.text.secondary.color)
-        .accessibilityLabel("Remove exercise")
-      }
-      columnHeader
-      let nextSetID = workoutExercise.sortedSets.first { $0.completedAt == nil }?.id
-      ForEach(workoutExercise.sortedSets) { set in
-        TrainingSetRow(
-          set: set, displayUnit: runtime.settings.massUnit,
-          previous: previous.indices.contains(set.position) ? previous[set.position] : nil,
-          isNext: set.id == nextSetID
-        )
-        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-          Button("Delete", role: .destructive) { delete(set) }
+        .accessibilityValue(expanded ? "Expanded" : "Collapsed")
+        .accessibilityHint("Shows or hides this exercise's sets")
+        .accessibilityIdentifier("workoutExercise-" + workoutExercise.id.uuidString)
+        Menu {
+          Button("Remove exercise", role: .destructive) { delete(workoutExercise) }
+        } label: {
+          Image(systemName: "ellipsis").frame(width: 44, height: 44)
+            .foregroundStyle(theme.palette.text.secondary.color)
         }
+        .accessibilityLabel("Exercise actions")
       }
-      Button {
-        do {
-          _ = try TrainingWorkoutLogger.addSet(to: workoutExercise, in: modelContext)
-        } catch { message = "The set could not be added." }
-      } label: {
-        Label("Add Set", systemImage: "plus")
-          .frame(minHeight: 48)
+      .listRowSeparator(.hidden)
+      .listRowInsets(EdgeInsets(top: 12, leading: 16, bottom: 8, trailing: 12))
+      if expanded {
+        columnHeader
+          .listRowSeparator(.hidden)
+          .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 2, trailing: 16))
+        let nextSetID = workoutExercise.sortedSets.first { $0.completedAt == nil }?.id
+        ForEach(workoutExercise.sortedSets) { set in
+          TrainingSetRow(
+            set: set, draft: draftBinding(for: set), focusedField: $focusedSetField,
+            displayUnit: runtime.settings.massUnit,
+            previous: previous.indices.contains(set.position) ? previous[set.position] : nil,
+            isNext: set.id == nextSetID, showsOptions: showsSetOptions
+          )
+          .listRowSeparator(.hidden)
+          .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
+          .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+            Button("Delete", role: .destructive) { delete(set) }
+          }
+        }
+        HStack {
+          Button {
+            do { _ = try TrainingWorkoutLogger.addSet(to: workoutExercise, in: modelContext) } catch
+            { message = "The set could not be added." }
+          } label: {
+            Label("Add Set", systemImage: "plus").frame(minHeight: 48)
+          }
+          Spacer()
+          Button {
+            showsSetOptions.toggle()
+          } label: {
+            Label("Set options", systemImage: "slider.horizontal.3")
+              .heliosFont(.footnote).frame(minHeight: 48)
+          }
+          .accessibilityValue(showsSetOptions ? "Shown" : "Hidden")
+        }
+        .buttonStyle(.plain)
+        .foregroundStyle(theme.palette.accent.base.color)
+        .listRowSeparator(.hidden)
       }
     }
   }
+
 }
 
 private struct TrainingSetRow: View {
@@ -298,29 +377,29 @@ private struct TrainingSetRow: View {
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var modelContext
   @Bindable var set: TrainingWorkoutSet
+  @Binding var draft: WorkoutSetDraft
+  @FocusState.Binding var focusedField: String?
   let displayUnit: MassUnit
   let previous: String?
   /// Only the next open set shows its warm-up switch and RPE, keeping the grid as compact
   /// as the look book's.
   let isNext: Bool
-  @State private var weightText: String
-  @State private var repetitionsText: String
-  @State private var rpeText: String
+  let showsOptions: Bool
   @State private var message: String?
 
   init(
-    set: TrainingWorkoutSet, displayUnit: MassUnit, previous: String? = nil, isNext: Bool = true
+    set: TrainingWorkoutSet, draft: Binding<WorkoutSetDraft>,
+    focusedField: FocusState<String?>.Binding,
+    displayUnit: MassUnit,
+    previous: String?, isNext: Bool, showsOptions: Bool
   ) {
     self.set = set
+    _draft = draft
+    _focusedField = focusedField
     self.displayUnit = displayUnit
     self.previous = previous
     self.isNext = isNext
-    _weightText = State(
-      initialValue: set.weightKilograms == 0
-        ? "" : String(format: "%g", displayUnit.fromKilograms(set.weightKilograms)))
-    _repetitionsText = State(
-      initialValue: set.repetitions == 0 ? "" : String(set.repetitions))
-    _rpeText = State(initialValue: set.rpe.map { String(format: "%g", $0) } ?? "")
+    self.showsOptions = showsOptions
   }
 
   var body: some View {
@@ -411,12 +490,12 @@ private struct TrainingSetRow: View {
                 .frame(width: 64, alignment: .leading)
                 .accessibilityLabel(previous.map { "Previous \($0)" } ?? "No previous set")
             }
-            field("Weight", text: $weightText, width: 76)
+            field("Weight", text: $draft.weight, width: 76)
             // The grid header names the unit; at accessibility sizes rows stack, so repeat it.
             if typeSize.isAccessibilitySize {
               Text(displayUnit.rawValue).foregroundStyle(.secondary)
             }
-            field("Reps", text: $repetitionsText, width: 58)
+            field("Reps", text: $draft.repetitions, width: 58)
             Spacer(minLength: 0)
             Button(action: complete) {
               Image(systemName: "checkmark")
@@ -433,13 +512,13 @@ private struct TrainingSetRow: View {
           }
         // The look book's grid is Set · Previous · weight · Reps; RPE and warm-up sit below
         // the next set to do.
-        if isNext || set.isWarmup || !rpeText.isEmpty {
+        if (isNext && showsOptions) || set.isWarmup || !draft.effort.isEmpty {
           (typeSize.isAccessibilitySize
             ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
             : AnyLayout(HStackLayout(spacing: 12))) {
               Toggle("Warm-up set", isOn: $set.isWarmup)
                 .onChange(of: set.isWarmup) { _, _ in try? modelContext.save() }
-              field("RPE", text: $rpeText, width: 58)
+              field("RPE", text: $draft.effort, width: 58)
             }
         }
       }
@@ -487,20 +566,28 @@ private struct TrainingSetRow: View {
     _ label: String, text: Binding<String>, width: CGFloat
   ) -> some View {
     TextField(label, text: text)
+      .focused($focusedField, equals: set.id.uuidString + "." + label)
       .keyboardType(.decimalPad)
       .multilineTextAlignment(.center)
       .heliosFont(.bodyStrong)
       .frame(maxWidth: typeSize.isAccessibilitySize ? .infinity : width)
       .frame(minHeight: 48)
       .background { GlassBackground(level: .raised, cornerRadius: 12) }
+      .overlay {
+        if isNext {
+          RoundedRectangle(cornerRadius: 12, style: .continuous)
+            .strokeBorder(theme.palette.accent.base.color, lineWidth: 1.5)
+            .allowsHitTesting(false)
+        }
+      }
       .accessibilityLabel(label)
   }
 
   private func complete() {
     do {
       try TrainingWorkoutLogger.complete(
-        set, weightText: weightText.isEmpty ? "0" : weightText,
-        repetitionsText: repetitionsText, rpeText: rpeText,
+        set, weightText: draft.weight.isEmpty ? "0" : draft.weight,
+        repetitionsText: draft.repetitions, rpeText: draft.effort,
         unit: displayUnit, locale: locale, in: modelContext)
     } catch {
       message = error.localizedDescription

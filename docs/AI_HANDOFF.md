@@ -4,6 +4,22 @@ This file is the shared checkpoint for work across Codex and Claude. The Git
 checkout and its commits are the source of truth; neither assistant inherits the
 other's chat automatically, and there is no automatic credit-exhaustion trigger.
 
+## Look-book alignment — Codex, 2026-10-28
+
+The owner's latest request explicitly authorizes improving the native visuals to
+match their attached **Helios Look Book.pdf**. This supersedes the older request
+to leave UI files to Claude. Work is isolated on `codex/lookbook-polish` in
+`/Users/jcrock/Documents/Codex/Caliber-lookbook-polish`, based on workout-engine
+commit `38624a6` and merged with Claude's `astra/foundation` through `1e9f4a9`.
+Do not overwrite Claude's branch. See [LOOKBOOK_ALIGNMENT](LOOKBOOK_ALIGNMENT.md)
+for source files, verification, screenshots, remaining differences and commands.
+The local preview checkout retains the owner's unrelated localization edits.
+Local verification: 225 native unit cases, 16 distinct UI scenarios passing
+across the broad run and corrected focused reruns, both theme walkthroughs,
+AX5/growth audits, Helios/Foundation packages, 130 Python tests and static checks.
+There are no model migrations, provider changes, new health formulas or licensed
+menu imports. FUEL-13 and production menu gates remain unchanged.
+
 ## Parallel workout engine branch — Codex, 2026-10-27
 
 The owner authorized separate work while Claude handles visuals. Codex is working

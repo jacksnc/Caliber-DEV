@@ -56,6 +56,7 @@ struct FoodLibraryView: View {
       }
       .caliberScreen()
       .navigationTitle("Food Library")
+      .toolbar(.visible, for: .navigationBar)
       .task {
         let catalog = await BundledFoodSearchService.prepared()
         if let count = try? catalog.foodCount {

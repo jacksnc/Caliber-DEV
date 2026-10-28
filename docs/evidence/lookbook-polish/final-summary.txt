@@ -1,0 +1,43 @@
+Test Case '-[Caliber__DEV_UITests.CustomExerciseUITests testCancelDoesNotAddExerciseAndLibraryCreationStillWorks]' passed (24.711 seconds).
+Test Case '-[Caliber__DEV_UITests.CustomExerciseUITests testMissingExerciseCanBeCreatedInWorkoutAndReusedFromLibrary]' failed (21.238 seconds).
+	 Executed 2 tests, with 1 failure (0 unexpected) in 45.949 (45.953) seconds
+Test Case '-[Caliber__DEV_UITests.LookbookPolishUITests testAvatarSharesTheHeadingAndProfileStillOpens]' passed (14.325 seconds).
+Test Case '-[Caliber__DEV_UITests.LookbookPolishUITests testCollapsingWorkoutCardsRetainsUncompletedInputAndOptions]' passed (22.038 seconds).
+Test Case '-[Caliber__DEV_UITests.LookbookPolishUITests testProgressOverviewKeepsItsChartsAndMethodAccessible]' passed (16.896 seconds).
+	 Executed 3 tests, with 0 failures (0 unexpected) in 53.260 (53.263) seconds
+Test Case '-[Caliber__DEV_UITests.ProgressUITests testDailyCheckInEditsSameDayAndCanBeDeleted]' failed (49.428 seconds).
+Test Case '-[Caliber__DEV_UITests.ProgressUITests testNotesOnlyCheckInDoesNotInventAWeight]' passed (15.419 seconds).
+	 Executed 2 tests, with 1 failure (0 unexpected) in 64.847 (64.848) seconds
+Test Case '-[Caliber__DEV_UITests.StackUITests testOptInAddCompoundAndLogDose]' passed (46.660 seconds).
+	 Executed 1 test, with 0 failures (0 unexpected) in 46.660 (46.661) seconds
+Test Case '-[Caliber__DEV_UITests.ThemeIntegrationUITests testFrostScreens]' passed (54.874 seconds).
+Test Case '-[Caliber__DEV_UITests.ThemeIntegrationUITests testGraphiteScanResult]' passed (25.203 seconds).
+Test Case '-[Caliber__DEV_UITests.ThemeIntegrationUITests testGraphiteScreens]' passed (61.142 seconds).
+Test Case '-[Caliber__DEV_UITests.ThemeIntegrationUITests testGraphiteWorkout]' passed (23.807 seconds).
+Test Case '-[Caliber__DEV_UITests.ThemeIntegrationUITests testLargestTextScreens]' passed (57.022 seconds).
+TEXT GROWTH Progress: 64.33333333333337 → 497.3333333333333
+TEXT GROWTH Profile: 47.66666666666674 → 274.66666666666686
+TEXT GROWTH Restaurants: 47.66666666666663 → 274.66666666666674
+Test Case '-[Caliber__DEV_UITests.ThemeIntegrationUITests testTextGrowthAcrossSizes]' passed (77.466 seconds).
+	 Executed 6 tests, with 0 failures (0 unexpected) in 299.514 (299.529) seconds
+Test Case '-[Caliber__DEV_UITests.TrainProfileUITests testProfileCalculatesAndSavesLocalGoals]' failed (30.855 seconds).
+Test Case '-[Caliber__DEV_UITests.TrainProfileUITests testWorkoutSetSavesAndFinishedWorkoutAppearsInHistory]' passed (24.953 seconds).
+	 Executed 2 tests, with 1 failure (0 unexpected) in 55.808 (55.812) seconds
+	 Executed 16 tests, with 3 failures (0 unexpected) in 566.037 (566.089) seconds
+	 Executed 16 tests, with 3 failures (0 unexpected) in 566.037 (566.092) seconds
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testEmptyAndUnsupportedLengthsCannotBecomeAnotherCode]' passed (0.010 seconds).
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testEverySingleDigitChangeIsDetected]' passed (0.002 seconds).
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testInvalidChecksumForEverySupportedLength]' passed (0.001 seconds).
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testLeadingZeroAndPackagingIndicatorKeepTheirMeaning]' passed (0.031 seconds).
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testNonASCIIDigitsURLsSignsAndDecimalsAreRejected]' passed (0.001 seconds).
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testOuterWhitespaceIsTrimmedButInteriorCharactersAreNotDiscarded]' passed (0.001 seconds).
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testUPCAAndCameraEAN13AreEquivalent]' passed (0.001 seconds).
+Test Case '-[Caliber__DEV_Tests.BarcodeValueTests testValidGTINLengths]' passed (0.003 seconds).
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.048 (0.053) seconds
+Test Case '-[Caliber__DEV_Tests.Caliber__DEV_Tests testExample]' passed (0.000 seconds).
+Test Case '-[Caliber__DEV_Tests.Caliber__DEV_Tests testPerformanceExample]' passed (0.422 seconds).
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.422 (0.423) seconds
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.471 (0.477) seconds
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.471 (0.478) seconds
+✔ Test run with 215 tests in 23 suites passed after 7.441 seconds.
+** TEST FAILED **

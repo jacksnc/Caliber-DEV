@@ -157,3 +157,14 @@ Existing source work predates this phase and remains locally staged/uncommitted 
 - Added a shared custom-exercise form to the workout picker and library. Missing-search creation prefills the name and adds the saved exercise to the current session.
 - Added explicit blank/duplicate validation and stable UI identifiers, retaining Cancel and existing personal-row deletion behavior.
 - Added a blank restaurant menu CSV, a complete fictional example, source metadata, preparation CLI and beginner guide. Reused existing nutrient/source/category validation; production data and flags stay unchanged.
+
+## 2026-10-28 — Native look-book alignment
+
+- Closer Graphite/Frost layouts: rounded inline headers/profile, dark token glass,
+  stronger dock mask, compact weight/calorie/macro cards and clearer search.
+- Expandable exercise cards preserve unfinished typed sets; keyboard Done and
+  optional set controls keep the workout grid compact and usable.
+- Preserve photo/notes timeline, calorie/macro editing, custom exercises, Stack
+  opt-in/lock and menu provenance gates. Added focused UI regression checks.
+- Fictional screenshot data now has a full seven-day calorie chart; real stores
+  and nutrition/weight/dosing math are unchanged.

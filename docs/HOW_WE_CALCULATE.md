@@ -207,3 +207,14 @@ A rest countdown is a saved target deadline minus current time, floored at zero.
 ## Restaurant spreadsheet input — 2026-10-27
 
 CSV meal rows describe one explicit source serving. Calories and protein/total-carbohydrate/fat grams are copied as given and never calculated from the name, photo or each other. Blank nutrient cells fail instead of becoming zero. Blank serving grams remain unknown and cannot enable gram-based logging. Categories only organize rows; an entrée and side are not automatically summed or assumed included. Existing reviewed serving multiplication and personal macro overrides continue unchanged.
+
+## Look-book presentation alignment (2026-10-28)
+
+No health calculation changes. Weight dots remain saved weigh-ins; the trend uses
+the existing history and smoothing factor 0.1. Its explanation is available from
+the chart's information button. Weight display keeps up to two decimal places.
+Seven-day calories, the target rule and macro energy shares keep their existing
+methods; smaller chart heights only affect layout. Workout Previous uses the
+existing tested history service and converts canonical kilograms into the current
+mass unit before formatting. No new dose forecasts, nutrition estimates or e1RM
+values were introduced for visual similarity.

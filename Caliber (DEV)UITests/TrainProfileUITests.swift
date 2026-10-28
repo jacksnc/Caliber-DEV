@@ -15,7 +15,15 @@ final class TrainProfileUITests: XCTestCase {
   @MainActor
   private func reveal(_ element: XCUIElement, in app: XCUIApplication) {
     XCTAssertTrue(element.waitForExistence(timeout: 10))
-    for _ in 0..<5 where !element.isHittable { app.swipeUp() }
+    // A full-screen swipe can move a form field past the top while its numeric
+    // keyboard is open. Short drags follow the field in either direction.
+    for _ in 0..<12 {
+      if element.exists && element.isHittable { break }
+      let top = app.navigationBars.firstMatch.frame.maxY
+      let delta: CGFloat = element.exists && element.frame.minY < top ? 140 : -140
+      let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.4))
+      start.press(forDuration: 0.05, thenDragTo: start.withOffset(CGVector(dx: 0, dy: delta)))
+    }
     XCTAssertTrue(element.isHittable)
   }
 
@@ -36,7 +44,9 @@ final class TrainProfileUITests: XCTestCase {
     reveal(calculate, in: app)
     calculate.tap()
     XCTAssertTrue(app.alerts["Profile"].waitForExistence(timeout: 5))
-    XCTAssertTrue(app.alerts["Profile"].staticTexts["Your estimated daily goals were saved on this device."].exists)
+    XCTAssertTrue(
+      app.alerts["Profile"].staticTexts["Your estimated daily goals were saved on this device."]
+        .exists)
     app.alerts["Profile"].buttons["OK"].tap()
     let savedGoal = app.descendants(matching: .any)["profileSavedCalorieGoal"]
     XCTAssertTrue(savedGoal.waitForExistence(timeout: 5))

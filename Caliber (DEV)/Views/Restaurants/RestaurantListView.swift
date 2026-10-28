@@ -38,15 +38,24 @@ struct RestaurantListView: View {
   var body: some View {
     List {
       Group {
+        Section {
+        } header: {
+          CaliberHeader("Restaurants", identifier: "Restaurants", overline: Text("Fuel"))
+            .caliberSectionHeader()
+        }
         // Look book: one glass search field above the list.
         HStack(spacing: HeliosTokens.space(2)) {
           Image(systemName: "magnifyingglass")
             .foregroundStyle(theme.palette.text.secondary.color)
             .accessibilityHidden(true)
-          TextField("Search restaurants", text: $searchText, axis: .vertical)
-            .heliosFont(.body)
-            .accessibilityLabel("Search restaurants")
-            .accessibilityIdentifier("restaurantSearch")
+          TextField(
+            "Search restaurants", text: $searchText,
+            prompt: Text("Search restaurants").foregroundStyle(theme.palette.text.secondary.color),
+            axis: .vertical
+          )
+          .heliosFont(.body)
+          .accessibilityLabel("Search restaurants")
+          .accessibilityIdentifier("restaurantSearch")
         }
         .padding(.horizontal, HeliosTokens.space(4))
         .frame(minHeight: 52)
@@ -63,6 +72,7 @@ struct RestaurantListView: View {
                 "New restaurant menus are pending an approved data source. Sample menus and your custom items are available below."
               ).font(.footnote)
                 .accessibilityIdentifier("restaurantSourcePending")
+                .listRowBackground(CaliberRowBackground())
             }
           } else {
             Section(importedCatalog.fictional ? "Fictional Test Menus" : "Imported Menus") {
@@ -79,6 +89,7 @@ struct RestaurantListView: View {
                       restaurant: restaurant, source: source, fictional: importedCatalog.fictional,
                       mealType: mealType, date: date)
                   }.accessibilityIdentifier("importedRestaurant-" + restaurant.id)
+                    .listRowBackground(CaliberRowBackground())
                 }
               }
             }
@@ -130,6 +141,7 @@ struct RestaurantListView: View {
               .accessibilityValue(
                 "\(restaurant.menuItems.count) menu items and \(restaurant.buildableTemplates.count) builders"
               )
+              .listRowBackground(CaliberRowBackground())
             }
           } footer: {
             Text("Sample menus for now. These are not complete, verified restaurant menus.").font(
@@ -138,10 +150,12 @@ struct RestaurantListView: View {
           }
         }
       }
-      .listRowBackground(CaliberRowBackground())
     }
     .caliberScreen()
-    .navigationTitle("Restaurants")
+    .contentMargins(.top, 0, for: .scrollContent)
+    .listSectionSpacing(12)
+    .compactNavigationTitle("Restaurants", hidesBar: false)
+    .profileAvatar()
     .toolbar {
       ToolbarItem(placement: .primaryAction) {
         Button {

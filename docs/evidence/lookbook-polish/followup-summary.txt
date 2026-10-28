@@ -1,0 +1,13 @@
+Test Case '-[Caliber__DEV_UITests.CustomExerciseUITests testMissingExerciseCanBeCreatedInWorkoutAndReusedFromLibrary]' passed (33.945 seconds).
+	 Executed 1 test, with 0 failures (0 unexpected) in 33.945 (33.948) seconds
+Test Case '-[Caliber__DEV_UITests.ProgressUITests testDailyCheckInEditsSameDayAndCanBeDeleted]' passed (69.781 seconds).
+	 Executed 1 test, with 0 failures (0 unexpected) in 69.781 (69.785) seconds
+Test Case '-[Caliber__DEV_UITests.ThemeIntegrationUITests testFrostScreens]' passed (64.624 seconds).
+Test Case '-[Caliber__DEV_UITests.ThemeIntegrationUITests testGraphiteScreens]' passed (55.234 seconds).
+Test Case '-[Caliber__DEV_UITests.ThemeIntegrationUITests testLargestTextScreens]' passed (53.531 seconds).
+	 Executed 3 tests, with 0 failures (0 unexpected) in 173.388 (173.391) seconds
+Test Case '-[Caliber__DEV_UITests.TrainProfileUITests testProfileCalculatesAndSavesLocalGoals]' passed (29.241 seconds).
+	 Executed 1 test, with 0 failures (0 unexpected) in 29.241 (29.243) seconds
+	 Executed 6 tests, with 0 failures (0 unexpected) in 306.356 (306.395) seconds
+	 Executed 6 tests, with 0 failures (0 unexpected) in 306.356 (306.398) seconds
+** TEST SUCCEEDED **

@@ -330,3 +330,12 @@ These entries preserve the existing requirement priorities. They are unfinished 
 
 - TRN-02: missing exercises can now be created from the live picker, with a prefilled name, and reused in the library. Cancel and duplicate protection are tested. Creation currently uses weight/reps; muscle/equipment/media metadata and the other metric editors remain open.
 - FUEL-13: spreadsheet-friendly CSV preparation and the once-per-source metadata format are available in RESTAURANT_MENU_TEMPLATE.md. The existing source-aware importer validates staged output; no real menu dataset was imported and the production flag remains off. Component/modifier imports, permitted current sources and release validation remain open.
+
+## Look-book alignment follow-up (2026-10-28)
+
+- Physical iPhone review: camera feed, keyboard, Face ID, outdoor contrast and
+  one-handed use; verify minimum supported iOS separately from current simulator.
+- Capture actual Reduce Transparency / Increase Contrast system-mode screens;
+  token audits alone do not certify rendered contrast.
+- Keep concept-only dose forecasts, provider consensus and e1RM displays out of
+  shipped screens until their existing correctness/privacy/licensing gates pass.

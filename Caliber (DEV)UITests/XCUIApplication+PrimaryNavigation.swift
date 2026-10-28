@@ -10,7 +10,8 @@ extension XCUIApplication {
     let library = buttons["openFoodLibrary"]
     XCTAssertTrue(library.waitForExistence(timeout: 10), file: file, line: line)
     library.tap()
-    XCTAssertTrue(navigationBars["Food Library"].waitForExistence(timeout: 10), file: file, line: line)
+    XCTAssertTrue(
+      navigationBars["Food Library"].waitForExistence(timeout: 10), file: file, line: line)
   }
 
   /// The compact header a primary screen draws in place of a large navigation title.
@@ -25,6 +26,9 @@ extension XCUIApplication {
   @MainActor
   func openProfile(file: StaticString = #filePath, line: UInt = #line) {
     let avatar = buttons["openProfile"].firstMatch
+    // The look-book avatar is beside the content heading, so reveal that heading
+    // after reading lower down a scrollable screen.
+    for _ in 0..<8 where !avatar.exists || !avatar.isHittable { swipeDown() }
     XCTAssertTrue(avatar.waitForExistence(timeout: 20), file: file, line: line)
     avatar.tap()
     XCTAssertTrue(navigationBars["Profile"].waitForExistence(timeout: 10), file: file, line: line)

@@ -40,9 +40,13 @@ enum ProgressRange: String, CaseIterable, Identifiable {
 struct ProgressRangePicker: View {
   @Binding var selection: ProgressRange
   @Environment(\.heliosTheme) private var theme
+  @Environment(\.dynamicTypeSize) private var typeSize
 
   var body: some View {
-    HStack(spacing: 2) {
+    // Two columns keep "30D" together at accessibility sizes, without shrinking text.
+    let columns = Array(
+      repeating: GridItem(.flexible(), spacing: 2), count: typeSize.isAccessibilitySize ? 2 : 4)
+    LazyVGrid(columns: columns, spacing: 2) {
       ForEach(ProgressRange.allCases) { range in
         let isSelected = range == selection
         Button {
@@ -73,7 +77,20 @@ struct ProgressRangePicker: View {
       }
     }
     .padding(4)
-    .background { GlassBackground(level: .base, cornerRadius: 16) }
+    .background {
+      RoundedRectangle(cornerRadius: 16, style: .continuous)
+        .fill(
+          theme.reduceTransparency
+            ? theme.palette.opaque.raised.color : theme.palette.glass.raised.color
+        )
+        .overlay {
+          RoundedRectangle(cornerRadius: 16, style: .continuous)
+            .strokeBorder(
+              theme.palette.isHighContrast
+                ? theme.palette.border.strong.color : theme.palette.border.hairline.color,
+              lineWidth: theme.palette.isHighContrast ? 1.5 : 1)
+        }
+    }
   }
 }
 
@@ -84,6 +101,8 @@ struct CaloriesWeekCard: View {
   @EnvironmentObject private var runtime: FoundationRuntime
   @Environment(\.heliosTheme) private var theme
   @Environment(\.locale) private var locale
+
+  @ScaledMetric(relativeTo: .footnote) private var chartHeight = 104.0
 
   private struct Day: Identifiable {
     let date: Date
@@ -97,23 +116,30 @@ struct CaloriesWeekCard: View {
     // An unset goal is stored as 0; it draws no reference line.
     let target = goal.flatMap { $0 > 0 ? UnitFormatting.energy($0, unit: unit) : nil }
     VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
-      HStack(alignment: .firstTextBaseline) {
-        SectionHeader("Calories")
-        Text("Last 7 days · today so far")
-          .heliosFont(.footnote)
-          .foregroundStyle(theme.palette.text.secondary.color)
-          .fixedSize(horizontal: false, vertical: true)
+      ViewThatFits(in: .horizontal) {
+        HStack(alignment: .top, spacing: 8) {
+          Text("Calories").heliosFont(.section).accessibilityAddTraits(.isHeader)
+          Spacer(minLength: 8)
+          calorieDetail(target: target, unit: unit)
+        }
+        VStack(alignment: .leading, spacing: 4) {
+          Text("Calories").heliosFont(.section).accessibilityAddTraits(.isHeader)
+          calorieDetail(target: target, unit: unit)
+        }
       }
       Chart {
         ForEach(days) { day in
-          BarMark(x: .value("Day", day.date, unit: .day), y: .value(unit.rawValue, day.value))
-            .foregroundStyle(theme.palette.data.energy.color)
-            .cornerRadius(4)
+          BarMark(
+            x: .value("Day", day.date, unit: .day), y: .value(unit.rawValue, day.value),
+            width: .fixed(20)
+          )
+          .foregroundStyle(theme.palette.data.energy.color)
+          .cornerRadius(4)
         }
         if let target {
           RuleMark(y: .value("Goal", target))
             .foregroundStyle(theme.palette.data.reference.color)
-            .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 3]))
+            .lineStyle(StrokeStyle(lineWidth: 2))
         }
       }
       .chartXAxis {
@@ -122,12 +148,27 @@ struct CaloriesWeekCard: View {
         }
       }
       .heliosChartStyle()
-      .frame(height: 150)
+      .frame(height: chartHeight)
       .accessibilityElement()
       .accessibilityLabel("Calories for the last seven days")
       .accessibilityValue(summary(days, unit: unit))
     }
     .accessibilityIdentifier("progressCalories")
+  }
+
+  private func calorieDetail(target: Double?, unit: EnergyUnit) -> some View {
+    VStack(alignment: .trailing, spacing: 2) {
+      Text("Last 7 days · today so far").heliosFont(.footnote)
+        .fixedSize(horizontal: false, vertical: true)
+      if let target {
+        Text(
+          "Target \(UnitFormatting.number(target, locale: locale, fractionDigits: 0)) \(unit.rawValue)"
+        )
+        .heliosFont(.caption)
+        .fixedSize(horizontal: false, vertical: true)
+      }
+    }
+    .foregroundStyle(theme.palette.text.secondary.color)
   }
 
   private func lastSevenDays(unit: EnergyUnit) -> [Day] {
@@ -170,7 +211,8 @@ struct MacroSplitCard: View {
     let energy = parts.reduce(0) { $0 + $1.2 }
     VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
       HStack(alignment: .firstTextBaseline) {
-        SectionHeader("Macro split")
+        Text("Macro split").heliosFont(.section)
+          .accessibilityAddTraits(.isHeader)
         Text("Share of calories, 7-day average")
           .heliosFont(.footnote)
           .foregroundStyle(theme.palette.text.secondary.color)
@@ -199,6 +241,7 @@ struct MacroSplitCard: View {
       }
     }
     .accessibilityElement(children: .combine)
+    .accessibilityIdentifier("progressMacroSplit")
   }
 
   @ViewBuilder

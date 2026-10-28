@@ -1,0 +1,68 @@
+{
+  "frost-Restaurants.png": {
+    "file": "frost-Restaurants.png",
+    "run": "followup",
+    "test": "ThemeIntegrationUITests/testFrostScreens()",
+    "sha256": "c3e155accd9785447e6c8f9d6e10340c3eece59bb14aa66358441f2733c81e8a"
+  },
+  "frost-Progress-default.png": {
+    "file": "frost-Progress-default.png",
+    "run": "followup",
+    "test": "ThemeIntegrationUITests/testFrostScreens()",
+    "sha256": "a1115eb3651dd3ab548495a506ddfb2469c0127a24b3e47b36078872d023710a"
+  },
+  "frost-Stack-default.png": {
+    "file": "frost-Stack-default.png",
+    "run": "followup",
+    "test": "ThemeIntegrationUITests/testFrostScreens()",
+    "sha256": "fe571854925880996ad3f5134f58e9499189836653b34e7aa28f49170d234c87"
+  },
+  "frost-Today-default.png": {
+    "file": "frost-Today-default.png",
+    "run": "followup",
+    "test": "ThemeIntegrationUITests/testFrostScreens()",
+    "sha256": "3b3aa919c993a6d1f0aaba78d9743fa7a6b20f2bac525bb7e9b8eb0857d4096d"
+  },
+  "graphite-ScanResult.png": {
+    "file": "graphite-ScanResult.png",
+    "run": "final",
+    "test": "ThemeIntegrationUITests/testGraphiteScanResult()",
+    "sha256": "ea508d16d8b7c819017fdfa9596e9cca900f1a97acd48956e61aa152500713a8"
+  },
+  "graphite-Restaurants.png": {
+    "file": "graphite-Restaurants.png",
+    "run": "followup",
+    "test": "ThemeIntegrationUITests/testGraphiteScreens()",
+    "sha256": "c43c45fe3fe2867c082a4c3bf5f83c4ebd2d91d11e0f4573dfdaf6240bdfea66"
+  },
+  "graphite-Progress-default.png": {
+    "file": "graphite-Progress-default.png",
+    "run": "followup",
+    "test": "ThemeIntegrationUITests/testGraphiteScreens()",
+    "sha256": "268826452aeb9d574252abe68659fd79d4556355c69e3d55c79ae8f00f6f9b7c"
+  },
+  "graphite-Stack-default.png": {
+    "file": "graphite-Stack-default.png",
+    "run": "followup",
+    "test": "ThemeIntegrationUITests/testGraphiteScreens()",
+    "sha256": "e8f8820152426318c424d811bfa69810cf639d2c70e0fb3804e1f04819de0245"
+  },
+  "graphite-Today-default.png": {
+    "file": "graphite-Today-default.png",
+    "run": "followup",
+    "test": "ThemeIntegrationUITests/testGraphiteScreens()",
+    "sha256": "69a387a166fce3fbddc8ac23af7a6e785c6b253f341ca2f6c71b3dd653cf0cc1"
+  },
+  "graphite-Workout-default.png": {
+    "file": "graphite-Workout-default.png",
+    "run": "releasecheck",
+    "test": "ThemeIntegrationUITests/testGraphiteWorkout()",
+    "sha256": "d9a09691c2e0a5595772660bf27d65950bf9c072a0a31bd4d95bd85e17ba1635"
+  },
+  "graphite-Progress-AX5.png": {
+    "file": "graphite-Progress-AX5.png",
+    "run": "a11yfinal",
+    "test": "ThemeIntegrationUITests/testLargestTextScreens()",
+    "sha256": "7bd479c201221bb9a656f9902e8006d7b2f953445a5c42667974a397f4a1a0ff"
+  }
+}

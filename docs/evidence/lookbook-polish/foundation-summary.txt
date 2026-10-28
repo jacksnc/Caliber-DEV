@@ -1,0 +1,15 @@
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.002) seconds
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.006 (0.007) seconds
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.006 (0.007) seconds
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+✔ Test run with 3 tests in 0 suites passed after 0.014 seconds.
+✔ Test run with 33 tests in 0 suites passed after 0.008 seconds.
+➜ Test referenceCatalogFullDatasetMeasurementWhenSupplied() skipped.
+➜ Test packagedCatalogFullDatasetMeasurementWhenSupplied() skipped.
+✔ Test run with 56 tests in 0 suites passed after 11.572 seconds.
+✔ Test run with 12 tests in 0 suites passed after 0.006 seconds.
+✔ Test run with 9 tests in 1 suite passed after 0.001 seconds.

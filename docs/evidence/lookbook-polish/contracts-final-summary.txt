@@ -1,0 +1,10 @@
+PASS: 211 explicit + 12 derived IDs; 81 P0 table/screen/test mappings; 116 default-off P1 flags; 26 P2 backlog items.
+PASS: 107 table contracts; 53 series and 20 events with valid store bindings.
+PASS: 85 local Markdown file links resolve. External URL freshness is a separate review.
+PASS: schema generator reproduces all four SQL files and table manifest byte-for-byte.
+PASS: eight supplied arithmetic fixture values independently reconciled; app engines remain unimplemented.
+PASS: 54 text/essential-mark contrast pairs; minimum 5.94:1, border ≥3:1, 48pt targets, motion and redundant symbols.
+Ran 43 tests in 0.954s
+OK
+PASS: Phase 0 static contracts, token checks and disposable SQL suite. Runtime features remain planned.
+PASS: Foundation bundle consistency, pure-core boundary and closed diagnostics.

@@ -42,6 +42,19 @@
         context.insert(WeightEntry(date: date, weightInPounds: pounds))
       }
 
+      // Populate the real seven-day chart for visual comparison. This fixture
+      // only runs in the isolated DEBUG store; these are not food references.
+      for (offset, kcal) in [2_100.0, 2_350, 2_560, 2_260, 2_110, 2_470].enumerated() {
+        guard let date = calendar.date(byAdding: .day, value: -(offset + 1), to: now) else {
+          continue
+        }
+        let food = FoodItem(
+          name: "Fictional daily total", calories: kcal, proteinGrams: 148,
+          carbGrams: 236, fatGrams: 71, servingDescription: "Synthetic chart fixture")
+        context.insert(food)
+        context.insert(DiaryEntry(date: date, mealType: .dinner, foodItem: food))
+      }
+
       let bench = TrainingExercise(name: "Bench Press", isCustom: false)
       context.insert(bench)
       // Yesterday's finished session, so Today and Train have a last workout to show.

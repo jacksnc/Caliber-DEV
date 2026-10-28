@@ -11,7 +11,7 @@ Two themes from one set of tokens:
 
 Open `design/lookbook/index.html` in a browser for the full look book: six screens per theme, both palette sheets, and the same components under Reduce Transparency and Increase Contrast. Every figure in it is sample data. The restaurant numbers are real `RestaurantCore` output over the fictional demo menu.
 
-> **What this is, and is not.** The look book is HTML and CSS drawn from the same tokens the Swift package uses. It shows the intended look; it is not a screenshot of the app. The SwiftUI layer compiles on macOS CI and its numbers are tested, but nobody has yet looked at it on a device. Check it with the gallery screen (below) before trusting any visual detail.
+> **What this is, and is not.** The look book is HTML and CSS drawn from the same tokens the Swift package uses. It shows the intended look; it is not a screenshot of the app. The SwiftUI layer is now inspected in both themes on an iPhone simulator. See [native look-book alignment](LOOKBOOK_ALIGNMENT.md) for captures and the remaining physical-device checks.
 
 ## 1. How it is built
 
@@ -59,7 +59,7 @@ Series colours keep one meaning everywhere (a macro is the same colour in a ring
 
 ### How glass is built
 
-Four layers, bottom to top: the canvas gradient with two soft static glows (nothing animates, so Reduce Motion needs no special case); the system ultra-thin material (blur 24, saturation 1.4); a thin tint of the level's colour; a 1 pt lit edge that fades from highlight to lowlight, plus the shadow.
+The HTML reference uses a backdrop blur. Native cards sit over the already-soft static canvas and use the palette's glass tint directly, with a 1 pt lit edge and soft shadow. Full-strength system material added a neutral gray wash on current iOS, which drifted from the reference. Floating overlays retain a restrained system ultra-thin material at 15% opacity beneath their tint. Reduce Transparency uses the existing fully opaque palette; Increase Contrast keeps its strong edge. No palette values changed in this alignment pass.
 
 - **Base** is a card sitting on the canvas. **Raised** is a tile or control on a card. **Overlay** is anything that floats: the tab bar, sheets, menus.
 - Glass inside glass only tints. There is nothing new behind it to blur.

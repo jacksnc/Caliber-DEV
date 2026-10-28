@@ -34,6 +34,12 @@ struct DiaryView: View {
       List {
         Group {
           Section {
+            NavigationLink {
+              FoodLibraryView()
+            } label: {
+              Label("Food Library", systemImage: "books.vertical").frame(minHeight: 44)
+            }
+            .accessibilityIdentifier("openFoodLibrary")
             DatePicker("Diary date", selection: $selectedDate, displayedComponents: .date)
               .accessibilityIdentifier("diaryDate")
             Button {
@@ -59,19 +65,11 @@ struct DiaryView: View {
         }
         .listRowBackground(CaliberRowBackground())
       }
+      .contentMargins(.top, 0, for: .scrollContent)
+      .listSectionSpacing(12)
       .caliberScreen()
       .compactNavigationTitle("Fuel")
       .profileAvatar()
-      .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
-          NavigationLink {
-            FoodLibraryView()
-          } label: {
-            Label("Food Library", systemImage: "books.vertical")
-          }
-          .accessibilityIdentifier("openFoodLibrary")
-        }
-      }
       .sheet(item: $mealTypePresentingSheet) { meal in
         NavigationStack { FoodSearchView(mealType: meal, date: selectedDate) }
       }

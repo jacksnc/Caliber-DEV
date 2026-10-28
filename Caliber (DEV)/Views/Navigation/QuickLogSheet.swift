@@ -79,31 +79,25 @@ struct QuickLogSheet: View {
   }
 }
 
-/// The round profile button at the top right of every primary screen. Settings live
-/// inside Profile (brief §1.2: "Settings behind the profile avatar").
+private struct CaliberProfileActionKey: EnvironmentKey {
+  static let defaultValue: (() -> Void)? = nil
+}
+
+extension EnvironmentValues {
+  var caliberProfileAction: (() -> Void)? {
+    get { self[CaliberProfileActionKey.self] }
+    set { self[CaliberProfileActionKey.self] = newValue }
+  }
+}
+
+/// Own the sheet once per navigation stack. The header draws its button inline,
+/// avoiding the OS toolbar's extra glass capsule and vertical gap.
 private struct ProfileAvatarModifier: ViewModifier {
   @State private var showsProfile = false
-  @Environment(\.heliosTheme) private var theme
 
   func body(content: Content) -> some View {
     content
-      .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
-          Button {
-            showsProfile = true
-          } label: {
-            Image(systemName: "person")
-              .fontWeight(.medium)
-              .foregroundStyle(theme.palette.text.primary.color)
-              .frame(width: 44, height: 44)
-              .background { GlassBackground(level: .raised, cornerRadius: 22) }
-              .contentShape(Circle())
-          }
-          .buttonStyle(.plain)
-          .accessibilityLabel("Profile and Settings")
-          .accessibilityIdentifier("openProfile")
-        }
-      }
+      .environment(\.caliberProfileAction, { showsProfile = true })
       .sheet(isPresented: $showsProfile) { ProfileView(showsDone: true) }
   }
 }

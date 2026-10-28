@@ -29,7 +29,11 @@ final class CustomExerciseUITests: XCTestCase {
     XCTAssertTrue(nameField.waitForExistence(timeout: 5))
     XCTAssertEqual(nameField.value as? String, name)
     app.buttons["customExerciseSave"].tap()
-    XCTAssertTrue(app.staticTexts[name].waitForExistence(timeout: 5))
+    let added = app.buttons.matching(
+      NSPredicate(
+        format: "identifier BEGINSWITH %@ AND label CONTAINS %@", "workoutExercise-", name)
+    ).firstMatch
+    XCTAssertTrue(added.waitForExistence(timeout: 5))
     type("40", into: app.textFields["Weight"])
     type("8", into: app.textFields["Reps"])
     app.buttons["Complete set 1"].tap()

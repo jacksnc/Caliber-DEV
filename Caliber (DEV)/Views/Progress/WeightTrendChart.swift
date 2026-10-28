@@ -5,7 +5,8 @@ import SwiftUI
 /// Uses the same saved weigh-ins as the timeline, so edits update the graph too.
 struct WeightTrendChart: View {
   @Environment(\.heliosTheme) private var theme
-  @ScaledMetric(relativeTo: .body) private var chartHeight = 210.0
+  @ScaledMetric(relativeTo: .body) private var chartHeight = 104.0
+  @State private var showsMethod = false
   let summary: WeightProgressSummary
   let unit: WeightUnit
   var rangeName = "since first weigh-in"
@@ -18,21 +19,30 @@ struct WeightTrendChart: View {
       } else {
         weightSummary
         chart
-
-        if summary.readings.count == 1 {
-          Text("Your first weigh-in is on the graph. Add another to start seeing a trend.")
-            .font(.caption)
-            .foregroundStyle(.secondary)
-        } else {
-          Text(
-            "Each dot is a recorded weigh-in; the line is the smoothed trend. Dates run from oldest to newest."
-          )
-          .font(.caption)
-          .foregroundStyle(.secondary)
-        }
       }
     }
-    .padding(.vertical, 8)
+    .sheet(isPresented: $showsMethod) {
+      NavigationStack {
+        ScrollView {
+          VStack(alignment: .leading, spacing: 16) {
+            Text(
+              "Each dot is a recorded weigh-in; the line is the smoothed trend. Dates run from oldest to newest."
+            )
+            Text(
+              "The trend uses your saved history with a smoothing factor of 0.1. Missing days do not become zero-weight readings."
+            )
+            if let date = summary.readings.last?.date {
+              Text("Last weigh-in: \(date.formatted(date: .abbreviated, time: .omitted))")
+            }
+          }
+          .padding()
+        }
+        .caliberScreen()
+        .navigationTitle("Weight trend")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar { Button("Done") { showsMethod = false } }
+      }
+    }
   }
 
   private var emptyState: some View {
@@ -59,13 +69,33 @@ struct WeightTrendChart: View {
       HStack(alignment: .top) {
         latest
         Spacer(minLength: HeliosTokens.space(3))
-        change.multilineTextAlignment(.trailing)
+        HStack(alignment: .top, spacing: 2) {
+          change.multilineTextAlignment(.trailing)
+          methodButton
+        }
       }
       VStack(alignment: .leading, spacing: HeliosTokens.space(2)) {
         latest
-        change
+        HStack {
+          change
+          Spacer()
+          methodButton
+        }
       }
     }
+  }
+
+  private var methodButton: some View {
+    Button {
+      showsMethod = true
+    } label: {
+      Image(systemName: "info.circle").font(.footnote)
+        .foregroundStyle(theme.palette.text.secondary.color)
+        .frame(width: 44, height: 44)
+    }
+    .buttonStyle(.plain)
+    .accessibilityLabel("How the weight trend is calculated")
+    .accessibilityIdentifier("weightTrendMethod")
   }
 
   private var latest: some View {
@@ -73,16 +103,14 @@ struct WeightTrendChart: View {
       Text("Trend weight").heliosFont(.metricLabel)
         .foregroundStyle(theme.palette.text.secondary.color)
       if let latest = summary.latestTrendInPounds ?? summary.latestWeightInPounds {
-        Text(
-          "\(unit.fromPounds(latest), format: .number.precision(.fractionLength(0...2))) \(unit.symbol)"
-        )
-        .heliosFont(.hero)
+        HStack(alignment: .firstTextBaseline, spacing: 4) {
+          Text(unit.fromPounds(latest), format: .number.precision(.fractionLength(0...2)))
+            .heliosFont(.hero)
+          Text(unit.symbol).heliosFont(.footnote)
+            .foregroundStyle(theme.palette.text.secondary.color)
+        }
+        .accessibilityElement(children: .combine)
         .accessibilityIdentifier("latestProgressWeight")
-      }
-      if let date = summary.readings.last?.date {
-        Text("Last weigh-in: \(date.formatted(date: .abbreviated, time: .omitted))")
-          .heliosFont(.caption)
-          .foregroundStyle(theme.palette.text.secondary.color)
       }
     }
   }
@@ -121,7 +149,7 @@ struct WeightTrendChart: View {
           series: .value("Series", "Trend")
         )
         .interpolationMethod(.monotone)
-        .lineStyle(StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round))
+        .lineStyle(StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
         .foregroundStyle(color)
       }
       if let last = summary.trend.last {
@@ -134,7 +162,6 @@ struct WeightTrendChart: View {
       }
     }
     .chartYScale(domain: .automatic(includesZero: false))
-    .chartYAxisLabel(unit.symbol)
     .chartYAxis {
       AxisMarks(position: .leading, values: .automatic(desiredCount: 4)) {
         AxisGridLine(stroke: StrokeStyle(lineWidth: 0.5))
@@ -156,5 +183,6 @@ struct WeightTrendChart: View {
     }
     .frame(height: chartHeight)
     .accessibilityLabel("Weight history in \(unit.symbol)")
+    .accessibilityHint("Each dot is a recorded weigh-in; the line is the smoothed trend.")
   }
 }

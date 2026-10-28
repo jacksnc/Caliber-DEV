@@ -199,6 +199,7 @@ private struct BarcodeLookupContent: View {
               .buttonStyle(.heliosPrimary)
               .accessibilityIdentifier("barcodeReview")
             }
+            .caliberCardRow()
           }
         }
         Section {
