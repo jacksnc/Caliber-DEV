@@ -1,6 +1,6 @@
 # Codex handoff
 
-Status: goal setup implemented; combined native integration verification next.
+Status: goal setup and Claude visual changes integrated; native verification complete.
 Branch: `codex/goal-setup-pass-2`, based on `96e8068`.
 
 Four-step optional local setup reuses EnergyTargetCalculator. Explicit age,
@@ -19,10 +19,11 @@ Verified locally: Foundation package (10 XCTest + 120 Swift Testing declarations
 two optional dataset skips), all native units (10 XCTest + 222 Swift Testing
 declarations), static contracts, 130 Python tests, locale/unit/failure tests and
 native save/reopen/cancel/validation/Profile compatibility. Graphite, Frost and
-AX5 setup checks pass. Final first-welcome check passes after isolating the prompt
-preference. Combined theme/scanner/Progress verification follows Claude integration.
+AX5 setup checks pass. First-welcome, theme/scanner/Progress and appearance-preview checks pass.
+See [integration verification](INTEGRATION_VERIFICATION.md) for final runs and
+remaining release gates.
 
 Claude delivered `d956269`; its native code was explicitly UNTESTED in its Linux
-environment. Codex is reviewing/building it on macOS. Gemini's remote branch was
+environment. Codex reviewed, built and verified it on macOS, including integration fixes. Gemini's remote branch was
 still at the seed base on the last fetch. No hosted/provider/food-license gate
 was activated. Owner's local checkout edits remain untouched until backed up.

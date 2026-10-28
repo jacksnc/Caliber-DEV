@@ -296,3 +296,14 @@ Retain full-precision canonical inputs and ungrouped locale text. Preserve the
 original reference for unchanged weight targets; changing the goal clears them.
 Legacy archive support is a documented export/cutover gate, not silently assumed.
 No hosted, provider, licensed-menu or clinical-policy change.
+
+
+## PP02 — Native integration of Claude visual delivery (2026-10-28)
+
+Integrate Claude d956269 from its assigned branch, preserving its authorship and
+file boundaries. Wire the standalone appearance preview in Codex-owned Settings
+and keep the existing picker/test identifiers. Empty food messaging checks record
+presence in the same seven-day buckets, not a zero nutrient total. Apply format,
+run native unit/theme/AX5 flows and inspect fictional captures on macOS before
+refreshing the local preview. This supersedes the handoff's native-untested
+status only for the checks actually rerun and recorded by Codex.

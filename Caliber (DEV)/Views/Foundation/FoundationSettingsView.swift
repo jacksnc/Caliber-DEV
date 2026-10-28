@@ -13,6 +13,9 @@ struct FoundationSettingsView: View {
     Form {
       Group {
         Section("Appearance and Privacy") {
+          AppearancePreviewPicker(selection: $runtime.settings.theme)
+            .listRowBackground(Color.clear)
+            .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
           Picker("Theme", selection: $runtime.settings.theme) {
             Text("System").tag(AppTheme.system)
             Text("Frost (Light)").tag(AppTheme.light)

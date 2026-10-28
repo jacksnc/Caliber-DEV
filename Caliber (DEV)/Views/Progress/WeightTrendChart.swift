@@ -5,6 +5,7 @@ import SwiftUI
 /// Uses the same saved weigh-ins as the timeline, so edits update the graph too.
 struct WeightTrendChart: View {
   @Environment(\.heliosTheme) private var theme
+  @Environment(\.dynamicTypeSize) private var typeSize
   @ScaledMetric(relativeTo: .body) private var chartHeight = 104.0
   @State private var showsMethod = false
   let summary: WeightProgressSummary
@@ -60,21 +61,22 @@ struct WeightTrendChart: View {
 
   /// Look book: "Trend weight" with the latest value large, and the change over the
   /// selected range on the right.
-  private var weightSummary: some View {
-    ViewThatFits(in: .horizontal) {
+  @ViewBuilder private var weightSummary: some View {
+    if typeSize.isAccessibilitySize {
+      VStack(alignment: .leading, spacing: HeliosTokens.space(2)) {
+        latest
+        HStack(alignment: .top) {
+          change
+          Spacer()
+          methodButton
+        }
+      }
+    } else {
       HStack(alignment: .top) {
         latest
         Spacer(minLength: HeliosTokens.space(3))
         HStack(alignment: .top, spacing: 2) {
           change.multilineTextAlignment(.trailing)
-          methodButton
-        }
-      }
-      VStack(alignment: .leading, spacing: HeliosTokens.space(2)) {
-        latest
-        HStack {
-          change
-          Spacer()
           methodButton
         }
       }
@@ -102,6 +104,7 @@ struct WeightTrendChart: View {
         HStack(alignment: .firstTextBaseline, spacing: 4) {
           Text(unit.fromPounds(latest), format: .number.precision(.fractionLength(0...2)))
             .heliosFont(.hero)
+            .fixedSize(horizontal: false, vertical: true)
           Text(unit.symbol).heliosFont(.footnote)
             .foregroundStyle(theme.palette.text.secondary.color)
         }
@@ -118,8 +121,10 @@ struct WeightTrendChart: View {
           "\(unit.fromPounds(change), format: .number.precision(.fractionLength(0...2)).sign(strategy: .always())) \(unit.symbol)"
         )
         .heliosFont(.bodyStrong)
+        .fixedSize(horizontal: false, vertical: true)
         Text(rangeName).heliosFont(.caption)
           .foregroundStyle(theme.palette.text.secondary.color)
+          .fixedSize(horizontal: false, vertical: true)
       }
       .accessibilityElement(children: .combine)
     }

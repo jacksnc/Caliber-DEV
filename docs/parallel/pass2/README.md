@@ -21,17 +21,17 @@ git switch --track origin/claude/visual-pass-2
 ```
 
 Do not start from GitHub's default branch or edit the owner's local preview.
-No agent pushes to another agent's branch, `astra/foundation`, or the integration
-branch. Do not merge another stream into your branch mid-task. Codex integrates
+Each contributor pushes only its assigned branch. Codex alone updates the
+integration branch; leave `astra/foundation` and peer branches untouched. Do not merge another stream into your branch mid-task. Codex integrates
 reviewed commits; it owns final conflict resolution, common tests and local builds.
 
 ## Ownership and delivery
 
 | Owner | Branch | First deliverable | Current dispatch status |
 | --- | --- | --- | --- |
-| Codex | `codex/goal-setup-pass-2` | Guided goal setup, safe persistence, Profile entry/summary, first-run routing and integration | Working in the owner's Codex chat |
-| Claude Opus 5.5 | `claude/visual-pass-2` | Second visual pass for shared Helios components, Today and Progress; accessible theme previews/empty states | Assignment ready; owner must start it in Claude |
-| Gemini 4 Argon | `gemini/food-entry-pass-2` | Faster food-entry hub and recent-food review using existing logging services | Assignment ready; owner must start it in Gemini |
+| Codex | `codex/goal-setup-pass-2` | Guided goal setup, safe persistence, Profile entry/summary, first-run routing and integration | Goal setup delivered; native integration verified |
+| Claude Opus 5.5 | `claude/visual-pass-2` | Second visual pass for shared Helios components, Today and Progress; accessible theme previews/empty states | Delivered d956269; integrated and natively verified by Codex |
+| Gemini 4 Argon | `gemini/food-entry-pass-2` | Faster food-entry hub and recent-food review using existing logging services | Remote branch still at seed on last fetch; awaiting food-entry handoff |
 
 Codex cannot launch external Claude/Gemini chats from this environment. These
 statuses describe assignments, not a claim that those external agents are running.

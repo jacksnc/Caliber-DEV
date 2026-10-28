@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-28 — Second visual pass integration
+
+- Integrated Claude's shared segment/empty-state components, Progress hierarchy,
+  Today goal shortcut and standalone theme preview picker.
+- Connected previews to the existing setting, retained the standard Theme picker,
+  and distinguished zero-calorie logged entries from an empty food history.
+- Native build/theme/accessibility verification is owned by Codex; Claude's
+  original handoff correctly labels its cloud-written Swift as untested.
+
 ## 2026-10-28 — Guided starting goals
 
 - Added optional four-step nutrition setup, explicit equation/activity selection,

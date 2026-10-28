@@ -166,3 +166,15 @@ Not verified:
 - **iOS 26 Liquid Glass.** `glassEffect()` could replace the material and tint. It is left out because the deployment floor is iOS 17 and system glass cannot be audited numerically. Revisit when the floor moves.
 - **Tertiary text** was first set at 3:1 and is now held to 4.5:1 like every other text colour; the first draft failed WCAG AA for real text.
 - **The name Helios** still needs trademark clearance.
+
+
+## Native pass 2 additions — 2026-10-28
+
+`HeliosSegmentTrack` and `HeliosSegmentHighlight` centralize the existing
+selected-segment appearance. `HeliosEmptyState` provides a wrapping heading,
+message and optional action with an icon above the text at accessibility sizes.
+Progress puts its weight-range selector next to the weight chart and explicitly
+labels nutrition as the last seven days. Timeline sections use Helios type roles.
+Appearance settings include selectable miniature palette previews with text,
+selection traits and contrast/transparency fallbacks. The existing Theme picker
+remains available. No design change alters a source nutrition or chart value.

@@ -76,9 +76,10 @@ suite: 10 XCTest cases and 222 Swift Testing declarations pass. New persistence
 checks cover additive disk schema, exact reopen, save/create failure isolation,
 three numeric locales, unit changes and maintenance-to-cut rate defaults.
 
-UI checks cover first-run/skip, explicit age/equation validation, save/reopen/
-cancel, existing Profile calculation, Graphite/Frost and largest text. Final
-native results and captures are added after the integration run. Early checks
+UI checks pass for first-run/skip, explicit age/equation validation, save/reopen/
+cancel, existing Profile calculation, Graphite/Frost and largest text. See
+[pass 2 integration evidence](parallel/pass2/INTEGRATION_VERIFICATION.md) and
+[native goal captures](design/goal-setup/). Early checks
 exposed placeholder clipping, a test tap under a footer, propagated identifiers
 and first-run preference isolation; these were corrected without audit suppression.
 

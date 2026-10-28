@@ -89,6 +89,7 @@ struct CaloriesWeekCard: View {
   private struct Day: Identifiable {
     let date: Date
     let value: Double
+    let hasEntries: Bool
     var id: Date { date }
   }
 
@@ -135,7 +136,7 @@ struct CaloriesWeekCard: View {
       .accessibilityLabel("Calories for the last seven days")
       .accessibilityValue(summary(days, unit: unit))
       // Empty bars and a logged zero look alike, so say plainly when nothing was logged.
-      if days.allSatisfy({ $0.value == 0 }) {
+      if !days.contains(where: \.hasEntries) {
         Text("No food logged in the last 7 days.")
           .heliosFont(.callout)
           .foregroundStyle(theme.palette.text.secondary.color)
@@ -165,10 +166,10 @@ struct CaloriesWeekCard: View {
     let today = calendar.startOfDay(for: .now)
     return (0..<7).reversed().compactMap { offset in
       guard let day = calendar.date(byAdding: .day, value: -offset, to: today) else { return nil }
-      let total = MacroCalculator.totals(
-        for: entries.filter { calendar.isDate($0.date, inSameDayAs: day) }
-      ).calories
-      return Day(date: day, value: UnitFormatting.energy(total, unit: unit))
+      let logged = entries.filter { calendar.isDate($0.date, inSameDayAs: day) }
+      let total = MacroCalculator.totals(for: logged).calories
+      return Day(
+        date: day, value: UnitFormatting.energy(total, unit: unit), hasEntries: !logged.isEmpty)
     }
   }
 

@@ -5,6 +5,33 @@ import XCTest
 final class VisualPass2UITests: XCTestCase {
   override func setUpWithError() throws { continueAfterFailure = false }
 
+  @MainActor func testAppearancePreviewsSelectThemeAtDefaultAndLargestText() throws {
+    for large in [false, true] {
+      let app = XCUIApplication()
+      app.launchArguments = ["--progress-ui-testing", "--theme-frost"]
+      if large {
+        app.launchArguments += [
+          "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL",
+        ]
+      }
+      app.launch()
+      XCTAssertTrue(app.tab("Today").waitForExistence(timeout: 20))
+      app.openProfile()
+      app.buttons["openSettings"].tap()
+      let graphite = app.buttons["appearanceTheme-dark"]
+      reveal(graphite, app: app)
+      XCTAssertTrue(graphite.waitForExistence(timeout: 5))
+      graphite.tap()
+      XCTAssertTrue(graphite.isSelected)
+      let capture = XCTAttachment(screenshot: app.screenshot())
+      capture.name = "appearance-preview-\(large ? "AX5" : "default")"
+      capture.lifetime = .keepAlways
+      add(capture)
+      try app.auditRepeatedIssues(for: large ? [.dynamicType, .textClipped] : [.textClipped])
+      app.terminate()
+    }
+  }
+
   @MainActor private func reveal(_ element: XCUIElement, app: XCUIApplication) {
     // Rows below the floating dock are not tappable, so scroll until the element clears it.
     let dock = app.descendants(matching: .any)["caliberTabBar"]

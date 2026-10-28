@@ -215,6 +215,8 @@ struct ProfileView: View {
         Text(message ?? "Please check your entries.")
       }
     }
+    // Updating the theme inside this sheet must also update native navigation chrome.
+    .preferredColorScheme(runtime.colorScheme)
   }
 
   private func numericField(

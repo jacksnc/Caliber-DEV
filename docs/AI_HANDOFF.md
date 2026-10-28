@@ -11,8 +11,8 @@ See [GOAL_SETUP_VERIFICATION](GOAL_SETUP_VERIFICATION.md) and
 [Codex handoff](parallel/pass2/CODEX_HANDOFF.md) for complete files, tests and
 additive storage limitations. Existing users retain targets until an explicit
 save. New metadata requires future archive/canonical adapters before export or
-live cutover. Claude has delivered visual branch `d956269`; Codex is integrating
-and running native checks. Gemini's remote food-entry branch remains at the seed
+live cutover. Claude has delivered visual branch `d956269`; Codex integrated and verified its native changes on macOS. See
+[pass 2 verification](parallel/pass2/INTEGRATION_VERIFICATION.md). Gemini's remote food-entry branch remains at the seed
 base on the latest fetch. These are observed statuses, not assumed completion.
 
 ## Parallel pass 2 — owner authorized, 2026-10-28
