@@ -237,3 +237,15 @@ goal clears the old target. This is target metadata, not a forecast or a weigh-i
 No finish date or adaptive recommendation is shown. Canonical measurement caches
 prevent repeated unit-conversion drift; editable locale numbers have no grouping
 or scientific notation and retain precision independently from display rounding.
+
+
+## Food-entry workspace integration — 2026-10-29
+
+The hub does not change source nutrition arithmetic. A recent item's last-used
+quantity pre-fills its editable review and is applied once on confirmation.
+Manual entry requires all four explicit finite nonnegative nutrition values;
+blank protein/carbohydrate/fat is unknown and cannot silently become zero.
+Displayed totals are entered per-serving values times the confirmed quantity.
+Cancellation writes nothing; personal edits create independent diary snapshots.
+Past/today/future labels compare calendar day starts and preserve selected meal
+and timestamp. No weight, calorie or dose calculation comes from a visual effect.

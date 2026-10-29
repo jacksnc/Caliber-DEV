@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-10-29 — Integrated local food-entry update
+
+- Integrated Gemini's food hub with capture/library shortcuts, top recents and
+  quick editable portion review. Selected meal/date and independent snapshots
+  remain intact; future dates are labeled separately from past dates.
+- Manual entry requires explicit macro values, including explicit zero, with
+  scalable controls at accessibility text sizes.
+- Compiled Claude's motion/glass library and 48 design-system tests. Effects
+  remain unadopted in app screens until rendered/gradient-state checks finish.
+- Added new food files/suite to shared lint/native runner coverage and corrected
+  local documentation links. No model, hosted service or provider change.
+
 ## 2026-10-28 — Second visual pass integration
 
 - Integrated Claude's shared segment/empty-state components, Progress hierarchy,

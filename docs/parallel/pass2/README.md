@@ -31,7 +31,7 @@ reviewed commits; it owns final conflict resolution, common tests and local buil
 | --- | --- | --- | --- |
 | Codex | `codex/goal-setup-pass-2` | Guided goal setup, safe persistence, Profile entry/summary, first-run routing and integration | Goal setup delivered; native integration verified |
 | Claude Opus 5.5 | `claude/visual-pass-2` | Second visual pass for shared Helios components, Today and Progress; accessible theme previews/empty states | Delivered d956269; integrated and natively verified by Codex |
-| Gemini 4 Argon | `gemini/food-entry-pass-2` | Faster food-entry hub and recent-food review using existing logging services | Delivered 577cc28; Codex dispatched date-label/isolated QA follow-up, now working |
+| Gemini 4 Argon | `gemini/food-entry-pass-2` | Faster food-entry hub and recent-food review using existing logging services | Delivered isolated follow-up 41b3985; integrated and natively verified by Codex |
 
 External models are independent chats, not Codex-managed subagents. With the
 owner's explicit request, Codex manually sent follow-ups in the selected native
@@ -120,3 +120,11 @@ preview on its separate QA simulator. Gemini must rerun its final native UI
 checks on the dedicated food simulator before claiming a clean handoff; an
 interrupted run is not evidence of a food-source defect. Do not reinstall a
 simulator's app while another contributor owns an active run there.
+
+
+## October 29 local update
+
+Gemini `41b3985` is now integrated. Claude motion/glass `4de64f3` is merged as a
+compiled library; no motion effect is adopted on app screens yet. See
+[local update verification](LOCAL_BUILD_UPDATE_2026-10-29.md). Earlier dispatch
+and handoff statuses are historical snapshots, superseded by that report.

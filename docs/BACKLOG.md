@@ -372,3 +372,17 @@ UI scenarios pass across the combined run/focused corrections. This does not
 close whole chart/privacy/nutrition requirements. Gemini food entry is pending
 its pushed handoff and a final run on its separate simulator. Physical-device,
 minimum-iOS, clinical, export/cutover and performance gates remain open.
+
+
+## Integrated food workspace update — 2026-10-29
+
+Gemini's isolated follow-up 41b3985 is integrated. FUEL-01 convenience now has the
+compact capture/library hub, top recents and editable quick review; existing
+meal/date/snapshot rules remain. Whole FUEL requirements are still partial.
+Claude's new motion/glass package compiles but is not used in real screens.
+Before adoption, audit intermediate gradient intensities and actual nested
+surfaces, and inspect Reduce Motion/Transparency/Increase Contrast/VoiceOver.
+The current deep-glass audit measures peak layers; a shade that improves contrast
+can leave its zero-intensity gradient area at the old nested-glass minimum.
+Do not treat its peak-only passing result as proof of the entire rendered pane.
+No food dataset, Health, clinical, export/cutover or provider gate changes.

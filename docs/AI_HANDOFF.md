@@ -4,6 +4,17 @@ This file is the shared checkpoint for work across Codex and Claude. The Git
 checkout and its commits are the source of truth; neither assistant inherits the
 other's chat automatically, and there is no automatic credit-exhaustion trigger.
 
+## Local build update — 2026-10-29
+
+The owner requested updating the local build. Codex fetched and merged Gemini
+`41b3985` (food-entry hub, quick review, explicit macro fields, future-date fix)
+and Claude `4de64f3` (new Helios motion/glass library and contrast tests) into
+`codex/pass2-integration`. See [LOCAL_BUILD_UPDATE](parallel/pass2/LOCAL_BUILD_UPDATE_2026-10-29.md)
+for verification, delivered scope, backups and remaining motion adoption work.
+Gemini's follow-up is integrated; do not restart that assignment. New motion
+primitives compile but remain unadopted in real app screens pending render and
+full-gradient contrast validation. Codex retains final app/native integration.
+
 ## Manual peer dispatch — 2026-10-28
 
 The owner explicitly asked Codex to prompt the already selected Claude/Gemini

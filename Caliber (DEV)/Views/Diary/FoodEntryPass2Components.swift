@@ -478,21 +478,23 @@ struct FoodEntryPass2HubCard: View {
     action: @escaping () -> Void
   ) -> some View {
     Button(action: action) {
-      HStack(spacing: HeliosTokens.space(1)) {
-        Image(systemName: symbol)
-          .foregroundStyle(theme.palette.text.secondary.color)
-          .accessibilityHidden(true)
+      VStack(alignment: .leading, spacing: HeliosTokens.space(1)) {
+        HStack {
+          Image(systemName: symbol)
+            .foregroundStyle(theme.palette.text.secondary.color)
+            .accessibilityHidden(true)
+          if let count {
+            Spacer(minLength: 2)
+            Text(count)
+              .heliosFont(.caption)
+              .foregroundStyle(theme.palette.text.secondary.color)
+              .fixedSize(horizontal: false, vertical: true)
+          }
+        }
         Text(title)
           .heliosFont(.footnote)
           .foregroundStyle(theme.palette.text.primary.color)
           .fixedSize(horizontal: false, vertical: true)
-        if let count {
-          Spacer(minLength: 2)
-          Text(count)
-            .heliosFont(.caption)
-            .foregroundStyle(theme.palette.text.secondary.color)
-            .fixedSize(horizontal: false, vertical: true)
-        }
       }
       .padding(.horizontal, HeliosTokens.space(2))
       .padding(.vertical, HeliosTokens.space(2))

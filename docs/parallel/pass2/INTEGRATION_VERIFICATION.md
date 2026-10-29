@@ -83,7 +83,8 @@ Local result bundles (not committed): `/tmp/caliber-pass2-combined.xcresult`,
 `/tmp/caliber-pass2-appearance-fixed.xcresult`. Package/static logs share the
 `/tmp/caliber-pass2-` prefix; Foundation package log is
 `/tmp/caliber-goal-setup-package-final.log`. Selected inspected captures are in
-[pass2-native](../../design/pass2-native/) and [goal-setup](../../design/goal-setup/).
+[pass2-native](../../design/pass2-native/README.md) and
+[goal-setup](../../design/goal-setup/README.md).
 
 ## Repeat commands
 

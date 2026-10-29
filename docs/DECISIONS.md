@@ -307,3 +307,16 @@ presence in the same seven-day buckets, not a zero nutrient total. Apply format,
 run native unit/theme/AX5 flows and inspect fictional captures on macOS before
 refreshing the local preview. This supersedes the handoff's native-untested
 status only for the checks actually rerun and recorded by Codex.
+
+
+## PP03 — Integrate peer food delivery; defer motion adoption (2026-10-29)
+
+Merge Gemini 41b3985 after its dedicated-device handoff and independent source
+review. Verify combined native food/recipe/goal/theme flows on Codex's Lookbook
+QA before installing on the personal simulator. Preserve all local edits and
+back up the app data container. Add new food files/suite to existing checks.
+Claude 4de64f3 is compiled and its policy/audit tests run; do not wire new effects
+on app screens until actual gradients/nested surfaces and system accessibility
+modes are validated. Peak-opacity audit results alone do not establish contrast
+across an improving shade's zero-opacity area. No token or data change is needed
+for this local food update.
