@@ -182,6 +182,7 @@ func contextFormatterDistinguishesTodayYesterdayAndBackdatedSummaries() {
   let yesterday = calendar.date(byAdding: .day, value: -1, to: reference)!
   let threeDaysAgo = calendar.date(byAdding: .day, value: -3, to: reference)!
   let tomorrow = calendar.date(byAdding: .day, value: 1, to: reference)!
+  let tenDaysAhead = calendar.date(byAdding: .day, value: 10, to: reference)!
 
   #expect(
     FoodEntryPass2ContextFormatter.summary(
@@ -202,15 +203,149 @@ func contextFormatterDistinguishesTodayYesterdayAndBackdatedSummaries() {
     ) == "Dinner · Yesterday"
   )
   #expect(
+    FoodEntryPass2ContextFormatter.summary(
+      meal: .lunch,
+      date: tomorrow,
+      referenceDate: reference,
+      calendar: calendar,
+      locale: locale
+    ) == "Lunch · Tomorrow"
+  )
+  #expect(
+    FoodEntryPass2ContextFormatter.summary(
+      meal: .snack,
+      date: tenDaysAhead,
+      referenceDate: reference,
+      calendar: calendar,
+      locale: locale
+    ) == "Snack · Mar 25, 2024"
+  )
+
+  #expect(
+    FoodEntryPass2ContextFormatter.dateRelation(
+      for: reference, referenceDate: reference, calendar: calendar) == .today
+  )
+  #expect(
+    FoodEntryPass2ContextFormatter.badgeTitle(
+      for: reference, referenceDate: reference, calendar: calendar) == nil
+  )
+  #expect(
+    FoodEntryPass2ContextFormatter.dateRelation(
+      for: yesterday, referenceDate: reference, calendar: calendar) == .past
+  )
+  #expect(
+    FoodEntryPass2ContextFormatter.badgeTitle(
+      for: yesterday, referenceDate: reference, calendar: calendar) == "Past date"
+  )
+  #expect(
+    FoodEntryPass2ContextFormatter.dateRelation(
+      for: tomorrow, referenceDate: reference, calendar: calendar) == .future
+  )
+  #expect(
+    FoodEntryPass2ContextFormatter.badgeTitle(
+      for: tomorrow, referenceDate: reference, calendar: calendar) == "Future date"
+  )
+  #expect(
+    FoodEntryPass2ContextFormatter.badgeTitle(
+      for: tenDaysAhead, referenceDate: reference, calendar: calendar) == "Future date"
+  )
+  #expect(
     !FoodEntryPass2ContextFormatter.isBackdated(
       reference, referenceDate: reference, calendar: calendar))
   #expect(
     !FoodEntryPass2ContextFormatter.isBackdated(
       tomorrow, referenceDate: reference, calendar: calendar))
   #expect(
+    !FoodEntryPass2ContextFormatter.isBackdated(
+      tenDaysAhead, referenceDate: reference, calendar: calendar))
+  #expect(
+    FoodEntryPass2ContextFormatter.isFutureDated(
+      tomorrow, referenceDate: reference, calendar: calendar))
+  #expect(
+    FoodEntryPass2ContextFormatter.isFutureDated(
+      tenDaysAhead, referenceDate: reference, calendar: calendar))
+  #expect(
     FoodEntryPass2ContextFormatter.isBackdated(
       yesterday, referenceDate: reference, calendar: calendar))
   #expect(
     FoodEntryPass2ContextFormatter.isBackdated(
       threeDaysAgo, referenceDate: reference, calendar: calendar))
+}
+
+@Test @MainActor
+func futureDateClassificationUsesAppCalendarAndRetainsExactMealAndDate() throws {
+  let locale = Locale(identifier: "en_US_POSIX")
+  var utcCalendar = Calendar(identifier: .gregorian)
+  utcCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
+  var westernCalendar = Calendar(identifier: .gregorian)
+  westernCalendar.timeZone = TimeZone(secondsFromGMT: -5 * 3600)!
+
+  // 2024-03-15 23:00:00 UTC == 2024-03-15 18:00:00 UTC-5
+  let reference = Date(timeIntervalSince1970: 1_710_543_600)
+  // 2024-03-16 02:00:00 UTC == 2024-03-15 21:00:00 UTC-5
+  let instant = Date(timeIntervalSince1970: 1_710_554_400)
+  // 2024-03-20 02:00:00 UTC == 2024-03-19 21:00:00 UTC-5
+  let multiDayFuture = Date(timeIntervalSince1970: 1_710_900_000)
+
+  #expect(
+    FoodEntryPass2ContextFormatter.dateRelation(
+      for: instant, referenceDate: reference, calendar: utcCalendar) == .future
+  )
+  #expect(
+    FoodEntryPass2ContextFormatter.badgeTitle(
+      for: instant, referenceDate: reference, calendar: utcCalendar) == "Future date"
+  )
+  #expect(
+    FoodEntryPass2ContextFormatter.dateRelation(
+      for: instant, referenceDate: reference, calendar: westernCalendar) == .today
+  )
+  #expect(
+    FoodEntryPass2ContextFormatter.badgeTitle(
+      for: instant, referenceDate: reference, calendar: westernCalendar) == nil
+  )
+  #expect(
+    FoodEntryPass2ContextFormatter.summary(
+      meal: .breakfast,
+      date: multiDayFuture,
+      referenceDate: reference,
+      calendar: utcCalendar,
+      locale: locale
+    ) == "Breakfast · Mar 20, 2024"
+  )
+  #expect(
+    FoodEntryPass2ContextFormatter.summary(
+      meal: .breakfast,
+      date: multiDayFuture,
+      referenceDate: reference,
+      calendar: westernCalendar,
+      locale: locale
+    ) == "Breakfast · Mar 19, 2024"
+  )
+
+  let container = try ModelContainer(
+    for: FoodItem.self, DiaryEntry.self,
+    configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+  )
+  let context = ModelContext(container)
+  context.autosaveEnabled = false
+  let draft = FoodEntryPass2ManualDraft(
+    name: "Planned Oats",
+    servingDescription: "1 bowl",
+    quantity: "1.5",
+    calories: "200",
+    protein: "10",
+    carbs: "32",
+    fat: "4",
+    saveToLibrary: false
+  )
+  let logged = try FoodEntryPass2ManualLogger.log(
+    draft: draft,
+    mealType: .breakfast,
+    date: multiDayFuture,
+    locale: locale,
+    in: context
+  )
+  #expect(logged.mealType == .breakfast)
+  #expect(logged.date == multiDayFuture)
+  #expect(logged.calories == 300)
 }

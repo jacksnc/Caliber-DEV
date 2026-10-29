@@ -32,7 +32,45 @@ struct FoodEntryPass2ManualRequest: Identifiable {
   let prefill: FoodEntryPrefill?
 }
 
+enum FoodEntryPass2DateRelation: String, Equatable, Sendable {
+  case past
+  case today
+  case future
+}
+
 enum FoodEntryPass2ContextFormatter {
+  static func dateRelation(
+    for date: Date,
+    referenceDate: Date = .now,
+    calendar: Calendar = .current
+  ) -> FoodEntryPass2DateRelation {
+    let targetDay = calendar.startOfDay(for: date)
+    let currentDay = calendar.startOfDay(for: referenceDate)
+    if targetDay < currentDay {
+      return .past
+    }
+    if targetDay > currentDay {
+      return .future
+    }
+    return .today
+  }
+
+  static func badgeTitle(for relation: FoodEntryPass2DateRelation) -> String? {
+    switch relation {
+    case .past: "Past date"
+    case .today: nil
+    case .future: "Future date"
+    }
+  }
+
+  static func badgeTitle(
+    for date: Date,
+    referenceDate: Date = .now,
+    calendar: Calendar = .current
+  ) -> String? {
+    badgeTitle(for: dateRelation(for: date, referenceDate: referenceDate, calendar: calendar))
+  }
+
   static func dateLabel(
     for date: Date,
     referenceDate: Date = .now,
@@ -52,7 +90,15 @@ enum FoodEntryPass2ContextFormatter {
     {
       return "Tomorrow"
     }
-    return date.formatted(Date.FormatStyle(date: .abbreviated, time: .omitted).locale(locale))
+    return date.formatted(
+      Date.FormatStyle(
+        date: .abbreviated,
+        time: .omitted,
+        locale: locale,
+        calendar: calendar,
+        timeZone: calendar.timeZone
+      )
+    )
   }
 
   static func isBackdated(
@@ -60,7 +106,15 @@ enum FoodEntryPass2ContextFormatter {
     referenceDate: Date = .now,
     calendar: Calendar = .current
   ) -> Bool {
-    calendar.startOfDay(for: date) < calendar.startOfDay(for: referenceDate)
+    dateRelation(for: date, referenceDate: referenceDate, calendar: calendar) == .past
+  }
+
+  static func isFutureDated(
+    _ date: Date,
+    referenceDate: Date = .now,
+    calendar: Calendar = .current
+  ) -> Bool {
+    dateRelation(for: date, referenceDate: referenceDate, calendar: calendar) == .future
   }
 
   static func summary(
@@ -257,8 +311,8 @@ struct FoodEntryPass2HubCard: View {
     )
   }
 
-  private var isBackdated: Bool {
-    FoodEntryPass2ContextFormatter.isBackdated(date, calendar: calendar)
+  private var dateRelation: FoodEntryPass2DateRelation {
+    FoodEntryPass2ContextFormatter.dateRelation(for: date, calendar: calendar)
   }
 
   var body: some View {
@@ -274,16 +328,29 @@ struct FoodEntryPass2HubCard: View {
       HStack(alignment: .firstTextBaseline, spacing: HeliosTokens.space(2)) {
         contextLabel
         Spacer(minLength: HeliosTokens.space(2))
-        if isBackdated {
-          StatusBadge(.warning, "Past date")
-        }
+        dateRelationBadge
       }
       VStack(alignment: .leading, spacing: HeliosTokens.space(1)) {
         contextLabel
-        if isBackdated {
-          StatusBadge(.warning, "Past date")
-        }
+        dateRelationBadge
       }
+    }
+  }
+
+  @ViewBuilder
+  private var dateRelationBadge: some View {
+    switch dateRelation {
+    case .past:
+      StatusBadge(.warning, "Past date")
+    case .today:
+      EmptyView()
+    case .future:
+      Label {
+        Text("Future date").heliosFont(.footnote)
+      } icon: {
+        Image(systemName: "calendar.badge.clock")
+      }
+      .foregroundStyle(theme.palette.accent.base.color)
     }
   }
 

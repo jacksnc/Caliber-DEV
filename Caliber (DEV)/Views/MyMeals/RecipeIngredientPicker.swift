@@ -360,9 +360,11 @@ private struct RecipeManualIngredientForm: View {
       Group {
         Section("Ingredient") {
           TextField("Ingredient Name", text: $name)
+            .autocorrectionDisabled()
             .frame(minHeight: 48)
             .accessibilityIdentifier("recipeIngredientName")
           TextField("Source Portion, e.g. 100 g or 1 piece", text: $serving)
+            .autocorrectionDisabled()
             .frame(minHeight: 48)
             .accessibilityIdentifier("recipeIngredientServing")
         }
@@ -391,6 +393,8 @@ private struct RecipeManualIngredientForm: View {
       }
       .listRowBackground(CaliberRowBackground())
     }
+    .contentMargins(.top, 8, for: .scrollContent)
+    .listSectionSpacing(12)
     .caliberScreen()
     .scrollDismissesKeyboard(.interactively)
     .navigationTitle("Manual Ingredient")

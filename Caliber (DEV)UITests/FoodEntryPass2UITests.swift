@@ -309,6 +309,61 @@ final class FoodEntryPass2UITests: XCTestCase {
   }
 
   @MainActor
+  func testFutureLoggingDateShowsFutureBadgeNeverPastDateAndRetainsSelectedMealAndDay() {
+    let app = launch(foodReuseFixture: true)
+    app.tab("Fuel").tap()
+    XCTAssertEqual(app.staticTexts["diaryCalories"].label, "100.25 calories")
+
+    // Select the 15th of the next month so the target day is unambiguously in the future.
+    let datePicker = app.datePickers["diaryDate"]
+    XCTAssertTrue(datePicker.waitForExistence(timeout: 5))
+    datePicker.tap()
+    let nextMonth = app.buttons["Next Month"]
+    XCTAssertTrue(nextMonth.waitForExistence(timeout: 5))
+    nextMonth.tap()
+    let day15 = app.buttons.matching(NSPredicate(format: "label CONTAINS '15'")).firstMatch
+    XCTAssertTrue(day15.waitForExistence(timeout: 5))
+    day15.tap()
+    app.coordinate(withNormalizedOffset: CGVector(dx: 0.15, dy: 0.12)).tap()
+
+    XCTAssertEqual(app.staticTexts["diaryCalories"].label, "0 calories")
+
+    let addBreakfast = app.buttons["diaryAdd-breakfast"]
+    reveal(addBreakfast, in: app)
+    addBreakfast.tap()
+
+    // Future dates must show "Future date", never "Past date", while preserving meal and date.
+    XCTAssertTrue(app.staticTexts["Future date"].waitForExistence(timeout: 5))
+    XCTAssertFalse(app.staticTexts["Past date"].exists)
+    let contextSummary = app.staticTexts["foodEntryContextSummary"]
+    XCTAssertTrue(contextSummary.exists)
+    XCTAssertTrue(
+      contextSummary.label.hasPrefix("Logging to Breakfast · ")
+        && contextSummary.label.contains("15"),
+      "Unexpected future context label: \(contextSummary.label)"
+    )
+
+    // Quick-log the recent food (last-used 0.5 portion = 100.25 cal) onto future Breakfast.
+    let quickButton = app.buttons.matching(
+      NSPredicate(format: "identifier BEGINSWITH %@", "foodEntryQuickReview-recent-")
+    ).firstMatch
+    XCTAssertTrue(quickButton.waitForExistence(timeout: 5))
+    reveal(quickButton, in: app)
+    quickButton.tap()
+
+    XCTAssertEqual(app.textFields["savedFoodQuantity"].value as? String, "0.5")
+    app.buttons["savedFoodAdd"].tap()
+    XCTAssertFalse(app.buttons["savedFoodAdd"].isEnabled)
+    reveal(app.staticTexts["Added to Breakfast"], in: app)
+    XCTAssertTrue(app.staticTexts["Added to Breakfast"].exists)
+    app.buttons["foodEntryQuickReviewClose"].tap()
+
+    dismissModalSheet(in: app)
+    reveal(app.staticTexts["diaryCalories"], in: app, towardTop: true)
+    XCTAssertEqual(app.staticTexts["diaryCalories"].label, "100.25 calories")
+  }
+
+  @MainActor
   func testGraphiteFrostAndLargestTextAuditsOnFoodEntryWorkspace() throws {
     for (theme, largeText) in [("graphite", false), ("frost", false), ("graphite", true)] {
       let app = launch(theme: theme, largeText: largeText, foodReuseFixture: true)
