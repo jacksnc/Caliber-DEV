@@ -80,8 +80,8 @@ extension View {
         modifier(HeliosDrawIn())
     }
 
-    /// Cards ease back and dim slightly as they scroll under the screen edges. Reduce Motion keeps the dim only;
-    /// Increase Contrast turns the dim off too.
+    /// Cards ease back to 95% as they scroll under the screen edges. Nothing is dimmed, so text and chart data keep
+    /// their audited contrast while partly visible. Under Reduce Motion it does nothing.
     public func heliosScrollDepth() -> some View {
         modifier(HeliosScrollDepth())
     }
@@ -153,15 +153,11 @@ private struct HeliosDrawIn: ViewModifier {
 
 private struct HeliosScrollDepth: ViewModifier {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @Environment(\.heliosTheme) private var theme
 
     func body(content: Content) -> some View {
         let scales = !reduceMotion
-        let dims = !theme.palette.isHighContrast
         content.scrollTransition(.interactive, axis: .vertical) { view, phase in
-            view
-                .scaleEffect(scales ? 1 - min(abs(phase.value), 1) * 0.05 : 1)
-                .opacity(dims ? 1 - min(abs(phase.value), 1) * 0.3 : 1)
+            view.scaleEffect(scales ? 1 - min(abs(phase.value), 1) * HeliosMotionPolicy.scrollScaleDepth : 1)
         }
     }
 }
@@ -199,6 +195,10 @@ extension ButtonStyle where Self == HeliosPressableStyle {
 
 /// The moments the build brief gives a haptic, mapped to system feedback. Haptics are not motion, so they play under
 /// Reduce Motion too; the system's own haptics switch still silences them.
+///
+/// Caller contract: change the trigger only after the save has succeeded (the write returned without error), never
+/// on tap or optimistically, so a haptic always means "saved". `.selection` is the exception: it confirms a choice in
+/// a control, not a save. A haptic confirms; it never rewards a calorie deficit or a weight change.
 public enum HeliosHaptic: Sendable, CaseIterable {
     case doseLogged
     case mealLogged

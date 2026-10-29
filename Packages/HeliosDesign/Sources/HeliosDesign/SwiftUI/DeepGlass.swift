@@ -3,9 +3,10 @@ import SwiftUI
 
 // MARK: Depth
 
-/// Thickness for a glass pane: light caught along the top edge and a faint accent refraction in the corner nearest the
-/// canvas glow. Static, so Reduce Motion needs nothing. It draws nothing under Reduce Transparency (the pane is opaque)
-/// or Increase Contrast (the strong edge is the cue there), so the audited fallbacks are untouched.
+/// Thickness for a glass pane, drawn from `DeepGlassComposition` so `DeepGlassAudit` measures exactly this: Frost
+/// catches light along the top edge, Graphite gathers shade towards the bottom edge. Each layer moves the surface away
+/// from the text on it, so contrast only ever rises. Static, so Reduce Motion needs nothing. Nothing is drawn under
+/// Reduce Transparency (the pane is opaque) or Increase Contrast (the strong edge is the cue there).
 public struct HeliosGlassDepth: View {
     private let cornerRadius: Double
     @Environment(\.heliosTheme) private var theme
@@ -15,42 +16,45 @@ public struct HeliosGlassDepth: View {
     }
 
     public var body: some View {
-        let palette = theme.palette
-        if !theme.reduceTransparency && !palette.isHighContrast {
+        let layers = DeepGlassComposition.layers(for: theme.palette, reduceTransparency: theme.reduceTransparency)
+        if !layers.isEmpty {
             let shape = RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-            let highlight = palette.border.highlight.color
             ZStack {
-                shape.fill(
-                    LinearGradient(
-                        stops: [
-                            .init(color: highlight.opacity(0.55), location: 0),
-                            .init(color: highlight.opacity(0), location: 0.38),
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                // Graphite's ambient glow sits top left and Frost's top right; the refraction follows it.
-                shape.fill(
-                    RadialGradient(
-                        colors: [palette.accent.base.color.opacity(palette.isDark ? 0.10 : 0.07), palette.accent.base.color.opacity(0)],
-                        center: palette.isDark ? .topLeading : .topTrailing,
-                        startRadius: 0,
-                        endRadius: 220
-                    )
-                )
+                ForEach(layers, id: \.self) { layer in
+                    shape.fill(Self.gradient(for: layer))
+                }
             }
             .allowsHitTesting(false)
             .accessibilityHidden(true)
+        }
+    }
+
+    private static func gradient(for layer: DeepGlassLayer) -> LinearGradient {
+        let peak = layer.color.color
+        let clear = layer.color.withAlpha(0).color
+        switch layer.placement {
+        case .topLight:
+            return LinearGradient(
+                stops: [.init(color: peak, location: 0), .init(color: clear, location: DeepGlassComposition.topLightFade)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        case .bottomShade:
+            return LinearGradient(
+                stops: [.init(color: clear, location: DeepGlassComposition.bottomShadeStart), .init(color: peak, location: 1)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
         }
     }
 }
 
 // MARK: Sheen
 
-/// A single band of light that sweeps across the pane each time `trigger` changes: a logged meal, a dose taken, a
-/// goal reached. It never loops and never plays on its own. Nothing is drawn under Reduce Motion, Reduce Transparency
-/// or Increase Contrast. Place it behind content (it is part of `deepGlassCard`) so text is never washed out.
+/// A glint in the accent colour that runs once along the pane's edge each time `trigger` changes, after a confirmed
+/// save such as a logged meal. It never loops, never plays on its own and never crosses the face of the pane, so it
+/// can't sit behind text (content stays inside the card padding). Nothing is drawn under Reduce Motion, Reduce
+/// Transparency or Increase Contrast.
 public struct HeliosGlassSheen<Trigger: Equatable>: View {
     private let trigger: Trigger
     private let cornerRadius: Double
@@ -63,22 +67,24 @@ public struct HeliosGlassSheen<Trigger: Equatable>: View {
     }
 
     public var body: some View {
-        if HeliosMotionPolicy(reduceMotion: reduceMotion).allowsFlourish
-            && !theme.reduceTransparency && !theme.palette.isHighContrast {
-            let glint = theme.palette.border.highlight.color
+        let palette = theme.palette
+        if DeepGlassComposition.allowsSheen(palette: palette, reduceTransparency: theme.reduceTransparency, reduceMotion: reduceMotion) {
+            let glint = DeepGlassComposition.sheenColor(for: palette).color
             let radius = cornerRadius
-            // The band's centre runs along the diagonal from -0.5 (past the top-left corner) to 1.5 (past the
+            let lineWidth = DeepGlassComposition.sheenLineWidth
+            // The glint's centre runs along the diagonal from -0.5 (past the top-left corner) to 1.5 (past the
             // bottom-right), so it is invisible both at rest and when the sweep ends.
             Color.clear
                 .keyframeAnimator(initialValue: -0.5, trigger: trigger) { view, position in
                     view.overlay {
                         RoundedRectangle(cornerRadius: radius, style: .continuous)
-                            .fill(
+                            .strokeBorder(
                                 LinearGradient(
                                     colors: [glint.opacity(0), glint, glint.opacity(0)],
                                     startPoint: UnitPoint(x: position - 0.3, y: position - 0.3),
                                     endPoint: UnitPoint(x: position + 0.3, y: position + 0.3)
-                                )
+                                ),
+                                lineWidth: lineWidth
                             )
                     }
                 } keyframes: { _ in
@@ -130,7 +136,8 @@ extension View {
         deepGlassCard(level: level, cornerRadius: cornerRadius, padding: padding, sheenTrigger: 0)
     }
 
-    /// `glassCard` with depth, plus a light sweep each time `sheenTrigger` changes.
+    /// `glassCard` with depth, plus an edge glint each time `sheenTrigger` changes. Change the trigger only after the
+    /// save it marks has succeeded. Padding is at least the glint's line width, so content never meets the edge.
     public func deepGlassCard<T: Equatable>(
         level: GlassLevel = .base,
         cornerRadius: Double = HeliosTokens.radius.card,
@@ -138,7 +145,7 @@ extension View {
         sheenTrigger: T
     ) -> some View {
         self
-            .padding(padding)
+            .padding(max(padding, DeepGlassComposition.sheenLineWidth))
             .background { HeliosDeepGlass(level: level, cornerRadius: cornerRadius, sheenTrigger: sheenTrigger) }
     }
 }

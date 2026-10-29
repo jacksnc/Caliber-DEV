@@ -2,7 +2,7 @@
 import SwiftUI
 
 /// A design-review screen for depth and motion: every new effect wired to sample data, so it can be judged on a
-/// device. Check it with Reduce Motion, Reduce Transparency and Increase Contrast each switched on: the sweep, sparks,
+/// device. Check it with Reduce Motion, Reduce Transparency and Increase Contrast each switched on: the edge glint, sparks,
 /// rise and scroll scaling must disappear, leaving fades and the opaque fallbacks. Put it beside `HeliosGallery`
 /// behind the same developer toggle.
 public struct HeliosMotionGallery: View {
@@ -67,7 +67,8 @@ private struct MotionGalleryContent: View {
         .heliosScrollDepth()
     }
 
-    /// Logging food fills the ring, rolls the number, sweeps light across the card, taps and confirms.
+    /// Logging food fills the ring, rolls the number, runs a glint along the card's edge, taps and confirms. Here the
+    /// "save" is local sample state; in the app these fire only after the real save succeeds.
     private var fuel: some View {
         let left = max(target - eaten, 0)
         return VStack(spacing: HeliosTokens.space(3)) {
@@ -109,7 +110,7 @@ private struct MotionGalleryContent: View {
                     .font(.title)
                     .foregroundStyle(palette.accent.base.color)
                     .symbolEffect(.bounce, value: reduceMotion ? 0 : records)
-                HeliosCelebration(trigger: records)
+                HeliosCelebration(.personalRecord, trigger: records)
                     .frame(width: badgeSize * 1.8, height: badgeSize * 1.8)
             }
             .frame(width: badgeSize, height: badgeSize)

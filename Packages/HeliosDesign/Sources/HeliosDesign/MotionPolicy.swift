@@ -41,7 +41,9 @@ public struct HeliosMotionPolicy: Equatable, Sendable {
     public var pressedScale: Double { reduceMotion ? 1 : 0.97 }
     /// Opacity of a pressed tile; under Reduce Motion this dim is the whole press cue.
     public var pressedOpacity: Double { reduceMotion ? 0.75 : 0.92 }
-    /// The light sweep across glass, celebration sparks and scroll scaling are movement, so they go.
+    /// How far a card eases back as it scrolls under a screen edge (5%). It never dims.
+    public static let scrollScaleDepth: Double = 0.05
+    /// The edge glint, celebration sparks and scroll scaling are movement, so they go.
     public var allowsFlourish: Bool { !reduceMotion }
 
     public func entranceDelay(order: Int) -> Double {
@@ -57,4 +59,11 @@ public struct HeliosMotionPolicy: Equatable, Sendable {
     public static func toastDuration(voiceOver: Bool) -> Double {
         voiceOver ? toastSecondsVoiceOver : toastSeconds
     }
+}
+
+/// The only moments that earn a celebration: confirmed training achievements. Calorie deficits, weight changes or
+/// targets, and doses are deliberately absent; they get a plain confirmation at most.
+public enum HeliosAchievement: String, Sendable, CaseIterable {
+    /// A record the PR engine has evaluated and saved (TRN-50). Warm-ups never count.
+    case personalRecord
 }

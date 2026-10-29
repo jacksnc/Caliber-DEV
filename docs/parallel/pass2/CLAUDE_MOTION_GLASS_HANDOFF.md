@@ -1,133 +1,202 @@
 # Claude handoff: depth and motion (Helios)
 
 Status: **delivered for review, native build UNTESTED.** Branch
-`claude/motion-glass`, stacked on `claude/visual-pass-2` (`d956269`) so it
-inherits that branch's Helios changes without touching them. No PR opened and
-nothing merged; Codex integrates after visual pass 2.
+`claude/motion-glass`, stacked on `claude/visual-pass-2` (`d956269`). Nothing
+from another stream was merged in. No PR opened and nothing merged. Codex owns
+native integration.
+
+Commits:
+
+- `63ed08b` feat(helios): add depth, sheen, motion, toast and celebration primitives
+- this follow-up: measured deep-glass contrast, reworked depth/sheen/toast, accessibility and caller contracts
 
 ## Environment limits (read first)
 
-Written in a Linux cloud container with no Xcode, `xcrun`, `swift` or
-simulator. **Nothing here has been compiled or run.** The SwiftUI was checked by
-hand against the iOS 17 / macOS 14 API surface the package targets. No captures
-are claimed. Static checks that do run here passed:
-
-```
-python3 scripts/lint_dynamic_type.py --strict Packages/HeliosDesign   # 20 files, 0 errors, 0 warnings
-python3 scripts/check_tokens.py                                       # PASS (tokens unchanged)
-```
-
-`scripts/lint_foundation.py` stops at `xcrun swift-format` here; it does not
-list HeliosDesign files anyway.
+This was written in a Linux cloud container with no Xcode, `xcrun`, `swift` or
+simulator. **No Swift in this branch has been compiled or run, including the new
+tests.** The contrast numbers below come from a line-by-line Python mirror of
+`DeepGlassAudit.swift`. It reads the shipped values from `GeneratedTokens.swift`
+and uses the same WCAG and compositing formulas as `ColorMath`/`RGBA`. That
+mirror is evidence for the design, but it doesn't replace `swift test`.
 
 ## Commands for Codex / a Mac
 
 ```sh
 git fetch origin && git switch --track origin/claude/motion-glass
-swift test --package-path Packages/HeliosDesign          # adds MotionPolicyTests
+swift test --package-path Packages/HeliosDesign     # DeepGlassAuditTests, MotionPolicyTests + existing
 python3 scripts/lint_foundation.py
 python3 scripts/lint_dynamic_type.py --strict Packages/HeliosDesign
-# Visual check: show HeliosMotionGallery() (e.g. a #Preview or the dev toggle that shows HeliosGallery)
-# under Graphite, Frost, Reduce Motion, Reduce Transparency, Increase Contrast and AX5 text.
+python3 scripts/check_tokens.py
+# Visual: show HeliosMotionGallery() under Graphite, Frost, Reduce Motion,
+# Reduce Transparency, Increase Contrast, VoiceOver and AX5 text.
 ```
 
-## Files (all new, all inside `Packages/HeliosDesign/`)
+## Checks run here (2026-10-29)
 
-| File | What it adds |
+| Check | Result |
 | --- | --- |
-| `Sources/HeliosDesign/MotionPolicy.swift` | `HeliosMotionSpeed`, `HeliosMotionPolicy`: the Reduce Motion rules as plain values (testable without SwiftUI) |
-| `Sources/HeliosDesign/SwiftUI/Motion.swift` | Curves, transitions, entrance cascade, numeric roll, chart draw-in, scroll depth, pressable style, haptics |
-| `Sources/HeliosDesign/SwiftUI/DeepGlass.swift` | `HeliosGlassDepth`, `HeliosGlassSheen`, `HeliosDeepGlass`, `.deepGlassCard(...)` |
-| `Sources/HeliosDesign/SwiftUI/Feedback.swift` | `HeliosToast` + `.heliosToast(_:)`, `HeliosCelebration` |
-| `Sources/HeliosDesign/SwiftUI/MotionGallery.swift` | `HeliosMotionGallery` review screen with sample data |
-| `Tests/HeliosDesignTests/MotionPolicyTests.swift` | Policy tests (Reduce Motion, stagger cap, 400 ms draw-in, toast timing) |
+| `python3 scripts/lint_dynamic_type.py --strict Packages/HeliosDesign` | 22 files, 0 errors, 0 warnings |
+| `python3 scripts/check_tokens.py` | PASS, 54 pairs, minimum 5.94:1 (tokens unchanged) |
+| `python3 scripts/gen_tokens.py --check` | design tokens are up to date |
+| `python3 scripts/test_gen_tokens.py`, `test_lint_dynamic_type.py` | OK, OK |
+| `scripts/lint_foundation.py` | not runnable here (stops at `xcrun swift-format`). It doesn't list HeliosDesign files. |
+| `swift test` HeliosDesign, Xcode build, UI tests | **UNTESTED** |
 
-No existing file changed. Tokens, `tokens.json`, generated outputs, Today,
-Progress, tab bar, header, models, services, routes and identifiers are
-untouched. No migration.
+## 1. Contrast: the unmeasured gap, closed
 
-## Design
+**The first draft failed.** Measured with the audit rules, Graphite's draft
+depth fails badly. That draft was white top light, a 10% accent wash and a white
+sheen across the face. The worst case is an overlay on a deep card over the
+stacked glows: primary text 3.33:1, tertiary 1.65:1, carbs 1.06:1. The
+"should stay above" claim was wrong. In Frost, the draft's accent wash passed
+the minimums but cost up to 0.55:1 of contrast.
 
-The canvas stays static (as `Background.swift` intends). Motion only answers
-something the person did, and nothing loops.
+**What changed.**
 
-**Depth.** `deepGlassCard` is `glassCard` plus two static layers drawn between
-the glass tint and the content: a highlight caught along the top edge, and a
-faint accent refraction in the corner nearest the palette's ambient glow
-(top-left in Graphite, top-right in Frost). Both use palette tokens. They draw
-nothing under Reduce Transparency (opaque fallback unchanged) or Increase
-Contrast (the strong edge stays the cue). Meant for one hero card per screen,
-not every card.
+- `DeepGlassComposition` (new, Foundation-only) states each decorative layer as
+  data with its peak alpha. `HeliosGlassDepth` draws only these layers, so the
+  audit measures what is drawn. The rule is that a layer may only move the
+  surface away from the text on it:
+  - Graphite gets a bottom shade: the darkest canvas tone, peak 30% at the
+    bottom edge, clear above half the height.
+  - Frost gets a top light: the highlight at 55% of its alpha, faded out by
+    38% of the height.
+  - The accent wash was removed in both themes, because an accent wash already
+    means "selected" in Helios.
+  - Under Reduce Transparency or Increase Contrast there are no layers.
+- The sheen no longer crosses the face of the pane. It is a 1.5 pt accent glint
+  that runs once along the pane's edge, inside the card padding.
+  `deepGlassCard` now pads content by at least that width, so text never sits
+  under the glint.
+- A toast now sits on the opaque overlay tone with the overlay tint on top,
+  instead of see-through glass. Content scrolling underneath can't be
+  predicted, so it can't be audited.
+- `heliosScrollDepth` no longer dims. Text and chart data near the screen edge
+  keep full contrast. It only scales to 95%, and does nothing under Reduce
+  Motion.
 
-**Sheen.** `deepGlassCard(sheenTrigger:)` sweeps one diagonal band of light
-across the pane each time the trigger changes (meal logged, dose taken). It is
-behind the text, so contrast is never reduced, and it is removed under Reduce
-Motion, Reduce Transparency and Increase Contrast.
+**`DeepGlassAudit`** (new) uses PaletteAudit's colours and minimums: text and
+status 4.5:1, primary advisory 7:1, focus ring and data graphics 3:1, and the
+Increase Contrast edge 3:1. It runs them over 55 surfaces per palette with
+every layer at its peak:
 
-**Motion.** All durations and springs come from the `motion` tokens.
+- each glass level as a deep pane over all 10 `PaletteAudit` backdrops;
+- raised and overlay plain glass on a deep card, over each backdrop (a tile or
+  pressed control on a card, the maximum overlay state the primitives create);
+- the toast, normal and under Reduce Transparency;
+- the three opaque fallbacks.
 
-- `.heliosEntrance(order:)`: cards fade in, rise 14 pt and settle with the house
-  spring, cascading 37.5 ms apart (capped at 4 steps, 150 ms). Reduce Motion:
-  fade only, no stagger.
-- `.heliosNumericTransition(value:)`: digits roll (`numericText`). Reduce Motion:
-  crossfade.
-- `.heliosDrawIn()`: a chart is revealed left to right in 400 ms (the brief's
-  limit). Reduce Motion: fade in.
-- `.heliosScrollDepth()`: cards ease back to 95% and dim to 70% as they pass
-  under the screen edges. Reduce Motion: dim only. Increase Contrast: no dim.
-- `.buttonStyle(.heliosPressable)`: tappable tiles shrink to 97% and spring back.
-  Reduce Motion: dim instead.
-- `heliosRise` / `heliosDrop` transitions and `withHeliosAnimation` become plain
-  fades under Reduce Motion. `.heliosAnimation(_:value:)` animates nothing then.
+It also reports an error when any layer lowers any colour's contrast on any
+surface compared with the same surface without layers.
 
-**Haptics.** `.heliosHaptic(_:trigger:)` and a `condition:` variant cover the
-brief's moments: dose logged and meal logged (success), set complete (medium
-impact), personal record (heavy impact), rest ended (rigid impact), selection,
-limit reached (warning). They play under Reduce Motion; the system haptics
-switch still silences them.
+Results from the Python mirror: no findings in any of the four palettes.
 
-**Toast.** `.heliosToast($toast)` floats a confirmation on deep overlay glass at
-the top, drops in (fades under Reduce Motion), plays its haptic, posts a
-VoiceOver announcement, and clears after 2.6 s, or 6 s with VoiceOver on. Tap
-dismisses it. Identifier: `heliosToast`. The caller passes localized text.
+| Palette | Worst primary | Worst tertiary | Worst status | Worst data graphic | HC edge |
+| --- | --- | --- | --- | --- | --- |
+| Graphite | 9.69 | 4.80 | danger 5.35 | carbs 3.09 | n/a |
+| Frost | 16.96 | 5.38 | success 5.03 | training 3.58 | n/a |
+| Graphite IC | 9.77 | 5.97 | danger 5.39 | carbs 3.11 | 6.10 |
+| Frost IC | 16.84 | 7.60 | success 4.99 | training 3.55 | 6.53 |
 
-**Celebration.** `HeliosCelebration(trigger:)` layered around a badge or ring
-fires twelve sparks in the data colours once per change. Reduce Motion: an accent
-ring glows and fades in place. It is decorative and hidden from VoiceOver, so the
-caller announces the achievement in text (the toast does this).
+Graphite's worst case is an overlay on a deep card over the stacked glows.
+Frost's worst case is a deep base pane over the bottom of the first glow.
 
-## Suggested adoption (not applied; needs the owners' go-ahead)
+`DeepGlassAuditTests` pins:
 
-These touch files owned elsewhere, so they are only recommendations for Codex
-to apply after visual pass 2 lands:
+- all four palettes pass;
+- primary stays at AAA;
+- the no-contrast-loss rule holds on every surface and colour;
+- surface coverage, including the brightest Graphite stack and the toast;
+- Reduce Transparency and Increase Contrast draw no layers and no sheen;
+- layers carry no accent tint;
+- the toast is opaque;
+- the sheen is an accent glint no wider than the edge.
 
-1. Today hero card (`TodayFoundationView.swift`): `.glassCard()` to
-   `.deepGlassCard(sheenTrigger: <eaten kcal>)`, and add
-   `.heliosNumericTransition(value:)` to the kcal-left number.
-2. Today dose tile: wrap in `Button` with `.heliosPressable`. After a dose is
-   logged, set a `HeliosToast(symbol: "syringe", message: "Dose logged", haptic: .doseLogged)`
-   on a `.heliosToast` at the root.
-3. Today and Progress cards: `.heliosEntrance(order:)` by position (eager
-   stacks only).
-4. Progress charts (`WeightTrendChart`, Calories card): `.heliosDrawIn()`.
-5. Train (frozen in batch 1): `HeliosCelebration` + `.personalRecord` haptic
-   for TRN-50 PRs, `.setComplete` and `.restEnded` haptics.
-6. Add `HeliosMotionGallery()` next to `HeliosGallery()` behind the developer
-   toggle.
+It also has two regressions proving the audit catches problems: the first
+draft's Graphite depth, and a Frost accent wash.
 
-UI tests: the entrance starts each card at opacity 0 for up to about 0.45 s.
-Existing `waitForExistence` calls should cover that; if any test taps
-immediately, launch with Reduce Motion on or skip `heliosEntrance` under the
-UI-testing launch flags.
+**Pre-existing finding (outside these files; for Codex and the palette
+owner).** `PaletteAudit` doesn't model glass nested on glass. In Graphite, a
+plain raised tile on a plain card, such as `MetricTile` inside `glassCard`,
+already measures below the rules at the stacked-glow backdrop: tertiary 4.44,
+carbs 2.85, fat 2.87, training 2.89, peptide 2.94. A pressed overlay on that
+tile is lower still: tertiary 3.22, carbs 2.07.
+
+A deep card fixes the two-level case. On a deep card even the heavier one-level
+stack (an overlay) measures tertiary 4.80 and carbs 3.09, both passing. The three-level case still fails on a deep card in
+Graphite (carbs 2.43) and in Graphite IC (carbs 2.70).
+
+Fixing that needs token or `PaletteAudit` changes, which are out of scope here.
+Tokens and generated outputs are unchanged.
+
+## 2. Accessibility behaviour, checked per primitive
+
+| Primitive | Reduce Motion | Reduce Transparency | Increase Contrast | Notes |
+| --- | --- | --- | --- | --- |
+| `deepGlassCard` / `HeliosGlassDepth` | static anyway | no layers (audited opaque) | no layers, strong edge | layers never lower contrast |
+| Edge glint (`sheenTrigger`) | removed | removed | removed | edge only; one sweep per trigger, never loops |
+| `heliosEntrance` | fade only, no stagger | n/a | n/a | starts at opacity 0 for about half a second at most |
+| `heliosNumericTransition` | crossfade | n/a | n/a | shows the caller's formatted value unchanged |
+| `heliosDrawIn` | fade in (0.15 s) | n/a | n/a | at most 400 ms; masks drawing only, data and accessibility summary unchanged |
+| `heliosScrollDepth` | nothing | n/a | n/a | scale only, never dims |
+| `.heliosPressable` | dims to 75% while pressed | n/a | n/a | shrinks to 97% otherwise; only while the finger is down |
+| `heliosRise`/`heliosDrop`, `withHeliosAnimation` | plain fade | n/a | n/a | `heliosAnimation` animates nothing under RM |
+| Toast | fades instead of dropping | opaque overlay tone | strong edge from `GlassBackground` | Button with label, hint and `heliosToast` id; VoiceOver announcement; dismiss on tap or escape gesture; 2.6 s, or 6 s with VoiceOver |
+| `HeliosCelebration` | ring glow fades in place | n/a | n/a | hidden from VoiceOver; caller announces in text |
+| Haptics | play (not motion) | n/a | n/a | system haptics switch still applies |
+
+## 3. Caller contract (documented in source)
+
+- **Toast, haptics, edge glint:** fire only after the save they confirm has
+  succeeded, meaning the write returned without error. Never fire them on tap,
+  optimistically, or after a failure. A failed save gets an inline error.
+  `.selection` is the one haptic that confirms a control choice, not a save.
+  Toast text states what was saved and never praises or judges a number.
+- **Celebration:** `HeliosCelebration(.personalRecord, trigger:)`. The only
+  `HeliosAchievement` is a saved PR from the PR engine (TRN-50, warm-ups never
+  count). The type has no case for calorie deficits, weight changes or targets,
+  or doses, and a test pins that. Change the trigger once per saved record,
+  not when the screen reappears or the record is recomputed on edit. The
+  default spark colours are training and accent.
+
+## Files (all inside `Packages/HeliosDesign/` plus this note)
+
+| File | Change |
+| --- | --- |
+| `Sources/HeliosDesign/DeepGlassComposition.swift` | new: layers as data, toast base, sheen rules |
+| `Sources/HeliosDesign/DeepGlassAudit.swift` | new: deep-glass contrast audit |
+| `Sources/HeliosDesign/MotionPolicy.swift` | `scrollScaleDepth`, `HeliosAchievement` |
+| `Sources/HeliosDesign/SwiftUI/DeepGlass.swift` | depth drawn from the composition; edge glint; minimum padding |
+| `Sources/HeliosDesign/SwiftUI/Feedback.swift` | opaque toast base, escape dismissal, contracts, achievement-gated celebration |
+| `Sources/HeliosDesign/SwiftUI/Motion.swift` | scroll depth scale-only; haptic contract |
+| `Sources/HeliosDesign/SwiftUI/MotionGallery.swift` | uses `.personalRecord`, notes sample-only saves |
+| `Tests/HeliosDesignTests/DeepGlassAuditTests.swift` | new |
+| `Tests/HeliosDesignTests/MotionPolicyTests.swift` | scroll scale, achievement scope |
+
+Nothing outside Helios was touched: tokens, generated outputs, `PaletteAudit`,
+app screens, schemas, shared scripts and planning docs. No migration.
+
+## Adoption checklist (for Codex, after review)
+
+- [ ] `swift test --package-path Packages/HeliosDesign` is green. If
+      `DeepGlassAuditTests` disagrees with the numbers above, trust the Swift run
+      and send it back.
+- [ ] `HeliosMotionGallery()` checked on device in Graphite and Frost, each with
+      Reduce Motion, Reduce Transparency, Increase Contrast, VoiceOver and AX5.
+- [ ] Use `deepGlassCard` for one hero card per screen, such as the Today fuel
+      card, where it also lifts nested tiles in Graphite.
+- [ ] Wire toasts, haptics and the edge glint only in the save-success branch of
+      the existing logging calls.
+- [ ] Use `HeliosCelebration` only once the PR engine saves a record (Train, a
+      later batch).
+- [ ] UI tests: allow for `heliosEntrance`'s fade-in of about half a second, or
+      launch with Reduce Motion on.
+- [ ] Decide separately how to handle the pre-existing Graphite nested-glass
+      finding.
 
 ## Not done
 
-- iOS 26 system Liquid Glass (`glassEffect`). CI's iOS job builds with Xcode 16.4,
-  which lacks that API, and `Glass.swift` deliberately avoids system materials
-  because they gray Graphite. Worth revisiting as an opt-in for floating
-  controls (tab bar, toasts) once CI moves to Xcode 26.
-- Device-motion parallax on glass: left out on purpose (the tokens forbid
-  parallax under Reduce Motion, and it costs battery).
-- PaletteAudit does not model the depth layers. They only brighten the top of
-  a pane by at most about 11% white in Graphite, so text contrast should stay
-  well above the audited 5.94:1 minimum, but this has not been measured.
+- iOS 26 system Liquid Glass (`glassEffect`): CI's iOS job uses Xcode 16.4, and
+  `Glass.swift` avoids system materials on purpose.
+- Device-motion parallax: left out (the tokens forbid it under Reduce Motion).
+- No effect is wired into app screens. Codex owns that.

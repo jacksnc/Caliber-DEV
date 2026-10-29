@@ -48,4 +48,13 @@ final class MotionPolicyTests: XCTestCase {
         )
         XCTAssertGreaterThanOrEqual(HeliosMotionPolicy.toastDuration(voiceOver: false), 2)
     }
+
+    func testScrollDepthOnlyScalesAndStaysSubtle() {
+        XCTAssertGreaterThan(HeliosMotionPolicy.scrollScaleDepth, 0)
+        XCTAssertLessThanOrEqual(HeliosMotionPolicy.scrollScaleDepth, 0.05)
+    }
+
+    func testOnlyConfirmedTrainingAchievementsCelebrate() {
+        XCTAssertEqual(HeliosAchievement.allCases, [.personalRecord], "no celebration for deficits, weight targets or doses")
+    }
 }
