@@ -1,9 +1,13 @@
 # Gemini handoff — Pass 2 faster food-entry workspace
 
-- **Status**: Complete — ready for Codex integration into `codex/pass2-integration`
-- **Branch**: `gemini/food-entry-pass-2`
+- **Status**: Complete & isolated QA verified — ready for Codex merge into `codex/pass2-integration`
+- **Branch**: `gemini/food-entry-pass-2` (unmerged stream from common base `96e8068`, per ownership rules)
 - **Common base commit**: `96e8068` (`docs: assign the second visual and feature implementation pass`)
-- **Implementation commit**: `4457beb` (`4457beb210063f38acf51b1a3e7f38298a3d0e2f` — `feat(fuel): refine food-entry workspace and quick portion review`), followed by the handoff commit (`docs(pass2): complete Gemini food-entry handoff`) at branch `HEAD`
+- **Implementation commits**:
+  - `4457beb` (`4457beb210063f38acf51b1a3e7f38298a3d0e2f` — `feat(fuel): refine food-entry workspace and quick portion review`)
+  - `78a189d` (`78a189db67d6991d406f25d042c86680cd21d7ec` — `fix(fuel): distinguish past/today/future logging dates and recipe form spacing`)
+  - Followed by the final handoff update commit (`docs(pass2): record isolated Caliber Food Entry QA verification`) at branch `HEAD`
+- **Dedicated QA simulator**: **Caliber Food Entry QA** (`4387978B-A0DF-4A04-9525-19805A4340E0`, `iPhone 17`, iOS 27.0)
 - **Compare / PR URL**: `https://github.com/jacksnc/Caliber-DEV/compare/codex/pass2-integration...gemini/food-entry-pass-2`
 - **Assignment & ownership rules**: [GEMINI_TASK.md](GEMINI_TASK.md), [README.md](README.md), [BASELINE_VERIFICATION.md](BASELINE_VERIFICATION.md)
 
@@ -14,11 +18,11 @@
 All changes stay strictly inside Gemini's owned paths in [README.md](README.md). Zero edits were made to `Models/*`, `App/*`, `Views/RootTabView.swift`, `Views/Diary/DiaryView.swift`, scanner/label/photo internals, restaurants, `Packages/HeliosDesign/*`, `design/tokens.json`, `*.pbxproj`, localization catalogs, CI workflows, scripts, existing test files, or shared planning docs.
 
 ### Added (`FoodEntryPass2*`)
-- `Caliber (DEV)/Views/Diary/FoodEntryPass2Components.swift` — Helios food-entry hub header/shortcut card (`FoodEntryPass2HubCard`), meal/backdated context formatter (`FoodEntryPass2ContextFormatter`), sibling `.borderless` quick-review action button (`FoodEntryPass2QuickReviewButton`), modal quick-review container (`FoodEntryPass2QuickReviewSheet`), semantic macro tile strip (`FoodEntryPass2MacroSummaryRow`), actionable empty/no-results recovery card (`FoodEntryPass2EmptyStateCard`), atomic manual-prefill sheet request (`FoodEntryPass2ManualRequest`), and pure manual draft/logger (`FoodEntryPass2ManualDraft`, `FoodEntryPass2ManualLogger`).
-- `Caliber (DEV)Tests/FoodEntryPass2Tests.swift` — 4 Swift Testing unit tests covering manual draft macro validation (never inventing `0 g`), comma-locale decimal parsing, backdated meal/library persistence plus failed-save rollback, and context date formatting.
-- `Caliber (DEV)UITests/FoodEntryPass2UITests.swift` — 3 XCUITest end-to-end and accessibility-audit suites covering recent quick-review (`+`) prefill/cancel/macro-override/post-log editing, backdated meal propagation across no-results manual entry and recipes without inventing zero macros, and Graphite/Frost/AX5 (`UICTContentSizeCategoryAccessibilityXXXL`) repeated accessibility audits with named screenshot attachments.
+- `Caliber (DEV)/Views/Diary/FoodEntryPass2Components.swift` — Helios food-entry hub header/shortcut card (`FoodEntryPass2HubCard`), past/today/future calendar relation & context formatter (`FoodEntryPass2DateRelation`, `FoodEntryPass2ContextFormatter`), sibling `.borderless` quick-review action button (`FoodEntryPass2QuickReviewButton`), modal quick-review container (`FoodEntryPass2QuickReviewSheet`), semantic macro tile strip (`FoodEntryPass2MacroSummaryRow`), actionable empty/no-results recovery card (`FoodEntryPass2EmptyStateCard`), atomic manual-prefill sheet request (`FoodEntryPass2ManualRequest`), and pure manual draft/logger (`FoodEntryPass2ManualDraft`, `FoodEntryPass2ManualLogger`).
+- `Caliber (DEV)Tests/FoodEntryPass2Tests.swift` — 5 Swift Testing unit tests covering manual draft macro validation (never inventing `0 g`), comma-locale decimal parsing, backdated meal/library persistence plus failed-save rollback, past/today/future date classification (`"Past date"` vs `nil` vs `"Future date"`), and cross-timezone `Calendar`/`TimeZone` formatting + future `DiaryEntry` retention.
+- `Caliber (DEV)UITests/FoodEntryPass2UITests.swift` — 4 XCUITest end-to-end and accessibility-audit suites covering recent quick-review (`+`) prefill/cancel/macro-override/post-log editing, backdated meal propagation across no-results manual entry and recipes without inventing zero macros, future-date logging context (`"Future date"` shown, `"Past date"` absent, exact meal & future day retained), and Graphite/Frost/AX5 (`UICTContentSizeCategoryAccessibilityXXXL`) repeated accessibility audits with named screenshot attachments.
 
-### Modified (owned views only)
+### Modified (owned views & handoff only)
 - `Caliber (DEV)/Views/Diary/FoodSearchView.swift`
 - `Caliber (DEV)/Views/Diary/AddFoodView.swift`
 - `Caliber (DEV)/Views/Diary/FoodNutritionReviewView.swift`
@@ -26,26 +30,32 @@ All changes stay strictly inside Gemini's owned paths in [README.md](README.md).
 - `Caliber (DEV)/Views/MyFoods/SavedFoodDetailView.swift`
 - `Caliber (DEV)/Views/MyMeals/MyMealsView.swift`
 - `Caliber (DEV)/Views/MyMeals/SavedMealDetailView.swift`
+- `Caliber (DEV)/Views/MyMeals/RecipeIngredientPicker.swift`
 - `docs/parallel/pass2/GEMINI_HANDOFF.md`
 
 ---
 
-## Delivered behavior
+## Delivered behavior & follow-up fixes
 
-1. **Unified native food-entry hub (`FoodSearchView(mealType:date:)`)**:
-   - Displays the active logging destination (`Meal · Today` / `Yesterday` / explicit date, `foodEntryContextSummary`) and a Helios `"Past date"` `StatusBadge` (`foodEntryBackdatedBadge`) whenever the target date is not today.
+1. **Unified native food-entry hub & past/today/future date distinction (`FoodSearchView(mealType:date:)`)**:
+   - Displays the active logging destination (`Meal · Today` / `Yesterday` / `Tomorrow` / explicit abbreviated date, `foodEntryContextSummary`) evaluated strictly in the app's injected `Calendar` and `calendar.timeZone` (`Date.FormatStyle(..., locale: locale, calendar: calendar, timeZone: calendar.timeZone)`).
+   - Explicitly classifies `date` via `FoodEntryPass2ContextFormatter.dateRelation(for:referenceDate:calendar:)` into `.past`, `.today`, or `.future`:
+     - `.past` renders `StatusBadge(.warning, "Past date")`.
+     - `.today` renders no off-day badge.
+     - `.future` renders a distinct accented `"Future date"` badge (`calendar.badge.clock`) and **never** labels a future logging date `"Past date"`, while retaining the exact selected `mealType` and `date` through every route and logged `DiaryEntry`.
    - Consolidates capture and creation shortcuts into a responsive 2×2 Helios grid (`openBarcode` -> `BarcodeFoodLookupView`, `openLabelScan` -> `LabelScannerView`, `openPhotoEstimate` -> `PhotoEstimateView`, `foodSearchManual` -> `AddFoodView`) and a 3-item library strip (`foodEntryOpenMyFoods` -> `MyFoodsView`, `foodEntryOpenMyMeals` -> `MyMealsView`, `foodEntryOpenRestaurants` -> `RestaurantListView`) that collapses cleanly to vertical stacks at accessibility Dynamic Type sizes.
-   - Preserves typed queries across scope switches (`foodSearchScope`: `All`, `Recents`, `Favorites`, `My Foods`, `My Meals`, `USDA`, `Restaurants`) while keeping typed multi-item lists (`"2 eggs, a banana"`), offline USDA matches, personal foods, saved recipes/meals, and restaurant items/builders reachable.
+   - Preserves typed queries across scope switches (`foodSearchScope`: `All Foods`, `Recent`, `Frequent`, `Favorites`) while keeping typed multi-item lists (`"2 eggs, a banana"`), offline USDA matches, personal foods, saved recipes/meals, and restaurant items/builders reachable.
    - Provides actionable empty/no-results recovery (`FoodEntryPass2EmptyStateCard`) with one-tap `"Search All Foods"` (`foodSearchResetScope`) when filtered and `"Enter \"<query>\" Manually"` (`foodSearchCreateFromQuery`) prefilled via atomic `.sheet(item:)` state.
 
 2. **Top-positioned recents & sibling quick-review action (`+`)**:
    - Orders `Recent Foods` directly at the top of browse results (above `Favorites`, `My Foods`, `My Meals`, `Frequent Foods`, and `Restaurants`).
    - Attaches a sibling `.buttonStyle(.borderless)` `+` quick action (`FoodEntryPass2QuickReviewButton`, `foodEntryQuickReview-<rowId>`) alongside `NavigationLink` rows so existing row IDs (`recent-*`, `frequent-*`, `favorite-*`, `catalogFood-*`, `listMatch-*`, `savedRecipe-*`) remain directly on the navigation elements without nested button conflicts or inaccessible wrappers.
-   - Tapping `+` opens `FoodEntryPass2QuickReviewSheet` presenting the existing editable review screen (`SavedFoodDetailView`, `FoodNutritionReviewView`, or `SavedMealDetailView`) prefilled with the last-used quantity (`FoodReuseSummary.RecentFood.lastQuantity`), `mealType`, and `date`. Confirming writes the same independent `FoodItem` + `DiaryEntry` snapshot; canceling writes nothing; personal macro overrides never mutate source library or USDA reference records; and logged diary snapshots remain editable via `EditDiaryEntryView`.
+   - Tapping `+` opens `FoodEntryPass2QuickReviewSheet` presenting the existing editable review screen (`SavedFoodDetailView`, `FoodNutritionReviewView`, or `SavedMealDetailView`) prefilled with the last-used quantity, `mealType`, and `date`. Confirming writes the same independent `FoodItem` + `DiaryEntry` snapshot; canceling writes nothing; personal macro overrides never mutate source library or USDA reference records; and logged diary snapshots remain editable via `EditDiaryEntryView`.
 
-3. **Meal & backdated date propagation + navigation-bar visibility**:
+3. **Meal & date propagation, navigation-bar visibility & recipe manual-ingredient keyboard clearance**:
    - Threads `mealType` and `date` through Barcode, Label Scan, Photo Estimate, Manual Entry, `MyFoodsView(mealType:date:)` -> `SavedFoodDetailView` / `AddFoodView`, and `MyMealsView(mealType:date:)` -> `SavedMealDetailView`.
    - Applies `.toolbar(.visible, for: .navigationBar)` on `FoodSearchView`, `FoodNutritionReviewView`, `MyFoodsView`, `SavedFoodDetailView`, `MyMealsView`, and `SavedMealDetailView` so views pushed onto `DiaryView`'s `NavigationStack` (where `DiaryView` hides its bar via `.compactNavigationTitle("Fuel")`) always retain their Back button and toolbar actions (`createRecipe`, `Add to Diary`, etc.).
+   - Tightens `RecipeManualIngredientForm` top/section spacing and disables QuickType autocorrection on ingredient name/portion inputs in `RecipeIngredientPicker.swift` so `recipeIngredientCalories` stays clear of the keyboard accessory bar on fresh simulator boots while keeping `48pt` minimum field heights.
 
 4. **Compact manual entry without invented zero macros (`AddFoodView`)**:
    - Backed by `FoodEntryPass2ManualDraft` and `FoodEntryPass2ManualLogger`. Removes the old `protein.isEmpty ? "0" : protein` fallback so blank macro fields never silently become `0 g` or create calorie-only semantics: all four nonnegative values (`Calories`, `Protein`, `Carbs`, `Fat`) are required, while explicit `"0"` remains valid when a macro is genuinely `0 g`.
@@ -112,10 +122,11 @@ final class FoodEntryDraftSession: ObservableObject {
 
 ---
 
-## Screenshots & accessibility audit evidence
+## Screenshots & accessibility audit evidence (isolated QA simulator)
 
-Recorded in `/tmp/caliber-food-entry-pass2-final.xcresult` via `FoodEntryPass2UITests.testGraphiteFrostAndLargestTextAuditsOnFoodEntryWorkspace` on `iPhone 17` simulator (with `XCUIApplication.auditRepeatedIssues` running `.textClipped` at default size and `[.dynamicType, .textClipped]` at AX5 `UICTContentSizeCategoryAccessibilityXXXL`):
+Recorded in `/tmp/caliber-food-entry-pass2-qa-4387978B.xcresult` on **Caliber Food Entry QA** (`4387978B-A0DF-4A04-9525-19805A4340E0`, `iPhone 17`, iOS 27.0) with `XCUIApplication.auditRepeatedIssues` running `.textClipped` at default size and `[.dynamicType, .textClipped]` at AX5 `UICTContentSizeCategoryAccessibilityXXXL` (no audits weakened):
 
+### Pass 2 workspace attachments (`FoodEntryPass2UITests`)
 - `pass2-food-hub-graphite-default` — `FoodSearchView` hub in Graphite (default Dynamic Type)
 - `pass2-manual-entry-graphite-default` — `AddFoodView` in Graphite (default Dynamic Type)
 - `pass2-quick-review-graphite-default` — `FoodEntryPass2QuickReviewSheet` (`SavedFoodDetailView`) in Graphite (default Dynamic Type)
@@ -125,8 +136,16 @@ Recorded in `/tmp/caliber-food-entry-pass2-final.xcresult` via `FoodEntryPass2UI
 - `pass2-food-hub-graphite-AX5` — `FoodSearchView` hub in Graphite at `UICTContentSizeCategoryAccessibilityXXXL`
 - `pass2-manual-entry-graphite-AX5` — `AddFoodView` (with scalable bottom action bar) in Graphite at `UICTContentSizeCategoryAccessibilityXXXL`
 
-Additional lookbook/scanner attachments re-verified in the same bundle:
-- `graphite-SmartSearch`, `graphite-LabelScan`, `graphite-ScanResult`, `Fictional barcode product review`, `USDA food logged with personal macros`.
+### Scanner, portion-review, restaurant & lookbook attachments verified in the same QA bundle
+- `Fictional barcode product review`
+- `Fictional imported menu reviewed and logged`
+- `USDA food logged with personal macros`
+- `graphite-LabelScan`
+- `graphite-PhotoEstimate`
+- `graphite-ScanResult`
+- `graphite-SmartSearch`
+- `graphite-Scanner-AX5`
+- `graphite-ScannerModes`
 
 ---
 
@@ -143,6 +162,7 @@ xcrun swift-format lint --strict \
   "Caliber (DEV)/Views/MyFoods/SavedFoodDetailView.swift" \
   "Caliber (DEV)/Views/MyMeals/MyMealsView.swift" \
   "Caliber (DEV)/Views/MyMeals/SavedMealDetailView.swift" \
+  "Caliber (DEV)/Views/MyMeals/RecipeIngredientPicker.swift" \
   "Caliber (DEV)Tests/FoodEntryPass2Tests.swift" \
   "Caliber (DEV)UITests/FoodEntryPass2UITests.swift"
 # Exit 0 (0 warnings, 0 errors)
@@ -160,50 +180,56 @@ python3 scripts/check_lookbook.py
 # Exit 0: "look book: 0 problems"
 
 python3 scripts/verify_phase1.py
-# Exit 0: "PASS: Phase 0 repository contract is complete." / "PASS: Foundation bundle consistency, pure-core boundary and closed diagnostics."
+# Exit 0: "PASS: 117 local Markdown file links resolve." / "PASS: Foundation bundle consistency, pure-core boundary and closed diagnostics."
 ```
 
-### Unit & recipe UI verification (`iPhone 17` simulator — PASSED)
+### Isolated native unit & UI verification (`Caliber Food Entry QA` — `4387978B-A0DF-4A04-9525-19805A4340E0`)
+
+Executed strictly on `4387978B-A0DF-4A04-9525-19805A4340E0` (`Caliber Food Entry QA`, `iPhone 17`, iOS 27.0) with isolated in-memory stores/preferences (`--progress-ui-testing`); neither the owner's ordinary `iPhone 17` (`384D80B9-60DE-4538-B135-00D31BB69D2E`) nor Codex's `Caliber Lookbook QA` (`60A77BA7-5A23-4A5B-8405-B089F66D6B9F`) was touched:
+
 ```sh
 xcodebuild test \
   -project "Caliber (DEV).xcodeproj" \
   -scheme "Caliber (DEV)" \
-  -destination "platform=iOS Simulator,name=iPhone 17" \
+  -destination "platform=iOS Simulator,id=4387978B-A0DF-4A04-9525-19805A4340E0" \
   -parallel-testing-enabled NO \
   -collect-test-diagnostics never \
-  -resultBundlePath /tmp/caliber-food-entry-pass2-units-and-recipes.xcresult \
+  -resultBundlePath /tmp/caliber-food-entry-pass2-qa-4387978B.xcresult \
   -only-testing:"Caliber (DEV)Tests" \
-  -only-testing:"Caliber (DEV)UITests/RecipeBuilderUITests" \
-  CODE_SIGNING_ALLOWED=NO
-```
-- `Caliber (DEV)Tests`: **219 tests in 23 suites PASSED** (`6.307s`), including all 4 new `FoodEntryPass2Tests` cases.
-- `RecipeBuilderUITests/testCreateMeasuredRecipeAndLogOneCookedPortion`: **PASSED** (`70.663s`).
-
-### Pass 2 food-entry, portion-review, scanner-route & theme UI verification (`iPhone 17` simulator — PASSED)
-```sh
-xcodebuild test \
-  -project "Caliber (DEV).xcodeproj" \
-  -scheme "Caliber (DEV)" \
-  -destination "platform=iOS Simulator,name=iPhone 17" \
-  -parallel-testing-enabled NO \
-  -collect-test-diagnostics never \
-  -resultBundlePath /tmp/caliber-food-entry-pass2-final.xcresult \
   -only-testing:"Caliber (DEV)UITests/FoodEntryPass2UITests" \
+  -only-testing:"Caliber (DEV)UITests/RecipeBuilderUITests" \
   -only-testing:"Caliber (DEV)UITests/FoodExperienceUITests/testOfflineFoodPortionAndPersonalMacroEditCanBeLogged" \
   -only-testing:"Caliber (DEV)UITests/FoodExperienceUITests/testBarcodeManualCaptureConsentAndFictionalProductReview" \
+  -only-testing:"Caliber (DEV)UITests/FoodExperienceUITests/testImportedFictionalMenuUsesCategoriesAndPersonalReview" \
   -only-testing:"Caliber (DEV)UITests/ThemeIntegrationUITests/testGraphiteSmartSearch" \
   -only-testing:"Caliber (DEV)UITests/ThemeIntegrationUITests/testGraphiteLabelScan" \
   -only-testing:"Caliber (DEV)UITests/ThemeIntegrationUITests/testGraphiteScanResult" \
+  -only-testing:"Caliber (DEV)UITests/ThemeIntegrationUITests/testGraphitePhotoEstimate" \
+  -only-testing:"Caliber (DEV)UITests/ThemeIntegrationUITests/testScannerModeSwitcherOpensLabelScan" \
+  -only-testing:"Caliber (DEV)UITests/ThemeIntegrationUITests/testScannerLargestTextLayout" \
   CODE_SIGNING_ALLOWED=NO
 ```
-- `FoodEntryPass2UITests/testRecentQuickActionPrefillsLastPortionCancelsCleanlyAndKeepsLoggedSnapshotEditable`: **PASSED**
-- `FoodEntryPass2UITests/testBackdatedMealCarriesThroughNoResultsManualEntryAndRecipesWithoutInventingZeroMacros`: **PASSED**
-- `FoodEntryPass2UITests/testGraphiteFrostAndLargestTextAuditsOnFoodEntryWorkspace`: **PASSED**
-- `FoodExperienceUITests/testOfflineFoodPortionAndPersonalMacroEditCanBeLogged`: **PASSED**
-- `FoodExperienceUITests/testBarcodeManualCaptureConsentAndFictionalProductReview`: **PASSED**
-- `ThemeIntegrationUITests/testGraphiteSmartSearch`: **PASSED**
-- `ThemeIntegrationUITests/testGraphiteLabelScan`: **PASSED**
-- `ThemeIntegrationUITests/testGraphiteScanResult`: **PASSED**
+
+**Result: `** TEST SUCCEEDED **` (exit code `0`)**
+- **`Caliber (DEV)Tests`**: **220 Swift Testing tests in 23 suites + XCTest unit suites PASSED** (`4.884s`), including all 5 `FoodEntryPass2Tests` cases.
+- **`FoodEntryPass2UITests` (4/4 PASSED)**:
+  - `testBackdatedMealCarriesThroughNoResultsManualEntryAndRecipesWithoutInventingZeroMacros` — **PASSED** (`72.060s`)
+  - `testFutureLoggingDateShowsFutureBadgeNeverPastDateAndRetainsSelectedMealAndDay` — **PASSED** (`29.460s`)
+  - `testGraphiteFrostAndLargestTextAuditsOnFoodEntryWorkspace` — **PASSED** (`73.034s`)
+  - `testRecentQuickActionPrefillsLastPortionCancelsCleanlyAndKeepsLoggedSnapshotEditable` — **PASSED** (`47.574s`)
+- **`FoodExperienceUITests` (3/3 PASSED)**:
+  - `testBarcodeManualCaptureConsentAndFictionalProductReview` — **PASSED** (`28.296s`)
+  - `testImportedFictionalMenuUsesCategoriesAndPersonalReview` — **PASSED** (`19.906s`)
+  - `testOfflineFoodPortionAndPersonalMacroEditCanBeLogged` — **PASSED** (`55.099s`)
+- **`RecipeBuilderUITests` (1/1 PASSED)**:
+  - `testCreateMeasuredRecipeAndLogOneCookedPortion` — **PASSED** (`65.155s`)
+- **`ThemeIntegrationUITests` (6/6 PASSED)**:
+  - `testGraphiteLabelScan` — **PASSED** (`18.311s`)
+  - `testGraphitePhotoEstimate` — **PASSED** (`18.285s`)
+  - `testGraphiteScanResult` — **PASSED** (`24.820s`)
+  - `testGraphiteSmartSearch` — **PASSED** (`14.372s`)
+  - `testScannerLargestTextLayout` — **PASSED** (`13.347s`)
+  - `testScannerModeSwitcherOpensLabelScan` — **PASSED** (`15.775s`)
 
 ---
 
@@ -215,5 +241,5 @@ xcodebuild test \
 
 ## Remaining limits
 
-- **Physical camera & device checks (`UNTESTED` on simulator)**: Live `AVCaptureSession` camera capture for barcode, nutrition-label OCR, and photo meal estimation requires a physical iPhone (simulator fixture/sample routes were verified). Minimum-supported-iOS physical-device execution also remains to be run on hardware.
+- **Physical camera & device checks (`UNTESTED` on simulator)**: Live `AVCaptureSession` camera capture for barcode, nutrition-label OCR, and photo meal estimation requires a physical iPhone (simulator fixture/sample routes were verified on `4387978B-A0DF-4A04-9525-19805A4340E0`). Minimum-supported-iOS physical-device execution also remains to be run on hardware.
 - **Intentionally out of scope for Pass 2**: Multi-food batch staging cart (contract documented above), voice food logging (`FUEL-13`), new online food providers, and external recipe discovery/import.
