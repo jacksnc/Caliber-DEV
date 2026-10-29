@@ -6,6 +6,10 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
 
 ## Local build update — 2026-10-29
 
+The local Xcode checkout is updated and the exact verified app is installed and
+open in the ordinary iPhone 17 simulator, without test/fixture arguments. All
+three original local edits and original model/photo/settings files were preserved.
+The new food hub is visible with existing recents; no new food/goal was saved.
 The owner requested updating the local build. Codex fetched and merged Gemini
 `41b3985` (food-entry hub, quick review, explicit macro fields, future-date fix)
 and Claude `4de64f3` (new Helios motion/glass library and contrast tests) into

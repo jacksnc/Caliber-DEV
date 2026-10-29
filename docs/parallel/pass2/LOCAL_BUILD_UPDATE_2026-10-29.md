@@ -90,9 +90,27 @@ local `/tmp/caliber-local-update-20261029.log`. No personal store is used by tes
 | Graphite/Frost/largest text | PASS | Three walkthroughs and workspace repeated audits |
 | No new schema/provider/health calculation | PASS | Source diff and method/migration review |
 
-The source/data backup is private and outside Git. Installation and final
-personal-simulator smoke results are recorded in the delivery checkpoint after
-verification. Physical-iPhone installation, minimum-iOS execution, full camera,
+The source/data backup is private and outside Git. The final layout-only
+workspace rerun also passes in `/tmp/caliber-local-update-tile-layout.xcresult`;
+its fictional default capture was inspected and Restaurants stays on one line.
+
+## Installed local preview
+
+Integrated application code `389d576` is in the owner's local Xcode checkout on
+`codex/local-preview`. All three original scheme/localization edits still match
+backup hashes byte-for-byte. The exact tested binary is installed in the ordinary
+**iPhone 17** simulator (`384D80B9-60DE-4538-B135-00D31BB69D2E`, iOS 27.0).
+The full data container was backed up outside Git before installation. All model,
+photo and settings files matched their original hashes after installation; only
+four OS-managed saved-scene/launch-snapshot files were invalidated.
+
+Launched normally with **no test arguments or seeded fixture**. Native UI shows
+Today with the existing in-progress workout and locked Stack tile; no forced
+nutrition setup or storage-recovery error. Quick Log → Food opens the new hub,
+with the selected current-day context, library/capture shortcuts and the existing
+recent entry. No food was logged and no goals/settings changed during inspection.
+The food hub is left open for the owner. This verifies the simulator's personal
+store startup; it does not claim a physical-phone installation. Physical-iPhone installation, minimum-iOS execution, full camera,
 clinical screening, portability and release performance gates remain separate.
 Recommended next development step: finish motion gradient/render validation,
 then adopt effects selectively through existing confirmed-save paths.
