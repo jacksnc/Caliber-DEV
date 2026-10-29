@@ -4,6 +4,20 @@ This file is the shared checkpoint for work across Codex and Claude. The Git
 checkout and its commits are the source of truth; neither assistant inherits the
 other's chat automatically, and there is no automatic credit-exhaustion trigger.
 
+## Manual peer dispatch — 2026-10-28
+
+The owner explicitly asked Codex to prompt the already selected Claude/Gemini
+chats through their laptop. Both messages were sent through the native apps;
+Claude acknowledged and began commands, and Gemini began inspecting date handling
+and the dedicated simulator. See [DISPATCH_LOG](parallel/pass2/DISPATCH_LOG.md).
+
+Gemini delivery `577cc28` (implementation `4457beb`) has been fetched; it is not
+merged. Its follow-up owns future-date labeling plus final isolated food UI checks
+on Food Entry QA. Claude motion/glass `63ed08b` is fetched, unmerged and natively
+untested; its follow-up owns measured contrast/accessibility checks within that
+new package code. Codex retains app integration/builds; preserve branch/file and
+simulator ownership. Do not restart either assignment from scratch.
+
 ## Pass 2 delivery checkpoint — 2026-10-28
 
 Integrated code is `3a5e7bd` on published `codex/pass2-integration`; the owner's
@@ -12,8 +26,8 @@ native evidence and remaining gates are in
 [INTEGRATION_VERIFICATION](parallel/pass2/INTEGRATION_VERIFICATION.md). The exact
 verified app is open on **Caliber Lookbook QA** with fictional in-memory data.
 
-Gemini's food branch still points to seed `96e8068` on the latest fetch; local
-food tests were observed, but no delivered food changes are claimed. A simulator
+At this earlier delivery checkpoint Gemini's branch was still at seed; the
+new manual-dispatch checkpoint above supersedes that status. A simulator
 installation overlapped that peer's ordinary-iPhone run. Codex stopped using the
 ordinary simulator; Gemini must rerun final UI checks on its new dedicated
 **Caliber Food Entry QA** (`4387978B-A0DF-4A04-9525-19805A4340E0`) before handoff.
@@ -28,8 +42,8 @@ See [GOAL_SETUP_VERIFICATION](GOAL_SETUP_VERIFICATION.md) and
 additive storage limitations. Existing users retain targets until an explicit
 save. New metadata requires future archive/canonical adapters before export or
 live cutover. Claude has delivered visual branch `d956269`; Codex integrated and verified its native changes on macOS. See
-[pass 2 verification](parallel/pass2/INTEGRATION_VERIFICATION.md). Gemini's remote food-entry branch remains at the seed
-base on the latest fetch. These are observed statuses, not assumed completion.
+[pass 2 verification](parallel/pass2/INTEGRATION_VERIFICATION.md). Gemini's delivery/follow-up status is now recorded in the manual-dispatch
+checkpoint above.
 
 ## Parallel pass 2 — owner authorized, 2026-10-28
 
@@ -38,9 +52,8 @@ Opus 5.5 and Gemini 4 Argon, using separate GitHub branches/clones.
 [The coordination pack](parallel/pass2/README.md) is the current ownership and
 dispatch contract. Codex owns goal setup and integration, Claude the next native
 visual pass, Gemini food-entry convenience. Shared base also incorporates
-Claude's scanner/accessibility and grammar fixes through `c9413af`. External
-assignments are ready; they are not claimed running until their chats/handoffs
-confirm it. The owner must start those external chats with the supplied briefs.
+Claude's scanner/accessibility and grammar fixes through `c9413af`. The owner started the external chats; Codex subsequently sent authorized
+follow-ups through the native apps and verified both running. See DISPATCH_LOG.
 The first batch excludes water/Health, adaptive coaching, micronutrients, meal
 planning, new providers and broad menu data imports. Existing P1/P2 gates remain.
 

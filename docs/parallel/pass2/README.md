@@ -31,11 +31,14 @@ reviewed commits; it owns final conflict resolution, common tests and local buil
 | --- | --- | --- | --- |
 | Codex | `codex/goal-setup-pass-2` | Guided goal setup, safe persistence, Profile entry/summary, first-run routing and integration | Goal setup delivered; native integration verified |
 | Claude Opus 5.5 | `claude/visual-pass-2` | Second visual pass for shared Helios components, Today and Progress; accessible theme previews/empty states | Delivered d956269; integrated and natively verified by Codex |
-| Gemini 4 Argon | `gemini/food-entry-pass-2` | Faster food-entry hub and recent-food review using existing logging services | Remote branch still at seed on last fetch; awaiting food-entry handoff |
+| Gemini 4 Argon | `gemini/food-entry-pass-2` | Faster food-entry hub and recent-food review using existing logging services | Delivered 577cc28; Codex dispatched date-label/isolated QA follow-up, now working |
 
-Codex cannot launch external Claude/Gemini chats from this environment. These
-statuses describe assignments, not a claim that those external agents are running.
-Read the role brief, then update only your role's handoff file when finished.
+External models are independent chats, not Codex-managed subagents. With the
+owner's explicit request, Codex manually sent follow-ups in the selected native
+Claude/Gemini chats and verified both working. Claude's additional motion/glass
+follow-up uses `claude/motion-glass`; its initial visual branch is already
+integrated. See [DISPATCH_LOG](DISPATCH_LOG.md). Update only the role handoff
+when finished; Codex aggregates shared status.
 
 - [Codex brief](CODEX_TASK.md) · [Codex handoff](CODEX_HANDOFF.md)
 - [Claude brief](CLAUDE_TASK.md) · [Claude handoff](CLAUDE_HANDOFF.md)
