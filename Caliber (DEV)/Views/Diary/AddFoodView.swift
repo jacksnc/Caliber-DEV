@@ -3,99 +3,118 @@
 //  Caliber (DEV)
 //
 
+import HeliosDesign
 import SwiftData
 import SwiftUI
+import UIKit
 
-/// A simple manual-entry form for adding a food to a specific meal on a
-/// specific day. Used both as its own "Add" tab and as a sheet from Diary.
+/// Compact manual-entry form for logging a personal food to a specific meal and day.
+/// Requires all four nutrition values rather than silently inventing 0 g for blank macros.
 struct AddFoodView: View {
+  @Environment(\.dismiss) private var dismiss
+  @Environment(\.dynamicTypeSize) private var typeSize
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var modelContext
+  @Environment(\.heliosTheme) private var theme
 
   @State private var mealType: MealType
   @State private var date: Date
-  @State private var name: String = ""
-  @State private var calories: String = ""
-  @State private var protein: String = ""
-  @State private var carbs: String = ""
-  @State private var fat: String = ""
-  @State private var servingDescription: String = ""
-  @State private var quantity: String = "1"
-  @State private var saveToLibrary: Bool = true
-  @State private var didJustSave = false
+  @State private var draft: FoodEntryPass2ManualDraft
+  @State private var lastSavedMeal: MealType?
   @State private var saveError: String?
+  @State private var preparedLocale = false
 
-  /// `prefill` comes from a scanned label or a confirmed estimate; every field stays editable.
+  /// `prefill` comes from a scanned label, search query, or confirmed estimate; every field stays editable.
   init(mealType: MealType, date: Date, prefill: FoodEntryPrefill? = nil) {
     _mealType = State(initialValue: mealType)
     _date = State(initialValue: date)
-    if let prefill {
-      _name = State(initialValue: prefill.name)
-      _servingDescription = State(initialValue: prefill.servingDescription)
-      _calories = State(initialValue: prefill.calories)
-      _protein = State(initialValue: prefill.protein)
-      _carbs = State(initialValue: prefill.carbs)
-      _fat = State(initialValue: prefill.fat)
-    }
+    _draft = State(initialValue: FoodEntryPass2ManualDraft(prefill: prefill))
   }
 
-  private var totals: MacroTotals? {
-    NutritionInput.totals(
-      calories: calories,
-      protein: protein.isEmpty ? "0" : protein,
-      carbs: carbs.isEmpty ? "0" : carbs,
-      fat: fat.isEmpty ? "0" : fat, locale: locale)
+  private var scaledTotals: MacroTotals? {
+    draft.scaledTotals(locale: locale)
   }
 
   private var canSave: Bool {
-    guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-      let totals, let amount = NutritionInput.quantity(quantity, locale: locale)
-    else { return false }
-    return totals.scaled(by: amount).isValid
+    draft.canSave(locale: locale)
   }
 
   var body: some View {
     NavigationStack {
       Form {
         Group {
-          Section("Food") {
-            TextField("Name", text: $name)
-            TextField("Serving (e.g. 1 cup)", text: $servingDescription)
-            TextField("Quantity", text: $quantity)
-              .keyboardType(.decimalPad)
-            Toggle("Save to My Foods", isOn: $saveToLibrary)
-          }
-
-          Section("Macros (per serving)") {
-            TextField("Calories", text: $calories)
-              .keyboardType(.decimalPad)
-            TextField("Protein (g)", text: $protein)
-              .keyboardType(.decimalPad)
-            TextField("Carbs (g)", text: $carbs)
-              .keyboardType(.decimalPad)
-            TextField("Fat (g)", text: $fat)
-              .keyboardType(.decimalPad)
-          }
-
-          Section("Meal") {
-            Picker("Meal", selection: $mealType) {
-              ForEach(MealType.allCases) { meal in
-                Text(meal.displayName).tag(meal)
-              }
-            }
-            DatePicker("Date", selection: $date, displayedComponents: .date)
-          }
-
-          if didJustSave {
-            Section {
-              Label("Added to \(mealType.displayName)", systemImage: "checkmark.circle.fill")
-                .foregroundStyle(.green)
-            }
-          }
+          foodSection
+          macrosSection
+          previewSection
+          destinationSection
+          savedConfirmationSection
         }
         .listRowBackground(CaliberRowBackground())
       }
       .caliberScreen()
+      .scrollDismissesKeyboard(.interactively)
+      .navigationTitle("Add Food")
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        if !typeSize.isAccessibilitySize {
+          ToolbarItem(placement: .cancellationAction) {
+            Button(lastSavedMeal == nil ? "Cancel" : "Done") {
+              dismiss()
+            }
+            .frame(minHeight: 48)
+            .accessibilityIdentifier("manualFoodCancel")
+          }
+          ToolbarItem(placement: .confirmationAction) {
+            Button("Save", action: save)
+              .disabled(!canSave)
+              .frame(minHeight: 48)
+              .accessibilityIdentifier("manualFoodSave")
+          }
+        }
+        ToolbarItem(placement: .keyboard) {
+          Button("Done") {
+            UIApplication.shared.sendAction(
+              #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+          }
+          .frame(minHeight: 48)
+          .accessibilityIdentifier("manualFoodKeyboardDone")
+        }
+      }
+      .safeAreaInset(edge: .bottom) {
+        if typeSize.isAccessibilitySize {
+          VStack(spacing: 8) {
+            Button(action: save) {
+              Text("Save")
+                .font(.body.weight(.semibold))
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, minHeight: 48)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(
+              canSave ? theme.palette.accent.base.color : theme.palette.text.secondary.color
+            )
+            .disabled(!canSave)
+            .accessibilityIdentifier("manualFoodSave")
+
+            Button {
+              dismiss()
+            } label: {
+              Text(lastSavedMeal == nil ? "Cancel" : "Done")
+                .font(.body)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, minHeight: 48)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(theme.palette.text.primary.color)
+            .accessibilityIdentifier("manualFoodCancel")
+          }
+          .padding(.horizontal)
+          .padding(.vertical, 8)
+          .background(.bar)
+        }
+      }
       .alert(
         "Couldn't Save Food",
         isPresented: Binding(get: { saveError != nil }, set: { if !$0 { saveError = nil } })
@@ -104,55 +123,136 @@ struct AddFoodView: View {
       } message: {
         Text(saveError ?? "Please try again.")
       }
-      .navigationTitle("Add Food")
-      .toolbar {
-        ToolbarItem(placement: .confirmationAction) {
-          Button("Save", action: save)
-            .disabled(!canSave)
+      .onAppear {
+        guard !preparedLocale else { return }
+        draft.quantity = NutritionInput.reformatted(draft.quantity, from: .current, to: locale)
+        preparedLocale = true
+      }
+      .onChange(of: draft) { _, _ in
+        if !draft.trimmedName.isEmpty || draft.hasAnyMacroText {
+          lastSavedMeal = nil
         }
       }
     }
   }
 
+  private var foodSection: some View {
+    Section {
+      VStack(alignment: .leading, spacing: 4) {
+        Text("Name")
+          .heliosFont(.caption)
+          .foregroundStyle(theme.palette.text.secondary.color)
+        TextField("Name", text: $draft.name)
+          .frame(maxWidth: .infinity, minHeight: 48)
+          .accessibilityIdentifier("manualFoodName")
+      }
+      VStack(alignment: .leading, spacing: 4) {
+        Text("Serving (e.g. 1 cup)")
+          .heliosFont(.caption)
+          .foregroundStyle(theme.palette.text.secondary.color)
+        TextField("Serving", text: $draft.servingDescription)
+          .frame(maxWidth: .infinity, minHeight: 48)
+          .accessibilityIdentifier("manualFoodServing")
+      }
+      VStack(alignment: .leading, spacing: 4) {
+        Text("Quantity")
+          .heliosFont(.caption)
+          .foregroundStyle(theme.palette.text.secondary.color)
+        TextField("Quantity", text: $draft.quantity)
+          .keyboardType(.decimalPad)
+          .frame(maxWidth: .infinity, minHeight: 48)
+          .accessibilityIdentifier("manualFoodQuantity")
+      }
+      Toggle("Save to My Foods", isOn: $draft.saveToLibrary)
+        .accessibilityIdentifier("manualFoodSaveToLibrary")
+    } header: {
+      Text("Food & Portion")
+    }
+  }
+
+  private var macrosSection: some View {
+    Section {
+      macroField("Calories", placeholder: "Calories", text: $draft.calories)
+      macroField("Protein (g)", placeholder: "Protein", text: $draft.protein)
+      macroField("Carbs (g)", placeholder: "Carbs", text: $draft.carbs)
+      macroField("Fat (g)", placeholder: "Fat", text: $draft.fat)
+    } header: {
+      Text("Macros (per serving)")
+    } footer: {
+      Text("Enter all four values from the label or recipe, including 0 when a macro is 0 g.")
+        .accessibilityIdentifier("manualFoodValidationNote")
+    }
+  }
+
+  private func macroField(_ title: String, placeholder: String, text: Binding<String>) -> some View
+  {
+    VStack(alignment: .leading, spacing: 4) {
+      Text(title)
+        .heliosFont(.caption)
+        .foregroundStyle(theme.palette.text.secondary.color)
+      TextField(placeholder, text: text)
+        .keyboardType(.decimalPad)
+        .frame(maxWidth: .infinity, minHeight: 48)
+    }
+  }
+
+  @ViewBuilder
+  private var previewSection: some View {
+    if let totals = scaledTotals {
+      Section {
+        Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
+          .heliosFont(.section)
+          .foregroundStyle(theme.palette.text.primary.color)
+          .accessibilityIdentifier("manualFoodTotalCalories")
+        FoodEntryPass2MacroSummaryRow(totals: totals)
+      } header: {
+        Text("Nutrition for This Log")
+      }
+    }
+  }
+
+  private var destinationSection: some View {
+    Section {
+      Picker("Meal", selection: $mealType) {
+        ForEach(MealType.allCases) { meal in
+          Text(meal.displayName).tag(meal)
+        }
+      }
+      .accessibilityIdentifier("manualFoodMeal")
+      DatePicker("Date", selection: $date, displayedComponents: .date)
+        .accessibilityIdentifier("manualFoodDate")
+    } header: {
+      Text("Destination")
+    }
+  }
+
+  @ViewBuilder
+  private var savedConfirmationSection: some View {
+    if let savedMeal = lastSavedMeal {
+      Section {
+        Label("Added to \(savedMeal.displayName)", systemImage: "checkmark.circle.fill")
+          .foregroundStyle(theme.palette.status.success.color)
+          .accessibilityIdentifier("manualFoodSaved")
+      }
+    }
+  }
+
   private func save() {
-    guard canSave, let totals, let amount = NutritionInput.quantity(quantity, locale: locale) else {
-      return
-    }
-    let food = FoodItem(
-      name: name,
-      calories: totals.calories,
-      proteinGrams: totals.protein,
-      carbGrams: totals.carbs,
-      fatGrams: totals.fat,
-      servingDescription: servingDescription.isEmpty ? "1 serving" : servingDescription,
-      isSavedToLibrary: saveToLibrary
-    )
-    let entry = DiaryEntry(
-      date: date,
-      mealType: mealType,
-      foodItem: food,
-      quantity: amount
-    )
-    modelContext.insert(food)
-    modelContext.insert(entry)
     do {
-      try modelContext.save()
+      try FoodEntryPass2ManualLogger.log(
+        draft: draft,
+        mealType: mealType,
+        date: date,
+        locale: locale,
+        in: modelContext
+      )
+      let savedMeal = mealType
+      draft = FoodEntryPass2ManualDraft(saveToLibrary: draft.saveToLibrary)
+      draft.quantity = NutritionInput.reformatted(draft.quantity, from: .current, to: locale)
+      lastSavedMeal = savedMeal
     } catch {
-      modelContext.delete(entry)
-      modelContext.delete(food)
       saveError = error.localizedDescription
-      return
     }
-
-    name = ""
-    calories = ""
-    protein = ""
-    carbs = ""
-    fat = ""
-    servingDescription = ""
-    quantity = "1"
-
-    didJustSave = true
   }
 }
 

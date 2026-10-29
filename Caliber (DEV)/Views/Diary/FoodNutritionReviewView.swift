@@ -7,6 +7,7 @@ struct FoodNutritionReviewView: View {
   @Environment(\.modelContext) private var context
   @EnvironmentObject private var favorites: FoodLibraryPreferences
   let reference: FoodNutritionReference
+  let onDismiss: (() -> Void)?
   @State private var amount: String
   @State private var choiceID: String
   @State private var meal: MealType
@@ -28,10 +29,14 @@ struct FoodNutritionReviewView: View {
   /// `portion` starts the form on an amount the person typed in search ("2 slices"); it is
   /// only ever grams, ounces or one of the source's listed servings.
   init(
-    reference: FoodNutritionReference, meal: MealType = .snack, date: Date = .now,
-    portion: (choiceID: String, amount: Double)? = nil
+    reference: FoodNutritionReference,
+    meal: MealType = .snack,
+    date: Date = .now,
+    portion: (choiceID: String, amount: Double)? = nil,
+    onDismiss: (() -> Void)? = nil
   ) {
     self.reference = reference
+    self.onDismiss = onDismiss
     let typed = portion.flatMap { portion -> (String, Double)? in
       guard reference.basisGrams != nil,
         ["grams", "ounces"].contains(portion.choiceID)
@@ -145,18 +150,17 @@ struct FoodNutritionReviewView: View {
               : "oz means weight ounces. Listed measures use source weights for this food. Changing units keeps the same amount of food; enter 1 to use one listed measure."
           )
         }
-        Section("Nutrition for this log") {
+        Section {
           if let final {
-            Text("\(NutritionInput.format(final.calories, locale: locale)) calories").font(
-              .headline
-            )
-            .accessibilityIdentifier("referenceCalories")
-            Text(
-              "Protein \(NutritionInput.format(final.protein, locale: locale))g · Carbs \(NutritionInput.format(final.carbs, locale: locale))g · Fat \(NutritionInput.format(final.fat, locale: locale))g"
-            )
+            Text("\(NutritionInput.format(final.calories, locale: locale)) calories")
+              .font(.headline)
+              .accessibilityIdentifier("referenceCalories")
+            FoodEntryPass2MacroSummaryRow(totals: final)
           } else {
             Text("Enter a portion above zero and valid nutrition values.")
           }
+        } header: {
+          Text("Nutrition for this log")
         }
         if let portion {
           MacroOverrideSection(
@@ -165,19 +169,24 @@ struct FoodNutritionReviewView: View {
             isEditing: $isEditing,
             calories: $calories, protein: $protein, carbs: $carbs, fat: $fat)
         }
-        Section("Add to Diary") {
+        Section {
           Picker("Meal", selection: $meal) {
             ForEach(MealType.allCases) { Text($0.displayName).tag($0) }
           }.accessibilityIdentifier("referenceMeal")
           DatePicker("Date", selection: $date, displayedComponents: .date)
+            .accessibilityIdentifier("referenceDate")
           Toggle("Save to My Foods", isOn: $saveToLibrary)
+        } header: {
+          Text("Add to Diary")
         }
-        Section("Nutrition Source") {
+        Section {
           Text(reference.attribution).font(.footnote)
           Link("View Source", destination: reference.sourceURL).frame(minHeight: 48)
           Text(
             "You can adjust nutrition for this portion before logging. Edits apply to your copy. Changing the amount resets edits; changing units keeps the same portion."
           ).font(.footnote)
+        } header: {
+          Text("Nutrition Source")
         }
         if didSave {
           Section {
@@ -191,7 +200,15 @@ struct FoodNutritionReviewView: View {
     .caliberScreen()
     .scrollDismissesKeyboard(.interactively)
     .navigationTitle("Review Food")
+    .toolbar(.visible, for: .navigationBar)
     .toolbar {
+      if let onDismiss {
+        ToolbarItem(placement: .cancellationAction) {
+          Button(didSave ? "Done" : "Cancel", action: onDismiss)
+            .frame(minHeight: 48)
+            .accessibilityIdentifier("foodEntryQuickReviewClose")
+        }
+      }
       ToolbarItem(placement: .keyboard) {
         Button("Done") {
           UIApplication.shared.sendAction(

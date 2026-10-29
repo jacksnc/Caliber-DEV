@@ -8,6 +8,7 @@ struct SavedMealDetailView: View {
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var context
   let meal: SavedMeal
+  let onDismiss: (() -> Void)?
   @State private var mealType: MealType
   @State private var date: Date
   @State private var amount = "1"
@@ -20,8 +21,14 @@ struct SavedMealDetailView: View {
   @State private var didSave = false
   @State private var error: String?
 
-  init(meal: SavedMeal, mealType: MealType = .lunch, date: Date = .now) {
+  init(
+    meal: SavedMeal,
+    mealType: MealType = .lunch,
+    date: Date = .now,
+    onDismiss: (() -> Void)? = nil
+  ) {
     self.meal = meal
+    self.onDismiss = onDismiss
     _mealType = State(initialValue: mealType)
     _date = State(initialValue: date)
   }
@@ -46,20 +53,19 @@ struct SavedMealDetailView: View {
   var body: some View {
     Form {
       Group {
-        Section("Nutrition for this Portion") {
+        Section {
           if let finalTotals {
             Text("\(NutritionInput.format(finalTotals.calories, locale: locale)) calories")
               .font(.headline).accessibilityIdentifier("recipePortionCalories")
-            Text(
-              "Protein \(NutritionInput.format(finalTotals.protein, locale: locale))g · Carbs \(NutritionInput.format(finalTotals.carbs, locale: locale))g · Fat \(NutritionInput.format(finalTotals.fat, locale: locale))g"
-            )
-            .font(.subheadline).foregroundStyle(.secondary)
+            FoodEntryPass2MacroSummaryRow(totals: finalTotals)
           } else {
             Text("Add valid ingredients and portions, then review again.").foregroundStyle(
               .secondary)
           }
+        } header: {
+          Text("Nutrition for this Portion")
         }
-        Section("Portion") {
+        Section {
           Picker("Unit", selection: $unit) {
             ForEach(
               RecipePortionUnit.allCases.filter {
@@ -77,8 +83,10 @@ struct SavedMealDetailView: View {
                 : "Cooked grams require the measured cooked batch weight.")
           )
           .font(.footnote).foregroundStyle(.secondary)
+        } header: {
+          Text("Portion")
         }
-        Section("Ingredients") {
+        Section {
           ForEach(meal.items) { item in
             VStack(alignment: .leading, spacing: 3) {
               Text(item.foodItem?.name ?? "Missing ingredient")
@@ -92,6 +100,8 @@ struct SavedMealDetailView: View {
               }
             }
           }
+        } header: {
+          Text("Ingredients")
         }
         if isEditing, let portion {
           MacroOverrideSection(
@@ -104,15 +114,20 @@ struct SavedMealDetailView: View {
             isEditing: $isEditing, calories: $calories, protein: $protein,
             carbs: $carbs, fat: $fat)
         }
-        Section("Log This Portion") {
+        Section {
           Picker("Meal", selection: $mealType) {
             ForEach(MealType.allCases) { Text($0.displayName).tag($0) }
           }
+          .accessibilityIdentifier("recipePortionMeal")
           DatePicker("Date", selection: $date, displayedComponents: .date)
+            .accessibilityIdentifier("recipePortionDate")
+        } header: {
+          Text("Log This Portion")
         }
         if didSave {
           Section {
             Label("Added to \(mealType.displayName)", systemImage: "checkmark.circle.fill")
+              .accessibilityIdentifier("recipePortionSaved")
               .foregroundStyle(.green)
           }
         }
@@ -123,7 +138,15 @@ struct SavedMealDetailView: View {
     .caliberScreen()
     .scrollDismissesKeyboard(.interactively)
     .navigationTitle(meal.name)
+    .toolbar(.visible, for: .navigationBar)
     .toolbar {
+      if let onDismiss {
+        ToolbarItem(placement: .cancellationAction) {
+          Button(didSave ? "Done" : "Cancel", action: onDismiss)
+            .frame(minHeight: 48)
+            .accessibilityIdentifier("foodEntryQuickReviewClose")
+        }
+      }
       ToolbarItem(placement: .keyboard) {
         Button("Done") { dismissRecipeKeyboard() }.accessibilityIdentifier("recipeKeyboardDone")
       }
