@@ -90,3 +90,13 @@ and the browser AX view, with a separate final audit. Raw body.innerText include
 hidden SVG text even after CSS hiding and is not used as visual/AX evidence.
 Food routing/meal editing/manual macro override preview and chart table (12 rows)
 were exercised, and keyboard focus showed a 3px solid outline.
+
+## Native batch dispatched - 2026-10-30 18:50 Eastern
+
+Reviewed design checkpoint is committed/published as a07ceb9. Both native peer
+assignments were sent through the Mac and visibly started; do not redispatch.
+CONTINUE WORK in /Users/jcrock/Documents/Codex/Caliber-v2-native on
+codex/v2-native-integration. Read that checkout's docs/parallel/v2-native/SESSION.md
+and README.md for actual current ownership, peer state and Codex Diary work.
+This design checkout remains the stable HTML/PDF source; do not apply native
+runtime edits here or in the owner's local-preview checkout.
