@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caliber V2 · Today</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="responsive.css">
+<script src="fixture.js" defer></script>
+<script src="board.js" defer></script>
+</head>
+<body class="v2-app" data-screen="today">
+<header class="app-header"></header>
+<main class="content" id="main">
+  <p class="today-date" data-demo="date">Friday, October 30</p>
+
+  <!-- Energy overview: centered summary, macros below. -->
+  <section class="card energy" aria-labelledby="energy-h">
+    <h2 class="eyebrow" id="energy-h">Energy today</h2>
+
+    <div data-state-only="populated long-name">
+      <div class="energy-ring">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-track" cx="60" cy="60" r="54"/><circle class="ring-fill" cx="60" cy="60" r="54" stroke-dasharray="271.4 339.3"/></svg>
+        <div class="ring-copy">
+          <p class="energy-value num" data-demo="energyRemaining">460</p>
+          <p class="energy-unit">kcal remaining</p>
+        </div>
+      </div>
+      <div class="energy-context">
+        <p><strong class="num" data-demo="energyConsumed">1,840</strong><span>eaten</span></p>
+        <p><strong class="num" data-demo="energyTarget">2,300</strong><span>goal</span></p>
+      </div>
+      <p class="sr-only">1,840 of 2,300 kcal eaten, 460 remaining. Reported energy from logged foods.</p>
+    </div>
+
+    <div data-state-only="no-goals">
+      <p class="energy-value num" data-demo="energyConsumed">1,840</p>
+      <p class="energy-unit">kcal eaten · no goal set</p>
+      <div class="button-row" style="margin-top:1rem;justify-content:center"><a class="secondary" href="diary.html" data-board-link>Set goals in Fuel</a></div>
+    </div>
+
+    <div data-state-only="number-free">
+      <p class="energy-qualitative">Steady day</p>
+      <p class="energy-unit">Four meals logged · numbers hidden by your setting</p>
+    </div>
+
+    <div data-state-only="empty">
+      <p class="energy-qualitative">Nothing logged yet</p>
+      <p class="energy-unit">Your first meal will appear here.</p>
+      <div class="button-row" style="margin-top:1rem;justify-content:center"><a class="primary" href="food-entry.html" data-board-link>Add food</a></div>
+    </div>
+
+    <div class="macro-grid" data-state-only="populated long-name no-goals">
+      <div class="macro protein">
+        <strong><span class="num" data-demo="proteinConsumed">134</span> g</strong>
+        <span class="macro-of" data-state-except="no-goals">of <span data-demo="proteinTarget">160</span> g</span>
+        <div class="macro-track" data-state-except="no-goals" aria-hidden="true"><i style="width:84%"></i></div>
+        <span class="macro-label">Protein</span>
+      </div>
+      <div class="macro carbs">
+        <strong><span class="num" data-demo="carbsConsumed">202</span> g</strong>
+        <span class="macro-of" data-state-except="no-goals">of <span data-demo="carbsTarget">270</span> g</span>
+        <div class="macro-track" data-state-except="no-goals" aria-hidden="true"><i style="width:75%"></i></div>
+        <span class="macro-label">Carbs</span>
+      </div>
+      <div class="macro fat">
+        <strong><span class="num" data-demo="fatConsumed">54</span> g</strong>
+        <span class="macro-of" data-state-except="no-goals">of <span data-demo="fatTarget">65</span> g</span>
+        <div class="macro-track" data-state-except="no-goals" aria-hidden="true"><i style="width:83%"></i></div>
+        <span class="macro-label">Fat</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Continue workout -->
+  <section class="card resume-card" aria-labelledby="resume-h" data-state-except="empty">
+    <div class="section-head" style="margin:0">
+      <h2 id="resume-h">Continue workout</h2>
+      <span class="badge live">Paused</span>
+    </div>
+    <div class="resume-top">
+      <span class="glyph-tile" style="--glyph-color:var(--data-training)"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8v8m4-11v14m10-14v14m4-11v8M7 12h10"/></svg></span>
+      <div>
+        <h3 data-demo="workoutName">Upper body A</h3>
+        <p class="muted" data-state-except="number-free"><span class="num">5</span> of <span class="num" data-demo="workoutSets">12</span> sets · started 7:45 PM</p>
+        <p class="muted" data-state-only="number-free">In progress · started this evening</p>
+      </div>
+    </div>
+    <div class="meter" style="--meter-color:var(--data-training)" role="img" aria-label="5 of 12 sets logged" data-state-except="number-free"><i style="width:42%"></i></div>
+    <a class="primary" href="train.html" data-board-link>Resume workout</a>
+  </section>
+
+  <section class="card" aria-labelledby="start-h" data-state-only="empty">
+    <div class="section-head"><h2 id="start-h">Training</h2></div>
+    <p class="muted">No workout today yet. Start from a routine you saved or an empty session.</p>
+    <div class="button-row" style="margin-top:1rem"><a class="secondary" href="train.html?state=empty" data-board-link>Open Train</a></div>
+  </section>
+
+  <!-- Discreet Stack and weight tiles -->
+  <div class="grid-2 tile-pair">
+    <a class="card tile-link" href="stack.html" data-board-link data-state-except="opted-out locked">
+      <span class="glyph-tile" style="--glyph-color:var(--data-peptide)"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5ZM3 12l9 5 9-5M3 16l9 5 9-5"/></svg></span>
+      <div><p class="eyebrow">Stack</p><p><strong data-state-except="empty number-free">2 of 3</strong><strong data-state-only="number-free">One still due</strong><strong data-state-only="empty">Nothing yet</strong></p><p class="subtle" data-state-except="empty number-free">logged today</p><p class="subtle" data-state-only="number-free">this evening</p><p class="subtle" data-state-only="empty">logged today</p></div>
+    </a>
+    <a class="card tile-link" href="stack.html?state=locked" data-board-link data-state-only="locked">
+      <span class="glyph-tile"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+      <div><p class="eyebrow">Stack</p><p><strong>Locked</strong></p><p class="subtle">Unlock to view</p></div>
+    </a>
+    <a class="card tile-link" href="progress.html" data-board-link>
+      <span class="glyph-tile"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18M6 16l5-5 4 2 6-8"/></svg></span>
+      <div><p class="eyebrow">Weight</p>
+        <p data-state-except="number-free empty"><strong class="num"><span data-demo="weight">82.4</span> <span data-demo="weightUnit">kg</span></strong></p>
+        <p data-state-only="number-free"><strong>Logged</strong></p><p data-state-only="empty"><strong>Check in</strong></p>
+        <p class="subtle" data-state-except="empty">this morning</p><p class="subtle" data-state-only="empty">no entry today</p></div>
+    </a>
+  </div>
+
+  <!-- Daily timeline -->
+  <section class="card" aria-labelledby="timeline-h" data-state-except="empty">
+    <div class="section-head"><h2 id="timeline-h">Today’s timeline</h2><a class="link-button" href="diary.html" data-board-link>Fuel</a></div>
+    <ol class="timeline">
+      <li><time datetime="07:10">7:10 AM</time><span class="rail"><span class="dot weigh"></span></span>
+        <div class="event"><div class="event-row"><span class="event-title">Morning weigh-in</span><span class="event-amount" data-state-except="number-free"><span data-demo="weight">82.4</span> kg</span></div></div></li>
+      <li><time datetime="07:40">7:40 AM</time><span class="rail"><span class="dot meal"></span></span>
+        <div class="event"><div class="event-row"><span class="event-title">Breakfast</span><span class="event-amount" data-state-except="number-free"><span data-demo="breakfastEnergy">400</span> kcal</span></div><p class="event-detail">Greek yogurt, oats, berries</p></div></li>
+      <li data-state-except="opted-out locked"><time datetime="08:00">8:00 AM</time><span class="rail"><span class="dot stack"></span></span>
+        <div class="event"><div class="event-row"><span class="event-title">Stack entries logged</span></div><p class="event-detail">Details stay in Stack</p></div></li>
+      <li data-state-only="locked"><time datetime="08:00">8:00 AM</time><span class="rail"><span class="dot hollow stack"></span></span>
+        <div class="event"><div class="event-row"><span class="event-title">Private entries</span></div><p class="event-detail">Stack is locked</p></div></li>
+      <li><time datetime="12:30">12:30 PM</time><span class="rail"><span class="dot meal"></span></span>
+        <div class="event"><div class="event-row"><span class="event-title" data-state-except="long-name">Lunch</span><span class="event-title" data-state-only="long-name">Lunch at the office with the whole design team</span><span class="event-amount" data-state-except="number-free"><span data-demo="lunchEnergy">640</span> kcal</span></div>
+          <p class="event-detail" data-state-except="long-name">Chicken rice bowl</p><p class="event-detail" data-state-only="long-name">Grilled chicken and brown rice bowl with roasted vegetables, extra greens and a lime-cilantro dressing</p></div></li>
+      <li><time datetime="15:30">3:30 PM</time><span class="rail"><span class="dot meal"></span></span>
+        <div class="event"><div class="event-row"><span class="event-title">Snack</span><span class="event-amount" data-state-except="number-free"><span data-demo="snackEnergy">200</span> kcal</span></div><p class="event-detail">Apple, peanut butter</p></div></li>
+      <li><time datetime="18:30">6:30 PM</time><span class="rail"><span class="dot meal"></span></span>
+        <div class="event"><div class="event-row"><span class="event-title">Dinner</span><span class="event-amount" data-state-except="number-free"><span data-demo="dinnerEnergy">600</span> kcal</span></div><p class="event-detail">Salmon, potatoes, green beans</p></div></li>
+      <li><time datetime="19:45">7:45 PM</time><span class="rail"><span class="dot hollow train"></span></span>
+        <div class="event"><div class="event-row"><span class="event-title" data-demo="workoutName">Upper body A</span><span class="event-amount" data-state-except="number-free">5 / 12 sets</span></div><p class="event-detail">Paused · resume any time</p></div></li>
+    </ol>
+  </section>
+</main>
+<nav class="app-nav"></nav>
+</body>
+</html>

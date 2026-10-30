@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caliber V2 · Train</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="responsive.css">
+<script src="fixture.js" defer></script>
+<script src="board.js" defer></script>
+</head>
+<body class="v2-app" data-screen="train">
+<header class="app-header"></header>
+<main class="content" id="main">
+
+  <!-- Empty: no session in progress -->
+  <section class="card empty-state" aria-labelledby="train-empty-h" data-state-only="empty">
+    <span class="glyph-tile" style="--glyph-color:var(--data-training)"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8v8m4-11v14m10-14v14m4-11v8M7 12h10"/></svg></span>
+    <h2 id="train-empty-h">No workout in progress</h2>
+    <p class="muted">Start a routine you saved, or begin empty and add exercises as you go.</p>
+    <div class="button-row" style="width:100%"><button class="primary" type="button">Start empty workout</button></div>
+  </section>
+  <section class="card" aria-labelledby="routines-h" data-state-only="empty">
+    <div class="section-head"><h2 id="routines-h">Your routines</h2></div>
+    <ul class="queue">
+      <li><div><p class="q-name" data-demo="workoutName">Upper body A</p><p class="subtle">4 exercises · last done Tue, Oct 27</p></div><button class="secondary" type="button" aria-label="Start Upper body A">Start</button></li>
+      <li><div><p class="q-name">Lower body A</p><p class="subtle">4 exercises · last done Wed, Oct 28</p></div><button class="secondary" type="button" aria-label="Start Lower body A">Start</button></li>
+    </ul>
+  </section>
+
+  <!-- Active session -->
+  <section class="card session-head" aria-labelledby="session-h" data-state-except="empty">
+    <div class="section-head" style="margin:0">
+      <div><p class="eyebrow">In progress</p><h2 id="session-h" data-demo="workoutName">Upper body A</h2></div>
+      <span class="badge live">Live</span>
+    </div>
+    <dl class="session-stats">
+      <div><dt>Sets</dt><dd><span>5</span>/<span data-demo="workoutSets">12</span></dd></div>
+      <div><dt>Elapsed</dt><dd>24:10</dd></div>
+      <div><dt>Exercise</dt><dd>2 of 4</dd></div>
+    </dl>
+    <div class="meter" style="--meter-color:var(--data-training)" role="img" aria-label="5 of 12 sets logged"><i style="width:42%"></i></div>
+  </section>
+
+  <!-- Current exercise + set logger -->
+  <section class="card exercise" aria-labelledby="ex-current-h" data-state-except="empty">
+    <div class="exercise-head">
+      <div>
+        <p class="eyebrow">Now</p>
+        <h3 id="ex-current-h"><span data-state-except="long-name">Seated cable row</span><span data-state-only="long-name">Single-arm chest-supported dumbbell row with a pause at the top</span></h3>
+        <p class="subtle">Last time is your own history, not a prescription.</p>
+      </div>
+      <button class="icon-button" type="button" aria-label="Exercise options"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></button>
+    </div>
+    <table class="set-table">
+      <caption class="sr-only">Seated cable row sets: two logged, set three in progress</caption>
+      <thead><tr><th scope="col">Set</th><th scope="col">Last time</th><th scope="col">Today (kg × reps)</th><th scope="col"><span class="sr-only">Status</span></th></tr></thead>
+      <tbody>
+        <tr class="is-done"><td class="set-n" data-label="Set">1</td><td data-label="Last time">55 × 10</td><td data-label="Today">57.5 × 10</td><td><span class="set-state done" aria-label="Logged">✓</span></td></tr>
+        <tr class="is-done"><td class="set-n" data-label="Set">2</td><td data-label="Last time">55 × 10</td><td data-label="Today">57.5 × 9</td><td><span class="set-state done" aria-label="Logged">✓</span></td></tr>
+        <tr class="is-current"><td class="set-n" data-label="Set">3</td><td data-label="Last time">55 × 9</td><td data-label="Today">57.5 × —</td><td><span class="set-state" aria-label="In progress"></span></td></tr>
+      </tbody>
+    </table>
+    <div class="logger">
+      <div class="stepper-grid">
+        <div class="stepper" role="group" aria-labelledby="w-label">
+          <span class="stepper-label" id="w-label">Weight (kg)</span>
+          <div class="stepper-body"><button type="button" aria-label="Decrease weight">−</button><output aria-live="off">57.5</output><button type="button" aria-label="Increase weight">+</button></div>
+        </div>
+        <div class="stepper" role="group" aria-labelledby="r-label">
+          <span class="stepper-label" id="r-label">Reps</span>
+          <div class="stepper-body"><button type="button" aria-label="Decrease reps">−</button><output aria-live="off">9</output><button type="button" aria-label="Increase reps">+</button></div>
+        </div>
+      </div>
+      <button class="primary" type="button">Log set 3</button>
+    </div>
+  </section>
+
+  <!-- Set review -->
+  <section class="card" aria-labelledby="review-h" data-state-except="empty">
+    <div class="section-head"><h2 id="review-h">Session review</h2><span class="subtle">so far</span></div>
+    <ul class="queue">
+      <li><span class="glyph-tile" style="--glyph-color:var(--status-success)"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
+        <div><p class="q-name">Bench press</p><p class="subtle">3 sets · 80 × 8, 80 × 8, 80 × 7</p></div></li>
+      <li><span class="glyph-tile" style="--glyph-color:var(--data-training)"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 8v4l2.5 1.5"/></svg></span>
+        <div><p class="q-name"><span data-state-except="long-name">Seated cable row</span><span data-state-only="long-name">Single-arm chest-supported dumbbell row with a pause at the top</span></p><p class="subtle">2 of 3 sets logged</p></div></li>
+      <li><span class="glyph-tile"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg></span>
+        <div><p class="q-name">Overhead press</p><p class="subtle">3 sets · up next</p></div></li>
+      <li><span class="glyph-tile"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg></span>
+        <div><p class="q-name">Lat pulldown</p><p class="subtle">3 sets</p></div></li>
+    </ul>
+    <div class="divider"></div>
+    <div class="button-row">
+      <button class="secondary" type="button">Add exercise</button>
+      <button class="secondary" type="button">Finish workout</button>
+    </div>
+  </section>
+</main>
+<nav class="app-nav"></nav>
+</body>
+</html>

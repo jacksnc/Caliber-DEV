@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caliber V2 · Progress</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="responsive.css">
+<script src="fixture.js" defer></script>
+<script src="board.js" defer></script>
+</head>
+<body class="v2-app" data-screen="progress">
+<header class="app-header"></header>
+<main class="content" id="main">
+
+  <section class="card empty-state" aria-labelledby="progress-empty-h" data-state-only="empty">
+    <span class="glyph-tile"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18M6 16l5-5 4 2 6-8"/></svg></span>
+    <h2 id="progress-empty-h">No check-ins yet</h2>
+    <p class="muted">Log a weight, a private photo or a short note. Your trend appears after a few entries.</p>
+    <div class="button-row" style="width:100%"><button class="primary" type="button">Add check-in</button></div>
+  </section>
+
+  <div class="segmented" role="group" aria-label="Range" data-state-except="empty">
+    <button type="button" aria-pressed="false">4 weeks</button>
+    <button type="button" aria-pressed="true">12 weeks</button>
+    <button type="button" aria-pressed="false">All</button>
+  </div>
+
+  <!-- Weight trend -->
+  <section class="card" aria-labelledby="weight-h" data-state-except="empty">
+    <div class="section-head" style="margin-bottom:.25rem"><h2 id="weight-h">Weight</h2><span class="subtle">Aug 14 – Oct 30</span></div>
+    <div class="weight-head" data-state-except="number-free">
+      <p class="metric"><span data-demo="weight">82.4</span><small data-demo="weightUnit">kg</small></p>
+      <p class="muted"><span class="num">−1.8 kg</span> over 12 weeks</p>
+    </div>
+    <p class="energy-qualitative" data-state-only="number-free" style="margin-top:.25rem">Gradually down</p>
+    <p class="muted" data-state-only="number-free">Numbers hidden by your setting. The shape of the trend is shown below.</p>
+
+    <svg class="trend-chart" viewBox="0 0 320 150" role="img" aria-labelledby="chart-title" aria-describedby="chart-desc">
+      <title id="chart-title">Weekly weight, Aug 14 to Oct 30</title>
+      <desc id="chart-desc">Twelve weekly entries, from 84.2 kg on Aug 14 to 82.4 kg on Oct 30, a change of 1.8 kg down. The data table below lists every entry.</desc>
+      <g data-state-except="number-free">
+        <path class="grid" d="M44 38.4H308M44 83.2H308M44 128H308"/>
+        <text class="axis" x="36" y="41.4" text-anchor="end">84</text>
+        <text class="axis" x="36" y="86.2" text-anchor="end">83</text>
+        <text class="axis" x="36" y="131" text-anchor="end">82</text>
+        <text class="axis" x="44" y="146" text-anchor="start">Aug 14</text>
+        <text class="axis" x="164" y="146" text-anchor="middle">Sep 18</text>
+        <text class="axis" x="308" y="146" text-anchor="end">Oct 30</text>
+        <text class="callout" x="308" y="126" text-anchor="end">82.4</text>
+      </g>
+      <g data-state-only="number-free"><path class="grid" d="M44 128H308"/></g>
+      <polyline class="line" points="44,29.4 68,42.9 92,38.4 116,60.8 140,56.3 164,78.7 188,92.2 212,83.2 236,101.1 260,96.6 284,105.6 308,110.1"/>
+      <g>
+        <circle class="pt" cx="44" cy="29.4" r="3"/><circle class="pt" cx="68" cy="42.9" r="3"/><circle class="pt" cx="92" cy="38.4" r="3"/><circle class="pt" cx="116" cy="60.8" r="3"/><circle class="pt" cx="140" cy="56.3" r="3"/><circle class="pt" cx="164" cy="78.7" r="3"/><circle class="pt" cx="188" cy="92.2" r="3"/><circle class="pt" cx="212" cy="83.2" r="3"/><circle class="pt" cx="236" cy="101.1" r="3"/><circle class="pt" cx="260" cy="96.6" r="3"/><circle class="pt" cx="284" cy="105.6" r="3"/><circle class="pt-now" cx="308" cy="110.1" r="5"/>
+      </g>
+    </svg>
+
+    <details class="data-table-toggle" data-state-except="number-free">
+      <summary>Show data table</summary>
+      <table class="data-table">
+        <caption class="sr-only">Weekly weight entries</caption>
+        <thead><tr><th scope="col">Date</th><th scope="col">Weight (kg)</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Aug 14</th><td>84.2</td></tr>
+          <tr><th scope="row">Aug 21</th><td>83.9</td></tr>
+          <tr><th scope="row">Aug 28</th><td>84.0</td></tr>
+          <tr><th scope="row">Sep 4</th><td>83.5</td></tr>
+          <tr><th scope="row">Sep 11</th><td>83.6</td></tr>
+          <tr><th scope="row">Sep 18</th><td>83.1</td></tr>
+          <tr><th scope="row">Sep 25</th><td>82.8</td></tr>
+          <tr><th scope="row">Oct 2</th><td>83.0</td></tr>
+          <tr><th scope="row">Oct 9</th><td>82.6</td></tr>
+          <tr><th scope="row">Oct 16</th><td>82.7</td></tr>
+          <tr><th scope="row">Oct 23</th><td>82.5</td></tr>
+          <tr><th scope="row">Oct 30</th><td>82.4</td></tr>
+        </tbody>
+      </table>
+    </details>
+    <p class="note-line" style="margin-top:.5rem"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.01"/></svg><span>Weekly entries you logged. Day-to-day changes are normal; no cause is inferred.</span></p>
+  </section>
+
+  <!-- Check-in timeline -->
+  <section class="card" aria-labelledby="checkins-h" data-state-except="empty">
+    <div class="section-head"><h2 id="checkins-h">Check-ins</h2><button class="secondary" type="button">Add</button></div>
+    <ol class="checkins">
+      <li class="checkin">
+        <figure class="photo-tile" aria-label="Private photo placeholder, front view">
+          <svg viewBox="0 0 60 80" aria-hidden="true"><path class="contour" d="M18 74c2-14 2-24 5-31 3-6 4-11 3-16M42 74c-2-14-2-24-5-31-3-6-4-11-3-16M24 20c2-5 10-5 12 0"/><path class="frame-corner" d="M6 14V6h8M54 14V6h-8M6 66v8h8M54 66v8h-8"/></svg>
+          <span class="lock-chip"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+        </figure>
+        <div>
+          <h3><time datetime="2026-10-30">Fri, Oct 30</time></h3>
+          <p class="checkin-weight" data-state-except="number-free"><span data-demo="weight">82.4</span> kg</p>
+          <p>Slept well; energy steady through the afternoon.</p>
+        </div>
+      </li>
+      <li class="checkin">
+        <figure class="photo-tile is-note" aria-label="Note only, no photo">
+          <svg class="glyph" viewBox="0 0 24 24" aria-hidden="true" style="width:1.5rem;height:1.5rem"><path d="M6 3h9l3 3v15H6zM9 10h6M9 14h6M9 18h3"/></svg>
+        </figure>
+        <div>
+          <h3><time datetime="2026-10-16">Fri, Oct 16</time></h3>
+          <p class="checkin-weight" data-state-except="number-free">82.7 kg</p>
+          <p data-state-except="long-name">Travel week. Kept training to three sessions.</p>
+          <p data-state-only="long-name">Travel week with two long flights and a conference; kept training to three shorter sessions in the hotel gym and walked between venues.</p>
+        </div>
+      </li>
+      <li class="checkin">
+        <figure class="photo-tile" aria-label="Private photo placeholder, front view">
+          <svg viewBox="0 0 60 80" aria-hidden="true"><path class="contour" d="M17 74c2-14 2-24 5-31 3-6 4-11 3-16M43 74c-2-14-2-24-5-31-3-6-4-11-3-16M24 20c2-5 10-5 12 0"/><path class="frame-corner" d="M6 14V6h8M54 14V6h-8M6 66v8h8M54 66v8h-8"/></svg>
+          <span class="lock-chip"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+        </figure>
+        <div>
+          <h3><time datetime="2026-10-02">Fri, Oct 2</time></h3>
+          <p class="checkin-weight" data-state-except="number-free">83.0 kg</p>
+          <p>Six-week mark. New routine feels settled.</p>
+        </div>
+      </li>
+    </ol>
+    <p class="subtle" style="margin-top:.75rem">Photos are private to you. In this preview no photo is stored.</p>
+  </section>
+</main>
+<nav class="app-nav"></nav>
+</body>
+</html>
