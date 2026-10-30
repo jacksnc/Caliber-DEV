@@ -30,3 +30,9 @@ in that directory instead of competing edits to shared planning documents; Codex
 aggregates those into AI_HANDOFF/BACKLOG/DECISIONS/CHANGELOG/method/migration docs.
 This changes coordination only; safety, math, licensing and verification rules
 above still apply. Report cross-boundary changes to Codex for integration.
+
+## Active Lookbook V2
+
+For branches assigned by docs/parallel/lookbook-v2/README.md, use its V2 ownership
+contract. This is a design-first checkpoint; keep native code, generated tokens
+and the owner's installed build unchanged until the reviewed book/handoffs.
