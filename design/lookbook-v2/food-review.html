@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Caliber V2 · Review food</title>
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="components.css">
+  <link rel="stylesheet" href="responsive.css">
+  <script src="fixture.js" defer></script>
+  <script src="board.js" defer></script>
+</head>
+<body class="v2-app" data-screen="food-review">
+  <header class="app-header"></header>
+  <main class="content" id="main">
+    <div class="v2-toolbar">
+      <a class="secondary" href="food-entry.html" data-board-link><span aria-hidden="true">‹</span><span>Add food</span></a>
+      <a class="secondary" href="diary.html" data-board-link>Fuel diary</a>
+    </div>
+
+    <section class="card" aria-labelledby="item-heading">
+      <div class="section-head" style="margin-bottom:4px">
+        <div>
+          <p class="eyebrow">Selected food · synthetic fixture</p>
+          <h2 id="item-heading" data-state-except="long-name">Demo chicken bowl</h2>
+          <h2 data-state-only="long-name">Demo chicken bowl with roasted seasonal vegetables, a choice of toppings and a side dressing</h2>
+        </div>
+        <button type="button" class="icon-button" aria-label="Favorite Demo chicken bowl preview" aria-pressed="true">★</button>
+      </div>
+      <p class="muted">Basis: 1 bowl (380 g) · saved personal snapshot</p>
+    </section>
+
+    <section class="card energy" aria-label="Nutrition for this log" data-state-except="number-free">
+      <p class="eyebrow">Nutrition for this log</p>
+      <p class="energy-value num" data-demo="bowlEnergy">640</p>
+      <p class="energy-unit">kcal · reported energy for 1 bowl (380 g)</p>
+      <div class="macro-grid">
+        <div class="macro" style="--macro-color:var(--data-protein)">
+          <span class="macro-label">Protein</span>
+          <strong><span data-demo="bowlProtein">48</span><span class="macro-unit"> g</span></strong>
+          <div class="macro-track" aria-hidden="true"><i style="width:100%"></i></div>
+        </div>
+        <div class="macro" style="--macro-color:var(--data-carbs)">
+          <span class="macro-label">Carbs</span>
+          <strong><span data-demo="bowlCarbs">70</span><span class="macro-unit"> g</span></strong>
+          <div class="macro-track" aria-hidden="true"><i style="width:100%"></i></div>
+        </div>
+        <div class="macro" style="--macro-color:var(--data-fat)">
+          <span class="macro-label">Fat</span>
+          <strong><span data-demo="bowlFat">18</span><span class="macro-unit"> g</span></strong>
+          <div class="macro-track" aria-hidden="true"><i style="width:100%"></i></div>
+        </div>
+      </div>
+      <p class="energy-footnote">Reported 640 kcal is preserved as supplied — never overwritten with 4P + 4C + 9F (634 kcal).</p>
+    </section>
+
+    <section class="card" data-state-only="number-free" aria-labelledby="nf-review-heading">
+      <h2 id="nf-review-heading">Portion &amp; meal check-in</h2>
+      <p class="muted">Number-free preview · logs 1 bowl to Lunch without displaying energy or macro totals.</p>
+    </section>
+
+    <section class="card" aria-labelledby="context-heading">
+      <div class="section-head">
+        <h2 id="context-heading">Meal &amp; date context</h2>
+        <span class="chip">Today</span>
+      </div>
+      <div class="stack">
+        <div class="v2-field-group">
+          <label class="v2-field-label" for="review-meal">Meal slot</label>
+          <select id="review-meal" class="v2-field">
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch" selected>Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="snacks">Snacks</option>
+          </select>
+        </div>
+        <div class="v2-field-group">
+          <label class="v2-field-label" for="review-date"><span>Diary date · <span data-demo="date">Friday, October 30</span></span></label>
+          <input id="review-date" class="v2-field" type="text" value="Fri, Oct 30" data-demo="shortDate">
+        </div>
+      </div>
+      <p class="subtle" style="margin-top:10px">Uses the recorded local calendar day. Past or future dates display an explicit badge before logging.</p>
+    </section>
+
+    <section class="card" aria-labelledby="portion-heading">
+      <div class="section-head">
+        <h2 id="portion-heading">Serving amount</h2>
+        <span class="subtle">1 bowl = 380 g</span>
+      </div>
+      <div class="portion-grid">
+        <div class="v2-field-group">
+          <label class="v2-field-label" for="review-unit">Portion unit</label>
+          <select id="review-unit" class="v2-field">
+            <option value="bowl" selected>1 bowl (380 g)</option>
+            <option value="grams">Grams (g)</option>
+            <option value="ounces">Weight ounces (oz)</option>
+          </select>
+        </div>
+        <div class="v2-field-group">
+          <label class="v2-field-label" for="review-amount">Quantity</label>
+          <input id="review-amount" class="v2-field num" type="text" inputmode="decimal" value="1">
+        </div>
+      </div>
+      <div class="review-presets" role="group" aria-label="Portion presets preview">
+        <button type="button" class="secondary">0.5 bowl</button>
+        <button type="button" class="secondary">1 bowl</button>
+        <button type="button" class="secondary">1.5 bowls</button>
+        <button type="button" class="secondary">380 g</button>
+      </div>
+      <p class="subtle" style="margin-top:10px">Switching units keeps the same food mass (1 oz = 28.35 g). Typing a new quantity resets pending macro edits. Unlisted volume or cooked-yield weights are never assumed.</p>
+    </section>
+
+    <section class="card" aria-labelledby="macros-heading" data-state-except="number-free">
+      <div class="section-head">
+        <h2 id="macros-heading">Editable portion &amp; macros</h2>
+        <span class="chip">Snapshot override</span>
+      </div>
+      <p class="muted" style="margin-bottom:12px">Edit reported energy or macros for this portion. All four fields require nonnegative numbers; blank macros never silently become 0 g.</p>
+      <div class="grid-2">
+        <div class="v2-field-group" style="--macro-color:var(--data-energy)">
+          <label class="v2-field-label" for="review-calories"><span class="macro-dot" aria-hidden="true"></span><span>Calories (kcal)</span></label>
+          <input id="review-calories" class="v2-field num" type="text" inputmode="decimal" value="640" data-demo="bowlEnergy">
+        </div>
+        <div class="v2-field-group" style="--macro-color:var(--data-protein)">
+          <label class="v2-field-label" for="review-protein"><span class="macro-dot" aria-hidden="true"></span><span>Protein (g)</span></label>
+          <input id="review-protein" class="v2-field num" type="text" inputmode="decimal" value="48" data-demo="bowlProtein">
+        </div>
+        <div class="v2-field-group" style="--macro-color:var(--data-carbs)">
+          <label class="v2-field-label" for="review-carbs"><span class="macro-dot" aria-hidden="true"></span><span>Carbs (g)</span></label>
+          <input id="review-carbs" class="v2-field num" type="text" inputmode="decimal" value="70" data-demo="bowlCarbs">
+        </div>
+        <div class="v2-field-group" style="--macro-color:var(--data-fat)">
+          <label class="v2-field-label" for="review-fat"><span class="macro-dot" aria-hidden="true"></span><span>Fat (g)</span></label>
+          <input id="review-fat" class="v2-field num" type="text" inputmode="decimal" value="18" data-demo="bowlFat">
+        </div>
+      </div>
+
+      <div class="stack" style="margin-top:12px">
+        <label class="v2-check" for="review-save-library">
+          <input id="review-save-library" type="checkbox" checked>
+          <span>Save personal snapshot to My Foods (reference catalog remains unchanged)</span>
+        </label>
+        <button type="button" class="secondary full-button">Reset to source values preview</button>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="source-heading">
+      <div class="section-head">
+        <h2 id="source-heading">Original source</h2>
+        <span class="subtle">Provenance</span>
+      </div>
+      <dl class="review-source-list">
+        <div class="review-source-row">
+          <dt>Source record</dt>
+          <dd>Caliber synthetic V2 fixture · Demo chicken bowl</dd>
+        </div>
+        <div class="review-source-row" data-state-except="number-free">
+          <dt>Reference basis</dt>
+          <dd>1 bowl (380 g) · <span data-demo="bowlEnergy">640</span> kcal · P <span data-demo="bowlProtein">48</span> g · C <span data-demo="bowlCarbs">70</span> g · F <span data-demo="bowlFat">18</span> g</dd>
+        </div>
+        <div class="review-source-row">
+          <dt>Snapshot isolation</dt>
+          <dd>Logging saves an independent diary snapshot so future food or menu edits never alter past days.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="card review-actions" aria-label="Confirm log preview">
+      <button type="button" class="primary review-submit" aria-label="Add Demo chicken bowl to Lunch design preview"><span>Add to Lunch · <span data-demo="shortDate">Fri, Oct 30</span> (Preview)</span></button>
+      <a class="secondary" href="diary.html" data-board-link>Return to Diary without saving</a>
+      <p class="subtle" style="text-align:center">Static design preview · no data is persisted or transmitted.</p>
+    </section>
+  </main>
+  <nav class="app-nav"></nav>
+</body>
+</html>
