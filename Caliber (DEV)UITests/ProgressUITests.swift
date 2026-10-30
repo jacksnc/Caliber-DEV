@@ -14,6 +14,32 @@ final class ProgressUITests: XCTestCase {
         return app
     }
 
+    /// V2: the weight chart has a text alternative listing each recorded weigh-in.
+    @MainActor
+    func testWeightChartListsWeighInsAsText() {
+        let app = openProgress()
+        app.buttons["addProgressEntry"].tap()
+        let weight = app.textFields["progressWeight"]
+        XCTAssertTrue(weight.waitForExistence(timeout: 5))
+        weight.tap()
+        weight.typeText("181.5")
+        app.buttons["progressSave"].tap()
+        let readings = app.buttons["weightTrendReadings"]
+        XCTAssertTrue(readings.waitForExistence(timeout: 5))
+        // The table adds one dated row per weigh-in to what the chart card already shows.
+        let year = String(Calendar.current.component(.year, from: .now))
+        let dated = app.descendants(matching: .any).matching(
+            NSPredicate(format: "label CONTAINS %@ AND label CONTAINS %@", "181.5", year))
+        let before = dated.count
+        XCTAssertEqual(readings.value as? String, "Hidden")
+        readings.tap()
+        XCTAssertEqual(readings.value as? String, "Shown")
+        XCTAssertGreaterThan(dated.count, before)
+        readings.tap()
+        XCTAssertEqual(readings.value as? String, "Hidden")
+        XCTAssertEqual(dated.count, before)
+    }
+
     @MainActor
     func testDailyCheckInEditsSameDayAndCanBeDeleted() {
         let app = openProgress()

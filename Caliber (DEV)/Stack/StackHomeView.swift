@@ -71,9 +71,8 @@ private struct StackDashboard: View {
               compound in
               StackLevelCard(compound: compound, now: timeline.date)
             }
-            ForEach(compounds.filter { $0.supplyDoses > 0 }) { compound in
-              StackSupplyCard(compound: compound)
-            }
+            let supplied = compounds.filter { $0.supplyDoses > 0 }
+            if !supplied.isEmpty { StackSupplyCard(compounds: supplied) }
           }
           StackScopeNote()
         }
@@ -103,7 +102,7 @@ private struct StackDashboard: View {
       .buttonStyle(.heliosPrimary)
       .accessibilityIdentifier("stackAddFirst")
     }
-    .glassCard()
+    .v2Surface()
   }
 
   private func skip(_ request: StackLogRequest) {
@@ -129,10 +128,18 @@ private struct StackTodayCard: View {
     let today = StackPlanner.today(for: compounds, now: now, calendar: calendar)
     let focus = today.first { $0.status == .due || $0.status == .missed && $0.dose == nil }
     VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
-      HStack(alignment: .firstTextBaseline) {
-        SectionHeader("Doses today")
-        Text("Now \(now.formatted(date: .omitted, time: .shortened))")
-          .heliosFont(.footnote)
+      ViewThatFits(in: .horizontal) {
+        HStack(alignment: .firstTextBaseline) {
+          SectionHeader("Doses today")
+          clock
+        }
+        VStack(alignment: .leading, spacing: 2) {
+          SectionHeader("Doses today")
+          clock
+        }
+      }
+      if let logged = loggedSummary(today) {
+        Text(logged).heliosFont(.callout)
           .foregroundStyle(theme.palette.text.secondary.color)
           .fixedSize(horizontal: false, vertical: true)
       }
@@ -155,7 +162,21 @@ private struct StackTodayCard: View {
         }
       }
     }
-    .glassCard()
+    .v2Surface()
+  }
+
+  private var clock: some View {
+    Text("Now \(now.formatted(date: .omitted, time: .shortened))")
+      .heliosFont(.footnote)
+      .foregroundStyle(theme.palette.text.secondary.color)
+      .fixedSize(horizontal: false, vertical: true)
+  }
+
+  /// V2: "2 of 3 logged today", counted from today's existing schedule; nothing to count, no line.
+  private func loggedSummary(_ today: [StackScheduledDose]) -> String? {
+    guard !today.isEmpty else { return nil }
+    let logged = today.filter(\.isTaken).count
+    return "\(logged) of \(today.count) logged today"
   }
 
   private func compound(named name: String) -> StackCompound? {
@@ -222,7 +243,10 @@ private struct StackFocusTile: View {
       }
     }
     .padding(HeliosTokens.space(3))
-    .background { GlassBackground(level: .raised, cornerRadius: HeliosTokens.radius.tile) }
+    .background {
+      GlassBackground(level: .raised, cornerRadius: HeliosTokens.radius.tile)
+        .transformEnvironment(\.heliosTheme) { $0.reduceTransparency = true }
+    }
     .accessibilityElement(children: .contain)
   }
 
@@ -268,9 +292,11 @@ private struct StackDoseRow: View {
   @ViewBuilder private var status: some View {
     switch item.status {
     case .takenOnTime, .takenLate, .takenEarly:
-      StatusBadge(
-        .success,
-        "Taken \(item.dose?.takenAt?.formatted(date: .omitted, time: .shortened) ?? "")")
+      if let takenAt = item.dose?.takenAt {
+        StatusBadge(.success, "Taken \(takenAt.formatted(date: .omitted, time: .shortened))")
+      } else {
+        StatusBadge(.success, "Taken")
+      }
     case .skipped:
       Text("Skipped").heliosFont(.footnote)
         .foregroundStyle(theme.palette.text.secondary.color)
@@ -369,7 +395,7 @@ private struct StackLevelCard: View {
       .heliosFont(.caption)
       .foregroundStyle(theme.palette.text.secondary.color)
     }
-    .glassCard()
+    .v2Surface()
   }
 }
 
@@ -391,36 +417,62 @@ private struct StackLevelChart: View {
   }
 }
 
-/// "3 of 4 doses left" with a meter.
+/// V2 "Supply": each entry's count as the person recorded it, "3 of 4 doses left", with a meter.
 private struct StackSupplyCard: View {
-  let compound: StackCompound
+  let compounds: [StackCompound]
   @Environment(\.heliosTheme) private var theme
 
   var body: some View {
+    VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
+      VStack(alignment: .leading, spacing: 2) {
+        SectionHeader("Supply")
+        Text("As you recorded it").heliosFont(.footnote)
+          .foregroundStyle(theme.palette.text.secondary.color)
+          .fixedSize(horizontal: false, vertical: true)
+      }
+      ForEach(compounds) { compound in row(compound) }
+    }
+    .v2Surface()
+  }
+
+  private func row(_ compound: StackCompound) -> some View {
     let left = StackPlanner.remainingSupply(of: compound) ?? 0
     let fraction = Double(left) / Double(max(1, compound.supplyDoses))
-    VStack(alignment: .leading, spacing: HeliosTokens.space(2)) {
+    return VStack(alignment: .leading, spacing: HeliosTokens.space(2)) {
       // Both lines wrap rather than truncate as text grows.
-      HStack(alignment: .firstTextBaseline) {
-        Text("\(compound.name) \(compound.form.title.lowercased())").heliosFont(.bodyStrong)
-          .fixedSize(horizontal: false, vertical: true)
-        Spacer(minLength: HeliosTokens.space(2))
-        Text("\(left) of \(compound.supplyDoses) doses left").heliosFont(.callout)
-          .multilineTextAlignment(.trailing)
-          .fixedSize(horizontal: false, vertical: true)
+      ViewThatFits(in: .horizontal) {
+        HStack(alignment: .firstTextBaseline) {
+          supplyName(compound)
+          Spacer(minLength: HeliosTokens.space(2))
+          supplyCount(left, of: compound).multilineTextAlignment(.trailing)
+        }
+        VStack(alignment: .leading, spacing: 2) {
+          supplyName(compound)
+          supplyCount(left, of: compound)
+        }
       }
       GeometryReader { proxy in
         ZStack(alignment: .leading) {
           Capsule().fill(theme.palette.border.hairline.color)
           Capsule().fill(theme.palette.accent.base.color)
-            .frame(width: proxy.size.width * fraction)
+            .frame(width: proxy.size.width * min(max(fraction, 0), 1))
         }
       }
       .frame(height: 8)
       .accessibilityHidden(true)
     }
-    .glassCard()
     .accessibilityElement(children: .combine)
+  }
+
+  private func supplyName(_ compound: StackCompound) -> some View {
+    Text("\(compound.name) \(compound.form.title.lowercased())").heliosFont(.bodyStrong)
+      .fixedSize(horizontal: false, vertical: true)
+  }
+
+  private func supplyCount(_ left: Int, of compound: StackCompound) -> some View {
+    Text("\(left) of \(compound.supplyDoses) doses left").heliosFont(.callout)
+      .foregroundStyle(theme.palette.text.secondary.color)
+      .fixedSize(horizontal: false, vertical: true)
   }
 }
 
@@ -450,5 +502,17 @@ enum StackText {
   static func duration(from start: Date, to end: Date) -> String {
     Duration.seconds(max(0, end.timeIntervalSince(start)))
       .formatted(.units(allowed: [.hours, .minutes], width: .abbreviated))
+  }
+}
+
+extension View {
+  /// A V2 card: padded, on the opaque tone of a glass level with the same edge and shadow,
+  /// so private text never sits on a see-through tint. Text contrast is audited on these tones.
+  fileprivate func v2Surface(level: GlassLevel = .base) -> some View {
+    padding(HeliosTokens.spacing[3])
+      .background {
+        GlassBackground(level: level)
+          .transformEnvironment(\.heliosTheme) { $0.reduceTransparency = true }
+      }
   }
 }

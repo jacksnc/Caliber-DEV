@@ -24,14 +24,20 @@ struct TrainHomeView: View {
               NavigationLink {
                 ActiveWorkoutView(workout: activeWorkout)
               } label: {
+                // V2 "Continue workout": the session name, then what is logged so far.
                 VStack(alignment: .leading, spacing: 4) {
                   Label("Resume Workout", systemImage: "play.fill")
-                    .font(.headline)
+                    .heliosFont(.section)
+                    .foregroundStyle(theme.palette.accent.base.color)
+                  Text(activeWorkout.name).heliosFont(.bodyStrong)
+                    .foregroundStyle(theme.palette.text.primary.color)
+                    .fixedSize(horizontal: false, vertical: true)
                   Text(
                     "\(activeWorkout.completedSets.count) completed sets · started \(activeWorkout.startedAt.formatted(date: .omitted, time: .shortened))"
                   )
-                  .font(.caption)
-                  .foregroundStyle(.secondary)
+                  .heliosFont(.footnote)
+                  .foregroundStyle(theme.palette.text.secondary.color)
+                  .fixedSize(horizontal: false, vertical: true)
                 }
                 .frame(minHeight: 48, alignment: .leading)
               }
@@ -55,7 +61,8 @@ struct TrainHomeView: View {
           Section("History") {
             if history.isEmpty {
               Text("Finished workouts will appear here.")
-                .foregroundStyle(.secondary)
+                .heliosFont(.callout)
+                .foregroundStyle(theme.palette.text.secondary.color)
             } else {
               ForEach(history.prefix(20)) { workout in
                 NavigationLink {
@@ -67,16 +74,18 @@ struct TrainHomeView: View {
                       .frame(width: 40, height: 40)
                       .background(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
-                          .fill(theme.palette.accent.base.color.opacity(0.14))
+                          .fill(theme.palette.accent.subtle.color)
                       )
                       .accessibilityHidden(true)
                     VStack(alignment: .leading, spacing: 4) {
                       Text(workout.name).heliosFont(.bodyStrong)
+                        .fixedSize(horizontal: false, vertical: true)
                       Text(
                         "\(workout.startedAt.formatted(.dateTime.month().day())) · \(workout.completedSets.count) sets · \(volume(workout)) volume"
                       )
                       .heliosFont(.caption)
                       .foregroundStyle(theme.palette.text.secondary.color)
+                      .fixedSize(horizontal: false, vertical: true)
                     }
                   }
                   .frame(minHeight: 48, alignment: .leading)
@@ -121,7 +130,7 @@ struct TrainHomeView: View {
           .frame(width: 40, height: 40)
           .background(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-              .fill(theme.palette.accent.base.color.opacity(0.14))
+              .fill(theme.palette.accent.subtle.color)
           )
           .accessibilityHidden(true)
         VStack(alignment: .leading, spacing: 2) {
@@ -218,16 +227,20 @@ struct TrainHomeView: View {
 
 private struct WorkoutSummaryView: View {
   let workout: TrainingWorkout
+  @EnvironmentObject private var runtime: FoundationRuntime
 
   var body: some View {
     List {
       Group {
         Section("Summary") {
           LabeledContent("Completed sets", value: String(workout.completedSets.count))
+          // In the display unit, as on the history row that opened this summary.
+          let unit = runtime.settings.massUnit
           LabeledContent(
             "Volume",
             value:
-              "\(workout.volumeKilograms.formatted(.number.precision(.fractionLength(0...1)))) kg")
+              "\(unit.fromKilograms(workout.volumeKilograms).formatted(.number.precision(.fractionLength(0...1)))) \(unit.rawValue)"
+          )
           if let completedAt = workout.completedAt {
             LabeledContent(
               "Duration",

@@ -59,7 +59,7 @@ struct ProgressDashboardView: View {
               rangeName: range == .all ? "since first weigh-in" : "in \(range.spokenName)",
               addWeight: addToday
             )
-            .caliberCardRow()
+            .progressCardRow()
           } header: {
             CaliberHeader(
               "Progress", identifier: "Progress", action: addToday,
@@ -71,7 +71,7 @@ struct ProgressDashboardView: View {
           // Food cards are always the last seven days, whatever weight range is selected.
           Section {
             CaloriesWeekCard(entries: diary, goal: profiles.first?.dailyCalorieGoal)
-              .caliberCardRow()
+              .progressCardRow()
           } header: {
             ProgressSectionHeader(
               "Nutrition", detail: "Last 7 days · not affected by the range above",
@@ -79,7 +79,7 @@ struct ProgressDashboardView: View {
           }
           Section {
             MacroSplitCard(entries: diary)
-              .caliberCardRow()
+              .progressCardRow()
           }
 
           Section {
@@ -94,7 +94,7 @@ struct ProgressDashboardView: View {
                   .buttonStyle(.heliosPrimary)
                   .accessibilityIdentifier("progressEmptyAddCheckIn")
               }
-              .caliberCardRow()
+              .progressCardRow()
             } else {
               ForEach(timelineMonths, id: \.month) { group in
                 Text(group.month, format: .dateTime.month(.wide).year())
@@ -277,4 +277,19 @@ private struct ProgressEntryDetailView: View {
   ProgressDashboardView()
     .modelContainer(
       for: [ProgressEntry.self, WeightEntry.self, ProgressPhoto.self], inMemory: true)
+}
+
+extension View {
+  /// Like `caliberCardRow()`, but on the opaque tone of the base glass level (same edge and
+  /// shadow), so chart labels and timeline text never sit on a see-through tint (V2).
+  fileprivate func progressCardRow() -> some View {
+    padding(HeliosTokens.spacing[3])
+      .background {
+        GlassBackground()
+          .transformEnvironment(\.heliosTheme) { $0.reduceTransparency = true }
+      }
+      .listRowInsets(EdgeInsets())
+      .listRowBackground(Color.clear)
+      .listRowSeparator(.hidden)
+  }
 }

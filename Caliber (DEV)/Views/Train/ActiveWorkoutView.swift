@@ -452,8 +452,8 @@ private struct TrainingSetRow: View {
             )
             .heliosFont(.metricValue)
             Text(set.isWarmup ? "Warm-up" : rpeSummary)
-              .font(.caption)
-              .foregroundStyle(.secondary)
+              .heliosFont(.caption)
+              .foregroundStyle(theme.palette.text.secondary.color)
           }
           Spacer()
           // Look book: a completed set keeps a filled check in the accent colour.
@@ -493,7 +493,8 @@ private struct TrainingSetRow: View {
             field("Weight", text: $draft.weight, width: 76)
             // The grid header names the unit; at accessibility sizes rows stack, so repeat it.
             if typeSize.isAccessibilitySize {
-              Text(displayUnit.rawValue).foregroundStyle(.secondary)
+              Text(displayUnit.rawValue).heliosFont(.callout)
+                .foregroundStyle(theme.palette.text.secondary.color)
             }
             field("Reps", text: $draft.repetitions, width: 58)
             Spacer(minLength: 0)
@@ -597,6 +598,7 @@ private struct TrainingSetRow: View {
 
 private struct ExercisePickerView: View {
   @Environment(\.dismiss) private var dismiss
+  @Environment(\.heliosTheme) private var theme
   @Query(sort: \TrainingExercise.name) private var exercises: [TrainingExercise]
   @State private var searchText = ""
   @State private var showingCustomExercise = false
@@ -636,8 +638,8 @@ private struct ExercisePickerView: View {
             VStack(alignment: .leading, spacing: 4) {
               Text(exercise.name).foregroundStyle(.primary)
               Text(exercise.metricType.displayName)
-                .font(.caption)
-                .foregroundStyle(.secondary)
+                .heliosFont(.caption)
+                .foregroundStyle(theme.palette.text.secondary.color)
             }
             .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
           }
