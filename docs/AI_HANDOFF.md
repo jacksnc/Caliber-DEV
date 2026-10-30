@@ -4,6 +4,20 @@ This file is the shared checkpoint for work across Codex and Claude. The Git
 checkout and its commits are the source of truth; neither assistant inherits the
 other's chat automatically, and there is no automatic credit-exhaustion trigger.
 
+## Lookbook V2 design checkpoint delivered - 2026-10-30
+
+Full seven-screen Graphite/Frost V2 and required state appendices are reviewed in
+[VERIFICATION](parallel/lookbook-v2/VERIFICATION.md). The 15-page PDF is in
+output/pdf/Caliber-Lookbook-V2.pdf, canonical source design/lookbook-v2/index.html.
+Claude 30ff32b and Gemini aecebd9 are integrated. Codex's 322 browser layout/target
+checks pass, plus focused food/meal/privacy preview checks. Native tests are not
+claimed. No installed app, personal simulator, models, providers or flags changed.
+
+Next is the [native iPhone pack](parallel/v2-native/README.md). Same eight-hour
+session/deadline and simulator boundaries apply. Native peer assignments must be
+sent/verified, not assumed dispatched from file creation. Read SESSION for latest
+actual dispatch status. After native iPhone checks: iPad/resizing, then Frost beta.
+
 ## Active Lookbook V2 session — 2026-10-30
 
 Owner approved eight hours of coordinated work and phone follow-ups. Use

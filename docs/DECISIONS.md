@@ -333,3 +333,14 @@ contrast remains unresolved. iPhone comes first, then iPad/resizing and Frost
 AI-assisted beta. Widgets/graphics are bounded studies; logo deferred; live
 STK-06 gate unchanged. Session heartbeat has a fixed end and confirmed phone
 receipt. See docs/parallel/lookbook-v2/README.md and SESSION.md.
+
+
+## V202 - Review combined previews before native translation (2026-10-30)
+
+Retain peer design authorship; Codex fixes combined flow/privacy issues in its
+integration branch. Fully scaled metric roles replace viewport-based font caps.
+Preview food selection and meal routing use frozen synthetic records. No real
+nutrition engine or persistence is added. PDF comparisons preserve full scrollable
+screens on tall spreads; HTML remains the semantic canonical source. Native
+translation preserves fast logging and existing controls, rather than copying a
+long HTML review literally. See V2 VERIFICATION and the native ownership pack.

@@ -397,3 +397,11 @@ peer boards, complete responsive/state checks and inspected PDF are pending.
 Bounded widget/graphics/fictional-syringe studies are in NEXT_STUDIES.md in that
 coordination directory. Logo deferred. No P1/P2 flag, live-calculator or policy
 gate is promoted or enabled by these design plans.
+
+
+## V2 design checkpoint complete - 2026-10-30
+
+Supersedes the initial V2 pending note above: all seven boards, phone reflow and
+required states are reviewed with a 15-page PDF and peer handoffs. Native iPhone
+translation/testing is next (parallel/v2-native/README.md); iPad/resizing, broad
+Frost beta and widget/graphics studies follow. No gated runtime feature is enabled.

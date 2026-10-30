@@ -67,15 +67,12 @@ table {
   flex-wrap: wrap;
 }
 
-/* Keep hero display numerals single-line across 320..480px even at 200%/300% root scaling;
-   at scale=1 (16px), 3.75rem=60px and 3.2rem=51.2px are well below 31vw (>=99.2px), so scale=1 is unchanged. */
-.energy .energy-value {
-  font-size: min(3.75rem, 31vw);
-  overflow-wrap: anywhere;
-}
-
-.energy .energy-orbit .energy-value {
-  font-size: min(3.2rem, 31vw);
+/* Large text uses the fully scaled metric role after dropping decorative rings.
+   No viewport-based font cap: numbers can wrap if a value needs more room. */
+html:is([data-scale="2"],[data-scale="3"]) .energy .energy-value,
+html:is([data-scale="2"],[data-scale="3"]) .energy .energy-orbit .energy-value,
+html:is([data-scale="2"],[data-scale="3"]) .weight-head .metric {
+  font-size: 1.75rem;
   overflow-wrap: anywhere;
 }
 

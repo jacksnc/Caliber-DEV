@@ -36,3 +36,10 @@ above still apply. Report cross-boundary changes to Codex for integration.
 For branches assigned by docs/parallel/lookbook-v2/README.md, use its V2 ownership
 contract. This is a design-first checkpoint; keep native code, generated tokens
 and the owner's installed build unchanged until the reviewed book/handoffs.
+
+## V2 native iPhone batch
+
+On branches assigned by docs/parallel/v2-native/README.md, follow that ownership
+and simulator contract. The V2 design checkpoint is complete. Translate existing
+native screens without copying mock values, changing storage/math/providers or
+weakening privacy. Codex integrates; peers update only native role handoffs.

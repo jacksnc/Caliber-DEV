@@ -1,0 +1,16 @@
+[
+  {
+    "desc": "The shape of your recorded trend, with weight values hidden. No cause is inferred.",
+    "hiddenSvg": true,
+    "renderedWeightVisible": false,
+    "theme": "dark",
+    "visibleAxis": []
+  },
+  {
+    "desc": "The shape of your recorded trend, with weight values hidden. No cause is inferred.",
+    "hiddenSvg": true,
+    "renderedWeightVisible": false,
+    "theme": "light",
+    "visibleAxis": []
+  }
+]

@@ -65,3 +65,28 @@ writing files, so no new setup or user action is needed. The source-book browser
 then returned browser.user unavailable, including a fresh existing-tab bind;
 extra state checks were not run and must not be counted as passes. Recover the
 existing browser/CUA binding on the next check rather than inventing results.
+
+## Reviewed design checkpoint - 2026-10-30 22:42 UTC
+
+Both peer deliveries are integrated (Claude 30ff32b, Gemini aecebd9). Shared
+corrections and 322 CUA browser layout/target checks pass. Required state images
+and all 15 PDF pages were rendered/reviewed. Source and output paths are in
+VERIFICATION. Native Gemini UI recovered; its current V2 chat shows completed
+handoff. Browser recovered with CUA reset. No terms/privacy change was accepted.
+
+Native ownership pack is prepared at docs/parallel/v2-native/README.md; peer
+assignments are not yet dispatched at this entry. Commit/push reviewed checkpoint,
+seed native branches, send exact bounded roles and verify starts next. Do not
+restart HTML work or copy outdated unintegrated peer screenshots as final evidence.
+
+On the last scheduled tick within 15 minutes of deadline, start no new batch;
+finish a bounded safe checkpoint, record actual state and delete this session's
+heartbeat on that turn. Do not leave an ACTIVE automation with no future useful
+work just because the last recurrence precedes the exact deadline.
+
+Final review also fixed SVG state hiding (setting .hidden on SVG did not create
+an attribute). Number-free axis values are now absent from rendered geometry
+and the browser AX view, with a separate final audit. Raw body.innerText included
+hidden SVG text even after CSS hiding and is not used as visual/AX evidence.
+Food routing/meal editing/manual macro override preview and chart table (12 rows)
+were exercised, and keyboard focus showed a 3px solid outline.

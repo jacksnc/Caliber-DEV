@@ -20,7 +20,7 @@
   <section class="card energy" aria-labelledby="energy-h">
     <h2 class="eyebrow" id="energy-h">Energy today</h2>
 
-    <div data-state-only="populated long-name">
+    <div data-state-only="populated long-name locked opted-out">
       <div class="energy-ring">
         <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-track" cx="60" cy="60" r="54"/><circle class="ring-fill" cx="60" cy="60" r="54" stroke-dasharray="271.4 339.3"/></svg>
         <div class="ring-copy">
@@ -52,7 +52,7 @@
       <div class="button-row" style="margin-top:1rem;justify-content:center"><a class="primary" href="food-entry.html" data-board-link>Add food</a></div>
     </div>
 
-    <div class="macro-grid" data-state-only="populated long-name no-goals">
+    <div class="macro-grid" data-state-only="populated long-name no-goals locked opted-out">
       <div class="macro protein">
         <strong><span class="num" data-demo="proteinConsumed">134</span> g</strong>
         <span class="macro-of" data-state-except="no-goals">of <span data-demo="proteinTarget">160</span> g</span>
@@ -124,18 +124,17 @@
       <li><time datetime="07:10">7:10 AM</time><span class="rail"><span class="dot weigh"></span></span>
         <div class="event"><div class="event-row"><span class="event-title">Morning weigh-in</span><span class="event-amount" data-state-except="number-free"><span data-demo="weight">82.4</span> kg</span></div></div></li>
       <li><time datetime="07:40">7:40 AM</time><span class="rail"><span class="dot meal"></span></span>
-        <div class="event"><div class="event-row"><span class="event-title">Breakfast</span><span class="event-amount" data-state-except="number-free"><span data-demo="breakfastEnergy">400</span> kcal</span></div><p class="event-detail">Greek yogurt, oats, berries</p></div></li>
+        <div class="event"><div class="event-row"><span class="event-title">Breakfast</span><span class="event-amount" data-state-except="number-free"><span data-demo="breakfastEnergy">400</span> kcal</span></div><p class="event-detail"><span data-demo="breakfastName">Demo oats &amp; berries</span></p></div></li>
       <li data-state-except="opted-out locked"><time datetime="08:00">8:00 AM</time><span class="rail"><span class="dot stack"></span></span>
         <div class="event"><div class="event-row"><span class="event-title">Stack entries logged</span></div><p class="event-detail">Details stay in Stack</p></div></li>
-      <li data-state-only="locked"><time datetime="08:00">8:00 AM</time><span class="rail"><span class="dot hollow stack"></span></span>
-        <div class="event"><div class="event-row"><span class="event-title">Private entries</span></div><p class="event-detail">Stack is locked</p></div></li>
+
       <li><time datetime="12:30">12:30 PM</time><span class="rail"><span class="dot meal"></span></span>
         <div class="event"><div class="event-row"><span class="event-title" data-state-except="long-name">Lunch</span><span class="event-title" data-state-only="long-name">Lunch at the office with the whole design team</span><span class="event-amount" data-state-except="number-free"><span data-demo="lunchEnergy">640</span> kcal</span></div>
-          <p class="event-detail" data-state-except="long-name">Chicken rice bowl</p><p class="event-detail" data-state-only="long-name">Grilled chicken and brown rice bowl with roasted vegetables, extra greens and a lime-cilantro dressing</p></div></li>
+          <p class="event-detail" data-state-except="long-name"><span data-demo="bowlName">Demo chicken bowl</span></p><p class="event-detail" data-state-only="long-name">Grilled chicken and brown rice bowl with roasted vegetables, extra greens and a lime-cilantro dressing</p></div></li>
       <li><time datetime="15:30">3:30 PM</time><span class="rail"><span class="dot meal"></span></span>
-        <div class="event"><div class="event-row"><span class="event-title">Snack</span><span class="event-amount" data-state-except="number-free"><span data-demo="snackEnergy">200</span> kcal</span></div><p class="event-detail">Apple, peanut butter</p></div></li>
+        <div class="event"><div class="event-row"><span class="event-title">Snack</span><span class="event-amount" data-state-except="number-free"><span data-demo="snackEnergy">200</span> kcal</span></div><p class="event-detail"><span data-demo="snackName">Demo yogurt &amp; fruit</span></p></div></li>
       <li><time datetime="18:30">6:30 PM</time><span class="rail"><span class="dot meal"></span></span>
-        <div class="event"><div class="event-row"><span class="event-title">Dinner</span><span class="event-amount" data-state-except="number-free"><span data-demo="dinnerEnergy">600</span> kcal</span></div><p class="event-detail">Salmon, potatoes, green beans</p></div></li>
+        <div class="event"><div class="event-row"><span class="event-title">Dinner</span><span class="event-amount" data-state-except="number-free"><span data-demo="dinnerEnergy">600</span> kcal</span></div><p class="event-detail"><span data-demo="dinnerName">Demo salmon &amp; potatoes</span></p></div></li>
       <li><time datetime="19:45">7:45 PM</time><span class="rail"><span class="dot hollow train"></span></span>
         <div class="event"><div class="event-row"><span class="event-title" data-demo="workoutName">Upper body A</span><span class="event-amount" data-state-except="number-free">5 / 12 sets</span></div><p class="event-detail">Paused · resume any time</p></div></li>
     </ol>

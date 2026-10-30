@@ -56,7 +56,7 @@ h3 { font-size: 1.0625rem; }
 .food-amount { text-align: right; font-variant-numeric: tabular-nums; }
 .food-amount small { display: block; color: var(--text-secondary); font-size: .75rem; }
 .empty-state { text-align: center; padding: 2rem 1.25rem; display: flex; flex-direction: column; align-items: center; gap: .75rem; }
-.app-nav { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 2px; padding: .6rem .5rem 1.25rem; border-top: 1px solid var(--border-hairline); }
+.app-nav { display: grid; grid-template-columns: repeat(var(--tab-count,5),minmax(0,1fr)); gap: 2px; padding: .6rem .5rem 1.25rem; border-top: 1px solid var(--border-hairline); }
 .app-nav a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .25rem; min-height: 52px; padding: .45rem .15rem; font-size: .6875rem; text-decoration: none; color: var(--text-secondary); border-radius: 14px; }
 .app-nav a[aria-current="page"] { color: var(--accent); background: var(--accent-subtle); }
 .app-nav svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }

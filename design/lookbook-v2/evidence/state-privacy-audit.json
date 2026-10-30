@@ -1,0 +1,194 @@
+[
+  {
+    "screen": "diary",
+    "state": "empty",
+    "tabs": [
+      "Today",
+      "Train",
+      "Fuel",
+      "Stack",
+      "Progress"
+    ],
+    "privateNamesVisible": false,
+    "description": ""
+  },
+  {
+    "screen": "diary",
+    "state": "empty",
+    "tabs": [
+      "Today",
+      "Train",
+      "Fuel",
+      "Stack",
+      "Progress"
+    ],
+    "privateNamesVisible": false,
+    "description": ""
+  },
+  {
+    "screen": "diary",
+    "state": "no-goals",
+    "tabs": [
+      "Today",
+      "Train",
+      "Fuel",
+      "Stack",
+      "Progress"
+    ],
+    "privateNamesVisible": false,
+    "description": ""
+  },
+  {
+    "screen": "diary",
+    "state": "no-goals",
+    "tabs": [
+      "Today",
+      "Train",
+      "Fuel",
+      "Stack",
+      "Progress"
+    ],
+    "privateNamesVisible": false,
+    "description": ""
+  },
+  {
+    "screen": "diary",
+    "state": "long-name",
+    "tabs": [
+      "Today",
+      "Train",
+      "Fuel",
+      "Stack",
+      "Progress"
+    ],
+    "privateNamesVisible": false,
+    "description": ""
+  },
+  {
+    "screen": "diary",
+    "state": "long-name",
+    "tabs": [
+      "Today",
+      "Train",
+      "Fuel",
+      "Stack",
+      "Progress"
+    ],
+    "privateNamesVisible": false,
+    "description": ""
+  },
+  {
+    "screen": "diary",
+    "state": "number-free",
+    "tabs": [
+      "Today",
+      "Train",
+      "Fuel",
+      "Stack",
+      "Progress"
+    ],
+    "privateNamesVisible": false,
+    "description": ""
+  },
+  {
+    "screen": "diary",
+    "state": "number-free",
+    "tabs": [
+      "Today",
+      "Train",
+      "Fuel",
+      "Stack",
+      "Progress"
+    ],
+    "privateNamesVisible": false,
+    "description": ""
+  },
+  {
+    "screen": "stack",
+    "state": "locked",
+    "tabs": [
+      "Today",
+      "Train",
+      "Fuel",
+      "Stack",
+      "Progress"
+    ],
+    "privateNamesVisible": false,
+    "description": ""
+  },
+  {
+    "screen": "stack",
+    "state": "locked",
+    "tabs": [
+      "Today",
+      "Train",
+      "Fuel",
+      "Stack",
+      "Progress"
+    ],
+    "privateNamesVisible": false,
+    "description": ""
+  },
+  {
+    "screen": "stack",
+    "state": "opted-out",
+    "tabs": [
+      "Today",
+      "Train",
+      "Fuel",
+      "Progress"
+    ],
+    "privateNamesVisible": false,
+    "description": ""
+  },
+  {
+    "screen": "stack",
+    "state": "opted-out",
+    "tabs": [
+      "Today",
+      "Train",
+      "Fuel",
+      "Progress"
+    ],
+    "privateNamesVisible": false,
+    "description": ""
+  },
+  {
+    "screen": "progress",
+    "state": "number-free",
+    "tabs": [
+      "Today",
+      "Train",
+      "Fuel",
+      "Stack",
+      "Progress"
+    ],
+    "privateNamesVisible": false,
+    "description": "The shape of your recorded trend, with weight values hidden. No cause is inferred.",
+    "desc": "The shape of your recorded trend, with weight values hidden. No cause is inferred.",
+    "hiddenSvg": true,
+    "renderedWeightVisible": false,
+    "theme": "dark",
+    "visibleAxis": [],
+    "note": "SVG visibility checked from rendered geometry and browser AX; raw innerText is unreliable for hidden SVG text."
+  },
+  {
+    "screen": "progress",
+    "state": "number-free",
+    "tabs": [
+      "Today",
+      "Train",
+      "Fuel",
+      "Stack",
+      "Progress"
+    ],
+    "privateNamesVisible": false,
+    "description": "The shape of your recorded trend, with weight values hidden. No cause is inferred.",
+    "desc": "The shape of your recorded trend, with weight values hidden. No cause is inferred.",
+    "hiddenSvg": true,
+    "renderedWeightVisible": false,
+    "theme": "light",
+    "visibleAxis": [],
+    "note": "SVG visibility checked from rendered geometry and browser AX; raw innerText is unreliable for hidden SVG text."
+  }
+]

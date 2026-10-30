@@ -21,6 +21,13 @@ BOARDS = [
     ('progress', 'Progress', 'Change over time.', 'A readable weight trend with a check-in timeline for photos and notes. Patterns do not imply causation.'),
     ('food-entry', 'Add food', 'A shorter path to logging.', 'Search, capture and reusable foods together. Exact source and meal context stay visible at review.'),
     ('food-review', 'Review food', 'You stay in control.', 'Portions and reported calories/macros remain editable. Preview controls do not persist any records.'),
+    ('diary-empty', 'Diary / Empty', 'A fresh page.', 'A calm starting state with clear meal destinations. Missing entries are not invented nutrition records.'),
+    ('diary-no-goals', 'Diary / No goals', 'Log without a target.', 'Reported food totals remain available. Goal progress appears only after an explicit goal is set.'),
+    ('diary-long-name', 'Diary / Long names', 'Room for real food names.', 'Names wrap at the reading edge while quantities stay consistently aligned. Text is not truncated to fit.'),
+    ('diary-number-free', 'Diary / Number-free', 'A quieter view.', 'Meal notes and logging actions remain visible without calorie or macro totals. Native mode keeps its dedicated home route.'),
+    ('stack-locked', 'Stack / Locked', 'Private until unlocked.', 'No item names, supply or schedule details are visible. The preview does not perform biometric authentication.'),
+    ('stack-opted-out', 'Stack / Off', 'Your modules, your choice.', 'The optional Stack tab is removed and the off state has no private records. No live calculator is enabled.'),
+    ('progress-number-free', 'Progress / Number-free', 'A trend without numbers.', 'The shape and check-in notes remain, while visual and accessible weight values are hidden.'),
 ]
 
 

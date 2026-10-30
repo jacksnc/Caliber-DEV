@@ -16,22 +16,22 @@
   <main class="content" id="main">
     <div class="v2-toolbar">
       <a class="secondary" href="diary.html" data-board-link><span aria-hidden="true">‹</span><span>Fuel diary</span></a>
-      <span class="chip"><span>Logging to Lunch · <span data-demo="shortDate">Fri, Oct 30</span></span></span>
+      <span class="chip"><span>Logging to <span data-context-meal>Lunch</span> · <span data-demo="shortDate">Fri, Oct 30</span></span></span>
     </div>
 
     <section class="card" aria-labelledby="destination-heading">
       <div class="v2-context-head">
         <div>
           <p class="eyebrow">Destination</p>
-          <h2 id="destination-heading">Lunch · <span data-demo="date">Friday, October 30</span></h2>
+          <h2 id="destination-heading"><span data-context-meal>Lunch</span> · <span data-demo="date">Friday, October 30</span></h2>
         </div>
         <span class="subtle">Today · local calendar</span>
       </div>
       <div class="meal-pills" role="group" aria-label="Meal destination preview">
-        <button type="button" class="meal-pill" aria-pressed="false">Breakfast</button>
-        <button type="button" class="meal-pill" aria-pressed="true">Lunch</button>
-        <button type="button" class="meal-pill" aria-pressed="false">Dinner</button>
-        <button type="button" class="meal-pill" aria-pressed="false">Snacks</button>
+        <button type="button" class="meal-pill" aria-pressed="false" data-meal-pill="Breakfast">Breakfast</button>
+        <button type="button" class="meal-pill" aria-pressed="true" data-meal-pill="Lunch">Lunch</button>
+        <button type="button" class="meal-pill" aria-pressed="false" data-meal-pill="Dinner">Dinner</button>
+        <button type="button" class="meal-pill" aria-pressed="false" data-meal-pill="Snacks">Snacks</button>
       </div>
     </section>
 
@@ -48,12 +48,12 @@
         </svg>
         <input id="food-search-input" class="hub-search-input" type="search" value="bowl" placeholder="Search USDA foods or My Foods…" autocomplete="off">
       </div>
-      <p class="subtle" style="margin-top:8px">311 USDA Foundation + 7,793 SR Legacy foods · typed weights ("380 g") pre-fill review.</p>
+      <p class="subtle" style="margin-top:8px">Search saved foods and the offline catalog. Try a food name or a weight.</p>
 
       <a class="food-row food-review-link" href="food-review.html" data-board-link style="margin-top:10px">
         <div>
-          <p class="food-name" data-state-except="long-name">Demo chicken bowl</p>
-          <p class="food-name" data-state-only="long-name">Demo chicken bowl with roasted seasonal vegetables, a choice of toppings and a side dressing</p>
+          <p class="food-name" data-state-except="long-name" data-demo="bowlName">Demo chicken bowl</p>
+          <p class="food-name" data-state-only="long-name" data-demo="bowlLongName">Demo chicken bowl with roasted seasonal vegetables, a choice of toppings and a side dressing</p>
           <p class="food-detail" data-state-except="number-free">1 bowl (380 g) · P <span data-demo="bowlProtein">48</span> g · C <span data-demo="bowlCarbs">70</span> g · F <span data-demo="bowlFat">18</span> g</p>
           <p class="food-detail" data-state-only="number-free">1 bowl · saved personal snapshot</p>
           <div class="hub-match-meta">
@@ -77,7 +77,7 @@
             </svg>
             <span>Barcode scan</span>
           </span>
-          <span class="hub-tile-copy">GTIN-14 check &amp; explicit package basis (100 g, 100 mL or stated serving).</span>
+          <span class="hub-tile-copy">Find a packaged food. Review its serving before adding.</span>
         </button>
 
         <button type="button" class="hub-tile" aria-label="Scan nutrition label preview">
@@ -88,7 +88,7 @@
             </svg>
             <span>Nutrition label</span>
           </span>
-          <span class="hub-tile-copy">On-device label read · flags macro totals that differ beyond rounding.</span>
+          <span class="hub-tile-copy">Read the package label, then check the result.</span>
         </button>
 
         <button type="button" class="hub-tile" aria-label="Open My Foods library preview">
@@ -98,7 +98,7 @@
             </svg>
             <span>My Foods &amp; Meals</span>
           </span>
-          <span class="hub-tile-copy">Saved personal snapshots and batch recipes with measured portions.</span>
+          <span class="hub-tile-copy">Your saved foods, meals and recipes.</span>
         </button>
 
         <button type="button" class="hub-tile" aria-label="Manual food entry preview">
@@ -108,7 +108,7 @@
             </svg>
             <span>Manual entry</span>
           </span>
-          <span class="hub-tile-copy">Requires all four explicit nutrition values; blank macros never default to 0 g.</span>
+          <span class="hub-tile-copy">Enter your own food and nutrition values.</span>
         </button>
       </div>
     </section>
@@ -116,8 +116,8 @@
     <section class="card" aria-labelledby="photo-heading">
       <div class="section-head">
         <div>
-          <p class="eyebrow">Vision draft · FUEL-10</p>
-          <h2 id="photo-heading">Photo estimate mock</h2>
+          <p class="eyebrow">Photo draft</p>
+          <h2 id="photo-heading">Photo estimate preview</h2>
         </div>
         <span class="chip">Confirm first</span>
       </div>
@@ -132,7 +132,7 @@
         </div>
         <div class="stack" style="gap:4px">
           <h3>Proposed: Demo chicken bowl · est. 380 g</h3>
-          <p class="muted">Vision proposes food match and gram weight only — never calories or macros. Database values load in Review for your confirmation.</p>
+          <p class="muted">Confirm the food and portion, then review nutrition from its source.</p>
         </div>
       </div>
       <a class="secondary full-button" href="food-review.html" data-board-link>Review proposed 380 g match</a>
@@ -141,22 +141,22 @@
     <section class="card" aria-labelledby="restaurant-heading">
       <div class="section-head">
         <div>
-          <p class="eyebrow">User-supplied · FUEL-13 off</p>
+          <p class="eyebrow">Your restaurant foods</p>
           <h2 id="restaurant-heading">Restaurant entry</h2>
         </div>
-        <span class="subtle">Zero bundled chains</span>
+        <span class="subtle">Fictional example</span>
       </div>
-      <p class="muted">Log from your own restaurant CSV row or stated serving. Missing mass, cooking yield and side items are never guessed.</p>
+      <p class="muted">Choose a saved menu item or add your own. Review portions and nutrition before logging.</p>
       <a class="food-row food-review-link" href="food-review.html" data-board-link style="margin-top:10px">
         <div>
           <p class="food-name" data-state-except="long-name">Fictional Harbor Kitchen · Demo chicken bowl</p>
           <p class="food-name" data-state-only="long-name">Fictional Harbor Kitchen · Demo chicken bowl with roasted seasonal vegetables, a choice of toppings and a side dressing</p>
           <p class="food-detail" data-state-except="number-free">1 stated entrée · P <span data-demo="bowlProtein">48</span> g · C <span data-demo="bowlCarbs">70</span> g · F <span data-demo="bowlFat">18</span> g</p>
-          <p class="food-detail" data-state-only="number-free">1 stated entrée · personal CSV fixture</p>
+          <p class="food-detail" data-state-only="number-free">1 stated entrée · your saved item</p>
         </div>
         <p class="food-amount" data-state-except="number-free"><span data-demo="bowlEnergy">640</span><small>kcal</small></p>
       </a>
-      <button type="button" class="secondary full-button" style="margin-top:6px">Import personal CSV row preview</button>
+      <button type="button" class="secondary full-button" style="margin-top:6px">Add custom menu item preview</button>
     </section>
 
     <section class="card meal-card" aria-labelledby="recents-heading">
@@ -169,17 +169,17 @@
       </div>
 
       <div data-state-except="empty">
-        <a class="food-row food-review-link" href="food-review.html" data-board-link>
+        <a class="food-row food-review-link" href="food-review.html?food=bowl" data-board-link>
           <div>
-            <p class="food-name" data-state-except="long-name">Demo chicken bowl</p>
-            <p class="food-name" data-state-only="long-name">Demo chicken bowl with roasted seasonal vegetables, a choice of toppings and a side dressing</p>
+            <p class="food-name" data-state-except="long-name" data-demo="bowlName">Demo chicken bowl</p>
+            <p class="food-name" data-state-only="long-name" data-demo="bowlLongName">Demo chicken bowl with roasted seasonal vegetables, a choice of toppings and a side dressing</p>
             <p class="food-detail" data-state-except="number-free">1 bowl (380 g) · P <span data-demo="bowlProtein">48</span> g · C <span data-demo="bowlCarbs">70</span> g · F <span data-demo="bowlFat">18</span> g</p>
             <p class="food-detail" data-state-only="number-free">1 bowl · logged earlier today</p>
           </div>
           <p class="food-amount" data-state-except="number-free"><span data-demo="bowlEnergy">640</span><small>kcal</small></p>
         </a>
 
-        <a class="food-row food-review-link" href="food-review.html" data-board-link>
+        <a class="food-row food-review-link" href="food-review.html?food=breakfast" data-board-link>
           <div>
             <p class="food-name" data-state-except="long-name">Demo oats &amp; berries</p>
             <p class="food-name" data-state-only="long-name">Demo oats &amp; berries with roasted seasonal vegetables, a choice of toppings and a side dressing</p>
@@ -189,7 +189,7 @@
           <p class="food-amount" data-state-except="number-free"><span data-demo="breakfastEnergy">400</span><small>kcal</small></p>
         </a>
 
-        <a class="food-row food-review-link" href="food-review.html" data-board-link>
+        <a class="food-row food-review-link" href="food-review.html?food=dinner" data-board-link>
           <div>
             <p class="food-name" data-state-except="long-name">Demo salmon &amp; potatoes</p>
             <p class="food-name" data-state-only="long-name">Demo salmon &amp; potatoes with roasted seasonal vegetables, a choice of toppings and a side dressing</p>
@@ -199,7 +199,7 @@
           <p class="food-amount" data-state-except="number-free"><span data-demo="dinnerEnergy">600</span><small>kcal</small></p>
         </a>
 
-        <a class="food-row food-review-link" href="food-review.html" data-board-link>
+        <a class="food-row food-review-link" href="food-review.html?food=snack" data-board-link>
           <div>
             <p class="food-name" data-state-except="long-name">Demo yogurt &amp; fruit</p>
             <p class="food-name" data-state-only="long-name">Demo yogurt &amp; fruit with roasted seasonal vegetables, a choice of toppings and a side dressing</p>
