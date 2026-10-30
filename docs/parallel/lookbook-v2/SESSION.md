@@ -48,3 +48,20 @@ No persistent power/authentication settings changed. This does not override a
 closed lid, manual sleep, network loss or user lock. Owner preview still has
 only its original three scheme/localization edits. Codex tree is committed and
 pushed through the initial design checkpoint; ordinary simulator not touched.
+
+## Quiet follow-up - 2026-10-30 22:17 UTC
+
+No new peer commit yet. Claude remains in final render checks. Read-only check
+of Gemini's assigned clone now confirms active owned-file edits: responsive.css,
+food-entry/review and qa/ captures/report. Its intermediate report still fails
+checks; do not accept that as final handoff. It now reports the relayed 320px/3x
+Diary overflow case at 320px, but broader touch/input checks are being fixed.
+Do not edit/copy its uncommitted work or restart the assignment.
+
+Native Gemini AX remains unreliable. An optional browser view of the same local
+Antigravity conversation showed first-use terms/data-use onboarding; it was
+closed without acceptance or privacy changes. Existing native worker continues
+writing files, so no new setup or user action is needed. The source-book browser
+then returned browser.user unavailable, including a fresh existing-tab bind;
+extra state checks were not run and must not be counted as passes. Recover the
+existing browser/CUA binding on the next check rather than inventing results.
