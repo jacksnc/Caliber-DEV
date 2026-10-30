@@ -1,5 +1,14 @@
 # Caliber AI handoff
 
+## Native V2 work is active - 2026-10-30
+
+Use docs/parallel/v2-native/SESSION.md and README.md. Codex native worktree is
+/Users/jcrock/Documents/Codex/Caliber-v2-native, branch codex/v2-native-integration.
+Both external native assignments were actually sent and visibly started at
+18:50 Eastern; do not redispatch. Codex owns Diary and integration. Design
+checkpoint/PDF is a07ceb9; no native runtime changes yet at this entry.
+
+
 This file is the shared checkpoint for work across Codex and Claude. The Git
 checkout and its commits are the source of truth; neither assistant inherits the
 other's chat automatically, and there is no automatic credit-exhaustion trigger.
