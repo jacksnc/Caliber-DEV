@@ -41,3 +41,10 @@ Next: inspect peer progress, fetch/review their owned commits, integrate; notify
 Gemini of optional data-context-meal support added in board.js and README;
 verify responsive/state/meal routing, regenerate all captures, export/render/
 inspect PDF, publish complete book and only then begin native iPhone batch.
+
+Temporary keep-awake assertion: caffeinate -di, automatically expiring at the
+approved deadline (PID recorded locally in /tmp/caliber-v2-keep-awake.pid).
+No persistent power/authentication settings changed. This does not override a
+closed lid, manual sleep, network loss or user lock. Owner preview still has
+only its original three scheme/localization edits. Codex tree is committed and
+pushed through the initial design checkpoint; ordinary simulator not touched.
