@@ -4,6 +4,19 @@ This file is the shared checkpoint for work across Codex and Claude. The Git
 checkout and its commits are the source of truth; neither assistant inherits the
 other's chat automatically, and there is no automatic credit-exhaustion trigger.
 
+## Active Lookbook V2 session — 2026-10-30
+
+Owner approved eight hours of coordinated work and phone follow-ups. Use
+[the V2 coordination pack](parallel/lookbook-v2/README.md) and its
+[session checkpoint](parallel/lookbook-v2/SESSION.md), not the old pass2 task
+assignments. Common published seed is 137e3bf; Codex branch codex/lookbook-v2 in
+/Users/jcrock/Documents/Codex/Caliber-lookbook-v2. Claude and Gemini native-app
+assignments were actually sent and both visibly started; see
+[dispatch evidence](parallel/lookbook-v2/DISPATCH_LOG.md). Do not duplicate them.
+First checkpoint: complete reviewed full-app HTML/PDF V2 and role handoffs,
+before installed-app changes. Then native iPhone, iPad/resizing and Frost beta.
+All privacy/provider/data-license/live-calculator gates remain unchanged.
+
 ## Local build update — 2026-10-29
 
 The local Xcode checkout is updated and the exact verified app is installed and

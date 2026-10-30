@@ -320,3 +320,16 @@ on app screens until actual gradients/nested surfaces and system accessibility
 modes are validated. Peak-opacity audit results alone do not establish contrast
 across an improving shade's zero-opacity area. No token or data change is needed
 for this local food update.
+
+
+## V201 — Shared Lookbook V2 before native changes (2026-10-30)
+
+Owner approved an eight-hour coordinated design/testing session, separate model
+branches and the lookbook/handoff checkpoint first. Extend Graphite/Frost in an
+additive design/lookbook-v2 directory. Freeze a synthetic shared fixture and
+existing tokens. Codex owns Diary/shell/export, Claude four main boards, Gemini
+responsive food flow/QA. Prefer opaque text surfaces while glass-gradient
+contrast remains unresolved. iPhone comes first, then iPad/resizing and Frost
+AI-assisted beta. Widgets/graphics are bounded studies; logo deferred; live
+STK-06 gate unchanged. Session heartbeat has a fixed end and confirmed phone
+receipt. See docs/parallel/lookbook-v2/README.md and SESSION.md.

@@ -216,3 +216,12 @@ Existing source work predates this phase and remains locally staged/uncommitted 
   Codex goal setup, Claude visual refinement and Gemini food-entry convenience.
 - External work requires its own chat to be started; no external agent execution
   or integration is claimed by preparing these assignments.
+
+
+## 2026-10-30 — Lookbook V2 design session started
+
+Published separate Codex/Claude/Gemini V2 branches and shared fixture/ownership
+contract. Sent and verified both native-app peer assignments. Added first Diary
+direction with centered energy, balanced macros and meal cards in the existing
+themes. Design preview only; no native code, data migration or installed build
+change. Full book, responsive QA and export remain in progress.
