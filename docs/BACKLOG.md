@@ -386,3 +386,14 @@ The current deep-glass audit measures peak layers; a shade that improves contras
 can leave its zero-intensity gradient area at the old nested-glass minimum.
 Do not treat its peak-only passing result as proof of the entire rendered pane.
 No food dataset, Health, clinical, export/cutover or provider gate changes.
+
+
+## Lookbook V2 session - 2026-10-30
+
+Owner approved full-app design V2, then native iPhone verification, then
+adaptive iPad/resizing layouts and AI-assisted beta focused on Frost. See
+LOOKBOOK_V2.md and parallel/lookbook-v2/README.md. Initial Diary is rendered;
+peer boards, complete responsive/state checks and inspected PDF are pending.
+Bounded widget/graphics/fictional-syringe studies are in NEXT_STUDIES.md in that
+coordination directory. Logo deferred. No P1/P2 flag, live-calculator or policy
+gate is promoted or enabled by these design plans.

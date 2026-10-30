@@ -23,7 +23,7 @@ select:focus-visible,a:focus-visible { outline: 3px solid #0868b8; outline-offse
 .book-board h3 { margin: 0; font-size: 1rem; }
 .book-board figcaption span { color: #41536b; font-weight: 400; }
 .book-board a { color: #0868b8; font-size: .8125rem; min-height: 48px; display: flex; align-items: center; }
-.book-frame { border: 1px solid #b3bdcd; border-radius: 28px; background: white; overflow: hidden; box-shadow: 0 20px 45px #17233518; max-width: 100%; }
+.book-frame { border: 1px solid #b3bdcd; border-radius: 28px; background: white; overflow: auto; box-shadow: 0 20px 45px #17233518; max-width: 100%; }
 .book-frame iframe { display: block; border: 0; height: 920px; width: 100%; }
 .book-notes { margin-top: 4rem; border-top: 1px solid #b3bdcd; padding-top: 2.5rem; }
 .book-footer { border-top: 1px solid #b3bdcd; padding: 1.5rem; text-align: center; color: #41536b; font-size: .8rem; }

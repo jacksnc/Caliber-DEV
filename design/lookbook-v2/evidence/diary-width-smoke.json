@@ -1,0 +1,80 @@
+{
+  "observations": [
+    {
+      "energy": "1,840",
+      "mealCards": 4,
+      "overflow": false,
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "energy": "1,840",
+      "mealCards": 4,
+      "overflow": false,
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "energy": "1,840",
+      "mealCards": 4,
+      "overflow": false,
+      "theme": "dark",
+      "width": 375
+    },
+    {
+      "energy": "1,840",
+      "mealCards": 4,
+      "overflow": false,
+      "theme": "light",
+      "width": 375
+    },
+    {
+      "energy": "1,840",
+      "mealCards": 4,
+      "overflow": false,
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "energy": "1,840",
+      "mealCards": 4,
+      "overflow": false,
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "energy": "1,840",
+      "mealCards": 4,
+      "overflow": false,
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "energy": "1,840",
+      "mealCards": 4,
+      "overflow": false,
+      "theme": "light",
+      "width": 430
+    },
+    {
+      "energy": "1,840",
+      "mealCards": 4,
+      "overflow": false,
+      "theme": "dark",
+      "width": 430
+    },
+    {
+      "energy": "1,840",
+      "mealCards": 4,
+      "overflow": false,
+      "theme": "light",
+      "width": 480
+    }
+  ],
+  "corrected480Dark": {
+    "width": 480,
+    "theme": "dark",
+    "overflow": false
+  },
+  "note": "One viewport transition initially observed 430px for requested 480 dark; rerun verified 480px. Large-text stress is still failing and assigned to Gemini."
+}

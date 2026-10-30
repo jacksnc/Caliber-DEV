@@ -146,3 +146,10 @@ No migration. Presentation, DEBUG-only fictional screenshot fixtures and UI test
 helpers change; persisted schemas, production food data and provider settings do
 not. Parent workout draft caching lasts for the active screen, as before; it does
 not introduce a new persistent draft format.
+
+
+## Lookbook V2 design checkpoint - 2026-10-30
+
+No migration. Additive HTML/CSS/JS design previews and documentation only, using
+synthetic in-memory fixtures and no persistence/network calls. Native models,
+user stores, snapshots, entitlements and hosted schemas remain unchanged.
