@@ -28,7 +28,11 @@
   });
   document.querySelectorAll('[data-state-only]').forEach(el => { el.hidden = !el.dataset.stateOnly.split(' ').includes(root.dataset.state); });
   document.querySelectorAll('[data-state-except]').forEach(el => { el.hidden = el.dataset.stateExcept.split(' ').includes(root.dataset.state); });
-  document.querySelectorAll('a[data-board-link]').forEach(el => { const url = new URL(el.href); url.searchParams.set('theme',root.dataset.theme); el.href = url.href; });
+  const meals = ['Breakfast','Lunch','Dinner','Snacks'];
+  const meal = meals.includes(query.get('meal')) ? query.get('meal') : 'Lunch';
+  document.querySelectorAll('[data-context-meal]').forEach(el => { if (el.tagName === 'SELECT' || el.tagName === 'INPUT') el.value = meal; else el.textContent = meal; });
+  document.querySelectorAll('a[data-board-link]').forEach(el => { const url = new URL(el.href); url.searchParams.set('theme',root.dataset.theme); if (!url.searchParams.has('meal')) url.searchParams.set('meal',meal); el.href = url.href; });
   const note = document.createElement('p'); note.className = 'preview-note'; note.id = 'preview-status'; note.setAttribute('role','status'); note.textContent = 'Design preview · fictional data · nothing is saved'; document.body.append(note);
   document.querySelectorAll('button').forEach(el => el.addEventListener('click',() => { note.textContent = `${el.getAttribute('aria-label') || el.textContent.trim()} — design preview; nothing was saved.`; }));
+  document.querySelectorAll('form').forEach(el => el.addEventListener('submit',event => { event.preventDefault(); note.textContent = 'Review preview complete; nothing was saved.'; }));
 })();

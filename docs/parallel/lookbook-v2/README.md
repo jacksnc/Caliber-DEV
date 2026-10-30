@@ -37,6 +37,9 @@ primary, secondary, icon-button, row, stack, divider, chip, grid-2, grid-3,
 energy (centered overview), macro-grid, macro, meal-card, food-row, food-name,
 food-amount, empty-state, sr-only. Use real heading order, buttons/links and
 labels. Add `data-demo` for fixture values so totals remain consistent.
+Optional meal=Breakfast|Lunch|Dinner|Snacks query retains review context.
+Shared script hydrates data-context-meal labels/selects, carries meal through
+data-board-link routes and prevents form submits in these design previews.
 Fixture global: `window.CALIBER_DEMO` (frozen); no persistence/network calls.
 Fixture is synthetic. Use static progress chart geometry from its samples and
 provide an accessible text/table alternative. Never imply causal dose insights.
