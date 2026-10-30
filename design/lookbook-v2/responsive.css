@@ -1,1 +1,871 @@
-/* Gemini owns additive V2 responsive layout rules and text-stress adjustments. */
+/* Gemini owns additive V2 responsive layout rules, text-stress reflow, and food-flow board layout.
+   Uses only frozen semantic tokens from ../tokens.css; preserves text sizes under 200%/300% stress. */
+
+/* ---------- Shared structural & overflow safeguards ---------- */
+
+:where(
+  .app-header > div,
+  .row > *:not(.icon-button):not(.primary):not(.secondary),
+  .section-head > *:not(.icon-button):not(.primary):not(.secondary),
+  .food-row > *,
+  .grid-2 > *,
+  .grid-3 > *,
+  .macro-grid > *,
+  .diary-actions > *,
+  .energy-context > *
+) {
+  min-width: 0;
+}
+
+html :is(.primary, .secondary, .icon-button) {
+  min-width: 48px;
+  min-height: 48px;
+}
+
+h1, h2, h3, p, li, dt, dd, label, span, strong,
+.eyebrow, .chip, .primary, .secondary, .food-name, .food-detail {
+  overflow-wrap: break-word;
+}
+
+img, svg, canvas {
+  max-width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.skip-link:focus {
+  min-height: 48px;
+  min-width: 48px;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: var(--radius-chip);
+  color: var(--text-primary);
+  border: 2px solid var(--accent-focus);
+  text-decoration: none;
+}
+
+.row,
+.section-head {
+  flex-wrap: wrap;
+}
+
+.section-head > :first-child:not(.icon-button) {
+  flex: 1 1 9.5rem;
+}
+
+.remaining-pill {
+  max-width: 100%;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.energy .energy-context {
+  flex-wrap: wrap;
+}
+
+/* Keep hero display numerals single-line across 320..480px even at 200%/300% root scaling;
+   at scale=1 (16px), 3.75rem=60px and 3.2rem=51.2px are well below 31vw (>=99.2px), so scale=1 is unchanged. */
+.energy .energy-value {
+  font-size: min(3.75rem, 31vw);
+  overflow-wrap: anywhere;
+}
+
+.energy .energy-orbit .energy-value {
+  font-size: min(3.2rem, 31vw);
+  overflow-wrap: anywhere;
+}
+
+.food-row.food-review-link {
+  min-height: 48px;
+}
+
+/* ---------- Food hub & editable review presentation ---------- */
+
+.v2-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.v2-context-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.meal-pills {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.meal-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  min-width: 48px;
+  padding: 8px 10px;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--border-strong);
+  background: var(--opaque-raised);
+  color: var(--text-primary);
+  font-size: .875rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.meal-pill[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--text-on-accent);
+  border-color: transparent;
+}
+
+.hub-search-shell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  margin-top: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--border-strong);
+  background: var(--opaque-raised);
+}
+
+.hub-search-shell:focus-within {
+  outline: 3px solid var(--accent-focus);
+  outline-offset: 2px;
+}
+
+.hub-search-shell svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: var(--text-secondary);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hub-search-input {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  border: 0;
+  padding: 4px 0;
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.hub-search-input:focus-visible {
+  outline: none;
+}
+
+.hub-match-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.hub-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 6px;
+  width: 100%;
+  min-height: 64px;
+  min-width: 48px;
+  padding: 14px;
+  border-radius: var(--radius-tile);
+  border: 1px solid var(--border-strong);
+  background: var(--opaque-raised);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.hub-tile-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.hub-tile-head svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hub-tile-copy {
+  font-size: .8125rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.hub-photo-stage {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  margin-block: 12px;
+  border-radius: var(--radius-tile);
+  border: 1px dashed var(--border-strong);
+  background: var(--opaque-raised);
+}
+
+.hub-viewfinder {
+  width: 76px;
+  height: 76px;
+  border-radius: 16px;
+  border: 1px solid var(--border-hairline);
+  background: var(--opaque-overlay);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.hub-viewfinder svg {
+  width: 56px;
+  height: 56px;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.v2-field-group {
+  --macro-color: var(--accent);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.v2-field-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.macro-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--macro-color, var(--accent));
+  flex-shrink: 0;
+}
+
+.v2-field {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 12px;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--border-strong);
+  background: var(--opaque-raised);
+  color: var(--text-primary);
+}
+
+.portion-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, .85fr);
+  gap: 12px;
+}
+
+.review-presets {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.review-presets button {
+  padding-inline: 8px;
+  font-size: .875rem;
+}
+
+.v2-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 48px;
+  padding: 12px;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--border-strong);
+  background: var(--opaque-raised);
+  cursor: pointer;
+}
+
+.v2-check input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  margin: 2px 0 0;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+}
+
+.review-source-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review-source-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-hairline);
+}
+
+.review-source-row:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.review-source-row dt {
+  font-size: .75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--text-secondary);
+}
+
+.review-source-row dd {
+  color: var(--text-primary);
+  font-size: .9375rem;
+}
+
+.review-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review-actions .primary,
+.review-actions .secondary,
+.full-button {
+  width: 100%;
+}
+
+.review-submit {
+  min-height: 52px;
+}
+
+[data-glass="reduced"] .hub-tile,
+[data-glass="reduced"] .hub-photo-stage,
+[data-glass="reduced"] .hub-search-shell,
+[data-glass="reduced"] .v2-field,
+[data-glass="reduced"] .meal-pill:not([aria-pressed="true"]),
+[data-glass="reduced"] .v2-check,
+[data-glass="reduced"] .app-header .avatar {
+  background: var(--opaque-raised);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+/* ---------- Narrow iPhone widths (320px .. 389px) ---------- */
+
+@media (max-width: 389px) {
+  .app-header {
+    padding: 28px 16px 12px;
+  }
+
+  .content {
+    padding: 8px 16px 22px;
+    gap: 14px;
+  }
+
+  .card,
+  .meal-card {
+    padding: 16px;
+  }
+
+  .meal-pills,
+  .review-presets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 359px) {
+  .app-header {
+    padding: 22px 12px 10px;
+    gap: 10px;
+  }
+
+  .content {
+    padding: 6px 12px 20px;
+    gap: 12px;
+  }
+
+  .card,
+  .meal-card {
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .empty-state {
+    padding: 20px 14px;
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .portion-grid,
+  .hub-photo-stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .app-nav {
+    padding: 8px 6px 14px;
+  }
+}
+
+/* ---------- Short-height landscape (e.g., 568x320, 667x375, 844x390) ---------- */
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .app-header,
+  .content,
+  .app-nav,
+  .preview-note {
+    width: min(100%, 40rem);
+  }
+
+  .app-header {
+    padding: 12px 16px 8px;
+  }
+
+  .content {
+    padding: 6px 16px 16px;
+    gap: 12px;
+  }
+
+  .card,
+  .meal-card {
+    padding: 14px 16px;
+  }
+
+  .energy {
+    padding-top: 14px;
+  }
+
+  .energy-orbit {
+    width: min(100%, 10.25rem);
+    margin: 10px auto;
+  }
+
+  .app-nav {
+    padding: 6px 12px 10px;
+    gap: 6px;
+  }
+
+  .app-nav a {
+    flex-direction: row;
+    gap: 6px;
+    min-height: 48px;
+    padding: 6px 8px;
+  }
+}
+
+/* ---------- 200% text stress (scale=2) ---------- */
+
+[data-scale="2"] .app-header {
+  flex-wrap: wrap;
+  align-items: flex-start;
+  padding: 20px 16px 12px;
+  gap: 12px;
+}
+
+[data-scale="2"] .app-header > div {
+  flex: 1 1 12rem;
+}
+
+[data-scale="2"] .app-header .avatar {
+  width: 56px;
+  min-width: 56px;
+  height: 56px;
+}
+
+[data-scale="2"] .content {
+  padding: 8px 16px 24px;
+  gap: 14px;
+}
+
+[data-scale="2"] .card,
+[data-scale="2"] .meal-card {
+  padding: 16px;
+  border-radius: 20px;
+}
+
+[data-scale="2"] .empty-state {
+  padding: 20px 16px;
+  gap: 12px;
+}
+
+[data-scale="2"] .section-head {
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+[data-scale="2"] .row {
+  gap: 10px;
+}
+
+[data-scale="2"] .stack {
+  gap: 12px;
+}
+
+[data-scale="2"] .divider {
+  margin-block: 12px;
+}
+
+[data-scale="2"] .primary,
+[data-scale="2"] .secondary {
+  padding: 10px 14px;
+  gap: 8px;
+}
+
+[data-scale="2"] .icon-button {
+  padding: 8px;
+}
+
+[data-scale="2"] .chip {
+  padding: 6px 10px;
+}
+
+[data-scale="2"] .diary-date {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+}
+
+[data-scale="2"] .diary-date-label {
+  grid-column: 1 / -1;
+  order: -1;
+}
+
+[data-scale="2"] .energy {
+  padding-top: 16px;
+}
+
+[data-scale="2"] .energy-orbit {
+  width: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
+  padding: 0;
+  margin: 12px 0;
+  background: none;
+  display: block;
+}
+
+[data-scale="2"] .energy-orbit > div {
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  height: auto;
+}
+
+[data-scale="2"] .remaining-pill {
+  padding: 8px 12px;
+  gap: 8px;
+}
+
+[data-scale="2"] .energy .energy-context {
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+[data-scale="2"] .energy-footnote {
+  margin-top: 12px;
+}
+
+[data-scale="2"] .macro-grid,
+[data-scale="2"] .diary-actions,
+[data-scale="2"] .grid-2,
+[data-scale="2"] .grid-3,
+[data-scale="2"] .portion-grid,
+[data-scale="2"] .meal-pills,
+[data-scale="2"] .review-presets,
+[data-scale="2"] .hub-photo-stage {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+
+[data-scale="2"] .macro-grid {
+  margin-top: 16px;
+}
+
+[data-scale="2"] .macro {
+  text-align: left;
+}
+
+[data-scale="2"] .macro-track {
+  height: 6px;
+  margin-block: 6px;
+}
+
+[data-scale="2"] .food-row {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+  padding-block: 12px;
+}
+
+[data-scale="2"] .food-amount {
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+}
+
+[data-scale="2"] .food-amount small {
+  display: inline;
+}
+
+[data-scale="2"] .app-nav {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  padding: 10px 12px 16px;
+}
+
+[data-scale="2"] .app-nav a {
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 10px;
+  min-height: 52px;
+  padding: 10px 12px;
+}
+
+[data-scale="2"] .preview-note {
+  padding: 8px 16px 16px;
+}
+
+@media (max-width: 359px) {
+  [data-scale="2"] .app-header,
+  [data-scale="2"] .content,
+  [data-scale="2"] .app-nav,
+  [data-scale="2"] .preview-note {
+    padding-inline: 12px;
+  }
+
+  [data-scale="2"] .card,
+  [data-scale="2"] .meal-card {
+    padding: 12px;
+  }
+
+  [data-scale="2"] .app-nav {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- 300% text stress (scale=3) ---------- */
+
+[data-scale="3"] .app-header {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 12px 10px;
+  gap: 10px;
+}
+
+[data-scale="3"] .app-header > div {
+  width: 100%;
+}
+
+[data-scale="3"] .app-header .avatar {
+  width: 68px;
+  min-width: 68px;
+  height: 68px;
+}
+
+[data-scale="3"] .eyebrow {
+  letter-spacing: .05em;
+}
+
+[data-scale="3"] .content {
+  padding: 8px 12px 20px;
+  gap: 12px;
+}
+
+[data-scale="3"] .card,
+[data-scale="3"] .meal-card {
+  padding: 12px;
+  border-radius: 20px;
+}
+
+[data-scale="3"] .empty-state {
+  padding: 16px 12px;
+  gap: 10px;
+}
+
+[data-scale="3"] .section-head {
+  margin-bottom: 10px;
+  gap: 8px;
+}
+
+[data-scale="3"] .row {
+  gap: 8px;
+}
+
+[data-scale="3"] .stack {
+  gap: 10px;
+}
+
+[data-scale="3"] .divider {
+  margin-block: 10px;
+}
+
+[data-scale="3"] .primary,
+[data-scale="3"] .secondary {
+  padding: 10px 12px;
+  gap: 8px;
+}
+
+[data-scale="3"] .icon-button {
+  padding: 6px;
+}
+
+[data-scale="3"] .chip {
+  padding: 4px 10px;
+}
+
+[data-scale="3"] .diary-date {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+}
+
+[data-scale="3"] .diary-date-label {
+  grid-column: 1 / -1;
+  order: -1;
+}
+
+[data-scale="3"] .energy {
+  padding-top: 14px;
+}
+
+[data-scale="3"] .energy-orbit {
+  width: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
+  padding: 0;
+  margin: 10px 0;
+  background: none;
+  display: block;
+}
+
+[data-scale="3"] .energy-orbit > div {
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  height: auto;
+}
+
+[data-scale="3"] .remaining-pill {
+  padding: 8px 10px;
+  gap: 6px;
+}
+
+[data-scale="3"] .energy .energy-context {
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+[data-scale="3"] .energy-footnote {
+  margin-top: 12px;
+}
+
+[data-scale="3"] .macro-grid,
+[data-scale="3"] .diary-actions,
+[data-scale="3"] .grid-2,
+[data-scale="3"] .grid-3,
+[data-scale="3"] .portion-grid,
+[data-scale="3"] .meal-pills,
+[data-scale="3"] .review-presets,
+[data-scale="3"] .hub-photo-stage,
+[data-scale="3"] .app-nav {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+
+[data-scale="3"] .macro-grid {
+  margin-top: 14px;
+}
+
+[data-scale="3"] .macro {
+  text-align: left;
+}
+
+[data-scale="3"] .macro-track {
+  height: 6px;
+  margin-block: 6px;
+}
+
+[data-scale="3"] .food-row {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+  padding-block: 10px;
+}
+
+[data-scale="3"] .food-amount {
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+}
+
+[data-scale="3"] .food-amount small {
+  display: inline;
+}
+
+[data-scale="3"] .app-nav {
+  padding: 10px 12px 16px;
+}
+
+[data-scale="3"] .app-nav a {
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 12px;
+  min-height: 56px;
+  padding: 10px 14px;
+}
+
+[data-scale="3"] .app-nav svg {
+  width: 26px;
+  height: 26px;
+}
+
+[data-scale="3"] .preview-note {
+  padding: 8px 12px 16px;
+}
+
+[data-scale="3"] .hub-search-shell {
+  padding: 6px 10px;
+}

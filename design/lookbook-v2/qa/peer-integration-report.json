@@ -1,0 +1,26 @@
+{
+  "staticStatus": "PASSED",
+  "staticProblemsCount": 0,
+  "renderedStatus": "PASSED",
+  "renderedProblemsCount": 0,
+  "renderedSummary": {
+    "browser": "Chrome/156.0.8078.74",
+    "httpPort": 58582,
+    "boards": [
+      "food-entry.html",
+      "food-review.html",
+      "diary.html",
+      "today.html",
+      "train.html",
+      "stack.html",
+      "progress.html"
+    ],
+    "peerRef": "origin/codex/lookbook-v2",
+    "casesChecked": 382,
+    "diary320Scale3LongNameFrostScrollWidth": 320,
+    "screenshots": []
+  },
+  "nativeDynamicTypeStatus": "UNTESTED (HTML root font-size stress does not establish SwiftUI Dynamic Type)",
+  "nativeVoiceOverStatus": "UNTESTED (DOM label/focus audit does not establish iOS VoiceOver)",
+  "problems": []
+}
