@@ -1,7 +1,7 @@
 # Claude Opus 5.5 — Lookbook V2 handoff
 
-Branch: `claude/lookbook-v2-design`, from seed `137e3bf`. The commit hash is the
-branch head that contains this file (see `git log -1 claude/lookbook-v2-design`).
+Branch: `claude/lookbook-v2-design`, from seed `137e3bf`. Boards commit:
+`b4070ab`. The following commit only records that hash here.
 Role: the Today, Train, Stack and Progress boards plus their components. Nothing
 outside the owned list was edited, and no other branch was merged.
 
