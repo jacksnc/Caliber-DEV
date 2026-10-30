@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caliber V2 · Stack</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="responsive.css">
+<script src="fixture.js" defer></script>
+<script src="board.js" defer></script>
+</head>
+<body class="v2-app" data-screen="stack">
+<header class="app-header"></header>
+<main class="content" id="main">
+
+  <!-- Locked: nothing private renders until unlock. -->
+  <section class="card lock-panel" aria-labelledby="locked-h" data-state-only="locked">
+    <span class="lock-mark"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+    <h2 id="locked-h">Stack is locked</h2>
+    <p class="muted">Entries, names and supply stay hidden until you unlock. Today shows only that Stack is locked.</p>
+    <div class="button-row"><button class="primary" type="button">Unlock with Face ID</button></div>
+    <p class="subtle">Locks again when Caliber goes to the background.</p>
+  </section>
+
+  <!-- Opted out: calm, no nagging. -->
+  <section class="card lock-panel" aria-labelledby="off-h" data-state-only="opted-out">
+    <span class="lock-mark"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5ZM3 12l9 5 9-5M3 16l9 5 9-5"/></svg></span>
+    <h2 id="off-h">Stack is turned off</h2>
+    <p class="muted">Caliber won’t show Stack on Today, in reminders or in Progress. Nothing here is tracked while it’s off.</p>
+    <div class="button-row"><a class="secondary" href="today.html?state=opted-out" data-board-link>Back to Today</a></div>
+    <p class="subtle">You can turn it on again in Settings › Privacy.</p>
+  </section>
+
+  <!-- Empty: no items yet. -->
+  <section class="card empty-state" aria-labelledby="stack-empty-h" data-state-only="empty">
+    <span class="glyph-tile" style="--glyph-color:var(--data-peptide)"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
+    <h2 id="stack-empty-h">Nothing in your stack yet</h2>
+    <p class="muted">Add an item with your own label and schedule. Caliber records what you log; it doesn’t suggest amounts.</p>
+    <div class="button-row" style="width:100%"><button class="primary" type="button">Add item</button></div>
+  </section>
+
+  <div class="stack" data-state-except="locked opted-out empty">
+    <div class="privacy-strip">
+      <svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.75"/><path d="M4 20 20 4"/></svg>
+      <div><strong>Discreet names on</strong>Labels you chose are shown. Notifications say “Reminder” only.</div>
+    </div>
+
+    <!-- Today’s entries -->
+    <section class="card" aria-labelledby="today-entries-h">
+      <div class="section-head"><h2 id="today-entries-h">Today</h2><span class="subtle" data-demo="shortDate">Fri, Oct 30</span></div>
+      <ul class="entry-list">
+        <li class="entry is-due">
+          <div class="entry-top">
+            <span class="glyph-tile"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5ZM3 12l9 5 9-5"/></svg></span>
+            <div><p class="entry-name"><span data-state-except="long-name">Item B</span><span data-state-only="long-name">Evening item from the travel kit, second box</span></p><p class="entry-meta">Your schedule: evenings · 8:30 PM</p></div>
+            <span class="badge warn">Due</span>
+          </div>
+          <div class="button-row"><button class="primary" type="button">Log as entered</button><button class="secondary" type="button">Skip</button></div>
+        </li>
+        <li class="entry">
+          <div class="entry-top">
+            <span class="glyph-tile"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5ZM3 12l9 5 9-5"/></svg></span>
+            <div><p class="entry-name">Item A</p><p class="entry-meta">Your schedule: weekly, Fridays</p></div>
+            <span class="badge ok">Logged 8:00 AM</span>
+          </div>
+        </li>
+        <li class="entry">
+          <div class="entry-top">
+            <span class="glyph-tile"><svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="9" width="16" height="6" rx="3"/><path d="M12 9v6"/></svg></span>
+            <div><p class="entry-name">Morning capsule</p><p class="entry-meta">Your schedule: daily · mornings</p></div>
+            <span class="badge ok">Logged 7:40 AM</span>
+          </div>
+        </li>
+      </ul>
+      <p class="sr-only">2 of 3 entries logged today. Item B due at 8:30 PM.</p>
+    </section>
+
+    <!-- Supply: a count of what the person recorded, never a calculation. -->
+    <section class="card" aria-labelledby="supply-h">
+      <div class="section-head"><h2 id="supply-h">Supply</h2><span class="subtle">as you recorded it</span></div>
+      <div class="stack">
+        <div class="supply">
+          <div class="row"><span>Item A</span><span>3 of 4 left</span></div>
+          <div class="meter" role="img" aria-label="Item A: 3 of 4 left"><i style="width:75%"></i></div>
+        </div>
+        <div class="supply">
+          <div class="row"><span>Item B</span><span>9 of 20 left</span></div>
+          <div class="meter" role="img" aria-label="Item B: 9 of 20 left"><i style="width:45%"></i></div>
+        </div>
+        <div class="supply">
+          <div class="row"><span>Morning capsule</span><span>48 of 60 left</span></div>
+          <div class="meter" role="img" aria-label="Morning capsule: 48 of 60 left"><i style="width:80%"></i></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <button class="secondary" type="button" style="width:100%">Update supply</button>
+    </section>
+
+    <!-- Seven-day log: shapes plus text, not colour alone. -->
+    <section class="card" aria-labelledby="week-h">
+      <div class="section-head"><h2 id="week-h">Item B · this week</h2></div>
+      <ul class="week-dots" aria-label="Item B, last seven days">
+        <li><span class="mark logged" aria-hidden="true"></span><span>Sat</span><span class="sr-only">logged</span></li>
+        <li><span class="mark logged" aria-hidden="true"></span><span>Sun</span><span class="sr-only">logged</span></li>
+        <li><span class="mark skipped" aria-hidden="true"></span><span>Mon</span><span class="sr-only">skipped</span></li>
+        <li><span class="mark logged" aria-hidden="true"></span><span>Tue</span><span class="sr-only">logged</span></li>
+        <li><span class="mark logged" aria-hidden="true"></span><span>Wed</span><span class="sr-only">logged</span></li>
+        <li><span class="mark logged" aria-hidden="true"></span><span>Thu</span><span class="sr-only">logged</span></li>
+        <li><span class="mark today" aria-hidden="true"></span><span>Fri</span><span class="sr-only">due today, not logged yet</span></li>
+      </ul>
+      <div class="legend" style="margin-top:1rem" aria-hidden="true"><span><i class="logged"></i>Logged</span><span><i class="skipped"></i>Skipped</span><span><i></i>Not yet</span></div>
+    </section>
+
+    <p class="compliance-note">Caliber keeps a record of what you log. It does not recommend amounts, timing or changes. Talk to your clinician about your plan.</p>
+  </div>
+</main>
+<nav class="app-nav"></nav>
+</body>
+</html>
