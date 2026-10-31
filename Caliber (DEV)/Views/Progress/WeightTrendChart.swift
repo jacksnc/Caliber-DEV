@@ -6,8 +6,9 @@ import SwiftUI
 struct WeightTrendChart: View {
   @Environment(\.heliosTheme) private var theme
   @Environment(\.dynamicTypeSize) private var typeSize
-  @ScaledMetric(relativeTo: .body) private var chartHeight = 104.0
+  @ScaledMetric(relativeTo: .body) private var chartHeight = 160.0
   @State private var showsMethod = false
+  @State private var showsReadings = false
   let summary: WeightProgressSummary
   let unit: WeightUnit
   var rangeName = "since first weigh-in"
@@ -21,6 +22,7 @@ struct WeightTrendChart: View {
         weightSummary
         chart
         legend
+        readingsTable
       }
     }
     .sheet(isPresented: $showsMethod) {
@@ -151,6 +153,57 @@ struct WeightTrendChart: View {
       Capsule().fill(color).frame(width: 16, height: 2)
       Text("Smoothed trend")
     }
+  }
+
+  /// The chart's text alternative: every recorded weigh-in in the range, newest first.
+  /// A plain button, not a DisclosureGroup, so a tap on this list row opens nothing else.
+  private var readingsTable: some View {
+    VStack(alignment: .leading, spacing: HeliosTokens.space(2)) {
+      Button {
+        showsReadings.toggle()
+      } label: {
+        HStack(spacing: HeliosTokens.space(1)) {
+          Text(showsReadings ? "Hide weigh-ins" : "Show weigh-ins")
+            .fixedSize(horizontal: false, vertical: true)
+          Image(systemName: showsReadings ? "chevron.up" : "chevron.down")
+            .accessibilityHidden(true)
+        }
+        .heliosFont(.callout)
+        .foregroundStyle(theme.palette.accent.base.color)
+        .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
+        .contentShape(Rectangle())
+      }
+      .buttonStyle(.plain)
+      .accessibilityValue(showsReadings ? "Shown" : "Hidden")
+      .accessibilityIdentifier("weightTrendReadings")
+      if showsReadings {
+        ForEach(Array(summary.readings.reversed())) { reading in readingRow(reading) }
+      }
+    }
+  }
+
+  private func readingRow(_ reading: WeightEntry) -> some View {
+    let layout =
+      typeSize.isAccessibilitySize
+      ? AnyLayout(VStackLayout(alignment: .leading, spacing: 2))
+      : AnyLayout(HStackLayout(alignment: .firstTextBaseline, spacing: HeliosTokens.space(3)))
+    return layout {
+      Text(
+        reading.date,
+        format: .dateTime.weekday(.abbreviated).month(.abbreviated).day().year()
+      )
+      .heliosFont(.footnote)
+      .foregroundStyle(theme.palette.text.secondary.color)
+      .fixedSize(horizontal: false, vertical: true)
+      .frame(maxWidth: .infinity, alignment: .leading)
+      Text(
+        "\(unit.fromPounds(reading.weightInPounds), format: .number.precision(.fractionLength(0...2))) \(unit.symbol)"
+      )
+      .heliosFont(.bodyStrong)
+      .fixedSize(horizontal: false, vertical: true)
+    }
+    .frame(minHeight: 36)
+    .accessibilityElement(children: .combine)
   }
 
   private var chart: some View {

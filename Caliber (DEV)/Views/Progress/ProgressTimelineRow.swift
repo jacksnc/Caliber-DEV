@@ -53,12 +53,16 @@ struct ProgressTimelineRow: View {
           Text(entry.notes)
             .heliosFont(.subheadline)
             .foregroundStyle(theme.palette.text.primary.color)
-            .lineLimit(3)
             .fixedSize(horizontal: false, vertical: true)
         }
       }
       .frame(maxWidth: .infinity, alignment: .leading)
-      .glassCard()
+      .padding(HeliosTokens.spacing[3])
+      // V2: notes and dates sit on the opaque tone, with the glass edge and shadow kept.
+      .background {
+        GlassBackground()
+          .transformEnvironment(\.heliosTheme) { $0.reduceTransparency = true }
+      }
     }
     .padding(.bottom, 14)
     .background {
@@ -111,7 +115,7 @@ struct ProgressTimelineRow: View {
           .overlay(alignment: .bottomTrailing) {
             if index == 2 && entry.photos.count > 3 {
               Text("+\(entry.photos.count - 3)")
-                .font(.caption.bold())
+                .heliosFont(.metricLabel)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 5)
                 .foregroundStyle(.white)

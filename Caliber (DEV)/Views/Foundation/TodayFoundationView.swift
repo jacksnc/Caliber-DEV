@@ -3,8 +3,8 @@ import HeliosDesign
 import SwiftData
 import SwiftUI
 
-/// Today, drawn to the look book: the Fuel rings, the training card, the weight trend and,
-/// when Stack is on, the next dose. Logging starts from the floating + button.
+/// Today, drawn to Lookbook V2: the energy summary, the workout to continue, the weight trend
+/// and, when Stack is on, the next dose. Logging starts from the floating + button.
 struct TodayFoundationView: View {
   @EnvironmentObject private var runtime: FoundationRuntime
   @Query(sort: \DiaryEntry.date) private var diary: [DiaryEntry]
@@ -83,12 +83,12 @@ struct TodayFoundationView: View {
         .heliosFont(.footnote)
         .foregroundStyle(theme.palette.text.secondary.color)
     }
-    .glassCard()
+    .v2Surface()
   }
 }
 
-/// "Fuel": four concentric rings (energy outside, then protein, carbs, fat) with a legend.
-/// Left shows what remains of each goal; Eaten shows what was logged.
+/// "Energy today": one centered energy ring with what is left (or eaten), the eaten and goal
+/// figures under it, then protein, carbs and fat side by side with their own meters.
 private struct TodayFuelCard: View {
   let entries: [DiaryEntry]
   let profile: UserProfile?
@@ -96,6 +96,7 @@ private struct TodayFuelCard: View {
   @Environment(\.heliosTheme) private var theme
   @Environment(\.locale) private var locale
   @Environment(\.caliberProfileAction) private var openProfile
+  @Environment(\.selectCaliberTab) private var selectTab
   @State private var showsLeft = true
   /// The ring grows with text size so its centre label always has room.
   @ScaledMetric(relativeTo: .title3) private var scaledRing = 168.0
@@ -112,16 +113,23 @@ private struct TodayFuelCard: View {
     let color: Color
   }
 
+  /// What the centre of the ring says. Above the goal, "left" becomes "over" rather than 0.
+  private struct Figure {
+    let value: Double
+    let caption: String
+    let spoken: String
+  }
+
   var body: some View {
     let totals = MacroCalculator.totals(for: entries)
     let energyUnit = runtime.settings.energyUnit
     let palette = theme.palette.data
-    let rows = [
-      Row(
-        id: "energy", title: "Energy", unit: energyUnit.rawValue,
-        eaten: UnitFormatting.energy(totals.calories, unit: energyUnit),
-        goal: goal(profile?.dailyCalorieGoal).map { UnitFormatting.energy($0, unit: energyUnit) },
-        color: palette.energy.color),
+    let energy = Row(
+      id: "energy", title: "Energy", unit: energyUnit.rawValue,
+      eaten: UnitFormatting.energy(totals.calories, unit: energyUnit),
+      goal: goal(profile?.dailyCalorieGoal).map { UnitFormatting.energy($0, unit: energyUnit) },
+      color: palette.energy.color)
+    let macros = [
       Row(
         id: "protein", title: "Protein", unit: "g", eaten: totals.protein,
         goal: goal(profile?.proteinGoal), color: palette.protein.color),
@@ -132,45 +140,65 @@ private struct TodayFuelCard: View {
         id: "fat", title: "Fat", unit: "g", eaten: totals.fat, goal: goal(profile?.fatGoal),
         color: palette.fat.color),
     ]
-    VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
-      HStack {
-        SectionHeader("Fuel")
-        if rows[0].goal != nil {
-          HStack(spacing: 2) {
-            modeChip("Left", isLeft: true)
-            modeChip("Eaten", isLeft: false)
-          }
-          .padding(3)
-          .background { HeliosSegmentTrack(cornerRadius: 14) }
+    let shown = figure(energy)
+    VStack(alignment: .leading, spacing: HeliosTokens.space(4)) {
+      header(hasGoal: energy.goal != nil)
+      VStack(spacing: HeliosTokens.space(3)) {
+        ring(energy, figure: shown).frame(width: ringSize, height: ringSize)
+        if typeSize.isAccessibilitySize {
+          ringFigure(shown).accessibilityHidden(true)
         }
+        energyContext(energy)
       }
-      ViewThatFits(in: .horizontal) {
-        HStack(spacing: HeliosTokens.space(4)) {
-          rings(rows).frame(width: ringSize, height: ringSize)
-          legend(rows)
-        }
-        VStack(alignment: .leading, spacing: HeliosTokens.space(4)) {
-          rings(rows).frame(width: ringSize, height: ringSize).frame(maxWidth: .infinity)
-          if typeSize.isAccessibilitySize {
-            let energy = rows[0]
-            ringFigure(
-              showsLeft && energy.goal != nil
-                ? max(0, (energy.goal ?? 0) - energy.eaten) : energy.eaten, energy: energy
-            )
-            .frame(maxWidth: .infinity)
-            .accessibilityHidden(true)
-          }
-          legend(rows)
-        }
-      }
-      if entries.isEmpty {
-        Label("No food logged today", systemImage: "fork.knife")
-          .heliosFont(.callout)
-          .foregroundStyle(theme.palette.text.secondary.color)
-      }
-      if rows[0].goal == nil { goalHint }
+      .frame(maxWidth: .infinity)
+      macroGrid(macros)
+      if entries.isEmpty { emptyDay }
+      if energy.goal == nil { goalHint }
     }
-    .glassCard()
+    .v2Surface()
+  }
+
+  /// Title and the Left/Eaten switch; the switch drops below the title when they do not fit.
+  @ViewBuilder private func header(hasGoal: Bool) -> some View {
+    if hasGoal {
+      ViewThatFits(in: .horizontal) {
+        HStack {
+          SectionHeader("Energy today")
+          modeSwitch
+        }
+        VStack(alignment: .leading, spacing: HeliosTokens.space(2)) {
+          SectionHeader("Energy today")
+          modeSwitch
+        }
+      }
+    } else {
+      SectionHeader("Energy today")
+    }
+  }
+
+  private var modeSwitch: some View {
+    HStack(spacing: 2) {
+      modeChip("Left", isLeft: true)
+      modeChip("Eaten", isLeft: false)
+    }
+    .padding(3)
+    .background { HeliosSegmentTrack(cornerRadius: 14) }
+  }
+
+  /// Nothing logged yet: say so, and offer the Fuel tab where the day's meals are added.
+  private var emptyDay: some View {
+    VStack(alignment: .leading, spacing: HeliosTokens.space(2)) {
+      Label("No food logged today", systemImage: "fork.knife")
+        .heliosFont(.callout)
+        .foregroundStyle(theme.palette.text.secondary.color)
+      Button {
+        selectTab(.fuel)
+      } label: {
+        Text("Open Fuel").frame(maxWidth: .infinity)
+      }
+      .buttonStyle(.heliosSecondary)
+      .accessibilityIdentifier("todayOpenFuel")
+    }
   }
 
   /// Without goals the rings cannot show what is left; the hint opens Profile when it can.
@@ -184,7 +212,7 @@ private struct TodayFuelCard: View {
         }
         .heliosFont(.footnote)
         .foregroundStyle(theme.palette.accent.base.color)
-        .frame(minHeight: 44, alignment: .leading)
+        .frame(minHeight: 48, alignment: .leading)
         .contentShape(Rectangle())
       }
       .buttonStyle(.plain)
@@ -201,6 +229,23 @@ private struct TodayFuelCard: View {
     return value
   }
 
+  private func figure(_ energy: Row) -> Figure {
+    guard showsLeft, let target = energy.goal else {
+      return Figure(
+        value: energy.eaten, caption: "\(energy.unit) eaten",
+        spoken: "\(number(energy.eaten, digits: 0)) \(energy.unit) eaten today")
+    }
+    let left = target - energy.eaten
+    if left < 0 {
+      return Figure(
+        value: -left, caption: "\(energy.unit) over",
+        spoken: "\(number(-left, digits: 0)) \(energy.unit) over today's goal")
+    }
+    return Figure(
+      value: left, caption: "\(energy.unit) left",
+      spoken: "\(number(left, digits: 0)) \(energy.unit) left today")
+  }
+
   private func modeChip(_ title: LocalizedStringKey, isLeft: Bool) -> some View {
     Button {
       showsLeft = isLeft
@@ -210,7 +255,7 @@ private struct TodayFuelCard: View {
           showsLeft == isLeft ? theme.palette.accent.base.color : theme.palette.text.secondary.color
         )
         .padding(.horizontal, 12)
-        .frame(minHeight: 38)
+        .frame(minHeight: 42)
         .background {
           if showsLeft == isLeft { HeliosSegmentHighlight(cornerRadius: 11) }
         }
@@ -222,66 +267,116 @@ private struct TodayFuelCard: View {
     .accessibilityIdentifier(isLeft ? "fuelMode-left" : "fuelMode-eaten")
   }
 
-  private func rings(_ rows: [Row]) -> some View {
-    let energy = rows[0]
-    let shown =
-      showsLeft && energy.goal != nil ? max(0, (energy.goal ?? 0) - energy.eaten) : energy.eaten
-    return MacroRings(
-      rings: rows.map { row in
-        (progress: row.goal.map { row.eaten / $0 } ?? 0, color: row.color)
-      }, lineWidth: 9, gap: 3
+  /// The ring shows reported energy against the saved goal; without a goal it stays empty.
+  private func ring(_ energy: Row, figure: Figure) -> some View {
+    MacroRings(
+      rings: [(progress: energy.goal.map { energy.eaten / $0 } ?? 0, color: energy.color)],
+      lineWidth: 12, gap: 0
     ) {
-      if !typeSize.isAccessibilitySize { ringFigure(shown, energy: energy) }
+      if !typeSize.isAccessibilitySize { ringFigure(figure) }
     }
     .accessibilityElement(children: .ignore)
-    .accessibilityLabel(
-      Text(
-        showsLeft && energy.goal != nil
-          ? "\(number(shown, digits: 0)) \(energy.unit) left today"
-          : "\(number(shown, digits: 0)) \(energy.unit) eaten today"))
+    .accessibilityLabel(Text(figure.spoken))
   }
 
-  private func ringFigure(_ shown: Double, energy: Row) -> some View {
+  private func ringFigure(_ figure: Figure) -> some View {
     VStack(spacing: 0) {
-      Text(number(shown, digits: 0)).heliosFont(.metricValue)
-      Text(showsLeft && energy.goal != nil ? "\(energy.unit) left" : "\(energy.unit) eaten")
+      Text(number(figure.value, digits: 0)).heliosFont(.hero)
+        .fixedSize(horizontal: false, vertical: true)
+      Text(figure.caption)
         .heliosFont(.caption)
         .foregroundStyle(theme.palette.text.secondary.color)
+        .fixedSize(horizontal: false, vertical: true)
     }
     .multilineTextAlignment(.center)
   }
 
-  private func legend(_ rows: [Row]) -> some View {
-    VStack(alignment: .leading, spacing: HeliosTokens.space(2)) {
-      ForEach(rows) { row in
-        VStack(alignment: .leading, spacing: 0) {
-          HStack(spacing: HeliosTokens.space(1)) {
-            Circle().fill(row.color).frame(width: 8, height: 8).accessibilityHidden(true)
-            // One text, so the name and unit wrap together in a narrow legend.
-            (Text(row.title) + Text(" · \(row.unit)")).heliosFont(.metricLabel)
-              .foregroundStyle(theme.palette.text.secondary.color)
-              .fixedSize(horizontal: false, vertical: true)
+  /// "1,840 eaten · 2,300 goal" under the ring, or the eaten total alone without a goal.
+  private func energyContext(_ energy: Row) -> some View {
+    let eaten = contextFigure(number(energy.eaten, digits: 0), caption: "\(energy.unit) eaten")
+    return Group {
+      if let target = energy.goal {
+        ViewThatFits(in: .horizontal) {
+          HStack(alignment: .top, spacing: HeliosTokens.space(6)) {
+            eaten
+            contextFigure(number(target, digits: 0), caption: "\(energy.unit) goal")
           }
-          HStack(alignment: .firstTextBaseline, spacing: 2) {
-            Text(number(row.eaten, digits: row.id == "energy" ? 0 : 1)).heliosFont(.bodyStrong)
-              .fixedSize(horizontal: false, vertical: true)
-            if let goal = row.goal {
-              Text("/ \(number(goal, digits: 0))").heliosFont(.footnote)
-                .foregroundStyle(theme.palette.text.secondary.color)
-                .fixedSize(horizontal: false, vertical: true)
-            }
+          VStack(spacing: HeliosTokens.space(2)) {
+            eaten
+            contextFigure(number(target, digits: 0), caption: "\(energy.unit) goal")
           }
         }
-        .accessibilityElement(children: .combine)
+      } else {
+        contextFigure(
+          number(energy.eaten, digits: 0), caption: "\(energy.unit) eaten · no goal set")
+      }
+    }
+    .accessibilityElement(children: .combine)
+  }
+
+  private func contextFigure(_ value: String, caption: String) -> some View {
+    VStack(spacing: 0) {
+      Text(value).heliosFont(.bodyStrong)
+        .foregroundStyle(theme.palette.text.primary.color)
+      Text(caption).heliosFont(.caption)
+        .foregroundStyle(theme.palette.text.secondary.color)
+    }
+    .multilineTextAlignment(.center)
+    .fixedSize(horizontal: false, vertical: true)
+  }
+
+  /// Three equal columns; one column per row at accessibility sizes or when they do not fit.
+  @ViewBuilder private func macroGrid(_ rows: [Row]) -> some View {
+    let cells = ForEach(rows) { row in macroCell(row) }
+    if typeSize.isAccessibilitySize {
+      VStack(alignment: .leading, spacing: HeliosTokens.space(3)) { cells }
+    } else {
+      ViewThatFits(in: .horizontal) {
+        HStack(alignment: .top, spacing: HeliosTokens.space(3)) { cells }
+        VStack(alignment: .leading, spacing: HeliosTokens.space(3)) { cells }
+      }
+    }
+  }
+
+  private func macroCell(_ row: Row) -> some View {
+    VStack(alignment: .leading, spacing: HeliosTokens.space(1)) {
+      HStack(spacing: HeliosTokens.space(1)) {
+        Circle().fill(row.color).frame(width: 8, height: 8).accessibilityHidden(true)
+        Text(row.title).heliosFont(.metricLabel)
+          .foregroundStyle(theme.palette.text.secondary.color)
+          .fixedSize(horizontal: false, vertical: true)
+      }
+      Text("\(number(row.eaten, digits: 1)) \(row.unit)").heliosFont(.bodyStrong)
+        .foregroundStyle(theme.palette.text.primary.color)
+        .fixedSize(horizontal: false, vertical: true)
+      if let goal = row.goal {
+        Text("of \(number(goal, digits: 0)) \(row.unit)").heliosFont(.footnote)
+          .foregroundStyle(theme.palette.text.secondary.color)
+          .fixedSize(horizontal: false, vertical: true)
+        meter(row.eaten / goal, color: row.color)
       }
     }
     .frame(maxWidth: .infinity, alignment: .leading)
+    .accessibilityElement(children: .combine)
+  }
+
+  private func meter(_ fraction: Double, color: Color) -> some View {
+    GeometryReader { proxy in
+      ZStack(alignment: .leading) {
+        Capsule().fill(theme.palette.border.hairline.color)
+        Capsule().fill(color)
+          .frame(width: proxy.size.width * min(max(fraction, 0), 1))
+      }
+    }
+    .frame(height: 6)
+    .accessibilityHidden(true)
   }
 
   private func number(_ value: Double, digits: Int) -> String {
     UnitFormatting.number(value, locale: locale, fractionDigits: digits)
   }
 }
+
 
 /// Concentric progress rings, outermost first, with content in the middle.
 struct MacroRings<Center: View>: View {
@@ -324,6 +419,7 @@ private struct TodayTrainCard: View {
     let active = workouts.first(where: \.isActive)
     let last = workouts.first { !$0.isActive }
     VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
+      SectionHeader(active == nil ? "Training" : "Continue workout")
       HStack(spacing: HeliosTokens.space(3)) {
         Image(systemName: "dumbbell")
           .foregroundStyle(theme.palette.accent.base.color)
@@ -334,14 +430,35 @@ private struct TodayTrainCard: View {
           )
           .accessibilityHidden(true)
         VStack(alignment: .leading, spacing: 2) {
-          Text(active?.name ?? last?.name ?? "Training").heliosFont(.section)
+          Text(active?.name ?? last?.name ?? "Training").heliosFont(.bodyStrong)
+            .fixedSize(horizontal: false, vertical: true)
           Text(detail(active: active, last: last)).heliosFont(.footnote)
             .foregroundStyle(theme.palette.text.secondary.color)
+            .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
       }
+      if let active, let progress = Self.setProgress(active) {
+        // Sets ticked so far out of the sets already added to this session.
+        VStack(alignment: .leading, spacing: HeliosTokens.space(1)) {
+          Text("\(progress.done) of \(progress.total) sets logged").heliosFont(.footnote)
+            .foregroundStyle(theme.palette.text.secondary.color)
+            .fixedSize(horizontal: false, vertical: true)
+          GeometryReader { proxy in
+            ZStack(alignment: .leading) {
+              Capsule().fill(theme.palette.border.hairline.color)
+              Capsule().fill(theme.palette.data.training.color)
+                .frame(width: proxy.size.width * Double(progress.done) / Double(progress.total))
+            }
+          }
+          .frame(height: 6)
+          .accessibilityHidden(true)
+        }
+        .accessibilityElement(children: .combine)
+      }
       if let hint = hint(last), active == nil {
         Text(hint).heliosFont(.callout)
+          .fixedSize(horizontal: false, vertical: true)
       }
       Button {
         selectTab(.train)
@@ -351,7 +468,7 @@ private struct TodayTrainCard: View {
       .buttonStyle(.heliosPrimary)
       .accessibilityIdentifier("todayStartWorkout")
     }
-    .glassCard()
+    .v2Surface()
   }
 
   private func detail(active: TrainingWorkout?, last: TrainingWorkout?) -> String {
@@ -368,6 +485,13 @@ private struct TodayTrainCard: View {
 
   private static func exerciseCount(_ workout: TrainingWorkout) -> String {
     workout.exercises.count == 1 ? "1 exercise" : "\(workout.exercises.count) exercises"
+  }
+
+  /// Completed sets out of all sets in the session; nil until a set has been added.
+  private static func setProgress(_ workout: TrainingWorkout) -> (done: Int, total: Int)? {
+    let total = workout.exercises.reduce(0) { $0 + $1.sets.count }
+    guard total > 0 else { return nil }
+    return (min(workout.completedSets.count, total), total)
   }
 
   private func hint(_ last: TrainingWorkout?) -> String? {
@@ -420,7 +544,7 @@ private struct TodayWeightTile: View {
       }
     }
     .frame(maxWidth: .infinity, alignment: .leading)
-    .glassCard()
+    .v2Surface()
     .accessibilityElement(children: .combine)
   }
 
@@ -500,7 +624,7 @@ private struct TodayDoseTile: View {
         .contentShape(Rectangle())
       }
       .buttonStyle(.plain)
-      .glassCard()
+      .v2Surface()
       .accessibilityIdentifier("todayNextDose")
       // Opening the store publishes a change, so it happens after the first render.
       .task(id: stack.isLocked) { if !stack.isLocked { stack.open() } }
@@ -596,5 +720,17 @@ struct NumberFreeHomeView: View {
           entry: entries.first { Calendar.current.isDateInToday($0.date) }, hidesWeight: true)
       }
     }
+  }
+}
+
+extension View {
+  /// A V2 card: padded, on the opaque tone of a glass level with the same edge and shadow,
+  /// so text never sits on a see-through tint. Text contrast is audited on these tones.
+  fileprivate func v2Surface(level: GlassLevel = .base) -> some View {
+    padding(HeliosTokens.spacing[3])
+      .background {
+        GlassBackground(level: level)
+          .transformEnvironment(\.heliosTheme) { $0.reduceTransparency = true }
+      }
   }
 }
