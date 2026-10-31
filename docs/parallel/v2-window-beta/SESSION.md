@@ -14,3 +14,24 @@ model setting was changed. Original Gemini clone retains all seven dirty files.
 Next: publish this pack, create new peer branches/worktree from its exact seed,
 send the bounded role prompts in those existing chats, verify acknowledgment,
 then begin Codex's iPad window task. Do not create a new recurring automation.
+
+## Actual dispatch — 2026-10-31 17:50–17:53 UTC
+
+Coordination seed3183869366dcbb81ddaea6a3eb6c568b933ad841 is published. Both new
+peer branches were created at that seed without force/reset.
+
+Claude: sent in the existing native Build V2 native iPhone surfaces chat at
+17:50UTC. UI changed to Working, then Claude explicitly confirmed clean
+/home/user/cdiary on claude/v2-compact-diary at3183869, with old /home/user/v2n
+clean and preserved. It acknowledged the header/date/library-only plan and
+started implementation. Native remains UNTESTED until Codex checks delivery.
+
+Gemini: new worktree was created from its original clone using Git worktree,
+with the old seven modified files preserved. Prompt sent in the existing Caliber
+Lookbook V2 Responsive Design chat at17:51UTC. It confirmed the exact new path,
+branch/seed, clean state, FlashMedium model and document-only boundaries. It is
+reading source/captures; no native test or simulator assignment was given.
+
+Codex's self-prompt is CODEX_TASK.md. No new app source is edited centrally, no
+new schedule/provider is activated, and no owner build/data changed. Read the
+actual branch heads/handoffs before integration. Do not redispatch these tasks.
