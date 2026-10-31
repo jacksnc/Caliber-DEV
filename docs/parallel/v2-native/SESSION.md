@@ -357,3 +357,18 @@ ActiveWorkoutView + handoff only. Need inspect source/diff before integration,
 then focused native grid/draft tests and compact QA. Responsive worktree is still
 clean at985a69e; fast-forward it to native follow-up seed before further edits.
 No native tests currently active. No responsive peer task dispatched, Gemini idle.
+
+## Native + compact Train checkpoint - 2026-10-31 03:45 UTC
+
+Reviewed/merged Claude e9d41cb (ActiveWorkoutView + handoff only), then native
+build and compact375pt QA checks PASS2/2: collapse/draft/options retention and
+Graphite active workout. exec55431 finished exit0; result
+/tmp/caliber-v2-compact-train.xcresult. Only default portrait native checks claimed
+for this delivery; xxxLarge/rotation remain in the responsive matrix. The change
+uses measured exercise width/scaled302pt grid requirement, stable parent drafts,
+AnyLayout and matching stacked field labels, with no calculations or storage.
+
+Source clean after merge/format; save evidence and push latest native head.
+Then fast-forward prepared Caliber-v2-responsive worktree and begin its role pack.
+Both native QA devices idle. Claude now idle/delivered; Gemini idle. No later
+responsive task has been dispatched yet. Deadline/cutoff unchanged.

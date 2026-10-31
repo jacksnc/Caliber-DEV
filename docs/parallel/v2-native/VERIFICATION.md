@@ -123,3 +123,9 @@ while the footer owns actions, and the capture was inspected. Confirmed result:
 pushed-review-confirmed-summary.json; capture final-review/pushed-review-clear-
 action.png. Earlier failed results are retained. Main source/format/scaling lint
 passes. No owner checkout installation or stored-data change.
+
+
+Compact Train: reviewed e9d41cb compiles and passes the two existing draft/options
+and Graphite workout cases on375pt iPhoneSE3 QA (compact-train-summary.json).
+This verifies current default portrait behavior, not every text size/rotation;
+those are next in responsive QA. No health calculations/storage changed.
