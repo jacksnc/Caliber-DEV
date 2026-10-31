@@ -35,3 +35,16 @@ reading source/captures; no native test or simulator assignment was given.
 Codex's self-prompt is CODEX_TASK.md. No new app source is edited centrally, no
 new schedule/provider is activated, and no owner build/data changed. Read the
 actual branch heads/handoffs before integration. Do not redispatch these tasks.
+
+## Owner requested local preview — 2026-10-31
+
+Installed verified84edf55 on the ordinary iPhone17 after private data/app/source
+backups; personal checkout is fast-forwarded with all three original edits
+unchanged. Normal launch, no fixture arguments. Graphite Diary is visible in
+Xcode's actual Device Hub app (com.apple.dt.Devices). The user's latest explicit
+request authorizes this update; it does not give peers personal-store ownership.
+See LOCAL_PREVIEW_2026-10-31.md. Leave this preview available for the owner.
+
+Claude7e8813a and Gemini955e1f3 fetched: owned paths/handoffs inspected, not yet
+integrated. No new native test is active. Next task returns to reviewed compact
+Diary integration and real iPad window QA, using separate QA destinations only.

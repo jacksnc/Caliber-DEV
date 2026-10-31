@@ -1,5 +1,14 @@
 # Caliber AI handoff
 
+## Owner local preview updated — 2026-10-31
+
+Explicit owner request to see a local build is fulfilled with verified84edf55 in
+the personal source checkout and ordinary iPhone17 simulator. Existing data and
+all three local edits are preserved; the Graphite Diary is open in Device Hub.
+Read parallel/v2-window-beta/LOCAL_PREVIEW_2026-10-31.md. No test fixtures or new
+peer patch was installed. Claude7e8813a/Gemini955e1f3 are delivered but still
+await integration/review; iPad window QA and the approved later sequence remain.
+
 ## Window layouts and Frost review batch — 2026-10-31
 
 Owner explicitly requested Codex to select next work and involve the LLMs.
