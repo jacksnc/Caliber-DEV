@@ -52,3 +52,11 @@ and explicit-device contract. Native presentation seed is verified separately;
 keep all data/math/providers/flags/privacy gates frozen. Codex owns shared view
 widths and footer/navigation integration. Peers must not edit shared app sources
 outside their assignment. Preserve original clones and in-progress changes.
+
+## V2 window and Frost review batch
+
+Branches assigned by docs/parallel/v2-window-beta/README.md follow its file
+ownership and sequential native-QA contract. Claude owns only compact Diary
+header presentation, Gemini owns review documents, and Codex owns window QA and
+integration. Do not restart the completed native/food deliveries or edit the
+owner's local-preview checkout. Models, formulas, data and privacy gates stay frozen.

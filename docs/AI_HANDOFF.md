@@ -1,5 +1,14 @@
 # Caliber AI handoff
 
+## Window layouts and Frost review batch — 2026-10-31
+
+Owner explicitly requested Codex to select next work and involve the LLMs.
+Use parallel/v2-window-beta/README.md, CODEX_TASK.md and SESSION.md for ownership
+and actual dispatch state. Codex owns real iPad window QA/integration; Claude
+compact-height Diary header; Gemini document-only independent Frost food review.
+No app source or personal build is changed by preparing the coordination pack.
+All prior width verification and safety/data/provider limits remain in force.
+
 ## Verified responsive V2 checkpoint — 2026-10-31
 
 The owner resumed work after the overnight window. Its expired automation was
