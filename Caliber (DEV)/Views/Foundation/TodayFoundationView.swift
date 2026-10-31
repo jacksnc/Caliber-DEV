@@ -14,6 +14,8 @@ struct TodayFoundationView: View {
   @Environment(\.heliosTheme) private var theme
   @Environment(\.dynamicTypeSize) private var typeSize
   @Environment(\.scenePhase) private var scenePhase
+  /// The narrowest a paired tile may be, card padding included; it grows with text size.
+  @ScaledMetric(relativeTo: .body) private var tileWidth: CGFloat = 136
   /// The day shown. Refreshed at midnight and when the app returns, so an app left open
   /// overnight does not keep showing yesterday.
   @State private var day = Date.now
@@ -49,18 +51,28 @@ struct TodayFoundationView: View {
     }
   }
 
-  /// Two small tiles side by side; stacked at accessibility text sizes.
+  /// Two small tiles side by side while each gets at least `tileWidth`; otherwise, and
+  /// always at accessibility text sizes, stacked.
   @ViewBuilder private var tiles: some View {
     if typeSize.isAccessibilitySize {
-      VStack(spacing: HeliosTokens.space(3)) {
-        TodayWeightTile(entries: weights)
-        TodayDoseTile()
-      }
+      stackedTiles
     } else {
-      HStack(alignment: .top, spacing: HeliosTokens.space(3)) {
-        TodayWeightTile(entries: weights)
-        TodayDoseTile()
+      // The paired variant reports `tileWidth` per tile as its ideal width, so it is chosen
+      // only when two of those fit; text then wraps inside the real width.
+      ViewThatFits(in: .horizontal) {
+        HStack(alignment: .top, spacing: HeliosTokens.space(3)) {
+          TodayWeightTile(entries: weights, idealWidth: tileWidth)
+          TodayDoseTile(idealWidth: tileWidth)
+        }
+        stackedTiles
       }
+    }
+  }
+
+  private var stackedTiles: some View {
+    VStack(spacing: HeliosTokens.space(3)) {
+      TodayWeightTile(entries: weights)
+      TodayDoseTile()
     }
   }
 
@@ -114,10 +126,11 @@ private struct TodayFuelCard: View {
   }
 
   /// What the centre of the ring says. Above the goal, "left" becomes "over" rather than 0.
+  /// Captions and the spoken sentence stay localized keys.
   private struct Figure {
-    let value: Double
-    let caption: String
-    let spoken: String
+    let value: String
+    let caption: LocalizedStringKey
+    let spoken: LocalizedStringKey
   }
 
   var body: some View {
@@ -229,21 +242,30 @@ private struct TodayFuelCard: View {
     return value
   }
 
+  /// The comparison uses the raw values; only the displayed overage is formatted. An
+  /// overage below one unit reads "<1 … over", never "0 … over".
   private func figure(_ energy: Row) -> Figure {
+    let unit = energy.unit
     guard showsLeft, let target = energy.goal else {
+      let eaten = number(energy.eaten, digits: 0)
       return Figure(
-        value: energy.eaten, caption: "\(energy.unit) eaten",
-        spoken: "\(number(energy.eaten, digits: 0)) \(energy.unit) eaten today")
+        value: eaten, caption: "\(unit) eaten", spoken: "\(eaten) \(unit) eaten today")
     }
     let left = target - energy.eaten
     if left < 0 {
+      let over = -left
+      if over < 1 {
+        let one = number(1, digits: 0)
+        return Figure(
+          value: "<\(one)", caption: "\(unit) over",
+          spoken: "less than \(one) \(unit) over today's goal")
+      }
+      let shown = number(over, digits: 0)
       return Figure(
-        value: -left, caption: "\(energy.unit) over",
-        spoken: "\(number(-left, digits: 0)) \(energy.unit) over today's goal")
+        value: shown, caption: "\(unit) over", spoken: "\(shown) \(unit) over today's goal")
     }
-    return Figure(
-      value: left, caption: "\(energy.unit) left",
-      spoken: "\(number(left, digits: 0)) \(energy.unit) left today")
+    let shown = number(left, digits: 0)
+    return Figure(value: shown, caption: "\(unit) left", spoken: "\(shown) \(unit) left today")
   }
 
   private func modeChip(_ title: LocalizedStringKey, isLeft: Bool) -> some View {
@@ -281,7 +303,7 @@ private struct TodayFuelCard: View {
 
   private func ringFigure(_ figure: Figure) -> some View {
     VStack(spacing: 0) {
-      Text(number(figure.value, digits: 0)).heliosFont(.hero)
+      Text(verbatim: figure.value).heliosFont(.hero)
         .fixedSize(horizontal: false, vertical: true)
       Text(figure.caption)
         .heliosFont(.caption)
@@ -314,9 +336,9 @@ private struct TodayFuelCard: View {
     .accessibilityElement(children: .combine)
   }
 
-  private func contextFigure(_ value: String, caption: String) -> some View {
+  private func contextFigure(_ value: String, caption: LocalizedStringKey) -> some View {
     VStack(spacing: 0) {
-      Text(value).heliosFont(.bodyStrong)
+      Text(verbatim: value).heliosFont(.bodyStrong)
         .foregroundStyle(theme.palette.text.primary.color)
       Text(caption).heliosFont(.caption)
         .foregroundStyle(theme.palette.text.secondary.color)
@@ -508,6 +530,8 @@ private struct TodayTrainCard: View {
 /// Trend weight with a sparkline and this week's change.
 private struct TodayWeightTile: View {
   let entries: [WeightEntry]
+  /// Set when paired, so the row knows when two tiles fit; nil when stacked.
+  var idealWidth: CGFloat?
   @EnvironmentObject private var runtime: FoundationRuntime
   @Environment(\.heliosTheme) private var theme
   @Environment(\.locale) private var locale
@@ -544,6 +568,7 @@ private struct TodayWeightTile: View {
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .v2Surface()
+    .frame(minWidth: 0, idealWidth: idealWidth, maxWidth: .infinity, alignment: .leading)
     .accessibilityElement(children: .combine)
   }
 
@@ -594,6 +619,8 @@ struct Sparkline: View {
 
 /// The next dose from Stack. While Stack is locked the tile shows no names or amounts.
 private struct TodayDoseTile: View {
+  /// Set when paired, so the row knows when two tiles fit; nil when stacked.
+  var idealWidth: CGFloat?
   @EnvironmentObject private var stack: StackRuntime
   @Environment(\.selectCaliberTab) private var selectTab
   @Environment(\.heliosTheme) private var theme
@@ -624,6 +651,7 @@ private struct TodayDoseTile: View {
       }
       .buttonStyle(.plain)
       .v2Surface()
+      .frame(minWidth: 0, idealWidth: idealWidth, maxWidth: .infinity, alignment: .leading)
       .accessibilityIdentifier("todayNextDose")
       // Opening the store publishes a change, so it happens after the first render.
       .task(id: stack.isLocked) { if !stack.isLocked { stack.open() } }

@@ -268,19 +268,25 @@ private struct StackDoseRow: View {
   let item: StackScheduledDose
   let edit: () -> Void
   @Environment(\.heliosTheme) private var theme
+  @Environment(\.dynamicTypeSize) private var typeSize
 
   var body: some View {
     Button(action: edit) {
-      HStack(spacing: HeliosTokens.space(3)) {
-        StackIcon(form: compound.form)
-        VStack(alignment: .leading, spacing: 2) {
-          Text(compound.name).heliosFont(.bodyStrong)
-            .foregroundStyle(theme.palette.text.primary.color)
-          Text("\(StackText.amount(compound)) · \(compound.repeatPattern.title.lowercased())")
-            .heliosFont(.footnote)
-            .foregroundStyle(theme.palette.text.secondary.color)
+      // At large text the status moves under the name instead of squeezing it.
+      StackRowLayout.layout(for: typeSize) {
+        HStack(spacing: HeliosTokens.space(3)) {
+          StackIcon(form: compound.form)
+          VStack(alignment: .leading, spacing: 2) {
+            Text(compound.name).heliosFont(.bodyStrong)
+              .foregroundStyle(theme.palette.text.primary.color)
+              .fixedSize(horizontal: false, vertical: true)
+            Text("\(StackText.amount(compound)) · \(compound.repeatPattern.title.lowercased())")
+              .heliosFont(.footnote)
+              .foregroundStyle(theme.palette.text.secondary.color)
+              .fixedSize(horizontal: false, vertical: true)
+          }
+          .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
         status
       }
       .frame(minHeight: 48)
@@ -314,6 +320,16 @@ private struct StackDoseRow: View {
   }
 }
 
+/// Dose and entry rows: side by side normally, stacked from xxxLarge text up (Train uses
+/// the same switch at accessibility sizes for its set rows).
+private enum StackRowLayout {
+  static func layout(for size: DynamicTypeSize) -> AnyLayout {
+    size >= .xxxLarge
+      ? AnyLayout(VStackLayout(alignment: .leading, spacing: HeliosTokens.space(2)))
+      : AnyLayout(HStackLayout(spacing: HeliosTokens.space(3)))
+  }
+}
+
 /// Something not scheduled today: as-needed entries and other-day schedules.
 private struct StackCompoundRow: View {
   let compound: StackCompound
@@ -322,17 +338,21 @@ private struct StackCompoundRow: View {
   let edit: () -> Void
   @Environment(\.calendar) private var calendar
   @Environment(\.heliosTheme) private var theme
+  @Environment(\.dynamicTypeSize) private var typeSize
 
   var body: some View {
-    HStack(spacing: HeliosTokens.space(3)) {
+    // At large text Log moves under the name instead of squeezing it.
+    StackRowLayout.layout(for: typeSize) {
       Button(action: edit) {
         HStack(spacing: HeliosTokens.space(3)) {
           StackIcon(form: compound.form)
           VStack(alignment: .leading, spacing: 2) {
             Text(compound.name).heliosFont(.bodyStrong)
               .foregroundStyle(theme.palette.text.primary.color)
+              .fixedSize(horizontal: false, vertical: true)
             Text(detail).heliosFont(.footnote)
               .foregroundStyle(theme.palette.text.secondary.color)
+              .fixedSize(horizontal: false, vertical: true)
           }
           .frame(maxWidth: .infinity, alignment: .leading)
         }

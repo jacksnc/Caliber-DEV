@@ -92,3 +92,39 @@ Native Graphite/Frost, default and AX5 text, 320-point width, Increase
 Contrast, Reduce Transparency/OLED, VoiceOver order for the energy ring
 ("N kcal left/over/eaten today") and macro cells, and number-free (Today is not
 shown then; `NumberFreeHomeView` unchanged).
+
+## Correction batch (review findings 3, 4, 6, 7)
+
+Same branch, after 17298c9. Only `Views/Foundation/TodayFoundationView.swift`,
+`Stack/StackHomeView.swift` and this file changed. Train fit, unit preference,
+Skip undo, weigh-in table performance and the Progress legend clipping are not
+part of this batch: Train fit is in the next responsive batch, and Codex owns the
+rest.
+
+- **3. Below one unit over the goal.** `TodayFuelCard.figure` still compares the raw
+  `goal - eaten < 0`. No stored or compared value is rounded. A positive overage
+  below 1 shows "<1" (the 1 is formatted for the locale) with the caption
+  "[unit] over". VoiceOver says "less than 1 [unit] over today's goal". Overages of
+  1 or more, and the Left and Eaten modes, are unchanged.
+- **4. Localization.** `Figure.caption` and `Figure.spoken`, and the energy-context
+  captions ("[unit] eaten / goal / eaten · no goal set"), are `LocalizedStringKey`
+  again. Only the formatted numbers are `Text(verbatim:)`.
+- **6. Today tiles.** When text is not accessibility-sized, `ViewThatFits` pairs the
+  weight and dose tiles only while each can have `tileWidth`. That is a 136-point
+  `@ScaledMetric` relative to body, padding included, passed as each tile's
+  `idealWidth`. Otherwise the tiles stack. At accessibility sizes they always stack,
+  as before. Expected from arithmetic: paired at 320 points with default text,
+  stacked at 320 points from xLarge, and stacked at 390 points from xxxLarge. When
+  Stack is off, the dose tile renders nothing and the weight tile takes the full row.
+- **7. Stack rows.** `StackDoseRow` and `StackCompoundRow` use a private
+  `StackRowLayout`. It is `VStackLayout(alignment: .leading)` from `.xxxLarge` up and
+  the old `HStackLayout` below that, so the status badge or the Log button moves
+  under the name. Names and details now wrap rather than truncate. The buttons,
+  actions, accessibility labels, IDs, the lock and opt-out gates, dates and units
+  are unchanged.
+
+Checks run in the cloud: `lint_dynamic_type.py` 0 errors and 0 warnings,
+`check_tokens.py` PASS, `gen_tokens.py --check` up to date, and 130 script unit
+tests OK. `lint_foundation.py` cannot run here because it needs `xcrun`. Every
+native check is **UNTESTED**: build, swift-format, unit and UI tests, and the
+layout at 320 and 375 points with default, xxxLarge and AX5 text.
