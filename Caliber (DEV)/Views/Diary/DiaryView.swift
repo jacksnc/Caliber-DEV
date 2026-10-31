@@ -17,12 +17,22 @@ struct DiaryView: View {
   @Query private var profiles: [UserProfile]
   @Environment(\.heliosTheme) private var theme
   @Environment(\.dynamicTypeSize) private var typeSize
+  @Environment(\.verticalSizeClass) private var verticalSizeClass
 
   @State private var selectedDate: Date = .now
   @State private var mealTypePresentingSheet: MealType?
   @State private var entryBeingEdited: DiaryEntry?
   @State private var copyRequest: DiaryCopyRequest?
   @State private var repeatedEntry: DiaryEntry?
+  /// Food Library is pushed by state, not a NavigationLink, so it survives a layout switch
+  /// and the compact row gets no disclosure accessory or row-wide tap.
+  @State private var showsFoodLibrary = false
+
+  /// A short landscape phone: the date and library controls share one tight row so the
+  /// energy figure starts on screen. Accessibility sizes keep the full-width layout.
+  private var usesCompactHeader: Bool {
+    verticalSizeClass == .compact && !typeSize.isAccessibilitySize
+  }
 
   private var selectedDayEntries: [DiaryEntry] {
     allEntries.filter { calendar.isDate($0.date, inSameDayAs: selectedDate) }
@@ -37,21 +47,28 @@ struct DiaryView: View {
       List {
         Group {
           Section {
-            dateControls
-            ViewThatFits(in: .horizontal) {
-              HStack(spacing: 12) {
-                libraryLink
-                copyDayButton
+            if usesCompactHeader {
+              compactControls
+            } else {
+              dateControls
+              ViewThatFits(in: .horizontal) {
+                HStack(spacing: 12) {
+                  libraryLink
+                  copyDayButton
+                }
+                VStack(spacing: 8) {
+                  libraryLink
+                  copyDayButton
+                }
               }
-              VStack(spacing: 8) {
-                libraryLink
-                copyDayButton
-              }
+              .listRowSeparator(.hidden)
             }
-            .listRowSeparator(.hidden)
           } header: {
-            CaliberHeader("Diary", identifier: "Fuel", overline: Text("Fuel"))
-              .caliberSectionHeader()
+            // The "Fuel" overline repeats the selected tab; a short screen keeps the title.
+            CaliberHeader(
+              "Diary", identifier: "Fuel", overline: usesCompactHeader ? nil : Text("Fuel")
+            )
+            .caliberSectionHeader()
           }
           Section {
             MacroTotalsSummaryView(totals: dailyTotals, profile: profiles.first)
@@ -81,6 +98,7 @@ struct DiaryView: View {
       .caliberScreen()
       .compactNavigationTitle("Fuel")
       .profileAvatar()
+      .navigationDestination(isPresented: $showsFoodLibrary) { FoodLibraryView() }
       .sheet(item: $mealTypePresentingSheet) { meal in
         NavigationStack { FoodSearchView(mealType: meal, date: selectedDate) }
       }
@@ -102,9 +120,11 @@ struct DiaryView: View {
     }
   }
 
+  /// Pushes through `showsFoodLibrary` in both layouts, so rotating while the library is
+  /// open never removes the control that pushed it (which would pop the screen).
   private var libraryLink: some View {
-    NavigationLink {
-      FoodLibraryView()
+    Button {
+      showsFoodLibrary = true
     } label: {
       Label("Food Library", systemImage: "books.vertical")
         .frame(maxWidth: .infinity, minHeight: 48)
@@ -121,6 +141,65 @@ struct DiaryView: View {
         .frame(maxWidth: .infinity, minHeight: 48)
     }
     .buttonStyle(.heliosSecondary)
+    .accessibilityIdentifier("diaryCopyDay")
+  }
+
+  /// Compact height: one row when it fits, then two short rows, then the full-width stack.
+  /// Every variant holds the same five controls with the same identifiers and labels.
+  private var compactControls: some View {
+    ViewThatFits(in: .horizontal) {
+      HStack(spacing: 8) {
+        compactDateRow
+        compactLibraryButton
+        compactCopyDayButton
+      }
+      VStack(spacing: 8) {
+        compactDateRow
+        HStack(spacing: 8) {
+          compactLibraryButton
+          compactCopyDayButton
+        }
+      }
+      VStack(spacing: 8) {
+        datePicker
+        HStack {
+          dayButton(offset: -1)
+          Spacer()
+          dayButton(offset: 1)
+        }
+        compactLibraryButton
+        compactCopyDayButton
+      }
+    }
+    .listRowSeparator(.hidden)
+    .listRowInsets(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
+  }
+
+  private var compactDateRow: some View {
+    HStack(spacing: 0) {
+      dayButton(offset: -1)
+      datePicker
+      dayButton(offset: 1)
+    }
+  }
+
+  private var compactLibraryButton: some View {
+    Button {
+      showsFoodLibrary = true
+    } label: {
+      Label("Food Library", systemImage: "books.vertical").frame(maxWidth: .infinity)
+    }
+    .buttonStyle(DiaryCompactActionStyle())
+    .accessibilityIdentifier("openFoodLibrary")
+  }
+
+  private var compactCopyDayButton: some View {
+    Button {
+      copyRequest = DiaryCopyRequest(date: selectedDate, meal: nil)
+    } label: {
+      Label("Copy a Day", systemImage: "doc.on.doc").frame(maxWidth: .infinity)
+    }
+    .buttonStyle(DiaryCompactActionStyle())
     .accessibilityIdentifier("diaryCopyDay")
   }
 
@@ -308,6 +387,39 @@ private struct DiaryEntryRow: View {
       Text(NutritionInput.format(entry.calories, locale: locale)).heliosFont(.metricValue)
       Text("cal").heliosFont(.caption).foregroundStyle(theme.palette.text.secondary.color)
     }
+  }
+}
+
+/// The secondary Helios button look for the compact-height row: same type, colours and
+/// raised surface and a 48pt target, without the style's padding stacked on a 48pt label
+/// (which made each button 72pt tall in landscape).
+private struct DiaryCompactActionStyle: ButtonStyle {
+  func makeBody(configuration: Configuration) -> some View {
+    DiaryCompactActionBody(configuration: configuration)
+  }
+}
+
+private struct DiaryCompactActionBody: View {
+  let configuration: ButtonStyle.Configuration
+  @Environment(\.heliosTheme) private var theme
+  @Environment(\.isEnabled) private var isEnabled
+
+  var body: some View {
+    let shape = RoundedRectangle(cornerRadius: HeliosTokens.radius.button, style: .continuous)
+    configuration.label
+      .heliosFont(.bodyStrong)
+      .foregroundStyle(theme.palette.text.primary.color)
+      .multilineTextAlignment(.center)
+      .padding(.horizontal, HeliosTokens.space(3))
+      .padding(.vertical, HeliosTokens.space(1))
+      .frame(minHeight: 48)
+      .background {
+        GlassBackground(
+          level: configuration.isPressed ? .overlay : .raised,
+          cornerRadius: HeliosTokens.radius.button)
+      }
+      .contentShape(shape)
+      .opacity(isEnabled ? 1 : 0.45)
   }
 }
 
