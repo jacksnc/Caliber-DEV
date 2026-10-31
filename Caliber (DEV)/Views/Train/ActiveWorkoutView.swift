@@ -23,6 +23,19 @@ struct ActiveWorkoutView: View {
   // A collapsed card must keep values the person has typed but not completed.
   @State private var setDrafts: [UUID: WorkoutSetDraft] = [:]
   @FocusState private var focusedSetField: String?
+  /// Width of an exercise header row's content, measured in the list. The set grid needs
+  /// `setGridWidth`; below that (or at accessibility sizes) rows use the stacked layout.
+  @State private var exerciseRowWidth: CGFloat = 0
+  /// The grid's fixed columns and spacing (24 + 64 + 76 + 58 + 48 + 4 × 8 = 302) at default
+  /// text, growing with text size so larger labels are not squeezed into the same columns.
+  @ScaledMetric(relativeTo: .body) private var setGridWidth: CGFloat = 302
+
+  /// One decision for the header and every set row of the workout.
+  private var stacksSets: Bool {
+    // A set row is inset 16 + 16; the exercise header 16 + 12, so it is 4 points wider.
+    typeSize.isAccessibilitySize
+      || (exerciseRowWidth > 0 && exerciseRowWidth - 4 < setGridWidth)
+  }
 
   private var volume: String {
     let unit = runtime.settings.massUnit
@@ -156,7 +169,7 @@ struct ActiveWorkoutView: View {
 
   /// Set · Previous · weight · Reps, as in the look book's set grid.
   @ViewBuilder private var columnHeader: some View {
-    if !typeSize.isAccessibilitySize {
+    if !stacksSets {
       HStack(spacing: 8) {
         Text("Set").frame(minWidth: 24, alignment: .leading)
         Text("Previous").fixedSize(horizontal: false, vertical: true)
@@ -326,6 +339,17 @@ struct ActiveWorkoutView: View {
         }
         .accessibilityLabel("Exercise actions")
       }
+      .frame(maxWidth: .infinity)
+      .background {
+        // The header row spans the row like the set rows; its width never depends on the
+        // grid decision, so measuring it cannot loop.
+        GeometryReader { proxy in
+          Color.clear
+            .onAppear { exerciseRowWidth = proxy.size.width }
+            .onChange(of: proxy.size.width) { _, width in exerciseRowWidth = width }
+        }
+        .accessibilityHidden(true)
+      }
       .listRowSeparator(.hidden)
       .listRowInsets(EdgeInsets(top: 12, leading: 16, bottom: 8, trailing: 12))
       if expanded {
@@ -338,7 +362,7 @@ struct ActiveWorkoutView: View {
             set: set, draft: draftBinding(for: set), focusedField: $focusedSetField,
             displayUnit: runtime.settings.massUnit,
             previous: previous.indices.contains(set.position) ? previous[set.position] : nil,
-            isNext: set.id == nextSetID, showsOptions: showsSetOptions
+            isNext: set.id == nextSetID, showsOptions: showsSetOptions, stacked: stacksSets
           )
           .listRowSeparator(.hidden)
           .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
@@ -372,7 +396,6 @@ struct ActiveWorkoutView: View {
 }
 
 private struct TrainingSetRow: View {
-  @Environment(\.dynamicTypeSize) private var typeSize
   @Environment(\.heliosTheme) private var theme
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var modelContext
@@ -385,13 +408,15 @@ private struct TrainingSetRow: View {
   /// as the look book's.
   let isNext: Bool
   let showsOptions: Bool
+  /// The stacked, labelled layout: at accessibility sizes, or when the grid does not fit.
+  let stacked: Bool
   @State private var message: String?
 
   init(
     set: TrainingWorkoutSet, draft: Binding<WorkoutSetDraft>,
     focusedField: FocusState<String?>.Binding,
     displayUnit: MassUnit,
-    previous: String?, isNext: Bool, showsOptions: Bool
+    previous: String?, isNext: Bool, showsOptions: Bool, stacked: Bool
   ) {
     self.set = set
     _draft = draft
@@ -400,10 +425,11 @@ private struct TrainingSetRow: View {
     self.previous = previous
     self.isNext = isNext
     self.showsOptions = showsOptions
+    self.stacked = stacked
   }
 
   var body: some View {
-    if set.completedAt != nil && !typeSize.isAccessibilitySize {
+    if set.completedAt != nil && !stacked {
       // Look book: a finished set stays in the grid with a filled tick; tapping the tick
       // reopens it.
       HStack(spacing: 8) {
@@ -442,7 +468,7 @@ private struct TrainingSetRow: View {
         Text(message ?? "Please try again.")
       }
     } else if set.completedAt != nil {
-      (typeSize.isAccessibilitySize
+      (stacked
         ? AnyLayout(VStackLayout(alignment: .leading, spacing: 12))
         : AnyLayout(HStackLayout(spacing: 12))) {
           setNumber
@@ -454,6 +480,13 @@ private struct TrainingSetRow: View {
             Text(set.isWarmup ? "Warm-up" : rpeSummary)
               .heliosFont(.caption)
               .foregroundStyle(theme.palette.text.secondary.color)
+            // Stacked rows have no grid header, so the previous set gets its own line.
+            if let previous {
+              Text("Previous \(previous)")
+                .heliosFont(.caption)
+                .foregroundStyle(theme.palette.text.secondary.color)
+                .fixedSize(horizontal: false, vertical: true)
+            }
           }
           Spacer()
           // Look book: a completed set keeps a filled check in the accent colour.
@@ -479,23 +512,27 @@ private struct TrainingSetRow: View {
         }
     } else {
       VStack(alignment: .leading, spacing: 10) {
-        (typeSize.isAccessibilitySize
+        (stacked
           ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
           : AnyLayout(HStackLayout(spacing: 8))) {
             setNumber
-            if !typeSize.isAccessibilitySize {
+            if !stacked {
               Text(previous ?? "–")
                 .heliosFont(.footnote)
                 .foregroundStyle(theme.palette.text.secondary.color)
                 .frame(width: 64, alignment: .leading)
                 .accessibilityLabel(previous.map { "Previous \($0)" } ?? "No previous set")
-            }
-            field("Weight", text: $draft.weight, width: 76)
-            // The grid header names the unit; at accessibility sizes rows stack, so repeat it.
-            if typeSize.isAccessibilitySize {
-              Text(displayUnit.rawValue).heliosFont(.callout)
+            } else if let previous {
+              Text("Previous \(previous)")
+                .heliosFont(.footnote)
                 .foregroundStyle(theme.palette.text.secondary.color)
+                .fixedSize(horizontal: false, vertical: true)
             }
+            // Stacked rows have no grid header, so each field gets its label above it. The
+            // fields are the same views in both layouts, so focus and typed values stay.
+            if stacked { stackedLabel("Weight · \(displayUnit.rawValue)") }
+            field("Weight", text: $draft.weight, width: 76)
+            if stacked { stackedLabel("Reps") }
             field("Reps", text: $draft.repetitions, width: 58)
             Spacer(minLength: 0)
             Button(action: complete) {
@@ -514,7 +551,7 @@ private struct TrainingSetRow: View {
         // The look book's grid is Set · Previous · weight · Reps; RPE and warm-up sit below
         // the next set to do.
         if (isNext && showsOptions) || set.isWarmup || !draft.effort.isEmpty {
-          (typeSize.isAccessibilitySize
+          (stacked
             ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
             : AnyLayout(HStackLayout(spacing: 12))) {
               Toggle("Warm-up set", isOn: $set.isWarmup)
@@ -540,6 +577,15 @@ private struct TrainingSetRow: View {
       .foregroundStyle(theme.palette.text.secondary.color)
       .frame(minWidth: 24, alignment: .leading)
       .accessibilityLabel("Set \(set.position + 1)")
+  }
+
+  /// A field caption in the stacked layout; the field itself carries the spoken label.
+  private func stackedLabel(_ text: LocalizedStringKey) -> some View {
+    Text(text)
+      .heliosFont(.metricLabel)
+      .foregroundStyle(theme.palette.text.secondary.color)
+      .fixedSize(horizontal: false, vertical: true)
+      .accessibilityHidden(true)
   }
 
   private func reopen() {
@@ -571,7 +617,7 @@ private struct TrainingSetRow: View {
       .keyboardType(.decimalPad)
       .multilineTextAlignment(.center)
       .heliosFont(.bodyStrong)
-      .frame(maxWidth: typeSize.isAccessibilitySize ? .infinity : width)
+      .frame(maxWidth: stacked ? .infinity : width)
       .frame(minHeight: 48)
       .background { GlassBackground(level: .raised, cornerRadius: 12) }
       .overlay {
