@@ -128,3 +128,46 @@ Checks run in the cloud: `lint_dynamic_type.py` 0 errors and 0 warnings,
 tests OK. `lint_foundation.py` cannot run here because it needs `xcrun`. Every
 native check is **UNTESTED**: build, swift-format, unit and UI tests, and the
 layout at 320 and 375 points with default, xxxLarge and AX5 text.
+
+## Correction batch 2 (review finding 1: Train set grid fit)
+
+Same branch, after 224db4a. Only `Views/Train/ActiveWorkoutView.swift` and this file
+changed.
+
+- **One decision, one owner.** `ActiveWorkoutView.stacksSets` is true at accessibility
+  sizes, as before, and also when the measured content width of an exercise header
+  row, minus 4, is narrower than `setGridWidth`. The 4 points are the header's 16 + 12
+  inset compared with the set row's 16 + 16. `setGridWidth` is a 302-point
+  `@ScaledMetric` relative to body: 24 + 64 + 76 + 58 + 48 + 4 × 8 at default text,
+  growing with text size. The width comes from a background `GeometryReader` on the
+  header row, using `onAppear`/`onChange`. That row's width never depends on the
+  decision, so measuring it can't loop. No `UIScreen` is used. Before the first
+  measurement the width is 0, so the grid shows, matching the old behavior.
+- **Header and rows switch together.** `columnHeader` and every `TrainingSetRow` read
+  the same flag, passed as `stacked`. It replaces the row's own `isAccessibilitySize`
+  checks, so the completed grid row, the stacked completed row, the open row, the
+  warm-up/RPE row and the field widths all follow it.
+- **Stacked labels.** With no header in the stacked layout, open rows now show
+  "Previous 80 × 8" (only when there is one) and captions above the fields:
+  "Weight · [unit]" and "Reps". These replace the old unit text after the weight
+  field. Stacked completed rows add a "Previous …" line. The captions are hidden from
+  VoiceOver, because the fields keep their "Weight" and "Reps" labels.
+- **Preserved.** The parent `setDrafts` still owns drafts, and the `TextField` views
+  and focus keys are the same in both layouts (`AnyLayout` keeps identity), so typed
+  fractional values and focus survive a switch. Completion, undo/reopen, swipe delete,
+  expand/collapse, the keyboard Done button, Add Set, Set options and every ID are
+  unchanged. Fonts are not capped and names are not truncated.
+- **Expected from arithmetic, not measured:** stacked at 320 points even with default
+  text. Grid at 390 points with default text (about 318 points against 302 needed).
+  At 375 points it is borderline (about 303 points against 302), depending on the
+  list's margin. Stacked from about xLarge at 390 points.
+- **Tests.** I didn't add a focused test. XCUITest can't see which layout was chosen
+  without new layout IDs, and the stacked captions are hidden from accessibility.
+  Codex's native check: at 320 points and at 390 points with xxxLarge text, every
+  grid value and label is visible and switching layouts keeps a typed draft. The
+  existing `LookbookPolishUITests` set-row predicates still match at 390 points with
+  default text.
+
+Checks run in the cloud: `lint_dynamic_type.py` 0 errors and 0 warnings,
+`check_tokens.py` PASS, and 130 script unit tests OK. `lint_foundation.py` and every
+native build, swift-format and test check are **UNTESTED**: there is no Xcode here.
