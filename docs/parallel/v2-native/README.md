@@ -33,3 +33,10 @@ Codex owns the FoodShortcutsUITests.swift reveal helper integration fix; Gemini
 was notified to leave that file unchanged. The helper must tolerate hidden
 primary navigation bars. Do not run scripts/test_ios.py as-is: it auto-selects
 a booted iPhone. Use explicit QA destination IDs in direct xcodebuild commands.
+
+
+Codex integration exception (2026-10-31): RootTabView and the common appearance/
+review-footer bridge may coordinate transient action-bar visibility. Native
+pushed-route testing proved the global bar intercepted Add. No schema, settings,
+math, provider or privacy-lock change is authorized by this exception. Codex also
+owns the legacy FoodShortcuts pushed-route assertion/real-Back navigation fix.

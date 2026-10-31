@@ -884,6 +884,8 @@ struct FoodEntryV2NutritionOverviewCard: View {
 /// their full 48pt target instead of inheriting the system toolbar's smaller bounds.
 struct FoodEntryV2ReviewBottomBar: View {
   @Environment(\.heliosTheme) private var theme
+  @Environment(\.caliberReviewFooterPresence) private var reportPresence
+  @State private var presenceID = UUID()
 
   let canSave: Bool
   let didSave: Bool
@@ -954,6 +956,8 @@ struct FoodEntryV2ReviewBottomBar: View {
         }
         .ignoresSafeArea()
     }
+    .onAppear { reportPresence?(presenceID, true) }
+    .onDisappear { reportPresence?(presenceID, false) }
   }
 }
 

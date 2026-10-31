@@ -304,3 +304,56 @@ for responsive branch/tasks. No native test is active now; QA idle. Responsive
 README is prepared only, no peer task sent yet. Peer branches delivered reviewed
 native work/docs; original Gemini7source edits still preserved. Automation window
 and05:37:48batch cutoff unchanged. Use later responsive SESSION once dispatched.
+
+## Latest navigation follow-up - 2026-10-31 03:35 UTC
+
+985a69e is pushed/clean presentation checkpoint, but final legacy PUSHED review
+route exposed a real footer hit overlap: tapping savedFoodAdd selected Today
+instead. /tmp/caliber-v2-pushed-review.xcresult records failure. A simple outer
+TabView safeAreaInset attempt did NOT fix it; reverted, not retained. Video frame
+at /tmp/caliber-v2-pushed-before-save.png shows custom navigation over footer.
+
+Current uncommitted fix: CaliberAppearance defines transient review-footer
+presence callback; common footer registers its @StateUUID on appear/disappear;
+RootTabView keeps a Set of visible tokens and hides floating navigation while a
+review footer owns the bottom action area. No persistent navigation/data state,
+model or service change. Existing overlay otherwise unchanged. This is a Codex
+central RootTabView ownership exception necessary to fix the integration defect.
+
+/tmp/caliber-v2-footer-navigation.xcresult: modal reuse/cancel case PASS; legacy
+pushed case now successfully saves, disabled guard and Logged3times pass. It
+then fails its old assumption that reselecting Fuel pops navigation to root;
+actual custom tabs intentionally preserve stacks. Test now uses real2Back actions
+and also asserts global navigation hidden while review active and captures it.
+ACTIVE rerun exec17610 /tmp/caliber-v2-pushed-review-confirmed.{log,xcresult};
+CodexQA60A77 only. Wait/read/capture before committing this fix or running again.
+Native scope gate remains pending this follow-up; no release/allP0completion.
+
+Responsive worktree PREPARED (no source edits/tasks):
+/Users/jcrock/Documents/Codex/Caliber-v2-responsive, codex/v2-responsive at985a69e.
+Fast-forward it to the verified native follow-up before any responsive work.
+Original native worktree is still the active source. Owner preview unchanged.
+
+ACTUAL Claude follow-up sent/verified in existing native chat at03:32UTC: fix only
+Train ActiveWorkoutView width/large non-AX fit (inherited review1), matching tests
+if useful and CLAUDE_HANDOFF. Same claude/v2-native-surfaces branch, cloud native
+UNTESTED. No Root/Stack/Today/models/calculations/settings/beta/tablet edits.
+Inspect actual pushed delivery before merge. Do not redispatch this task. Gemini
+Flash is idle after corrected handoff; original7source edits preserved.
+Deadline05:52:48UTC; no new batch after05:37:48, delete automation then.
+
+## Pushed route confirmed - 2026-10-31 03:38 UTC
+
+exec17610 finished exit0: pushed-route PASS. Captured and inspected full-width
+Add, global bar hidden; after Back normal navigation returns, favorite/frequent
+reuse and exact200.5diary total pass. Modal reuse/cancel already PASS with same
+app bridge. All current source checks complete; commit/push this follow-up now.
+Source4paths: RootTabView, CaliberAppearance, FoodEntryPass2Components and the
+legacy FoodShortcuts test. Evidence/docs included. The safeAreaInset experiment
+is not retained. Read VERIFICATION for limited audit caveat and earlier failures.
+
+Claude actual new delivery e9d41cb fetched, NOT reviewed/merged yet. Own Train
+ActiveWorkoutView + handoff only. Need inspect source/diff before integration,
+then focused native grid/draft tests and compact QA. Responsive worktree is still
+clean at985a69e; fast-forward it to native follow-up seed before further edits.
+No native tests currently active. No responsive peer task dispatched, Gemini idle.

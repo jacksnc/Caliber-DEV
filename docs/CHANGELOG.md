@@ -264,3 +264,11 @@ text sizes, with separate self-sizing AX nutrition rows. Full7case food suite,
 and reviewed captures. Deep-scroll system-audit identity failures remain
 inconclusive and documented separately; no full accessibility certification or
 release-complete claim. No personal build or health-storage/formula change.
+
+
+## 2026-10-30 - Pushed food action visibility fix
+
+Prevented floating navigation from covering a pushed review's Add action. Footer
+presence is transient UI state and releases on dismissal. Pushed save/favorite/
+frequent reuse and modal cancel/reuse pass; normal tab stack behavior is retained.
+No health calculation, persistence or user-device changes.

@@ -104,3 +104,22 @@ warning remains, reproduced on baseline. No physical-owner installation.
 This is a native presentation checkpoint with the stated audit limitation and
 inherited issues in BACKLOG, not an all-P0/release-complete claim. Next: native
 compact/landscape and tablet/resizing checks, then independent Frost beta.
+
+
+## Pushed-route follow-up - 2026-10-31 03:38 UTC
+
+A final legacy pushed-review check found a real overlap after footer introduction:
+Save hit the global Today tab. The first outer safeAreaInset experiment failed
+and was reverted. A transient UI footer-presence bridge now hides floating
+navigation while a review footer is visible; disappearing releases its UUID.
+No persistent navigation/model/health state is involved.
+
+Modal reuse/cancel passes with the bridge. The pushed-route now saves correctly,
+prevents repeat save, restores navigation after Back, retains favorite/frequent
+state and verifies200.5exact diary calories. Its old assumption that tapping the
+already active custom tab pops its stack was corrected to the actual2Back route;
+app tab behavior was preserved. Test also asserts the navigation bar is absent
+while the footer owns actions, and the capture was inspected. Confirmed result:
+pushed-review-confirmed-summary.json; capture final-review/pushed-review-clear-
+action.png. Earlier failed results are retained. Main source/format/scaling lint
+passes. No owner checkout installation or stored-data change.

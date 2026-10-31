@@ -86,13 +86,21 @@ final class FoodShortcutsUITests: XCTestCase {
     ).firstMatch
     XCTAssertTrue(favorite.waitForExistence(timeout: 5))
     favorite.tap()
+    let footerOwnsActions = XCTNSPredicateExpectation(
+      predicate: NSPredicate { _, _ in !app.otherElements["caliberTabBar"].exists }, object: nil)
+    XCTAssertEqual(XCTWaiter.wait(for: [footerOwnsActions], timeout: 5), .completed)
+    snapshot("Pushed food review keeps its primary action clear", app: app)
     app.buttons["savedFoodAdd"].tap()
     XCTAssertFalse(app.buttons["savedFoodAdd"].isEnabled)
     app.navigationBars.buttons.element(boundBy: 0).tap()
     show("Frequent", in: app)
     XCTAssertTrue(app.staticTexts["Logged 3 times"].waitForExistence(timeout: 5))
     snapshot("Recent favorites and repeat-food history", app: app)
-    app.tab("Fuel").tap()
+    // Selecting an already active custom tab preserves its navigation stack.
+    // Return from Search Foods and Food Library through their real Back actions.
+    app.navigationBars.buttons.element(boundBy: 0).tap()
+    app.navigationBars.buttons.element(boundBy: 0).tap()
+    XCTAssertTrue(app.staticTexts["diaryCalories"].waitForExistence(timeout: 5))
     XCTAssertEqual(app.staticTexts["diaryCalories"].label, "200.5 calories")
   }
 

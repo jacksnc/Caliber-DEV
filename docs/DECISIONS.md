@@ -387,3 +387,14 @@ Use the existing opaque review footer at every text size. Native toolbar primary
 bounds were36pt even with48pt SwiftUI labels. A persistent full-width primary/
 Cancel/Done bar gives explicit48pt targets and matches V2; existing IDs, guards,
 keyboard controls, stored values and dismiss callbacks remain unchanged.
+
+
+## V208 - Review footer owns bottom actions on pushed pages
+
+Native testing showed the global floating tab bar intercepted Add. An outer
+safe-area inset did not reach the pushed layout correctly. Register each rendered
+review footer by a transient UUID through the existing SwiftUI environment style;
+Root hides its floating bar until all tokens disappear. This works across
+navigation hosting boundaries, preserves stacks and never writes app data.
+Both pushed saving and modal cancel/reuse are verified. The central navigation
+ownership exception is recorded in the native role pack.

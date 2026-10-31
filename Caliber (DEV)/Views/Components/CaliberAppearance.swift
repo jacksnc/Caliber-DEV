@@ -75,3 +75,16 @@ private struct CaliberScreen: ViewModifier {
 extension View {
   func caliberScreen() -> some View { modifier(CaliberScreen()) }
 }
+
+// Transient navigation chrome only. A rendered review footer owns its token
+// until it disappears, including across navigation hosting-controller boundaries.
+private struct CaliberReviewFooterPresenceKey: EnvironmentKey {
+  static let defaultValue: ((UUID, Bool) -> Void)? = nil
+}
+
+extension EnvironmentValues {
+  var caliberReviewFooterPresence: ((UUID, Bool) -> Void)? {
+    get { self[CaliberReviewFooterPresenceKey.self] }
+    set { self[CaliberReviewFooterPresenceKey.self] = newValue }
+  }
+}

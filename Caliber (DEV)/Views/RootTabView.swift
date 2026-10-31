@@ -16,6 +16,7 @@ struct RootTabView: View {
   @State private var pendingQuickLog: QuickLogAction?
   @State private var quickLogFood = false
   @State private var quickLogCheckIn = false
+  @State private var reviewFooters: Set<UUID> = []
 
   /// Stack is listed only after the person opts in (brief §1.2, §5.1).
   private var tabs: [CaliberTab] {
@@ -47,9 +48,16 @@ struct RootTabView: View {
           }
         }
         .environment(\.selectCaliberTab) { selection = $0 }
+        .environment(\.caliberReviewFooterPresence) { id, isVisible in
+          if isVisible { reviewFooters.insert(id) } else { reviewFooters.remove(id) }
+        }
         .overlay(alignment: .bottom) {
-          CaliberTabBar(tabs: tabs, selection: $selection) { showsQuickLog = true }
-            .ignoresSafeArea(.keyboard)
+          // A review already supplies its primary action at the bottom. Avoid
+          // placing the floating navigation bar over that action on pushed pages.
+          if reviewFooters.isEmpty {
+            CaliberTabBar(tabs: tabs, selection: $selection) { showsQuickLog = true }
+              .ignoresSafeArea(.keyboard)
+          }
         }
         .sheet(isPresented: $showsQuickLog, onDismiss: openPendingQuickLog) {
           QuickLogSheet(includesDose: stack.isEnabled) { action in

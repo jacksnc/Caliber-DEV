@@ -1,0 +1,59 @@
+{
+  "devicesAndConfigurations" : [
+    {
+      "device" : {
+        "architecture" : "arm64",
+        "deviceId" : "60A77BA7-5A23-4A5B-8405-B089F66D6B9F",
+        "deviceName" : "Caliber Lookbook QA",
+        "modelName" : "iPhone 17",
+        "osBuildNumber" : "24A434",
+        "osVersion" : "27.0",
+        "platform" : "iOS Simulator"
+      },
+      "expectedFailures" : 0,
+      "failedTests" : 1,
+      "passedTests" : 1,
+      "skippedTests" : 0,
+      "testPlanConfiguration" : {
+        "configurationId" : "1",
+        "configurationName" : "Test Scheme Action"
+      }
+    }
+  ],
+  "environmentDescription" : "Caliber (DEV) · Built with macOS 27.2",
+  "expectedFailures" : 0,
+  "failedTests" : 1,
+  "finishTime" : 1793417589.299,
+  "passedTests" : 1,
+  "result" : "Failed",
+  "runtimeWarnings" : [
+    {
+      "issueType" : "Runtime Warning",
+      "message" : "Invalid frame dimension (negative or non-finite)."
+    },
+    {
+      "issueType" : "Runtime Warning",
+      "message" : "Invalid frame dimension (negative or non-finite)."
+    }
+  ],
+  "skippedTests" : 0,
+  "startTime" : 1793417454.002,
+  "statistics" : [
+
+  ],
+  "testFailures" : [
+    {
+      "failureText" : "Failed to get matching snapshot: No matches found for Elements matching predicate '\"diaryCalories\" IN identifiers' from input {(\n    StaticText, label: 'Today',\n    StaticText, label: 'Train',\n    StaticText, label: 'Fuel',\n    StaticText, label: 'Progress',\n    StaticText, label: 'Search Foods',\n    StaticText, identifier: 'foodEntryContextSummary', label: 'Logging to Snack · Today',\n    StaticText, label: 'Show',\n    StaticText, label: 'Search saved foods, meals, menus, or the offline catalog. Tap + to review right away.',\n    StaticText, label: 'Frequently Logged',\n    StaticText, label: 'Frequent',\n    StaticText, label: 'Fictional breakfast',\n    StaticText, label: '100.25 cal',\n    StaticText, label: '0.5 × 1 fictional plate · P 5.125 g · C 10.25 g · F 2.5625 g',\n    StaticText, label: 'Logged 3 times',\n    StaticText, label: 'Fictional snack',\n    StaticText, label: '200 cal',\n    StaticText, label: '2 × 1 fictional pack · P 10 g · C 20 g · F 4 g',\n    StaticText, label: 'Logged 1 time',\n    StaticText, label: 'Breakfast',\n    StaticText, label: 'Lunch',\n    StaticText, label: 'Dinner',\n    StaticText, label: 'Snack',\n    StaticText, label: 'Barcode',\n    StaticText, label: 'Label',\n    StaticText, label: 'Photo',\n    StaticText, label: 'Manual',\n    StaticText, label: '1',\n    StaticText, label: 'My Foods',\n    StaticText, label: 'Meals',\n    StaticText, label: 'Restaurants'\n)}\nPossibly caused by runtime issues:\nAutomation type mismatch: computed Other from legacy attributes vs StaticText from modern attribute. Input attributes and values: {\n    \"XC_kAXXCAttributeAutomationType\" = 48;\n    \"XC_kAXXCAttributeElementBaseType\" = UILabel;\n    \"XC_kAXXCAttributeElementType\" = UILabel;\n    \"XC_kAXXCAttributeTraits\" = 8590000128;\n}\nSee test report attachments for more detail.",
+      "targetName" : "Caliber (DEV)UITests",
+      "testIdentifier" : 2,
+      "testIdentifierString" : "FoodShortcutsUITests/testRecentFavoriteAndFrequentFoodsReuseTheLatestPortion()",
+      "testIdentifierURL" : "test://com.apple.xcode/Caliber%20(DEV)/Caliber%20(DEV)UITests/FoodShortcutsUITests/testRecentFavoriteAndFrequentFoodsReuseTheLatestPortion",
+      "testName" : "testRecentFavoriteAndFrequentFoodsReuseTheLatestPortion()"
+    }
+  ],
+  "title" : "Test - Caliber (DEV)",
+  "topInsights" : [
+
+  ],
+  "totalTestCount" : 2
+}

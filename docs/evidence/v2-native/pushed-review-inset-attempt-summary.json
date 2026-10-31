@@ -1,0 +1,55 @@
+{
+  "devicesAndConfigurations" : [
+    {
+      "device" : {
+        "architecture" : "arm64",
+        "deviceId" : "60A77BA7-5A23-4A5B-8405-B089F66D6B9F",
+        "deviceName" : "Caliber Lookbook QA",
+        "modelName" : "iPhone 17",
+        "osBuildNumber" : "24A434",
+        "osVersion" : "27.0",
+        "platform" : "iOS Simulator"
+      },
+      "expectedFailures" : 0,
+      "failedTests" : 1,
+      "passedTests" : 0,
+      "skippedTests" : 0,
+      "testPlanConfiguration" : {
+        "configurationId" : "1",
+        "configurationName" : "Test Scheme Action"
+      }
+    }
+  ],
+  "environmentDescription" : "Caliber (DEV) · Built with macOS 27.2",
+  "expectedFailures" : 0,
+  "failedTests" : 1,
+  "finishTime" : 1793417131.874,
+  "passedTests" : 0,
+  "result" : "Failed",
+  "runtimeWarnings" : [
+    {
+      "issueType" : "Runtime Warning",
+      "message" : "Invalid frame dimension (negative or non-finite)."
+    }
+  ],
+  "skippedTests" : 0,
+  "startTime" : 1793417093.48,
+  "statistics" : [
+
+  ],
+  "testFailures" : [
+    {
+      "failureText" : "Failed to get matching snapshot: No matches found for Elements matching predicate '\"savedFoodAdd\" IN identifiers' from input {(\n    Button, identifier: 'tab-today', label: 'Today', Selected,\n    Button, identifier: 'tab-train', label: 'Train',\n    Button, identifier: 'tab-fuel', label: 'Fuel',\n    Button, identifier: 'tab-progress', label: 'Progress',\n    Button, identifier: 'quickLog', label: 'Quick Log',\n    Button, identifier: 'openProfile', label: 'Profile and Settings',\n    Button, identifier: 'todaySetGoals', label: 'Set daily goals in Profile to see what is left.',\n    Button, identifier: 'todayStartWorkout', label: 'Start workout',\n    Button, identifier: 'openDemo', label: 'Explore a Year of Demo Data'\n)}",
+      "targetName" : "Caliber (DEV)UITests",
+      "testIdentifier" : 1,
+      "testIdentifierString" : "FoodShortcutsUITests/testRecentFavoriteAndFrequentFoodsReuseTheLatestPortion()",
+      "testIdentifierURL" : "test://com.apple.xcode/Caliber%20(DEV)/Caliber%20(DEV)UITests/FoodShortcutsUITests/testRecentFavoriteAndFrequentFoodsReuseTheLatestPortion",
+      "testName" : "testRecentFavoriteAndFrequentFoodsReuseTheLatestPortion()"
+    }
+  ],
+  "title" : "Test - Caliber (DEV)",
+  "topInsights" : [
+
+  ],
+  "totalTestCount" : 1
+}
