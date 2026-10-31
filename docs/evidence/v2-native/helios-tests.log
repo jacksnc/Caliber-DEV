@@ -1,0 +1,173 @@
+Building for debugging...
+[Computing dependencies]
+[Planning 1 / 95]
+[Planning deferred tasks]
+[28 / 52]
+[29 / 53] HeliosDesign
+[39 / 134]
+[40 / 134]
+[42 / 134]
+[46 / 134]
+[50 / 134]
+[51 / 134]
+[52 / 134]
+[53 / 134]
+[57 / 134]
+[59 / 134]
+[60 / 134]
+[61 / 134]
+[62 / 134]
+[64 / 134]
+[65 / 134]
+[70 / 134]
+[72 / 134]
+[73 / 134]
+[75 / 134]
+[76 / 134]
+[86 / 134]
+[88 / 134]
+[89 / 134]
+[92 / 134]
+[94 / 134]
+[95 / 134]
+[96 / 134]
+[97 / 134]
+[98 / 134]
+[99 / 134]
+[110 / 134] HeliosDesign
+[111 / 134] HeliosDesign
+[116 / 134] HeliosDesign
+[116 / 134] HeliosDesign-product
+[118 / 134]
+[118 / 134] HeliosDesign
+[120 / 134] HeliosDesign
+[124 / 135] HeliosDesignTests-product
+[126 / 147]
+[128 / 147]
+[129 / 147]
+[136 / 147] HeliosDesignTests-product
+[141 / 147] HeliosDesignTests-product
+[143 / 147] HeliosDesignTests-product
+[145 / 147] HeliosDesignTests-product
+Build complete! (51.36 sec)
+Test Suite 'All tests' started at 2026-10-30 22:14:27.318.
+Test Suite 'HeliosDesignTests.xctest' started at 2026-10-30 22:14:27.321.
+Test Suite 'ColorMathTests' started at 2026-10-30 22:14:27.321.
+Test Case '-[HeliosDesignTests.ColorMathTests testColourVisionSimulationKeepsGreysAndSeparatesWhatItShould]' started.
+Test Case '-[HeliosDesignTests.ColorMathTests testColourVisionSimulationKeepsGreysAndSeparatesWhatItShould]' passed (0.007 seconds).
+Test Case '-[HeliosDesignTests.ColorMathTests testCompositing]' started.
+Test Case '-[HeliosDesignTests.ColorMathTests testCompositing]' passed (0.003 seconds).
+Test Case '-[HeliosDesignTests.ColorMathTests testContrastReferenceValues]' started.
+Test Case '-[HeliosDesignTests.ColorMathTests testContrastReferenceValues]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.ColorMathTests testHexRoundTripAndComponents]' started.
+Test Case '-[HeliosDesignTests.ColorMathTests testHexRoundTripAndComponents]' passed (0.004 seconds).
+Test Case '-[HeliosDesignTests.ColorMathTests testLabReferenceValues]' started.
+Test Case '-[HeliosDesignTests.ColorMathTests testLabReferenceValues]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.ColorMathTests testMinimumSeparation]' started.
+Test Case '-[HeliosDesignTests.ColorMathTests testMinimumSeparation]' passed (0.001 seconds).
+Test Case '-[HeliosDesignTests.ColorMathTests testMixing]' started.
+Test Case '-[HeliosDesignTests.ColorMathTests testMixing]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.ColorMathTests testOKLabReferenceValues]' started.
+Test Case '-[HeliosDesignTests.ColorMathTests testOKLabReferenceValues]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.ColorMathTests testRelativeLuminance]' started.
+Test Case '-[HeliosDesignTests.ColorMathTests testRelativeLuminance]' passed (0.000 seconds).
+Test Suite 'ColorMathTests' passed at 2026-10-30 22:14:27.347.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 0.016 (0.026) seconds
+Test Suite 'DeepGlassAuditTests' started at 2026-10-30 22:14:27.347.
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testAuditCatchesATintThatLowersFrostContrast]' started.
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testAuditCatchesATintThatLowersFrostContrast]' passed (0.002 seconds).
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testAuditCatchesTheFirstDraftsBrightGraphiteDepth]' started.
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testAuditCatchesTheFirstDraftsBrightGraphiteDepth]' passed (0.001 seconds).
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testChecksMatchPaletteAuditRoles]' started.
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testChecksMatchPaletteAuditRoles]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testDepthNeverLowersContrastOnAnySurface]' started.
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testDepthNeverLowersContrastOnAnySurface]' passed (0.004 seconds).
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testEveryShippedPaletteReadsOnDeepGlass]' started.
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testEveryShippedPaletteReadsOnDeepGlass]' passed (0.001 seconds).
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testFallbacksDrawNoLayersAndNoSheen]' started.
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testFallbacksDrawNoLayersAndNoSheen]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testLayersMoveAwayFromTheTextAndAddNoTint]' started.
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testLayersMoveAwayFromTheTextAndAddNoTint]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testPrimaryTextKeepsAAAOnDeepGlass]' started.
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testPrimaryTextKeepsAAAOnDeepGlass]' passed (0.001 seconds).
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testSheenIsAnAccentEdgeGlint]' started.
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testSheenIsAnAccentEdgeGlint]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testSurfacesCoverBackdropsLevelsNestingToastAndFallbacks]' started.
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testSurfacesCoverBackdropsLevelsNestingToastAndFallbacks]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testToastSitsOnTheOpaqueOverlayTone]' started.
+Test Case '-[HeliosDesignTests.DeepGlassAuditTests testToastSitsOnTheOpaqueOverlayTone]' passed (0.000 seconds).
+Test Suite 'DeepGlassAuditTests' passed at 2026-10-30 22:14:27.358.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 0.010 (0.011) seconds
+Test Suite 'MotionPolicyTests' started at 2026-10-30 22:14:27.358.
+Test Case '-[HeliosDesignTests.MotionPolicyTests testFullMotionStaysSubtle]' started.
+Test Case '-[HeliosDesignTests.MotionPolicyTests testFullMotionStaysSubtle]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.MotionPolicyTests testOnlyConfirmedTrainingAchievementsCelebrate]' started.
+Test Case '-[HeliosDesignTests.MotionPolicyTests testOnlyConfirmedTrainingAchievementsCelebrate]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.MotionPolicyTests testReduceMotionLeavesOnlyACrossfade]' started.
+Test Case '-[HeliosDesignTests.MotionPolicyTests testReduceMotionLeavesOnlyACrossfade]' passed (0.001 seconds).
+Test Case '-[HeliosDesignTests.MotionPolicyTests testScrollDepthOnlyScalesAndStaysSubtle]' started.
+Test Case '-[HeliosDesignTests.MotionPolicyTests testScrollDepthOnlyScalesAndStaysSubtle]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.MotionPolicyTests testSpeedsAreTheTokens]' started.
+Test Case '-[HeliosDesignTests.MotionPolicyTests testSpeedsAreTheTokens]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.MotionPolicyTests testStaggerIsCappedSoLongScreensDoNotWait]' started.
+Test Case '-[HeliosDesignTests.MotionPolicyTests testStaggerIsCappedSoLongScreensDoNotWait]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.MotionPolicyTests testToastsStayLongerForVoiceOver]' started.
+Test Case '-[HeliosDesignTests.MotionPolicyTests testToastsStayLongerForVoiceOver]' passed (0.000 seconds).
+Test Suite 'MotionPolicyTests' passed at 2026-10-30 22:14:27.360.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.001 (0.002) seconds
+Test Suite 'PaletteAuditTests' started at 2026-10-30 22:14:27.360.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testAuditCatchesButtonLabelsWithoutContrast]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testAuditCatchesButtonLabelsWithoutContrast]' passed (0.001 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testAuditCatchesColourBlindCollisions]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testAuditCatchesColourBlindCollisions]' passed (0.001 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testAuditCatchesIndistinguishableMacros]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testAuditCatchesIndistinguishableMacros]' passed (0.001 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testAuditCatchesLowContrastOnTheBrightestGlow]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testAuditCatchesLowContrastOnTheBrightestGlow]' passed (0.001 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testAuditCatchesLowContrastText]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testAuditCatchesLowContrastText]' passed (0.001 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testAuditCatchesPastelAndGreySeriesColours]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testAuditCatchesPastelAndGreySeriesColours]' passed (0.001 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testBackdropsCoverCanvasEndsAndEveryGlow]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testBackdropsCoverCanvasEndsAndEveryGlow]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testBrandIdentity]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testBrandIdentity]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testEveryShippedPaletteHasNoAccessibilityErrors]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testEveryShippedPaletteHasNoAccessibilityErrors]' passed (0.003 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testGlassLevelsRiseAndFallbacksAreOpaque]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testGlassLevelsRiseAndFallbacksAreOpaque]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testIncreasedContrastPalettesNeedVisibleControlEdges]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testIncreasedContrastPalettesNeedVisibleControlEdges]' passed (0.001 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testPaletteSelection]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testPaletteSelection]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testPrimaryTextClearsAAAEverywhere]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testPrimaryTextClearsAAAEverywhere]' passed (0.003 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testTertiaryTextIsHeldToTheSameBarAsOtherText]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testTertiaryTextIsHeldToTheSameBarAsOtherText]' passed (0.001 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testTextOnTheBareCanvasIsAuditedToo]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testTextOnTheBareCanvasIsAuditedToo]' passed (0.001 seconds).
+Test Case '-[HeliosDesignTests.PaletteAuditTests testWorstCaseGlassSurfaceIsLighterThanItsBackdropInDarkAndBrighterInLight]' started.
+Test Case '-[HeliosDesignTests.PaletteAuditTests testWorstCaseGlassSurfaceIsLighterThanItsBackdropInDarkAndBrighterInLight]' passed (0.000 seconds).
+Test Suite 'PaletteAuditTests' passed at 2026-10-30 22:14:27.375.
+	 Executed 16 tests, with 0 failures (0 unexpected) in 0.014 (0.015) seconds
+Test Suite 'TokensTests' started at 2026-10-30 22:14:27.375.
+Test Case '-[HeliosDesignTests.TokensTests testChartGroupsReferenceRealColoursAndAreSeparated]' started.
+Test Case '-[HeliosDesignTests.TokensTests testChartGroupsReferenceRealColoursAndAreSeparated]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.TokensTests testHighContrastVariantsOnlyChangeWhatTheyShould]' started.
+Test Case '-[HeliosDesignTests.TokensTests testHighContrastVariantsOnlyChangeWhatTheyShould]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.TokensTests testMacroColoursKeepTheirIdentityAcrossThemes]' started.
+Test Case '-[HeliosDesignTests.TokensTests testMacroColoursKeepTheirIdentityAcrossThemes]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.TokensTests testMetrics]' started.
+Test Case '-[HeliosDesignTests.TokensTests testMetrics]' passed (0.000 seconds).
+Test Case '-[HeliosDesignTests.TokensTests testTypographyIsExpressedOnlyThroughDynamicTypeStyles]' started.
+Test Case '-[HeliosDesignTests.TokensTests testTypographyIsExpressedOnlyThroughDynamicTypeStyles]' passed (0.000 seconds).
+Test Suite 'TokensTests' passed at 2026-10-30 22:14:27.376.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'HeliosDesignTests.xctest' passed at 2026-10-30 22:14:27.376.
+	 Executed 48 tests, with 0 failures (0 unexpected) in 0.043 (0.055) seconds
+Test Suite 'All tests' passed at 2026-10-30 22:14:27.376.
+	 Executed 48 tests, with 0 failures (0 unexpected) in 0.043 (0.058) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

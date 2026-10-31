@@ -287,58 +287,78 @@ enum FoodEntryPass2ManualLogger {
   }
 }
 
-/// Compact Helios workspace header for `FoodSearchView`: active meal/date context,
-/// capture/manual shortcuts, and direct personal library navigation.
-struct FoodEntryPass2HubCard: View {
-  @Environment(\.calendar) private var calendar
-  @Environment(\.locale) private var locale
+/// Opaque readable surface for V2 food cards, tiles, and input containers in Graphite and Frost.
+struct FoodEntryV2Surface: View {
   @Environment(\.heliosTheme) private var theme
-  @Environment(\.dynamicTypeSize) private var typeSize
+  var level: GlassLevel = .base
+  var cornerRadius: Double = HeliosTokens.radius.card
+  var showsShadow: Bool = false
 
-  let mealType: MealType
-  let date: Date
-  let savedFoodsCount: Int
-  let savedMealsCount: Int
-  let onSelectRoute: (FoodEntryPass2Route) -> Void
-  let onManualEntry: () -> Void
-
-  private var contextText: String {
-    FoodEntryPass2ContextFormatter.summary(
-      meal: mealType,
-      date: date,
-      calendar: calendar,
-      locale: locale
-    )
+  var body: some View {
+    let palette = theme.palette
+    let shape = RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+    shape
+      .fill(palette.opaque[level].color)
+      .overlay {
+        shape.strokeBorder(
+          palette.isHighContrast ? palette.border.strong.color : palette.border.hairline.color,
+          lineWidth: palette.isHighContrast ? 1.5 : 1
+        )
+      }
+      .shadow(
+        color: showsShadow && !theme.reduceTransparency ? palette.shadow.color.color : .clear,
+        radius: showsShadow && !theme.reduceTransparency ? palette.shadow.radius : 0,
+        x: 0,
+        y: showsShadow && !theme.reduceTransparency ? palette.shadow.y : 0
+      )
+      .accessibilityHidden(true)
   }
+}
+
+/// Opaque list row background so Frost and Graphite food forms never rely on translucent blur for contrast.
+struct FoodEntryV2RowBackground: View {
+  @Environment(\.heliosTheme) private var theme
+
+  var body: some View {
+    let palette = theme.palette
+    Rectangle()
+      .fill(palette.opaque.base.color)
+      .overlay {
+        if palette.isHighContrast {
+          Rectangle().strokeBorder(palette.border.strong.color, lineWidth: 1.5)
+        }
+      }
+      .accessibilityHidden(true)
+  }
+}
+
+extension View {
+  func foodEntryV2CardRow() -> some View {
+    padding(HeliosTokens.space(4))
+      .background {
+        FoodEntryV2Surface(
+          level: .base,
+          cornerRadius: HeliosTokens.radius.card,
+          showsShadow: true
+        )
+      }
+      .listRowInsets(EdgeInsets())
+      .listRowBackground(Color.clear)
+      .listRowSeparator(.hidden)
+  }
+}
+
+/// Explicit non-today calendar badge shared between the V2 food hub and review screens.
+struct FoodEntryV2DateBadge: View {
+  @Environment(\.calendar) private var calendar
+  @Environment(\.heliosTheme) private var theme
+  let date: Date
 
   private var dateRelation: FoodEntryPass2DateRelation {
     FoodEntryPass2ContextFormatter.dateRelation(for: date, calendar: calendar)
   }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
-      contextHeader
-      captureGrid
-      libraryGrid
-    }
-  }
-
-  private var contextHeader: some View {
-    ViewThatFits(in: .horizontal) {
-      HStack(alignment: .firstTextBaseline, spacing: HeliosTokens.space(2)) {
-        contextLabel
-        Spacer(minLength: HeliosTokens.space(2))
-        dateRelationBadge
-      }
-      VStack(alignment: .leading, spacing: HeliosTokens.space(1)) {
-        contextLabel
-        dateRelationBadge
-      }
-    }
-  }
-
-  @ViewBuilder
-  private var dateRelationBadge: some View {
     switch dateRelation {
     case .past:
       StatusBadge(.warning, "Past date")
@@ -353,6 +373,57 @@ struct FoodEntryPass2HubCard: View {
       .foregroundStyle(theme.palette.accent.base.color)
     }
   }
+}
+
+/// Compact Helios V2 workspace header for `FoodSearchView`: destination meal/date context,
+/// interactive meal slot pills, capture/manual shortcuts, and personal library navigation.
+struct FoodEntryPass2HubCard: View {
+  @Environment(\.calendar) private var calendar
+  @Environment(\.locale) private var locale
+  @Environment(\.heliosTheme) private var theme
+  @Environment(\.dynamicTypeSize) private var typeSize
+
+  let mealType: MealType
+  let date: Date
+  let savedFoodsCount: Int
+  let savedMealsCount: Int
+  var onSelectMeal: ((MealType) -> Void)? = nil
+  let onSelectRoute: (FoodEntryPass2Route) -> Void
+  let onManualEntry: () -> Void
+
+  private var contextText: String {
+    FoodEntryPass2ContextFormatter.summary(
+      meal: mealType,
+      date: date,
+      calendar: calendar,
+      locale: locale
+    )
+  }
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
+      contextHeader
+      if let onSelectMeal {
+        mealDestinationGrid(onSelectMeal: onSelectMeal)
+      }
+      captureGrid
+      libraryGrid
+    }
+  }
+
+  private var contextHeader: some View {
+    ViewThatFits(in: .horizontal) {
+      HStack(alignment: .firstTextBaseline, spacing: HeliosTokens.space(2)) {
+        contextLabel
+        Spacer(minLength: HeliosTokens.space(2))
+        FoodEntryV2DateBadge(date: date)
+      }
+      VStack(alignment: .leading, spacing: HeliosTokens.space(1)) {
+        contextLabel
+        FoodEntryV2DateBadge(date: date)
+      }
+    }
+  }
 
   private var contextLabel: some View {
     HStack(spacing: HeliosTokens.space(2)) {
@@ -360,17 +431,77 @@ struct FoodEntryPass2HubCard: View {
         .foregroundStyle(theme.palette.accent.base.color)
         .accessibilityHidden(true)
       Text("Logging to \(contextText)")
-        .heliosFont(.callout)
-        .foregroundStyle(theme.palette.text.secondary.color)
+        .heliosFont(.bodyStrong)
+        .foregroundStyle(theme.palette.text.primary.color)
         .fixedSize(horizontal: false, vertical: true)
         .accessibilityIdentifier("foodEntryContextSummary")
+    }
+  }
+
+  private func mealDestinationGrid(onSelectMeal: @escaping (MealType) -> Void) -> some View {
+    let columnCount: Int =
+      if typeSize >= .xxxLarge {
+        1
+      } else if typeSize >= .xLarge {
+        2
+      } else {
+        4
+      }
+    let spacing = columnCount == 4 ? HeliosTokens.space(1) : HeliosTokens.space(2)
+    let columns = Array(
+      repeating: GridItem(.flexible(), spacing: spacing, alignment: .top),
+      count: columnCount
+    )
+    let palette = theme.palette
+    return LazyVGrid(columns: columns, spacing: spacing) {
+      ForEach(MealType.allCases) { meal in
+        let isSelected = meal == mealType
+        let shape = RoundedRectangle(cornerRadius: HeliosTokens.radius.chip, style: .continuous)
+        Button {
+          onSelectMeal(meal)
+        } label: {
+          VStack(spacing: 3) {
+            Text(meal.displayName)
+              .heliosFont(.footnote)
+              .fontWeight(isSelected ? .semibold : .regular)
+              .foregroundStyle(
+                isSelected ? palette.accent.base.color : palette.text.primary.color
+              )
+              .multilineTextAlignment(.center)
+              .fixedSize(horizontal: false, vertical: true)
+            Capsule()
+              .fill(isSelected ? palette.accent.base.color : Color.clear)
+              .frame(width: 18, height: 3)
+              .accessibilityHidden(true)
+          }
+          .padding(.horizontal, columnCount == 4 ? HeliosTokens.space(1) : HeliosTokens.space(3))
+          .padding(.vertical, HeliosTokens.space(1))
+          .frame(maxWidth: .infinity, minHeight: 48)
+          .background {
+            shape.fill(isSelected ? palette.accent.tint.color : palette.opaque.raised.color)
+          }
+          .overlay {
+            shape.strokeBorder(
+              isSelected
+                ? palette.accent.base.color
+                : (palette.isHighContrast
+                  ? palette.border.strong.color : palette.border.hairline.color),
+              lineWidth: isSelected || palette.isHighContrast ? 1.5 : 1
+            )
+          }
+          .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .accessibilityIdentifier("foodEntryMeal-\(meal.rawValue)")
+      }
     }
   }
 
   private var captureGrid: some View {
     let columns = Array(
       repeating: GridItem(.flexible(), spacing: HeliosTokens.space(2), alignment: .top),
-      count: typeSize.isAccessibilitySize ? 1 : 2
+      count: typeSize >= .xxxLarge ? 1 : 2
     )
     return LazyVGrid(columns: columns, spacing: HeliosTokens.space(2)) {
       shortcutTile(
@@ -408,7 +539,7 @@ struct FoodEntryPass2HubCard: View {
   }
 
   private var libraryGrid: some View {
-    let columnCount = typeSize >= .xxxLarge ? 1 : 3
+    let columnCount = typeSize >= .xxLarge ? 1 : 3
     let columns = Array(
       repeating: GridItem(.flexible(), spacing: HeliosTokens.space(2), alignment: .top),
       count: columnCount
@@ -462,7 +593,7 @@ struct FoodEntryPass2HubCard: View {
       .padding(.horizontal, HeliosTokens.space(3))
       .padding(.vertical, HeliosTokens.space(2))
       .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
-      .background { GlassBackground(level: .raised, cornerRadius: HeliosTokens.radius.tile) }
+      .background { FoodEntryV2Surface(level: .raised, cornerRadius: HeliosTokens.radius.tile) }
       .contentShape(Rectangle())
     }
     .buttonStyle(.plain)
@@ -481,25 +612,27 @@ struct FoodEntryPass2HubCard: View {
       VStack(alignment: .leading, spacing: HeliosTokens.space(1)) {
         HStack {
           Image(systemName: symbol)
-            .foregroundStyle(theme.palette.text.secondary.color)
+            .foregroundStyle(theme.palette.accent.base.color)
             .accessibilityHidden(true)
           if let count {
             Spacer(minLength: 2)
             Text(count)
               .heliosFont(.caption)
+              .monospacedDigit()
               .foregroundStyle(theme.palette.text.secondary.color)
               .fixedSize(horizontal: false, vertical: true)
           }
         }
         Text(title)
           .heliosFont(.footnote)
+          .fontWeight(.semibold)
           .foregroundStyle(theme.palette.text.primary.color)
           .fixedSize(horizontal: false, vertical: true)
       }
-      .padding(.horizontal, HeliosTokens.space(2))
+      .padding(.horizontal, HeliosTokens.space(3))
       .padding(.vertical, HeliosTokens.space(2))
-      .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
-      .background { GlassBackground(level: .raised, cornerRadius: HeliosTokens.radius.tile) }
+      .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
+      .background { FoodEntryV2Surface(level: .raised, cornerRadius: HeliosTokens.radius.tile) }
       .contentShape(Rectangle())
     }
     .buttonStyle(.plain)
@@ -507,7 +640,7 @@ struct FoodEntryPass2HubCard: View {
   }
 }
 
-/// Sibling `.borderless` quick-review control so row `NavigationLink`s keep their own IDs
+/// Sibling `.borderless` quick-review control (`>= 48x48pt`) so row `NavigationLink`s keep their own IDs
 /// and taps never trigger both controls at once.
 struct FoodEntryPass2QuickReviewButton: View {
   @Environment(\.heliosTheme) private var theme
@@ -516,16 +649,102 @@ struct FoodEntryPass2QuickReviewButton: View {
   let action: () -> Void
 
   var body: some View {
+    let palette = theme.palette
     Button(action: action) {
       Image(systemName: "plus.circle.fill")
         .font(.title3)
-        .foregroundStyle(theme.palette.accent.base.color)
-        .frame(minWidth: 44, minHeight: 48)
+        .foregroundStyle(palette.accent.base.color)
+        .padding(HeliosTokens.space(2))
+        .background {
+          RoundedRectangle(cornerRadius: HeliosTokens.radius.chip, style: .continuous)
+            .fill(palette.accent.subtle.color)
+            .overlay {
+              RoundedRectangle(cornerRadius: HeliosTokens.radius.chip, style: .continuous)
+                .strokeBorder(
+                  palette.isHighContrast
+                    ? palette.border.strong.color : palette.border.hairline.color,
+                  lineWidth: palette.isHighContrast ? 1.5 : 1
+                )
+            }
+        }
+        .frame(minWidth: 48, minHeight: 48)
         .contentShape(Rectangle())
     }
     .buttonStyle(.borderless)
     .accessibilityLabel("Quick review \(foodName)")
     .accessibilityIdentifier(identifier)
+  }
+}
+
+/// Reading-edge food row label with consistent tabular calorie alignment and full-width AX stacking.
+struct FoodEntryV2FoodRowLabel: View {
+  @Environment(\.dynamicTypeSize) private var typeSize
+  @Environment(\.heliosTheme) private var theme
+
+  let title: String
+  let detail: String
+  var caloriesText: String? = nil
+  var extraNote: String? = nil
+
+  var body: some View {
+    Group {
+      if typeSize >= .xxxLarge {
+        VStack(alignment: .leading, spacing: HeliosTokens.space(1)) {
+          titleView
+          if let caloriesText {
+            caloriesView(caloriesText)
+          }
+          detailView
+          extraNoteView
+        }
+      } else {
+        HStack(alignment: .firstTextBaseline, spacing: HeliosTokens.space(3)) {
+          VStack(alignment: .leading, spacing: 3) {
+            titleView
+            detailView
+            extraNoteView
+          }
+          .frame(maxWidth: .infinity, alignment: .leading)
+          if let caloriesText {
+            caloriesView(caloriesText)
+              .fixedSize(horizontal: true, vertical: true)
+          }
+        }
+      }
+    }
+    .padding(.vertical, 2)
+    .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
+  }
+
+  private var titleView: some View {
+    Text(title)
+      .heliosFont(.bodyStrong)
+      .foregroundStyle(theme.palette.text.primary.color)
+      .fixedSize(horizontal: false, vertical: true)
+  }
+
+  private var detailView: some View {
+    Text(detail)
+      .heliosFont(.footnote)
+      .foregroundStyle(theme.palette.text.secondary.color)
+      .fixedSize(horizontal: false, vertical: true)
+  }
+
+  @ViewBuilder
+  private var extraNoteView: some View {
+    if let extraNote {
+      Text(extraNote)
+        .heliosFont(.caption)
+        .foregroundStyle(theme.palette.accent.base.color)
+        .fixedSize(horizontal: false, vertical: true)
+    }
+  }
+
+  private func caloriesView(_ text: String) -> some View {
+    Text(text)
+      .heliosFont(.callout)
+      .monospacedDigit()
+      .foregroundStyle(theme.palette.text.secondary.color)
   }
 }
 
@@ -569,17 +788,154 @@ struct FoodEntryPass2QuickReviewSheet: View {
   }
 }
 
-/// Reusable Helios macro tiles with semantic series dots and text labels.
+/// Centered Lookbook V2 nutrition overview card preserving reported calories and balanced macro tiles.
+struct FoodEntryV2NutritionOverviewCard: View {
+  @Environment(\.heliosTheme) private var theme
+  @Environment(\.locale) private var locale
+
+  let totals: MacroTotals?
+  var portionSummary: String? = nil
+  let caloriesIdentifier: String
+  let footnote: String
+  let invalidMessage: String
+
+  var body: some View {
+    let palette = theme.palette
+    VStack(spacing: HeliosTokens.space(3)) {
+      Text("NUTRITION FOR THIS LOG")
+        .heliosFont(.metricLabel)
+        .multilineTextAlignment(.center)
+        .foregroundStyle(palette.text.secondary.color)
+        .fixedSize(horizontal: false, vertical: true)
+
+      if let totals {
+        VStack(spacing: HeliosTokens.space(1)) {
+          Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
+            .heliosFont(.display)
+            .multilineTextAlignment(.center)
+            .foregroundStyle(palette.text.primary.color)
+            .fixedSize(horizontal: false, vertical: true)
+            .accessibilityIdentifier(caloriesIdentifier)
+
+          if let portionSummary {
+            Text(portionSummary)
+              .heliosFont(.footnote)
+              .multilineTextAlignment(.center)
+              .foregroundStyle(palette.text.secondary.color)
+              .fixedSize(horizontal: false, vertical: true)
+          }
+        }
+
+        FoodEntryPass2MacroSummaryRow(totals: totals)
+
+        Text(footnote)
+          .heliosFont(.caption)
+          .multilineTextAlignment(.center)
+          .foregroundStyle(palette.text.secondary.color)
+          .fixedSize(horizontal: false, vertical: true)
+      } else {
+        Text(invalidMessage)
+          .heliosFont(.callout)
+          .multilineTextAlignment(.center)
+          .foregroundStyle(palette.text.secondary.color)
+          .fixedSize(horizontal: false, vertical: true)
+      }
+    }
+    .frame(maxWidth: .infinity)
+  }
+}
+
+/// Full-width opaque bottom action bar used on review screens at Accessibility Dynamic Type sizes
+/// so `Add to Diary` and `Cancel`/`Done` stay fast, unclipped, and `>= 48pt` without scrolling.
+struct FoodEntryV2ReviewBottomBar: View {
+  @Environment(\.heliosTheme) private var theme
+
+  let canSave: Bool
+  let didSave: Bool
+  let addIdentifier: String
+  let onSave: () -> Void
+  var onDismiss: (() -> Void)? = nil
+
+  var body: some View {
+    let palette = theme.palette
+    let buttonShape = RoundedRectangle(cornerRadius: HeliosTokens.radius.button, style: .continuous)
+    VStack(spacing: HeliosTokens.space(2)) {
+      Button(action: onSave) {
+        Text("Add to Diary")
+          .heliosFont(.bodyStrong)
+          .foregroundStyle(
+            canSave ? palette.text.onAccent.color : palette.text.secondary.color
+          )
+          .multilineTextAlignment(.center)
+          .fixedSize(horizontal: false, vertical: true)
+          .padding(.horizontal, HeliosTokens.space(3))
+          .padding(.vertical, HeliosTokens.space(2))
+          .frame(maxWidth: .infinity, minHeight: 48)
+          .background {
+            if canSave {
+              buttonShape.fill(palette.accent.base.color)
+            } else {
+              FoodEntryV2Surface(level: .raised, cornerRadius: HeliosTokens.radius.button)
+            }
+          }
+          .contentShape(Rectangle())
+      }
+      .buttonStyle(.plain)
+      .disabled(!canSave)
+      .accessibilityIdentifier(addIdentifier)
+
+      if let onDismiss {
+        Button(action: onDismiss) {
+          Text(didSave ? "Done" : "Cancel")
+            .heliosFont(.body)
+            .foregroundStyle(palette.text.primary.color)
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
+            .padding(.horizontal, HeliosTokens.space(3))
+            .padding(.vertical, HeliosTokens.space(2))
+            .frame(maxWidth: .infinity, minHeight: 48)
+            .background {
+              FoodEntryV2Surface(level: .raised, cornerRadius: HeliosTokens.radius.button)
+            }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier("foodEntryQuickReviewClose")
+      }
+    }
+    .padding(.horizontal, HeliosTokens.space(4))
+    .padding(.vertical, HeliosTokens.space(2))
+    .background {
+      Rectangle()
+        .fill(palette.opaque.overlay.color)
+        .overlay(alignment: .top) {
+          Rectangle()
+            .fill(
+              palette.isHighContrast ? palette.border.strong.color : palette.border.hairline.color
+            )
+            .frame(height: 1)
+        }
+        .ignoresSafeArea()
+    }
+  }
+}
+
+/// Reusable Helios macro tiles with semantic series accents and text labels.
 struct FoodEntryPass2MacroSummaryRow: View {
+  @Environment(\.dynamicTypeSize) private var typeSize
   @Environment(\.heliosTheme) private var theme
   @Environment(\.locale) private var locale
   let totals: MacroTotals
 
   var body: some View {
     let data = theme.palette.data
-    ViewThatFits(in: .horizontal) {
-      HStack(spacing: HeliosTokens.space(2)) { tiles(data) }
+    if typeSize >= .xxxLarge {
       VStack(alignment: .leading, spacing: HeliosTokens.space(2)) { tiles(data) }
+    } else {
+      ViewThatFits(in: .horizontal) {
+        HStack(spacing: HeliosTokens.space(2)) { tiles(data) }
+        VStack(alignment: .leading, spacing: HeliosTokens.space(2)) { tiles(data) }
+      }
     }
   }
 
@@ -591,8 +947,8 @@ struct FoodEntryPass2MacroSummaryRow: View {
   }
 
   private func tile(_ title: LocalizedStringKey, value: Double, color: Color) -> some View {
-    VStack(alignment: .leading, spacing: 2) {
-      HStack(spacing: 4) {
+    VStack(alignment: .leading, spacing: HeliosTokens.space(1)) {
+      HStack(spacing: 5) {
         Circle()
           .fill(color)
           .frame(width: 7, height: 7)
@@ -604,12 +960,17 @@ struct FoodEntryPass2MacroSummaryRow: View {
       }
       Text("\(NutritionInput.format(value, locale: locale)) g")
         .heliosFont(.bodyStrong)
+        .monospacedDigit()
         .foregroundStyle(theme.palette.text.primary.color)
         .fixedSize(horizontal: false, vertical: true)
+      Capsule()
+        .fill(color)
+        .frame(height: 4)
+        .accessibilityHidden(true)
     }
     .frame(maxWidth: .infinity, alignment: .leading)
-    .padding(HeliosTokens.space(2))
-    .background { GlassBackground(level: .raised, cornerRadius: HeliosTokens.radius.tile) }
+    .padding(HeliosTokens.space(3))
+    .background { FoodEntryV2Surface(level: .raised, cornerRadius: HeliosTokens.radius.tile) }
     .accessibilityElement(children: .combine)
   }
 }
@@ -653,7 +1014,7 @@ struct FoodEntryPass2EmptyStateCard: View {
         Button(action: onSearchAll) {
           Text("Search All Foods")
             .fixedSize(horizontal: false, vertical: true)
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, minHeight: 48)
         }
         .buttonStyle(.heliosSecondary)
         .accessibilityIdentifier("foodSearchEmptyShowAll")
@@ -662,7 +1023,7 @@ struct FoodEntryPass2EmptyStateCard: View {
       Button(action: onCreateManualFood) {
         Text(manualButtonTitle)
           .fixedSize(horizontal: false, vertical: true)
-          .frame(maxWidth: .infinity)
+          .frame(maxWidth: .infinity, minHeight: 48)
       }
       .buttonStyle(.heliosPrimary)
       .accessibilityIdentifier("foodSearchEmptyCreateFood")

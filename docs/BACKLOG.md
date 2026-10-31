@@ -405,3 +405,24 @@ Supersedes the initial V2 pending note above: all seven boards, phone reflow and
 required states are reviewed with a 15-page PDF and peer handoffs. Native iPhone
 translation/testing is next (parallel/v2-native/README.md); iPad/resizing, broad
 Frost beta and widget/graphics studies follow. No gated runtime feature is enabled.
+
+
+## Native V2 remaining design gaps - 2026-10-30
+
+Today's cross-domain timeline, Stack seven-day adherence dots, and Train
+last-time/today grid plus steppers remain separate follow-ups. Their V2 boards
+are design directions, not new native engines. Keep existing logging, fields
+and privacy gates until each data contract and behavior is explicitly tested.
+No fake timeline, adherence or inferred health values are shipped by this pass.
+Keyboard focus emits an invalid-frame runtime warning on the original a07ceb9
+app too; reproducible probe is in docs/evidence/v2-native. Keep as an unresolved
+layout diagnostic; no warning-free claim for food workflows.
+
+
+Claude source-only V2 review 17298c9 (native verification required) also flags
+Train's fixed set-grid width on 320pt/large non-AX text and Progress's separate
+input/display-unit preference diverging from main settings. Address these in
+responsive work and central preference tests, respectively; canonical stored
+weights and conversions are not changed by this visual pass. Additional follow-
+ups: Skip save-error/undo state and efficient long-range weigh-in text listing.
+Do not promote all source-review proposals to native-verified defects.

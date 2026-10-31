@@ -37,11 +37,14 @@ final class FoodEntryPass2UITests: XCTestCase {
     in app: XCUIApplication,
     towardTop: Bool = false
   ) {
-    for _ in 0..<16 {
-      let top =
+    for _ in 0..<28 {
+      var top =
         app.navigationBars.firstMatch.exists
         ? app.navigationBars.firstMatch.frame.maxY + 8
         : 72
+      if app.searchFields.firstMatch.exists && app.searchFields.firstMatch.frame.maxY < 360 {
+        top = max(top, app.searchFields.firstMatch.frame.maxY + 12)
+      }
       let bottom: CGFloat
       if app.keyboards.firstMatch.exists {
         bottom = app.keyboards.firstMatch.frame.minY - 8
@@ -52,18 +55,28 @@ final class FoodEntryPass2UITests: XCTestCase {
       } else {
         bottom = app.windows.firstMatch.frame.maxY - 24
       }
-      if element.exists && element.isHittable && element.frame.minY >= top
+      let exists = element.exists && element.frame.width > 0 && element.frame.height > 0
+      if exists && element.isHittable && element.frame.minY >= top
         && element.frame.maxY <= bottom
       {
         return
       }
       let middle = top + max(20, bottom - top) / 2
-      let scrollDown = element.exists ? element.frame.minY < top : towardTop
-      let delta = (scrollDown ? 1.0 : -1.0) * min(120, max(20, bottom - top) / 3)
+      // After sheet dismissal, lazy rows can retain stale offscreen frames.
+      // Honor an explicit return-to-top request instead of following that frame
+      // farther down into the catalog.
+      let scrollDown = towardTop || (exists && element.frame.minY < top)
+      let distance =
+        exists
+        ? min(120, max(20, bottom - top) / 3)
+        : min(170, max(40, (bottom - top) * 0.35))
+      let delta = scrollDown ? distance : -distance
       let origin = app.coordinate(withNormalizedOffset: .zero)
-      origin.withOffset(CGVector(dx: 12, dy: middle)).press(
+      origin.withOffset(CGVector(dx: 10, dy: middle)).press(
         forDuration: 0.05,
-        thenDragTo: origin.withOffset(CGVector(dx: 12, dy: middle + delta))
+        thenDragTo: origin.withOffset(CGVector(dx: 10, dy: middle + delta)),
+        withVelocity: .default,
+        thenHoldForDuration: 0.12
       )
     }
     XCTAssertTrue(element.isHittable, "Could not reveal \(element)")
@@ -364,41 +377,132 @@ final class FoodEntryPass2UITests: XCTestCase {
   }
 
   @MainActor
-  func testGraphiteFrostAndLargestTextAuditsOnFoodEntryWorkspace() throws {
-    for (theme, largeText) in [("graphite", false), ("frost", false), ("graphite", true)] {
-      let app = launch(theme: theme, largeText: largeText, foodReuseFixture: true)
-      app.tab("Fuel").tap()
-      let addBreakfast = app.buttons["diaryAdd-breakfast"]
-      reveal(addBreakfast, in: app)
-      addBreakfast.tap()
+  func testHubMealSwitcherCarriesIntoReferenceReviewKeepsReportedCaloriesAndResetsCleanly() {
+    let app = launch(theme: "frost", foodReuseFixture: false)
+    app.tab("Fuel").tap()
 
-      XCTAssertTrue(app.buttons["openBarcode"].waitForExistence(timeout: 8))
+    let addBreakfast = app.buttons["diaryAdd-breakfast"]
+    reveal(addBreakfast, in: app)
+    addBreakfast.tap()
+
+    let summary = app.staticTexts["foodEntryContextSummary"]
+    XCTAssertTrue(summary.waitForExistence(timeout: 5))
+    XCTAssertTrue(summary.label.contains("Breakfast"))
+
+    let dinnerPill = app.buttons["foodEntryMeal-dinner"]
+    XCTAssertTrue(dinnerPill.waitForExistence(timeout: 5))
+    XCTAssertGreaterThanOrEqual(dinnerPill.frame.height, 47.5)
+    XCTAssertGreaterThanOrEqual(app.buttons["openBarcode"].frame.height, 47.5)
+    XCTAssertGreaterThanOrEqual(app.buttons["foodEntryOpenMyFoods"].frame.height, 47.5)
+    dinnerPill.tap()
+    XCTAssertTrue(summary.label.contains("Dinner"))
+
+    let search = app.searchFields.firstMatch
+    XCTAssertTrue(search.waitForExistence(timeout: 5))
+    search.tap()
+    search.typeText("oats rolled\n")
+
+    let oats = app.buttons["catalogFood-2346396"]
+    XCTAssertTrue(oats.waitForExistence(timeout: 8))
+    oats.tap()
+
+    XCTAssertTrue(app.staticTexts["referenceFoodName"].waitForExistence(timeout: 5))
+    XCTAssertEqual(app.staticTexts["referenceCalories"].label, "379 calories")
+    XCTAssertGreaterThanOrEqual(app.buttons["referenceFavorite"].frame.height, 47.5)
+
+    let adjust = app.switches["Adjust macros for this log"]
+    reveal(adjust, in: app)
+    adjust.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
+
+    let proteinField = app.textFields["Protein (g)"]
+    reveal(proteinField, in: app)
+    replace(proteinField, with: "35")
+    app.buttons["nutritionKeyboardDone"].tap()
+
+    // Editing protein keeps reported calories distinct from 4P + 4C + 9F macro inference.
+    reveal(app.staticTexts["referenceCalories"], in: app, towardTop: true)
+    XCTAssertEqual(app.staticTexts["referenceCalories"].label, "379 calories")
+
+    // Resetting restores source protein while keeping override active, then re-edit protein to 35 g.
+    let resetButton = app.buttons["macroOverrideReset"]
+    reveal(resetButton, in: app)
+    XCTAssertGreaterThanOrEqual(resetButton.frame.height, 47.5)
+    resetButton.tap()
+    reveal(proteinField, in: app)
+    XCTAssertNotEqual(proteinField.value as? String, "35")
+    replace(proteinField, with: "35")
+    app.buttons["nutritionKeyboardDone"].tap()
+
+    capture("v2-reference-review-frost-default", app: app)
+
+    app.buttons["referenceAdd"].tap()
+    XCTAssertFalse(app.buttons["referenceAdd"].isEnabled)
+    reveal(app.staticTexts["referenceSaved"], in: app)
+    XCTAssertEqual(app.staticTexts["referenceSaved"].label, "Added to Dinner")
+
+    dismissModalSheet(in: app)
+    reveal(app.staticTexts["diaryCalories"], in: app, towardTop: true)
+    XCTAssertEqual(app.staticTexts["diaryCalories"].label, "379 calories")
+  }
+
+  @MainActor
+  func testGraphiteFrostAndLargestTextAuditsOnFoodEntryWorkspace() throws {
+    for (theme, largeText) in [
+      ("graphite", false),
+      ("frost", false),
+      ("graphite", true),
+      ("frost", true),
+    ] {
+      func workspace() -> XCUIApplication {
+        let app = launch(theme: theme, largeText: largeText, foodReuseFixture: true)
+        app.tab("Fuel").tap()
+        let addBreakfast = app.buttons["diaryAdd-breakfast"]
+        reveal(addBreakfast, in: app)
+        addBreakfast.tap()
+        XCTAssertTrue(app.buttons["openBarcode"].waitForExistence(timeout: 8))
+        return app
+      }
+      var app = workspace()
       let suffix = "\(theme)-\(largeText ? "AX5" : "default")"
       let auditTypes: XCUIAccessibilityAuditType =
         largeText ? [.dynamicType, .textClipped] : [.textClipped]
 
-      capture("pass2-food-hub-\(suffix)", app: app)
+      capture("v2-food-hub-\(suffix)", app: app)
       try app.auditRepeatedIssues(for: auditTypes)
+
+      // Each AX surface gets a fresh fictional workspace. A previous audit and
+      // lazy-row remeasurement must not supply the next route's scroll position.
+      if largeText {
+        app.terminate()
+        app = workspace()
+      }
+      let quickButton = app.buttons.matching(
+        NSPredicate(format: "identifier BEGINSWITH %@", "foodEntryQuickReview-recent-")
+      ).firstMatch
+      reveal(quickButton, in: app)
+      XCTAssertGreaterThanOrEqual(quickButton.frame.width, 47.5)
+      XCTAssertGreaterThanOrEqual(quickButton.frame.height, 47.5)
+      quickButton.tap()
+      XCTAssertTrue(app.textFields["savedFoodQuantity"].waitForExistence(timeout: 5))
+      if largeText {
+        XCTAssertGreaterThanOrEqual(app.buttons["savedFoodAdd"].frame.height, 47.5)
+        XCTAssertGreaterThanOrEqual(app.buttons["foodEntryQuickReviewClose"].frame.height, 47.5)
+      }
+      capture("v2-quick-review-\(suffix)", app: app)
+      try app.auditRepeatedIssues(for: auditTypes)
+      app.buttons["foodEntryQuickReviewClose"].tap()
+      if largeText {
+        app.terminate()
+        app = workspace()
+      }
 
       let manual = app.buttons["foodSearchManual"]
-      reveal(manual, in: app)
+      reveal(manual, in: app, towardTop: !largeText)
       manual.tap()
       XCTAssertTrue(app.textFields["manualFoodName"].waitForExistence(timeout: 5))
-      capture("pass2-manual-entry-\(suffix)", app: app)
+      capture("v2-manual-entry-\(suffix)", app: app)
       try app.auditRepeatedIssues(for: auditTypes)
       app.buttons["manualFoodCancel"].tap()
-
-      if !largeText {
-        let quickButton = app.buttons.matching(
-          NSPredicate(format: "identifier BEGINSWITH %@", "foodEntryQuickReview-recent-")
-        ).firstMatch
-        reveal(quickButton, in: app)
-        quickButton.tap()
-        XCTAssertTrue(app.textFields["savedFoodQuantity"].waitForExistence(timeout: 5))
-        capture("pass2-quick-review-\(suffix)", app: app)
-        try app.auditRepeatedIssues(for: auditTypes)
-        app.buttons["foodEntryQuickReviewClose"].tap()
-      }
 
       app.terminate()
     }

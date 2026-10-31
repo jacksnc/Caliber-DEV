@@ -36,3 +36,35 @@ xcodebuild test -project 'Caliber (DEV).xcodeproj' -scheme 'Caliber (DEV)' -dest
 ```
 
 Do not use the auto-selecting test_ios.py during parallel QA. No migration.
+
+
+## Reviewed food integration and base surfaces - 2026-10-31 02:42 UTC
+
+Combined native build/unit:243 cases PASS. HeliosDesign:48 XCTest cases PASS.
+Full strict scaling lint224files0issues; foundation format lint PASS.
+Four food functional cases PASS (selected meal/date, macro/source independence,
+reuse/cancel/edit and single save) in combined-food-initial result. The AX audit
+needed harness corrections; its final run now PASSES all hub/manual/quick-review
+screens in BOTH Graphite and Frost at default and AX5 sizes, with48pt checks.
+
+The 11-case base integration run passed8 cases: number-free privacy, all3Lookbook
+cases, Progress text-table, Stack logging/lock, active workout and full AX5 theme
+walkthrough. It failed the food audit plus default Graphite/Frost on a repeated
+Progress "Smoothed trend" clipping issue. The targeted correction run now passes
+all3 affected cases. No failures were suppressed; original summaries are kept.
+Progress legend fitting/wrapping was corrected. AX surfaces use fresh fixtures
+so prior audits/row remeasurement do not supply the next route's scroll state.
+Normal functional save/cancel paths remain separately exercised.
+
+Evidence: native-surfaces-initial-summary.json, combined-food-initial-summary.json,
+layout-corrections-summary.json, combined-unit-summary.json and helios-tests.log.
+Selected native captures: output/screenshots/v2-native/food. Full28 captures:
+/tmp/caliber-v2-corrections-readable. Frost Progress and AX review were visually
+inspected. Keyboard invalid-frame warnings remain; the unchanged a07ceb9 app
+reproduces them (baseline-keyboard-summary.json + exact probe source). This is
+not a warning-free claim. Earlier baseline full-case attempt was aborted.
+
+Pending: review/merge peer handoff corrections and Claude224db4a presentation
+fixes, native rebuild/scoped revalidation, then iPhone checkpoint. Known inherited
+Train-width and Progress-unit-preference risks are in BACKLOG; no claim that all
+P0 app/release requirements are complete. No owner preview/device/store changes.

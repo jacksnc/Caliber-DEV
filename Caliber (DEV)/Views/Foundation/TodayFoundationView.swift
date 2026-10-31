@@ -377,7 +377,6 @@ private struct TodayFuelCard: View {
   }
 }
 
-
 /// Concentric progress rings, outermost first, with content in the middle.
 struct MacroRings<Center: View>: View {
   let rings: [(progress: Double, color: Color)]

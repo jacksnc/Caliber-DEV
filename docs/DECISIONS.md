@@ -354,3 +354,18 @@ reported calories independent and all IDs intact. Use opaque row surfaces and
 fully scaled text with stacked layouts; the ring is decorative and omitted at
 accessibility sizes. Coordinate the narrow old FoodShortcuts test-helper fix
 with Gemini instead of adding an otherwise unnecessary navigation bar.
+
+
+## V204 - Preserve and review peer source on quota handover (2026-10-30)
+
+Preserve Gemini's original dirty clone; port only the reviewed seven-file diff
+into Codex integration, record its hash and keep peer claims distinct from native
+verification. Existing Flash allowance is used only for honest handoff correction;
+no overages or purchases. Codex owns all further food source work.
+
+## V205 - Separate AX surface audits from earlier lazy-list scroll state
+
+Audit each large-text food surface from a fresh fictional workspace, preserving
+all hub/manual/review audits, target checks and separately exercised functional
+save/cancel paths. Keep failing results and fixed reruns. Do not change app state,
+skip assertions or call unvisited states verified to make a test green.

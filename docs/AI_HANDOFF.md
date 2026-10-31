@@ -7,7 +7,9 @@ Use docs/parallel/v2-native/SESSION.md and README.md. Codex native worktree is
 Both external native assignments were actually sent and visibly started at
 18:50 Eastern; do not redispatch. Codex owns Diary and integration. Design
 checkpoint/PDF is a07ceb9. Native Diary passes 242 unit cases and 6 scoped UI cases;
-see SESSION for current source, evidence and Gemini quota takeover.
+see SESSION for current source, evidence and Gemini quota takeover. Native food
+AX/default audits and corrected default full-theme screens now pass. Claude
+224db4a remains to merge/revalidate before the native iPhone checkpoint.
 
 
 This file is the shared checkpoint for work across Codex and Claude. The Git

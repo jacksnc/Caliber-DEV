@@ -1,8 +1,12 @@
+import HeliosDesign
 import SwiftData
 import SwiftUI
 import UIKit
 
 struct FoodNutritionReviewView: View {
+  @Environment(\.calendar) private var calendar
+  @Environment(\.dynamicTypeSize) private var typeSize
+  @Environment(\.heliosTheme) private var theme
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var context
   @EnvironmentObject private var favorites: FoodLibraryPreferences
@@ -95,13 +99,36 @@ struct FoodNutritionReviewView: View {
     case .portions: "referenceQuantity"
     }
   }
+  private var portionSummaryText: String? {
+    guard let selection else { return nil }
+    if let serving = selectedServing, let value = NutritionInput.quantity(amount, locale: locale) {
+      return "For \(NutritionInput.format(value, locale: locale)) × \(serving.label)"
+    }
+    return switch unit {
+    case .grams:
+      selection.grams.map { "For \(NutritionInput.format($0, locale: locale)) g" }
+    case .ounces:
+      NutritionInput.quantity(amount, locale: locale).map {
+        "For \(NutritionInput.format($0, locale: locale)) oz"
+      }
+    case .portions:
+      "For \(NutritionInput.format(selection.quantity, locale: locale)) × \(reference.basisDescription)"
+    }
+  }
 
   var body: some View {
     Form {
       Group {
         Section("Food") {
-          Text(reference.name).font(.headline).accessibilityIdentifier("referenceFoodName")
-          Text(reference.sourceNote).font(.footnote)
+          Text(reference.name)
+            .heliosFont(.section)
+            .foregroundStyle(theme.palette.text.primary.color)
+            .fixedSize(horizontal: false, vertical: true)
+            .accessibilityIdentifier("referenceFoodName")
+          Text(reference.sourceNote)
+            .heliosFont(.footnote)
+            .foregroundStyle(theme.palette.text.secondary.color)
+            .fixedSize(horizontal: false, vertical: true)
           if FoodCatalogSourceType.contains(key: reference.id) {
             Button {
               if !favorites.setFavorite(!favorites.isFavorite(reference.id), for: reference.id) {
@@ -112,12 +139,15 @@ struct FoodNutritionReviewView: View {
                 favorites.isFavorite(reference.id) ? "Remove Favorite" : "Favorite Food",
                 systemImage: favorites.isFavorite(reference.id) ? "star.fill" : "star"
               )
-              .frame(minHeight: 48)
-            }.accessibilityIdentifier("referenceFavorite")
-              .accessibilityValue(
-                favorites.isFavorite(reference.id) ? "Favorite" : "Not a favorite")
+              .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
+              .contentShape(Rectangle())
+            }
+            .accessibilityIdentifier("referenceFavorite")
+            .accessibilityValue(
+              favorites.isFavorite(reference.id) ? "Favorite" : "Not a favorite")
           }
         }
+
         Section {
           if reference.basisGrams != nil {
             Picker("Portion Unit", selection: $choiceID) {
@@ -125,21 +155,47 @@ struct FoodNutritionReviewView: View {
               ForEach(sourceServings) { serving in
                 Text(serving.label).tag(serving.id)
               }
-            }.accessibilityIdentifier("referenceUnit")
+            }
+            .frame(minHeight: 48)
+            .accessibilityIdentifier("referenceUnit")
           }
-          VStack(alignment: .leading, spacing: 8) {
+          VStack(alignment: .leading, spacing: HeliosTokens.space(1)) {
             Text(amountLabel)
-            TextField(amountLabel, text: $amount).keyboardType(.decimalPad)
-              .focused($amountHasFocus)
-              .multilineTextAlignment(.trailing).accessibilityIdentifier(inputID)
-              .frame(maxWidth: .infinity, minHeight: 48)
+              .heliosFont(.caption)
+              .foregroundStyle(theme.palette.text.secondary.color)
+              .fixedSize(horizontal: false, vertical: true)
+            HStack {
+              TextField(amountLabel, text: $amount)
+                .keyboardType(.decimalPad)
+                .monospacedDigit()
+                .focused($amountHasFocus)
+                .multilineTextAlignment(.trailing)
+                .accessibilityIdentifier(inputID)
+                .frame(maxWidth: .infinity, minHeight: 48)
+            }
+            .padding(.horizontal, HeliosTokens.space(3))
+            .frame(maxWidth: .infinity, minHeight: 48)
+            .background {
+              FoodEntryV2Surface(level: .raised, cornerRadius: HeliosTokens.radius.button)
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+              amountHasFocus = true
+            }
           }
-          Text("Nutrition basis: \(reference.basisDescription)").font(.footnote)
+          .padding(.vertical, 2)
+          Text("Nutrition basis: \(reference.basisDescription)")
+            .heliosFont(.footnote)
+            .foregroundStyle(theme.palette.text.secondary.color)
+            .fixedSize(horizontal: false, vertical: true)
           if let serving = selectedServing {
             Text(
               "\(serving.label) = \(NutritionInput.format(serving.gramWeight, locale: locale)) g"
             )
-            .font(.footnote).accessibilityIdentifier("referenceServingWeight")
+            .heliosFont(.footnote)
+            .foregroundStyle(theme.palette.text.secondary.color)
+            .fixedSize(horizontal: false, vertical: true)
+            .accessibilityIdentifier("referenceServingWeight")
           }
         } header: {
           Text("Portion")
@@ -147,21 +203,23 @@ struct FoodNutritionReviewView: View {
           Text(
             reference.basisGrams == nil
               ? "Use portions of the stated serving. No weight conversion is assumed."
-              : "oz means weight ounces. Listed measures use source weights for this food. Changing units keeps the same amount of food; enter 1 to use one listed measure."
+              : "Choose a listed serving or weight (oz means weight ounces). Changing units keeps the same amount of food."
           )
         }
+
         Section {
-          if let final {
-            Text("\(NutritionInput.format(final.calories, locale: locale)) calories")
-              .font(.headline)
-              .accessibilityIdentifier("referenceCalories")
-            FoodEntryPass2MacroSummaryRow(totals: final)
-          } else {
-            Text("Enter a portion above zero and valid nutrition values.")
-          }
-        } header: {
-          Text("Nutrition for this log")
+          FoodEntryV2NutritionOverviewCard(
+            totals: final,
+            portionSummary: portionSummaryText,
+            caloriesIdentifier: "referenceCalories",
+            footnote: isEditing
+              ? "Using your edited values for this log. Source records stay unchanged."
+              : "Calories come from the source. They may differ slightly from energy calculated from macros.",
+            invalidMessage: "Enter a portion above zero and valid nutrition values."
+          )
+          .foodEntryV2CardRow()
         }
+
         if let portion {
           MacroOverrideSection(
             itemName: reference.name, baseTotals: portion,
@@ -169,44 +227,71 @@ struct FoodNutritionReviewView: View {
             isEditing: $isEditing,
             calories: $calories, protein: $protein, carbs: $carbs, fat: $fat)
         }
+
         Section {
+          if FoodEntryPass2ContextFormatter.dateRelation(for: date, calendar: calendar) != .today {
+            FoodEntryV2DateBadge(date: date)
+          }
           Picker("Meal", selection: $meal) {
             ForEach(MealType.allCases) { Text($0.displayName).tag($0) }
-          }.accessibilityIdentifier("referenceMeal")
+          }
+          .frame(minHeight: 48)
+          .accessibilityIdentifier("referenceMeal")
           DatePicker("Date", selection: $date, displayedComponents: .date)
+            .frame(minHeight: 48)
             .accessibilityIdentifier("referenceDate")
           Toggle("Save to My Foods", isOn: $saveToLibrary)
+            .frame(minHeight: 48)
         } header: {
-          Text("Add to Diary")
+          Text("Meal & Date")
         }
+
         Section {
-          Text(reference.attribution).font(.footnote)
-          Link("View Source", destination: reference.sourceURL).frame(minHeight: 48)
+          Text(reference.attribution)
+            .heliosFont(.footnote)
+            .foregroundStyle(theme.palette.text.secondary.color)
+            .fixedSize(horizontal: false, vertical: true)
+          Link("View Source", destination: reference.sourceURL)
+            .frame(minHeight: 48)
           Text(
-            "You can adjust nutrition for this portion before logging. Edits apply to your copy. Changing the amount resets edits; changing units keeps the same portion."
-          ).font(.footnote)
+            "Logging saves an independent diary snapshot so future food or menu edits never alter past days. Changing the amount resets macro edits; changing units keeps the same portion."
+          )
+          .heliosFont(.footnote)
+          .foregroundStyle(theme.palette.text.secondary.color)
+          .fixedSize(horizontal: false, vertical: true)
         } header: {
           Text("Nutrition Source")
         }
+
         if didSave {
           Section {
-            Label("Added to \(meal.displayName)", systemImage: "checkmark.circle")
+            Label("Added to \(meal.displayName)", systemImage: "checkmark.circle.fill")
+              .foregroundStyle(theme.palette.status.success.color)
               .accessibilityIdentifier("referenceSaved")
           }
         }
       }
-      .listRowBackground(CaliberRowBackground())
+      .listRowBackground(FoodEntryV2RowBackground())
     }
     .caliberScreen()
     .scrollDismissesKeyboard(.interactively)
     .navigationTitle("Review Food")
+    .navigationBarTitleDisplayMode(.inline)
     .toolbar(.visible, for: .navigationBar)
     .toolbar {
-      if let onDismiss {
-        ToolbarItem(placement: .cancellationAction) {
-          Button(didSave ? "Done" : "Cancel", action: onDismiss)
-            .frame(minHeight: 48)
-            .accessibilityIdentifier("foodEntryQuickReviewClose")
+      if !typeSize.isAccessibilitySize {
+        if let onDismiss {
+          ToolbarItem(placement: .cancellationAction) {
+            Button(didSave ? "Done" : "Cancel", action: onDismiss)
+              .frame(minWidth: 48, minHeight: 48)
+              .accessibilityIdentifier("foodEntryQuickReviewClose")
+          }
+        }
+        ToolbarItem(placement: .confirmationAction) {
+          Button("Add to Diary", action: save)
+            .disabled(final == nil || didSave)
+            .frame(minWidth: 48, minHeight: 48)
+            .accessibilityIdentifier("referenceAdd")
         }
       }
       ToolbarItem(placement: .keyboard) {
@@ -214,11 +299,19 @@ struct FoodNutritionReviewView: View {
           UIApplication.shared.sendAction(
             #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
-        .frame(minWidth: 48, minHeight: 48).accessibilityIdentifier("nutritionKeyboardDone")
+        .frame(minWidth: 48, minHeight: 48)
+        .accessibilityIdentifier("nutritionKeyboardDone")
       }
-      ToolbarItem(placement: .confirmationAction) {
-        Button("Add to Diary", action: save).disabled(final == nil || didSave)
-          .frame(minWidth: 48, minHeight: 48).accessibilityIdentifier("referenceAdd")
+    }
+    .safeAreaInset(edge: .bottom) {
+      if typeSize.isAccessibilitySize {
+        FoodEntryV2ReviewBottomBar(
+          canSave: final != nil && !didSave,
+          didSave: didSave,
+          addIdentifier: "referenceAdd",
+          onSave: save,
+          onDismiss: onDismiss
+        )
       }
     }
     .alert(

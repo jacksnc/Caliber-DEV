@@ -13,6 +13,7 @@ private enum FoodSearchScope: String, CaseIterable, Identifiable {
 /// Unified offline food-entry workspace. Every route carries the destination meal and date,
 /// and every quick action opens an editable portion and macro review before logging.
 struct FoodSearchView: View {
+  @Environment(\.dynamicTypeSize) private var typeSize
   @Environment(\.locale) private var locale
   @Environment(\.calendar) private var calendar
   @Environment(\.modelContext) private var modelContext
@@ -29,8 +30,10 @@ struct FoodSearchView: View {
   init(mealType: MealType = .snack, date: Date = .now) {
     self.mealType = mealType
     self.date = date
+    _selectedMealType = State(initialValue: mealType)
   }
 
+  @State private var selectedMealType: MealType
   @State private var searchService: BundledFoodSearchService?
   @State private var searchText = ""
   @State private var scope = FoodSearchScope.all
@@ -104,6 +107,10 @@ struct FoodSearchView: View {
     }.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
   }
 
+  private func macroPreview(protein: Double, carbs: Double, fat: Double) -> String {
+    "P \(NutritionInput.format(protein, locale: locale)) g · C \(NutritionInput.format(carbs, locale: locale)) g · F \(NutritionInput.format(fat, locale: locale)) g"
+  }
+
   var body: some View {
     // Build the history index once per render; changing a search does not store another copy.
     let foods = usage
@@ -142,7 +149,7 @@ struct FoodSearchView: View {
         allScopeSections
         emptyOrCreateSection(hasResults: hasResults)
       }
-      .listRowBackground(CaliberRowBackground())
+      .listRowBackground(FoodEntryV2RowBackground())
     }
     .caliberScreen()
     .navigationTitle("Search Foods")
@@ -154,6 +161,9 @@ struct FoodSearchView: View {
     )
     .navigationDestination(item: $activeRoute) { route in
       destinationView(for: route)
+    }
+    .onChange(of: mealType) { _, next in
+      selectedMealType = next
     }
     .task(id: query) {
       do {
@@ -173,11 +183,11 @@ struct FoodSearchView: View {
     }
     .task { await loadCatalog() }
     .sheet(item: $manualEntryRequest) { request in
-      AddFoodView(mealType: mealType, date: date, prefill: request.prefill)
+      AddFoodView(mealType: selectedMealType, date: date, prefill: request.prefill)
         .presentationDragIndicator(.visible)
     }
     .sheet(item: $quickReviewTarget) { target in
-      FoodEntryPass2QuickReviewSheet(target: target, mealType: mealType, date: date)
+      FoodEntryPass2QuickReviewSheet(target: target, mealType: selectedMealType, date: date)
     }
     .alert(
       "Couldn't Update Favorite",
@@ -192,16 +202,17 @@ struct FoodSearchView: View {
   private var hubSection: some View {
     Section {
       FoodEntryPass2HubCard(
-        mealType: mealType,
+        mealType: selectedMealType,
         date: date,
         savedFoodsCount: savedFoods.count,
         savedMealsCount: savedMeals.count,
+        onSelectMeal: { selectedMealType = $0 },
         onSelectRoute: { activeRoute = $0 },
         onManualEntry: {
           openManualEntry(prefillName: query.isEmpty || isList ? nil : query)
         }
       )
-      .caliberCardRow()
+      .foodEntryV2CardRow()
     }
   }
 
@@ -215,10 +226,11 @@ struct FoodSearchView: View {
           Text(option.rawValue).tag(option)
         }
       }
+      .frame(minHeight: 48)
       .accessibilityIdentifier("foodSearchScope")
     } footer: {
       Text(
-        "Search USDA foods, saved foods and meals, or restaurant menus offline—or type a list like \"2 eggs, a banana\". Tap + to review a portion right away."
+        "Search saved foods, meals, menus, or the offline catalog. Tap + to review right away."
       )
     }
   }
@@ -251,6 +263,7 @@ struct FoodSearchView: View {
         Button("Retry Restaurant Loading") {
           Task { await loadCatalog() }
         }
+        .frame(minHeight: 48)
       }
     }
   }
@@ -322,12 +335,12 @@ struct FoodSearchView: View {
         Section {
           ForEach(matchingBuilders) { template in
             NavigationLink {
-              BuildYourOwnView(template: template, mealType: mealType, date: date)
+              BuildYourOwnView(template: template, mealType: selectedMealType, date: date)
             } label: {
-              VStack(alignment: .leading, spacing: 3) {
-                Text(template.name)
-                Text(template.restaurant?.name ?? "Restaurant").font(.footnote)
-              }.frame(minHeight: 48)
+              FoodEntryV2FoodRowLabel(
+                title: template.name,
+                detail: template.restaurant?.name ?? "Restaurant"
+              )
             }
           }
         } header: {
@@ -338,13 +351,14 @@ struct FoodSearchView: View {
         Section {
           ForEach(matchingMenuItems) { item in
             NavigationLink {
-              MenuItemDetailView(menuItem: item, mealType: mealType, date: date)
+              MenuItemDetailView(menuItem: item, mealType: selectedMealType, date: date)
             } label: {
-              VStack(alignment: .leading, spacing: 3) {
-                Text(item.name)
-                Text("\(item.restaurant?.name ?? "Restaurant") · \(item.category.displayName)")
-                  .font(.footnote)
-              }.frame(minHeight: 48)
+              FoodEntryV2FoodRowLabel(
+                title: item.name,
+                detail:
+                  "\(item.restaurant?.name ?? "Restaurant") · \(item.category.displayName) · \(macroPreview(protein: item.baseProtein, carbs: item.baseCarbs, fat: item.baseFat))",
+                caloriesText: "\(NutritionInput.format(item.baseCalories, locale: locale)) cal"
+              )
             }
           }
         } header: {
@@ -369,7 +383,7 @@ struct FoodSearchView: View {
             openManualEntry(prefillName: isList ? nil : query)
           }
         )
-        .caliberCardRow()
+        .foodEntryV2CardRow()
       }
     } else if !query.isEmpty && !isList {
       Section {
@@ -399,10 +413,10 @@ struct FoodSearchView: View {
   private var emptyStateMessage: String {
     if !query.isEmpty && scope != .all {
       return
-        "Your search stays filled in—check All Foods or create a personal food for \(mealType.displayName)."
+        "Your search stays filled in—check All Foods or create a personal food for \(selectedMealType.displayName)."
     }
     if scope == .favorites {
-      return "Star a USDA food or a personal food to keep it ready here."
+      return "Star an offline catalog food or a personal food to keep it ready here."
     }
     return "Try another search or enter the food's label values manually."
   }
@@ -411,17 +425,17 @@ struct FoodSearchView: View {
   private func destinationView(for route: FoodEntryPass2Route) -> some View {
     switch route {
     case .barcode:
-      BarcodeFoodLookupView(mealType: mealType, date: date)
+      BarcodeFoodLookupView(mealType: selectedMealType, date: date)
     case .labelScan:
-      LabelScannerView(mealType: mealType, date: date)
+      LabelScannerView(mealType: selectedMealType, date: date)
     case .photoEstimate:
-      PhotoEstimateView(mealType: mealType, date: date)
+      PhotoEstimateView(mealType: selectedMealType, date: date)
     case .myFoods:
-      MyFoodsView(mealType: mealType, date: date)
+      MyFoodsView(mealType: selectedMealType, date: date)
     case .myMeals:
-      MyMealsView(mealType: mealType, date: date)
+      MyMealsView(mealType: selectedMealType, date: date)
     case .restaurants:
-      RestaurantListView(mealType: mealType, date: date)
+      RestaurantListView(mealType: selectedMealType, date: date)
     }
   }
 
@@ -484,12 +498,17 @@ struct FoodSearchView: View {
     }
     if let saved = match.saved {
       let initialQuantity = match.phrase.quantity ?? 1
-      HStack(spacing: HeliosTokens.space(2)) {
+      foodRowLayout {
         NavigationLink {
           SavedFoodDetailView(
-            food: saved, initialQuantity: initialQuantity, mealType: mealType, date: date)
+            food: saved, initialQuantity: initialQuantity, mealType: selectedMealType, date: date)
         } label: {
-          listLabel(match.phrase.text, detail: "\(amount ?? "")\(saved.name) · My Foods")
+          FoodEntryV2FoodRowLabel(
+            title: match.phrase.text.capitalized(with: locale),
+            detail: "\(amount ?? "")\(saved.name) · My Foods",
+            caloriesText:
+              "\(NutritionInput.format(saved.calories * initialQuantity, locale: locale)) cal"
+          )
         }
         .accessibilityIdentifier("listMatch-\(match.phrase.terms)")
 
@@ -507,16 +526,21 @@ struct FoodSearchView: View {
     } else if let food = match.catalog {
       let resolvedPortion = SmartFoodQuery.portion(
         for: match.phrase, servings: food.servings.map { ($0.id, $0.label) })
-      HStack(spacing: HeliosTokens.space(2)) {
+      foodRowLayout {
         NavigationLink {
           FoodNutritionReviewView(
             reference: .usda(food),
-            meal: mealType,
+            meal: selectedMealType,
             date: date,
             portion: resolvedPortion
           )
         } label: {
-          listLabel(match.phrase.text, detail: "\(amount ?? "")\(food.name) · USDA")
+          FoodEntryV2FoodRowLabel(
+            title: match.phrase.text.capitalized(with: locale),
+            // The requested phrase may use a listed measure. Show nutrition in
+            // review, where the existing portion resolver knows its exact mass.
+            detail: "\(amount ?? "")\(food.name) · Offline catalog"
+          )
         }
         .accessibilityIdentifier("listMatch-\(match.phrase.terms)")
 
@@ -531,32 +555,34 @@ struct FoodSearchView: View {
       Button {
         openManualEntry(prefillName: match.phrase.terms.capitalized(with: locale))
       } label: {
-        listLabel(
-          match.phrase.text,
-          detail: "No match — tap to enter manually for \(mealType.displayName)."
+        FoodEntryV2FoodRowLabel(
+          title: match.phrase.text.capitalized(with: locale),
+          detail: "No match — tap to enter manually for \(selectedMealType.displayName)."
         )
       }
       .accessibilityIdentifier("listCreate-\(match.phrase.terms)")
     }
   }
 
-  private func listLabel(_ title: String, detail: String) -> some View {
-    VStack(alignment: .leading, spacing: 3) {
-      Text(title.capitalized(with: locale))
-      Text(detail).font(.footnote).foregroundStyle(.secondary)
-    }
-    .frame(minHeight: 48)
+  // At large sizes the quick action gets its own row, leaving the whole
+  // reading width for long food names instead of a very narrow text column.
+  private var foodRowLayout: AnyLayout {
+    typeSize >= .xxxLarge
+      ? AnyLayout(VStackLayout(alignment: .leading, spacing: HeliosTokens.space(2)))
+      : AnyLayout(HStackLayout(spacing: HeliosTokens.space(2)))
   }
 
   private func savedFoodRow(_ food: FoodItem) -> some View {
-    HStack(spacing: HeliosTokens.space(2)) {
+    foodRowLayout {
       NavigationLink {
-        SavedFoodDetailView(food: food, mealType: mealType, date: date)
+        SavedFoodDetailView(food: food, mealType: selectedMealType, date: date)
       } label: {
-        VStack(alignment: .leading, spacing: 3) {
-          Text(food.name)
-          Text(food.servingDescription).font(.footnote).foregroundStyle(.secondary)
-        }.frame(minHeight: 48)
+        FoodEntryV2FoodRowLabel(
+          title: food.name,
+          detail:
+            "\(food.servingDescription) · \(macroPreview(protein: food.proteinGrams, carbs: food.carbGrams, fat: food.fatGrams))",
+          caloriesText: "\(NutritionInput.format(food.calories, locale: locale)) cal"
+        )
       }
 
       FoodEntryPass2QuickReviewButton(
@@ -573,16 +599,14 @@ struct FoodSearchView: View {
   }
 
   private func savedMealRow(_ meal: SavedMeal) -> some View {
-    HStack(spacing: HeliosTokens.space(2)) {
+    foodRowLayout {
       NavigationLink {
-        SavedMealDetailView(meal: meal, mealType: mealType, date: date)
+        SavedMealDetailView(meal: meal, mealType: selectedMealType, date: date)
       } label: {
-        VStack(alignment: .leading, spacing: 3) {
-          Text(meal.name)
-          Text("\(meal.items.count) \(meal.items.count == 1 ? "food" : "foods")")
-            .font(.footnote)
-            .foregroundStyle(.secondary)
-        }.frame(minHeight: 48)
+        FoodEntryV2FoodRowLabel(
+          title: meal.name,
+          detail: "\(meal.items.count) \(meal.items.count == 1 ? "food" : "foods")"
+        )
       }
 
       FoodEntryPass2QuickReviewButton(
@@ -595,16 +619,17 @@ struct FoodSearchView: View {
   }
 
   private func catalogRow(_ food: FoodCatalogEntry, favorite: Bool = false) -> some View {
-    HStack(spacing: HeliosTokens.space(2)) {
+    let per100g = food.nutritionPer100g
+    return foodRowLayout {
       NavigationLink {
-        FoodNutritionReviewView(reference: .usda(food), meal: mealType, date: date)
+        FoodNutritionReviewView(reference: .usda(food), meal: selectedMealType, date: date)
       } label: {
-        VStack(alignment: .leading, spacing: 3) {
-          Text(food.name)
-          Text(
-            "100 g · \(NutritionInput.format(food.nutritionPer100g.calories, locale: locale)) cal · \(food.sourceType.shortLabel)"
-          ).font(.caption).foregroundStyle(.secondary)
-        }.frame(minHeight: 48)
+        FoodEntryV2FoodRowLabel(
+          title: food.name,
+          detail:
+            "100 g · \(macroPreview(protein: per100g.proteinGrams, carbs: per100g.carbGrams, fat: per100g.fatGrams)) · \(food.sourceType.shortLabel)",
+          caloriesText: "\(NutritionInput.format(per100g.calories, locale: locale)) cal"
+        )
       }
       .accessibilityIdentifier(favorite ? "favorite-\(food.id)" : "catalogFood-\(food.fdcID)")
 
@@ -621,21 +646,26 @@ struct FoodSearchView: View {
   }
 
   private func reuseRow(_ usage: ReusableFood, prefix: String) -> some View {
-    HStack(spacing: HeliosTokens.space(2)) {
+    foodRowLayout {
       NavigationLink {
         SavedFoodDetailView(
-          food: usage.food, initialQuantity: usage.quantity, mealType: mealType, date: date)
+          food: usage.food,
+          initialQuantity: usage.quantity,
+          mealType: selectedMealType,
+          date: date
+        )
       } label: {
-        VStack(alignment: .leading, spacing: 3) {
-          Text(usage.food.name)
-          Text(
-            "\(NutritionInput.format(usage.quantity, locale: locale)) × \(usage.food.servingDescription) · \(NutritionInput.format(usage.food.calories * usage.quantity, locale: locale)) cal"
-          ).font(.footnote).foregroundStyle(.secondary)
-          if prefix == "frequent" {
-            Text("Logged \(usage.logCount) \(usage.logCount == 1 ? "time" : "times")")
-              .font(.caption)
-          }
-        }.frame(minHeight: 48)
+        FoodEntryV2FoodRowLabel(
+          title: usage.food.name,
+          detail:
+            "\(NutritionInput.format(usage.quantity, locale: locale)) × \(usage.food.servingDescription) · \(macroPreview(protein: usage.food.proteinGrams * usage.quantity, carbs: usage.food.carbGrams * usage.quantity, fat: usage.food.fatGrams * usage.quantity))",
+          caloriesText:
+            "\(NutritionInput.format(usage.food.calories * usage.quantity, locale: locale)) cal",
+          extraNote:
+            prefix == "frequent"
+            ? "Logged \(usage.logCount) \(usage.logCount == 1 ? "time" : "times")"
+            : nil
+        )
       }
       .accessibilityIdentifier("\(prefix)-\(usage.id)")
 

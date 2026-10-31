@@ -349,3 +349,48 @@ func futureDateClassificationUsesAppCalendarAndRetainsExactMealAndDate() throws 
   #expect(logged.date == multiDayFuture)
   #expect(logged.calories == 300)
 }
+
+@MainActor @Test
+func v2FoodFlowKeepsReportedCaloriesDistinctFromMacroDerivedEnergyAcrossMealSlots() throws {
+  let locale = Locale(identifier: "en_US_POSIX")
+  let container = try ModelContainer(
+    for: FoodItem.self, DiaryEntry.self,
+    configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+  )
+  let context = ModelContext(container)
+  context.autosaveEnabled = false
+
+  // 4*35 + 4*70 + 9*18 = 582 kcal from macros, while reported label/source energy is 640 kcal.
+  let draft = FoodEntryPass2ManualDraft(
+    name: "Fictional Grain Bowl",
+    servingDescription: "1 bowl (380 g)",
+    quantity: "1.5",
+    calories: "640",
+    protein: "35",
+    carbs: "70",
+    fat: "18",
+    saveToLibrary: true
+  )
+  let perServing = draft.perServingTotals(locale: locale)
+  let derivedMacroEnergy: Double = 582
+  #expect(perServing == MacroTotals(calories: 640, protein: 35, carbs: 70, fat: 18))
+  #expect(perServing?.calories != derivedMacroEnergy)
+
+  let targetDate = Date(timeIntervalSince1970: 1_730_332_800)
+  for meal in MealType.allCases {
+    #expect(!FoodEntryPass2ContextFormatter.mealSymbol(for: meal).isEmpty)
+    let entry = try FoodEntryPass2ManualLogger.log(
+      draft: draft,
+      mealType: meal,
+      date: targetDate,
+      locale: locale,
+      in: context
+    )
+    #expect(entry.mealType == meal)
+    #expect(entry.date == targetDate)
+    #expect(entry.calories == 960)
+    #expect(entry.protein == 52.5)
+    #expect(entry.carbs == 105)
+    #expect(entry.fat == 27)
+  }
+}

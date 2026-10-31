@@ -1,0 +1,25 @@
+import XCTest
+
+/// Diagnostic-only test: app sources remain exactly at a07ceb9.
+final class RuntimeWarningProbeUITests: XCTestCase {
+  @MainActor func testOriginalManualKeyboardFocus() {
+    continueAfterFailure = false
+    let app = XCUIApplication()
+    app.launchArguments = ["--progress-ui-testing", "--food-reuse-fixture"]
+    app.launch()
+    XCTAssertTrue(app.tab("Fuel").waitForExistence(timeout: 20))
+    app.tab("Fuel").tap()
+    let add = app.buttons["diaryAdd-breakfast"]
+    XCTAssertTrue(add.waitForExistence(timeout: 5))
+    add.tap()
+    let manual = app.buttons["foodSearchManual"]
+    XCTAssertTrue(manual.waitForExistence(timeout: 5))
+    manual.tap()
+    let calories = app.textFields["Calories"]
+    XCTAssertTrue(calories.waitForExistence(timeout: 5))
+    calories.tap()
+    calories.typeText("250")
+    XCTAssertEqual(calories.value as? String, "250")
+    app.terminate()
+  }
+}

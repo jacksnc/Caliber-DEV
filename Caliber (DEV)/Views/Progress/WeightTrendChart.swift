@@ -137,6 +137,7 @@ struct WeightTrendChart: View {
     let color = theme.palette.data.weight.color
     return ViewThatFits(in: .horizontal) {
       HStack(spacing: HeliosTokens.space(4)) { legendItems(color) }
+        .fixedSize(horizontal: true, vertical: false)
       VStack(alignment: .leading, spacing: HeliosTokens.space(1)) { legendItems(color) }
     }
     .heliosFont(.caption)
@@ -147,11 +148,11 @@ struct WeightTrendChart: View {
   @ViewBuilder private func legendItems(_ color: Color) -> some View {
     HStack(spacing: HeliosTokens.space(1)) {
       Circle().fill(color.opacity(0.5)).frame(width: 8, height: 8)
-      Text("Weigh-in")
+      Text("Weigh-in").fixedSize(horizontal: false, vertical: true)
     }
     HStack(spacing: HeliosTokens.space(1)) {
       Capsule().fill(color).frame(width: 16, height: 2)
-      Text("Smoothed trend")
+      Text("Smoothed trend").fixedSize(horizontal: false, vertical: true)
     }
   }
 

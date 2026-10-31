@@ -242,3 +242,14 @@ opaque cards, calendar-day navigation and wrapping meal rows. Existing edit,
 delete, copy/repeat and selected meal/date routes retained. 242 native unit cases
 and 6 focused UI cases pass on isolated QA; Graphite/Frost/AX5 captures reviewed.
 No model migration, goal calculation, providers or personal installation changes.
+
+
+## 2026-10-30 - Reviewed native V2 food and surface integration
+
+Ported Gemini's preserved native food work after Argon quota exhaustion; reviewed
+meal/date propagation, source snapshot isolation and macro reset. Fixed ambiguous
+phrase-row calorie display, large-text row width and macro stacking. Opaque food
+hub/review and AX action bars are verified in both themes. Progress legend now
+wraps without repeated clipping.243unit/48Helios tests pass; native UI evidence
+keeps initial failures and passing scoped corrections. Existing keyboard warning
+reproduces on baseline. No storage, provider, calculator or personal-build change.

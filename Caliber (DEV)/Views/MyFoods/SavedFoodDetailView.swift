@@ -3,6 +3,7 @@
 //  Caliber (DEV)
 //
 
+import HeliosDesign
 import SwiftData
 import SwiftUI
 import UIKit
@@ -11,6 +12,9 @@ import UIKit
 /// always creates a brand-new FoodItem snapshot — so a one-time macro
 /// override here never changes the saved library entry.
 struct SavedFoodDetailView: View {
+  @Environment(\.calendar) private var calendar
+  @Environment(\.dynamicTypeSize) private var typeSize
+  @Environment(\.heliosTheme) private var theme
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var modelContext
   @EnvironmentObject private var favorites: FoodLibraryPreferences
@@ -28,6 +32,7 @@ struct SavedFoodDetailView: View {
   @State private var editedProtein = ""
   @State private var editedCarbs = ""
   @State private var editedFat = ""
+  @FocusState private var quantityHasFocus: Bool
 
   init(
     food: FoodItem,
@@ -66,11 +71,52 @@ struct SavedFoodDetailView: View {
     return scaled.isValid ? scaled : nil
   }
 
+  private var portionSummaryText: String? {
+    guard let amount = NutritionInput.quantity(quantity, locale: locale) else { return nil }
+    return "For \(NutritionInput.format(amount, locale: locale)) × \(food.servingDescription)"
+  }
+
   var body: some View {
     Form {
       Group {
         Section {
-          Text(food.servingDescription).font(.footnote)
+          VStack(alignment: .leading, spacing: HeliosTokens.space(1)) {
+            Text(food.name)
+              .heliosFont(.section)
+              .foregroundStyle(theme.palette.text.primary.color)
+              .fixedSize(horizontal: false, vertical: true)
+            Text("Serving basis: \(food.servingDescription)")
+              .heliosFont(.footnote)
+              .foregroundStyle(theme.palette.text.secondary.color)
+              .fixedSize(horizontal: false, vertical: true)
+          }
+
+          VStack(alignment: .leading, spacing: HeliosTokens.space(1)) {
+            Text("Quantity")
+              .heliosFont(.caption)
+              .foregroundStyle(theme.palette.text.secondary.color)
+              .fixedSize(horizontal: false, vertical: true)
+            HStack {
+              TextField("Quantity", text: $quantity)
+                .keyboardType(.decimalPad)
+                .monospacedDigit()
+                .focused($quantityHasFocus)
+                .multilineTextAlignment(.trailing)
+                .frame(maxWidth: .infinity, minHeight: 48)
+                .accessibilityIdentifier("savedFoodQuantity")
+            }
+            .padding(.horizontal, HeliosTokens.space(3))
+            .frame(maxWidth: .infinity, minHeight: 48)
+            .background {
+              FoodEntryV2Surface(level: .raised, cornerRadius: HeliosTokens.radius.button)
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+              quantityHasFocus = true
+            }
+          }
+          .padding(.vertical, 2)
+
           Button {
             do {
               try FoodFavoriteEditor.setFavorite(
@@ -81,24 +127,31 @@ struct SavedFoodDetailView: View {
             Label(
               favorites.isFavorite(favoriteKey) ? "Remove Favorite" : "Favorite Food",
               systemImage: favorites.isFavorite(favoriteKey) ? "star.fill" : "star"
-            ).frame(minHeight: 48)
-          }.accessibilityIdentifier("savedFoodFavorite")
+            )
+            .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
+            .contentShape(Rectangle())
+          }
+          .accessibilityIdentifier("savedFoodFavorite")
+        } header: {
+          Text("Selected Food & Portion")
         } footer: {
-          Text("Favorites also stay in My Foods for reuse.")
+          Text(
+            "Favorites stay in My Foods for quick reuse. Logging saves an independent diary snapshot."
+          )
         }
 
         Section {
-          if let totals = loggedTotals {
-            Text("\(NutritionInput.format(totals.calories, locale: locale)) calories")
-              .font(.headline)
-              .accessibilityIdentifier("savedFoodCalories")
-            FoodEntryPass2MacroSummaryRow(totals: totals)
-          } else {
-            Text("Enter a quantity above zero and valid, nonnegative nutrition values.")
-              .foregroundStyle(.secondary)
-          }
-        } header: {
-          Text("Nutrition for this log")
+          FoodEntryV2NutritionOverviewCard(
+            totals: loggedTotals,
+            portionSummary: portionSummaryText,
+            caloriesIdentifier: "savedFoodCalories",
+            footnote: isCustomizingMacros
+              ? "Using your edited values for this log. Your saved food stays unchanged."
+              : "Calories come from your saved food. They may differ slightly from energy calculated from macros.",
+            invalidMessage:
+              "Enter a quantity above zero and valid, nonnegative nutrition values."
+          )
+          .foodEntryV2CardRow()
         }
 
         MacroOverrideSection(
@@ -112,35 +165,32 @@ struct SavedFoodDetailView: View {
         )
 
         Section {
-          VStack(alignment: .leading, spacing: 6) {
-            Text("Quantity")
-            TextField("Quantity", text: $quantity)
-              .keyboardType(.decimalPad)
-              .multilineTextAlignment(.trailing)
-              .frame(maxWidth: .infinity, minHeight: 48)
-              .accessibilityIdentifier("savedFoodQuantity")
+          if FoodEntryPass2ContextFormatter.dateRelation(for: date, calendar: calendar) != .today {
+            FoodEntryV2DateBadge(date: date)
           }
           Picker("Meal", selection: $mealType) {
             ForEach(MealType.allCases) { meal in
               Text(meal.displayName).tag(meal)
             }
           }
+          .frame(minHeight: 48)
           .accessibilityIdentifier("savedFoodMeal")
           DatePicker("Date", selection: $date, displayedComponents: .date)
+            .frame(minHeight: 48)
             .accessibilityIdentifier("savedFoodDate")
         } header: {
-          Text("Add to Diary")
+          Text("Meal & Date")
         }
 
         if didJustSave {
           Section {
             Label("Added to \(mealType.displayName)", systemImage: "checkmark.circle.fill")
               .accessibilityIdentifier("savedFoodSaved")
-              .foregroundStyle(.green)
+              .foregroundStyle(theme.palette.status.success.color)
           }
         }
       }
-      .listRowBackground(CaliberRowBackground())
+      .listRowBackground(FoodEntryV2RowBackground())
     }
     .caliberScreen()
     .alert(
@@ -159,6 +209,7 @@ struct SavedFoodDetailView: View {
     .onChange(of: mealType) { _, _ in didJustSave = false }
     .onChange(of: date) { _, _ in didJustSave = false }
     .navigationTitle(food.name)
+    .navigationBarTitleDisplayMode(.inline)
     .toolbar(.visible, for: .navigationBar)
     .onAppear {
       guard !preparedLocale else { return }
@@ -167,11 +218,20 @@ struct SavedFoodDetailView: View {
     }
     .scrollDismissesKeyboard(.interactively)
     .toolbar {
-      if let onDismiss {
-        ToolbarItem(placement: .cancellationAction) {
-          Button(didJustSave ? "Done" : "Cancel", action: onDismiss)
-            .frame(minHeight: 48)
-            .accessibilityIdentifier("foodEntryQuickReviewClose")
+      if !typeSize.isAccessibilitySize {
+        if let onDismiss {
+          ToolbarItem(placement: .cancellationAction) {
+            Button(didJustSave ? "Done" : "Cancel", action: onDismiss)
+              .frame(minWidth: 48, minHeight: 48)
+              .accessibilityIdentifier("foodEntryQuickReviewClose")
+          }
+        }
+
+        ToolbarItem(placement: .confirmationAction) {
+          Button("Add to Diary", action: save)
+            .disabled(loggedTotals == nil || didJustSave)
+            .frame(minWidth: 48, minHeight: 48)
+            .accessibilityIdentifier("savedFoodAdd")
         }
       }
 
@@ -180,13 +240,19 @@ struct SavedFoodDetailView: View {
           UIApplication.shared.sendAction(
             #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
+        .frame(minWidth: 48, minHeight: 48)
         .accessibilityIdentifier("savedFoodKeyboardDone")
       }
-
-      ToolbarItem(placement: .confirmationAction) {
-        Button("Add to Diary", action: save)
-          .disabled(loggedTotals == nil || didJustSave)
-          .accessibilityIdentifier("savedFoodAdd")
+    }
+    .safeAreaInset(edge: .bottom) {
+      if typeSize.isAccessibilitySize {
+        FoodEntryV2ReviewBottomBar(
+          canSave: loggedTotals != nil && !didJustSave,
+          didSave: didJustSave,
+          addIdentifier: "savedFoodAdd",
+          onSave: save,
+          onDismiss: onDismiss
+        )
       }
     }
   }
