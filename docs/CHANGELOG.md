@@ -233,3 +233,12 @@ Integrated both peer design branches and completed all seven screens in Graphite
 and Frost, state appendices, 15-page rendered/reviewed PDF and native role pack.
 322 browser layout/target cases pass; selected-food/meal preview and number-free/
 locked/off fixes are verified. No native code or installed app change yet.
+
+
+## 2026-10-30 - Native centered Diary V2
+
+Centered independently recorded energy and explicit goals, balanced macros,
+opaque cards, calendar-day navigation and wrapping meal rows. Existing edit,
+delete, copy/repeat and selected meal/date routes retained. 242 native unit cases
+and 6 focused UI cases pass on isolated QA; Graphite/Frost/AX5 captures reviewed.
+No model migration, goal calculation, providers or personal installation changes.

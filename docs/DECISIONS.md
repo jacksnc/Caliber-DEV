@@ -344,3 +344,13 @@ nutrition engine or persistence is added. PDF comparisons preserve full scrollab
 screens on tall spreads; HTML remains the semantic canonical source. Native
 translation preserves fast logging and existing controls, rather than copying a
 long HTML review literally. See V2 VERIFICATION and the native ownership pack.
+
+## V203 - Centered native diary preserves List behavior (2026-10-30)
+
+Retain native List sections, swipe deletion and existing edit/copy/repeat sheets.
+Read saved UserProfile goals without writing defaults, and use a small tested
+presentation metric for finite values, progress and above/remaining text. Keep
+reported calories independent and all IDs intact. Use opaque row surfaces and
+fully scaled text with stacked layouts; the ring is decorative and omitted at
+accessibility sizes. Coordinate the narrow old FoodShortcuts test-helper fix
+with Gemini instead of adding an otherwise unnecessary navigation bar.

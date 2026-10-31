@@ -7,7 +7,7 @@ handoffs are integrated; do not restart the HTML task or modify the design sourc
 
 | Role | Branch | Ownership |
 | --- | --- | --- |
-| Codex | codex/v2-native-integration | DiaryView.swift, diary-specific presentation/tests, central integration/docs |
+| Codex | codex/v2-native-integration | DiaryView.swift, diary-specific presentation/tests, FoodShortcutsUITests reveal helper, central integration/docs |
 | Claude Opus 5.5 | claude/v2-native-surfaces | TodayFoundationView.swift, Views/Train/, Views/Progress/, Stack/StackHomeView.swift; CLAUDE_HANDOFF.md here |
 | Gemini Argon on Mac | gemini/v2-native-food | FoodSearchView.swift, FoodEntryPass2Components.swift, FoodNutritionReviewView.swift, SavedFoodDetailView.swift, Views/Components/MacroOverrideSection.swift; existing food-entry tests; GEMINI_HANDOFF.md here |
 
@@ -28,3 +28,8 @@ Use explicit private derived-data paths and fictional isolated stores; never
 install on/reset another role's simulator. Claude cloud: native checks UNTESTED
 until Codex verifies. App implementation must not copy mock numbers into users'
 goals, foods or progress. No new app icon, purchased assets or dependencies.
+
+Codex owns the FoodShortcutsUITests.swift reveal helper integration fix; Gemini
+was notified to leave that file unchanged. The helper must tolerate hidden
+primary navigation bars. Do not run scripts/test_ios.py as-is: it auto-selects
+a booted iPhone. Use explicit QA destination IDs in direct xcodebuild commands.

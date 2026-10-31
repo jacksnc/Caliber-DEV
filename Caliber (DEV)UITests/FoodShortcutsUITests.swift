@@ -13,11 +13,15 @@ final class FoodShortcutsUITests: XCTestCase {
     _ element: XCUIElement, in app: XCUIApplication, towardTop: Bool = false
   ) {
     for _ in 0..<18 {
-      let top = app.navigationBars.firstMatch.frame.maxY + 8
+      let top =
+        app.navigationBars.firstMatch.exists
+        ? app.navigationBars.firstMatch.frame.maxY + 8 : 72
       let bottom =
         app.keyboards.firstMatch.exists
         ? app.keyboards.firstMatch.frame.minY - 8
-        : app.otherElements["caliberTabBar"].frame.minY - 8
+        : (app.otherElements["caliberTabBar"].exists
+          ? app.otherElements["caliberTabBar"].frame.minY - 8
+          : app.windows.firstMatch.frame.maxY - 24)
       if element.exists && element.isHittable && element.frame.minY >= top
         && element.frame.maxY <= bottom
       {

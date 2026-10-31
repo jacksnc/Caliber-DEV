@@ -153,3 +153,10 @@ not introduce a new persistent draft format.
 No migration. Additive HTML/CSS/JS design previews and documentation only, using
 synthetic in-memory fixtures and no persistence/network calls. Native models,
 user stores, snapshots, entitlements and hosted schemas remain unchanged.
+
+## Native V2 Diary - 2026-10-30
+
+No migration. DiaryNutritionMetric is a nonpersistent display value; DiaryView
+reads existing UserProfile goals. No model fields, schema, user settings or
+recorded food/goal/date values are rewritten. UI checks use the existing DEBUG
+in-memory fixtures and the isolated Caliber Lookbook QA simulator only.

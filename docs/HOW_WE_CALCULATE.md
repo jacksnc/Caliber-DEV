@@ -249,3 +249,20 @@ Displayed totals are entered per-serving values times the confirmed quantity.
 Cancellation writes nothing; personal edits create independent diary snapshots.
 Past/today/future labels compare calendar day starts and preserve selected meal
 and timestamp. No weight, calorie or dose calculation comes from a visual effect.
+
+## Diary V2 progress display - 2026-10-30
+
+The diary still adds independently recorded calorie and macro values from food
+snapshots. Its new energy ring divides reported calories by an explicitly saved
+positive calorie goal; it does not rebuild calories from protein/carbs/fat or
+subtract activity. The ring stops at full visually. The text keeps actual totals
+and shows either `goal - logged` remaining or `logged - goal` above goal, with
+zero at equality. No target is changed by this comparison. In this existing
+diary screen, calories mean dietary kilocalories; the saved amounts are unchanged.
+
+Missing, nonpositive or non-finite goals have no progress/remaining estimate.
+Invalid recorded values display unavailable rather than plausible zero intake.
+These checks and visual clamping are presentation only, not an intake or target
+recommendation. Macros use their own saved gram targets under the same display
+rules. Date arrows move one calendar day, using the same calendar as diary
+filtering; they never add a fixed 86,400-second offset or move recorded entries.
