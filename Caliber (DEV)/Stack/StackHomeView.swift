@@ -124,17 +124,27 @@ private struct StackTodayCard: View {
   @Environment(\.calendar) private var calendar
   @Environment(\.heliosTheme) private var theme
 
+  private var heading: some View {
+    Text("Doses today")
+      .heliosFont(.section)
+      .foregroundStyle(theme.palette.text.primary.color)
+      .fixedSize(horizontal: false, vertical: true)
+      .layoutPriority(1)
+      .accessibilityAddTraits(.isHeader)
+  }
+
   var body: some View {
     let today = StackPlanner.today(for: compounds, now: now, calendar: calendar)
     let focus = today.first { $0.status == .due || $0.status == .missed && $0.dose == nil }
     VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
       ViewThatFits(in: .horizontal) {
         HStack(alignment: .firstTextBaseline) {
-          SectionHeader("Doses today")
+          heading
+          Spacer(minLength: 8)
           clock
         }
         VStack(alignment: .leading, spacing: 2) {
-          SectionHeader("Doses today")
+          heading
           clock
         }
       }
@@ -271,9 +281,10 @@ private struct StackDoseRow: View {
   @Environment(\.dynamicTypeSize) private var typeSize
 
   var body: some View {
+    let rowLayout = StackRowLayout.layout(for: typeSize)
     Button(action: edit) {
       // At large text the status moves under the name instead of squeezing it.
-      StackRowLayout.layout(for: typeSize) {
+      rowLayout {
         HStack(spacing: HeliosTokens.space(3)) {
           StackIcon(form: compound.form)
           VStack(alignment: .leading, spacing: 2) {
@@ -341,8 +352,9 @@ private struct StackCompoundRow: View {
   @Environment(\.dynamicTypeSize) private var typeSize
 
   var body: some View {
+    let rowLayout = StackRowLayout.layout(for: typeSize)
     // At large text Log moves under the name instead of squeezing it.
-    StackRowLayout.layout(for: typeSize) {
+    rowLayout {
       Button(action: edit) {
         HStack(spacing: HeliosTokens.space(3)) {
           StackIcon(form: compound.form)

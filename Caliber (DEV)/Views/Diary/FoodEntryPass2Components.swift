@@ -788,6 +788,39 @@ struct FoodEntryPass2QuickReviewSheet: View {
   }
 }
 
+/// At AX sizes, each macro is its own self-sizing Form row. A single card
+/// containing the entire overview is taller than the available review viewport.
+struct FoodEntryV2NutritionSection: View {
+  @Environment(\.dynamicTypeSize) private var typeSize
+  @Environment(\.heliosTheme) private var theme
+  let totals: MacroTotals?
+  var portionSummary: String? = nil
+  let caloriesIdentifier: String
+  let footnote: String
+  let invalidMessage: String
+
+  var body: some View {
+    Section {
+      FoodEntryV2NutritionOverviewCard(
+        totals: totals, portionSummary: portionSummary,
+        caloriesIdentifier: caloriesIdentifier, footnote: footnote,
+        invalidMessage: invalidMessage, showsDetails: !typeSize.isAccessibilitySize
+      )
+      .foodEntryV2CardRow()
+      if typeSize.isAccessibilitySize, let totals {
+        FoodEntryPass2MacroSummaryRow(totals: totals, asFormRows: true)
+        Text(footnote)
+          .heliosFont(.caption)
+          .foregroundStyle(theme.palette.text.secondary.color)
+          .multilineTextAlignment(.center)
+          .fixedSize(horizontal: false, vertical: true)
+          .frame(maxWidth: .infinity)
+          .foodEntryV2CardRow()
+      }
+    }
+  }
+}
+
 /// Centered Lookbook V2 nutrition overview card preserving reported calories and balanced macro tiles.
 struct FoodEntryV2NutritionOverviewCard: View {
   @Environment(\.heliosTheme) private var theme
@@ -798,6 +831,7 @@ struct FoodEntryV2NutritionOverviewCard: View {
   let caloriesIdentifier: String
   let footnote: String
   let invalidMessage: String
+  var showsDetails = true
 
   var body: some View {
     let palette = theme.palette
@@ -826,13 +860,14 @@ struct FoodEntryV2NutritionOverviewCard: View {
           }
         }
 
-        FoodEntryPass2MacroSummaryRow(totals: totals)
-
-        Text(footnote)
-          .heliosFont(.caption)
-          .multilineTextAlignment(.center)
-          .foregroundStyle(palette.text.secondary.color)
-          .fixedSize(horizontal: false, vertical: true)
+        if showsDetails {
+          FoodEntryPass2MacroSummaryRow(totals: totals)
+          Text(footnote)
+            .heliosFont(.caption)
+            .multilineTextAlignment(.center)
+            .foregroundStyle(palette.text.secondary.color)
+            .fixedSize(horizontal: false, vertical: true)
+        }
       } else {
         Text(invalidMessage)
           .heliosFont(.callout)
@@ -845,8 +880,8 @@ struct FoodEntryV2NutritionOverviewCard: View {
   }
 }
 
-/// Full-width opaque bottom action bar used on review screens at Accessibility Dynamic Type sizes
-/// so `Add to Diary` and `Cancel`/`Done` stay fast, unclipped, and `>= 48pt` without scrolling.
+/// Full-width opaque review action bar at every text size. Primary actions keep
+/// their full 48pt target instead of inheriting the system toolbar's smaller bounds.
 struct FoodEntryV2ReviewBottomBar: View {
   @Environment(\.heliosTheme) private var theme
 
@@ -905,6 +940,8 @@ struct FoodEntryV2ReviewBottomBar: View {
     }
     .padding(.horizontal, HeliosTokens.space(4))
     .padding(.vertical, HeliosTokens.space(2))
+    .accessibilityElement(children: .contain)
+    .accessibilityIdentifier("foodEntryReviewBar")
     .background {
       Rectangle()
         .fill(palette.opaque.overlay.color)
@@ -926,10 +963,13 @@ struct FoodEntryPass2MacroSummaryRow: View {
   @Environment(\.heliosTheme) private var theme
   @Environment(\.locale) private var locale
   let totals: MacroTotals
+  var asFormRows = false
 
   var body: some View {
     let data = theme.palette.data
-    if typeSize >= .xxxLarge {
+    if asFormRows {
+      formRows(data)
+    } else if typeSize >= .xxxLarge {
       VStack(alignment: .leading, spacing: HeliosTokens.space(2)) { tiles(data) }
     } else {
       ViewThatFits(in: .horizontal) {
@@ -939,11 +979,27 @@ struct FoodEntryPass2MacroSummaryRow: View {
     }
   }
 
+  /// Flattened rows for the AX Form, rather than one oversized list cell.
+  @ViewBuilder private func formRows(_ data: DataColors) -> some View {
+    tile("Protein", value: totals.protein, color: data.protein.color)
+      .accessibilityIdentifier("foodEntrySummary-protein")
+      .foodEntryV2CardRow()
+    tile("Carbs", value: totals.carbs, color: data.carbs.color)
+      .accessibilityIdentifier("foodEntrySummary-carbs")
+      .foodEntryV2CardRow()
+    tile("Fat", value: totals.fat, color: data.fat.color)
+      .accessibilityIdentifier("foodEntrySummary-fat")
+      .foodEntryV2CardRow()
+  }
+
   @ViewBuilder
   private func tiles(_ data: DataColors) -> some View {
     tile("Protein", value: totals.protein, color: data.protein.color)
+      .accessibilityIdentifier("foodEntrySummary-protein")
     tile("Carbs", value: totals.carbs, color: data.carbs.color)
+      .accessibilityIdentifier("foodEntrySummary-carbs")
     tile("Fat", value: totals.fat, color: data.fat.color)
+      .accessibilityIdentifier("foodEntrySummary-fat")
   }
 
   private func tile(_ title: LocalizedStringKey, value: Double, color: Color) -> some View {

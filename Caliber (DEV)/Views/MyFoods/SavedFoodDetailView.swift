@@ -13,7 +13,6 @@ import UIKit
 /// override here never changes the saved library entry.
 struct SavedFoodDetailView: View {
   @Environment(\.calendar) private var calendar
-  @Environment(\.dynamicTypeSize) private var typeSize
   @Environment(\.heliosTheme) private var theme
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var modelContext
@@ -140,19 +139,16 @@ struct SavedFoodDetailView: View {
           )
         }
 
-        Section {
-          FoodEntryV2NutritionOverviewCard(
-            totals: loggedTotals,
-            portionSummary: portionSummaryText,
-            caloriesIdentifier: "savedFoodCalories",
-            footnote: isCustomizingMacros
-              ? "Using your edited values for this log. Your saved food stays unchanged."
-              : "Calories come from your saved food. They may differ slightly from energy calculated from macros.",
-            invalidMessage:
-              "Enter a quantity above zero and valid, nonnegative nutrition values."
-          )
-          .foodEntryV2CardRow()
-        }
+        FoodEntryV2NutritionSection(
+          totals: loggedTotals,
+          portionSummary: portionSummaryText,
+          caloriesIdentifier: "savedFoodCalories",
+          footnote: isCustomizingMacros
+            ? "Using your edited values for this log. Your saved food stays unchanged."
+            : "Calories come from your saved food. They may differ slightly from energy calculated from macros.",
+          invalidMessage:
+            "Enter a quantity above zero and valid, nonnegative nutrition values."
+        )
 
         MacroOverrideSection(
           itemName: food.name,
@@ -218,23 +214,6 @@ struct SavedFoodDetailView: View {
     }
     .scrollDismissesKeyboard(.interactively)
     .toolbar {
-      if !typeSize.isAccessibilitySize {
-        if let onDismiss {
-          ToolbarItem(placement: .cancellationAction) {
-            Button(didJustSave ? "Done" : "Cancel", action: onDismiss)
-              .frame(minWidth: 48, minHeight: 48)
-              .accessibilityIdentifier("foodEntryQuickReviewClose")
-          }
-        }
-
-        ToolbarItem(placement: .confirmationAction) {
-          Button("Add to Diary", action: save)
-            .disabled(loggedTotals == nil || didJustSave)
-            .frame(minWidth: 48, minHeight: 48)
-            .accessibilityIdentifier("savedFoodAdd")
-        }
-      }
-
       ToolbarItem(placement: .keyboard) {
         Button("Done") {
           UIApplication.shared.sendAction(
@@ -245,15 +224,13 @@ struct SavedFoodDetailView: View {
       }
     }
     .safeAreaInset(edge: .bottom) {
-      if typeSize.isAccessibilitySize {
-        FoodEntryV2ReviewBottomBar(
-          canSave: loggedTotals != nil && !didJustSave,
-          didSave: didJustSave,
-          addIdentifier: "savedFoodAdd",
-          onSave: save,
-          onDismiss: onDismiss
-        )
-      }
+      FoodEntryV2ReviewBottomBar(
+        canSave: loggedTotals != nil && !didJustSave,
+        didSave: didJustSave,
+        addIdentifier: "savedFoodAdd",
+        onSave: save,
+        onDismiss: onDismiss
+      )
     }
   }
 

@@ -160,3 +160,11 @@ No migration. DiaryNutritionMetric is a nonpersistent display value; DiaryView
 reads existing UserProfile goals. No model fields, schema, user settings or
 recorded food/goal/date values are rewritten. UI checks use the existing DEBUG
 in-memory fixtures and the isolated Caliber Lookbook QA simulator only.
+
+
+## Native V2 food and screen integration - 2026-10-30
+
+No migration. All additions are view layout, nonpersistent presentation flags,
+accessibility IDs and isolated tests. Canonical food/weight/dose data, schemas,
+calculation engines, snapshots, settings and providers are unchanged. Work is in
+separate QA builds with fictional in-memory fixtures; personal stores untouched.

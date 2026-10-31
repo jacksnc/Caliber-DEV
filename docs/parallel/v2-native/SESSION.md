@@ -230,3 +230,77 @@ this food checkpoint. Gemini corrected cf70732 handoff is reviewed and accurate
 about4/5peer tests, warnings and pending AX states. Rename Codex rescue doc to
 CODEX_FOOD_RESCUE.md so original peer GEMINI_HANDOFF.md can merge without loss.
 No further peer tasks running beyond these completed bounded deliveries.
+
+## Latest checkpoint - 2026-10-31 03:05 UTC (read this first)
+
+Published stable native food checkpoint3e94c24 on codex/v2-native-integration.
+Then locally merged reviewed Gemini cf70732 docs (mergea6990c6) and Claude224db4a
+corrections/review (merge96083a1). Owner preview/personal simulator untouched.
+Peer native tasks are now idle/completed, no new responsive tasks dispatched.
+Responsive role pack is PREPARED only in ../v2-responsive/README.md; gate below.
+
+Claude Stack helper syntax failed native compile: function returning AnyLayout
+was used with a trailing closure as if it accepted one. Codex binds rowLayout
+locally before invoking it (2call sites). Fixed native unit run PASSES243cases,
+/tmp/caliber-v2-final-unit-fixed.xcresult. Original failed build retained locally.
+Legacy warnings remain. Foundation/strict scaling lint passed after peer merges.
+
+Final6UI run /tmp/caliber-v2-final-ui.xcresult:4pass/2fail. Subcalorie-overage
+case PASSES:1462+888.25=2350.25 exact diary calories; Today says less than1kcalover.
+Stack, Frost full themes, full AX5 walkthrough pass. Graphite flags Doses today
+heading; Codex replaced its flexible SectionHeader with wrapping explicit heading.
+Targeted final-layout run confirms Graphite full screens PASS after that fix.
+
+New deep AX review diagnostic initially reports4generic TextClipped issues with
+nil elements. Exported screenshot shows Fat2.5625g fully readable; sibling Carbs
+and long footnote cross scroll viewport. Whole overview was one oversized Form
+row. Codex split AX overview/macros/footnote into individual self-sizing rows,
+keeping regular layout unchanged. Initial extraction used uninstalled View.formRows
+Environment access; corrected to a normal rendered MacroSummaryRow(asFormRows:true)
+branch. Theme/locale now resolved through installed view body. No data/math edits.
+
+Second system audit on deep scrolled rows cannot resolve its AX node (3snapshot
+retries) and reports generic unsupported/clipped; this is INCONCLUSIVE, not a
+clean accessibility result. All inherited workspace/full-app system audits stay
+unchanged. New deep-summary test now measures real default→AX calorie/macro row
+height growth, exact values, fully visible bounds, widths and48pt actions, with
+captures; read-only reviewer agreed this is defensible if manual captures are
+checked. Keep failed system-audit evidence and do not claim full certification.
+
+That quantitative test found default toolbar primary action bounds36pt despite
+minHeight48source; it failed before AX. Codex moved existing review action bar to
+ALL text sizes in SavedFoodDetailView and FoodNutritionReviewView. IDs, save guard,
+Done/Cancel and keyboard toolbar retained; app primary actions now full-width
+without scrolling. This also matches the V2 review direction. No formula/schema/
+provider, flags or privacy changes. Manual AddFoodView remains unchanged.
+
+ACTIVE: full7-case FoodEntryPass2UITests on Codex QA, exec4134,
+/tmp/caliber-v2-footer-review.{log,xcresult}, explicitQA/privateDD/diagnosticsnever.
+Do not edit app/tests or start another same-QA run while active. Next: inspect all
+7results and exported default/AX summary images (theme must be Frost, values
+readable, action≥48). Fix real failures. Then lint/diff review, save summaries,
+commit/push local corrections and record native verified scope + audit caveat.
+Only then dispatch responsive role pack; no peer source work currently running.
+
+Current dirty source: StackHomeView, FoodEntryPass2Components, SavedFoodDetailView,
+FoodNutritionReviewView, FoodEntryPass2UITests. New evidence summaries/docs also
+dirty. Original Gemini clone retains7source edits, only handoff committed. Root
+QA IDs unchanged; Compact2998CE67 idle, Lookbook60A77QA running. Baseline worktree
+has only diagnostic test untracked. No app installation on owner device/preview.
+Deadline05:52:48UTC, no new batches after05:37:48; delete automation at checkpoint.
+
+## Native checkpoint ready - 2026-10-31 03:16 UTC
+
+Full footer food run exec4134 finished exit0,7/7pass. Default/AX summary captures
+exported to /tmp/caliber-v2-footer-readable; inspected default overview and AXFat
+stack: correct Frost palette, readable exact values, full-width controls. Selected
+captures + summary copied to repository. Quantitative growth/bounds checks pass;
+deep-scroll generic system audit remains inconclusive (see VERIFICATION/V206).
+No inherited audit assertions changed. Code/lints/diff review are complete.
+Owner checkout read-only verification still HEAD8f71cff and original3dirtypaths.
+
+Commit/push these local corrections/evidence, then use its exact published seed
+for responsive branch/tasks. No native test is active now; QA idle. Responsive
+README is prepared only, no peer task sent yet. Peer branches delivered reviewed
+native work/docs; original Gemini7source edits still preserved. Automation window
+and05:37:48batch cutoff unchanged. Use later responsive SESSION once dispatched.

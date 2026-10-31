@@ -253,3 +253,14 @@ hub/review and AX action bars are verified in both themes. Progress legend now
 wraps without repeated clipping.243unit/48Helios tests pass; native UI evidence
 keeps initial failures and passing scoped corrections. Existing keyboard warning
 reproduces on baseline. No storage, provider, calculator or personal-build change.
+
+
+## 2026-10-30 - Native V2 iPhone presentation checkpoint
+
+Merged reviewed Today/Stack text and layout corrections; fixed native AnyLayout
+call syntax and wrapping headings. Review actions use a full-width footer at all
+text sizes, with separate self-sizing AX nutrition rows. Full7case food suite,
+243unit and48theme-package tests pass, with measured native text growth/bounds
+and reviewed captures. Deep-scroll system-audit identity failures remain
+inconclusive and documented separately; no full accessibility certification or
+release-complete claim. No personal build or health-storage/formula change.

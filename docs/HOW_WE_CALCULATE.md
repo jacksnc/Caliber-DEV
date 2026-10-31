@@ -266,3 +266,11 @@ These checks and visual clamping are presentation only, not an intake or target
 recommendation. Macros use their own saved gram targets under the same display
 rules. Date arrows move one calendar day, using the same calendar as diary
 filtering; they never add a fixed 86,400-second offset or move recorded entries.
+
+
+Today's left/over comparison still uses actual reported energy and the explicitly
+saved goal in the selected display unit. A positive overage below one display
+unit reads “less than one unit over” rather than “zero over”. The exact diary total and
+target are unchanged; this bound is display formatting, not a target adjustment.
+The native fixture check verifies 2,350.25 recorded kcal against a 2,350 kcal goal,
+with the exact diary total preserved.

@@ -5,7 +5,6 @@ import UIKit
 
 struct FoodNutritionReviewView: View {
   @Environment(\.calendar) private var calendar
-  @Environment(\.dynamicTypeSize) private var typeSize
   @Environment(\.heliosTheme) private var theme
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var context
@@ -207,18 +206,15 @@ struct FoodNutritionReviewView: View {
           )
         }
 
-        Section {
-          FoodEntryV2NutritionOverviewCard(
-            totals: final,
-            portionSummary: portionSummaryText,
-            caloriesIdentifier: "referenceCalories",
-            footnote: isEditing
-              ? "Using your edited values for this log. Source records stay unchanged."
-              : "Calories come from the source. They may differ slightly from energy calculated from macros.",
-            invalidMessage: "Enter a portion above zero and valid nutrition values."
-          )
-          .foodEntryV2CardRow()
-        }
+        FoodEntryV2NutritionSection(
+          totals: final,
+          portionSummary: portionSummaryText,
+          caloriesIdentifier: "referenceCalories",
+          footnote: isEditing
+            ? "Using your edited values for this log. Source records stay unchanged."
+            : "Calories come from the source. They may differ slightly from energy calculated from macros.",
+          invalidMessage: "Enter a portion above zero and valid nutrition values."
+        )
 
         if let portion {
           MacroOverrideSection(
@@ -279,21 +275,6 @@ struct FoodNutritionReviewView: View {
     .navigationBarTitleDisplayMode(.inline)
     .toolbar(.visible, for: .navigationBar)
     .toolbar {
-      if !typeSize.isAccessibilitySize {
-        if let onDismiss {
-          ToolbarItem(placement: .cancellationAction) {
-            Button(didSave ? "Done" : "Cancel", action: onDismiss)
-              .frame(minWidth: 48, minHeight: 48)
-              .accessibilityIdentifier("foodEntryQuickReviewClose")
-          }
-        }
-        ToolbarItem(placement: .confirmationAction) {
-          Button("Add to Diary", action: save)
-            .disabled(final == nil || didSave)
-            .frame(minWidth: 48, minHeight: 48)
-            .accessibilityIdentifier("referenceAdd")
-        }
-      }
       ToolbarItem(placement: .keyboard) {
         Button("Done") {
           UIApplication.shared.sendAction(
@@ -304,15 +285,13 @@ struct FoodNutritionReviewView: View {
       }
     }
     .safeAreaInset(edge: .bottom) {
-      if typeSize.isAccessibilitySize {
-        FoodEntryV2ReviewBottomBar(
-          canSave: final != nil && !didSave,
-          didSave: didSave,
-          addIdentifier: "referenceAdd",
-          onSave: save,
-          onDismiss: onDismiss
-        )
-      }
+      FoodEntryV2ReviewBottomBar(
+        canSave: final != nil && !didSave,
+        didSave: didSave,
+        addIdentifier: "referenceAdd",
+        onSave: save,
+        onDismiss: onDismiss
+      )
     }
     .alert(
       "Couldn't Complete Action",

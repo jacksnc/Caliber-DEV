@@ -1,15 +1,15 @@
 # Caliber AI handoff
 
-## Native V2 work is active - 2026-10-30
+## Native V2 iPhone checkpoint - 2026-10-31 03:16 UTC
 
-Use docs/parallel/v2-native/SESSION.md and README.md. Codex native worktree is
-/Users/jcrock/Documents/Codex/Caliber-v2-native, branch codex/v2-native-integration.
-Both external native assignments were actually sent and visibly started at
-18:50 Eastern; do not redispatch. Codex owns Diary and integration. Design
-checkpoint/PDF is a07ceb9. Native Diary passes 242 unit cases and 6 scoped UI cases;
-see SESSION for current source, evidence and Gemini quota takeover. Native food
-AX/default audits and corrected default full-theme screens now pass. Claude
-224db4a remains to merge/revalidate before the native iPhone checkpoint.
+Read docs/parallel/v2-native/SESSION.md and VERIFICATION.md. Diary/food and reviewed
+peer surfaces are integrated in /Users/jcrock/Documents/Codex/Caliber-v2-native,
+branch codex/v2-native-integration. Full7food UI cases,243unit and48theme tests pass;
+default/AX captures are reviewed. The deep-scroll system audit is inconclusive,
+separately documented from passing native growth/bounds checks. Known inherited
+unit-preference/width risks remain in BACKLOG. No physical-owner build changed.
+Responsive pack is PREPARED, not dispatched; use the latest SESSION for actual
+published seed/role/device state before starting another task.
 
 
 This file is the shared checkpoint for work across Codex and Claude. The Git

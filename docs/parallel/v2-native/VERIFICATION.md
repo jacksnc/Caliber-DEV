@@ -68,3 +68,39 @@ Pending: review/merge peer handoff corrections and Claude224db4a presentation
 fixes, native rebuild/scoped revalidation, then iPhone checkpoint. Known inherited
 Train-width and Progress-unit-preference risks are in BACKLOG; no claim that all
 P0 app/release requirements are complete. No owner preview/device/store changes.
+
+
+## Native iPhone checkpoint - 2026-10-31 03:16 UTC
+
+Latest full food suite PASS7/7 (footer-review-summary.json), including selected
+meal/date, source overrides/reset, recent-food reuse/cancel, single save, exact
+2350.25calorie total and <1kcalover display. Existing system audits still pass for
+all hub/manual/quick-review initial surfaces in Graphite/Frost/default/AX5.
+
+Deep review uses a separate measured check: default→AX calorie and macro row
+heights grow by >30%, exact100.25calories/Fat2.5625g remain accessible, Fat's entire
+bounds stay inside the viewport above the footer, no horizontal overflow, primary
+action≥48pt. Both default/AX captures were visually inspected: correct Frost
+palette, no internal value truncation, clear full-width actions. Their neighboring
+rows scroll naturally under the native bar. Captures: output/screenshots/v2-native/
+final-review. No system-audit certification is inferred from these measurements.
+
+The additional deep-scroll system audit remains INCONCLUSIVE: its element is
+evicted during font-size queries (three identity retries); generic nil-element
+reports are retained in final-layout-diagnostic-summary.json. Original audits
+were not disabled or filtered. The initially added deep-row diagnostic was
+replaced by the focused growth/bounds test with independent source-review
+agreement, not described as a passing system audit. See decisions V206/V207.
+
+Claude224db4a is merged. Native compiler call-syntax correction in two Stack
+layouts is verified by243unit tests (final-unit-summary.json). Latest themed
+Frost and full AX5 pass; Graphite's Doses today heading required explicit wrapping
+and passes the subsequent targeted full-screen run. Stack opt-in/logging/lock
+passes. Prior number-free/Profile/workout/Progress text-table cases remain green.
+48Helios tests and strict224file scaling/format lint pass. No health engine,
+model, dataset, provider, entitlement or user-store changes. Legacy keyboard
+warning remains, reproduced on baseline. No physical-owner installation.
+
+This is a native presentation checkpoint with the stated audit limitation and
+inherited issues in BACKLOG, not an all-P0/release-complete claim. Next: native
+compact/landscape and tablet/resizing checks, then independent Frost beta.

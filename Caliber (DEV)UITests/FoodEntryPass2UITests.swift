@@ -10,13 +10,15 @@ final class FoodEntryPass2UITests: XCTestCase {
   private func launch(
     theme: String = "graphite",
     largeText: Bool = false,
-    foodReuseFixture: Bool = true
+    foodReuseFixture: Bool = true,
+    showcaseFixture: Bool = false
   ) -> XCUIApplication {
     let app = XCUIApplication()
     app.launchArguments = [
       "--progress-ui-testing",
       "--theme-\(theme)",
     ]
+    if showcaseFixture { app.launchArguments.append("--showcase-fixture") }
     if foodReuseFixture {
       app.launchArguments.append("--food-reuse-fixture")
     }
@@ -45,7 +47,7 @@ final class FoodEntryPass2UITests: XCTestCase {
       if app.searchFields.firstMatch.exists && app.searchFields.firstMatch.frame.maxY < 360 {
         top = max(top, app.searchFields.firstMatch.frame.maxY + 12)
       }
-      let bottom: CGFloat
+      var bottom: CGFloat
       if app.keyboards.firstMatch.exists {
         bottom = app.keyboards.firstMatch.frame.minY - 8
       } else if app.otherElements["caliberTabBar"].exists
@@ -54,6 +56,10 @@ final class FoodEntryPass2UITests: XCTestCase {
         bottom = app.otherElements["caliberTabBar"].frame.minY - 8
       } else {
         bottom = app.windows.firstMatch.frame.maxY - 24
+      }
+      let reviewBar = app.otherElements["foodEntryReviewBar"]
+      if reviewBar.exists && reviewBar.frame.minY > top {
+        bottom = min(bottom, reviewBar.frame.minY - 8)
       }
       let exists = element.exists && element.frame.width > 0 && element.frame.height > 0
       if exists && element.isHittable && element.frame.minY >= top
@@ -443,6 +449,93 @@ final class FoodEntryPass2UITests: XCTestCase {
     dismissModalSheet(in: app)
     reveal(app.staticTexts["diaryCalories"], in: app, towardTop: true)
     XCTAssertEqual(app.staticTexts["diaryCalories"].label, "379 calories")
+  }
+
+  @MainActor
+  func testSubCalorieOverageUsesAnHonestBoundAndKeepsReportedTotal() {
+    let app = launch(theme: "frost", foodReuseFixture: false, showcaseFixture: true)
+    app.buttons["quickLog"].tap()
+    app.buttons["quickLog-food"].tap()
+    let manual = app.buttons["foodSearchManual"]
+    reveal(manual, in: app)
+    manual.tap()
+    let name = app.textFields["manualFoodName"]
+    XCTAssertTrue(name.waitForExistence(timeout: 5))
+    name.tap()
+    name.typeText("Fictional boundary check")
+    // Showcase has 1462 recorded kcal against a saved 2350 goal. Source energy
+    // stays independent of these explicitly entered zero macro values.
+    for (fieldName, value) in [
+      ("Calories", "888.25"), ("Protein", "0"), ("Carbs", "0"), ("Fat", "0"),
+    ] {
+      let field = app.textFields[fieldName]
+      reveal(field, in: app)
+      replace(field, with: value)
+    }
+    app.buttons["manualFoodKeyboardDone"].tap()
+    app.buttons["manualFoodSave"].tap()
+    app.buttons["manualFoodCancel"].tap()
+    dismissModalSheet(in: app)
+    app.tab("Today").tap()
+    let bound = app.descendants(matching: .any).matching(
+      NSPredicate(format: "label == %@", "less than 1 kcal over today's goal")
+    ).firstMatch
+    XCTAssertTrue(bound.waitForExistence(timeout: 10))
+    capture("v2-frost-Today-subcalorie-overage", app: app)
+    app.tab("Fuel").tap()
+    XCTAssertEqual(app.staticTexts["diaryCalories"].label, "2350.25 calories")
+  }
+
+  @MainActor
+  func testFrostLargestTextNutritionOverviewAndMacroStackRemainReadable() {
+    var regularCaloriesHeight: CGFloat = 0
+    var regularMacroHeight: CGFloat = 0
+    for largeText in [false, true] {
+      let app = launch(theme: "frost", largeText: largeText)
+      app.tab("Fuel").tap()
+      let add = app.buttons["diaryAdd-breakfast"]
+      reveal(add, in: app)
+      add.tap()
+      let quick = app.buttons.matching(
+        NSPredicate(format: "identifier BEGINSWITH %@", "foodEntryQuickReview-recent-")
+      ).firstMatch
+      reveal(quick, in: app)
+      quick.tap()
+      let calories = app.staticTexts["savedFoodCalories"]
+      reveal(calories, in: app)
+      XCTAssertEqual(calories.label, "100.25 calories")
+      let suffix = largeText ? "AX5" : "default"
+      capture("v2-frost-\(suffix)-nutrition-overview", app: app)
+      if largeText {
+        XCTAssertGreaterThan(calories.frame.height, regularCaloriesHeight * 1.3)
+      } else {
+        regularCaloriesHeight = calories.frame.height
+        XCTAssertGreaterThan(regularCaloriesHeight, 0)
+      }
+      let fat = app.descendants(matching: .any)["foodEntrySummary-fat"].firstMatch
+      reveal(fat, in: app)
+      XCTAssertTrue(fat.label.contains("Fat") && fat.label.contains("2.5625"))
+      XCTAssertGreaterThanOrEqual(fat.frame.minX, app.windows.firstMatch.frame.minX)
+      XCTAssertLessThanOrEqual(fat.frame.maxX, app.windows.firstMatch.frame.maxX)
+      if largeText {
+        XCTAssertGreaterThan(fat.frame.height, regularMacroHeight * 1.3)
+        let bar = app.otherElements["foodEntryReviewBar"]
+        XCTAssertTrue(bar.exists)
+        XCTAssertLessThanOrEqual(fat.frame.maxY, bar.frame.minY - 8)
+        XCTAssertGreaterThanOrEqual(
+          fat.frame.minY, app.navigationBars.firstMatch.frame.maxY + 8)
+      } else {
+        regularMacroHeight = fat.frame.height
+        XCTAssertGreaterThan(regularMacroHeight, 0)
+      }
+      capture("v2-frost-\(suffix)-macro-stack", app: app)
+      XCTAssertGreaterThanOrEqual(app.buttons["savedFoodAdd"].frame.height, 47.5)
+      app.buttons["foodEntryQuickReviewClose"].tap()
+      app.terminate()
+    }
+    // The existing workspace/full-app tests retain system AX audits. This
+    // additional deep-row check measures actual text growth and visible bounds;
+    // audit identity failures for evicted Form rows are retained in the report.
   }
 
   @MainActor

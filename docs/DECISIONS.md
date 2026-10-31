@@ -369,3 +369,21 @@ Audit each large-text food surface from a fresh fictional workspace, preserving
 all hub/manual/review audits, target checks and separately exercised functional
 save/cancel paths. Keep failing results and fixed reruns. Do not change app state,
 skip assertions or call unvisited states verified to make a test green.
+
+
+## V206 - Measure deep-row scaling when audit identity is evicted
+
+Keep inherited system audits and their failures. A new offscreen Form-row audit
+cannot resolve its AX identity during font checks; its generic findings remain
+inconclusive. Verify the added deep-summary path with exact values, real default
+versus AX height growth, visible bounds and inspected captures instead. Element
+bounds alone are insufficient; manual review is required. This is not a blanket
+waiver or an accessibility-certification claim. Independent read-only review
+agreed with this limited strategy after environment handling is corrected.
+
+## V207 - Consistent full-width review actions
+
+Use the existing opaque review footer at every text size. Native toolbar primary
+bounds were36pt even with48pt SwiftUI labels. A persistent full-width primary/
+Cancel/Done bar gives explicit48pt targets and matches V2; existing IDs, guards,
+keyboard controls, stored values and dismiss callbacks remain unchanged.
