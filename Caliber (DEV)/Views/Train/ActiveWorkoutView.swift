@@ -628,6 +628,7 @@ private struct TrainingSetRow: View {
         }
       }
       .accessibilityLabel(label)
+      .accessibilityIdentifier("workoutField-\(set.id.uuidString)-\(label)")
   }
 
   private func complete() {

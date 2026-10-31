@@ -68,6 +68,7 @@ struct CaliberTabBar: View {
     }
     .padding(.horizontal, HeliosTokens.space(4))
     .padding(.bottom, HeliosTokens.space(2))
+    .frame(maxWidth: CaliberLayout.navigationWidth)
     // Content scrolling under the bar fades out instead of showing through the glass.
     .background(alignment: .bottom) {
       theme.palette.canvasBottom.color

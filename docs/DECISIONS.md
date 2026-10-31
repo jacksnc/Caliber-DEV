@@ -398,3 +398,14 @@ Root hides its floating bar until all tokens disappear. This works across
 navigation hosting boundaries, preserves stacks and never writes app data.
 Both pushed saving and modal cancel/reuse are verified. The central navigation
 ownership exception is recorded in the native role pack.
+
+## V209 — Readable native columns on wide windows (2026-10-31)
+
+Keep the existing navigation and native List/ScrollView behavior, centered at a
+maximum720pt content width and680pt floating navigation width. Food-review
+controls share the content bound while their backdrop fills the window. This
+avoids stretched rows without imposing a font limit or inventing a tablet-only
+data path. Validate real orientation/state behavior separately from source
+arithmetic; actual split-window and physical foldable checks remain distinct.
+The owner resumed active work after the overnight limit; the expired automation
+was deleted instead of silently extending unattended work.

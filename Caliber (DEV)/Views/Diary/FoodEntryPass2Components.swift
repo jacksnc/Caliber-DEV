@@ -942,6 +942,8 @@ struct FoodEntryV2ReviewBottomBar: View {
     }
     .padding(.horizontal, HeliosTokens.space(4))
     .padding(.vertical, HeliosTokens.space(2))
+    .frame(maxWidth: CaliberLayout.readableWidth)
+    .frame(maxWidth: .infinity)
     .accessibilityElement(children: .contain)
     .accessibilityIdentifier("foodEntryReviewBar")
     .background {

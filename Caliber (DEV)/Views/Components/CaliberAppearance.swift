@@ -12,6 +12,12 @@ extension EnvironmentValues {
   }
 }
 
+/// Layout bounds only; text continues to use the full Dynamic Type range.
+enum CaliberLayout {
+  static let readableWidth: CGFloat = 720
+  static let navigationWidth: CGFloat = 680
+}
+
 /// Shared canvas for every navigation destination, including sheets.
 struct CaliberCanvas: View {
   @Environment(\.caliberOLED) private var oled
@@ -63,6 +69,8 @@ private struct CaliberScreen: ViewModifier {
       .font(.body)
       .labelStyle(CaliberLabelStyle())
       .scrollContentBackground(.hidden)
+      .frame(maxWidth: CaliberLayout.readableWidth)
+      .frame(maxWidth: .infinity)
       .background { CaliberCanvas() }
       .foregroundStyle(
         theme.palette.text.primary.color, theme.palette.text.secondary.color,

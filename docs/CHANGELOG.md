@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-31 — Responsive Lookbook V2 presentation
+
+- Centered native screen content at a readable width on wider windows; floating
+  navigation and food-review controls follow the same centered composition.
+- Preserved full text scaling and added stable identifiers for individual
+  workout fields, with native rotation/draft/single-food-save checks.
+- Recorded exact QA results, screenshot review and remaining device/audit limits
+  in parallel/v2-responsive/VERIFICATION.md. No stored-data or health-math change.
+
 ## 2026-10-29 — Integrated local food-entry update
 
 - Integrated Gemini's food hub with capture/library shortcuts, top recents and

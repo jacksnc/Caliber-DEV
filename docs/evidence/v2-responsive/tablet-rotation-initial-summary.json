@@ -1,0 +1,71 @@
+{
+  "devicesAndConfigurations" : [
+    {
+      "device" : {
+        "architecture" : "arm64",
+        "deviceId" : "B02CFF79-2810-4011-B8CF-72F205F5ACC5",
+        "deviceName" : "Caliber Tablet QA",
+        "modelName" : "iPad Air 11-inch (M4)",
+        "osBuildNumber" : "24A434",
+        "osVersion" : "27.0",
+        "platform" : "iOS Simulator"
+      },
+      "expectedFailures" : 0,
+      "failedTests" : 3,
+      "passedTests" : 0,
+      "skippedTests" : 0,
+      "testPlanConfiguration" : {
+        "configurationId" : "1",
+        "configurationName" : "Test Scheme Action"
+      }
+    }
+  ],
+  "environmentDescription" : "Caliber (DEV) · Built with macOS 27.2",
+  "expectedFailures" : 0,
+  "failedTests" : 3,
+  "finishTime" : 1793463850.981,
+  "passedTests" : 0,
+  "result" : "Failed",
+  "runtimeWarnings" : [
+    {
+      "issueType" : "Runtime Warning",
+      "message" : "Invalid frame dimension (negative or non-finite)."
+    }
+  ],
+  "skippedTests" : 0,
+  "startTime" : 1793463662.072,
+  "statistics" : [
+
+  ],
+  "testFailures" : [
+    {
+      "failureText" : "Failed to get matching snapshot: No matches found for first query match sequence: `Descendants matching type NavigationBar`, given input App element pid: 44051",
+      "targetName" : "Caliber (DEV)UITests",
+      "testIdentifier" : 1,
+      "testIdentifierString" : "ResponsiveLayoutUITests/testFoodMealQueryAndFractionalPortionSurviveKeyboardRotation()",
+      "testIdentifierURL" : "test://com.apple.xcode/Caliber%20(DEV)/Caliber%20(DEV)UITests/ResponsiveLayoutUITests/testFoodMealQueryAndFractionalPortionSurviveKeyboardRotation",
+      "testName" : "testFoodMealQueryAndFractionalPortionSurviveKeyboardRotation()"
+    },
+    {
+      "failureText" : "XCTAssertTrue failed",
+      "targetName" : "Caliber (DEV)UITests",
+      "testIdentifier" : 2,
+      "testIdentifierString" : "ResponsiveLayoutUITests/testMainScreensKeepCenteredReadableColumnAcrossRotation()",
+      "testIdentifierURL" : "test://com.apple.xcode/Caliber%20(DEV)/Caliber%20(DEV)UITests/ResponsiveLayoutUITests/testMainScreensKeepCenteredReadableColumnAcrossRotation",
+      "testName" : "testMainScreensKeepCenteredReadableColumnAcrossRotation()"
+    },
+    {
+      "failureText" : "XCTAssertEqual failed: (\"Optional(\"42.755\")\") is not equal to (\"Optional(\"42.75\")\")",
+      "targetName" : "Caliber (DEV)UITests",
+      "testIdentifier" : 3,
+      "testIdentifierString" : "ResponsiveLayoutUITests/testWorkoutFractionalDraftSurvivesRotationAndCardCollapse()",
+      "testIdentifierURL" : "test://com.apple.xcode/Caliber%20(DEV)/Caliber%20(DEV)UITests/ResponsiveLayoutUITests/testWorkoutFractionalDraftSurvivesRotationAndCardCollapse",
+      "testName" : "testWorkoutFractionalDraftSurvivesRotationAndCardCollapse()"
+    }
+  ],
+  "title" : "Test - Caliber (DEV)",
+  "topInsights" : [
+
+  ],
+  "totalTestCount" : 3
+}

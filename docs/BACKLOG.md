@@ -2,6 +2,18 @@
 
 223 traceability rows: 211 explicit brief IDs plus 12 local subclause/integration IDs. 81 P0, 116 P1, 26 P2. Priorities are preserved; inclusion in a phase does not promote a P1 feature.
 
+## Responsive V2 checkpoint — 2026-10-31
+
+Compact375pt and tablet820/1180pt native rotation, readable column/navigation
+bounds, single-food-save and XXXL/AX5 workout drafts are verified in
+parallel/v2-responsive/VERIFICATION.md. This supersedes the earlier unverified
+compact-Train width note only for those scenarios. Actual iPad window resizing,
+native320pt/minimum-iOS/physical/foldable checks and independent Frost beta remain
+pending. Keyboard invalid-frame and the deep-row audit limitation stay open.
+Widget/original graphics plans remain plans; live calculator/provider gates stay
+unchanged. No all-P0 or release-complete claim.
+
+
 All listed acceptance tests are planned. Full P0 table/screen/test mappings are in REQUIREMENTS.md and architecture/requirements.json. P1 flags default off; P2 is not implemented. Cross-domain privacy gates apply even when a feature is enabled.
 
 ## P0
@@ -426,3 +438,12 @@ responsive work and central preference tests, respectively; canonical stored
 weights and conversions are not changed by this visual pass. Additional follow-
 ups: Skip save-error/undo state and efficient long-range weigh-in text listing.
 Do not promote all source-review proposals to native-verified defects.
+
+## Compact-height Diary polish
+
+Full-screen compact-phone landscape captures show that the header/date/library
+rows occupy most of the initial viewport. Scrolling and navigation pass, but
+content density needs a separate visual pass: reduce redundant spacing while
+keeping48pt targets, readable dates and all existing actions. This is a UX
+follow-up, not evidence of failed nutrition totals or lost state. Use the
+responsive compact Fuel-landscape capture as the reproducible starting point.

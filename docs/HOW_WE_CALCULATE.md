@@ -274,3 +274,10 @@ unit reads “less than one unit over” rather than “zero over”. The exact 
 target are unchanged; this bound is display formatting, not a target adjustment.
 The native fixture check verifies 2,350.25 recorded kcal against a 2,350 kcal goal,
 with the exact diary total preserved.
+
+## Responsive V2 display note — 2026-10-31
+
+Screen width selects the layout only. It never changes serving quantity,
+nutrition totals, targets, workout units or saved values. Native QA uses
+fictional records to check that fractional input survives rotation and that a
+food is added once. Width bounds do not introduce a new health estimate.

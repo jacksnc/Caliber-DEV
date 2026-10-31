@@ -1,0 +1,55 @@
+{
+  "devicesAndConfigurations" : [
+    {
+      "device" : {
+        "architecture" : "arm64",
+        "deviceId" : "2998CE67-7D71-460B-AD69-76DAA4D014F6",
+        "deviceName" : "Caliber Compact QA",
+        "modelName" : "iPhone SE (3rd generation)",
+        "osBuildNumber" : "24A434",
+        "osVersion" : "27.0",
+        "platform" : "iOS Simulator"
+      },
+      "expectedFailures" : 0,
+      "failedTests" : 1,
+      "passedTests" : 0,
+      "skippedTests" : 0,
+      "testPlanConfiguration" : {
+        "configurationId" : "1",
+        "configurationName" : "Test Scheme Action"
+      }
+    }
+  ],
+  "environmentDescription" : "Caliber (DEV) · Built with macOS 27.2",
+  "expectedFailures" : 0,
+  "failedTests" : 1,
+  "finishTime" : 1793465548.459,
+  "passedTests" : 0,
+  "result" : "Failed",
+  "runtimeWarnings" : [
+    {
+      "issueType" : "Runtime Warning",
+      "message" : "Invalid frame dimension (negative or non-finite)."
+    }
+  ],
+  "skippedTests" : 0,
+  "startTime" : 1793465312.098,
+  "statistics" : [
+
+  ],
+  "testFailures" : [
+    {
+      "failureText" : "failed - Could not reveal \"workoutField-6E66A795-5E09-452A-92D8-77315E74D880-Reps\" TextField",
+      "targetName" : "Caliber (DEV)UITests",
+      "testIdentifier" : 1,
+      "testIdentifierString" : "ResponsiveLayoutUITests/testWorkoutFractionalDraftSurvivesRotationAndCardCollapse()",
+      "testIdentifierURL" : "test://com.apple.xcode/Caliber%20(DEV)/Caliber%20(DEV)UITests/ResponsiveLayoutUITests/testWorkoutFractionalDraftSurvivesRotationAndCardCollapse",
+      "testName" : "testWorkoutFractionalDraftSurvivesRotationAndCardCollapse()"
+    }
+  ],
+  "title" : "Test - Caliber (DEV)",
+  "topInsights" : [
+
+  ],
+  "totalTestCount" : 1
+}

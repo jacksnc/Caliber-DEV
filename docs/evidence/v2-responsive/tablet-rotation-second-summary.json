@@ -1,0 +1,67 @@
+{
+  "devicesAndConfigurations" : [
+    {
+      "device" : {
+        "architecture" : "arm64",
+        "deviceId" : "B02CFF79-2810-4011-B8CF-72F205F5ACC5",
+        "deviceName" : "Caliber Tablet QA",
+        "modelName" : "iPad Air 11-inch (M4)",
+        "osBuildNumber" : "24A434",
+        "osVersion" : "27.0",
+        "platform" : "iOS Simulator"
+      },
+      "expectedFailures" : 0,
+      "failedTests" : 2,
+      "passedTests" : 1,
+      "skippedTests" : 0,
+      "testPlanConfiguration" : {
+        "configurationId" : "1",
+        "configurationName" : "Test Scheme Action"
+      }
+    }
+  ],
+  "environmentDescription" : "Caliber (DEV) · Built with macOS 27.2",
+  "expectedFailures" : 0,
+  "failedTests" : 2,
+  "finishTime" : 1793464204.769,
+  "passedTests" : 1,
+  "result" : "Failed",
+  "runtimeWarnings" : [
+    {
+      "issueType" : "Runtime Warning",
+      "message" : "Invalid frame dimension (negative or non-finite)."
+    },
+    {
+      "issueType" : "Runtime Warning",
+      "message" : "Invalid frame dimension (negative or non-finite)."
+    }
+  ],
+  "skippedTests" : 0,
+  "startTime" : 1793463902.059,
+  "statistics" : [
+
+  ],
+  "testFailures" : [
+    {
+      "failureText" : "XCTAssertLessThanOrEqual failed: (\"820.0\") is greater than (\"720.5\")",
+      "targetName" : "Caliber (DEV)UITests",
+      "testIdentifier" : 2,
+      "testIdentifierString" : "ResponsiveLayoutUITests/testMainScreensKeepCenteredReadableColumnAcrossRotation()",
+      "testIdentifierURL" : "test://com.apple.xcode/Caliber%20(DEV)/Caliber%20(DEV)UITests/ResponsiveLayoutUITests/testMainScreensKeepCenteredReadableColumnAcrossRotation",
+      "testName" : "testMainScreensKeepCenteredReadableColumnAcrossRotation()"
+    },
+    {
+      "failureText" : "failed - Could not reveal Button (First Match)",
+      "targetName" : "Caliber (DEV)UITests",
+      "testIdentifier" : 3,
+      "testIdentifierString" : "ResponsiveLayoutUITests/testWorkoutFractionalDraftSurvivesRotationAndCardCollapse()",
+      "testIdentifierURL" : "test://com.apple.xcode/Caliber%20(DEV)/Caliber%20(DEV)UITests/ResponsiveLayoutUITests/testWorkoutFractionalDraftSurvivesRotationAndCardCollapse",
+      "testName" : "testWorkoutFractionalDraftSurvivesRotationAndCardCollapse()"
+    }
+  ],
+  "title" : "Test - Caliber (DEV)",
+  "topInsights" : [
+
+  ],
+  "totalTestCount" : 3
+}

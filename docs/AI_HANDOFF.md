@@ -1,5 +1,18 @@
 # Caliber AI handoff
 
+## Verified responsive V2 checkpoint — 2026-10-31
+
+The owner resumed work after the overnight window. Its expired automation was
+deleted. Current work is in /Users/jcrock/Documents/Codex/Caliber-v2-responsive,
+branch codex/v2-responsive, based on published native ab5320b. Read
+parallel/v2-responsive/SESSION.md and VERIFICATION.md for actual test/device
+state. Native compact-phone/tablet rotation and draft checks pass; corrected
+full-screen image reruns pass2/2 on each device. Width changes are presentation
+only; no owner preview installation. All QA jobs are finished.
+Claude e9d41cb and Gemini cf70732 deliveries are already integrated/reviewed;
+neither has a newly dispatched responsive task. Preserve Gemini's dirty clone.
+Independent Frost beta, real split windows and graphics/widgets are not complete.
+
 ## Native V2 iPhone checkpoint - 2026-10-31 03:16 UTC
 
 Read docs/parallel/v2-native/SESSION.md and VERIFICATION.md. Diary/food and reviewed

@@ -43,3 +43,12 @@ On branches assigned by docs/parallel/v2-native/README.md, follow that ownership
 and simulator contract. The V2 design checkpoint is complete. Translate existing
 native screens without copying mock values, changing storage/math/providers or
 weakening privacy. Codex integrates; peers update only native role handoffs.
+
+
+## V2 responsive batch
+
+Branches assigned by docs/parallel/v2-responsive/README.md follow that ownership
+and explicit-device contract. Native presentation seed is verified separately;
+keep all data/math/providers/flags/privacy gates frozen. Codex owns shared view
+widths and footer/navigation integration. Peers must not edit shared app sources
+outside their assignment. Preserve original clones and in-progress changes.

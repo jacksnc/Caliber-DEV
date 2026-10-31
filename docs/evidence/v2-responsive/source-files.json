@@ -1,0 +1,11 @@
+{
+  "baseCommit": "ab5320ba99adac190f959d014f690189408168f3",
+  "branch": "codex/v2-responsive",
+  "files": {
+    "Caliber (DEV)/Views/Components/CaliberAppearance.swift": "e637165c692b9f097df3696ee188669a8b446ea92d71bd077455cee86851bf7e",
+    "Caliber (DEV)/Views/Navigation/CaliberTabBar.swift": "5706fc0ccc5a77a3eccfaff0bfaa892c1dc36492a96f6a2bd52e7972d2b60452",
+    "Caliber (DEV)/Views/Diary/FoodEntryPass2Components.swift": "65178448b7cf5599bf8cbff6cfca21dced89945313e2e7322f35080a960cd63d",
+    "Caliber (DEV)/Views/Train/ActiveWorkoutView.swift": "8114d5f45169d58cea501a1514f18e425d448bc01e393643d10c48a348fb4941",
+    "Caliber (DEV)UITests/ResponsiveLayoutUITests.swift": "c923b4a1b7905acd04e8b01eb0dbae471f6dbb8230c576aa79e388bc258d21b5"
+  }
+}

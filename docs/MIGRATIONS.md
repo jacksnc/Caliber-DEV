@@ -1,5 +1,10 @@
 # Migration contract v1
 
+## 2026-10-31 — V2 responsive presentation
+
+No migration or stored-data change. Content/navigation/footer width bounds and
+isolated UI tests only; model fields, canonical values and providers unchanged.
+
 ## Guided goal setup addition — 2026-10-28
 
 The active SwiftData schema adds `NutritionGoalSetup` without changing existing
