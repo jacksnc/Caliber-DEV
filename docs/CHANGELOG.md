@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-11-01 — Supplied restaurant data intake
+
+Audited Gemini's 200-chain/1,839-item ZIP without running its seed scripts.
+Added a reproducible chain inventory, importer compatibility findings, official
+Chipotle/LongHorn discrepancy examples and a prepared correction request.
+Found a cross-chain duplicate ID, unreviewed source permissions and partial
+coverage. Source values are preserved for review; production menus and app
+flags remain unchanged. Importer/CSV tests pass 35/35.
+
 ## 2026-10-31 — Responsive Lookbook V2 presentation
 
 - Centered native screen content at a readable width on wider windows; floating

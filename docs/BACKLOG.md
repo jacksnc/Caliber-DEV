@@ -447,3 +447,12 @@ content density needs a separate visual pass: reduce redundant spacing while
 keeping48pt targets, readable dates and all existing actions. This is a UX
 follow-up, not evidence of failed nutrition totals or lost state. Use the
 responsive compact Fuel-landscape capture as the reproducible starting point.
+
+## Supplied Gemini restaurant data — 2026-11-01
+
+The 200-chain/1,839-item candidate is inventoried at
+`data-intake/restaurants-2026-11-01/README.md`. FUEL-13 remains gated. Fix source
+and serving discrepancies, the cross-chain ID collision, rights-review evidence,
+field/category mapping and component rules before importing a reviewed subset.
+The handoff's chain-population percentage is not full-menu coverage. Prioritize
+Chipotle and LongHorn source verification; preserve existing custom-item flows.

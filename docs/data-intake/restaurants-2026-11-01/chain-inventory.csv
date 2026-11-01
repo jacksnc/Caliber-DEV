@@ -1,0 +1,201 @@
+restaurant_id,name,item_count,source_url,declared_license,review_status
+mcdonalds,McDonald's,32,https://www.mcdonalds.com/us/en-us/about-our-food/nutrition-calculator.html,official-public,pending source and rights review
+starbucks,Starbucks,25,https://www.starbucks.com/menu,official-public,pending source and rights review
+chick-fil-a,Chick-fil-A,34,https://www.chick-fil-a.com/nutrition-allergens,official-public,pending source and rights review
+taco-bell,Taco Bell,27,https://www.tacobell.com/nutrition/calculator,official-public,pending source and rights review
+wendys,Wendy's,31,https://www.wendys.com/nutrition-allergens,official-public,pending source and rights review
+dunkin,Dunkin',9,https://www.dunkindonuts.com/en/nutrition,official-public,pending source and rights review
+burger-king,Burger King,28,https://www.bk.com/nutrition-explorer,official-public,pending source and rights review
+subway,Subway,19,https://www.subway.com/en-US/MenuNutrition/Nutrition,official-public,pending source and rights review
+dominos,Domino's,18,https://www.dominos.com/en/pages/content/nutritional/cal-o-meter,official-public,pending source and rights review
+chipotle,Chipotle Mexican Grill,27,https://www.chipotle.com/nutrition-calculator,official-public,pending source and rights review
+sonic,Sonic Drive-In,17,https://www.sonicdrivein.com/nutrition/,official-public,pending source and rights review
+panera-bread,Panera Bread,18,https://www.panerabread.com/en-us/menu/nutrition.html,official-public,pending source and rights review
+pizza-hut,Pizza Hut,11,https://www.pizzahut.com/nutrition,official-public,pending source and rights review
+kfc,KFC,19,https://www.kfc.com/nutrition,official-public,pending source and rights review
+popeyes,Popeyes Louisiana Kitchen,21,https://www.popeyes.com/nutrition,official-public,pending source and rights review
+panda-express,Panda Express,19,https://www.pandaexpress.com/nutritioninformation,official-public,pending source and rights review
+dairy-queen,Dairy Queen,16,https://www.dairyqueen.com/en-us/nutrition/,official-public,pending source and rights review
+arbys,Arby's,22,https://www.arbys.com/nutrition/,official-public,pending source and rights review
+little-caesars,Little Caesars,11,https://littlecaesars.com/en-us/nutrition/,official-public,pending source and rights review
+jack-in-the-box,Jack in the Box,13,https://www.jackinthebox.com/nutrition,official-public,pending source and rights review
+raising-canes,Raising Cane's,9,https://www.raisingcanes.com/nutrition/,official-public,pending source and rights review
+jimmy-johns,Jimmy John's,10,https://www.jimmyjohns.com/nutrition/,official-public,pending source and rights review
+culvers,Culver's,15,https://www.culvers.com/nutrition-and-allergen-guide,official-public,pending source and rights review
+wingstop,Wingstop,15,https://www.wingstop.com/nutrition,official-public,pending source and rights review
+whataburger,Whataburger,11,https://whataburger.com/nutrition,official-public,pending source and rights review
+jersey-mikes,Jersey Mike's Subs,9,https://www.jerseymikes.com/menu/nutrition,official-public,pending source and rights review
+five-guys,Five Guys,15,https://www.fiveguys.com/nutrition,official-public,pending source and rights review
+in-n-out,In-N-Out Burger,11,https://www.in-n-out.com/menu/nutrition-info,official-public,pending source and rights review
+hardees,Hardee's,9,https://www.hardees.com/nutrition,official-public,pending source and rights review
+carls-jr,Carl's Jr.,9,https://www.carlsjr.com/nutrition,official-public,pending source and rights review
+zaxbys,Zaxby's,11,https://www.zaxbys.com/nutrition-info,official-public,pending source and rights review
+bojangles,Bojangles,14,https://www.bojangles.com/nutrition/,official-public,pending source and rights review
+firehouse-subs,Firehouse Subs,9,https://www.firehousesubs.com/nutrition/,official-public,pending source and rights review
+tropical-smoothie-cafe,Tropical Smoothie Cafe,8,https://www.tropicalsmoothiecafe.com/nutrition/,official-public,pending source and rights review
+dutch-bros,Dutch Bros Coffee,6,https://www.dutchbros.com/nutrition,official-public,pending source and rights review
+papa-johns,Papa John's,10,https://www.papajohns.com/company/nutritional-info.html,official-public,pending source and rights review
+freddys,Freddy's Frozen Custard,9,https://www.freddys.com/nutrition-allergens,official-public,pending source and rights review
+shake-shack,Shake Shack,11,https://www.shakeshack.com/nutrition,official-public,pending source and rights review
+el-pollo-loco,El Pollo Loco,10,https://www.elpolloloco.com/nutrition/,official-public,pending source and rights review
+churchs-chicken,Church's Texas Chicken,8,https://www.churchs.com/nutrition/,official-public,pending source and rights review
+del-taco,Del Taco,7,https://deltaco.com/nutrition,official-public,pending source and rights review
+marcos-pizza,Marco's Pizza,7,https://www.marcos.com/nutrition/,official-public,pending source and rights review
+checkers-rallys,Checkers & Rally's,8,https://www.checkers.com/nutrition/,official-public,pending source and rights review
+qdoba,QDOBA Mexican Eats,8,https://www.qdoba.com/nutrition-calculator,official-public,pending source and rights review
+auntie-annes,Auntie Anne's,8,https://www.auntieannes.com/nutrition,official-public,pending source and rights review
+cinnabon,Cinnabon,6,https://www.cinnabon.com/nutrition,official-public,pending source and rights review
+krispy-kreme,Krispy Kreme,6,https://www.krispykreme.com/nutrition,official-public,pending source and rights review
+smoothie-king,Smoothie King,6,https://www.smoothieking.com/menu/nutrition,official-public,pending source and rights review
+jamba,Jamba,6,https://www.jamba.com/nutrition,official-public,pending source and rights review
+caseys,Casey's (Pizza/QSR),6,https://www.caseys.com/nutrition,official-public,pending source and rights review
+portillos,Portillo's,11,https://www.portillos.com/nutrition/,official-public,pending source and rights review
+white-castle,White Castle,8,https://www.whitecastle.com/nutrition,official-public,pending source and rights review
+captain-ds,Captain D's,7,https://www.captainds.com/nutrition/,official-public,pending source and rights review
+long-john-silvers,Long John Silver's,7,https://www.ljsilvers.com/nutrition/,official-public,pending source and rights review
+krystal,Krystal,6,https://krystal.com/nutrition/,official-public,pending source and rights review
+mod-pizza,MOD Pizza,5,https://modpizza.com/nutrition/,official-public,pending source and rights review
+blaze-pizza,Blaze Pizza,5,https://www.blazepizza.com/nutrition,official-public,pending source and rights review
+papa-murphys,Papa Murphy's,5,https://www.papamurphys.com/nutrition,official-public,pending source and rights review
+habit-burger,The Habit Burger Grill,6,https://www.habitburger.com/nutrition/,official-public,pending source and rights review
+wienerschnitzel,Wienerschnitzel,5,https://www.wienerschnitzel.com/food/nutrition-allergy/,official-public,pending source and rights review
+einstein-bros,Einstein Bros. Bagels,5,https://www.einsteinbros.com/nutrition/,official-public,pending source and rights review
+baskin-robbins,Baskin-Robbins,6,https://www.baskinrobbins.com/en/nutrition,official-public,pending source and rights review
+cold-stone,Cold Stone Creamery,5,https://www.coldstonecreamery.com/nutrition/,official-public,pending source and rights review
+tim-hortons,Tim Hortons,7,https://www.timhortons.com/nutrition-and-wellness,official-public,pending source and rights review
+peets-coffee,Peet's Coffee,6,https://www.peets.com/pages/nutrition-and-allergens,official-public,pending source and rights review
+scooters-coffee,Scooter's Coffee,5,https://www.scooterscoffee.com/menu/nutrition,official-public,pending source and rights review
+7-brew-coffee,7 Brew Coffee,5,https://7brew.com/nutrition,official-public,pending source and rights review
+biggby-coffee,Biggby Coffee,5,https://www.biggby.com/nutrition/,official-public,pending source and rights review
+caribou-coffee,Caribou Coffee,6,https://www.cariboucoffee.com/nutrition/,official-public,pending source and rights review
+carvel,Carvel,5,https://www.carvel.com/nutrition,official-public,pending source and rights review
+wetzels-pretzels,Wetzel's Pretzels,6,https://www.wetzels.com/nutrition,official-public,pending source and rights review
+pret-a-manger,Pret A Manger,6,https://www.pret.com/en-US/nutrition-allergens,official-public,pending source and rights review
+potbelly,Potbelly Sandwich Shop,6,https://www.potbelly.com/nutrition,official-public,pending source and rights review
+mcalisters-deli,McAlister's Deli,6,https://www.mcalistersdeli.com/nutrition,official-public,pending source and rights review
+jasons-deli,Jason's Deli,6,https://www.jasonsdeli.com/nutrition,official-public,pending source and rights review
+schlotzskys,Schlotzsky's,5,https://www.schlotzskys.com/nutrition,official-public,pending source and rights review
+penn-station,Penn Station East Coast Subs,6,https://www.penn-station.com/nutrition/,official-public,pending source and rights review
+charleys-philly-steaks,Charleys Philly Steaks,6,https://www.charleys.com/nutrition/,official-public,pending source and rights review
+cousins-subs,Cousins Subs,5,https://www.cousinssubs.com/nutrition,official-public,pending source and rights review
+which-wich,Which Wich,5,https://www.whichwich.com/nutrition/,official-public,pending source and rights review
+blimpie,Blimpie,4,https://www.blimpie.com/nutrition/,official-public,pending source and rights review
+torchys-tacos,Torchy's Tacos,5,https://torchystacos.com/menu/,official-public,pending source and rights review
+taco-cabana,Taco Cabana,5,https://www.tacocabana.com/nutrition,official-public,pending source and rights review
+taco-bueno,Taco Bueno,4,https://www.tacobueno.com/nutrition,official-public,pending source and rights review
+taco-johns,Taco John's,5,https://tacojohns.com/nutrition-allergen-information/,official-public,pending source and rights review
+baja-fresh,Baja Fresh,5,https://www.bajafresh.com/nutrition/,official-public,pending source and rights review
+pollo-tropical,Pollo Tropical,6,https://www.pollotropical.com/nutrition,official-public,pending source and rights review
+pollo-campero,Pollo Campero,6,https://us.campero.com/nutrition,official-public,pending source and rights review
+golden-chick,Golden Chick,7,https://goldenchick.com/nutrition/,official-public,pending source and rights review
+chesters-chicken,Chester's Chicken,5,https://www.chesterschicken.com/nutrition/,official-public,pending source and rights review
+bonchon,Bonchon,7,https://bonchon.com/nutrition/,official-public,pending source and rights review
+daves-hot-chicken,Dave's Hot Chicken,6,https://daveshotchicken.com/nutrition,official-public,pending source and rights review
+slim-chickens,Slim Chickens,7,https://slimchickens.com/nutrition/,official-public,pending source and rights review
+huey-magoos,Huey Magoo's,6,https://hueymagoos.com/nutrition/,official-public,pending source and rights review
+steak-n-shake,Steak 'n Shake,6,https://www.steaknshake.com/nutrition/,official-public,pending source and rights review
+fatburger,Fatburger,6,https://fatburger.com/nutrition,official-public,pending source and rights review
+smashburger,Smashburger,6,https://smashburger.com/nutrition,official-public,pending source and rights review
+aw-restaurants,A&W Restaurants,6,https://awrestaurants.com/nutrition,official-public,pending source and rights review
+nathans-famous,Nathan's Famous,5,https://nathansfamous.com/nutrition/,official-public,pending source and rights review
+sweetgreen,Sweetgreen,5,https://www.sweetgreen.com/nutrition,official-public,pending source and rights review
+texas-roadhouse,Texas Roadhouse,33,https://www.texasroadhouse.com/nutrition,official-public,pending source and rights review
+olive-garden,Olive Garden,28,https://www.olivegarden.com/nutrition,official-public,pending source and rights review
+chilis,Chili's Grill & Bar,20,https://www.chilis.com/nutrition,official-public,pending source and rights review
+applebees,Applebee's Neighborhood Grill + Bar,20,https://www.applebees.com/en/nutrition,official-public,pending source and rights review
+buffalo-wild-wings,Buffalo Wild Wings,18,https://www.buffalowildwings.com/nutrition/,official-public,pending source and rights review
+longhorn-steakhouse,LongHorn Steakhouse,20,https://www.longhornsteakhouse.com/nutrition,official-public,pending source and rights review
+outback-steakhouse,Outback Steakhouse,19,https://www.outback.com/nutrition,official-public,pending source and rights review
+the-cheesecake-factory,The Cheesecake Factory,18,https://www.thecheesecakefactory.com/nutrition,official-public,pending source and rights review
+red-lobster,Red Lobster,19,https://www.redlobster.com/nutrition-tools,official-public,pending source and rights review
+red-robin,Red Robin Gourmet Burgers,18,https://www.redrobin.com/customizer,official-public,pending source and rights review
+ihop,IHOP,14,https://www.ihop.com/en/nutrition,official-public,pending source and rights review
+dennys,Denny's,14,https://www.dennys.com/nutrition,official-public,pending source and rights review
+cracker-barrel,Cracker Barrel,16,https://www.crackerbarrel.com/nutrition,official-public,pending source and rights review
+waffle-house,Waffle House,16,https://www.wafflehouse.com/nutrition/,official-public,pending source and rights review
+golden-corral,Golden Corral,14,https://www.goldencorral.com/nutrition/,official-public,pending source and rights review
+bjs-restaurant,BJ's Restaurant & Brewhouse,16,https://www.bjsrestaurants.com/nutrition,official-public,pending source and rights review
+pf-changs,P.F. Chang's China Bistro,17,https://www.pfchangs.com/nutrition,official-public,pending source and rights review
+tgi-fridays,TGI Fridays,17,https://tgifridays.com/nutrition/,official-public,pending source and rights review
+bob-evans,Bob Evans,10,https://www.bobevans.com/nutrition,official-public,pending source and rights review
+perkins,Perkins Restaurant & Bakery,6,https://www.perkinsrestaurants.com/nutrition/,official-public,pending source and rights review
+cheddars-scratch-kitchen,Cheddar's Scratch Kitchen,14,https://www.cheddars.com/nutrition,official-public,pending source and rights review
+yard-house,Yard House,10,https://www.yardhouse.com/nutrition,official-public,pending source and rights review
+carrabbas-italian-grill,Carrabba's Italian Grill,10,https://www.carrabbas.com/nutrition,official-public,pending source and rights review
+bonefish-grill,Bonefish Grill,10,https://www.bonefishgrill.com/nutrition,official-public,pending source and rights review
+first-watch,First Watch,8,https://www.firstwatch.com/nutrition/,official-public,pending source and rights review
+california-pizza-kitchen,California Pizza Kitchen,8,https://www.cpk.com/nutrition,official-public,pending source and rights review
+hooters,Hooters,10,https://www.hooters.com/nutrition/,official-public,pending source and rights review
+logans-roadhouse,Logan's Roadhouse,9,https://logansroadhouse.com/nutrition/,official-public,pending source and rights review
+ruby-tuesday,Ruby Tuesday,9,https://www.rubytuesday.com/nutrition/,official-public,pending source and rights review
+ocharleys,O'Charley's,8,https://www.ocharleys.com/nutrition/,official-public,pending source and rights review
+maggianos,Maggiano's Little Italy,10,https://www.maggianos.com/nutrition/,official-public,pending source and rights review
+coopers-hawk,Cooper's Hawk Winery & Restaurant,7,https://chwinery.com/nutrition,official-public,pending source and rights review
+millers-ale-house,Miller's Ale House,7,https://millersalehouse.com/nutrition/,official-public,pending source and rights review
+chuys,Chuy's,7,https://www.chuys.com/nutrition,official-public,pending source and rights review
+texas-de-brazil,Texas de Brazil,6,https://texasdebrazil.com/nutrition/,official-public,pending source and rights review
+fogo-de-chao,Fogo de Chão,6,https://fogodechao.com/nutrition-allergens/,official-public,pending source and rights review
+ruths-chris,Ruth's Chris Steak House,7,https://www.ruthschris.com/nutrition/,official-public,pending source and rights review
+mortons,Morton's The Steakhouse,6,https://www.mortons.com/nutrition,official-public,pending source and rights review
+the-capital-grille,The Capital Grille,7,https://www.thecapitalgrille.com/nutrition,official-public,pending source and rights review
+flemings-steakhouse,Fleming's Prime Steakhouse,6,https://www.flemingssteakhouse.com/nutrition,official-public,pending source and rights review
+twin-peaks,Twin Peaks,7,https://twinpeaksrestaurant.com/nutrition,official-public,pending source and rights review
+dave-and-busters,Dave & Buster's,7,https://www.daveandbusters.com/nutrition,official-public,pending source and rights review
+mellow-mushroom,Mellow Mushroom,5,https://mellowmushroom.com/nutrition/,official-public,pending source and rights review
+uno-pizzeria,Uno Pizzeria & Grill,5,https://www.unos.com/nutrition.php,official-public,pending source and rights review
+bertuccis,Bertucci's,5,https://www.bertuccis.com/nutrition,official-public,pending source and rights review
+buca-di-beppo,Buca di Beppo,5,https://www.bucadibeppo.com/nutrition/,official-public,pending source and rights review
+macaroni-grill,Romano's Macaroni Grill,5,https://www.macaronigrill.com/nutrition,official-public,pending source and rights review
+on-the-border,On The Border Mexican Grill,6,https://www.ontheborder.com/nutrition/,official-public,pending source and rights review
+chevys-fresh-mex,Chevys Fresh Mex,6,https://chevys.com/nutrition/,official-public,pending source and rights review
+pappasitos,Pappasito's Cantina,6,https://pappasitos.com/nutrition/,official-public,pending source and rights review
+pappadeaux,Pappadeaux Seafood Kitchen,6,https://pappadeaux.com/nutrition/,official-public,pending source and rights review
+joes-crab-shack,Joe's Crab Shack,5,https://www.joescrabshack.com/nutrition,official-public,pending source and rights review
+legal-sea-foods,Legal Sea Foods,6,https://www.legalseafoods.com/nutrition/,official-public,pending source and rights review
+mccormick-and-schmicks,McCormick & Schmick's,6,https://www.mccormickandschmicks.com/nutrition,official-public,pending source and rights review
+bubba-gump,Bubba Gump Shrimp Co.,6,https://www.bubbagump.com/nutrition,official-public,pending source and rights review
+black-angus-steakhouse,Black Angus Steakhouse,6,https://www.blackangus.com/nutrition,official-public,pending source and rights review
+saltgrass-steak-house,Saltgrass Steak House,6,https://www.saltgrass.com/nutrition,official-public,pending source and rights review
+sizzler,Sizzler,6,https://www.sizzler.com/nutrition/,official-public,pending source and rights review
+shoneys,Shoney's,5,https://www.shoneys.com/nutrition/,official-public,pending source and rights review
+village-inn,Village Inn,6,https://www.villageinn.com/nutrition/,official-public,pending source and rights review
+friendlys,Friendly's,5,https://www.friendlysrestaurants.com/nutrition/,official-public,pending source and rights review
+frischs-big-boy,Frisch's Big Boy,6,https://www.frischs.com/nutrition/,official-public,pending source and rights review
+big-boy,Big Boy,5,https://www.bigboy.com/nutrition,official-public,pending source and rights review
+black-bear-diner,Black Bear Diner,6,https://blackbeardiner.com/nutrition/,official-public,pending source and rights review
+metro-diner,Metro Diner,6,https://metrodiner.com/nutrition,official-public,pending source and rights review
+snooze-eatery,Snooze A.M. Eatery,5,https://www.snoozeeatery.com/nutrition,official-public,pending source and rights review
+another-broken-egg,Another Broken Egg Cafe,5,https://anotherbrokenegg.com/nutrition,official-public,pending source and rights review
+eggs-up-grill,Eggs Up Grill,6,https://eggsupgrill.com/nutrition,official-public,pending source and rights review
+huddle-house,Huddle House,5,https://www.huddlehouse.com/nutrition/,official-public,pending source and rights review
+kekes-breakfast-cafe,Keke's Breakfast Cafe,5,https://www.kekes.com/nutrition,official-public,pending source and rights review
+le-peep,Le Peep,5,https://lepeep.com/nutrition/,official-public,pending source and rights review
+lazy-dog,Lazy Dog Restaurant & Bar,6,https://www.lazydogrestaurants.com/nutrition,official-public,pending source and rights review
+bar-louie,Bar Louie,6,https://www.barlouie.com/nutrition,official-public,pending source and rights review
+beef-o-bradys,Beef 'O' Brady's,6,https://www.beefobradys.com/nutrition/,official-public,pending source and rights review
+walk-ons,Walk-On's Sports Bistreaux,6,https://walk-ons.com/nutrition,official-public,pending source and rights review
+aroogas,Arooga's Grille House,5,https://www.aroogas.com/nutrition,official-public,pending source and rights review
+buffalos-cafe,Buffalo's Cafe,6,https://www.buffalos.com/nutrition,official-public,pending source and rights review
+champps,Champps Americana,5,https://www.champps.com/nutrition,official-public,pending source and rights review
+houlihans,Houlihan's,6,https://www.houlihans.com/nutrition,official-public,pending source and rights review
+gordon-biersch,Gordon Biersch Brewery,5,https://gordonbierschrestaurants.com/nutrition,official-public,pending source and rights review
+rock-bottom,Rock Bottom Restaurant & Brewery,5,https://rockbottom.com/nutrition,official-public,pending source and rights review
+iron-hill-brewery,Iron Hill Brewery,5,https://www.ironhillbrewery.com/nutrition,official-public,pending source and rights review
+seasons-52,Seasons 52,5,https://www.seasons52.com/nutrition,official-public,pending source and rights review
+eddie-vs,Eddie V's Prime Seafood,6,https://www.eddiev.com/nutrition,official-public,pending source and rights review
+ocean-prime,Ocean Prime,5,https://www.ocean-prime.com/nutrition,official-public,pending source and rights review
+stk-steakhouse,STK Steakhouse,6,https://stksteakhouse.com/nutrition/,official-public,pending source and rights review
+del-friscos,Del Frisco's Double Eagle Steakhouse,5,https://delfriscos.com/nutrition,official-public,pending source and rights review
+trulucks,Truluck's Ocean's Finest,5,https://trulucks.com/nutrition,official-public,pending source and rights review
+chart-house,Chart House,6,https://www.chart-house.com/nutrition,official-public,pending source and rights review
+benihana,Benihana,7,https://www.benihana.com/nutrition/,official-public,pending source and rights review
+kona-grill,Kona Grill,6,https://www.konagrill.com/nutrition,official-public,pending source and rights review
+ra-sushi,RA Sushi,6,https://rasushi.com/nutrition/,official-public,pending source and rights review
+huhot-mongolian-grill,HuHot Mongolian Grill,5,https://www.huhot.com/nutrition/,official-public,pending source and rights review
+rodizio-grill,Rodizio Grill,6,https://www.rodiziogrill.com/nutrition,official-public,pending source and rights review
+famous-daves,Famous Dave's BBQ,6,https://www.famousdaves.com/nutrition,official-public,pending source and rights review
+sonnys-bbq,Sonny's BBQ,7,https://www.sonnysbbq.com/nutrition,official-public,pending source and rights review
+lucilles-bbq,Lucille's Smokehouse Bar-B-Que,6,https://www.lucillesbbq.com/nutrition,official-public,pending source and rights review
+smokey-bones,Smokey Bones,6,https://smokeybones.com/nutrition/,official-public,pending source and rights review
+hard-rock-cafe,Hard Rock Cafe,5,https://www.hardrockcafe.com/nutrition,official-public,pending source and rights review
+round-table-pizza,Round Table Pizza (Dine-In),5,https://www.roundtablepizza.com/nutrition,official-public,pending source and rights review

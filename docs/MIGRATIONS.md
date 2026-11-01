@@ -182,3 +182,9 @@ The HTML/PDF widget lookbook uses invented sample values and local interactions.
 No WidgetKit target, App Group, entitlement, account store, user setting, or
 provider configuration was added or changed. Owner data and simulator remain
 untouched.
+
+## Restaurant archive intake — 2026-11-01
+
+No migration or app catalog update. The supplied archive remains external to the
+repository; committed documents contain inventory and audit findings. No real
+menu is inserted into SwiftData, normalized stores or the bundled registry.

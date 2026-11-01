@@ -428,3 +428,14 @@ per-meal Overview/Macros/Foods pager was not selected because it places paging
 inside List sections with existing row gestures and would make meals harder to
 compare. Phone widgets remain a design handoff only until a separate privacy and
 data-sharing boundary is approved and verified.
+
+## V211 — Treat supplied restaurant archive as review material (2026-11-01)
+
+Inventory and validate the owner's Gemini ZIP on a separate branch. Its
+official-public declarations do not satisfy the existing rights-review gate;
+nutrition spot checks and a duplicate item ID also prevent a production-ready
+claim. Preserve the original bytes outside Git and commit only reproducible
+audit outputs and a correction queue. Do not raise importer limits, relabel
+permissions or infer category/component/double-portion rules to make it pass.
+Prioritize independently verified Chipotle and LongHorn subsets before broad
+coverage. No schema or feature-flag changes are needed for this intake.

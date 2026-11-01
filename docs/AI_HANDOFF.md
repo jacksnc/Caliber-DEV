@@ -1,5 +1,36 @@
 # Caliber AI handoff
 
+## Gemini restaurant archive intake — 2026-11-01
+
+Branch `codex/restaurant-data-intake`, worktree
+`/Users/jcrock/Documents/Codex/Caliber-restaurant-intake`, from `c56bea2`.
+Owner supplied `/Users/jcrock/Desktop/restaurant-nutrition-data.zip`.
+Read `docs/data-intake/restaurants-2026-11-01/README.md`: 200 restaurants,
+1,839 items, 144 chains below 10 items, one cross-chain duplicate item ID.
+Aggregate and per-chain items match and numeric fields are structurally valid;
+official-source spot checks nevertheless found macro/serving-inclusion issues.
+All sources declare `official-public`, without the completed rights review
+required by the existing importer/ADR-015. Raw production import fails the
+100-source bound, and a one-chain probe correctly rejects its license status.
+Do not relabel sources approved, infer grams, or call this full-menu coverage.
+
+Committed artifacts are an inventory, reproducible audit and correction/recheck
+brief, not raw production menus. The ZIP stays outside Git; its SHA-256 is in the
+report. Archive programs were inspected as text only and never executed. App
+resources, FUEL-13, user data and schemas remain unchanged. Existing importer
+tests pass 23/23; CSV preparation tests pass 12/12; the report reproduces byte for
+byte. The foundation linter passed. No Xcode checks are
+relevant to this intake-only change. Owner was asked whether Gemini has explicit
+permission references and questioned the requirement for factual nutrition.
+Clarified using U.S. Copyright Office guidance: facts are not copyrighted, and
+a permission letter is not automatically required per chain. A source review
+can document a facts-only basis; this intake does not approve all source access
+conditions, copied expression or dataset rights. The existing importer gate is
+unchanged. Source accuracy and serving-scope corrections independently remain.
+Next: independently reconcile source rows/serving scope and collect rights
+evidence for Chipotle/LongHorn, then prepare a reviewed subset through the
+existing CSV workflow. The prepared Gemini prompt has not been dispatched.
+
 ## Diary headers, swipe metrics, and widget lookbook — 2026-11-01
 
 Current branch: `codex/v2-meal-headers` in
