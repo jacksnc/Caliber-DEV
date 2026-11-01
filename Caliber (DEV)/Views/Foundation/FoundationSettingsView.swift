@@ -3,6 +3,7 @@ import SwiftUI
 
 struct FoundationSettingsView: View {
   @EnvironmentObject private var runtime: FoundationRuntime
+  @AppStorage("widgets.shareNutrition.v1") private var sharesWidgetNutrition = false
   private static var thirdPartyNotices: String {
     guard let url = Bundle.main.url(forResource: "ThirdPartyNotices", withExtension: "txt"),
       let text = try? String(contentsOf: url, encoding: .utf8)
@@ -28,6 +29,24 @@ struct FoundationSettingsView: View {
           Text(
             "Number-free mode keeps photos and notes available and hides numerical editors, charts, and their accessibility labels."
           ).font(.footnote)
+        }
+        Section("Apple Health") {
+          NavigationLink("Active Energy and Calorie Adjustment") { HealthEnergySettingsView() }
+            .frame(minHeight: 48).disabled(runtime.settings.hideNumbers)
+            .accessibilityIdentifier("openActiveEnergySettings")
+        }
+        Section("iPhone Widgets") {
+          Toggle("Show Nutrition on Widgets", isOn: $sharesWidgetNutrition)
+            .disabled(runtime.settings.hideNumbers)
+            .accessibilityIdentifier("shareWidgetNutrition")
+          Text(
+            "Off by default. When on, today's calories and macro totals can appear on your Home Screen. No food names, photos, weight, notes or Stack data are shared. Widgets use the system light or dark appearance."
+          )
+          .font(.footnote)
+          Text(
+            "Snapshots expire after two hours or at midnight. Hide Calories and Weight and Demo mode suppress sharing. Turning sharing off removes the exported file and requests a widget refresh; iOS controls when a displayed widget redraws."
+          )
+          .font(.footnote)
         }
         StackSettingsSection()
         Section("Units") {

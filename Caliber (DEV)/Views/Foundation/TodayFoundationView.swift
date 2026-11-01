@@ -1,4 +1,5 @@
 import CaliberCore
+import Combine
 import HeliosDesign
 import SwiftData
 import SwiftUI
@@ -119,6 +120,8 @@ private enum TodayFuelPage: String, CaliberInfoCardPage, CaseIterable {
 /// shows one centered ring with what is left (or eaten) and the eaten and goal figures, from
 /// the day's logged totals and saved goals only.
 private struct TodayFuelCard: View {
+  @EnvironmentObject private var healthEnergy: HealthEnergyModel
+  @State private var goalTime = Date.now
   let entries: [DiaryEntry]
   let profile: UserProfile?
   @EnvironmentObject private var runtime: FoundationRuntime
@@ -165,7 +168,11 @@ private struct TodayFuelCard: View {
         id: "energy", title: "Calories", unit: energyUnit.rawValue,
         spokenUnit: energyUnit.rawValue,
         eaten: UnitFormatting.energy(totals.calories, unit: energyUnit),
-        goal: goal(profile?.dailyCalorieGoal).map { UnitFormatting.energy($0, unit: energyUnit) },
+        goal: goal(
+          profile.flatMap {
+            healthEnergy.goal(base: $0.dailyCalorieGoal, at: max(goalTime, Date.now))?.total
+          }
+        ).map { UnitFormatting.energy($0, unit: energyUnit) },
         color: palette.energy.color)
     case .protein:
       return Row(
@@ -194,10 +201,12 @@ private struct TodayFuelCard: View {
       ) { page in
         panel(row(page))
       }
+      if let profile { HealthEnergyGoalBreakdown(base: profile.dailyCalorieGoal) }
       if entries.isEmpty { emptyDay }
       if selected.goal == nil { goalHint }
     }
     .v2Surface()
+    .onReceive(Timer.publish(every: 60, on: .main, in: .common).autoconnect()) { goalTime = $0 }
   }
 
   /// One page: its name, the ring with what is left (or eaten), and eaten / goal under it.

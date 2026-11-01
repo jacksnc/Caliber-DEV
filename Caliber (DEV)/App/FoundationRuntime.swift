@@ -15,6 +15,7 @@ final class FoundationRuntime: ObservableObject {
   // Presentation state only; existing installations are not enrolled in setup again.
   @Published var completedWelcomeThisSession = false
   @Published var message: String?
+  let healthEnergy: HealthEnergyModel
   let foodLibraryPreferences: FoodLibraryPreferences
   let account: HostedAccountModel
   let stack: StackRuntime
@@ -65,6 +66,9 @@ final class FoundationRuntime: ObservableObject {
       }
     #endif
     settings = loaded
+    healthEnergy = HealthEnergyModel(
+      defaults: defaults,
+      service: testing ? FixtureActiveEnergyService() : AppleActiveEnergyService())
     account = HostedAccountModel.configured(testing: testing, defaults: defaults)
     stack = StackRuntime(defaults: defaults, testing: testing)
     let base =
@@ -138,7 +142,12 @@ struct FoundationRootView: View {
     Group {
       if let container {
         if runtime.settings.ageConfirmed && runtime.settings.disclaimerAccepted {
-          GoalSetupHostView().modelContainer(container)
+          GoalSetupHostView()
+            .background {
+              NutritionWidgetPublisher()
+              HealthEnergyLifecycle()
+            }
+            .modelContainer(container)
         } else {
           AdultWelcomeView()
         }
@@ -156,6 +165,7 @@ struct FoundationRootView: View {
         ProgressView("Opening Caliber…").task { open() }
       }
     }
+    .environmentObject(runtime.healthEnergy)
     .environmentObject(runtime.account)
     .environmentObject(runtime.stack)
     .environmentObject(runtime.foodLibraryPreferences)

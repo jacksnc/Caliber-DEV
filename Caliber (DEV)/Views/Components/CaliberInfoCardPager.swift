@@ -119,7 +119,8 @@ struct CaliberInfoCardPager<Page: CaliberInfoCardPage, Panel: View>: View {
     }
     .buttonStyle(.plain)
     .accessibilityLabel(
-      value.map { Text("Show \(page.pageTitle), \($0)") } ?? Text("Show \(page.pageTitle)"))
+      value.map { Text("Show \(page.pageTitle), \($0)") } ?? Text("Show \(page.pageTitle)")
+    )
     .accessibilityAddTraits(selected ? .isSelected : [])
     .accessibilityIdentifier("\(identifier)-page-\(page.id)")
   }

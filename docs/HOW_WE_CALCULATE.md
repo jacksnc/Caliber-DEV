@@ -291,3 +291,33 @@ and 300 g is 260 calories. Volume can multiply portions but cannot supply grams.
 Unknown mass stays unknown. Exact GTIN corrections use reviewed source facts for
 future reviews only; old saved logs do not change. This adapts a source to the
 existing portion math rather than introducing a new health formula.
+
+## Optional Apple Health calorie adjustment
+
+This estimate uses a daily Active Energy allowance the person enters and confirms
+as already included in their base goal. The activity label alone cannot determine
+that allowance. Review it whenever changing the base goal or activity setting.
+
+`adjustment = max(0, today's readable Health Active Energy kcal - confirmed allowance kcal)`
+
+`today's displayed goal = saved base calorie goal + adjustment`
+
+Example: base 2,000, Active Energy 450 and allowance 300 gives a 150 adjustment and
+2,150 displayed goal. At 200 active calories the goal remains 2,000; the feature
+does not reduce the base goal. Re-reading 450 replaces the observation rather
+than adding a second credit. Recorded intake and protein/carbs/fat goals never
+change. No macro-derived calories, resting-energy addition, workout double
+addition, inferred deficits or future-day projections occur.
+
+Reading and adjustment are off by default. No confirmed allowance, missing data,
+invalid numbers, clock reversal, timezone/day mismatch, arithmetic overflow or
+an observation at least 15 minutes old yields no credit. Absence is not a reported
+zero and cannot prove read permission was denied. Previous days use their base
+presentation; no historical Health credits are persisted. Health and device
+energy values are estimates with possible lag and incomplete coverage, not exact
+measurements or intake prescriptions. The app refreshes when active/returned or
+manually requested, not continuously in the background.
+
+Reference APIs: Apple's [Active Energy type](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/activeenergyburned),
+[statistical queries](https://developer.apple.com/documentation/healthkit/executing-statistical-queries)
+and [read authorization privacy](https://developer.apple.com/documentation/healthkit/authorizing-access-to-health-data).

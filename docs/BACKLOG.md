@@ -470,3 +470,23 @@ supplement in the public catalog build pipeline. Physical iPhone optical scannin
 glare/focus/curved labels and minimum-iOS execution remain open. UPC-E camera
 normalization is tested separately from camera optics. Live provider setup stays
 pending; no coverage percentage beyond the stated convenience sample is claimed.
+
+## Cards/widgets peer review follow-ups (2026-11-01)
+
+- Validate source-confirmed Progress weight-unit divergence: entry form's legacy
+  AppStorage versus runtime.settings.massUnit; consolidate without stored-value
+  conversion. Claude's top finding; separate regression coverage required.
+- Audit Diary/search/copy energy labels against the kJ setting. Display-only
+  consistency; do not change canonical kcal or label-source values.
+- Reproduce Stack Skip save-error/undo behavior before fixing. Compound-name
+  concealment on Today is a separate privacy preference suggestion, not a new
+  blocker or permission request in this batch.
+- Gemini's Frost chrome/disabled-style proposals need current captures and
+  measured contrast; static lint does not establish layout/contrast compliance.
+  Do not adopt tertiary text as a contrast improvement without measurement.
+  Existing keyboard warning and virtualized audit limitations remain distinct
+  from app correctness defects; do not patch speculative geometry.
+- Native small/medium widget gallery, real redaction/locked-device refresh and
+  real Health permissions/data/source overlap need physical QA. No “live” or
+  broad-device claim until that evidence exists. Add workout/progress cards and
+  widget families in later bounded passes after nutrition behavior is reviewed.

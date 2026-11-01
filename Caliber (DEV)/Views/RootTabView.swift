@@ -72,6 +72,17 @@ struct RootTabView: View {
         .tint(theme.palette.accent.base.color)
       }
     }
+    .onOpenURL { url in
+      guard url.scheme?.lowercased() == "caliber", !runtime.isDemoMode,
+        !runtime.settings.hideNumbers
+      else { return }
+      if url.host == "fuel", url.path.isEmpty {
+        selection = .fuel
+      } else if url.host == "food", url.path == "/add" {
+        selection = .fuel
+        quickLogFood = true
+      }
+    }
   }
 
   private var exitDemoBar: some View {

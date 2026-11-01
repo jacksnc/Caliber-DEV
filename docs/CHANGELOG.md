@@ -314,3 +314,16 @@ No health calculation, persistence or user-device changes.
 - Widget concepts remain design-only; no WidgetKit target, shared container,
   entitlement or widget data snapshot is added. No storage or nutrition math
   changed.
+
+## 2026-11-01 — Cards, iPhone widgets and Health activity allowance
+
+- Extend Today nutrition with named, swipeable calorie/protein/carbs/fat pages;
+  preserve Diary headings and food row actions. Integrate independently reviewed
+  Claude/Gemini deliveries in separate coordinator checkout.
+- Add small/medium WidgetKit extension, neutral defaults, opt-in protected daily
+  cache, expiry, privacy redaction, AX fallback and Fuel/Add food deep links.
+- Add read-only Apple Health Active Energy setup and an explicit allowance-based
+  adjustment to today's displayed calorie goal. Base/macro/past values stay saved
+  as before; missing or stale observations keep the base goal.
+- Native verification and remaining physical-device limits are documented in
+  docs/parallel/cards-widgets/VERIFICATION.md.

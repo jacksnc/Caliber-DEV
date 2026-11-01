@@ -74,10 +74,11 @@ final class TodayInfoCardPagerUITests: XCTestCase {
     assertPage("Calories", 1, shows: "888", app: app)
     panel.swipeRight()
     assertPage("Fat", 4, shows: "18", app: app)
-    let unchanged = NSPredicate(format: "value CONTAINS %@", "Fat, page 4 of 4")
-    let still = XCTNSPredicateExpectation(predicate: unchanged, object: panel)
-    _ = XCTWaiter.wait(for: [XCTestExpectation(description: "idle")], timeout: 3)
-    XCTAssertEqual(XCTWaiter.wait(for: [still], timeout: 1), .completed)
+    let changed = NSPredicate(format: "NOT (value CONTAINS %@)", "Fat, page 4 of 4")
+    let mustNotChange = XCTNSPredicateExpectation(predicate: changed, object: panel)
+    mustNotChange.isInverted = true
+    XCTAssertEqual(XCTWaiter.wait(for: [mustNotChange], timeout: 3), .completed)
+    assertPage("Fat", 4, shows: "18", app: app)
 
     // A vertical drag on the panel scrolls the screen instead of paging.
     panel.swipeUp()

@@ -451,3 +451,34 @@ Preserve reported calories and optional mass/volume. Incomplete or unreviewed
 imports fail before publication. UPC-E camera support uses FoodCore's tested
 symbology-aware expansion; manual eight-digit codes retain EAN-8 meaning. Source
 review, local code tests, lookup coverage and camera optics are separate evidence.
+
+## V213 — Reviewed native card paging and opt-in iPhone widget boundary
+
+Claude owns the Today fuel pager; Gemini provides small/medium widget views and
+independent Frost review; Codex owns contract/target/privacy/integration. Preserve
+Diary row gestures and centered headings. Named controls, VoiceOver adjustment,
+48pt targets and no autoplay accompany swipe. Peer reports are source proposals,
+not proof. Codex fixed unsafe widget numeric casts, nonexistent palette tokens,
+privacy accessibility leakage and impractical AX layouts before integration.
+
+Widgets start neutral. Explicit opt-in exports only four daily nutrition totals
+and freshness/day/timezone metadata through a protected, backup-excluded atomic
+cache; no store, identifiers, HealthKit or Stack data. Hide Numbers/Demo/opt-out
+clear that cache and request reload. Expiry is two hours or local midnight;
+timezone or invalid values fail closed. AX widgets offer the full app instead of
+clipping details. iOS controls rendered-snapshot refresh; no immediate-redraw or
+locked-device guarantee is claimed. See IPHONE_WIDGETS.md for boundary review.
+
+## V214 — Owner-approved Health activity adjustment above a confirmed allowance
+
+The owner explicitly selected `base + max(0, active kcal - confirmed allowance)`.
+Never infer allowance from the profile's activity multiplier. Reading and goal
+adjustment require separate explicit actions; no default allowance or silent
+enrollment. Request read-only Active Energy, never combine workout and resting
+energy with it. Only today's displayed calorie goal changes; saved profile and
+macro goals/past days remain intact. Missing/invalid/timezone-mismatched/older-
+than-15-minute observations keep the base. Health values stay in memory and out
+of shared widget files. Refresh on foreground return, manual action and every
+five minutes while active; no background polling or network writes. Apple read
+permission denial cannot be inferred from an empty query. Device results and
+permission/provisioning remain separate from mock/simulator evidence.

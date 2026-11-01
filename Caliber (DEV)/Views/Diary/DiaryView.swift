@@ -3,6 +3,8 @@
 //  Caliber (DEV)
 //
 
+import CaliberCore
+import Combine
 import HeliosDesign
 import SwiftData
 import SwiftUI
@@ -54,7 +56,7 @@ struct DiaryView: View {
               .caliberSectionHeader()
           }
           Section {
-            MacroTotalsSummaryView(totals: dailyTotals, profile: profiles.first)
+            MacroTotalsSummaryView(totals: dailyTotals, profile: profiles.first, date: selectedDate)
           }
           Section {
             Button {
@@ -364,23 +366,34 @@ private struct DiaryEntryRow: View {
 /// A new presentation of the existing stored totals. This never changes a saved
 /// goal or replaces reported calories with a 4/4/9 macro estimate.
 private struct MacroTotalsSummaryView: View {
+  @EnvironmentObject private var healthEnergy: HealthEnergyModel
+  @State private var goalTime = Date.now
   @Environment(\.locale) private var locale
   @Environment(\.heliosTheme) private var theme
   @Environment(\.dynamicTypeSize) private var typeSize
   @Environment(\.caliberProfileAction) private var openProfile
   let totals: MacroTotals
   let profile: UserProfile?
+  let date: Date
 
   @State private var selectedMetric: DiarySummaryMetric = .calories
 
   private var selectedNutrition: DiaryNutritionMetric {
-    DiaryNutritionMetric(
-      value: selectedMetric.value(in: totals), goal: selectedMetric.goal(in: profile))
+    let base = selectedMetric.goal(in: profile)
+    let now = max(goalTime, Date.now)
+    let goal: Double?
+    if selectedMetric == .calories, Calendar.current.isDate(date, inSameDayAs: now), let base {
+      goal = healthEnergy.goal(base: base, at: now)?.total
+    } else {
+      goal = base
+    }
+    return DiaryNutritionMetric(value: selectedMetric.value(in: totals), goal: goal)
   }
 
   var body: some View {
     VStack(spacing: 16) {
       metricPanel
+        .onReceive(Timer.publish(every: 60, on: .main, in: .common).autoconnect()) { goalTime = $0 }
         .contentShape(Rectangle())
         .simultaneousGesture(metricSwipe)
 
@@ -451,6 +464,12 @@ private struct MacroTotalsSummaryView: View {
       }
 
       goalSummary
+      if selectedMetric == .calories,
+        Calendar.current.isDate(date, inSameDayAs: max(goalTime, Date.now)),
+        let profile
+      {
+        HealthEnergyGoalBreakdown(base: profile.dailyCalorieGoal)
+      }
       Text("Food totals · activity is shown separately")
         .heliosFont(.caption)
         .foregroundStyle(theme.palette.text.secondary.color)

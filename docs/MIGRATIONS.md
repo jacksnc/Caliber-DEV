@@ -196,3 +196,16 @@ its pinned manifest stay byte-identical. LabelFoods.json is a separate read-only
 reference resource (schemaVersion 1, reviewed collection, at most 1,000 label
 rows). It influences future searches/reviews; existing FoodItem/DiaryEntry copies
 keep their nutrition. No settings, entitlements or providers are changed.
+
+## Cards/widgets and Health activity adjustment (2026-11-01)
+
+No SwiftData schema migration or existing goal/log rewrite. Add app-local
+preferences widgets.shareNutrition.v1 (false), health.activeEnergy.read.v1
+(false), health.activeEnergy.adjust.v1 (false), and optional explicitly confirmed
+health.activeEnergy.allowance.v1. Old installations remain opted out. Health
+observations are never persisted. Widget snapshots use a separate versioned JSON
+cache, not a shared database. Opt-out/number-free/demo removes the exported file.
+New WidgetKit target/App Group entitlement and read-only HealthKit capability
+require physical-team provisioning validation before device release. No account
+or team was configured, identifier registered, owner setting enabled or personal
+simulator/store modified in this work.

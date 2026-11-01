@@ -1,5 +1,51 @@
 # Caliber AI handoff
 
+## Cards, iPhone widgets and Apple Health allowance — 2026-11-01
+
+Current coordinator branch `codex/cards-widgets`, clean separate checkout
+`/Users/jcrock/Documents/Codex/Caliber-cards-widgets`, from packaged-food e6ba3ec.
+The owner asked to prompt/delegate to existing native Claude/Gemini chats,
+implement swipeable info cards and iPhone widgets, and collect independent gap
+reviews. Both received bounded tasks, acknowledged actual clean worktrees,
+shipped on separate branches, and completed later review-only tasks. Gemini
+stayed on Mac. See parallel/cards-widgets/SESSION.md and VERIFICATION.md.
+
+Claude 5af0a69 adds Today nutrition paging Calories/Protein/Carbs/Fat with named
+48pt tabs, previous/next, a value-panel-only gesture and VoiceOver alternatives;
+Codex integrated it as 6066fa7. Diary headings and row actions are preserved.
+Gemini b01514e supplies widget presentation/fixtures, integrated as 6b86db0;
+Codex reviewed and corrected numeric casts, a nonexistent palette token, privacy
+redaction/accessibility, timestamps, large-text fallback and family actions.
+Small/medium WidgetKit target is embedded; neutral by default, with a protected
+backup-excluded, two-hour/local-midnight-expiring cache of four opted-in daily
+nutrition totals only. Health/Stack/user records/tokens are excluded. No private
+SwiftData store is shared. IPHONE_WIDGETS.md documents the reviewed boundary.
+
+The owner subsequently approved optional Apple Health adjustments above an
+explicitly confirmed daily activity allowance. Read and adjustment are separate
+opt-ins; only canonical-kcal Active Energy is queried, never extra resting or
+workout totals. `base + max(0, active - allowance)` changes only today's displayed
+calorie goal. Saved base, macro goals and past days remain intact. Missing,
+invalid, old, future or mismatched-day/timezone data keep the base. Values stay
+in memory and out of widgets/backend/logs. Disconnect, number-free, Demo and
+background suppress observations. HEALTH_ENERGY.md and HOW_WE_CALCULATE.md explain
+refresh and limitations; no real Health request or owner sharing was enabled.
+
+Native checks use only isolated Caliber Compact QA and
+`/tmp/caliber-cards-widgets-derived`. Existing app/persistence suite passed;
+card paging/large-text and widget opt-in/persistence UI checks passed. Focused
+Foundation engine/widget/store cases and Health controller defaults/no-data/
+race/replacement cases pass. Native full Health setup verifies the fictional
+2350 base + (450 active - 300 allowance) = 2500 goal. Capture review caught and
+fixed a real cached-render-time ring lag; final assertions check both 2500 goal
+and 1038 left immediately; the expanded case verifies today/yesterday/today Diary goals too. Detailed run paths, early test-harness failures and
+Xcode diagnostic-collection handling are in VERIFICATION.md. Physical WidgetKit
+render/redaction/provisioning and real Health/source-overlap checks remain open.
+Source gap proposals are triaged in BACKLOG.md, led by Progress weight-unit
+consistency and energy-label consistency. No provider or clinical calculator was
+enabled. Owner local preview remains at 84edf55 with its three original dirty
+files; personal simulator/store and installed build are unchanged.
+
 ## Packaged name search, label imports and barcode checks — 2026-11-01
 
 Branch `codex/packaged-food-import`, worktree

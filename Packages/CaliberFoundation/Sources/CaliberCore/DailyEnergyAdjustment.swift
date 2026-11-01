@@ -19,6 +19,7 @@ public enum DailyEnergyAdjustmentStatus: Equatable, Sendable {
   case off, needsAllowance, noData, stale, invalidData, applied
 }
 
+/// Base, adjustment and total are canonical kilocalories (kcal), never display kJ.
 public struct DailyEnergyGoal: Equatable, Sendable {
   public let base: Double
   public let adjustment: Double
@@ -27,6 +28,7 @@ public struct DailyEnergyGoal: Equatable, Sendable {
 }
 
 /// Explicit allowance avoids adding activity already budgeted into the saved goal.
+/// `base` and `confirmedAllowance` are canonical kcal. Convert only at display boundaries.
 /// This is an opt-in device estimate, not a new TDEE calculation or a goal mutation.
 public enum DailyEnergyAdjustmentCalculator {
   public static func goal(
