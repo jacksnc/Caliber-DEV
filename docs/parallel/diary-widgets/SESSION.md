@@ -4,6 +4,7 @@ Date: 2026-11-01 (America/New_York)
 Branch: `codex/v2-meal-headers`
 Worktree: `/Users/jcrock/Documents/Codex/Caliber-v2-meal-headers`
 Base: `ccd74c1`
+Implementation commit: `734da57` (`feat(diary): center meal headers and swipe nutrition metrics`)
 
 ## Owner request
 
@@ -81,8 +82,6 @@ Apple references used to keep the widget proposal platform-grounded:
   Breakfast screenshot was exported and inspected. The earlier 0-passed
   runner-canceled bundle is retained as an initial failed attempt, superseded
   by the later passing runs.
-- An incremental `xcodebuild build` on the same isolated QA simulator is being
-  rerun after the metric pages; record its final exit code and any warnings.
 - Latest `xcodebuild build` exited 0 on the isolated QA destination. Xcode logs
   the non-fatal scheme/destination line `Supported platforms for the buildables
   in the current scheme is empty`; there are no Swift compile warnings after the
@@ -100,8 +99,8 @@ Apple references used to keep the widget proposal platform-grounded:
 
 ## Final steps
 
-1. Commit the reviewed changes with a conventional local commit. Do not push,
-   merge, or install into the owner's preview build unless the owner asks.
+The reviewed implementation is committed locally. Do not push, merge, or install
+it into the owner's preview build unless the owner asks.
 
 ## Next after this checkpoint
 

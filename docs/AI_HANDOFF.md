@@ -4,6 +4,8 @@
 
 Current branch: `codex/v2-meal-headers` in
 `/Users/jcrock/Documents/Codex/Caliber-v2-meal-headers` (seed `ccd74c1`). The
+implementation commit is `734da57` (`feat(diary): center meal headers and
+swipe nutrition metrics`).
 owner requested centered Breakfast/Lunch/Dinner/Snack headers, data cards that
 can swipe between information, and a phone widget lookbook. `DiaryView.swift`
 centers each meal title, shows its saved entry count and recorded calories, and
