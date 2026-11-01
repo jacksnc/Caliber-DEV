@@ -17,6 +17,7 @@ struct DiaryView: View {
   @Environment(\.calendar) private var calendar
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var modelContext
+  @EnvironmentObject private var runtime: FoundationRuntime
   @Query(sort: \DiaryEntry.date) private var allEntries: [DiaryEntry]
   @Query private var profiles: [UserProfile]
   @Environment(\.heliosTheme) private var theme
@@ -67,7 +68,8 @@ struct DiaryView: View {
               .caliberSectionHeader()
           }
           Section {
-            MacroTotalsSummaryView(totals: dailyTotals, profile: profiles.first, date: selectedDate)
+            MacroTotalsSummaryView(
+              totals: dailyTotals, profile: profiles.first, date: selectedDate, energy: energy)
           }
           Section {
             Button {
@@ -188,6 +190,11 @@ struct DiaryView: View {
     .listRowSeparator(.hidden)
   }
 
+  /// Display only: stored values stay in kcal.
+  private var energy: CaliberEnergyDisplay {
+    CaliberEnergyDisplay(unit: runtime.settings.energyUnit, locale: locale)
+  }
+
   private func dayButton(offset: Int) -> some View {
     Button {
       // Calendar-day movement preserves the local day across daylight-saving changes.
@@ -222,7 +229,7 @@ struct DiaryView: View {
           Button {
             entryBeingEdited = entry
           } label: {
-            DiaryEntryRow(entry: entry)
+            DiaryEntryRow(entry: entry, energy: energy)
               .foregroundStyle(.primary)
               .frame(maxWidth: .infinity, alignment: .leading)
               .contentShape(Rectangle())
@@ -283,9 +290,8 @@ struct DiaryView: View {
         .accessibilityAddTraits(.isHeader)
 
       let foodCount = entries.count == 1 ? "1 food" : "\(entries.count) foods"
-      let calories = NutritionInput.format(
-        MacroCalculator.totals(for: entries).calories, locale: locale)
-      Text("\(foodCount) · \(calories) cal")
+      let calories = energy.sentence(MacroCalculator.totals(for: entries).calories)
+      Text("\(foodCount) · \(calories)")
         .heliosFont(.caption)
         .foregroundStyle(theme.palette.text.secondary.color)
         .multilineTextAlignment(.center)
@@ -352,6 +358,7 @@ private struct DiaryEntryRow: View {
   @Environment(\.dynamicTypeSize) private var typeSize
   @Environment(\.heliosTheme) private var theme
   let entry: DiaryEntry
+  let energy: CaliberEnergyDisplay
 
   var body: some View {
     Group {
@@ -393,8 +400,9 @@ private struct DiaryEntryRow: View {
 
   private var amount: some View {
     VStack(alignment: typeSize.isAccessibilitySize ? .leading : .trailing, spacing: 2) {
-      Text(NutritionInput.format(entry.calories, locale: locale)).heliosFont(.metricValue)
-      Text("cal").heliosFont(.caption).foregroundStyle(theme.palette.text.secondary.color)
+      Text(energy.number(entry.calories)).heliosFont(.metricValue)
+      Text(energy.symbol).heliosFont(.caption)
+        .foregroundStyle(theme.palette.text.secondary.color)
     }
   }
 }
@@ -411,6 +419,7 @@ private struct MacroTotalsSummaryView: View {
   let totals: MacroTotals
   let profile: UserProfile?
   let date: Date
+  let energy: CaliberEnergyDisplay
 
   @State private var selectedMetric: DiarySummaryMetric = .calories
 
@@ -521,9 +530,9 @@ private struct MacroTotalsSummaryView: View {
           .heliosFont(.footnote)
           .foregroundStyle(theme.palette.text.secondary.color)
       } else if let over = selectedNutrition.aboveGoal, over > 0 {
-        balanceText(over, suffix: selectedMetric.aboveGoalLabel)
+        balanceText(over, suffix: selectedMetric.aboveGoalLabel(energy))
       } else if let left = selectedNutrition.remaining {
-        balanceText(left, suffix: selectedMetric.remainingLabel)
+        balanceText(left, suffix: selectedMetric.remainingLabel(energy))
       } else if let openProfile {
         Button("Set goals in Profile", action: openProfile)
           .buttonStyle(.heliosSecondary)
@@ -612,13 +621,13 @@ private struct MacroTotalsSummaryView: View {
 
   private var figure: some View {
     VStack(spacing: 4) {
-      Text(selectedNutrition.value.map { NutritionInput.format($0, locale: locale) } ?? "—")
+      Text(selectedNutrition.value.map { display($0) } ?? "—")
         .heliosFont(.hero)
         .multilineTextAlignment(.center)
         .fixedSize(horizontal: false, vertical: true)
         .accessibilityLabel(
           selectedNutrition.value.map {
-            "\(NutritionInput.format($0, locale: locale)) \(selectedMetric.accessibilityUnit)"
+            "\(display($0)) \(selectedMetric.accessibilityUnit(energy))"
           } ?? "\(selectedMetric.accessibilityName) unavailable"
         )
         .accessibilityIdentifier(
@@ -626,7 +635,7 @@ private struct MacroTotalsSummaryView: View {
             ? "diaryCalories" : "diaryMetricValue-\(selectedMetric.rawValue)")
       if let goal = selectedNutrition.goal {
         Text(
-          "of \(NutritionInput.format(goal, locale: locale)) \(selectedMetric.accessibilityUnit)"
+          "of \(display(goal)) \(selectedMetric.visibleUnit(energy))"
         )
         .heliosFont(.footnote)
         .multilineTextAlignment(.center)
@@ -640,9 +649,16 @@ private struct MacroTotalsSummaryView: View {
     }
   }
 
+  /// Canonical kcal and grams in, display text out. Energy converts here only; the ring,
+  /// remaining and above-goal arithmetic above all stay in stored kcal.
+  private func display(_ value: Double) -> String {
+    selectedMetric == .calories
+      ? energy.number(value) : NutritionInput.format(value, locale: locale)
+  }
+
   private func balanceText(_ value: Double, suffix: LocalizedStringKey) -> some View {
     VStack(spacing: 2) {
-      Text(NutritionInput.format(value, locale: locale)).heliosFont(.bodyStrong)
+      Text(display(value)).heliosFont(.bodyStrong)
       Text(suffix).heliosFont(.caption)
     }
     .frame(maxWidth: .infinity)
@@ -663,25 +679,31 @@ private enum DiarySummaryMetric: String, CaseIterable, Identifiable {
   var index: Int { Self.allCases.firstIndex(of: self) ?? 0 }
   var title: LocalizedStringKey { LocalizedStringKey(accessibilityName) }
   var accessibilityName: String { rawValue.capitalized }
-  var accessibilityUnit: String {
+  /// The unit after a figure in a sentence ("of 2350 calories", "of 9,832.4 kJ").
+  func visibleUnit(_ energy: CaliberEnergyDisplay) -> String {
+    self == .calories ? energy.sentenceUnit : accessibilityUnit(energy)
+  }
+  func accessibilityUnit(_ energy: CaliberEnergyDisplay) -> String {
     switch self {
-    case .calories: "calories"
+    case .calories: energy.spokenUnit
     case .protein: "grams protein"
     case .carbs: "grams carbohydrates"
     case .fat: "grams fat"
     }
   }
-  var remainingLabel: LocalizedStringKey {
+  func remainingLabel(_ energy: CaliberEnergyDisplay) -> LocalizedStringKey {
     switch self {
-    case .calories: "calories remaining"
+    case .calories:
+      energy.unit == .kilocalories ? "calories remaining" : "kJ remaining"
     case .protein: "grams protein remaining"
     case .carbs: "grams carbohydrates remaining"
     case .fat: "grams fat remaining"
     }
   }
-  var aboveGoalLabel: LocalizedStringKey {
+  func aboveGoalLabel(_ energy: CaliberEnergyDisplay) -> LocalizedStringKey {
     switch self {
-    case .calories: "calories above goal"
+    case .calories:
+      energy.unit == .kilocalories ? "calories above goal" : "kJ above goal"
     case .protein: "grams protein above goal"
     case .carbs: "grams carbohydrates above goal"
     case .fat: "grams fat above goal"
@@ -717,6 +739,9 @@ private enum DiarySummaryMetric: String, CaseIterable, Identifiable {
 }
 
 #Preview {
+  let runtime = FoundationRuntime(previewing: true)
   DiaryView()
     .modelContainer(for: [FoodItem.self, DiaryEntry.self, UserProfile.self], inMemory: true)
+    .environmentObject(runtime)
+    .environmentObject(runtime.healthEnergy)
 }

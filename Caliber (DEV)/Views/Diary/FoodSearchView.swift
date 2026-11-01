@@ -18,6 +18,7 @@ struct FoodSearchView: View {
   @Environment(\.calendar) private var calendar
   @Environment(\.modelContext) private var modelContext
   @EnvironmentObject private var favorites: FoodLibraryPreferences
+  @EnvironmentObject private var runtime: FoundationRuntime
   @Query(filter: #Predicate<FoodItem> { $0.isSavedToLibrary }, sort: \FoodItem.name) private
     var savedFoods: [FoodItem]
   @Query(sort: \DiaryEntry.date, order: .reverse) private var entries: [DiaryEntry]
@@ -338,7 +339,7 @@ struct FoodSearchView: View {
               FoodEntryV2FoodRowLabel(
                 title: food.name,
                 detail: food.basisDescription + " · " + food.sourceLabel,
-                caloriesText: "\(NutritionInput.format(food.totals.calories, locale: locale)) cal")
+                caloriesText: energy.short(food.totals.calories))
             }
             .accessibilityIdentifier("packagedFood-\(food.id)")
           }
@@ -393,7 +394,7 @@ struct FoodSearchView: View {
                 title: item.name,
                 detail:
                   "\(item.restaurant?.name ?? "Restaurant") · \(item.category.displayName) · \(macroPreview(protein: item.baseProtein, carbs: item.baseCarbs, fat: item.baseFat))",
-                caloriesText: "\(NutritionInput.format(item.baseCalories, locale: locale)) cal"
+                caloriesText: energy.short(item.baseCalories)
               )
             }
           }
@@ -542,8 +543,7 @@ struct FoodSearchView: View {
           FoodEntryV2FoodRowLabel(
             title: match.phrase.text.capitalized(with: locale),
             detail: "\(amount ?? "")\(saved.name) · My Foods",
-            caloriesText:
-              "\(NutritionInput.format(saved.calories * initialQuantity, locale: locale)) cal"
+            caloriesText: energy.short(saved.calories * initialQuantity)
           )
         }
         .accessibilityIdentifier("listMatch-\(match.phrase.terms)")
@@ -600,6 +600,11 @@ struct FoodSearchView: View {
     }
   }
 
+  /// Row previews only: foods, label facts and portions keep their stored kcal.
+  private var energy: CaliberEnergyDisplay {
+    CaliberEnergyDisplay(unit: runtime.settings.energyUnit, locale: locale)
+  }
+
   // At large sizes the quick action gets its own row, leaving the whole
   // reading width for long food names instead of a very narrow text column.
   private var foodRowLayout: AnyLayout {
@@ -617,7 +622,7 @@ struct FoodSearchView: View {
           title: food.name,
           detail:
             "\(food.servingDescription) · \(macroPreview(protein: food.proteinGrams, carbs: food.carbGrams, fat: food.fatGrams))",
-          caloriesText: "\(NutritionInput.format(food.calories, locale: locale)) cal"
+          caloriesText: energy.short(food.calories)
         )
       }
 
@@ -664,7 +669,7 @@ struct FoodSearchView: View {
           title: food.name,
           detail:
             "100 g · \(macroPreview(protein: per100g.proteinGrams, carbs: per100g.carbGrams, fat: per100g.fatGrams)) · \(food.sourceType.shortLabel)",
-          caloriesText: "\(NutritionInput.format(per100g.calories, locale: locale)) cal"
+          caloriesText: energy.short(per100g.calories)
         )
       }
       .accessibilityIdentifier(favorite ? "favorite-\(food.id)" : "catalogFood-\(food.fdcID)")
@@ -695,8 +700,7 @@ struct FoodSearchView: View {
           title: usage.food.name,
           detail:
             "\(NutritionInput.format(usage.quantity, locale: locale)) × \(usage.food.servingDescription) · \(macroPreview(protein: usage.food.proteinGrams * usage.quantity, carbs: usage.food.carbGrams * usage.quantity, fat: usage.food.fatGrams * usage.quantity))",
-          caloriesText:
-            "\(NutritionInput.format(usage.food.calories * usage.quantity, locale: locale)) cal",
+          caloriesText: energy.short(usage.food.calories * usage.quantity),
           extraNote:
             prefix == "frequent"
             ? "Logged \(usage.logCount) \(usage.logCount == 1 ? "time" : "times")"
@@ -748,4 +752,5 @@ struct FoodSearchView: View {
     )
     .environmentObject(
       FoodLibraryPreferences(defaults: UserDefaults(suiteName: "Caliber.Food.Previews")!))
+    .environmentObject(FoundationRuntime(previewing: true))
 }
