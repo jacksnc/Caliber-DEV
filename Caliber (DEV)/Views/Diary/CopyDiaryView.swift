@@ -14,6 +14,7 @@ struct CopyDiaryView: View {
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var context
   @Environment(\.dismiss) private var dismiss
+  @EnvironmentObject private var runtime: FoundationRuntime
   @Query(sort: \DiaryEntry.date) private var entries: [DiaryEntry]
   let destination: Date
   @State private var sourceDate: Date
@@ -31,6 +32,10 @@ struct CopyDiaryView: View {
         before: request.date, calendar: calendar) ?? request.date)
     _sourceMeal = State(initialValue: request.meal)
     _destinationMeal = State(initialValue: request.meal)
+  }
+  /// Preview text only: the copied entries keep their stored kcal.
+  private var energy: CaliberEnergyDisplay {
+    CaliberEnergyDisplay(unit: runtime.settings.energyUnit, locale: locale)
   }
   private var source: [DiaryEntry] {
     entries.filter {
@@ -83,7 +88,7 @@ struct CopyDiaryView: View {
                     Text(entry.foodItem?.name ?? "Missing Food")
                     if let row = try? DiaryRepeatLogger.preview(entries: [entry]) {
                       Text(
-                        "\(entry.mealType.displayName) · \(NutritionInput.format(entry.quantity, locale: locale)) portions · \(NutritionInput.format(row.calories, locale: locale)) cal"
+                        "\(entry.mealType.displayName) · \(NutritionInput.format(entry.quantity, locale: locale)) portions · \(energy.short(row.calories))"
                       ).font(.footnote)
                     } else {
                       Text("Portion or nutrition unavailable").font(.footnote)
@@ -104,7 +109,7 @@ struct CopyDiaryView: View {
           if let totals {
             Section("Copy Total") {
               Text(
-                "\(selected.count) \(selected.count == 1 ? "food" : "foods") · \(NutritionInput.format(totals.calories, locale: locale)) calories"
+                "\(selected.count) \(selected.count == 1 ? "food" : "foods") · \(energy.sentence(totals.calories))"
               )
               .accessibilityIdentifier("copyCalories")
               Text(
