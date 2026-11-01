@@ -99,8 +99,25 @@ struct TodayFoundationView: View {
   }
 }
 
-/// "Energy today": one centered energy ring with what is left (or eaten), the eaten and goal
-/// figures under it, then protein, carbs and fat side by side with their own meters.
+/// The Today fuel pages, in the order they swipe.
+private enum TodayFuelPage: String, CaliberInfoCardPage, CaseIterable {
+  case calories, protein, carbs, fat
+
+  var id: String { rawValue }
+
+  var pageTitle: String {
+    switch self {
+    case .calories: String(localized: "Calories")
+    case .protein: String(localized: "Protein")
+    case .carbs: String(localized: "Carbs")
+    case .fat: String(localized: "Fat")
+    }
+  }
+}
+
+/// "Nutrition today": a swipeable card with Calories, Protein, Carbs and Fat pages. Each page
+/// shows one centered ring with what is left (or eaten) and the eaten and goal figures, from
+/// the day's logged totals and saved goals only.
 private struct TodayFuelCard: View {
   let entries: [DiaryEntry]
   let profile: UserProfile?
@@ -110,6 +127,8 @@ private struct TodayFuelCard: View {
   @Environment(\.caliberProfileAction) private var openProfile
   @Environment(\.selectCaliberTab) private var selectTab
   @State private var showsLeft = true
+  /// The visible fuel page. Starts on Calories and never advances by itself.
+  @State private var page = TodayFuelPage.calories
   /// The ring grows with text size so its centre label always has room.
   @ScaledMetric(relativeTo: .title3) private var scaledRing = 168.0
   @Environment(\.dynamicTypeSize) private var typeSize
@@ -120,6 +139,8 @@ private struct TodayFuelCard: View {
     let id: String
     let title: LocalizedStringKey
     let unit: String
+    /// The unit as VoiceOver should say it ("grams of protein"), not the "g" abbreviation.
+    let spokenUnit: String
     let eaten: Double
     let goal: Double?
     let color: Color
@@ -133,42 +154,73 @@ private struct TodayFuelCard: View {
     let spoken: LocalizedStringKey
   }
 
-  var body: some View {
+  /// Calories, protein, carbs and fat from the day's logged totals and saved goals only.
+  private func row(_ page: TodayFuelPage) -> Row {
     let totals = MacroCalculator.totals(for: entries)
     let energyUnit = runtime.settings.energyUnit
     let palette = theme.palette.data
-    let energy = Row(
-      id: "energy", title: "Energy", unit: energyUnit.rawValue,
-      eaten: UnitFormatting.energy(totals.calories, unit: energyUnit),
-      goal: goal(profile?.dailyCalorieGoal).map { UnitFormatting.energy($0, unit: energyUnit) },
-      color: palette.energy.color)
-    let macros = [
-      Row(
-        id: "protein", title: "Protein", unit: "g", eaten: totals.protein,
-        goal: goal(profile?.proteinGoal), color: palette.protein.color),
-      Row(
-        id: "carbs", title: "Carbs", unit: "g", eaten: totals.carbs,
-        goal: goal(profile?.carbGoal), color: palette.carbs.color),
-      Row(
-        id: "fat", title: "Fat", unit: "g", eaten: totals.fat, goal: goal(profile?.fatGoal),
-        color: palette.fat.color),
-    ]
-    let shown = figure(energy)
+    switch page {
+    case .calories:
+      return Row(
+        id: "energy", title: "Calories", unit: energyUnit.rawValue,
+        spokenUnit: energyUnit.rawValue,
+        eaten: UnitFormatting.energy(totals.calories, unit: energyUnit),
+        goal: goal(profile?.dailyCalorieGoal).map { UnitFormatting.energy($0, unit: energyUnit) },
+        color: palette.energy.color)
+    case .protein:
+      return Row(
+        id: "protein", title: "Protein", unit: "g",
+        spokenUnit: String(localized: "grams of protein"), eaten: totals.protein,
+        goal: goal(profile?.proteinGoal), color: palette.protein.color)
+    case .carbs:
+      return Row(
+        id: "carbs", title: "Carbs", unit: "g", spokenUnit: String(localized: "grams of carbs"),
+        eaten: totals.carbs, goal: goal(profile?.carbGoal), color: palette.carbs.color)
+    case .fat:
+      return Row(
+        id: "fat", title: "Fat", unit: "g", spokenUnit: String(localized: "grams of fat"),
+        eaten: totals.fat, goal: goal(profile?.fatGoal), color: palette.fat.color)
+    }
+  }
+
+  var body: some View {
+    let selected = row(page)
     VStack(alignment: .leading, spacing: HeliosTokens.space(4)) {
-      header(hasGoal: energy.goal != nil)
-      VStack(spacing: HeliosTokens.space(3)) {
-        ring(energy, figure: shown).frame(width: ringSize, height: ringSize)
-        if typeSize.isAccessibilitySize {
-          ringFigure(shown).accessibilityHidden(true)
-        }
-        energyContext(energy)
+      header(hasGoal: selected.goal != nil)
+      CaliberInfoCardPager(
+        pages: TodayFuelPage.allCases, selection: $page, identifier: "todayFuel",
+        cardName: String(localized: "Today's nutrition"),
+        detail: { tabValue(row($0)) }
+      ) { page in
+        panel(row(page))
       }
-      .frame(maxWidth: .infinity)
-      macroGrid(macros)
       if entries.isEmpty { emptyDay }
-      if energy.goal == nil { goalHint }
+      if selected.goal == nil { goalHint }
     }
     .v2Surface()
+  }
+
+  /// One page: its name, the ring with what is left (or eaten), and eaten / goal under it.
+  /// It holds no controls, so the pager can read it as one VoiceOver element.
+  private func panel(_ row: Row) -> some View {
+    let shown = figure(row)
+    return VStack(spacing: HeliosTokens.space(3)) {
+      HStack(spacing: HeliosTokens.space(1)) {
+        Circle().fill(row.color).frame(width: 8, height: 8).accessibilityHidden(true)
+        Text(row.title).heliosFont(.metricLabel)
+          .foregroundStyle(theme.palette.text.secondary.color)
+      }
+      ring(row, figure: shown).frame(width: ringSize, height: ringSize)
+      if typeSize.isAccessibilitySize {
+        ringFigure(shown).accessibilityHidden(true)
+      }
+      energyContext(row)
+    }
+  }
+
+  /// "1,462 kcal" / "142 g" under each tab name: the logged amount, never a goal share.
+  private func tabValue(_ row: Row) -> String {
+    "\(number(row.eaten, digits: 0)) \(row.unit)"
   }
 
   /// Title and the Left/Eaten switch; the switch drops below the title when they do not fit.
@@ -176,16 +228,16 @@ private struct TodayFuelCard: View {
     if hasGoal {
       ViewThatFits(in: .horizontal) {
         HStack {
-          SectionHeader("Energy today")
+          SectionHeader("Nutrition today")
           modeSwitch
         }
         VStack(alignment: .leading, spacing: HeliosTokens.space(2)) {
-          SectionHeader("Energy today")
+          SectionHeader("Nutrition today")
           modeSwitch
         }
       }
     } else {
-      SectionHeader("Energy today")
+      SectionHeader("Nutrition today")
     }
   }
 
@@ -249,7 +301,8 @@ private struct TodayFuelCard: View {
     guard showsLeft, let target = energy.goal else {
       let eaten = number(energy.eaten, digits: 0)
       return Figure(
-        value: eaten, caption: "\(unit) eaten", spoken: "\(eaten) \(unit) eaten today")
+        value: eaten, caption: "\(unit) eaten",
+        spoken: "\(eaten) \(energy.spokenUnit) eaten today")
     }
     let left = target - energy.eaten
     if left < 0 {
@@ -258,14 +311,16 @@ private struct TodayFuelCard: View {
         let one = number(1, digits: 0)
         return Figure(
           value: "<\(one)", caption: "\(unit) over",
-          spoken: "less than \(one) \(unit) over today's goal")
+          spoken: "less than \(one) \(energy.spokenUnit) over today's goal")
       }
       let shown = number(over, digits: 0)
       return Figure(
-        value: shown, caption: "\(unit) over", spoken: "\(shown) \(unit) over today's goal")
+        value: shown, caption: "\(unit) over",
+        spoken: "\(shown) \(energy.spokenUnit) over today's goal")
     }
     let shown = number(left, digits: 0)
-    return Figure(value: shown, caption: "\(unit) left", spoken: "\(shown) \(unit) left today")
+    return Figure(
+      value: shown, caption: "\(unit) left", spoken: "\(shown) \(energy.spokenUnit) left today")
   }
 
   private func modeChip(_ title: LocalizedStringKey, isLeft: Bool) -> some View {
@@ -345,53 +400,6 @@ private struct TodayFuelCard: View {
     }
     .multilineTextAlignment(.center)
     .fixedSize(horizontal: false, vertical: true)
-  }
-
-  /// Three equal columns; one column per row at accessibility sizes or when they do not fit.
-  @ViewBuilder private func macroGrid(_ rows: [Row]) -> some View {
-    let cells = ForEach(rows) { row in macroCell(row) }
-    if typeSize.isAccessibilitySize {
-      VStack(alignment: .leading, spacing: HeliosTokens.space(3)) { cells }
-    } else {
-      ViewThatFits(in: .horizontal) {
-        HStack(alignment: .top, spacing: HeliosTokens.space(3)) { cells }
-        VStack(alignment: .leading, spacing: HeliosTokens.space(3)) { cells }
-      }
-    }
-  }
-
-  private func macroCell(_ row: Row) -> some View {
-    VStack(alignment: .leading, spacing: HeliosTokens.space(1)) {
-      HStack(spacing: HeliosTokens.space(1)) {
-        Circle().fill(row.color).frame(width: 8, height: 8).accessibilityHidden(true)
-        Text(row.title).heliosFont(.metricLabel)
-          .foregroundStyle(theme.palette.text.secondary.color)
-          .fixedSize(horizontal: false, vertical: true)
-      }
-      Text("\(number(row.eaten, digits: 1)) \(row.unit)").heliosFont(.bodyStrong)
-        .foregroundStyle(theme.palette.text.primary.color)
-        .fixedSize(horizontal: false, vertical: true)
-      if let goal = row.goal {
-        Text("of \(number(goal, digits: 0)) \(row.unit)").heliosFont(.footnote)
-          .foregroundStyle(theme.palette.text.secondary.color)
-          .fixedSize(horizontal: false, vertical: true)
-        meter(row.eaten / goal, color: row.color)
-      }
-    }
-    .frame(maxWidth: .infinity, alignment: .leading)
-    .accessibilityElement(children: .combine)
-  }
-
-  private func meter(_ fraction: Double, color: Color) -> some View {
-    GeometryReader { proxy in
-      ZStack(alignment: .leading) {
-        Capsule().fill(theme.palette.border.hairline.color)
-        Capsule().fill(color)
-          .frame(width: proxy.size.width * min(max(fraction, 0), 1))
-      }
-    }
-    .frame(height: 6)
-    .accessibilityHidden(true)
   }
 
   private func number(_ value: Double, digits: Int) -> String {
