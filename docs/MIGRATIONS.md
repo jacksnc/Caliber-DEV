@@ -173,3 +173,12 @@ No migration. All additions are view layout, nonpersistent presentation flags,
 accessibility IDs and isolated tests. Canonical food/weight/dose data, schemas,
 calculation engines, snapshots, settings and providers are unchanged. Work is in
 separate QA builds with fictional in-memory fixtures; personal stores untouched.
+
+## Diary metric swipe and widget lookbook - 2026-11-01
+
+No migration. Meal headers and the daily nutrition summary are presentation-only;
+the four summary pages read the existing DiaryEntry totals and UserProfile goals.
+The HTML/PDF widget lookbook uses invented sample values and local interactions.
+No WidgetKit target, App Group, entitlement, account store, user setting, or
+provider configuration was added or changed. Owner data and simulator remain
+untouched.

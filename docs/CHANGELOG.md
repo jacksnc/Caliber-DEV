@@ -281,3 +281,16 @@ Prevented floating navigation from covering a pushed review's Add action. Footer
 presence is transient UI state and releases on dismissal. Pushed save/favorite/
 frequent reuse and modal cancel/reuse pass; normal tab stack behavior is retained.
 No health calculation, persistence or user-device changes.
+
+## 2026-11-01 - Diary headers, swipe metrics, and widget lookbook
+
+- Centered meal headers now show recorded item count and calories, plus labeled
+  Copy/Add food controls that reflow at compact widths and larger text.
+- The daily nutrition summary can switch between recorded Calories, Protein,
+  Carbs and Fat by swiping its value area or using labeled page controls.
+- Added an interactive Graphite/Frost phone lookbook for the swipe card and
+  Small/Medium/Large home-screen widget concepts, including a locked privacy
+  preview. The PDF is a five-page, visually reviewed addendum.
+- Widget concepts remain design-only; no WidgetKit target, shared container,
+  entitlement or widget data snapshot is added. No storage or nutrition math
+  changed.

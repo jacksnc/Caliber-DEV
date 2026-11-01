@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Caliber concept study for swipeable diary cards and iPhone widgets in Graphite and Frost.">
+  <title>Caliber · Cards and Widgets</title>
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="cards-and-widgets.css">
+  <script src="cards-and-widgets.js" defer></script>
+</head>
+<body class="v2-app">
+  <a class="skip-link" href="#main">Skip to the lookbook</a>
+  <header class="study-top">
+    <a class="wordmark" href="index.html">CALIBER <span>/ FIELD STUDY 03</span></a>
+    <div class="theme-switch" role="group" aria-label="Preview color theme">
+      <button type="button" data-theme-choice="graphite" aria-pressed="true">Graphite</button>
+      <button type="button" data-theme-choice="frost" aria-pressed="false">Frost</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="study-hero">
+      <p class="eyebrow">CALIBER · INTERACTION + WIDGETS</p>
+      <h1>Keep the data close.<br>Keep the screen calm.</h1>
+      <p class="hero-copy">A swipeable daily nutrition card and three home-screen widget sizes, designed for quick checks in Graphite and Frost.</p>
+      <div class="hero-tags"><span>iPhone study</span><span>Fictional sample data</span><span>Not wired to a user account</span></div>
+    </section>
+
+    <section class="chapter swipe-chapter" aria-labelledby="swipe-title">
+      <div class="chapter-copy">
+        <p class="eyebrow">01 / IN THE APP</p>
+        <h2 id="swipe-title">One card.<br>Four useful views.</h2>
+        <p>Swipe the summary card, or use the labeled arrows, to move through today's recorded calories and macros. The diary below stays put.</p>
+        <ol class="metric-order" aria-label="Card order">
+          <li><b>01</b> Calories</li><li><b>02</b> Protein</li><li><b>03</b> Carbs</li><li><b>04</b> Fat</li>
+        </ol>
+        <p class="small-note">The values below are fictional preview data. A native version would read saved diary totals and keep the same editable food-review flow.</p>
+      </div>
+
+      <div class="phone-stage">
+        <div class="phone" aria-label="Caliber iPhone Diary design preview">
+          <div class="phone-status"><span>9:41</span><span>••• ◔</span></div>
+          <div class="phone-head"><div><p class="eyebrow">FUEL</p><h3>Diary</h3></div><span class="avatar" aria-hidden="true">J</span></div>
+          <p class="today-label">Today · Friday, Oct 30</p>
+
+          <section class="swipe-card" id="nutrition-carousel" role="group" aria-roledescription="carousel" aria-label="Daily nutrition summary">
+            <div class="metric-top"><span class="eyebrow">TODAY'S LOG</span><span class="live-dot" aria-hidden="true"></span></div>
+            <div class="metric-slides" aria-live="polite" aria-atomic="true">
+              <article class="metric-slide" data-page="0" role="group" aria-roledescription="slide" aria-label="Calories, page 1 of 4">
+                <p class="metric-name">Calories</p><p class="big-value">1,462</p><p class="unit-line">kcal recorded today</p>
+              </article>
+              <article class="metric-slide" data-page="1" role="group" aria-roledescription="slide" aria-label="Protein, page 2 of 4" hidden>
+                <p class="metric-name">Protein</p><p class="big-value">142 <small>g</small></p><p class="unit-line">from today's saved entries</p>
+              </article>
+              <article class="metric-slide" data-page="2" role="group" aria-roledescription="slide" aria-label="Carbs, page 3 of 4" hidden>
+                <p class="metric-name">Carbs</p><p class="big-value">118 <small>g</small></p><p class="unit-line">from today's saved entries</p>
+              </article>
+              <article class="metric-slide" data-page="3" role="group" aria-roledescription="slide" aria-label="Fat, page 4 of 4" hidden>
+                <p class="metric-name">Fat</p><p class="big-value">52 <small>g</small></p><p class="unit-line">from today's saved entries</p>
+              </article>
+            </div>
+            <div class="carousel-controls">
+              <button class="round-control" type="button" data-move="-1" aria-label="Previous nutrition metric">‹</button>
+              <span class="page-status" aria-hidden="true"><span data-current-page>01</span><i></i>04</span>
+              <button class="round-control" type="button" data-move="1" aria-label="Next nutrition metric">›</button>
+            </div>
+            <p class="swipe-hint">Swipe or use the arrows</p>
+          </section>
+
+          <section class="meal-preview" aria-labelledby="meal-breakfast">
+            <div class="meal-heading">
+              <div class="meal-heading-copy"><h4 id="meal-breakfast">Breakfast</h4><p>1 food · 420 cal</p></div>
+              <div class="meal-actions"><button class="copy-action" type="button" aria-label="Copy Breakfast" aria-disabled="true">Copy</button><button class="add-action" type="button" aria-label="Add food to Breakfast" aria-disabled="true">+ Add food</button></div>
+            </div>
+            <div class="food-preview"><span>Fictional oats &amp; berries</span><b>420 cal</b></div>
+          </section>
+          <div class="phone-tab" aria-hidden="true"><span>Today</span><span>Train</span><span class="selected">Fuel</span><span>Stack</span><span>Progress</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter widget-chapter" aria-labelledby="widgets-title">
+      <div class="chapter-heading">
+        <p class="eyebrow">02 / AT A GLANCE</p>
+        <h2 id="widgets-title">Useful at every size.</h2>
+        <p>One Fuel widget grows from a single daily check to a compact meal breakdown. Choose a locked-screen preview to see the privacy state.</p>
+      </div>
+      <div class="privacy-control">
+        <span>Preview device locked</span>
+        <button type="button" class="privacy-toggle" id="privacy-toggle" aria-pressed="false" aria-label="Preview locked-device privacy">Off</button>
+        <span class="small-note">Visual prototype. Native WidgetKit privacy redaction is not implemented here.</span>
+      </div>
+      <div class="widget-grid">
+        <figure class="widget-figure small-figure">
+          <figcaption><b>Small</b><span>One number to orient the day</span></figcaption>
+          <div class="widget small-widget" data-sensitive="true" aria-label="Small Nutrition Today widget sample">
+            <div class="widget-kicker"><span class="brand-dot"></span> FUEL · TODAY</div>
+            <div class="widget-total"><strong>1,462</strong><small>kcal logged</small></div>
+            <div class="widget-foot"><span>Friday, Oct 30</span><span class="widget-go">Open diary ↗</span></div>
+            <div class="redaction" aria-hidden="true"><span>CALIBER</span><b>Your day, at a glance</b></div>
+          </div>
+        </figure>
+        <figure class="widget-figure medium-figure">
+          <figcaption><b>Medium</b><span>Calories and macro snapshot</span></figcaption>
+          <div class="widget medium-widget" data-sensitive="true" aria-label="Medium Nutrition Today widget sample">
+            <div class="widget-kicker"><span class="brand-dot"></span> FUEL · TODAY <span class="spacer"></span> Friday, Oct 30</div>
+            <div class="medium-content"><div><small>CALORIES</small><strong>1,462 <i>kcal</i></strong><span class="widget-go">Open diary ↗</span></div><div class="macro-mini"><span><b>142 g</b><small>Protein</small></span><span><b>118 g</b><small>Carbs</small></span><span><b>52 g</b><small>Fat</small></span></div></div>
+            <div class="redaction" aria-hidden="true"><span>CALIBER</span><b>Your diary is private</b></div>
+          </div>
+        </figure>
+        <figure class="widget-figure large-figure">
+          <figcaption><b>Large</b><span>See where the day's logged food sits</span></figcaption>
+          <div class="widget large-widget" data-sensitive="true" aria-label="Large Nutrition Today widget sample">
+            <div class="widget-kicker"><span class="brand-dot"></span> FUEL · TODAY <span class="spacer"></span> Fictional sample</div>
+            <div class="large-summary"><strong>1,462 <i>kcal logged</i></strong><span class="widget-go">Open today's diary ↗</span></div>
+            <ul class="meal-list"><li><span>Breakfast</span><b>420 cal</b></li><li><span>Lunch</span><b>650 cal</b></li><li><span>Dinner</span><b>0 cal</b></li><li><span>Snacks</span><b>392 cal</b></li></ul>
+            <div class="redaction" aria-hidden="true"><span>CALIBER</span><b>Tap to open Fuel</b></div>
+          </div>
+        </figure>
+      </div>
+      <p class="privacy-note"><strong>Privacy direction:</strong> mark nutrition content as sensitive for system-managed Lock Screen redaction. Keep Stack details and body photos out of widget snapshots. Neutral shortcut content remains useful when the numbers are hidden.</p>
+    </section>
+
+    <section class="chapter principles" aria-labelledby="principles-title">
+      <p class="eyebrow">03 / BEHAVIOR + SAFETY</p>
+      <h2 id="principles-title">A clear interaction contract.</h2>
+      <div class="principle-grid">
+        <article><b>01 · Keep gestures local</b><p>Only the nutrition summary card swipes. Meal rows keep their existing native actions, so a gesture on a food never changes the metric page.</p></article>
+        <article><b>02 · Keep arrows visible</b><p>Previous/Next buttons and page labels provide an alternative to swiping, with a full spoken metric name for VoiceOver.</p></article>
+        <article><b>03 · Respect reduced motion</b><p>Swap content without a sliding animation when Reduce Motion is on. There is no autoplay.</p></article>
+        <article><b>04 · Widgets stay glanceable</b><p>Widgets open the matching Diary destination. A widget is a read-only snapshot until a separate interaction is designed and tested.</p></article>
+      </div>
+      <div class="handoff-note"><b>Scope:</b> original visual concept and interactive HTML preview, using synthetic values from the existing sample diary. No WidgetKit target, shared data container, App Group, entitlement, account data, or native card swipe is enabled by this lookbook.</div>
+      <details class="sources"><summary>Platform references</summary><ul>
+        <li><a href="https://developer.apple.com/design/human-interface-guidelines/widgets">Apple Human Interface Guidelines: Widgets</a></li>
+        <li><a href="https://developer.apple.com/documentation/widgetkit/widgetfamily">Apple WidgetKit: WidgetFamily</a></li>
+        <li><a href="https://developer.apple.com/documentation/widgetkit/keeping-a-widget-up-to-date">Apple WidgetKit: Keeping a widget up to date</a></li>
+        <li><a href="https://developer.apple.com/documentation/widgetkit/creating-a-widget-extension">Apple WidgetKit: Creating a widget extension and sensitive content</a></li>
+      </ul></details>
+    </section>
+  </main>
+  <footer class="study-footer">CALIBER / LOOKBOOK ADDENDUM 01 · Original design · Fictional data · November 2026</footer>
+</body>
+</html>

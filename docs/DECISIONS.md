@@ -409,3 +409,22 @@ data path. Validate real orientation/state behavior separately from source
 arithmetic; actual split-window and physical foldable checks remain distinct.
 The owner resumed active work after the overnight limit; the expired automation
 was deleted instead of silently extending unattended work.
+
+## V210 — Centered Diary headers and swipeable nutrition summary (2026-11-01)
+
+Center each Breakfast/Lunch/Dinner/Snack title with a concise recorded-item and
+calorie line; retain visible Copy/Add food actions with 48pt minimum targets and
+stack them when the available width or Dynamic Type requires it. The owner
+explicitly requested centered meal headings, so that direction wins over the
+peer preference for leading alignment. In the separate daily nutrition summary,
+swipe only the value panel through Calories → Protein → Carbs → Fat. Keep named
+metric buttons and previous/next controls as visible alternatives, expose the
+selected page and adjustable actions to VoiceOver, and switch content without a
+sliding animation. Keep the swipe away from diary entry rows so native delete,
+edit and vertical scrolling remain intact. Use the existing totals and saved
+goals only; do not infer meal targets, macro-derived calories or missing-macro
+semantics. Claude's shared metric selector is the adopted pattern; Gemini's
+per-meal Overview/Macros/Foods pager was not selected because it places paging
+inside List sections with existing row gestures and would make meals harder to
+compare. Phone widgets remain a design handoff only until a separate privacy and
+data-sharing boundary is approved and verified.

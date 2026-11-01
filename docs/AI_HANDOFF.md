@@ -1,5 +1,50 @@
 # Caliber AI handoff
 
+## Diary headers, swipe metrics, and widget lookbook — 2026-11-01
+
+Current branch: `codex/v2-meal-headers` in
+`/Users/jcrock/Documents/Codex/Caliber-v2-meal-headers` (seed `ccd74c1`). The
+owner requested centered Breakfast/Lunch/Dinner/Snack headers, data cards that
+can swipe between information, and a phone widget lookbook. `DiaryView.swift`
+centers each meal title, shows its saved entry count and recorded calories, and
+uses visible labeled Copy/Add controls with adaptive stacking. The daily
+nutrition summary value area pages through saved Calories, Protein, Carbs and
+Fat totals. Named metric buttons, previous/next controls, VoiceOver adjustable
+and custom actions, and the touch swipe are alternatives. Only the summary value
+panel captures horizontal gestures; the diary rows keep their edit/delete
+behavior. Content changes without a sliding animation. No health math or
+storage changed.
+
+The Graphite/Frost concept is in
+`design/lookbook-v2/cards-and-widgets.html` with its CSS/JS, and the five-page
+PDF handoff is `output/pdf/Caliber-Cards-and-Widgets-Lookbook.pdf`. It uses
+fictional values and shows small/medium/large nutrition widgets plus a locked
+privacy preview. WidgetKit remains unimplemented; there is no App Group, shared
+snapshot, entitlement or save action. Claude recommended a shared metric
+selector so meals remain comparable. Gemini proposed a per-meal Overview / Macro
+/ Foods pager and contributed widget size, privacy, refresh and accessibility
+ideas. We chose Claude's single shared card pattern to keep gestures out of
+List rows; the widget concepts combine both reviews.
+
+Validation: HTML parsed with unique IDs; JavaScript syntax passed; SwiftFormat
+and the foundation linter passed; strict Dynamic Type lint reported 224 files,
+zero errors/warnings. The latest isolated incremental iOS Simulator build exited
+0 after the last source edit (with Xcode's existing non-fatal
+`Supported platforms ... is empty` destination warning). The focused UI suite
+passed 3/3 on the isolated `Caliber Compact QA` iPhone SE simulator, covering
+all meal headers, 48pt actions, Frost accessibility-size layout, and metric
+button/arrow navigation. A separate one-case rerun passed with a direct
+finger-swipe assertion, and the Breakfast header screenshot was exported and
+visually inspected. The earlier result bundle has 0 passed / 1 failed runner
+record (`Testing was canceled`) and is superseded by the passing runs, not
+hidden. The final five-page PDF was rendered and visually reviewed; a
+locked-preview text/button overlap found on page 4 was corrected and re-rendered.
+Do not use or modify the owner's iPhone 17 simulator. No owner build was
+installed. Final git checks and commit remain.
+
+See `docs/parallel/diary-widgets/SESSION.md` for exact evidence, peer review and
+the remaining checklist.
+
 ## Owner local preview updated — 2026-10-31
 
 Explicit owner request to see a local build is fulfilled with verified84edf55 in

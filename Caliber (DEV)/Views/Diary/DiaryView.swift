@@ -178,7 +178,7 @@ struct DiaryView: View {
     Section {
       if entries.isEmpty {
         Text("No items yet")
-          .foregroundStyle(.secondary)
+          .foregroundStyle(theme.palette.text.secondary.color)
       } else {
         ForEach(entries) { entry in
           Button {
@@ -209,14 +209,28 @@ struct DiaryView: View {
       }
     } header: {
       ViewThatFits(in: .horizontal) {
-        HStack(alignment: .center, spacing: 12) {
+        HStack(alignment: .center, spacing: 8) {
+          mealActionButton(meal, copy: true)
+            .frame(width: 104)
           mealHeading(meal, entries: entries)
-          Spacer(minLength: 8)
+            .frame(maxWidth: .infinity)
+          mealActionButton(meal, copy: false)
+            .frame(width: 104)
+        }
+        VStack(spacing: 8) {
+          mealHeading(meal, entries: entries)
+            .frame(maxWidth: .infinity)
           mealActions(meal)
         }
-        VStack(alignment: .leading, spacing: 8) {
-          mealHeading(meal, entries: entries)
-          mealActions(meal)
+      }
+      .padding(.bottom, entries.isEmpty ? 0 : 8)
+      .overlay(alignment: .bottom) {
+        if !entries.isEmpty {
+          Rectangle()
+            .fill(theme.palette.border.hairline.color)
+            .frame(height: 1)
+            .padding(.horizontal, 8)
+            .accessibilityHidden(true)
         }
       }
       .textCase(nil)
@@ -224,37 +238,73 @@ struct DiaryView: View {
   }
 
   private func mealHeading(_ meal: MealType, entries: [DiaryEntry]) -> some View {
-    VStack(alignment: .leading, spacing: 4) {
+    VStack(alignment: .center, spacing: 4) {
       Text(meal.displayName).heliosFont(.section)
-      if !entries.isEmpty {
-        Text(
-          "\(NutritionInput.format(MacroCalculator.totals(for: entries).calories, locale: locale)) cal"
-        )
+        .multilineTextAlignment(.center)
+        .fixedSize(horizontal: false, vertical: true)
+        .accessibilityAddTraits(.isHeader)
+
+      let foodCount = entries.count == 1 ? "1 food" : "\(entries.count) foods"
+      let calories = NutritionInput.format(
+        MacroCalculator.totals(for: entries).calories, locale: locale)
+      Text("\(foodCount) · \(calories) cal")
         .heliosFont(.caption)
-      }
+        .foregroundStyle(theme.palette.text.secondary.color)
+        .multilineTextAlignment(.center)
+        .fixedSize(horizontal: false, vertical: true)
     }
     .foregroundStyle(theme.palette.text.primary.color)
-    .fixedSize(horizontal: false, vertical: true)
+    .accessibilityElement(children: .combine)
+    .accessibilityIdentifier("diaryMealHeader-\(meal.rawValue)")
   }
 
   private func mealActions(_ meal: MealType) -> some View {
-    HStack(spacing: 8) {
-      Button {
-        copyRequest = DiaryCopyRequest(date: selectedDate, meal: meal)
-      } label: {
-        Image(systemName: "doc.on.doc").frame(minWidth: 48, minHeight: 48)
+    ViewThatFits(in: .horizontal) {
+      HStack(spacing: 8) {
+        mealActionButton(meal, copy: true)
+        Spacer(minLength: 8)
+        mealActionButton(meal, copy: false)
       }
-      .accessibilityLabel("Copy \(meal.displayName)")
-      .accessibilityIdentifier("diaryCopy-\(meal.rawValue)")
-      Button {
-        mealTypePresentingSheet = meal
-      } label: {
-        Image(systemName: "plus.circle.fill").frame(minWidth: 48, minHeight: 48)
+      VStack(spacing: 8) {
+        mealActionButton(meal, copy: true, wide: true)
+        mealActionButton(meal, copy: false, wide: true)
       }
-      .accessibilityLabel("Add to \(meal.displayName)")
-      .accessibilityIdentifier("diaryAdd-\(meal.rawValue)")
     }
-    .buttonStyle(.borderless)
+  }
+
+  private func mealActionButton(_ meal: MealType, copy: Bool, wide: Bool = false) -> some View {
+    let palette = theme.palette
+    let shape = RoundedRectangle(cornerRadius: copy ? 12 : 24, style: .continuous)
+
+    return Button {
+      if copy {
+        copyRequest = DiaryCopyRequest(date: selectedDate, meal: meal)
+      } else {
+        mealTypePresentingSheet = meal
+      }
+    } label: {
+      Label(copy ? "Copy" : "Add food", systemImage: copy ? "doc.on.doc" : "plus")
+        .labelStyle(.titleAndIcon)
+        .heliosFont(.bodyStrong)
+        .foregroundStyle(copy ? palette.text.primary.color : palette.text.onAccent.color)
+        .padding(.horizontal, 12)
+        .frame(minWidth: 48, maxWidth: wide ? .infinity : nil, minHeight: 48)
+        .background {
+          shape.fill(copy ? palette.glass.raised.color : palette.accent.base.color)
+        }
+        .overlay {
+          if copy || palette.isHighContrast {
+            shape.strokeBorder(
+              copy ? palette.border.hairline.color : palette.border.strong.color,
+              lineWidth: palette.isHighContrast ? 1.5 : 1)
+          }
+        }
+        .contentShape(shape)
+    }
+    .buttonStyle(.plain)
+    .accessibilityLabel(copy ? "Copy \(meal.displayName)" : "Add to \(meal.displayName)")
+    .accessibilityIdentifier(
+      copy ? "diaryCopy-\(meal.rawValue)" : "diaryAdd-\(meal.rawValue)")
   }
 
 }
@@ -321,25 +371,73 @@ private struct MacroTotalsSummaryView: View {
   let totals: MacroTotals
   let profile: UserProfile?
 
-  private var energy: DiaryNutritionMetric {
-    DiaryNutritionMetric(value: totals.calories, goal: profile?.dailyCalorieGoal)
+  @State private var selectedMetric: DiarySummaryMetric = .calories
+
+  private var selectedNutrition: DiaryNutritionMetric {
+    DiaryNutritionMetric(
+      value: selectedMetric.value(in: totals), goal: selectedMetric.goal(in: profile))
   }
 
   var body: some View {
     VStack(spacing: 16) {
-      Text("Energy consumed")
+      metricPanel
+        .contentShape(Rectangle())
+        .simultaneousGesture(metricSwipe)
+
+      metricPicker
+
+      HStack(spacing: 12) {
+        pageButton(step: -1, label: "Previous nutrition metric", symbol: "chevron.left")
+        Text(
+          "\(selectedMetric.accessibilityName) · \(selectedMetric.index + 1) of \(DiarySummaryMetric.allCases.count)"
+        )
+        .heliosFont(.caption)
+        .foregroundStyle(theme.palette.text.secondary.color)
+        .multilineTextAlignment(.center)
+        .frame(maxWidth: .infinity)
+        .accessibilityHidden(true)
+        pageButton(step: 1, label: "Next nutrition metric", symbol: "chevron.right")
+      }
+
+      Text("Swipe or choose a metric")
+        .heliosFont(.caption)
+        .foregroundStyle(theme.palette.text.secondary.color)
+        .accessibilityHidden(true)
+    }
+    .padding(.vertical, 12)
+    .frame(maxWidth: .infinity)
+    .accessibilityElement(children: .contain)
+    .accessibilityLabel("Daily nutrition summary")
+    .accessibilityValue(
+      "\(selectedMetric.accessibilityName), page \(selectedMetric.index + 1) of \(DiarySummaryMetric.allCases.count)"
+    )
+    .accessibilityAdjustableAction { direction in
+      switch direction {
+      case .increment: selectMetric(step: 1)
+      case .decrement: selectMetric(step: -1)
+      @unknown default: break
+      }
+    }
+    .accessibilityAction(named: Text("Next nutrition metric")) { selectMetric(step: 1) }
+    .accessibilityAction(named: Text("Previous nutrition metric")) { selectMetric(step: -1) }
+  }
+
+  private var metricPanel: some View {
+    VStack(spacing: 10) {
+      Text(selectedMetric.title)
         .heliosFont(.footnote)
         .foregroundStyle(theme.palette.text.secondary.color)
-      if energy.goal != nil && !typeSize.isAccessibilitySize {
+
+      if selectedNutrition.goal != nil && !typeSize.isAccessibilitySize {
         figure
           .padding(24)
           .frame(maxWidth: .infinity, minHeight: 210)
           .background {
             Circle().stroke(theme.palette.border.hairline.color, lineWidth: 4)
               .overlay {
-                Circle().trim(from: 0, to: energy.progress ?? 0)
+                Circle().trim(from: 0, to: selectedNutrition.progress ?? 0)
                   .stroke(
-                    theme.palette.data.energy.color,
+                    selectedMetric.color(in: theme),
                     style: StrokeStyle(lineWidth: 4, lineCap: .round)
                   )
                   .rotationEffect(.degrees(-90))
@@ -348,65 +446,138 @@ private struct MacroTotalsSummaryView: View {
               .accessibilityHidden(true)
           }
       } else {
-        // At AX sizes the text gets the full card width, with no decorative ring to constrain it.
-        figure.frame(maxWidth: .infinity)
+        // At AX sizes the value gets the full card width without a decorative ring.
+        figure.frame(maxWidth: .infinity, minHeight: typeSize.isAccessibilitySize ? nil : 210)
       }
-      if energy.value == nil {
-        Text("Review the logged nutrition values")
-          .heliosFont(.footnote)
-          .foregroundStyle(theme.palette.text.secondary.color)
-      } else if let over = energy.aboveGoal, over > 0 {
-        balanceText(over, suffix: "calories above goal")
-      } else if let left = energy.remaining {
-        balanceText(left, suffix: "calories remaining")
-      } else if let openProfile {
-        Button("Set goals in Profile", action: openProfile)
-          .buttonStyle(.heliosSecondary)
-          .frame(minHeight: 48)
-          .accessibilityIdentifier("diarySetGoals")
-      }
-      LazyVGrid(
-        columns: Array(
-          repeating: GridItem(.flexible(), alignment: .top),
-          count: typeSize.isAccessibilitySize ? 1 : 3),
-        spacing: 16
-      ) {
-        macro(
-          "Protein", value: totals.protein, goal: profile?.proteinGoal,
-          color: theme.palette.data.protein.color)
-        macro(
-          "Carbs", value: totals.carbs, goal: profile?.carbGoal,
-          color: theme.palette.data.carbs.color)
-        macro("Fat", value: totals.fat, goal: profile?.fatGoal, color: theme.palette.data.fat.color)
-      }
+
+      goalSummary
       Text("Food totals · activity is shown separately")
         .heliosFont(.caption)
         .foregroundStyle(theme.palette.text.secondary.color)
         .multilineTextAlignment(.center)
     }
-    .padding(.vertical, 12)
     .frame(maxWidth: .infinity)
+  }
+
+  private var goalSummary: some View {
+    Group {
+      if selectedNutrition.value == nil {
+        Text("Review the logged nutrition values")
+          .heliosFont(.footnote)
+          .foregroundStyle(theme.palette.text.secondary.color)
+      } else if let over = selectedNutrition.aboveGoal, over > 0 {
+        balanceText(over, suffix: selectedMetric.aboveGoalLabel)
+      } else if let left = selectedNutrition.remaining {
+        balanceText(left, suffix: selectedMetric.remainingLabel)
+      } else if let openProfile {
+        Button("Set goals in Profile", action: openProfile)
+          .buttonStyle(.heliosSecondary)
+          .frame(minHeight: 48)
+          .accessibilityIdentifier("diarySetGoals")
+      } else {
+        Text("No daily goal set")
+          .heliosFont(.footnote)
+          .foregroundStyle(theme.palette.text.secondary.color)
+      }
+    }
+  }
+
+  @ViewBuilder private var metricPicker: some View {
+    ViewThatFits(in: .horizontal) {
+      HStack(spacing: 6) {
+        ForEach(DiarySummaryMetric.allCases) { metric in metricButton(metric) }
+      }
+      LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
+        ForEach(DiarySummaryMetric.allCases) { metric in metricButton(metric) }
+      }
+    }
+  }
+
+  private func metricButton(_ metric: DiarySummaryMetric) -> some View {
+    let selected = selectedMetric == metric
+    let shape = RoundedRectangle(cornerRadius: 12, style: .continuous)
+    return Button {
+      // The button is also the non-swipe alternative to changing card pages.
+      selectedMetric = metric
+    } label: {
+      Text(metric.title)
+        .heliosFont(selected ? .bodyStrong : .footnote)
+        .foregroundStyle(
+          selected ? theme.palette.text.primary.color : theme.palette.text.secondary.color
+        )
+        .fixedSize(horizontal: true, vertical: true)
+        .frame(minWidth: 48, maxWidth: .infinity, minHeight: 48)
+        .background {
+          shape.fill(
+            selected ? theme.palette.accent.subtle.color : theme.palette.glass.raised.color)
+        }
+        .overlay {
+          shape.strokeBorder(
+            selected ? theme.palette.accent.base.color : theme.palette.border.hairline.color,
+            lineWidth: selected ? 1.5 : 1)
+        }
+        .contentShape(shape)
+    }
+    .buttonStyle(.plain)
+    .accessibilityLabel("Show \(metric.accessibilityName)")
+    .accessibilityValue(selected ? "Selected" : "")
+    .accessibilityAddTraits(selected ? .isSelected : [])
+    .accessibilityIdentifier("diaryMetric-\(metric.rawValue)")
+  }
+
+  private func pageButton(step: Int, label: String, symbol: String) -> some View {
+    Button {
+      selectMetric(step: step)
+    } label: {
+      Image(systemName: symbol)
+        .frame(minWidth: 48, minHeight: 48)
+        .background(theme.palette.glass.raised.color, in: Circle())
+    }
+    .buttonStyle(.plain)
+    .accessibilityLabel(label)
+    .accessibilityIdentifier(step < 0 ? "diaryPreviousMetric" : "diaryNextMetric")
+  }
+
+  private var metricSwipe: some Gesture {
+    DragGesture(minimumDistance: 28)
+      .onEnded { gesture in
+        let horizontal = gesture.translation.width
+        let vertical = gesture.translation.height
+        guard abs(horizontal) >= 44, abs(horizontal) > abs(vertical) * 1.25 else { return }
+        // There is no sliding animation, so the page also respects Reduce Motion.
+        selectMetric(step: horizontal < 0 ? 1 : -1)
+      }
+  }
+
+  private func selectMetric(step: Int) {
+    let count = DiarySummaryMetric.allCases.count
+    let next = (selectedMetric.index + step + count) % count
+    selectedMetric = DiarySummaryMetric.allCases[next]
   }
 
   private var figure: some View {
     VStack(spacing: 4) {
-      Text(energy.value.map { NutritionInput.format($0, locale: locale) } ?? "—")
+      Text(selectedNutrition.value.map { NutritionInput.format($0, locale: locale) } ?? "—")
         .heliosFont(.hero)
         .multilineTextAlignment(.center)
         .fixedSize(horizontal: false, vertical: true)
-        // Keep the existing precise accessibility label and automation identifier.
         .accessibilityLabel(
-          energy.value.map { "\(NutritionInput.format($0, locale: locale)) calories" }
-            ?? "Calories unavailable"
+          selectedNutrition.value.map {
+            "\(NutritionInput.format($0, locale: locale)) \(selectedMetric.accessibilityUnit)"
+          } ?? "\(selectedMetric.accessibilityName) unavailable"
         )
-        .accessibilityIdentifier("diaryCalories")
-      if let goal = energy.goal {
-        Text("of \(NutritionInput.format(goal, locale: locale)) calories")
-          .heliosFont(.footnote)
-          .multilineTextAlignment(.center)
-          .foregroundStyle(theme.palette.text.secondary.color)
+        .accessibilityIdentifier(
+          selectedMetric == .calories
+            ? "diaryCalories" : "diaryMetricValue-\(selectedMetric.rawValue)")
+      if let goal = selectedNutrition.goal {
+        Text(
+          "of \(NutritionInput.format(goal, locale: locale)) \(selectedMetric.accessibilityUnit)"
+        )
+        .heliosFont(.footnote)
+        .multilineTextAlignment(.center)
+        .foregroundStyle(theme.palette.text.secondary.color)
       } else {
-        Text("calories logged · no goal set")
+        Text(LocalizedStringKey("\(selectedMetric.accessibilityName) logged · no goal set"))
           .heliosFont(.footnote)
           .multilineTextAlignment(.center)
           .foregroundStyle(theme.palette.text.secondary.color)
@@ -425,25 +596,68 @@ private struct MacroTotalsSummaryView: View {
     .accessibilityElement(children: .combine)
     .accessibilityIdentifier("diaryEnergyBalance")
   }
+}
 
-  private func macro(_ title: LocalizedStringKey, value: Double, goal: Double?, color: Color)
-    -> some View
-  {
-    let metric = DiaryNutritionMetric(value: value, goal: goal)
-    return VStack(alignment: typeSize.isAccessibilitySize ? .leading : .center, spacing: 6) {
-      Text(title).heliosFont(.caption).foregroundStyle(theme.palette.text.secondary.color)
-      Text(metric.value.map { "\(NutritionInput.format($0, locale: locale)) g" } ?? "—")
-        .heliosFont(.metricValue)
-        .fixedSize(horizontal: false, vertical: true)
-      if let progress = metric.progress, let goal = metric.goal {
-        ProgressView(value: progress).tint(color).accessibilityHidden(true)
-        Text("of \(NutritionInput.format(goal, locale: locale)) g")
-          .heliosFont(.caption)
-          .foregroundStyle(theme.palette.text.secondary.color)
-      }
+private enum DiarySummaryMetric: String, CaseIterable, Identifiable {
+  case calories
+  case protein
+  case carbs
+  case fat
+
+  var id: String { rawValue }
+  var index: Int { Self.allCases.firstIndex(of: self) ?? 0 }
+  var title: LocalizedStringKey { LocalizedStringKey(accessibilityName) }
+  var accessibilityName: String { rawValue.capitalized }
+  var accessibilityUnit: String {
+    switch self {
+    case .calories: "calories"
+    case .protein: "grams protein"
+    case .carbs: "grams carbohydrates"
+    case .fat: "grams fat"
     }
-    .frame(maxWidth: .infinity, alignment: typeSize.isAccessibilitySize ? .leading : .center)
-    .accessibilityElement(children: .combine)
+  }
+  var remainingLabel: LocalizedStringKey {
+    switch self {
+    case .calories: "calories remaining"
+    case .protein: "grams protein remaining"
+    case .carbs: "grams carbohydrates remaining"
+    case .fat: "grams fat remaining"
+    }
+  }
+  var aboveGoalLabel: LocalizedStringKey {
+    switch self {
+    case .calories: "calories above goal"
+    case .protein: "grams protein above goal"
+    case .carbs: "grams carbohydrates above goal"
+    case .fat: "grams fat above goal"
+    }
+  }
+
+  func value(in totals: MacroTotals) -> Double {
+    switch self {
+    case .calories: totals.calories
+    case .protein: totals.protein
+    case .carbs: totals.carbs
+    case .fat: totals.fat
+    }
+  }
+
+  func goal(in profile: UserProfile?) -> Double? {
+    switch self {
+    case .calories: profile?.dailyCalorieGoal
+    case .protein: profile?.proteinGoal
+    case .carbs: profile?.carbGoal
+    case .fat: profile?.fatGoal
+    }
+  }
+
+  func color(in theme: HeliosTheme) -> Color {
+    switch self {
+    case .calories: theme.palette.data.energy.color
+    case .protein: theme.palette.data.protein.color
+    case .carbs: theme.palette.data.carbs.color
+    case .fat: theme.palette.data.fat.color
+    }
   }
 }
 
