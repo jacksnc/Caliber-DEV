@@ -94,11 +94,19 @@ extension EnvironmentValues {
 /// avoiding the OS toolbar's extra glass capsule and vertical gap.
 private struct ProfileAvatarModifier: ViewModifier {
   @State private var showsProfile = false
+  @State private var presenceID = UUID()
+  @Environment(\.caliberExternalNavigationPresence) private var reportPresence
 
   func body(content: Content) -> some View {
     content
       .environment(\.caliberProfileAction, { showsProfile = true })
-      .sheet(isPresented: $showsProfile) { ProfileView(showsDone: true) }
+      .sheet(isPresented: $showsProfile, onDismiss: { reportPresence(presenceID, false) }) {
+        ProfileView(showsDone: true)
+      }
+      .onChange(of: showsProfile) { _, visible in
+        if visible { reportPresence(presenceID, true) }
+      }
+      .onDisappear { reportPresence(presenceID, false) }
   }
 }
 

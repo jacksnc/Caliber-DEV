@@ -10,37 +10,28 @@ import SwiftUI
 /// into subgenres — restaurants, plus the user's own saved meals and foods.
 struct FoodLibraryView: View {
   @State private var databaseSummary = "Opening the offline food database…"
+
   var body: some View {
-    NavigationStack {
+    Group {
       List {
         Group {
           Section {
-            NavigationLink {
-              FoodSearchView()
-            } label: {
+            NavigationLink(value: CaliberFuelDestination.search) {
               Label("Search Foods", systemImage: "magnifyingglass").frame(minHeight: 48)
             }.accessibilityIdentifier("openFoodSearch")
-            NavigationLink {
-              BarcodeFoodLookupView()
-            } label: {
+            NavigationLink(value: CaliberFuelDestination.barcode) {
               Label("Scan a Barcode", systemImage: "barcode.viewfinder").frame(minHeight: 48)
             }.accessibilityIdentifier("openBarcode")
 
-            NavigationLink {
-              RestaurantListView()
-            } label: {
+            NavigationLink(value: CaliberFuelDestination.restaurants) {
               Label("Restaurants", systemImage: "building.2")
             }
 
-            NavigationLink {
-              MyMealsView()
-            } label: {
+            NavigationLink(value: CaliberFuelDestination.meals) {
               Label("My Meals", systemImage: "square.stack.3d.up")
             }.accessibilityIdentifier("openMyMeals")
 
-            NavigationLink {
-              MyFoodsView()
-            } label: {
+            NavigationLink(value: CaliberFuelDestination.foods) {
               Label("My Foods", systemImage: "carrot")
             }
           } header: {
@@ -72,8 +63,13 @@ struct FoodLibraryView: View {
 }
 
 #Preview {
-  FoodLibraryView()
-    .modelContainer(for: [Restaurant.self, SavedMeal.self, FoodItem.self], inMemory: true)
-    .environmentObject(
-      FoodLibraryPreferences(defaults: UserDefaults(suiteName: "Caliber.Food.Previews")!))
+  NavigationStack {
+    FoodLibraryView()
+      .navigationDestination(for: CaliberFuelDestination.self) { destination in
+        CaliberFuelDestinationView(destination: destination)
+      }
+  }
+  .modelContainer(for: [Restaurant.self, SavedMeal.self, FoodItem.self], inMemory: true)
+  .environmentObject(
+    FoodLibraryPreferences(defaults: UserDefaults(suiteName: "Caliber.Food.Previews")!))
 }

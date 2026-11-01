@@ -12,6 +12,8 @@ import SwiftUI
 /// Shows the selected day's food diary: a running total at the top, and each entry
 /// grouped under its meal (breakfast/lunch/dinner/snack).
 struct DiaryView: View {
+  @Binding private var widgetRequest: CaliberWidgetRequest?
+  let canHandleWidgetRequest: Bool
   @Environment(\.calendar) private var calendar
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var modelContext
@@ -25,6 +27,15 @@ struct DiaryView: View {
   @State private var entryBeingEdited: DiaryEntry?
   @State private var copyRequest: DiaryCopyRequest?
   @State private var repeatedEntry: DiaryEntry?
+  @State private var navigationPath = NavigationPath()
+
+  init(
+    widgetRequest: Binding<CaliberWidgetRequest?> = .constant(nil),
+    canHandleWidgetRequest: Bool = true
+  ) {
+    _widgetRequest = widgetRequest
+    self.canHandleWidgetRequest = canHandleWidgetRequest
+  }
 
   private var selectedDayEntries: [DiaryEntry] {
     allEntries.filter { calendar.isDate($0.date, inSameDayAs: selectedDate) }
@@ -35,7 +46,7 @@ struct DiaryView: View {
   }
 
   var body: some View {
-    NavigationStack {
+    NavigationStack(path: $navigationPath) {
       List {
         Group {
           Section {
@@ -83,13 +94,16 @@ struct DiaryView: View {
       .caliberScreen()
       .compactNavigationTitle("Fuel")
       .profileAvatar()
-      .sheet(item: $mealTypePresentingSheet) { meal in
+      .navigationDestination(for: CaliberFuelDestination.self) { destination in
+        CaliberFuelDestinationView(destination: destination)
+      }
+      .sheet(item: $mealTypePresentingSheet, onDismiss: applyWidgetRequest) { meal in
         NavigationStack { FoodSearchView(mealType: meal, date: selectedDate) }
       }
-      .sheet(item: $copyRequest) { request in
+      .sheet(item: $copyRequest, onDismiss: applyWidgetRequest) { request in
         CopyDiaryView(request: request, calendar: calendar)
       }
-      .sheet(item: $repeatedEntry) { entry in
+      .sheet(item: $repeatedEntry, onDismiss: applyWidgetRequest) { entry in
         if let food = entry.foodItem {
           NavigationStack {
             SavedFoodDetailView(
@@ -98,16 +112,38 @@ struct DiaryView: View {
           }
         }
       }
-      .sheet(item: $entryBeingEdited) { entry in
+      .sheet(item: $entryBeingEdited, onDismiss: applyWidgetRequest) { entry in
         EditDiaryEntryView(entry: entry)
       }
     }
+    .onChange(of: widgetRequest, initial: true) { _, _ in applyWidgetRequest() }
+    .onChange(of: canHandleWidgetRequest) { _, ready in
+      if ready { applyWidgetRequest() }
+    }
+    .onChange(of: navigationPath.count) { _, depth in
+      if depth <= 1 { applyWidgetRequest() }
+    }
+  }
+
+  private func applyWidgetRequest() {
+    guard canHandleWidgetRequest, let request = widgetRequest else { return }
+    // A second Add tap must keep the current search/review and any typed values.
+    if mealTypePresentingSheet != nil, request.destination == .addFood {
+      widgetRequest = nil
+      return
+    }
+    guard mealTypePresentingSheet == nil, entryBeingEdited == nil,
+      copyRequest == nil, repeatedEntry == nil,
+      navigationPath.count <= 1
+    else { return }
+    navigationPath = NavigationPath()
+    selectedDate = .now
+    widgetRequest = nil
+    if request.destination == .addFood { mealTypePresentingSheet = .snack }
   }
 
   private var libraryLink: some View {
-    NavigationLink {
-      FoodLibraryView()
-    } label: {
+    NavigationLink(value: CaliberFuelDestination.library) {
       Label("Food Library", systemImage: "books.vertical")
         .frame(maxWidth: .infinity, minHeight: 48)
     }

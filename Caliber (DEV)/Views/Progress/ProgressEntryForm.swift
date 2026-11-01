@@ -153,6 +153,7 @@ struct ProgressEntryForm: View {
         Text(saveError ?? "Please try again.")
       }
     }
+    .defersExternalWidgetNavigation()
   }
 
   private var photoSection: some View {

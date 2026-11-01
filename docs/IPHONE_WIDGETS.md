@@ -5,6 +5,14 @@ reads one versioned JSON snapshot, never SwiftData or the app's database files.
 System light/dark selects Frost/Graphite. No goals, inferred balance or clinical
 information is exported in this version.
 
+The Fuel URL returns to today's diary when it is safe to navigate. An active
+food form, Profile, Quick Log or check-in draft holds the request until finished
+or cancelled. A pushed Food Library branch is preserved until the person returns
+to its root. Add food opens editable search without inserting a record; repeated
+Add links keep the existing search/review. Number-free and Demo mode reject both
+links and clear pending requests. This is ephemeral navigation, not widget data
+sharing or background logging. See parallel/integrated-iphone/VERIFICATION.md.
+
 ## Privacy contract review
 
 New App Group: `group.CAL.Caliber-DEV.widgets`, used only by this app and its own

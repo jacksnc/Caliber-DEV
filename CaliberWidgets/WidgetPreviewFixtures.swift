@@ -55,21 +55,17 @@
 
     /// Fictional stale snapshot past freshness expiration (older than 2 hours).
     public static var fictionalStale: NutritionWidgetSnapshot {
-      let day = fixedCalendar.startOfDay(for: referenceNow)
       let staleGeneratedAt = referenceNow.addingTimeInterval(-10800)
-      let staleExpiresAt = staleGeneratedAt.addingTimeInterval(7200)
       let nutrition = NutritionWidgetValues(
         calories: 850,
         proteinGrams: 65,
         carbohydrateGrams: 90,
         fatGrams: 28
       )
-      return NutritionWidgetSnapshot(
-        generatedAt: staleGeneratedAt,
-        expiresAt: staleExpiresAt,
-        dayStart: day,
-        timeZoneIdentifier: fixedCalendar.timeZone.identifier,
-        nutrition: nutrition
+      // Reuse the real constructor: generation may be yesterday, and expiry
+      // must still stop at that day's midnight rather than crossing into today.
+      return NutritionWidgetSnapshot.daily(
+        nutrition: nutrition, at: staleGeneratedAt, timeZone: fixedCalendar.timeZone
       )
     }
 

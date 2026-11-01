@@ -17,6 +17,14 @@ struct RootTabView: View {
   @State private var quickLogFood = false
   @State private var quickLogCheckIn = false
   @State private var reviewFooters: Set<UUID> = []
+  @State private var externalNavigationBlockers: Set<UUID> = []
+  @State private var pendingWidgetDestination: CaliberWidgetDestination?
+  @State private var widgetRequest: CaliberWidgetRequest?
+
+  private var widgetNavigationIsBlocked: Bool {
+    showsQuickLog || pendingQuickLog != nil || quickLogFood || quickLogCheckIn
+      || !externalNavigationBlockers.isEmpty
+  }
 
   /// Stack is listed only after the person opts in (brief §1.2, §5.1).
   private var tabs: [CaliberTab] {
@@ -48,6 +56,13 @@ struct RootTabView: View {
           }
         }
         .environment(\.selectCaliberTab) { selection = $0 }
+        .environment(\.caliberExternalNavigationPresence) { id, isVisible in
+          if isVisible {
+            externalNavigationBlockers.insert(id)
+          } else {
+            externalNavigationBlockers.remove(id)
+          }
+        }
         .environment(\.caliberReviewFooterPresence) { id, isVisible in
           if isVisible { reviewFooters.insert(id) } else { reviewFooters.remove(id) }
         }
@@ -59,29 +74,42 @@ struct RootTabView: View {
               .ignoresSafeArea(.keyboard)
           }
         }
-        .sheet(isPresented: $showsQuickLog, onDismiss: openPendingQuickLog) {
+        .sheet(
+          isPresented: $showsQuickLog,
+          onDismiss: {
+            openPendingQuickLog()
+            dispatchWidgetRequest()
+          }
+        ) {
           QuickLogSheet(includesDose: stack.isEnabled) { action in
             pendingQuickLog = action
             showsQuickLog = false
           }
         }
-        .sheet(isPresented: $quickLogFood) { NavigationStack { FoodSearchView() } }
-        .sheet(isPresented: $quickLogCheckIn) {
+        .sheet(isPresented: $quickLogFood, onDismiss: dispatchWidgetRequest) {
+          NavigationStack { FoodSearchView() }
+        }
+        .sheet(isPresented: $quickLogCheckIn, onDismiss: dispatchWidgetRequest) {
           ProgressEntryForm(entry: progress.first { Calendar.current.isDateInToday($0.date) })
         }
         .tint(theme.palette.accent.base.color)
       }
     }
     .onOpenURL { url in
-      guard url.scheme?.lowercased() == "caliber", !runtime.isDemoMode,
+      guard let destination = CaliberWidgetDestination(url: url), !runtime.isDemoMode,
         !runtime.settings.hideNumbers
       else { return }
-      if url.host == "fuel", url.path.isEmpty {
-        selection = .fuel
-      } else if url.host == "food", url.path == "/add" {
-        selection = .fuel
-        quickLogFood = true
-      }
+      pendingWidgetDestination = destination
+      dispatchWidgetRequest()
+    }
+    .onChange(of: externalNavigationBlockers.isEmpty) { _, empty in
+      if empty { dispatchWidgetRequest() }
+    }
+    .onChange(of: runtime.settings.hideNumbers) { _, hidden in
+      if hidden { clearWidgetRequests() }
+    }
+    .onChange(of: runtime.isDemoMode) { _, demo in
+      if demo { clearWidgetRequests() }
     }
   }
 
@@ -104,10 +132,28 @@ struct RootTabView: View {
     switch tab {
     case .today: TodayFoundationView()
     case .train: TrainHomeView()
-    case .fuel: DiaryView()
+    case .fuel:
+      DiaryView(
+        widgetRequest: $widgetRequest, canHandleWidgetRequest: !widgetNavigationIsBlocked)
     case .stack: StackHomeView()
     case .progress: ProgressDashboardView()
     }
+  }
+
+  private func clearWidgetRequests() {
+    pendingWidgetDestination = nil
+    widgetRequest = nil
+  }
+
+  private func dispatchWidgetRequest() {
+    guard !runtime.isDemoMode, !runtime.settings.hideNumbers else {
+      clearWidgetRequests()
+      return
+    }
+    guard !widgetNavigationIsBlocked, let destination = pendingWidgetDestination else { return }
+    pendingWidgetDestination = nil
+    widgetRequest = CaliberWidgetRequest(destination: destination)
+    selection = .fuel
   }
 
   private func openPendingQuickLog() {

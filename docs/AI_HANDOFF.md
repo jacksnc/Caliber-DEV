@@ -1,5 +1,46 @@
 # Caliber AI handoff
 
+## Integrated iPhone navigation verification — 2026-11-01
+
+Current branch `codex/integrated-iphone-qa`, separate checkout
+`/Users/jcrock/Documents/Codex/Caliber-integrated-iphone-qa`, from e5aaa04. The
+owner requested continued progress with other models and noted Claude has more
+usage left. Native control reports the Mac locked; the owner selected continued
+code work. No lock/security bypass attempted. Claude's larger energy-display
+implementation and Gemini's smaller Frost/large-text review are prepared in
+parallel/integrated-iphone, NOT sent or acknowledged. Inspect real model/chat/job/
+branch state before sending either. Gemini stays on Mac. Do not claim an observed
+credit balance. Their prior published cards/widgets branches remain 5af0a69 and
+b01514e; Gemini's dedicated local checkout is clean.
+
+An available Codex agent performed read-only widget route/privacy reviews. Codex
+reproduced the real Fuel link defect through XCUISystem URL opening: it stayed on
+Food Library. A consumable in-memory request now returns safely to today's Diary
+and optionally opens editable search. Existing sheets/searches, pushed Library
+branches, Profile, Quick Log and shared check-in forms defer navigation. Repeated
+Add preserves current input; privacy/Demo clears pending requests. No URL inserts
+a record. A single type-erased Fuel path replaces conflicting nested navigation;
+the first attempt's crash and subsequent harness fixes are documented honestly
+in SESSION.md and VERIFICATION.md. The fictional stale widget preview now uses
+the existing daily constructor, including historical midnight expiry.
+
+All 11 targeted UI cases pass across the main final run and the last focused
+test-only Close/Back correction. App logic: 238 Swift Testing plus 16 XCTest
+cases pass; focused package suite: 21 pass. Strict formatter and Dynamic Type
+lint (241 files, zero findings) pass. Four native fixture PNGs exported; Diary
+and unsaved-note captures reviewed. No database/math/provider/signing changes;
+owner local preview stays 84edf55 with its three original dirty paths and the
+personal simulator/store remain untouched. All native runs use Compact QA
+2998CE67-7D71-460B-AD69-76DAA4D014F6. No test batch remains running.
+
+Next external assignments must start from the published HEAD of this integration
+branch, not the older Christmas branch, and preserve its Diary route handling.
+Claude owns energy display only; Codex owns Settings wording/shared integration.
+Physical widget sizing/redaction/refresh, camera optics, real Health/source
+reconciliation, minimum-iOS/hardware performance and wider editor/media-picker
+route combinations remain separately unverified. The owner's installed build
+has not been updated by this batch.
+
 ## Automatic Christmas appearance — 2026-11-01
 
 Continuation branch `codex/seasonal-christmas`, separate checkout

@@ -333,3 +333,13 @@ timezone rechecks the rule. The device clock is the authority; this does not cla
 server time, account eligibility or protection against manually changing that
 clock. Saved theme preferences and all nutrition/body/dose/workout math stay as
 before. See SEASONAL_APPEARANCE.md for accessibility and refresh behavior.
+
+## Widget navigation (2026-11-01)
+
+Opening Fuel from a widget selects today's diary when no covered editor is open.
+This changes the view, not nutrition totals, logged timestamps, goals or Health
+credits. Add opens the normal editable food review workflow; it does not log a
+food. A held request uses the current local day when it can safely be applied.
+No calorie conversion or estimate is introduced by URL handling. The fictional
+stale preview uses the same existing two-hour/local-midnight expiry rule as real
+snapshots; it does not extend freshness or change sharing consent.

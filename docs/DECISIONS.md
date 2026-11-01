@@ -513,3 +513,18 @@ may only further reduce animation. Existing theme/text/data palette stays intact
 The seasonal dark/light logo is an in-app asset, not a silent alternate Home Screen
 icon change. Physical smoothness/power checks remain separate from source bounds
 and native simulator verification. Read SEASONAL_APPEARANCE.md.
+
+## V217 — Consumable widget navigation, preserving open drafts
+
+A native URL test proves that selecting Fuel alone retains the pushed Food
+Library. Use an ephemeral request, processed by Diary only when safe, to return
+to today's date and optionally open editable food search. Keep the TabView and
+stores alive. One type-erased Fuel path owns Library branches; a first attempted
+pair of nested typed paths crashed in QA and was replaced before integration.
+Defer while an add/edit/copy/repeat sheet, pushed Library branch, Profile, Quick
+Log or shared check-in form is active. Repeated Add retains current search/review
+values. A pending request is consumed on safe dismissal/root return and cleared
+when Demo/number-free mode activates. Never persist navigation requests, insert
+records from a URL, dismiss an unsaved form to satisfy a link, or enable widget
+sharing as a side effect. Runtime evidence and limits are in
+parallel/integrated-iphone/VERIFICATION.md.

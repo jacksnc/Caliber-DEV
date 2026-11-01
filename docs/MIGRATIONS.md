@@ -227,3 +227,11 @@ New optional preference appearance.christmas.snowMotion.v1 defaults true and
 controls motion only, not availability. The season is recalculated from device
 local Gregorian date without a persisted unlock. Existing base theme and privacy
 preferences remain intact; widgets/Health data boundaries are unchanged.
+
+## Widget navigation verification (2026-11-01)
+
+No database, preference, snapshot or signing migration. URL requests, navigation
+paths and editor-presence holds are in-memory presentation state. A return to
+today changes the selected diary date only, never a stored entry timestamp.
+Debug preview construction now derives its historical day/expiry using the
+existing daily snapshot constructor; the production JSON schema is unchanged.

@@ -342,3 +342,14 @@ No health calculation, persistence or user-device changes.
   low-power and motion-off alternatives and no background animation polling.
 - Add Christmas infinity/snowflake logo assets for dark/light in-app presentation,
   with source prompts and isolated date/clock/accessibility/navigation checks.
+
+## 2026-11-01 — Integrated iPhone navigation checks
+
+- Route widget Fuel links to today's diary when safe, preserving active search,
+  food edits, Profile and check-in drafts until the person finishes or cancels.
+- Keep repeated Add links on the existing editable search; number-free/Demo
+  modes continue to reject them. No URL inserts a record.
+- Consolidate Fuel/Library navigation into one path and correct the fictional
+  stale widget preview around local midnight.
+- Prepare bounded Claude/Gemini assignments; native prompts remain pending while
+  the Mac is locked. Independently review routing and run isolated native checks.
