@@ -45,5 +45,5 @@ No provider activation, Health permission request, health formula/schema change,
 Stack calculator activation, signing/team change or production release. Source
 review and fixture runs do not prove physical widgets, camera or Health behavior.
 
-Next: finish focused checks, update the checkpoint, and push this isolated branch.
+Next: rerun the full 22-case UI regression after the focused test corrections.
 Physical-device widgets, camera and Health behavior remain a later validation.
