@@ -7,14 +7,15 @@ final class DiaryEnergyUnitDisplayUITests: XCTestCase {
   override func setUpWithError() throws { continueAfterFailure = false }
 
   @MainActor private func reveal(_ element: XCUIElement, in app: XCUIApplication) {
-    for _ in 0..<12 where !element.exists || !element.isHittable { app.swipeUp() }
+    // Settings is a lazy Form, so an off-screen row may not exist in the AX tree yet.
+    for _ in 0..<8 where !element.isHittable { app.swipeUp() }
+    XCTAssertTrue(element.waitForExistence(timeout: 5), "\(element) did not appear")
     XCTAssertTrue(element.isHittable, "\(element) not reachable")
   }
 
   @MainActor private func choose(energy unit: String, in app: XCUIApplication) {
     app.openSettings()
-    let picker = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Energy"))
-      .firstMatch
+    let picker = app.descendants(matching: .any)["settingsEnergyUnit"].firstMatch
     reveal(picker, in: app)
     picker.tap()
     let option = app.buttons[unit].firstMatch
@@ -98,10 +99,12 @@ final class DiaryEnergyUnitDisplayUITests: XCTestCase {
       .firstMatch
     reveal(add, in: app)
     add.tap()
-    let searchEnergy = app.descendants(matching: .any).matching(
-      NSPredicate(format: "label CONTAINS %@", " kJ")
+    let searchEnergy = app.buttons.matching(
+      NSPredicate(format: "identifier BEGINSWITH %@", "recent-")
     ).firstMatch
-    XCTAssertTrue(searchEnergy.waitForExistence(timeout: 10))
+    reveal(searchEnergy, in: app)
+    XCTAssertTrue(searchEnergy.label.contains("kJ"), searchEnergy.label)
+    XCTAssertFalse(searchEnergy.label.contains("cal"), searchEnergy.label)
     XCTAssertEqual(app.descendants(matching: .any).matching(oldCalorieLabel).count, 0)
     capture("food-search-energy-kJ")
     dismissSheet(in: app)

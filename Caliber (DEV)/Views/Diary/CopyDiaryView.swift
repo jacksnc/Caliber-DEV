@@ -1,3 +1,4 @@
+import CaliberCore
 import SwiftData
 import SwiftUI
 

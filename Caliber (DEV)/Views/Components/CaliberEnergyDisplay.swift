@@ -55,4 +55,12 @@ struct CaliberEnergyDisplay: Equatable, Sendable {
 
   /// "100.25 calories" or "419.4 kilojoules".
   func spoken(_ kilocalories: Double) -> String { "\(number(kilocalories)) \(spokenUnit)" }
+
+  /// Keeps a small positive over-goal amount from rounding down to zero in kJ.
+  func aboveGoalNumber(_ kilocalories: Double) -> String {
+    let shown = number(kilocalories)
+    guard unit == .kilojoules, kilocalories > 0, shown == "0" else { return shown }
+    let threshold = UnitFormatting.number(0.1, locale: locale, fractionDigits: 1)
+    return "<\(threshold)"
+  }
 }

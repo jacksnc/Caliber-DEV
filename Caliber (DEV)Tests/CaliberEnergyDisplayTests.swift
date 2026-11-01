@@ -84,6 +84,18 @@ struct CaliberEnergyDisplayTests {
     #expect(CaliberEnergyDisplay(unit: .kilojoules, locale: english).number(0.25) == "1")
   }
 
+  @Test("A positive kJ overage never displays as zero")
+  func positiveKilojouleOverageDoesNotRoundToZero() {
+    let kilojoules = CaliberEnergyDisplay(unit: .kilojoules, locale: english)
+    #expect(kilojoules.aboveGoalNumber(0.01) == "<0.1")
+    #expect(kilojoules.aboveGoalNumber(0.02) == "0.1")
+    #expect(kilojoules.aboveGoalNumber(0) == "0")
+    #expect(
+      CaliberEnergyDisplay(unit: .kilocalories, locale: english).aboveGoalNumber(0.01) == "0.01")
+    #expect(
+      CaliberEnergyDisplay(unit: .kilojoules, locale: german).aboveGoalNumber(0.01) == "<0,1")
+  }
+
   @Test("Search rows, copy previews and totals leave stored kcal unchanged")
   func displayNeverChangesStoredValues() throws {
     let container = try container()

@@ -1,5 +1,22 @@
 # Integrated iPhone verification batch — 2026-11-01
 
+## Latest follow-up status
+
+Claude Opus 5.5 Medium's energy-unit change is integrated locally on this
+separate branch. Gemini Argon hit its quota; Gemini 3.8 Flash Medium completed
+the assigned read-only review, and Claude independently checked its five
+findings. The result is recorded in `MODEL_REVIEW.md` and `GEMINI_HANDOFF.md`.
+Energy values still store and calculate as kcal; saved-unit conversion applies
+to Diary, food search and copy previews only. The corrected energy run passed
+six unit tests and the end-to-end kcal→kJ→kcal UI test; three QA captures were
+visually inspected. Strict Foundation, Dynamic Type and token checks pass.
+Follow-up QA passes all 244 app unit tests, the three affected FoodShortcuts UI
+cases and the Dinner/oats review path; the historical broad UI batch has not
+been rerun. No owner-local build or personal simulator was touched.
+
+The earlier checkpoint notes below remain as the history of the original
+navigation batch. This follow-up supersedes its “not sent” model-task status.
+
 Owner requested continued progress with Claude receiving the largest suitable
 assignment and Gemini a smaller task. Baseline: pushed `e5aaa04` on
 `codex/seasonal-christmas`; peers must start from the subsequently published HEAD
@@ -8,27 +25,25 @@ Health allowance and weight-unit work; do not merge those ancestor branches agai
 
 | Role | Bounded assignment | State |
 |---|---|---|
-| Codex coordinator | Separate `codex/integrated-iphone-qa` checkout; actual widget URL regression cases, app regression checks, review/integration | Active |
-| Available Codex review agent | Read-only widget routing/privacy review, no simulator or file edits | Dispatched |
-| Existing Claude native chat, Opus 5.5 if available | Largest implementation task: energy-display consistency in Diary/search/copy, with canonical kcal unchanged | Prepared, NOT sent: Mac locked; owner chose continued code work |
-| Existing Gemini native chat, on owner Mac | Smaller read-only Frost/large-text review with measured findings and bounded recommendations | Prepared, NOT sent: Mac locked |
+| Codex coordinator | Separate `codex/integrated-iphone-qa` checkout; test fixes, verification and handoff | Active; focused results pass, broad UI batch still pending |
+| Available Codex review agent | Read-only widget routing/privacy review, no simulator or file edits | Completed in earlier checkpoint |
+| Existing Claude native chat, Opus 5.5 Medium | Energy-display consistency in Diary/search/copy, canonical kcal unchanged | Completed; reviewed and cherry-picked as `26cd3dc` |
+| Existing Gemini native chat | Read-only Frost/large-text review | Gemini 4 Argon quota error; Gemini 3.8 Flash Medium completed review in separate checkout; commit `06d365f` handoff is integrated |
 
 Read-only repository check: Claude's previous published cards/widgets branch is
 still 5af0a69; Gemini's is b01514e and its dedicated local checkout is clean.
 These Git observations do not establish actual native chat/model/usage state.
 
-Before sending either external task, inspect its real chat/model/branch/dirty
-state and confirm no existing job is running. Do not claim an unobserved model,
-usage balance, task acknowledgment or runtime test. Do not buy credits or change
-plans. Use the available requested native model; record its actual displayed name.
-Claude owns only the files listed in CLAUDE_TASK.md; Gemini owns its handoff only.
-Codex owns shared planning, routing, tests and integration. No parallel native
-simulator runs. Preserve owner local-preview, personal simulator and all private
-stores; use only Compact QA 2998CE67-7D71-460B-AD69-76DAA4D014F6.
+Both native chats and branches were inspected before dispatch; no duplicate
+implementation was started. No usage balance is claimed. Gemini's quota error
+did not trigger a purchase or plan change. Claude owned the energy-display
+source; Gemini's fallback review owned its handoff; Codex owns tests, shared
+planning and integration. Preserve owner local-preview, personal simulator and
+all private stores; use only Compact QA 2998CE67-7D71-460B-AD69-76DAA4D014F6.
 
 No provider activation, Health permission request, health formula/schema change,
 Stack calculator activation, signing/team change or production release. Source
 review and fixture runs do not prove physical widgets, camera or Health behavior.
 
-Next unblock: owner unlocks the Mac; inspect and dispatch each task once. Do not
-restart completed previous tasks or substitute a different provider silently.
+Next: finish focused checks, update the checkpoint, and push this isolated branch.
+Physical-device widgets, camera and Health behavior remain a later validation.

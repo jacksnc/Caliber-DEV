@@ -61,6 +61,7 @@ struct FoundationSettingsView: View {
           Picker("Energy", selection: $runtime.settings.energyUnit) {
             ForEach(EnergyUnit.allCases, id: \.self) { Text($0.rawValue).tag($0) }
           }
+          .accessibilityIdentifier("settingsEnergyUnit")
           Picker("Volume", selection: $runtime.settings.volumeUnit) {
             ForEach(VolumeUnit.allCases, id: \.self) { Text($0.rawValue).tag($0) }
           }
@@ -68,7 +69,7 @@ struct FoundationSettingsView: View {
             ForEach(TemperatureUnit.allCases, id: \.self) { Text($0.rawValue).tag($0) }
           }
           Text(
-            "Weight applies to Progress; energy applies to Today. Original diary entries retain their labeled calorie units. Other preferences are saved for the modules that use them."
+            "Weight applies to Progress. Energy applies to Today, Diary and food previews. Food editors, nutrition labels and Health activity allowance stay in kcal."
           ).font(.footnote)
         }
         Section("Formatting") {

@@ -1,5 +1,11 @@
 # Migration contract v1
 
+## 2026-11-01 — Diary kcal/kJ display preference
+
+No migration or stored-data change. The existing energy preference formats
+Diary, food-search and copy-preview figures. Canonical nutrition and Health
+allowance values remain kcal.
+
 ## 2026-10-31 — V2 responsive presentation
 
 No migration or stored-data change. Content/navigation/footer width bounds and

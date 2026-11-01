@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-11-01 — Diary energy units and second-model Frost review
+
+- Diary totals, goals, remaining/over-goal amounts, meal headings, food rows,
+  search previews and repeat previews now follow the saved kcal/kJ setting.
+- Values remain stored and calculated in kcal; conversion is display-only.
+  Positive kJ overages too small to show as 0.1 kJ read as less than 0.1.
+- The food-search favorite swipe action uses the current Helios accent.
+- Claude Opus 5.5 implemented the display change; Gemini 3.8 Flash Medium and
+  Claude independently reviewed Frost findings. See
+  `parallel/integrated-iphone/MODEL_REVIEW.md` and the handoffs. No migration.
+
 ## 2026-11-01 — Packaged food search and import
 
 - Search the existing USDA Branded barcode collection by product/brand alongside

@@ -409,12 +409,20 @@ final class FoodEntryPass2UITests: XCTestCase {
     search.typeText("oats rolled\n")
 
     let oats = app.buttons["catalogFood-2346396"]
-    XCTAssertTrue(oats.waitForExistence(timeout: 8))
+    // Search results live below the food-entry hub inside a lazy List.
+    for _ in 0..<4 { app.swipeUp() }
+    reveal(oats, in: app)
+    XCTAssertTrue(oats.waitForExistence(timeout: 15))
     oats.tap()
 
     XCTAssertTrue(app.staticTexts["referenceFoodName"].waitForExistence(timeout: 5))
-    XCTAssertEqual(app.staticTexts["referenceCalories"].label, "379 calories")
-    XCTAssertGreaterThanOrEqual(app.buttons["referenceFavorite"].frame.height, 47.5)
+    let reportedCalories = app.descendants(matching: .any)["referenceCalories"].firstMatch
+    reveal(reportedCalories, in: app)
+    XCTAssertTrue(reportedCalories.waitForExistence(timeout: 5))
+    XCTAssertEqual(reportedCalories.label, "379 calories")
+    let favorite = app.buttons["referenceFavorite"]
+    reveal(favorite, in: app, towardTop: true)
+    XCTAssertGreaterThanOrEqual(favorite.frame.height, 47.5)
 
     let adjust = app.switches["Adjust macros for this log"]
     reveal(adjust, in: app)
@@ -426,8 +434,8 @@ final class FoodEntryPass2UITests: XCTestCase {
     app.buttons["nutritionKeyboardDone"].tap()
 
     // Editing protein keeps reported calories distinct from 4P + 4C + 9F macro inference.
-    reveal(app.staticTexts["referenceCalories"], in: app, towardTop: true)
-    XCTAssertEqual(app.staticTexts["referenceCalories"].label, "379 calories")
+    reveal(reportedCalories, in: app, towardTop: true)
+    XCTAssertEqual(reportedCalories.label, "379 calories")
 
     // Resetting restores source protein while keeping override active, then re-edit protein to 35 g.
     let resetButton = app.buttons["macroOverrideReset"]

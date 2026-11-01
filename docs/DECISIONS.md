@@ -26,6 +26,7 @@ Status: architecture proposal ready for owner review. Decisions below guide Phas
 | D20 | No live-store migration in this delivery; SQL down scripts are disposable-test tools. | Real rollback is verified snapshot restoration; never drop production tables to roll back. |
 | D21 | Domain accents stable, neutral outcomes, safety-only red; externalize strings in Phase 1. | Semantic JSON tokens are delivered now; no visual overhaul of current screens in Phase 0. |
 | D22 | Current Git branch `codex/phase0-architecture`; phase-only commit; no push. | Existing staged/uncommitted source is preserved; local repo has no configured remote. |
+| D23 | Diary, search and copy previews use the saved kcal/kJ display preference; storage, totals, editors, label facts and Health allowance remain kcal. | Convert only after calculations; do not write rounded display values back. Keep source nutrition facts in the units supplied by the label. |
 
 ## Explicit approval points
 1. §10.1 allows native iOS and PLAT-10 defers Android, while §12 Phase 1 demands both simulators. Recommended amendment: Phase 1 verifies iOS; Android remains the later Kotlin client. Owner approval required under §0.4(d).

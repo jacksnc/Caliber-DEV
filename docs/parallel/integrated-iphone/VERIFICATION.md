@@ -3,10 +3,54 @@
 Branch `codex/integrated-iphone-qa`, baseline e5aaa04. Worktree:
 `/Users/jcrock/Documents/Codex/Caliber-integrated-iphone-qa`.
 
+## Latest follow-up: saved kcal/kJ display and Frost review
+
+The saved energy preference now formats Diary totals/goals/balance, meal
+headings, Diary food rows, Food Search rows and copy previews. Values continue to
+store and calculate in kcal; the display conversion uses `1 kcal = 4.184 kJ`
+after arithmetic. Food-entry editors, original nutrition-label values and the
+confirmed Health activity allowance continue to use kcal. No schema or data
+migration was needed.
+
+| Check | Result | Evidence |
+|---|---|---|
+| kcal and kJ formatting, locale decimals, arithmetic and storage invariance | PASS | 6 tests in `CaliberEnergyDisplayTests` passed in `/tmp/caliber-energyunit-final3.xcresult` |
+| Diary, meal row, copy preview and Food Search follow kJ, then return to kcal | PASS | 1 end-to-end UI test in `/tmp/caliber-energyunit-final3.xcresult`; fixtures only |
+| Three rendered saved-unit states | PASS | Screenshots exported and visually reviewed in `output/screenshots/integrated-iphone/energy-unit-final-2026-11-01/` |
+| Small positive kJ over-goal amounts do not appear as zero | PASS | Focused regression fixed `<0.1` threshold formatting; English/German locale cases are in the passing six-test suite |
+| Foundation formatting lint | PASS | `python3 scripts/lint_foundation.py` exited 0 |
+| Dynamic Type strict lint | PASS | 242 files, 0 errors and 0 warnings |
+| Design-token accessibility lint | PASS | 54 contrast pairs; minimum text contrast 5.94:1; command `python3 scripts/check_tokens.py` exited 0 |
+| Focused food and energy regressions | PASS | Energy display UI/unit tests pass; all 3 corrected `FoodShortcutsUITests` pass in `/tmp/caliber-foodshortcuts-final.xcresult`; the Dinner/oats review path passes in `/tmp/caliber-food-entry-oats-lazyfavorite.xcresult`. All 244 app unit tests pass in `/tmp/caliber-unit-final.xcresult`. |
+| Full broad UI regression | NOT RERUN | The historical `/tmp/caliber-energy-regression.xcresult` used a stale Oikos assertion and preceded the focused lazy-list/picker corrections. Its failures are not treated as current source failures; all 22 UI cases were not rerun together. |
+| Original widget routing batch and user data boundaries | PASS | Prior evidence below; only Compact QA simulator and fictional fixtures were used in this follow-up |
+| Native model review | PASS | Claude Opus 5.5 Medium implemented and independently reviewed; Gemini 3.8 Flash Medium delivered read-only review after Gemini 4 Argon hit its existing quota. No overage enabled. |
+| Physical iPhone, Health permission/source and Home Screen widget sizing | NOT VERIFIED | This follow-up used Compact QA only and did not request Health access or edit the personal device |
+
+### Latest test runs
+
+- `/tmp/caliber-energyunit-final3.xcresult`: latest source, 6 energy unit tests
+  and the full energy-unit UI flow pass. The broad run initially found that the
+  `<0.1 kJ` threshold had accidentally been converted as kcal; this was fixed
+  and covered by the focused rerun.
+- `/tmp/caliber-energy-regression.xcresult`: 244 Swift Testing cases had two
+  assertions fail in that same now-corrected test; its old energy UI test also
+  searched for a packaged Oikos result outside the route's recent-row section.
+  The corrected focused energy run passes. The broad UI batch had three
+  FoodShortcuts failures from lazy-list scrolling and a stale route assertion;
+  all three now pass in `/tmp/caliber-foodshortcuts-final.xcresult`. The related
+  Dinner/oats review test passes in `/tmp/caliber-food-entry-oats-lazyfavorite.xcresult`.
+- `/tmp/caliber-unit-final.xcresult`: all 244 app unit tests pass after the
+  threshold correction.
+- The full broad UI batch was not rerun after the focused corrections.
+- No production build was copied into the owner's local preview, and no
+  personal simulator, real Health data, provider, credential or permission was
+  touched.
+
 ## Plan completed
 
 1. Inspect current history and prior model handoffs without duplicating merges.
-2. Prepare separate bounded Claude/Gemini tasks; record native-access limitation.
+2. Inspect the native chats and branches; dispatch bounded Claude/Gemini tasks.
 3. Independently review widget navigation and reproduce its retained destination.
 4. Preserve drafts while routing safe widget links to today's diary/search.
 5. Run isolated app, package and native food/routing regressions.
@@ -44,12 +88,12 @@ source nutrition, consent, provider and Stack gates remain unchanged.
 | Open Profile and an unsaved check-in note are preserved | PASS | Profile remains open until closed; typed note survives URL, Cancel then opens queued food search |
 | Number-free mode cannot be left through either URL | PASS | Both URLs keep Numbers are hidden visible and expose neither Fuel tab nor search |
 | Search, barcode lookup and custom restaurant flows survive navigation consolidation | PASS | Oikos name and GTIN reviews both show 150 g / 130 source calories; fictional local restaurant and custom item creation succeed |
-| Existing app logic and persistence regressions | PASS | 238 Swift Testing cases in 26 suites, plus 16 XCTest app cases |
+| Existing app logic and persistence regressions | PASS for prior batch | 238 Swift Testing cases in 26 suites, plus 16 XCTest app cases in the original integration run; the latest follow-up separately passes 244 app unit tests and focused food-flow UI cases above |
 | Focused widget/Health/date package regressions | PASS | 21 tests in /tmp/caliber-integrated-core.log |
 | Native app and embedded WidgetKit extension build | PASS | Native test builds succeed on Compact QA; no signing/team changes |
 | Formatting, Dynamic Type and diff review | PASS | Strict Foundation formatter; 241 files, zero Dynamic Type errors/warnings; clean diff whitespace; coordinator reread and independent source review |
 | Original local preview and personal simulator preserved | PASS | Local-preview stays 84edf55 with its three original modified paths; only dedicated QA UUID used |
-| External native Claude/Gemini tasks actually started | PENDING | Mac control reports locked; owner chose continued code work. Briefs prepared, not sent/acknowledged |
+| External native Claude/Gemini tasks actually started | PASS | Claude and Gemini 3.8 Flash completed the bounded follow-up tasks; see `CLAUDE_HANDOFF.md`, `GEMINI_HANDOFF.md`, and `MODEL_REVIEW.md` |
 | Physical widget/camera/Health and all-device performance | NOT VERIFIED | Simulator URL/fixture results are not Home Screen sizing/redaction, camera optics, real Health permission/source or hardware-performance evidence |
 
 ## Exact runs

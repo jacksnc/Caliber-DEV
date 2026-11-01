@@ -530,7 +530,7 @@ private struct MacroTotalsSummaryView: View {
           .heliosFont(.footnote)
           .foregroundStyle(theme.palette.text.secondary.color)
       } else if let over = selectedNutrition.aboveGoal, over > 0 {
-        balanceText(over, suffix: selectedMetric.aboveGoalLabel(energy))
+        balanceText(over, suffix: selectedMetric.aboveGoalLabel(energy), isAboveGoal: true)
       } else if let left = selectedNutrition.remaining {
         balanceText(left, suffix: selectedMetric.remainingLabel(energy))
       } else if let openProfile {
@@ -656,9 +656,14 @@ private struct MacroTotalsSummaryView: View {
       ? energy.number(value) : NutritionInput.format(value, locale: locale)
   }
 
-  private func balanceText(_ value: Double, suffix: LocalizedStringKey) -> some View {
+  private func balanceText(
+    _ value: Double, suffix: LocalizedStringKey, isAboveGoal: Bool = false
+  ) -> some View {
     VStack(spacing: 2) {
-      Text(display(value)).heliosFont(.bodyStrong)
+      Text(
+        isAboveGoal && selectedMetric == .calories ? energy.aboveGoalNumber(value) : display(value)
+      )
+      .heliosFont(.bodyStrong)
       Text(suffix).heliosFont(.caption)
     }
     .frame(maxWidth: .infinity)

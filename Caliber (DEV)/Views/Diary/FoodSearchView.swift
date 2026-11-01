@@ -1,3 +1,4 @@
+import CaliberCore
 import HeliosDesign
 import SwiftData
 import SwiftUI
@@ -19,6 +20,7 @@ struct FoodSearchView: View {
   @Environment(\.modelContext) private var modelContext
   @EnvironmentObject private var favorites: FoodLibraryPreferences
   @EnvironmentObject private var runtime: FoundationRuntime
+  @Environment(\.heliosTheme) private var theme
   @Query(filter: #Predicate<FoodItem> { $0.isSavedToLibrary }, sort: \FoodItem.name) private
     var savedFoods: [FoodItem]
   @Query(sort: \DiaryEntry.date, order: .reverse) private var entries: [DiaryEntry]
@@ -731,7 +733,7 @@ struct FoodSearchView: View {
         Label(
           favorites.isFavorite(usage.id) ? "Unfavorite" : "Favorite",
           systemImage: favorites.isFavorite(usage.id) ? "star.slash" : "star")
-      }.tint(.blue)
+      }.tint(theme.palette.accent.base.color)
     }
   }
 
@@ -751,6 +753,9 @@ struct FoodSearchView: View {
       for: [FoodItem.self, DiaryEntry.self, SavedMeal.self, Restaurant.self], inMemory: true
     )
     .environmentObject(
-      FoodLibraryPreferences(defaults: UserDefaults(suiteName: "Caliber.Food.Previews")!))
+      FoodLibraryPreferences(
+        defaults: UserDefaults(suiteName: "Caliber.Food.Previews")!
+      )
+    )
     .environmentObject(FoundationRuntime(previewing: true))
 }

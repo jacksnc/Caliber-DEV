@@ -1,17 +1,43 @@
 # Caliber AI handoff
 
-## Integrated iPhone navigation verification — 2026-11-01
+## Diary energy units and model review — 2026-11-01
 
-Current branch `codex/integrated-iphone-qa`, separate checkout
-`/Users/jcrock/Documents/Codex/Caliber-integrated-iphone-qa`, from e5aaa04. The
-owner requested continued progress with other models and noted Claude has more
-usage left. Native control reports the Mac locked; the owner selected continued
-code work. No lock/security bypass attempted. Claude's larger energy-display
-implementation and Gemini's smaller Frost/large-text review are prepared in
-parallel/integrated-iphone, NOT sent or acknowledged. Inspect real model/chat/job/
-branch state before sending either. Gemini stays on Mac. Do not claim an observed
-credit balance. Their prior published cards/widgets branches remain 5af0a69 and
-b01514e; Gemini's dedicated local checkout is clean.
+Current coordinator checkout:
+`/Users/jcrock/Documents/Codex/Caliber-integrated-iphone-qa`, branch
+`codex/integrated-iphone-qa`. Claude Opus 5.5 Medium delivered the saved-unit
+Diary/search/copy change in `29ad331`, cherry-picked locally as `26cd3dc`.
+Gemini 4 Argon returned an account quota error, so the owner-approved review was
+completed by Gemini 3.8 Flash Medium on the owner's Mac in a separate checkout;
+its report is `parallel/integrated-iphone/GEMINI_HANDOFF.md` at `06d365f`.
+Claude Opus 5.5 Medium independently reviewed that report read-only. The
+consolidated findings and decisions are in `MODEL_REVIEW.md`.
+
+Codex added the Settings picker identifier/accurate unit scope, strict lint
+coverage for the new files, missing explicit CaliberCore imports caught by the
+first native compile, a guard against positive over-goal kJ rounding to zero,
+and the active Helios accent for Food Search favorite swipe actions. A broad
+regression run caught a threshold-format bug; the corrected threshold now shows
+`<0.1 kJ`, not a value converted from kcal. No storage, nutrition/Health
+formula, source label, clinical, provider or sync behavior was changed. There is
+no data migration. Latest focused native result is
+`/tmp/caliber-energyunit-final3.xcresult`: six unit tests plus the full updated
+UI flow pass on Compact QA. The earlier `/tmp/caliber-energy-regression.xcresult`
+is a historical partial failure: it predates the kJ threshold correction, used
+an obsolete Oikos search assertion, and exposed lazy-list assumptions in food
+UI tests. Focused reruns now pass all three affected FoodShortcuts cases in
+`/tmp/caliber-foodshortcuts-final.xcresult` and the Dinner/oats review path in
+`/tmp/caliber-food-entry-oats-lazyfavorite.xcresult`. All 244 app unit tests
+pass in `/tmp/caliber-unit-final.xcresult`. The full 22-case UI batch was not
+rerun after these focused fixes, so the archived broad result is not described
+as green.
+
+Gemini's source review classified the Christmas logo background as supported;
+the disabled Save and translucent navigation findings as partly supported;
+the reported Diary clipping as stale/not supported; and the `.blue` swipe tint
+as source-supported. Codex changed only the tint in this batch. Physical-device
+widget sizing/redaction, live camera and Health behavior remain unverified.
+Gemini Argon's quota error did not trigger an upgrade or overage. The owner
+local-preview checkout and personal simulator remain untouched.
 
 An available Codex agent performed read-only widget route/privacy reviews. Codex
 reproduced the real Fuel link defect through XCUISystem URL opening: it stayed on

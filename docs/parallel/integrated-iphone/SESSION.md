@@ -1,5 +1,46 @@
 # Integrated iPhone checkpoint — 2026-11-01
 
+## Latest follow-up — Diary energy units and model review
+
+The Mac is unlocked and both existing native model chats were inspected before
+work. Claude Opus 5.5 Medium implemented display-only saved-unit formatting in
+Diary, food search and copy previews. Commit `29ad331` was reviewed and
+cherry-picked locally as `26cd3dc`. Gemini 4 Argon was attempted, returned its
+existing quota error, and was not upgraded; Gemini 3.8 Flash Medium completed
+the separate read-only Frost/large-text task in branch
+`gemini/integrated-frost-review`, commit `06d365f`. Claude Opus 5.5 Medium then
+independently reviewed those findings in chat without editing files.
+
+Codex corrections after review: the new views explicitly import `CaliberCore`;
+Settings now has a stable energy-picker ID and says where the preference
+applies; the UI test scrolls lazy Settings rows and checks the fixture's recent
+food row in search. The broader run caught a threshold-format bug; the fix now
+formats the `<0.1 kJ` threshold directly in the display unit. Food Search
+favorite swipe uses the active Helios accent. The latest focused run passes all
+6 energy unit tests and the kcal→kJ→kcal Diary/search/copy UI flow. Strict lints
+pass. Focused reruns now pass all three FoodShortcuts tests and the Dinner/oats
+review path after correcting lazy-list scrolling, picker timing, and route/AX
+test assumptions. All 244 app unit tests pass. The historical broad UI result
+is still partial and the full UI batch has not been rerun; details are in
+`VERIFICATION.md`.
+
+`MODEL_REVIEW.md` records the five findings and their evidence. A stale Diary
+AX5 clipping claim was closed; the logo background is confirmed, while disabled
+Save and translucent navigation need follow-up QA before code changes. The
+previous statements below that external tasks were “not sent” describe the
+earlier checkpoint only and are superseded by this follow-up.
+
+Native verification used only Compact QA and fictional showcase data. The
+latest corrected result is `/tmp/caliber-energyunit-final3.xcresult` with three
+visually reviewed captures in
+`output/screenshots/integrated-iphone/energy-unit-final-2026-11-01/`. The wider
+`/tmp/caliber-energy-regression.xcresult` remains a historical partial result:
+its energy-unit source predates the threshold fix, its UI assertion searched
+for an Oikos row outside that route, and three FoodShortcuts tests had stale
+lazy-list/route assumptions. The focused corrective rerun passes all three;
+the related Dinner/oats review path and all 244 app unit tests also pass. The
+full 22-case UI batch was not rerun after the fixes.
+
 Coordinator: `/Users/jcrock/Documents/Codex/Caliber-integrated-iphone-qa`,
 `codex/integrated-iphone-qa`, from e5aaa04. Recent reviewed features already form
 one ancestor chain; no duplicate branch merge was needed. Owner local preview
@@ -7,22 +48,15 @@ and its three original dirty files remain separate and unchanged.
 
 ## Coordination
 
-- Native control reports the Mac locked. Owner explicitly chose "Continue code
-  work for now". No bypass or security-setting change was attempted.
-- Claude/Gemini task briefs are prepared, not dispatched or acknowledged. Claude
-  gets the larger energy-display consistency implementation; Gemini gets a
-  smaller read-only Frost/large-text measurement review. Inspect actual chat,
-  model, job and branch state before sending. No usage balance was independently
-  verified. Gemini remains on the owner's Mac.
-- Prior published cards/widgets tips are Claude 5af0a69 and Gemini b01514e.
-  Gemini's dedicated local cards/widgets checkout is clean. These source checks
-  do not establish current native chat state.
-- An available Codex agent performed three read-only source reviews. It made no
-  edits or native runs and did not impersonate either external model. It found
-  the retained Diary date/path issue, a malformed stale preview fixture near
-  midnight, a missing deferred-route retry and unreported check-in editor holds.
-  Latest source review found no blocking issue; its minor standalone-preview
-  registration finding was also corrected with a shared destination view.
+- Claude Opus 5.5 Medium completed the energy-display implementation; it was
+  reviewed and cherry-picked as `26cd3dc`. Gemini 4 Argon hit its existing
+  quota, so the read-only task was completed by Gemini 3.8 Flash Medium on the
+  owner's Mac in a separate checkout; its report is `GEMINI_HANDOFF.md` and
+  commit `06d365f`. Claude independently reviewed the report without edits.
+- No model usage balance was claimed and no purchase or plan change was made.
+  Prior cards/widgets commits `5af0a69` and `b01514e` were not duplicated.
+- The earlier Codex read-only widget routing/privacy review and integration
+  tests are complete; details and retained test artifacts remain below.
 
 ## Implementation and written reason for navigation change
 

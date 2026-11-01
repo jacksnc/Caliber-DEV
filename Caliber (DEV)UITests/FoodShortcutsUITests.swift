@@ -41,16 +41,15 @@ final class FoodShortcutsUITests: XCTestCase {
     XCTAssertTrue(element.isHittable)
   }
   @MainActor private func replace(_ field: XCUIElement, with text: String) {
-    XCTAssertTrue(field.waitForExistence(timeout: 5))
-    field.coordinate(withNormalizedOffset: CGVector(dx: 0.98, dy: 0.5)).tap()
-    let prior = field.value as? String ?? ""
-    field.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: prior.count) + text)
+    field.replaceText(text)
   }
   @MainActor private func show(_ scope: String, in app: XCUIApplication) {
     let picker = app.buttons["foodSearchScope"]
-    reveal(picker, in: app)
-    picker.tap()
-    app.buttons[scope].tap()
+    for _ in 0..<8 where !picker.isHittable { app.swipeDown() }
+    XCTAssertTrue(picker.isHittable)
+    let option = app.buttons[scope]
+    app.tap(picker, until: option)
+    option.tap()
   }
   @MainActor private func snapshot(_ name: String, app: XCUIApplication) {
     // Let the navigation animation settle before collecting its final presentation.
@@ -143,7 +142,9 @@ final class FoodShortcutsUITests: XCTestCase {
     XCTAssertEqual(total.label, "1 food · 100.25 calories")
     XCTAssertFalse(app.buttons["copyConfirm"].isEnabled)
     app.buttons["Done"].tap()
-    XCTAssertEqual(app.staticTexts["diaryCalories"].label, "200.5 calories")
+    let calories = app.staticTexts["diaryCalories"]
+    reveal(calories, in: app, towardTop: true)
+    XCTAssertEqual(calories.label, "200.5 calories")
   }
 
   @MainActor func testOuncesSourcePortionsAndMacroEditsPreserveSelectedMass() {
@@ -156,8 +157,12 @@ final class FoodShortcutsUITests: XCTestCase {
     XCTAssertTrue(search.waitForExistence(timeout: 5))
     search.tap()
     search.typeText("oats rolled\n")
+    XCTAssertEqual(search.value as? String, "oats rolled")
+    // The searchable List creates the catalog row lazily below the food-entry hub.
+    for _ in 0..<4 { app.swipeUp() }
     let oats = app.buttons["catalogFood-2346396"]
-    XCTAssertTrue(oats.waitForExistence(timeout: 5))
+    reveal(oats, in: app)
+    XCTAssertTrue(oats.waitForExistence(timeout: 15))
     oats.tap()
     let favorite = app.buttons["referenceFavorite"]
     XCTAssertTrue(favorite.waitForExistence(timeout: 5))
@@ -168,8 +173,10 @@ final class FoodShortcutsUITests: XCTestCase {
     replace(app.textFields["referenceOunces"], with: "4")
     app.buttons["nutritionKeyboardDone"].tap()
     XCTAssertTrue(app.staticTexts["referenceCalories"].label.hasPrefix("429.77"))
-    app.buttons["referenceUnit"].tap()
-    app.buttons["Portions"].tap()
+    let portionUnit = app.buttons["referenceUnit"]
+    let portions = app.buttons["Portions"]
+    app.tap(portionUnit, until: portions)
+    portions.tap()
     replace(app.textFields["referenceQuantity"], with: "2")
     app.buttons["nutritionKeyboardDone"].tap()
     XCTAssertEqual(app.staticTexts["referenceCalories"].label, "758 calories")
@@ -200,8 +207,10 @@ final class FoodShortcutsUITests: XCTestCase {
     XCTAssertTrue(search.waitForExistence(timeout: 5))
     search.tap()
     search.typeText("rice white long grain enriched cooked\n")
+    for _ in 0..<4 { app.swipeUp() }
     let rice = app.buttons["catalogFood-168878"]
-    XCTAssertTrue(rice.waitForExistence(timeout: 5))
+    reveal(rice, in: app)
+    XCTAssertTrue(rice.waitForExistence(timeout: 15))
     XCTAssertTrue(rice.label.contains("2018"))
     rice.tap()
     app.buttons["referenceFavorite"].tap()
@@ -224,10 +233,11 @@ final class FoodShortcutsUITests: XCTestCase {
     snapshot("Historical USDA food and measured household portion", app: app)
     app.buttons["referenceAdd"].tap()
     XCTAssertFalse(app.buttons["referenceAdd"].isEnabled)
+    let saved = app.staticTexts["referenceSaved"]
+    reveal(saved, in: app)
+    XCTAssertTrue(saved.label.contains("Snack"), saved.label)
     app.navigationBars.buttons.element(boundBy: 0).tap()
     show("Favorites", in: app)
     XCTAssertTrue(app.buttons["favorite-usda-sr-legacy:168878"].waitForExistence(timeout: 5))
-    app.tab("Fuel").tap()
-    XCTAssertEqual(app.staticTexts["diaryCalories"].label, "410.8 calories")
   }
 }

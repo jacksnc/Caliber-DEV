@@ -1,0 +1,35 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "2998CE67-7D71-460B-AD69-76DAA4D014F6",
+        "deviceName" : "Caliber Compact QA",
+        "exportedFileName" : "BFFEEBFC-0BAB-4642-880E-C89EE4BD7A3A.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "food-search-energy-kJ_0_0632F954-C6EC-4B69-A6A7-7D06B94DD496.png",
+        "timestamp" : 1793573233.08
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "2998CE67-7D71-460B-AD69-76DAA4D014F6",
+        "deviceName" : "Caliber Compact QA",
+        "exportedFileName" : "E5511362-709E-4A47-B23F-A3F95493C166.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "diary-energy-kJ-rows_0_6CBBEDC0-1FAC-4527-9E98-9B80D8683B1D.png",
+        "timestamp" : 1793573212.596
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "2998CE67-7D71-460B-AD69-76DAA4D014F6",
+        "deviceName" : "Caliber Compact QA",
+        "exportedFileName" : "2B43D8F4-0847-498C-9C92-C80343332118.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "diary-energy-kJ-summary_0_63A36EC2-F3EE-48C0-8BCE-29389EF2978D.png",
+        "timestamp" : 1793573204.889
+      }
+    ],
+    "testIdentifier" : "DiaryEnergyUnitDisplayUITests/testKilojoulesShowAcrossDiarySearchAndCopyThenKilocaloriesReturn()",
+    "testIdentifierURL" : "test://com.apple.xcode/Caliber%20(DEV)/Caliber%20(DEV)UITests/DiaryEnergyUnitDisplayUITests/testKilojoulesShowAcrossDiarySearchAndCopyThenKilocaloriesReturn"
+  }
+]

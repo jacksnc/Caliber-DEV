@@ -12,15 +12,29 @@ these are not implied by seasonal UI verification.
 
 ## Integrated iPhone checkpoint — 2026-11-01
 
-Widget URL routing has a native regression batch and source-reviewed draft
-deferral on `codex/integrated-iphone-qa`; see
-parallel/integrated-iphone/VERIFICATION.md. Local widget gallery sizing/redaction,
-physical camera performance, real Health permissions/source overlap and
-physical-device animation/battery remain open. Source URL tests do not close them.
-Claude's energy-label implementation and Gemini's smaller Frost review have
-prepared briefs but were not dispatched while native Mac access is locked.
-The owner chose continued code work. Check actual chat/branch state on unlock
-before assigning either task, and seed from the newly published integration HEAD.
+Widget URL routing and display-only kcal/kJ conversion have native QA on
+`codex/integrated-iphone-qa`; see
+parallel/integrated-iphone/VERIFICATION.md. Claude Opus 5.5 delivered energy
+display changes; Gemini 3.8 Flash Medium delivered a read-only Frost/large-text
+review after Gemini 4 Argon hit its existing quota. No overage was enabled.
+The review closes the stale Diary-clipping claim, records the confirmed holiday
+logo background issue, and prioritizes accessible disabled actions. Physical
+widget sizing/redaction, real Health permission/source overlap, camera capture
+and physical-device animation/battery remain open.
+
+The historical broad regression exposed three `FoodShortcutsUITests` failures
+from lazy-list scrolling and a stale route assertion. All three now pass in the
+focused `/tmp/caliber-foodshortcuts-final.xcresult` run; the related Dinner/oats
+review path passes in `/tmp/caliber-food-entry-oats-lazyfavorite.xcresult`, and
+all 244 app unit tests pass in `/tmp/caliber-unit-final.xcresult`. The entire
+22-case UI batch has not been rerun after these focused corrections; keep that
+as the remaining broad-regression check before treating this QA branch as fully
+green.
+
+Next visual QA items: re-export both Christmas logo variants with transparency;
+test opaque Frost navigation backgrounds at mid-scroll before applying them;
+improve the disabled manual-food Save explanation after an AX5 QA check. The
+Food Search favorite action now uses the active Helios accent token.
 
 223 traceability rows: 211 explicit brief IDs plus 12 local subclause/integration IDs. 81 P0, 116 P1, 26 P2. Priorities are preserved; inclusion in a phase does not promote a P1 feature.
 
