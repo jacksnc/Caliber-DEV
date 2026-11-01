@@ -219,3 +219,11 @@ invalid legacy values cannot override a valid canonical choice. Once completed,
 FoundationSettings is authoritative and the legacy key is a write-only mirror.
 The unit is user-changeable afterward. No data schema, stored weigh-in, photo,
 calorie goal or conversion constant changes.
+
+## Seasonal Christmas appearance (2026-11-01)
+
+No SwiftData/SQLite, goal, log, timestamp or FoundationSettings schema migration.
+New optional preference appearance.christmas.snowMotion.v1 defaults true and
+controls motion only, not availability. The season is recalculated from device
+local Gregorian date without a persisted unlock. Existing base theme and privacy
+preferences remain intact; widgets/Health data boundaries are unchanged.

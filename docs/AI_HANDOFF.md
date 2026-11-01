@@ -1,5 +1,40 @@
 # Caliber AI handoff
 
+## Automatic Christmas appearance — 2026-11-01
+
+Continuation branch `codex/seasonal-christmas`, separate checkout
+`/Users/jcrock/Documents/Codex/Caliber-seasonal-christmas`, from progress-unit
+commit 66017a2. The owner requested a Christmas logo/theme with minimal falling
+snow, automatically unlocked by the local iPhone date on December 1. Implemented
+the documented default season December 1–31, repeating annually and restoring the
+saved base appearance January 1. There is no early Christmas selector or stored
+season-unlock flag. Normal appearance choices remain available and saved.
+
+Read SEASONAL_APPEARANCE.md and SEASONAL_APPEARANCE_VERIFICATION.md. A pure Core
+policy and an observed app model handle Gregorian local date, foreground refresh,
+calendar midnight and clock/timezone notifications. A shared background renders
+at most 22 six-arm flakes with a 15fps scheduling limit. Reduce Motion, Reduce
+Transparency, Increase Contrast, Low Power Mode or the motion switch use eight
+static flakes. Decoration never takes taps or exposes accessibility elements.
+The owner-approved infinity mark has dark/light Christmas variants with a center
+snowflake; Settings displays the season-specific mark only during December.
+This does not replace the Home Screen icon. Exact built-in image-tool prompts
+and provenance are in design/branding/christmas/README.md.
+
+Focused Core tests pass 5/5, native model tests 2/2, native UI cases 3/3. Final
+native screenshot sampling verifies background movement when enabled and a
+stationary background under reduced motion. Strict Foundation formatting and
+Dynamic Type lint pass. Four native QA previews are in output/screenshots/christmas.
+Test date overrides affect the theme only in isolated Debug UI tests; device,
+diary and Health clocks are unchanged. No database migration, provider activation,
+health formula change or owner-data access. The original local-preview checkout
+remains at 84edf55 with its existing three dirty files; the personal simulator
+is untouched. No native test batch is running at this checkpoint.
+
+Remaining: physical-device animation/battery and minimum-supported-iOS visual
+checks, then the previously pending widget gallery/privacy/deep-link review.
+Keep these separate from the owner's local preview until an explicit build update.
+
 ## Progress unit consistency — 2026-11-01
 
 Current continuation branch `codex/progress-unit-consistency`, worktree

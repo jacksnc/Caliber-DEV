@@ -1,3 +1,4 @@
+import CaliberCore
 import HeliosDesign
 import SwiftUI
 
@@ -21,15 +22,19 @@ enum CaliberLayout {
 /// Shared canvas for every navigation destination, including sheets.
 struct CaliberCanvas: View {
   @Environment(\.caliberOLED) private var oled
+  @Environment(\.seasonalAppearance) private var season
 
   var body: some View {
-    Group {
+    ZStack {
       if oled {
         Color.black.ignoresSafeArea()
       } else {
         HeliosBackground()
       }
-    }.accessibilityHidden(true)
+      if season == .christmas { SeasonalSnowfall() }
+    }
+    .allowsHitTesting(false)
+    .accessibilityHidden(true)
   }
 }
 

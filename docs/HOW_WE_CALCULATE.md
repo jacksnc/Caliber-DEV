@@ -321,3 +321,15 @@ manually requested, not continuously in the background.
 Reference APIs: Apple's [Active Energy type](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/activeenergyburned),
 [statistical queries](https://developer.apple.com/documentation/healthkit/executing-statistical-queries)
 and [read authorization privacy](https://developer.apple.com/documentation/healthkit/authorizing-access-to-health-data).
+
+## Seasonal appearance date rule
+
+This is presentation, not a health estimate. Christmas appears when the current
+Gregorian month is December in the iPhone's current timezone. It begins at local
+midnight December 1 and ends at local midnight January 1, every year. Calendar
+midnight scheduling handles DST without assuming every day is 24 hours. Invalid
+dates keep the normal appearance. Returning to the app or changing system time/
+timezone rechecks the rule. The device clock is the authority; this does not claim
+server time, account eligibility or protection against manually changing that
+clock. Saved theme preferences and all nutrition/body/dose/workout math stay as
+before. See SEASONAL_APPEARANCE.md for accessibility and refresh behavior.

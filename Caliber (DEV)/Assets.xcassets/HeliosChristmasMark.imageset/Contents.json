@@ -1,0 +1,22 @@
+{
+  "images": [
+    {
+      "idiom": "universal",
+      "filename": "HeliosChristmasLight.png"
+    },
+    {
+      "idiom": "universal",
+      "filename": "HeliosChristmasDark.png",
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
+    }
+  ],
+  "info": {
+    "author": "xcode",
+    "version": 1
+  }
+}

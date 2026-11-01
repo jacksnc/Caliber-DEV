@@ -495,3 +495,21 @@ a later Progress selection. Persist progress.weightUnit.unified.v1 to make the
 merge one-time; malformed strings preserve the canonical unit. The old key is a
 compatibility mirror only. This reversible preference merge never migrates or
 rewrites health records. See PROGRESS_UNIT_CONSISTENCY.md.
+
+## V216 — Automatic December appearance, never an early manual theme
+
+Owner requested a Christmas logo, minimal live falling flakes and a local iPhone
+date gate. Default season is Gregorian December 1–31 in the current timezone,
+repeating yearly; January 1 removes decoration and leaves the saved base theme
+as before. No Christmas picker, early unlock, persisted seasonal flag, server or
+account state. Clock/timezone changes and foreground/midnight refresh the single
+observed model. Never change the phone clock, logging dates or health math.
+
+Keep the seasonal effect in the shared background, not above controls/charts.
+Use native six-arm paths, bounded at 22 flakes / 15fps; hidden/background views
+stop scheduling animation. Accessibility/low-power and optional motion preference
+use static sparse snow. Always read the OS Reduce Motion value; test fixtures
+may only further reduce animation. Existing theme/text/data palette stays intact.
+The seasonal dark/light logo is an in-app asset, not a silent alternate Home Screen
+icon change. Physical smoothness/power checks remain separate from source bounds
+and native simulator verification. Read SEASONAL_APPEARANCE.md.

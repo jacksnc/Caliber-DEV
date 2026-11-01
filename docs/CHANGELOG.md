@@ -333,3 +333,12 @@ No health calculation, persistence or user-device changes.
 - Resolve the independent review's weight-unit drift across check-in, Progress,
   Today and Settings using one saved preference, with a one-time adoption of the
   last valid legacy choice. Save/cancel semantics and stored pounds remain intact.
+
+## 2026-11-01 — Automatic Christmas appearance
+
+- Add local December-only decoration, a date-locked Settings status and automatic
+  January return while preserving normal appearance preferences.
+- Add sparse native falling snow behind content, with static accessibility,
+  low-power and motion-off alternatives and no background animation polling.
+- Add Christmas infinity/snowflake logo assets for dark/light in-app presentation,
+  with source prompts and isolated date/clock/accessibility/navigation checks.

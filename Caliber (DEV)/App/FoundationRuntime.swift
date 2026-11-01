@@ -15,6 +15,7 @@ final class FoundationRuntime: ObservableObject {
   // Presentation state only; existing installations are not enrolled in setup again.
   @Published var completedWelcomeThisSession = false
   @Published var message: String?
+  let seasonalAppearance: SeasonalAppearanceModel
   let healthEnergy: HealthEnergyModel
   let foodLibraryPreferences: FoodLibraryPreferences
   let account: HostedAccountModel
@@ -44,6 +45,7 @@ final class FoundationRuntime: ObservableObject {
     } else {
       defaults = .standard
     }
+    seasonalAppearance = SeasonalAppearanceModel.configured(testing: testing)
     foodLibraryPreferences = FoodLibraryPreferences(defaults: defaults)
     var loaded =
       defaults.data(forKey: "foundation.settings.v1").flatMap {
@@ -167,6 +169,7 @@ struct FoundationRootView: View {
         ProgressView("Opening Caliber…").task { open() }
       }
     }
+    .modifier(SeasonalAppearanceScope(model: runtime.seasonalAppearance))
     .environmentObject(runtime.healthEnergy)
     .environmentObject(runtime.account)
     .environmentObject(runtime.stack)

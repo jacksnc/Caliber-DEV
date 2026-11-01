@@ -1,3 +1,4 @@
+import CaliberCore
 import HeliosDesign
 import SwiftUI
 
@@ -12,6 +13,7 @@ struct CaliberHeader: View {
   var actionLabel: LocalizedStringKey
   var actionIdentifier: String
   @Environment(\.heliosTheme) private var theme
+  @Environment(\.seasonalAppearance) private var season
   @Environment(\.caliberProfileAction) private var openProfile
 
   init(
@@ -34,6 +36,12 @@ struct CaliberHeader: View {
         if let overline {
           overline.heliosFont(.footnote)
             .foregroundStyle(theme.palette.text.secondary.color)
+        }
+        if identifier == "Today", season == .christmas {
+          Label("Christmas", systemImage: "snowflake")
+            .heliosFont(.caption)
+            .foregroundStyle(theme.palette.text.secondary.color)
+            .accessibilityIdentifier("christmasAppearanceBadge")
         }
         Text(title)
           .font(.system(.title, design: .rounded, weight: .medium))

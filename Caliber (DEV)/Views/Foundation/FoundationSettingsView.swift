@@ -30,6 +30,7 @@ struct FoundationSettingsView: View {
             "Number-free mode keeps photos and notes available and hides numerical editors, charts, and their accessibility labels."
           ).font(.footnote)
         }
+        SeasonalAppearanceSettingsSection()
         Section("Apple Health") {
           NavigationLink("Active Energy and Calorie Adjustment") { HealthEnergySettingsView() }
             .frame(minHeight: 48).disabled(runtime.settings.hideNumbers)

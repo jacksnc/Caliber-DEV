@@ -1,5 +1,15 @@
 # Backlog and delivery map
 
+## Seasonal appearance checkpoint — 2026-11-01
+
+Automatic local-date Christmas decoration and dark/light logo variants are
+implemented on `codex/seasonal-christmas`. December/January/timezone and native
+motion/static checks pass; see SEASONAL_APPEARANCE_VERIFICATION.md. Remaining:
+physical-device smoothness/battery and minimum-supported-iOS visual checks.
+Home Screen icon replacement is outside this delivery. Widget gallery/privacy/
+deep-link review and real Health permission/source reconciliation remain open;
+these are not implied by seasonal UI verification.
+
 223 traceability rows: 211 explicit brief IDs plus 12 local subclause/integration IDs. 81 P0, 116 P1, 26 P2. Priorities are preserved; inclusion in a phase does not promote a P1 feature.
 
 ## Responsive V2 checkpoint — 2026-10-31
