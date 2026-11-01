@@ -1,0 +1,26 @@
+{
+  "qaDevice": "Caliber Compact QA, iPhone SE 3, iOS 27",
+  "personalStoreUsed": false,
+  "correctedRun": {
+    "bundle": "/tmp/caliber-packaged-import-corrected.xcresult",
+    "appUnitBundle": "Passed",
+    "newOikosUICases": {
+      "passed": 2,
+      "failed": 0
+    },
+    "overallPassedTestCount": 248,
+    "remainingFailures": [
+      "testBundledBarcodeFindsAMassProductWithoutOnlinePermission()",
+      "testBundledBarcodeKeepsALiquidServingInMilliliters()"
+    ]
+  },
+  "finalScopedMassVolumeRun": {
+    "bundle": "/tmp/caliber-packaged-import-navigation.xcresult",
+    "result": "Passed",
+    "passed": 2,
+    "failed": 0
+  },
+  "knownRuntimeDiagnostic": "Existing invalid-frame keyboard warnings remain; no full accessibility certification.",
+  "physicalCameraTested": false,
+  "onlineFallbackConfigured": false
+}

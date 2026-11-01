@@ -1,0 +1,62 @@
+{
+  "reviewedOn": "2026-11-01",
+  "catalogProducts": 50000,
+  "equivalentFormsChecked": 149996,
+  "invalidLocalGTINs": 0,
+  "sampleHits": 2,
+  "sampleSize": 6,
+  "samples": [
+    {
+      "name": "Oikos Pro vanilla 5.3 oz cup",
+      "barcode": "036632042552",
+      "identitySource": "https://www.target.com/p/-/A-81995727",
+      "bundledHit": true,
+      "reviewedOverride": true,
+      "resultingHit": true
+    },
+    {
+      "name": "Core Power chocolate 26 g 14 fl oz",
+      "barcode": "811620021951",
+      "identitySource": "https://www.target.com/p/-/A-78824043",
+      "bundledHit": false,
+      "reviewedOverride": false,
+      "resultingHit": false
+    },
+    {
+      "name": "Coca-Cola 2 L",
+      "barcode": "049000050103",
+      "identitySource": "https://www.target.com/p/-/A-12958783",
+      "bundledHit": false,
+      "reviewedOverride": false,
+      "resultingHit": false
+    },
+    {
+      "name": "Barilla spaghetti 16 oz",
+      "barcode": "076808280081",
+      "identitySource": "https://www.target.com/p/-/A-13156213",
+      "bundledHit": false,
+      "reviewedOverride": false,
+      "resultingHit": false
+    },
+    {
+      "name": "Jif creamy peanut butter 16 oz",
+      "barcode": "051500255162",
+      "identitySource": "https://www.azdhs.gov/documents/prevention/azwic/vendors/arizona-wic-foods-database.pdf?v=20221108",
+      "bundledHit": false,
+      "reviewedOverride": false,
+      "resultingHit": false
+    },
+    {
+      "name": "Honey Nut Cheerios 17 oz",
+      "barcode": "00016000275713",
+      "identitySource": "https://www.cub.com/store/cub/products/34101-cheerios-cereal-honey-nut-17-oz",
+      "bundledHit": true,
+      "reviewedOverride": false,
+      "resultingHit": true
+    }
+  ],
+  "marketCoverageEstablished": false,
+  "opticalCameraTested": false,
+  "onlineFallbackConfigured": false,
+  "interpretation": "Six selected US SKUs are a convenience sample, not a statistical market estimate. Local-form checks do not test camera optics or label accuracy."
+}

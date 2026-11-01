@@ -8,6 +8,7 @@ nonisolated enum BarcodeValue {
     case invalidCharacters
     case unsupportedLength
     case invalidChecksum
+    case invalidProductCode
 
     var errorDescription: String? {
       switch self {
@@ -19,6 +20,8 @@ nonisolated enum BarcodeValue {
         "Enter an 8, 12, 13, or 14 digit GTIN. UPC-E codes aren't supported."
       case .invalidChecksum:
         "That barcode doesn't pass its check digit. Check every digit and try again."
+      case .invalidProductCode:
+        "An all-zero barcode is not a product code."
       }
     }
   }
@@ -35,6 +38,7 @@ nonisolated enum BarcodeValue {
     guard [8, 12, 13, 14].contains(digits.utf8.count) else {
       throw ValidationError.unsupportedLength
     }
+    guard digits.contains(where: { $0 != "0" }) else { throw ValidationError.invalidProductCode }
 
     let values = digits.utf8.map { Int($0 - 48) }
     // Starting at the rightmost payload digit, weights alternate 3, 1.

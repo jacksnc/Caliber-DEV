@@ -1,5 +1,6 @@
 @preconcurrency import AVFoundation
 import Combine
+import FoodCore
 import Foundation
 
 /// UI state stays on the main actor. The controller below owns all camera
@@ -182,9 +183,9 @@ private nonisolated final class BarcodeSessionController: NSObject, @unchecked S
     guard session.canAddOutput(output) else { throw CaptureError.unavailable }
     session.addOutput(output)
     output.setMetadataObjectsDelegate(self, queue: metadataQueue)
-    // UPC-A is delivered as EAN-13 with an initial zero. UPC-E is omitted:
-    // compressed UPC-E digits must not be mistaken for EAN-8/GTIN-8.
-    let supported: [AVMetadataObject.ObjectType] = [.ean8, .ean13, .itf14]
+    // UPC-A arrives as EAN-13. Compressed UPC-E is expanded using its
+    // reported symbology, so it is never confused with an eight-digit EAN.
+    let supported: [AVMetadataObject.ObjectType] = [.ean8, .ean13, .itf14, .upce]
     let available = supported.filter { output.availableMetadataObjectTypes.contains($0) }
     guard !available.isEmpty else { throw CaptureError.unavailable }
     output.metadataObjectTypes = available
@@ -210,10 +211,13 @@ extension BarcodeSessionController: AVCaptureMetadataOutputObjectsDelegate {
     from connection: AVCaptureConnection
   ) {
     let codes = metadataObjects.compactMap { object -> String? in
-      guard let value = (object as? AVMetadataMachineReadableCodeObject)?.stringValue else {
+      guard let object = object as? AVMetadataMachineReadableCodeObject,
+        let value = object.stringValue
+      else {
         return nil
       }
-      return try? BarcodeValue.normalize(value)
+      return BarcodeScanValue.normalize(
+        value, symbology: BarcodeSymbology(identifier: object.type.rawValue))
     }
     guard let code = codes.first else { return }
     // Return from the metadata callback before stopping the session, so

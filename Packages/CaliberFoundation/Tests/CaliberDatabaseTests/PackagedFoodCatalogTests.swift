@@ -79,6 +79,17 @@ private func packagedFixture(count: Int = 3, hasForeignKey: Bool = true) throws 
   return PackagedFixture(directory: directory, url: url)
 }
 
+@Test func packagedNameSearchMatchesBrandAndNameAndTreatsPunctuationAsText() throws {
+  let fixture = try packagedFixture()
+  defer { try? FileManager.default.removeItem(at: fixture.directory) }
+  let catalog = try fixture.open()
+  #expect(try catalog.search(query: "brand FOOD 2").map(\.fdcID) == [2])
+  #expect(try catalog.search(query: "packaged", limit: 1).count == 1)
+  #expect(try catalog.search(query: "").isEmpty)
+  #expect(try catalog.search(query: "' OR 1=1 --").isEmpty)
+  #expect(try catalog.search(query: "missing").isEmpty)
+}
+
 @Test func packagedCatalogReadsSourceAndExplicitMassVolumeBasis() throws {
   let fixture = try packagedFixture()
   defer { try? FileManager.default.removeItem(at: fixture.directory) }

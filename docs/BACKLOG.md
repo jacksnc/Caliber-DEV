@@ -456,3 +456,17 @@ and serving discrepancies, the cross-chain ID collision, rights-review evidence,
 field/category mapping and component rules before importing a reviewed subset.
 The handoff's chain-population percentage is not full-menu coverage. Prioritize
 Chipotle and LongHorn source verification; preserve existing custom-item flows.
+
+## Packaged name search and barcode coverage — 2026-11-01
+
+The 50,000-product bundled barcode catalog is now accessible by product/brand
+name, with a reviewed label supplement and CSV research/import contract. Oikos
+Pro vanilla source correction is shared by search and barcode. These additions
+do not establish broad product coverage. The six-SKU audit has 2 offline hits;
+Core Power chocolate 26 g/14 fl oz, Coca-Cola 2 L, Barilla spaghetti 16 oz and Jif
+creamy 16 oz are queued for source-backed collection. Expand using enumerated
+brand/SKU batches, retain source versions, and scale beyond the 1,000-row label
+supplement in the public catalog build pipeline. Physical iPhone optical scanning,
+glare/focus/curved labels and minimum-iOS execution remain open. UPC-E camera
+normalization is tested separately from camera optics. Live provider setup stays
+pending; no coverage percentage beyond the stated convenience sample is claimed.

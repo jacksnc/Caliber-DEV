@@ -38,6 +38,8 @@ struct FoodSearchView: View {
   @State private var searchText = ""
   @State private var scope = FoodSearchScope.all
   @State private var catalogFoods: [FoodCatalogEntry] = []
+  @State private var packagedFoods: [FoodNutritionReference] = []
+  @State private var packagedError: String?
   @State private var searchError: String?
   @State private var catalogError: String?
   @State private var manualEntryRequest: FoodEntryPass2ManualRequest?
@@ -129,7 +131,8 @@ struct FoodSearchView: View {
       case .recent: !recent.isEmpty
       case .frequent: !frequent.isEmpty
       case .all:
-        hasFavorites || !recent.isEmpty || !catalogFoods.isEmpty || !matchingSavedFoods.isEmpty
+        hasFavorites || !recent.isEmpty || !catalogFoods.isEmpty || !packagedFoods.isEmpty
+          || !matchingSavedFoods.isEmpty
           || (isList && !listMatches.isEmpty)
           || !matchingMeals.isEmpty || !matchingMenuItems.isEmpty || !matchingBuilders.isEmpty
       }
@@ -182,6 +185,21 @@ struct FoodSearchView: View {
       }
     }
     .task { await loadCatalog() }
+    .task(id: query) {
+      do {
+        let local = await BundledBarcodeService.prepared()
+        try Task.checkCancellation()
+        guard let service = local.service else { throw FoodCatalogError.unavailable }
+        let results = try await service.searchFoods(query: query)
+        try Task.checkCancellation()
+        packagedFoods = results
+        packagedError = nil
+      } catch is CancellationError {} catch {
+        packagedFoods = []
+        packagedError =
+          "Packaged food search is unavailable. You can enter the package label manually."
+      }
+    }
     .sheet(item: $manualEntryRequest) { request in
       AddFoodView(mealType: selectedMealType, date: date, prefill: request.prefill)
         .presentationDragIndicator(.visible)
@@ -252,6 +270,7 @@ struct FoodSearchView: View {
 
   @ViewBuilder
   private var errorSections: some View {
+    if let packagedError { Section { Text(packagedError) } }
     if let searchError {
       Section {
         Text(searchError)
@@ -310,6 +329,23 @@ struct FoodSearchView: View {
   @ViewBuilder
   private var allScopeSections: some View {
     if scope == .all {
+      if !packagedFoods.isEmpty {
+        Section {
+          ForEach(packagedFoods) { food in
+            NavigationLink {
+              FoodNutritionReviewView(reference: food, meal: selectedMealType, date: date)
+            } label: {
+              FoodEntryV2FoodRowLabel(
+                title: food.name,
+                detail: food.basisDescription + " · " + food.sourceLabel,
+                caloriesText: "\(NutritionInput.format(food.totals.calories, locale: locale)) cal")
+            }
+            .accessibilityIdentifier("packagedFood-\(food.id)")
+          }
+        } header: {
+          Text("Packaged Foods")
+        }
+      }
       if !matchingSavedFoods.isEmpty {
         Section {
           ForEach(matchingSavedFoods) { savedFoodRow($0) }

@@ -1,5 +1,43 @@
 # Caliber AI handoff
 
+## Packaged name search, label imports and barcode checks — 2026-11-01
+
+Branch `codex/packaged-food-import`, worktree
+`/Users/jcrock/Documents/Codex/Caliber-packaged-food-import`, from `8fce224`.
+Owner requested branded-food imports, a Gemini research format and barcode
+coverage verification. The existing 50,000-product barcode collection was absent
+from name search. FoodSearchView now queries it in a bounded local task and opens
+the existing editable review. A reviewed per-serving LabelFoods.json supplement
+is shared by name search and barcode lookup; exact GTIN corrections suppress the
+stale corresponding base result. No private logs are rewritten.
+
+Read PACKAGED_FOOD_IMPORT.md and PACKAGED_IMPORT_VERIFICATION.md. The CSV template
+and Gemini prompt are in docs/templates/packaged-food. The importer rejects
+missing nutrition, invalid/duplicate GTINs, guessed mass/volume combinations and
+unreviewed writes to app resources. A maintainer supplies a consolidated reviewed
+collection; the supplement is bounded at 1,000 rows. One source-checked Oikos Pro
+vanilla cup correction uses 130 kcal/20 P/6 C/3 F per 150 g from the manufacturer.
+Retailer and old USDA discrepancies are documented, not averaged.
+
+Camera delivery expands UPC-E using FoodCore's explicit symbology; full manual
+GTIN validation rejects all-zero codes. No provider was activated. The catalog
+audit passed 50,000 GTINs / 149,996 equivalent lookups. Only 2/6 selected mainstream
+SKUs matched offline: this is not market-coverage or physical-camera proof.
+Gemini's prompt prioritizes the four documented misses.
+
+Python import checks pass 5/5; existing packaged builder checks 24/24; focused
+database package suite passes (one optional external-resource case skipped);
+FoodCore barcode suite passes 28/28; strict Dynamic Type lint is 226 files with
+zero findings. App/unit checks and the new Oikos name/barcode UI checks passed
+in the corrected run. Two older mass/liquid UI tests needed navigation helpers
+updated for the V2 review footer and retained Fuel navigation stack; their final
+scoped rerun passed 2/2 with exact saved-diary totals. Initial failures remain
+documented in PACKAGED_IMPORT_VERIFICATION.md. The owner's local preview,
+personal simulator, private data and provider settings are untouched. Native
+build/test evidence is from isolated Caliber Compact QA. Next: collect/review
+Gemini's exact product batches; fill the four misses and perform physical-camera
+QA before claiming broad coverage. No further native job is running.
+
 ## Gemini restaurant archive intake — 2026-11-01
 
 Branch `codex/restaurant-data-intake`, worktree

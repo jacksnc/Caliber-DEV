@@ -39,3 +39,11 @@ Public domain / CC0-1.0. Source/selection/member/output hashes are recorded in
 PackagedFoodDatabaseManifest.json. Nutrients retain explicit100g or100mL bases.
 Data providers supply label records; compare with the current package.
 No product endorsement implied; this is a bounded initial collection.
+
+Reviewed label supplement:
+Oikos Pro Vanilla, US 5.3 oz cup. Factual serving/nutrition transcription from
+Danone/Oikos manufacturer Nutrition Info, checked November 1, 2026:
+https://www.oikos.com/all-products/pro-yogurt-cultured-ultra-filtered-milk/product/vanilla/
+UPC identity cross-reference: https://www.target.com/p/-/A-81995727
+Manufacturer and retailer label differences are recorded in the source details.
+No package artwork, marketing text, brand sponsorship or endorsement is included.

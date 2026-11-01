@@ -135,6 +135,25 @@ public final class PackagedFoodCatalog: Sendable {
     do { return try queue.read(body) } catch { throw PackagedFoodCatalogError.invalidData }
   }
 
+  /// Literal, bounded name/brand search over the same immutable barcode records.
+  /// Call off the UI actor; no query is sent to a provider.
+  public func search(query: String, limit: Int = 50) throws -> [PackagedCatalogProduct] {
+    let words = query.lowercased().components(separatedBy: CharacterSet.alphanumerics.inverted)
+      .filter { !$0.isEmpty }
+    guard !words.isEmpty, words.count <= 12, query.count <= 200, limit > 0 else { return [] }
+    return try safeRead { db in
+      let predicate = words.map { _ in "lower(brand || ' ' || name) LIKE ?" }.joined(
+        separator: " AND ")
+      let arguments = StatementArguments(words.map { "%" + $0 + "%" } + [String(min(limit, 100))])
+      return try Row.fetchAll(
+        db,
+        sql: "SELECT * FROM packaged_products WHERE " + predicate
+          + " ORDER BY lower(brand), lower(name), gtin14 LIMIT ?",
+        arguments: arguments
+      ).map { try Self.product($0, source: source) }
+    }
+  }
+
   private static func validate(_ db: Database) throws -> ReferenceCatalogSource {
     try validateSchema(db)
     guard try Int.fetchOne(db, sql: "PRAGMA application_id") == 1_128_352_848,

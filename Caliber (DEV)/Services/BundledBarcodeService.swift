@@ -6,9 +6,13 @@ import Foundation
 @MainActor
 struct BundledBarcodeService: BarcodeService {
   private let database: PackagedFoodCatalog
+  private let labels: LabelFoodCatalog
   private static var pending: Task<Result<PackagedFoodCatalog, PackagedFoodCatalogError>, Never>?
 
-  init(database: PackagedFoodCatalog) { self.database = database }
+  init(database: PackagedFoodCatalog, labels: LabelFoodCatalog? = nil) {
+    self.database = database
+    self.labels = labels ?? .empty
+  }
 
   static func prepared() async -> (service: BundledBarcodeService?, count: Int?) {
     if pending == nil {
@@ -34,7 +38,12 @@ struct BundledBarcodeService: BarcodeService {
     guard let pending, case .success(let database) = await pending.value,
       let count = try? database.foodCount
     else { return (nil, nil) }
-    return (BundledBarcodeService(database: database), count)
+    guard let labels = try? LabelFoodCatalog.load() else { return (nil, nil) }
+    let additions = labels.foods.filter { food in
+      guard let code = food.gtin14 else { return false }
+      return (try? database.product(gtin14: code)) == nil
+    }.count
+    return (BundledBarcodeService(database: database, labels: labels), count + additions)
   }
 
   func lookupFood(barcode: String) async throws -> BarcodeNutritionProduct {
@@ -42,9 +51,29 @@ struct BundledBarcodeService: BarcodeService {
     guard let key = try? BarcodeValue.gtin14(barcode) else {
       throw BarcodeLookupError.invalidBarcode
     }
+    if let corrected = labels.foods.first(where: { $0.gtin14 == key }) {
+      return corrected.barcodeProduct(requested: barcode)
+    }
     guard let product = try database.product(gtin14: key) else { throw BarcodeLookupError.notFound }
     try Task.checkCancellation()
     return try Self.product(product, requestedBarcode: barcode)
+  }
+
+  func searchFoods(query: String) async throws -> [FoodNutritionReference] {
+    guard !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return [] }
+    let database = self.database
+    let products = try await Task.detached(priority: .userInitiated) {
+      try database.search(query: query, limit: 50)
+    }.value
+    try Task.checkCancellation()
+    let overridden = Set(labels.foods.compactMap(\.gtin14))
+    let curated = labels.foods.filter {
+      FoodSearchText.matches($0.brand + " " + $0.name + " " + $0.aliases, query: query)
+    }.map(\.reference)
+    let baseline = try products.filter { !overridden.contains($0.gtin14) }.map {
+      FoodNutritionReference.barcode(try Self.product($0, requestedBarcode: $0.gtin14))
+    }
+    return Array((curated + baseline).prefix(50))
   }
 
   /// USDA standardizes branded nutrients to 100 g OR 100 mL according to the

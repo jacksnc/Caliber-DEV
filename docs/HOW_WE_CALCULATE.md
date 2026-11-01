@@ -281,3 +281,13 @@ Screen width selects the layout only. It never changes serving quantity,
 nutrition totals, targets, workout units or saved values. Native QA uses
 fictional records to check that fractional input survives rotation and that a
 food is added once. Width bounds do not introduce a new health estimate.
+
+## Reviewed packaged-label servings — November 2026
+
+Each imported label states calories, protein, total carbohydrate and fat for ONE
+explicit serving. Preserve reported calories instead of recreating them with
+4/4/9. If a source states 150 g and 130 calories, that portion is 130 calories
+and 300 g is 260 calories. Volume can multiply portions but cannot supply grams.
+Unknown mass stays unknown. Exact GTIN corrections use reviewed source facts for
+future reviews only; old saved logs do not change. This adapts a source to the
+existing portion math rather than introducing a new health formula.

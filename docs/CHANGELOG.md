@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-11-01 — Packaged food search and import
+
+- Search the existing USDA Branded barcode collection by product/brand alongside
+  generic foods, preserving editable review and selected meal/date.
+- Add a validated per-serving CSV import, Gemini research prompt, and reviewed
+  Oikos Pro vanilla label correction shared by search and barcode lookup.
+- Expand camera UPC-E by its reported symbology; reject all-zero product codes.
+- Audit 50,000 local identifiers and 149,996 padded forms. A six-SKU sample
+  shows 2 offline hits; broad market coverage and physical-camera checks remain
+  open. No online provider or private-data migration was enabled.
+
 ## 2026-11-01 — Supplied restaurant data intake
 
 Audited Gemini's 200-chain/1,839-item ZIP without running its seed scripts.

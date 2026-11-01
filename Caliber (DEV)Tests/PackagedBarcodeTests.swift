@@ -153,5 +153,5 @@ private final class LocalBarcodeFixture: BarcodeService {
   do {
     _ = try await service.lookupFood(barcode: "00000000000000")
     Issue.record("A reserved all-zero code cannot match a product.")
-  } catch { #expect(error as? BarcodeLookupError == .notFound) }
+  } catch { #expect(error as? BarcodeLookupError == .invalidBarcode) }
 }

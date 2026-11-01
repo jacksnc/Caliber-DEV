@@ -188,3 +188,11 @@ untouched.
 No migration or app catalog update. The supplied archive remains external to the
 repository; committed documents contain inventory and audit findings. No real
 menu is inserted into SwiftData, normalized stores or the bundled registry.
+
+## Packaged label supplement — 2026-11-01
+
+No private, hosted or SQLite schema migration. PackagedFoodDatabase.sqlite and
+its pinned manifest stay byte-identical. LabelFoods.json is a separate read-only
+reference resource (schemaVersion 1, reviewed collection, at most 1,000 label
+rows). It influences future searches/reviews; existing FoodItem/DiaryEntry copies
+keep their nutrition. No settings, entitlements or providers are changed.

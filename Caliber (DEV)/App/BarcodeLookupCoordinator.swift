@@ -147,7 +147,10 @@ extension FoodNutritionReference {
         calories: product.calories, protein: product.proteinGrams,
         carbs: product.carbGrams, fat: product.fatGrams),
       basisDescription: product.basisDescription, basisGrams: product.basisGrams,
-      sourceLabel: product.sourceName + (product.sourceRecordID.map { " FDC " + $0 } ?? "")
+      sourceLabel: product.sourceName
+        + (product.sourceRecordID.map {
+          (product.sourceName == "USDA Branded" ? " FDC " : " · ") + $0
+        } ?? "")
         + " GTIN " + product.barcode,
       sourceURL: product.sourceURL, attribution: product.attribution,
       sourceNote: product.sourceNote

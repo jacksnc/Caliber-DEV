@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "reviewed": true,
+  "foods": [
+    {
+      "id": "oikos-pro-vanilla-cup-us",
+      "brand": "Oikos",
+      "name": "Pro Vanilla Yogurt-Cultured Ultra-Filtered Milk (5.3 oz cup)",
+      "aliases": "oikos pro greek yogurt vanilla 20g protein",
+      "country": "US",
+      "gtin14": "00036632042552",
+      "servingDescription": "1 cup (150 g)",
+      "servingGrams": 150.0,
+      "servingMilliliters": null,
+      "calories": 130.0,
+      "proteinGrams": 20.0,
+      "carbGrams": 6.0,
+      "fatGrams": 3.0,
+      "sourceURL": "https://www.oikos.com/all-products/pro-yogurt-cultured-ultra-filtered-milk/product/vanilla/",
+      "sourceLocator": "Manufacturer Nutrition Info. Retailer listing still shows 140 kcal and 8 g carbs; compare your current package.",
+      "retrievedOn": "2026-11-01",
+      "barcodeSourceURL": "https://www.target.com/p/-/A-81995727"
+    }
+  ]
+}

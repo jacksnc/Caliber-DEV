@@ -14,11 +14,19 @@ final class FoodExperienceUITests: XCTestCase {
     _ element: XCUIElement, in app: XCUIApplication, towardTop: Bool = false
   ) {
     for _ in 0..<14 {
-      let top = app.navigationBars.firstMatch.frame.maxY + 8
-      let bottom =
-        app.keyboards.firstMatch.exists
-        ? app.keyboards.firstMatch.frame.minY - 8
-        : app.otherElements["caliberTabBar"].frame.minY - 8
+      let top =
+        app.navigationBars.firstMatch.exists
+        ? app.navigationBars.firstMatch.frame.maxY + 8 : app.windows.firstMatch.frame.minY + 50
+      var bottom = app.windows.firstMatch.frame.maxY - 24
+      if app.keyboards.firstMatch.exists {
+        bottom = app.keyboards.firstMatch.frame.minY - 8
+      } else if app.otherElements["caliberTabBar"].exists {
+        bottom = app.otherElements["caliberTabBar"].frame.minY - 8
+      }
+      let reviewBar = app.otherElements["foodEntryReviewBar"]
+      if reviewBar.exists && reviewBar.frame.minY > top {
+        bottom = min(bottom, reviewBar.frame.minY - 8)
+      }
       if element.exists && element.isHittable && element.frame.minY >= top
         && element.frame.maxY <= bottom
       {
@@ -50,6 +58,18 @@ final class FoodExperienceUITests: XCTestCase {
     picture.name = name
     picture.lifetime = .keepAlways
     add(picture)
+  }
+
+  @MainActor private func returnToDiary(_ app: XCUIApplication) {
+    // Fuel owns the pushed Library → Barcode → Review stack. Reselecting its
+    // tab preserves that stack, so explicitly return through those pages.
+    for _ in 0..<4 {
+      if app.staticTexts["diaryCalories"].exists { break }
+      let back = app.navigationBars.buttons.element(boundBy: 0)
+      if !back.exists { break }
+      back.tap()
+    }
+    reveal(app.staticTexts["diaryCalories"], in: app, towardTop: true)
   }
 
   @MainActor func testOfflineFoodPortionAndPersonalMacroEditCanBeLogged() {
@@ -174,8 +194,33 @@ final class FoodExperienceUITests: XCTestCase {
     snapshot("Offline USDA packaged food with a weighed portion", app: app)
     app.buttons["referenceAdd"].tap()
     XCTAssertFalse(app.buttons["referenceAdd"].isEnabled)
-    app.tab("Fuel").tap()
+    returnToDiary(app)
     XCTAssertEqual(app.staticTexts["diaryCalories"].label, "220.08 calories")
+  }
+
+  @MainActor func testOikosProNameSearchUsesReviewedLabelServing() {
+    let app = launch()
+    app.buttons["openFoodSearch"].tap()
+    let search = app.searchFields.firstMatch
+    XCTAssertTrue(search.waitForExistence(timeout: 10))
+    search.tap()
+    search.typeText("oikos pro\n")
+    let food = app.buttons["packagedFood-label:oikos-pro-vanilla-cup-us"]
+    XCTAssertTrue(food.waitForExistence(timeout: 15))
+    food.tap()
+    XCTAssertTrue(app.staticTexts["referenceFoodName"].label.contains("Oikos"))
+    XCTAssertEqual(app.textFields["referenceGrams"].value as? String, "150")
+    reveal(app.staticTexts["referenceCalories"], in: app)
+    XCTAssertEqual(app.staticTexts["referenceCalories"].label, "130 calories")
+    snapshot("Packaged name search Oikos Pro reviewed label", app: app)
+  }
+
+  @MainActor func testOikosProBarcodeUsesSameReviewedLabel() {
+    let app = launch()
+    openOfflineProduct("036632042552", in: app)
+    XCTAssertEqual(app.textFields["referenceGrams"].value as? String, "150")
+    reveal(app.staticTexts["referenceCalories"], in: app)
+    XCTAssertEqual(app.staticTexts["referenceCalories"].label, "130 calories")
   }
 
   @MainActor func testBundledBarcodeKeepsALiquidServingInMilliliters() {
@@ -192,7 +237,7 @@ final class FoodExperienceUITests: XCTestCase {
     snapshot("Offline USDA volume serving without gram conversion", app: app)
     app.buttons["referenceAdd"].tap()
     XCTAssertFalse(app.buttons["referenceAdd"].isEnabled)
-    app.tab("Fuel").tap()
+    returnToDiary(app)
     XCTAssertEqual(app.staticTexts["diaryCalories"].label, "220 calories")
   }
   @MainActor func testImportedFictionalMenuUsesCategoriesAndPersonalReview() {

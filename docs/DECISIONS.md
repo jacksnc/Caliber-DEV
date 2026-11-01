@@ -439,3 +439,15 @@ audit outputs and a correction queue. Do not raise importer limits, relabel
 permissions or infer category/component/double-portion rules to make it pass.
 Prioritize independently verified Chipotle and LongHorn subsets before broad
 coverage. No schema or feature-flag changes are needed for this intake.
+
+## V212 — Share reviewed label facts between name search and barcode lookup
+
+Expose the immutable USDA Branded resource through bounded local name/brand
+search without changing its schema/source bytes. Add a reviewed per-serving
+label supplement with explicit GTIN/serving/source evidence for missing products
+and known stale source records. Exact GTIN overrides precede the original source
+and suppress its duplicate search result; old private logs never change.
+Preserve reported calories and optional mass/volume. Incomplete or unreviewed
+imports fail before publication. UPC-E camera support uses FoodCore's tested
+symbology-aware expansion; manual eight-digit codes retain EAN-8 meaning. Source
+review, local code tests, lookup coverage and camera optics are separate evidence.
