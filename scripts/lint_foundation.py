@@ -157,4 +157,10 @@ paths += [ROOT / p for p in [
     'Caliber (DEV)UITests/TodayInfoCardPagerUITests.swift',
     'Caliber (DEV)UITests/WidgetSettingsUITests.swift',
 ]]
+paths += [ROOT / p for p in [
+    'Caliber (DEV)/Services/ProgressUnitPreferenceMigration.swift',
+    'Caliber (DEV)/Views/Progress/ProgressEntryForm.swift',
+    'Caliber (DEV)Tests/ProgressUnitPreferenceMigrationTests.swift',
+    'Caliber (DEV)UITests/ProgressUnitConsistencyUITests.swift',
+]]
 subprocess.run(['xcrun', 'swift-format', 'lint', '--strict', *map(str, paths)], cwd=ROOT, check=True)

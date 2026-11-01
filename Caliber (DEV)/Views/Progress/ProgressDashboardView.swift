@@ -1,3 +1,4 @@
+import CaliberCore
 import HeliosDesign
 import SwiftData
 import SwiftUI
@@ -11,13 +12,13 @@ struct ProgressDashboardView: View {
   @Query(sort: \DiaryEntry.date) private var diary: [DiaryEntry]
   @Query private var profiles: [UserProfile]
   @State private var range = ProgressRange.month
-  @AppStorage("progressWeightUnit") private var unitRawValue = WeightUnit.pounds.rawValue
+  @EnvironmentObject private var runtime: FoundationRuntime
   @State private var isAddingEntry = false
   @State private var editingEntry: ProgressEntry?
   @State private var deletingEntry: ProgressEntry?
   @State private var saveError: String?
 
-  private var unit: WeightUnit { WeightUnit(rawValue: unitRawValue) ?? .pounds }
+  private var unit: WeightUnit { runtime.settings.massUnit == .kilograms ? .kilograms : .pounds }
   /// Weigh-ins in the selected range; older history is still shown when the range is empty.
   private var summary: WeightProgressSummary {
     let inRange = weights.filter { range.contains($0.date) }
@@ -226,9 +227,9 @@ private struct ProgressSectionHeader: View {
 
 private struct ProgressEntryDetailView: View {
   let entry: ProgressEntry
-  @AppStorage("progressWeightUnit") private var unitRawValue = WeightUnit.pounds.rawValue
+  @EnvironmentObject private var runtime: FoundationRuntime
   @State private var isEditing = false
-  private var unit: WeightUnit { WeightUnit(rawValue: unitRawValue) ?? .pounds }
+  private var unit: WeightUnit { runtime.settings.massUnit == .kilograms ? .kilograms : .pounds }
 
   var body: some View {
     List {
@@ -275,8 +276,14 @@ private struct ProgressEntryDetailView: View {
 
 #Preview {
   ProgressDashboardView()
+    .environmentObject(FoundationRuntime(previewing: true))
+    // This preview is read-only; actual editing is checked in isolated simulator tests.
+    .allowsHitTesting(false)
     .modelContainer(
-      for: [ProgressEntry.self, WeightEntry.self, ProgressPhoto.self], inMemory: true)
+      for: [
+        ProgressEntry.self, WeightEntry.self, ProgressPhoto.self, DiaryEntry.self, UserProfile.self,
+      ],
+      inMemory: true)
 }
 
 extension View {

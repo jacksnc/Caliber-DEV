@@ -209,3 +209,13 @@ New WidgetKit target/App Group entitlement and read-only HealthKit capability
 require physical-team provisioning validation before device release. No account
 or team was configured, identifier registered, owner setting enabled or personal
 simulator/store modified in this work.
+
+## Progress weight preference unification (2026-11-01)
+
+Add app-private progress.weightUnit.unified.v1. On its first unset launch,
+copy a valid progressWeightUnit (pounds/kilograms) into the existing Foundation
+settings massUnit and persist the marker. Preserve all other decoded settings;
+invalid legacy values cannot override a valid canonical choice. Once completed,
+FoundationSettings is authoritative and the legacy key is a write-only mirror.
+The unit is user-changeable afterward. No data schema, stored weigh-in, photo,
+calorie goal or conversion constant changes.

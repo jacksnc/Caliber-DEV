@@ -587,6 +587,7 @@ private struct TodayWeightTile: View {
     .v2Surface()
     .frame(minWidth: 0, idealWidth: idealWidth, maxWidth: .infinity, alignment: .leading)
     .accessibilityElement(children: .combine)
+    .accessibilityIdentifier("todayWeightTile")
   }
 
   private func weekChange(trend: [WeightProgressSummary.TrendReading], unit: MassUnit) -> String {

@@ -327,3 +327,9 @@ No health calculation, persistence or user-device changes.
   as before; missing or stale observations keep the base goal.
 - Native verification and remaining physical-device limits are documented in
   docs/parallel/cards-widgets/VERIFICATION.md.
+
+## 2026-11-01 — Progress unit consistency
+
+- Resolve the independent review's weight-unit drift across check-in, Progress,
+  Today and Settings using one saved preference, with a one-time adoption of the
+  last valid legacy choice. Save/cancel semantics and stored pounds remain intact.

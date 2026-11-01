@@ -473,9 +473,9 @@ pending; no coverage percentage beyond the stated convenience sample is claimed.
 
 ## Cards/widgets peer review follow-ups (2026-11-01)
 
-- Validate source-confirmed Progress weight-unit divergence: entry form's legacy
+- Fixed on codex/progress-unit-consistency (see PROGRESS_UNIT_CONSISTENCY.md): Progress weight-unit divergence: entry form's legacy
   AppStorage versus runtime.settings.massUnit; consolidate without stored-value
-  conversion. Claude's top finding; separate regression coverage required.
+  conversion. Claude's top finding; migration and native cross-screen/relaunch/cancel regression checks pass.
 - Audit Diary/search/copy energy labels against the kJ setting. Display-only
   consistency; do not change canonical kcal or label-source values.
 - Reproduce Stack Skip save-error/undo behavior before fixing. Compound-name

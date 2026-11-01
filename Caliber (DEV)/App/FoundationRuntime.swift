@@ -24,21 +24,22 @@ final class FoundationRuntime: ObservableObject {
   private let defaults: UserDefaults
   private let directory: URL
 
-  init() {
+  init(previewing: Bool = false) {
     #if DEBUG
       testing =
-        ProcessInfo.processInfo.arguments.contains("--progress-ui-testing")
+        previewing || ProcessInfo.processInfo.arguments.contains("--progress-ui-testing")
         || ProcessInfo.processInfo.arguments.contains("--foundation-ui-testing")
         || ProcessInfo.processInfo.arguments.contains("--account-ui-testing")
     #else
       testing = false
     #endif
     if testing {
-      defaults = UserDefaults(suiteName: "Caliber.Foundation.UITests")!
-      if ProcessInfo.processInfo.arguments.contains("--reset-foundation")
+      let suite = previewing ? "Caliber.Foundation.Previews" : "Caliber.Foundation.UITests"
+      defaults = UserDefaults(suiteName: suite)!
+      if previewing || ProcessInfo.processInfo.arguments.contains("--reset-foundation")
         || ProcessInfo.processInfo.arguments.contains("--progress-ui-testing")
       {
-        defaults.removePersistentDomain(forName: "Caliber.Foundation.UITests")
+        defaults.removePersistentDomain(forName: suite)
       }
     } else {
       defaults = .standard
@@ -58,6 +59,7 @@ final class FoundationRuntime: ObservableObject {
     {
       loaded.massUnit = prior == "kilograms" ? .kilograms : .pounds
     }
+    ProgressUnitPreferenceMigration.apply(to: &loaded, defaults: defaults)
     #if DEBUG
       // Appearance tests use isolated preferences and an in-memory health store.
       if testing {

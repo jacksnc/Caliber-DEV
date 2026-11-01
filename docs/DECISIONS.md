@@ -482,3 +482,16 @@ of shared widget files. Refresh on foreground return, manual action and every
 five minutes while active; no background polling or network writes. Apple read
 permission denial cannot be inferred from an empty query. Device results and
 permission/provisioning remain separate from mock/simulator evidence.
+
+## V215 — One authoritative Progress weight-unit preference
+
+Use runtime.settings.massUnit in Progress form/chart/detail as already used by
+Today and Settings. Save a newly selected form unit only after successful
+check-in persistence; cancel, failed save and number-free note/photo saves do
+not change it. Keep all stored pounds and conversion formulas unchanged. Adopt
+a valid legacy progressWeightUnit choice once into FoundationSettings, because
+older Settings saves also mirrored that key and a differing legacy value means
+a later Progress selection. Persist progress.weightUnit.unified.v1 to make the
+merge one-time; malformed strings preserve the canonical unit. The old key is a
+compatibility mirror only. This reversible preference merge never migrates or
+rewrites health records. See PROGRESS_UNIT_CONSISTENCY.md.

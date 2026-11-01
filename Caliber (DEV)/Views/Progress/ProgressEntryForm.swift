@@ -1,3 +1,4 @@
+import CaliberCore
 import PhotosUI
 import SwiftData
 import SwiftUI
@@ -9,7 +10,7 @@ struct ProgressEntryForm: View {
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var modelContext
   @Environment(\.dismiss) private var dismiss
-  @AppStorage("progressWeightUnit") private var weightUnitRawValue = WeightUnit.pounds.rawValue
+  @EnvironmentObject private var runtime: FoundationRuntime
 
   private let entry: ProgressEntry?
   private let hidesWeight: Bool
@@ -214,7 +215,7 @@ struct ProgressEntryForm: View {
 
   private func loadWeightOnce() {
     guard !didLoadWeight else { return }
-    selectedUnit = WeightUnit(rawValue: weightUnitRawValue) ?? .pounds
+    selectedUnit = runtime.settings.massUnit == .kilograms ? .kilograms : .pounds
     if !hidesWeight, let pounds = entry?.weightEntry?.weightInPounds {
       weightText = NutritionInput.format(unit.fromPounds(pounds), locale: locale)
     }
@@ -278,7 +279,9 @@ struct ProgressEntryForm: View {
         entry: entry, date: selectedDate, weightInPounds: weightInPounds,
         notes: notes, photos: photos, in: modelContext
       )
-      weightUnitRawValue = unit.rawValue
+      if !hidesWeight {
+        runtime.settings.massUnit = unit == .kilograms ? .kilograms : .pounds
+      }
       dismiss()
     } catch {
       saveError = error.localizedDescription

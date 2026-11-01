@@ -1,5 +1,44 @@
 # Caliber AI handoff
 
+## Progress unit consistency — 2026-11-01
+
+Current continuation branch `codex/progress-unit-consistency`, worktree
+`/Users/jcrock/Documents/Codex/Caliber-progress-units`, from pushed cards/widgets/
+Health integration c8d24c0. Owner asked to continue. Native widget gallery review
+could not start: the computer-control service repeatedly reported the Mac locked,
+even after the owner's Unlocked reply and a fresh control session. No lock or
+security setting was changed. Source/build/test work continued independently.
+
+Resolved Claude's first independent review finding: Progress form/chart/detail
+now use runtime.settings.massUnit, like Today and Settings. A form unit remains
+local until its successful save. Cancel/failed save/number-free note/photo saves
+do not change it. A one-time reversible preference merge adopts a valid last
+legacy progressWeightUnit choice into FoundationSettings without rewriting any
+weigh-in or changing conversion formulas. Invalid legacy strings preserve the
+canonical setting; progress.weightUnit.unified.v1 prevents later stale legacy
+writes from regaining authority. Preview runtime uses isolated fake preferences/
+services and in-memory progress storage; no owner preferences are initialized or
+migrated by that preview.
+
+Read PROGRESS_UNIT_CONSISTENCY.md. Native migration tests pass 2/2; cancel UI
+passes; the final saved-kg UI case passes across Progress, Today, a separate theme
+save and relaunch. Result paths are in that document. Early UI harness failures
+were offscreen/empty Picker.value assumptions and a duplicate theme label; final
+checks use observable kg labels/selected unit and the stable appearance card ID.
+Strict Foundation formatting and Dynamic Type lint pass; owner local preview,
+personal simulator and data remain unchanged. No native test batch is left
+running after this checkpoint.
+
+The parent branch still contains the reviewed native cards, small/medium widgets
+and confirmed-allowance Health adjustment, with detailed evidence in
+parallel/cards-widgets/VERIFICATION.md. Physical WidgetKit layout/redaction,
+real Health permissions/source reconciliation and signing remain open. Do not
+claim those are verified from compilation, mocks or settings screenshots.
+Claude and Gemini finished both assigned deliveries and review-only follow-ups;
+no new native prompt was sent after desktop controls became unavailable. Next:
+resume isolated widget gallery/deep-link/visual review once native control works;
+then remaining ranked findings with refreshed branch ownership.
+
 ## Cards, iPhone widgets and Apple Health allowance — 2026-11-01
 
 Current coordinator branch `codex/cards-widgets`, clean separate checkout
