@@ -17,6 +17,12 @@ form, and returning from Restaurants to the Food Library root before scanner
 navigation. No personal simulator or stored record was used. The full run's
 15 repeated invalid-frame runtime warnings were not traced to a specific view.
 
+The owner reported the Mac unlocked for model coordination, but the computer
+control surface still returned “Mac is locked” when checked after the run.
+No new Claude or Gemini task was sent in this follow-up, and none of the 15 UI
+failures is represented as model-reviewed. Earlier completed handoffs remain
+recorded below.
+
 ## Latest follow-up — Diary energy units and model review
 
 The Mac is unlocked and both existing native model chats were inspected before
