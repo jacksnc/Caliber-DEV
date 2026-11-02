@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-11-02 — Hardware archive and beta packaging
+
+- Verify an unsigned iPhone hardware Release archive of integrated code.
+- Add application-level required-reason declarations for app-local defaults and
+  elapsed-time request throttling; verify both in the built archive.
+- Add a read-only archive packaging checker with eight passing tests and a
+  release handoff. The actual checker exposes the empty app icon catalog.
+- Preserve existing UI, signing, device and release-review gates; no migration.
+
 ## 2026-11-01 — Diary energy units and second-model Frost review
 
 - Diary totals, goals, remaining/over-goal amounts, meal headings, food rows,

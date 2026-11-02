@@ -1,5 +1,29 @@
 # Caliber AI handoff
 
+## Hardware archive and beta packaging — 2026-11-02
+
+Owner requested progress toward going live. Branch `codex/release-readiness`
+in `/Users/jcrock/Documents/Codex/Caliber-release-readiness` starts at committed
+integrated code `70c4012`; the dirty QA checkout and owner's preview are intact.
+Read `docs/RELEASE_READINESS.md`. The hardware Release archive succeeds before
+and after adding the application PrivacyInfo.xcprivacy. The app's audited direct
+UserDefaults and systemUptime uses declare CA92.1 and 35F9.1; the actual built
+app contains both declarations. No data-collection disclosure completeness is
+claimed. No provider, entitlement, team, identifier, formula, or schema changed.
+
+A read-only archive checker and 8 passing fixture tests are added. Actual final
+archive inspection passes 9/10 compile-only checks and fails the missing primary
+app icon: the asset catalog is empty. The archive is deliberately unsigned.
+Widget embedding, version and identifier checks pass. Foundation lint, plist
+syntax and diff checks pass; inherited concurrency warnings remain in the log.
+No UI/device tests were rerun. The existing broad UI record remains 82/91;
+uncommitted QA fixes must be reviewed and integrated before final regression.
+Next: resolve that regression batch and approved icon assets, then confirm the
+owner's Apple team/identifiers for a signed physical-device beta. Source/reuse,
+privacy/disclosure and existing COMPLIANCE release gates still require evidence.
+No App Store/TestFlight upload occurred. Exact commands, artifacts and ordered
+remaining actions are in RELEASE_READINESS.md.
+
 ## Diary energy units and model review — 2026-11-01
 
 Current coordinator checkout:

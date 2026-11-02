@@ -1,5 +1,17 @@
 # Decisions — Phase 0, 2026-10-07
 
+## Hardware archive packaging — 2026-11-02
+
+Prepare the first beta through a hardware Release archive on a separate branch
+from committed integrated code. Do not consume another checkout's uncommitted QA
+fixes or change the owner's preview. Declare the directly audited app-local
+UserDefaults use (CA92.1) and local uptime interval calculations (35F9.1) in the
+application manifest; a dependency manifest does not cover application code.
+Keep data-collection disclosures separate from this limited API declaration.
+The release archive checker reports missing icons and, by default, signing
+material; compile-only runs explicitly opt out of signing checks. Presence of
+signing files is not certificate/provision validation. No upload is performed.
+
 Status: architecture proposal ready for owner review. Decisions below guide Phase 1; no application storage, UI, or deployment-target change was made in Phase 0. Details and tradeoffs live in `adr/`.
 
 | ID | Choice | Reason / consequence |
