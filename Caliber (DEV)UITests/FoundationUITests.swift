@@ -31,11 +31,15 @@ final class FoundationUITests: XCTestCase {
     picture.name = "Foundation demo chart"
     picture.lifetime = .keepAlways
     add(picture)
-    app.buttons["chartTable-Body weight"].tap()
-    XCTAssertTrue(
-      app.descendants(matching: .any).matching(
-        NSPredicate(format: "label CONTAINS %@", "Not logged")
-      ).firstMatch.waitForExistence(timeout: 5))
+    let tableButton = app.buttons["chartTable-Body weight"]
+    reveal(tableButton, in: app)
+    tableButton.tap()
+    XCTAssertTrue(app.navigationBars["Body weight"].waitForExistence(timeout: 5))
+    let notLogged = app.descendants(matching: .any).matching(
+      NSPredicate(format: "label CONTAINS %@", "Not logged")
+    ).firstMatch
+    reveal(notLogged, in: app)
+    XCTAssertTrue(notLogged.waitForExistence(timeout: 5))
     app.navigationBars.buttons.element(boundBy: 0).tap()
     app.buttons["exitDemo"].tap()
     XCTAssertTrue(app.staticTexts["No food logged today"].waitForExistence(timeout: 10))
@@ -61,11 +65,76 @@ final class FoundationUITests: XCTestCase {
     XCTAssertTrue(app.navigationBars["Your Journal"].waitForExistence(timeout: 10))
   }
   @MainActor private func reveal(_ element: XCUIElement, in app: XCUIApplication) {
-    for _ in 0..<8 {
-      if element.isHittable { return }
-      app.swipeUp()
+    // Navigation pushes and sheets keep their presenters in the accessibility tree.
+    // The active form/table is the last scroll container, not the background tab.
+    let collectionViews = app.collectionViews.allElementsBoundByIndex
+    let collection = collectionViews.last ?? app.collectionViews.firstMatch
+    let scrollViews = app.scrollViews.allElementsBoundByIndex
+    let scroll = scrollViews.last ?? app.scrollViews.firstMatch
+    let navigationBar = app.navigationBars.firstMatch
+    let tabBar = app.otherElements["caliberTabBar"]
+    let demoExit = app.buttons["exitDemo"]
+    for _ in 0..<40 {
+      let top = navigationBar.exists ? navigationBar.frame.maxY + 8 : 64
+      let isRecoverySheet = app.navigationBars["Password Recovery"].exists
+      let bottom: CGFloat
+      if tabBar.exists && !isRecoverySheet {
+        bottom = tabBar.frame.minY - 8
+      } else if demoExit.exists {
+        bottom = demoExit.frame.minY - 8
+      } else {
+        bottom = app.windows.firstMatch.frame.maxY - 16
+      }
+      if element.exists {
+        let frame = element.frame
+        let visibleHeight = min(frame.maxY, bottom) - max(frame.minY, top)
+        if element.isHittable && visibleHeight >= min(48, frame.height) { return }
+        let target: XCUIElement
+        if collection.exists {
+          target = collection
+        } else if scroll.exists {
+          target = scroll
+        } else {
+          target = app
+        }
+        // Small drags near an edge avoid jumping past tall Dynamic Type controls.
+        let needsDownwardContent = frame.minY < top
+        let gap = needsDownwardContent ? top - frame.minY : frame.maxY - bottom
+        if gap > 400 {
+          if needsDownwardContent { target.swipeDown() } else { target.swipeUp() }
+        } else {
+          let distance = min(max(gap + 56, 100), 180)
+          // The charts handle vertical drags for data inspection. Drag at the
+          // trailing gutter so the parent dashboard scroll view receives them.
+          let start = target.coordinate(withNormalizedOffset: CGVector(dx: 0.96, dy: 0.55))
+          let verticalDelta = needsDownwardContent ? distance : -distance
+          start.press(
+            forDuration: 0.05,
+            thenDragTo: start.withOffset(CGVector(dx: 0, dy: verticalDelta)))
+        }
+      } else if collection.exists {
+        collection.swipeUp()
+      } else if scroll.exists {
+        scroll.swipeUp()
+      } else {
+        app.swipeUp()
+      }
     }
-    XCTAssertTrue(element.isHittable)
+    let top = navigationBar.exists ? navigationBar.frame.maxY + 8 : 64
+    let isRecoverySheet = app.navigationBars["Password Recovery"].exists
+    let bottom: CGFloat
+    if tabBar.exists && !isRecoverySheet {
+      bottom = tabBar.frame.minY - 8
+    } else if demoExit.exists {
+      bottom = demoExit.frame.minY - 8
+    } else {
+      bottom = app.windows.firstMatch.frame.maxY - 16
+    }
+    XCTAssertTrue(
+      element.exists && element.isHittable
+        && min(element.frame.maxY, bottom) - max(element.frame.minY, top)
+          >= min(48, element.frame.height),
+      "Could not reveal \(element.identifier) above the tab bar.\n\(app.debugDescription)")
   }
 
   @MainActor func testSelectedDecimalFormatSurvivesProgressSaveAndCancel() {
@@ -102,11 +171,15 @@ final class FoundationUITests: XCTestCase {
     // Account opens from Profile's own row, near the top, so no scrolling is needed.
     app.openProfile()
     app.tap(app.buttons["profileAccount"], until: app.switches["accountConsent"])
+    let consent = app.switches["accountConsent"]
+    reveal(consent, in: app)
     XCTAssertFalse(app.buttons["accountConsentContinue"].isEnabled)
-    turnOn(app.switches["accountConsent"])
-    app.buttons["accountConsentContinue"].tap()
-    let email = app.textFields["accountEmail"]
-    XCTAssertTrue(email.waitForExistence(timeout: 5))
+    turnOn(consent)
+    let continueToAccount = app.buttons["accountConsentContinue"]
+    reveal(continueToAccount, in: app)
+    XCTAssertTrue(continueToAccount.isEnabled, app.debugDescription)
+    continueToAccount.tap()
+    let email = revealAccountEmail(in: app)
     email.tap()
     email.typeText("fixture@example.invalid")
     app.secureTextFields["accountPassword"].tap()
@@ -155,17 +228,16 @@ final class FoundationUITests: XCTestCase {
     tablePicture.lifetime = .keepAlways
     add(tablePicture)
     app.navigationBars.buttons.element(boundBy: 0).tap()
+    XCTAssertTrue(app.navigationBars["Demo"].waitForExistence(timeout: 5))
 
     let info = app.buttons["chartInfo-Body weight"]
-    for _ in 0..<8 {
-      if info.isHittable { break }
-      app.swipeDown()
-    }
+    reveal(info, in: app)
     XCTAssertTrue(info.isHittable)
     XCTAssertGreaterThanOrEqual(info.frame.width, 48)
     XCTAssertGreaterThanOrEqual(info.frame.height, 48)
     info.tap()
-    XCTAssertTrue(app.navigationBars["Method"].waitForExistence(timeout: 5))
+    let methodCopy = app.staticTexts["How we calculate"]
+    XCTAssertTrue(methodCopy.waitForExistence(timeout: 8), app.debugDescription)
     try audit(app)
     let methodPicture = XCTAttachment(screenshot: app.screenshot())
     methodPicture.name = "Foundation calculation method AX5"
@@ -190,10 +262,25 @@ final class FoundationUITests: XCTestCase {
     app.openProfile()
     let consent = app.switches["accountConsent"]
     app.tap(app.buttons["profileAccount"], until: consent)
+    reveal(consent, in: app)
     turnOn(consent)
-    app.buttons["accountConsentContinue"].tap()
-    XCTAssertTrue(app.textFields["accountEmail"].waitForExistence(timeout: 5))
-    XCTAssertTrue(app.textFields["accountEmail"].waitForExistence(timeout: 5))
+    let continueToAccount = app.buttons["accountConsentContinue"]
+    reveal(continueToAccount, in: app)
+    XCTAssertTrue(continueToAccount.isEnabled, app.debugDescription)
+    continueToAccount.tap()
+    _ = revealAccountEmail(in: app)
+  }
+
+  /// Consent content is taller than the phone viewport. Returning to the account fields
+  /// also ensures SwiftUI's Form has materialized their accessibility elements.
+  @MainActor private func revealAccountEmail(in app: XCUIApplication) -> XCUIElement {
+    let email = app.textFields["accountEmail"]
+    for _ in 0..<8 where !email.exists || !email.isHittable {
+      app.swipeDown()
+    }
+    XCTAssertTrue(email.waitForExistence(timeout: 5), app.debugDescription)
+    XCTAssertTrue(email.isHittable, app.debugDescription)
+    return email
   }
   @MainActor func testRecoveryUsesCodeWithoutSigningIn() {
     let app = launch(additionalArguments: ["--account-ui-testing"])
@@ -203,8 +290,12 @@ final class FoundationUITests: XCTestCase {
     XCTAssertTrue(email.waitForExistence(timeout: 5))
     email.tap()
     email.typeText("fixture@example.invalid")
-    app.buttons["recoverySend"].tap()
-    XCTAssertTrue(app.staticTexts["recoveryMessage"].waitForExistence(timeout: 5))
+    let request = app.buttons["recoverySend"]
+    XCTAssertTrue(request.isEnabled)
+    request.tap()
+    let requestMessage = app.staticTexts["recoveryMessage"]
+    reveal(requestMessage, in: app)
+    XCTAssertTrue(requestMessage.waitForExistence(timeout: 5), app.debugDescription)
     app.textFields["recoveryCode"].tap()
     app.textFields["recoveryCode"].typeText("123456")
     app.secureTextFields["recoveryNewPassword"].tap()
@@ -215,9 +306,12 @@ final class FoundationUITests: XCTestCase {
     reveal(submit, in: app)
     XCTAssertTrue(submit.isEnabled)
     submit.tap()
-    XCTAssertTrue(app.staticTexts["recoveryMessage"].waitForExistence(timeout: 5))
+    let resetMessage = app.staticTexts["recoveryMessage"]
+    // Success is inserted at the top of the form, while the submitted button was at its end.
+    for _ in 0..<8 where !resetMessage.exists || !resetMessage.isHittable { app.swipeDown() }
+    XCTAssertTrue(resetMessage.waitForExistence(timeout: 5), app.debugDescription)
     XCTAssertEqual(
-      app.staticTexts["recoveryMessage"].label, "Password changed. Sign in with your new password.")
+      resetMessage.label, "Password changed. Sign in with your new password.")
     let picture = XCTAttachment(screenshot: app.screenshot())
     picture.name = "Password recovery fixture"
     picture.lifetime = .keepAlways
@@ -253,18 +347,25 @@ final class FoundationUITests: XCTestCase {
     reveal(app.buttons["deletionSubmit"], in: app)
     app.buttons["deletionSubmit"].tap()
     app.buttons["Permanently Delete Account"].tap()
-    XCTAssertTrue(app.switches["accountConsent"].waitForExistence(timeout: 5))
-    XCTAssertEqual(app.switches["accountConsent"].value as? String, "0")
+    let consent = app.switches["accountConsent"]
+    // The consent switch sits below its disclosure copy, so scroll the form to its end.
+    for _ in 0..<8 where !consent.exists || !consent.isHittable { app.swipeUp() }
+    XCTAssertTrue(consent.waitForExistence(timeout: 5), app.debugDescription)
+    XCTAssertEqual(consent.value as? String, "0")
     XCTAssertFalse(app.buttons["accountConsentContinue"].isEnabled)
-    XCTAssertTrue(
-      app.staticTexts["accountMessage"].label.contains("Your local logs and photos are still here"))
+    let deletionMessage = app.staticTexts["accountMessage"]
+    for _ in 0..<8 where !deletionMessage.exists || !deletionMessage.isHittable { app.swipeDown() }
+    XCTAssertTrue(deletionMessage.waitForExistence(timeout: 5), app.debugDescription)
+    XCTAssertTrue(deletionMessage.label.contains("Your local logs and photos are still here"))
     let picture = XCTAttachment(screenshot: app.screenshot())
     picture.name = "Hosted deletion fixture"
     picture.lifetime = .keepAlways
     add(picture)
     app.leaveProfile()
     app.tab("Progress").tap()
-    XCTAssertTrue(app.staticTexts["Kept after hosted deletion"].waitForExistence(timeout: 5))
+    let localNote = app.staticTexts["Kept after hosted deletion"]
+    reveal(localNote, in: app)
+    XCTAssertTrue(localNote.waitForExistence(timeout: 5), app.debugDescription)
   }
 
 }

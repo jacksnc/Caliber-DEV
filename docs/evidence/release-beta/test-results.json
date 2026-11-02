@@ -1,0 +1,35 @@
+{
+  "scope": "Focused local regression; not a green full fixture-suite run",
+  "runs": [
+    {
+      "run": "food-entry-focused",
+      "result": "Passed",
+      "totalTestCount": 3,
+      "passedTests": 3,
+      "failedTests": 0,
+      "skippedTests": 0,
+      "log": "/tmp/caliber-beta-focused-20261102.log",
+      "invalidFrameWarningCount": 3
+    },
+    {
+      "run": "focused-regression",
+      "result": "Passed",
+      "totalTestCount": 277,
+      "passedTests": 277,
+      "failedTests": 0,
+      "skippedTests": 0,
+      "log": "/tmp/caliber-beta-regression-20261102.log",
+      "invalidFrameWarningCount": 8
+    },
+    {
+      "run": "fresh-simulator-runner",
+      "result": "Passed",
+      "totalTestCount": 260,
+      "passedTests": 260,
+      "failedTests": 0,
+      "skippedTests": 0,
+      "log": "/tmp/caliber-beta-runner-validation-20261102.log",
+      "invalidFrameWarningCount": 0
+    }
+  ]
+}

@@ -15,6 +15,7 @@ struct ProfileView: View {
   @Query(sort: \NutritionGoalSetup.updatedAt, order: .reverse) private var setups:
     [NutritionGoalSetup]
   @State private var showsGoalSetup = false
+  @State private var goalSetupPresentationID = UUID()
 
   private var currentSetup: GoalSetupPlan? {
     guard let id = profiles.first?.id else { return nil }
@@ -49,8 +50,11 @@ struct ProfileView: View {
               .frame(minHeight: 48)
               .accessibilityIdentifier("openSettings")
             if !runtime.settings.hideNumbers {
-              Button("Set up nutrition goals") { showsGoalSetup = true }
-                .frame(minHeight: 48).accessibilityIdentifier("openGoalSetup")
+              Button("Set up nutrition goals") {
+                goalSetupPresentationID = UUID()
+                showsGoalSetup = true
+              }
+              .frame(minHeight: 48).accessibilityIdentifier("openGoalSetup")
             }
           }
           Section("Account") {
@@ -205,6 +209,7 @@ struct ProfileView: View {
         }
       ) {
         GoalSetupView(profile: profiles.first, mass: massUnit, length: distanceUnit)
+          .id(goalSetupPresentationID)
       }
       .alert(
         "Profile",

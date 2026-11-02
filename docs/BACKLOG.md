@@ -1,5 +1,16 @@
 # Backlog and delivery map
 
+## Beta checkpoint — 2026-11-02
+
+Release branch integrates the reviewed QA view/test changes and approved Home
+Screen icon. All 260 app tests and 20 distinct focused UI cases pass; this does
+not replace the earlier broad 82/91 result. CI now accounts for all 24 reviewed
+fixture suites across four balanced disposable-simulator shards; cloud results
+remain pending. See parallel/release-beta/SESSION.md. Hardware archive packaging,
+signing identity/team, physical camera/Health/widget evidence, minimum-iOS runtime
+checks and existing release reviews remain separate gates. Unattributed layout
+warnings remain open. No P0 requirement is promoted to complete by this checkpoint.
+
 ## Seasonal appearance checkpoint — 2026-11-01
 
 Automatic local-date Christmas decoration and dark/light logo variants are

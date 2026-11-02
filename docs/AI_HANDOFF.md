@@ -1,5 +1,45 @@
 # Caliber AI handoff
 
+## Active beta checklist integration — 2026-11-02
+
+Owner authorized the beta checklist and Claude/Gemini delegation. Current work:
+`codex/release-readiness` in `/Users/jcrock/Documents/Codex/Caliber-release-readiness`.
+Read `docs/parallel/release-beta/{SESSION,PEER_REVIEW}.md`. The five pending
+production view corrections and eight test changes were reviewed and copied
+from the original QA working tree; that original and the owner's preview are
+preserved. Do not duplicate those patches. No formula or storage migration.
+
+Both native model reviews completed: Claude Opus 5.5 reviewed UI helpers;
+Gemini 3.8 Flash High verified approved logo pixels/provenance and release notes.
+The Mac later locked; a further warning audit was not sent. Gold-on-black v7
+is now installed as the normal/dark Home Screen icon, proportionally downsampled
+to 1024² without redesign. Compiled simulator metadata includes phone/iPad icons.
+
+Three FoodEntry UI tests pass. The adjacent regression run passes 277/277:
+260 app tests plus 17 UI tests. Together, 20 distinct focused UI tests pass.
+The new disposable-simulator runner separately passes all 260 app tests and
+removes its own created simulator. Six runner guards and eight archive-checker
+tests pass; Foundation/Dynamic Type lint and YAML parsing pass. Layout warnings
+remain (3 and 8 in the focused UI logs); no source attribution or fix claimed.
+Exact summaries are in `docs/evidence/release-beta/test-results.json`.
+
+CI coverage expands from nine to 24 reviewed fixture suites in four balanced
+read-only shards, excluding only Xcode's two unasserting persistent-store
+template cases. It creates its own simulator, preserves separate artifacts,
+and compiles/checks a hardware Release archive. Screenshot publication retains
+its trusted branch-only writer job. Cloud CI and the complete fixture regression
+remain pending; the earlier full 82/91 run is not a green result. The current
+hardware re-archive succeeds at `/tmp/caliber-beta-20261102.xcarchive`, log
+`/tmp/caliber-beta-archive-20261102.log`. All 10 compile-only checks pass;
+default distribution checks fail only absent app/widget signing material.
+Hardware phone/iPad icon metadata and the compiled small icon are verified.
+All 149 Python script tests pass; lint/diff checks pass.
+
+Physical signing remains blocked: zero valid local signing identities, no
+physical iPhone connected; owner confirms active personal membership. Mac unlock
+and an unlocked USB-connected phone requested for the next signing stage. No team,
+identifier, account, provider, personal store, upload or public release changed.
+
 ## Hardware archive and beta packaging — 2026-11-02
 
 Owner requested progress toward going live. Branch `codex/release-readiness`

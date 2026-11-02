@@ -11,9 +11,10 @@ final class FoodExperienceUITests: XCTestCase {
     return app
   }
   @MainActor private func reveal(
-    _ element: XCUIElement, in app: XCUIApplication, towardTop: Bool = false
+    _ element: XCUIElement, in app: XCUIApplication, towardTop: Bool = false,
+    maxSwipes: Int = 14
   ) {
-    for _ in 0..<14 {
+    for _ in 0..<maxSwipes {
       let top =
         app.navigationBars.firstMatch.exists
         ? app.navigationBars.firstMatch.frame.maxY + 8 : app.windows.firstMatch.frame.minY + 50
@@ -80,6 +81,9 @@ final class FoodExperienceUITests: XCTestCase {
     search.tap()
     search.typeText("bananas\n")
     let result = app.buttons["catalogFood-1105073"]
+    // The row is in a lazy, multi-section result list; scroll until the
+    // standard-food result is materialized, without assuming a fixed row index.
+    reveal(result, in: app, maxSwipes: 20)
     XCTAssertTrue(result.waitForExistence(timeout: 8))
     result.tap()
     XCTAssertTrue(app.staticTexts["referenceFoodName"].waitForExistence(timeout: 5))

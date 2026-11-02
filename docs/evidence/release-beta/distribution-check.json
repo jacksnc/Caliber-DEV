@@ -1,0 +1,65 @@
+{
+  "scope": "archive packaging only",
+  "checks": [
+    {
+      "check": "application",
+      "passed": true,
+      "detail": "Archive must contain exactly one application."
+    },
+    {
+      "check": "device_platform",
+      "passed": true,
+      "detail": "Expected a hardware iPhoneOS build, not a simulator build."
+    },
+    {
+      "check": "app_icon",
+      "passed": true,
+      "detail": "Compiled primary app icon metadata must be present."
+    },
+    {
+      "check": "NSPrivacyAccessedAPICategoryUserDefaults",
+      "passed": true,
+      "detail": "Expected reason: CA92.1"
+    },
+    {
+      "check": "NSPrivacyAccessedAPICategorySystemBootTime",
+      "passed": true,
+      "detail": "Expected reason: 35F9.1"
+    },
+    {
+      "check": "widget_extension",
+      "passed": true,
+      "detail": "Expected the embedded Caliber widget extension."
+    },
+    {
+      "check": "widget_identifier",
+      "passed": true,
+      "detail": "Extension identifier must be a child of the app identifier."
+    },
+    {
+      "check": "widget_version",
+      "passed": true,
+      "detail": "App and widget build/version numbers must match."
+    },
+    {
+      "check": "executable:Caliber (DEV).app",
+      "passed": true,
+      "detail": "Bundle must contain its declared executable."
+    },
+    {
+      "check": "executable:CaliberWidgets.appex",
+      "passed": true,
+      "detail": "Bundle must contain its declared executable."
+    },
+    {
+      "check": "signing_material:Caliber (DEV).app",
+      "passed": false,
+      "detail": "Requires signature and profile; presence does not validate either."
+    },
+    {
+      "check": "signing_material:CaliberWidgets.appex",
+      "passed": false,
+      "detail": "Requires signature and profile; presence does not validate either."
+    }
+  ]
+}

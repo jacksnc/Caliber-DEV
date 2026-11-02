@@ -166,6 +166,9 @@ struct DiaryView: View {
 
   private var datePicker: some View {
     DatePicker("Diary date", selection: $selectedDate, displayedComponents: .date)
+      // Use the same time zone as diary filtering so a picked calendar day
+      // cannot become the previous day when the Date is interpreted.
+      .environment(\.timeZone, calendar.timeZone)
       .labelsHidden()
       .frame(minHeight: 48)
       .accessibilityIdentifier("diaryDate")

@@ -39,7 +39,7 @@ final class FoodEntryPass2UITests: XCTestCase {
     in app: XCUIApplication,
     towardTop: Bool = false
   ) {
-    for _ in 0..<28 {
+    for attempt in 0..<48 {
       var top =
         app.navigationBars.firstMatch.exists
         ? app.navigationBars.firstMatch.frame.maxY + 8
@@ -67,23 +67,41 @@ final class FoodEntryPass2UITests: XCTestCase {
       {
         return
       }
-      let middle = top + max(20, bottom - top) / 2
+      // Keep the original bounded search while a lazy row is missing. A
+      // longer follow-up is useful only after the target has materialized.
+      if !exists && attempt >= 27 { break }
       // After sheet dismissal, lazy rows can retain stale offscreen frames.
       // Honor an explicit return-to-top request instead of following that frame
       // farther down into the catalog.
       let scrollDown = towardTop || (exists && element.frame.minY < top)
-      let distance =
-        exists
-        ? min(120, max(20, bottom - top) / 3)
-        : min(170, max(40, (bottom - top) * 0.35))
-      let delta = scrollDown ? distance : -distance
-      let origin = app.coordinate(withNormalizedOffset: .zero)
-      origin.withOffset(CGVector(dx: 10, dy: middle)).press(
-        forDuration: 0.05,
-        thenDragTo: origin.withOffset(CGVector(dx: 10, dy: middle + delta)),
-        withVelocity: .default,
-        thenHoldForDuration: 0.12
-      )
+      if exists {
+        let gap = scrollDown ? top - element.frame.minY : element.frame.maxY - bottom
+        let distance = min(180, max(80, gap + 40))
+        let collections = app.collectionViews.allElementsBoundByIndex
+        let scrolls = app.scrollViews.allElementsBoundByIndex
+        let target = collections.last ?? scrolls.last ?? app
+        // For known rows, scroll at the trailing gutter so content controls
+        // cannot consume the drag intended for the parent form.
+        let start = target.coordinate(
+          withNormalizedOffset: CGVector(dx: 0.96, dy: 0.55))
+        start.press(
+          forDuration: 0.05,
+          thenDragTo: start.withOffset(CGVector(dx: 0, dy: scrollDown ? distance : -distance)),
+          withVelocity: .default,
+          thenHoldForDuration: 0.12
+        )
+      } else {
+        let middle = top + max(20, bottom - top) / 2
+        let distance = min(170, max(40, (bottom - top) * 0.35))
+        let origin = app.coordinate(withNormalizedOffset: .zero)
+        origin.withOffset(CGVector(dx: 10, dy: middle)).press(
+          forDuration: 0.05,
+          thenDragTo: origin.withOffset(
+            CGVector(dx: 10, dy: middle + (scrollDown ? distance : -distance))),
+          withVelocity: .default,
+          thenHoldForDuration: 0.12
+        )
+      }
     }
     XCTAssertTrue(element.isHittable, "Could not reveal \(element)")
   }
@@ -91,7 +109,7 @@ final class FoodEntryPass2UITests: XCTestCase {
   @MainActor
   private func replace(_ field: XCUIElement, with text: String) {
     XCTAssertTrue(field.waitForExistence(timeout: 5))
-    field.coordinate(withNormalizedOffset: CGVector(dx: 0.99, dy: 0.5)).tap()
+    field.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
     let prior = field.value as? String ?? ""
     if !prior.isEmpty && prior != field.placeholderValue {
       field.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: prior.count + 1))
@@ -144,8 +162,8 @@ final class FoodEntryPass2UITests: XCTestCase {
         "Quick review Fictional breakfast"
       )
     ).firstMatch
-    XCTAssertTrue(quickButton.waitForExistence(timeout: 8))
     reveal(quickButton, in: app)
+    XCTAssertTrue(quickButton.waitForExistence(timeout: 8))
     quickButton.tap()
 
     // Prefills last-used 0.5 portion; canceling writes nothing.
@@ -237,10 +255,13 @@ final class FoodEntryPass2UITests: XCTestCase {
     let scopePicker = app.buttons["foodSearchScope"]
     reveal(scopePicker, in: app, towardTop: true)
     scopePicker.tap()
-    app.buttons["Recent"].tap()
+    let recentScope = app.buttons["Recent"]
+    XCTAssertTrue(recentScope.waitForExistence(timeout: 5))
+    recentScope.tap()
     XCTAssertEqual(search.value as? String, "Unicorn Skillet")
 
     let showAll = app.buttons["foodSearchEmptyShowAll"]
+    reveal(showAll, in: app)
     XCTAssertTrue(showAll.waitForExistence(timeout: 5))
     showAll.tap()
     XCTAssertEqual(search.value as? String, "Unicorn Skillet")
@@ -366,8 +387,8 @@ final class FoodEntryPass2UITests: XCTestCase {
     let quickButton = app.buttons.matching(
       NSPredicate(format: "identifier BEGINSWITH %@", "foodEntryQuickReview-recent-")
     ).firstMatch
-    XCTAssertTrue(quickButton.waitForExistence(timeout: 5))
     reveal(quickButton, in: app)
+    XCTAssertTrue(quickButton.waitForExistence(timeout: 5))
     quickButton.tap()
 
     XCTAssertEqual(app.textFields["savedFoodQuantity"].value as? String, "0.5")
@@ -410,7 +431,6 @@ final class FoodEntryPass2UITests: XCTestCase {
 
     let oats = app.buttons["catalogFood-2346396"]
     // Search results live below the food-entry hub inside a lazy List.
-    for _ in 0..<4 { app.swipeUp() }
     reveal(oats, in: app)
     XCTAssertTrue(oats.waitForExistence(timeout: 15))
     oats.tap()
@@ -471,6 +491,7 @@ final class FoodEntryPass2UITests: XCTestCase {
     XCTAssertTrue(name.waitForExistence(timeout: 5))
     name.tap()
     name.typeText("Fictional boundary check")
+    app.buttons["manualFoodKeyboardDone"].tap()
     // Showcase has 1462 recorded kcal against a saved 2350 goal. Source energy
     // stays independent of these explicitly entered zero macro values.
     for (fieldName, value) in [
@@ -479,8 +500,8 @@ final class FoodEntryPass2UITests: XCTestCase {
       let field = app.textFields[fieldName]
       reveal(field, in: app)
       replace(field, with: value)
+      app.buttons["manualFoodKeyboardDone"].tap()
     }
-    app.buttons["manualFoodKeyboardDone"].tap()
     app.buttons["manualFoodSave"].tap()
     app.buttons["manualFoodCancel"].tap()
     dismissModalSheet(in: app)
@@ -529,6 +550,7 @@ final class FoodEntryPass2UITests: XCTestCase {
         XCTAssertGreaterThan(fat.frame.height, regularMacroHeight * 1.3)
         let bar = app.otherElements["foodEntryReviewBar"]
         XCTAssertTrue(bar.exists)
+        capture("v2-frost-AX5-macro-stack", app: app)
         XCTAssertLessThanOrEqual(fat.frame.maxY, bar.frame.minY - 8)
         XCTAssertGreaterThanOrEqual(
           fat.frame.minY, app.navigationBars.firstMatch.frame.maxY + 8)

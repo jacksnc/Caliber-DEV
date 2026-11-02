@@ -142,6 +142,9 @@ final class GoalSetupUITests: XCTestCase {
     XCTAssertTrue(calories.waitForExistence(timeout: 5))
     reveal(app.buttons["openGoalSetup"], app: app)
     app.buttons["openGoalSetup"].tap()
+    XCTAssertTrue(app.staticTexts["goalSetupStep"].waitForExistence(timeout: 5))
+    XCTAssertTrue(app.staticTexts["goalSetupStep"].label.contains("1 of 4"))
+    XCTAssertTrue(app.textFields["goalSetupAge"].waitForExistence(timeout: 5))
     type("40", id: "goalSetupAge", app: app, replace: true)
     app.buttons["goalSetupCancel"].tap()
     let age = app.textFields["profileAge"]

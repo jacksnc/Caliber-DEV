@@ -51,11 +51,19 @@ final class ResponsiveLayoutUITests: XCTestCase {
   }
 
   @MainActor private func scrollContainer(in app: XCUIApplication) -> XCUIElement {
-    // Keep a live query across navigation animations; an enumerated index can
-    // disappear as the outgoing collection is removed from the hierarchy.
-    let list = app.collectionViews.firstMatch
+    // The workout title lives in the navigation/list header, so containment
+    // queries do not consistently associate it with SwiftUI's backing list.
+    if app.staticTexts["screenTitle-ActiveWorkout"].exists {
+      let workoutList = app.collectionViews.firstMatch
+      if workoutList.exists { return workoutList }
+    }
+    let list = app.collectionViews.containing(
+      .any, identifier: "screenTitle-ActiveWorkout"
+    ).firstMatch
     if list.exists { return list }
-    let scroll = app.scrollViews.firstMatch
+    let scroll = app.scrollViews.containing(
+      .any, identifier: "screenTitle-ActiveWorkout"
+    ).firstMatch
     return scroll.exists ? scroll : app.windows.firstMatch
   }
 
@@ -75,10 +83,16 @@ final class ResponsiveLayoutUITests: XCTestCase {
     _ element: XCUIElement, app: XCUIApplication, towardTop: Bool = false
   ) {
     for _ in 0..<24 {
-      let frame = scrollContainer(in: app).frame
+      let container = scrollContainer(in: app)
+      let frame = container.frame
+      let window = app.windows.firstMatch.frame
+      let visibleLeft = max(frame.minX, window.minX)
+      let visibleRight = min(frame.maxX, window.maxX)
       let nav = app.navigationBars.firstMatch
-      let top = max(frame.minY + 12, nav.exists ? nav.frame.maxY + 8 : frame.minY + 12)
-      var bottom = frame.maxY - 12
+      let top = max(
+        max(frame.minY + 12, window.minY + 12),
+        nav.exists ? nav.frame.maxY + 8 : window.minY + 12)
+      var bottom = min(frame.maxY - 12, window.maxY - 12)
       for boundary in [
         app.keyboards.firstMatch, app.otherElements["foodEntryReviewBar"],
         app.otherElements["caliberTabBar"],
@@ -86,16 +100,22 @@ final class ResponsiveLayoutUITests: XCTestCase {
         bottom = min(bottom, boundary.frame.minY - 8)
       }
       let exists = element.exists && !element.frame.isEmpty
-      if exists && element.isHittable && element.frame.minY >= top
-        && element.frame.maxY <= bottom
-      {
-        return
+      if exists {
+        let visibleHeight = min(element.frame.maxY, bottom) - max(element.frame.minY, top)
+        if element.isHittable && visibleHeight >= min(48, element.frame.height) {
+          return
+        }
       }
       let dy: CGFloat = exists ? (element.frame.minY < top ? 1 : -1) : (towardTop ? 1 : -1)
       let distance = min(160, max(40, (bottom - top) * 0.35))
-      // Stay in the list gutter: a drag starting on a wide numeric field can
-      // select text instead of scrolling, particularly at accessibility sizes.
-      let center = CGPoint(x: frame.minX + 4, y: (top + bottom) / 2)
+      // Use the trailing list gutter: at accessibility sizes the list is a
+      // centered narrow column, and x=8 misses its tappable row area.
+      guard visibleRight > visibleLeft, bottom > top else {
+        XCTFail("Active Workout list has no visible scroll area: \(frame)")
+        return
+      }
+      let center = CGPoint(
+        x: visibleRight - min(24, (visibleRight - visibleLeft) / 2), y: (top + bottom) / 2)
       let origin = app.coordinate(withNormalizedOffset: .zero)
       origin.withOffset(CGVector(dx: center.x, dy: center.y)).press(
         forDuration: 0.05,
@@ -249,7 +269,10 @@ final class ResponsiveLayoutUITests: XCTestCase {
     // Start from a known position before finding a specific lazy row. Its
     // offscreen identity alone does not tell us which direction to scroll.
     reveal(app.screenTitle("ActiveWorkout"), app: app, towardTop: true)
-    let reps = app.textFields[fieldID.replacingOccurrences(of: "-Weight", with: "-Reps")]
+    let repsID = fieldID.replacingOccurrences(of: "-Weight", with: "-Reps")
+    // SwiftUI can expose a scaled text input under a different XCTest element
+    // subtype after rotation; its stable accessibility identifier is the route.
+    let reps = app.descendants(matching: .any).matching(identifier: repsID).firstMatch
     reveal(reps, app: app)
     replace(reps, with: "11")
     app.buttons["workoutKeyboardDone"].tap()

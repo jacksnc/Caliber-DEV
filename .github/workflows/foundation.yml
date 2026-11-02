@@ -41,10 +41,15 @@ jobs:
   # UI tests and accessibility audits run on the newest Xcode on macOS 26, as close as
   # possible to the Xcode the owner develops with. The iOS 18.5 audit flagged text that passes there (D112).
   ui:
+    name: UI regression (${{ matrix.shard }}/4)
     runs-on: macos-26
     timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     permissions:
-      contents: write # only to push screenshots to the ci-screenshots branch
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - name: Toolchain
@@ -56,34 +61,79 @@ jobs:
           echo "DEVELOPER_DIR=$xcode/Contents/Developer" >> "$GITHUB_ENV"
           DEVELOPER_DIR="$xcode/Contents/Developer" xcodebuild -version
       - name: App and isolated UI tests
-        run: python3 scripts/test_ios.py --output "$RUNNER_TEMP/CaliberIOS"
+        run: python3 scripts/test_ios.py --ui-shard '${{ matrix.shard }}/4' --output "$RUNNER_TEMP/CaliberIOS"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: simulator-results
+          name: simulator-results-${{ matrix.shard }}
           path: ${{ runner.temp }}/CaliberIOS/Checks.xcresult
           if-no-files-found: ignore
+  publish-screenshots:
+    needs: ui
+    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/astra/foundation'
+    runs-on: macos-26
+    timeout-minutes: 10
+    permissions:
+      contents: write # restricted to the existing trusted screenshot publication path
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: simulator-results-1
+          path: ${{ runner.temp }}/CaliberIOS/Checks.xcresult
       # The result bundle can only be opened in Xcode. Push its screenshots to a branch
       # so they can be viewed on GitHub or fetched with git. The branch keeps one run.
       - name: Publish screenshots
-        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/astra/foundation'
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           result="$RUNNER_TEMP/CaliberIOS/Checks.xcresult"
           [ -d "$result" ] || exit 0
+          export DEVELOPER_DIR="$(ls -d /Applications/Xcode_2[6-9]*.app | sort -V | tail -1)/Contents/Developer"
           raw="$RUNNER_TEMP/ScreenshotsRaw"; shots="$RUNNER_TEMP/Screenshots"
           rm -rf "$raw" "$shots"
           xcrun xcresulttool export attachments --path "$result" --output-path "$raw"
           python3 scripts/collect_screenshots.py "$raw" "$shots"
           find "$shots" -type f -exec sips -Z 1200 {} --out {} \; > /dev/null
-          printf 'Screenshots from %s (%s), run %s.\n' "$GITHUB_SHA" "$GITHUB_REF_NAME" "$GITHUB_RUN_ID" > "$shots/README.md"
+          printf 'Screenshots from %s (%s), run %s, UI shard 1 of 4. All shard results are workflow artifacts.\n' "$GITHUB_SHA" "$GITHUB_REF_NAME" "$GITHUB_RUN_ID" > "$shots/README.md"
           cd "$shots"
           git init -q -b ci-screenshots
           git add .
           git -c user.name=github-actions -c user.email=github-actions@users.noreply.github.com commit -qm "Screenshots for $GITHUB_SHA"
           git push -fq "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" ci-screenshots
+  release-packaging:
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: |
+          release_xcode="$(ls -d /Applications/Xcode_2[6-9]*.app | sort -V | tail -1)"
+          echo "DEVELOPER_DIR=$release_xcode/Contents/Developer" >> "$GITHUB_ENV"
+          DEVELOPER_DIR="$release_xcode/Contents/Developer" xcodebuild -version
+      - name: Unsigned iPhone Release archive
+        shell: bash
+        run: |
+          xcodebuild archive -project 'Caliber (DEV).xcodeproj' -scheme 'Caliber (DEV)' \
+            -configuration Release -destination 'generic/platform=iOS' \
+            -archivePath "$RUNNER_TEMP/CaliberRelease.xcarchive" \
+            -derivedDataPath "$RUNNER_TEMP/CaliberReleaseDerived" \
+            CODE_SIGNING_ALLOWED=NO 2>&1 | tee "$RUNNER_TEMP/release-archive.log"
+      - name: Check built app and widget packaging
+        shell: bash
+        run: |
+          python3 scripts/check_release_archive.py "$RUNNER_TEMP/CaliberRelease.xcarchive" \
+            --allow-unsigned | tee "$RUNNER_TEMP/release-packaging.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-packaging-evidence
+          path: |
+            ${{ runner.temp }}/release-archive.log
+            ${{ runner.temp }}/release-packaging.json
+          if-no-files-found: ignore
   backend:
     runs-on: ubuntu-latest
     timeout-minutes: 10

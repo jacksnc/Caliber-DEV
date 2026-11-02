@@ -81,23 +81,16 @@ extension XCUIApplication {
 }
 
 extension XCUIElement {
-  /// Replaces a text field's whole value. Placing the caret by coordinate proved unreliable
-  /// on CI, so this focuses the field, selects everything from the edit menu and types over it.
+  /// Replaces the full value without relying on an iOS text-selection popover.
   @MainActor
   func replaceText(_ text: String, file: StaticString = #filePath, line: UInt = #line) {
     XCTAssertTrue(waitForExistence(timeout: 5), file: file, line: line)
     // A field in a sheet exists before the sheet stops moving.
     Thread.sleep(forTimeInterval: 1)
-    tap()
-    press(forDuration: 1.2)
-    let selectAll = XCUIApplication().menuItems["Select All"]
-    if selectAll.waitForExistence(timeout: 3) {
-      selectAll.tap()
-    } else {
-      // No menu: the caret is in the field, so delete generously before typing.
-      let length = (value as? String)?.count ?? 0
-      typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: length + 2))
-    }
+    let length = (value as? String)?.count ?? 0
+    // Place the caret after the current text, then clear beyond its full length.
+    coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
+    typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: max(length + 2, 2)))
     typeText(text)
   }
 }

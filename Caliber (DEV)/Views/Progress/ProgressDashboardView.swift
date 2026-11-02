@@ -143,6 +143,16 @@ struct ProgressDashboardView: View {
           }
         }
       }
+      // The floating tab bar overlays the TabView instead of reserving list space.
+      // Keep the final timeline row clear of it so the note and swipe actions stay reachable.
+      .contentMargins(
+        .bottom,
+        CaliberTabBar.height
+          + HeliosTokens.space(4)
+          + HeliosTokens.space(5)
+          + HeliosTokens.space(4),
+        for: .scrollContent
+      )
       .contentMargins(.top, 0, for: .scrollContent)
       .listSectionSpacing(12)
       .caliberScreen()

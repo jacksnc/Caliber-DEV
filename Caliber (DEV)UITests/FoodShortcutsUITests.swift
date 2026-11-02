@@ -35,10 +35,13 @@ final class FoodShortcutsUITests: XCTestCase {
         (scrollDown ? 1.0 : -1.0)
         * min(120, max(20, bottom - top) / 3)
       let origin = app.coordinate(withNormalizedOffset: .zero)
-      origin.withOffset(CGVector(dx: 10, dy: middle)).press(
-        forDuration: 0.05, thenDragTo: origin.withOffset(CGVector(dx: 10, dy: middle + delta)))
+      // Keep the gesture in the list content; a left-edge drag can trigger the
+      // navigation gesture rather than reveal a lazy result row.
+      let scrollX = app.windows.firstMatch.frame.midX
+      origin.withOffset(CGVector(dx: scrollX, dy: middle)).press(
+        forDuration: 0.05, thenDragTo: origin.withOffset(CGVector(dx: scrollX, dy: middle + delta)))
     }
-    XCTAssertTrue(element.isHittable)
+    XCTAssertTrue(element.isHittable, "Could not reveal \(element.identifier)")
   }
   @MainActor private func replace(_ field: XCUIElement, with text: String) {
     field.replaceText(text)
@@ -71,6 +74,7 @@ final class FoodShortcutsUITests: XCTestCase {
       NSPredicate(
         format: "identifier BEGINSWITH %@ AND label CONTAINS %@", "recent-", "Fictional breakfast")
     ).firstMatch
+    reveal(recent, in: app)
     XCTAssertTrue(recent.waitForExistence(timeout: 5))
     recent.tap()
     XCTAssertEqual(app.textFields["savedFoodQuantity"].value as? String, "0.5")
@@ -83,6 +87,7 @@ final class FoodShortcutsUITests: XCTestCase {
         format: "identifier BEGINSWITH %@ AND label CONTAINS %@", "favorite-", "Fictional breakfast"
       )
     ).firstMatch
+    reveal(favorite, in: app)
     XCTAssertTrue(favorite.waitForExistence(timeout: 5))
     favorite.tap()
     let footerOwnsActions = XCTNSPredicateExpectation(
@@ -93,7 +98,9 @@ final class FoodShortcutsUITests: XCTestCase {
     XCTAssertFalse(app.buttons["savedFoodAdd"].isEnabled)
     app.navigationBars.buttons.element(boundBy: 0).tap()
     show("Frequent", in: app)
-    XCTAssertTrue(app.staticTexts["Logged 3 times"].waitForExistence(timeout: 5))
+    let frequentCount = app.staticTexts["Logged 3 times"]
+    reveal(frequentCount, in: app)
+    XCTAssertTrue(frequentCount.waitForExistence(timeout: 5))
     snapshot("Recent favorites and repeat-food history", app: app)
     // Selecting an already active custom tab preserves its navigation stack.
     // Return from Search Foods and Food Library through their real Back actions.
@@ -159,7 +166,6 @@ final class FoodShortcutsUITests: XCTestCase {
     search.typeText("oats rolled\n")
     XCTAssertEqual(search.value as? String, "oats rolled")
     // The searchable List creates the catalog row lazily below the food-entry hub.
-    for _ in 0..<4 { app.swipeUp() }
     let oats = app.buttons["catalogFood-2346396"]
     reveal(oats, in: app)
     XCTAssertTrue(oats.waitForExistence(timeout: 15))
@@ -207,7 +213,6 @@ final class FoodShortcutsUITests: XCTestCase {
     XCTAssertTrue(search.waitForExistence(timeout: 5))
     search.tap()
     search.typeText("rice white long grain enriched cooked\n")
-    for _ in 0..<4 { app.swipeUp() }
     let rice = app.buttons["catalogFood-168878"]
     reveal(rice, in: app)
     XCTAssertTrue(rice.waitForExistence(timeout: 15))
@@ -238,6 +243,8 @@ final class FoodShortcutsUITests: XCTestCase {
     XCTAssertTrue(saved.label.contains("Snack"), saved.label)
     app.navigationBars.buttons.element(boundBy: 0).tap()
     show("Favorites", in: app)
-    XCTAssertTrue(app.buttons["favorite-usda-sr-legacy:168878"].waitForExistence(timeout: 5))
+    let favorite = app.buttons["favorite-usda-sr-legacy:168878"]
+    reveal(favorite, in: app)
+    XCTAssertTrue(favorite.waitForExistence(timeout: 5))
   }
 }

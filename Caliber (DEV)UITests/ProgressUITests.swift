@@ -14,6 +14,66 @@ final class ProgressUITests: XCTestCase {
     return app
   }
 
+  @MainActor
+  private func scrollList(in app: XCUIApplication) -> XCUIElement {
+    let collection = app.collectionViews.firstMatch
+    return collection.exists ? collection : app.scrollViews.firstMatch
+  }
+
+  /// Reveal a lazy timeline row without dragging across the floating tab bar.
+  @MainActor
+  private func reveal(
+    _ element: XCUIElement, in app: XCUIApplication, towardTop: Bool = false
+  ) {
+    let list = scrollList(in: app)
+    let tabBar = app.otherElements["caliberTabBar"]
+    XCTAssertTrue(list.exists)
+    XCTAssertTrue(tabBar.exists)
+    for _ in 0..<12 {
+      if element.exists {
+        let frame = element.frame
+        if element.isHittable && frame.maxY < tabBar.frame.minY - 8 { return }
+        if frame.minY < 88 {
+          list.swipeDown()
+        } else {
+          list.swipeUp()
+        }
+      } else if towardTop {
+        list.swipeDown()
+      } else {
+        list.swipeUp()
+      }
+    }
+    let frame = element.exists ? "\(element.frame)" : "unavailable"
+    let tabBarFrame = tabBar.exists ? "\(tabBar.frame)" : "unavailable"
+    let diagnostics =
+      "Progress reveal: id=\(element.identifier), exists=\(element.exists), "
+      + "hittable=\(element.isHittable), frame=\(frame), "
+      + "list=\(list.frame), tabBar=\(tabBarFrame)\n"
+      + app.debugDescription
+    let attachment = XCTAttachment(string: diagnostics)
+    attachment.name = "Progress timeline reveal hierarchy"
+    attachment.lifetime = .keepAlways
+    add(attachment)
+    XCTFail("Could not reveal \(element)")
+  }
+
+  @MainActor
+  private func timelineRow(in app: XCUIApplication) -> XCUIElement {
+    app.descendants(matching: .any)
+      .matching(NSPredicate(format: "identifier BEGINSWITH %@", "progressEntry-")).firstMatch
+  }
+
+  /// Decimal-pad fields do not reliably show the Select All menu. Put the caret at
+  /// the trailing edge before clearing so deletion always removes the saved value.
+  @MainActor
+  private func replaceWeight(_ field: XCUIElement, with value: String) {
+    let trailingEdge = field.coordinate(withNormalizedOffset: CGVector(dx: 0.98, dy: 0.5))
+    trailingEdge.tap()
+    field.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 24))
+    field.typeText(value)
+  }
+
   /// V2: the weight chart has a text alternative listing each recorded weigh-in.
   @MainActor
   func testWeightChartListsWeighInsAsText() {
@@ -55,11 +115,18 @@ final class ProgressUITests: XCTestCase {
     notes.tap()
     notes.typeText("Progress integration check")
     save.tap()
+    let row = timelineRow(in: app)
+    reveal(row, in: app)
     XCTAssertTrue(app.staticTexts["Progress integration check"].waitForExistence(timeout: 5))
-    XCTAssertTrue(app.staticTexts["latestProgressWeight"].exists)
+    // The combined chart value is exposed as an accessibility element, not a StaticText.
+    let latestWeight = app.descendants(matching: .any)["latestProgressWeight"]
+    reveal(latestWeight, in: app, towardTop: true)
+    XCTAssertTrue(latestWeight.exists)
 
     // Today's + opens the same check-in; canceling a draft preserves the log.
-    app.buttons["addProgressEntry"].tap()
+    let add = app.buttons["addProgressEntry"]
+    reveal(add, in: app, towardTop: true)
+    add.tap()
     XCTAssertTrue(notes.waitForExistence(timeout: 5))
     XCTAssertEqual(notes.value as? String, "Progress integration check")
     notes.tap()
@@ -71,19 +138,7 @@ final class ProgressUITests: XCTestCase {
     app.buttons["Cancel"].tap()
 
     // The timeline row's own link, not the first cell that mentions the note.
-    let row = app.descendants(matching: .any)
-      .matching(NSPredicate(format: "identifier BEGINSWITH %@", "progressEntry-")).firstMatch
-    XCTAssertTrue(row.waitForExistence(timeout: 5))
-    // Scroll the row clear of the floating tab bar first, as a person would.
-    let tabBar = app.descendants(matching: .any)["caliberTabBar"]
-    for _ in 0..<8 {
-      let limit = tabBar.exists ? tabBar.frame.minY : app.frame.maxY
-      if row.isHittable && row.frame.maxY < limit && row.frame.minY > 120 { break }
-      // Short drags, so the row cannot overshoot past the top.
-      let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.55))
-      let distance: CGFloat = row.frame.minY <= 120 ? 180 : -180
-      start.press(forDuration: 0.05, thenDragTo: start.withOffset(CGVector(dx: 0, dy: distance)))
-    }
+    reveal(row, in: app)
     // The swipe does nothing while the check-in sheet is still closing.
     let edit = app.buttons["Edit"]
     for _ in 0..<3 where !edit.exists {
@@ -92,10 +147,12 @@ final class ProgressUITests: XCTestCase {
     }
     edit.tap()
     XCTAssertTrue(weight.waitForExistence(timeout: 5))
-    weight.replaceText("179.25")
+    replaceWeight(weight, with: "179.25")
     save.tap()
-    XCTAssertTrue(app.staticTexts["latestProgressWeight"].waitForExistence(timeout: 5))
-    XCTAssertTrue(app.staticTexts["latestProgressWeight"].label.contains("179.25"))
+    reveal(latestWeight, in: app, towardTop: true)
+    XCTAssertTrue(latestWeight.waitForExistence(timeout: 5))
+    XCTAssertTrue(latestWeight.label.contains("179.25"))
+    reveal(row, in: app)
     XCTAssertEqual(
       app.cells.containing(.staticText, identifier: "Progress integration check").count, 1)
 
@@ -103,7 +160,7 @@ final class ProgressUITests: XCTestCase {
     app.buttons["Delete"].tap()
     app.alerts["Delete Check-In?"].buttons["Delete"].tap()
     XCTAssertTrue(app.staticTexts["Progress integration check"].waitForNonExistence(timeout: 5))
-    XCTAssertFalse(app.staticTexts["latestProgressWeight"].exists)
+    XCTAssertFalse(app.descendants(matching: .any)["latestProgressWeight"].exists)
   }
 
   @MainActor
@@ -115,8 +172,12 @@ final class ProgressUITests: XCTestCase {
     notes.tap()
     notes.typeText("Notes-only check-in")
     app.buttons["progressSave"].tap()
+    let row = timelineRow(in: app)
+    reveal(row, in: app)
     XCTAssertTrue(app.staticTexts["Notes-only check-in"].waitForExistence(timeout: 5))
-    XCTAssertFalse(app.staticTexts["latestProgressWeight"].exists)
+    reveal(app.screenTitle("Progress"), in: app, towardTop: true)
+    XCTAssertFalse(app.descendants(matching: .any)["latestProgressWeight"].exists)
+    reveal(row, in: app)
     app.cells.containing(.staticText, identifier: "Notes-only check-in").firstMatch.tap()
     XCTAssertTrue(app.buttons["editProgressEntry"].waitForExistence(timeout: 5))
     XCTAssertTrue(app.staticTexts["Notes-only check-in"].exists)

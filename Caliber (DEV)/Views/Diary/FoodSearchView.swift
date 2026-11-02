@@ -329,26 +329,10 @@ struct FoodSearchView: View {
     }
   }
 
+  /// Keep standard foods ahead of packaged hits so broad queries do not bury everyday entries.
   @ViewBuilder
   private var allScopeSections: some View {
     if scope == .all {
-      if !packagedFoods.isEmpty {
-        Section {
-          ForEach(packagedFoods) { food in
-            NavigationLink {
-              FoodNutritionReviewView(reference: food, meal: selectedMealType, date: date)
-            } label: {
-              FoodEntryV2FoodRowLabel(
-                title: food.name,
-                detail: food.basisDescription + " · " + food.sourceLabel,
-                caloriesText: energy.short(food.totals.calories))
-            }
-            .accessibilityIdentifier("packagedFood-\(food.id)")
-          }
-        } header: {
-          Text("Packaged Foods")
-        }
-      }
       if !matchingSavedFoods.isEmpty {
         Section {
           ForEach(matchingSavedFoods) { savedFoodRow($0) }
@@ -368,6 +352,23 @@ struct FoodSearchView: View {
           ForEach(catalogFoods) { catalogRow($0) }
         } header: {
           Text("USDA Foods")
+        }
+      }
+      if !packagedFoods.isEmpty {
+        Section {
+          ForEach(packagedFoods) { food in
+            NavigationLink {
+              FoodNutritionReviewView(reference: food, meal: selectedMealType, date: date)
+            } label: {
+              FoodEntryV2FoodRowLabel(
+                title: food.name,
+                detail: food.basisDescription + " · " + food.sourceLabel,
+                caloriesText: energy.short(food.totals.calories))
+            }
+            .accessibilityIdentifier("packagedFood-\(food.id)")
+          }
+        } header: {
+          Text("Packaged Foods")
         }
       }
       if !matchingBuilders.isEmpty {

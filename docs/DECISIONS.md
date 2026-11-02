@@ -1,5 +1,24 @@
 # Decisions — Phase 0, 2026-10-07
 
+## Beta regression and fixture CI ownership — 2026-11-02
+
+Integrate the reviewed QA patch into the release branch while preserving the
+original dirty checkout. Retain all nutrition, cancel/save, privacy and layout
+assertions; source-only helper suggestions do not automatically justify further
+changes after passing reproductions. Report broad and focused results separately.
+Use the approved gold-on-black icon without optical repositioning; record its
+source/export hashes in design/branding/app-icon.md.
+
+CI must account for every reviewed fixture suite, not a stale nine-suite list.
+Balance 24 suites across four independent hosts using prior duration evidence;
+keep the slow FoodEntry audit alone. Exclude the old nonasserting Xcode template
+that launches a persistent store; fail a source-coverage guard for any other
+unclassified suite. A runner always creates its own simulator and cleans up only
+that UUID. Existing booted devices are not test targets or cleanup candidates.
+UI jobs are read-only; only the existing trusted screenshot publication job gets
+repository write access. Separate shard artifacts retain all results. This is
+test infrastructure, not a new app/provider/health-data capability.
+
 ## Hardware archive packaging — 2026-11-02
 
 Prepare the first beta through a hardware Release archive on a separate branch

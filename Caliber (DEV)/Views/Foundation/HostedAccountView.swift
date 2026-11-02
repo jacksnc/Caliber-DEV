@@ -134,6 +134,9 @@ private struct PasswordRecoveryView: View {
     NavigationStack {
       Form {
         Group {
+          if let message = account.message {
+            Section { Text(message).accessibilityIdentifier("recoveryMessage") }
+          }
           Section {
             Text(
               "Request a code, then enter it here with a new password. Recovery does not sign you in or upload your logs."
@@ -179,9 +182,6 @@ private struct PasswordRecoveryView: View {
             .frame(minHeight: 48).accessibilityIdentifier("recoveryChangePassword")
           }
           if account.isBusy { ProgressView("Checking account…") }
-          if let message = account.message {
-            Text(message).accessibilityIdentifier("recoveryMessage")
-          }
         }
         .listRowBackground(CaliberRowBackground())
       }

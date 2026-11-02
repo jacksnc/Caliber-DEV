@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-11-02 — Beta regression integration and approved Home Screen icon
+
+- Integrate reviewed Diary timezone, food-search ordering, recovery feedback,
+  fresh goal-setup presentation and Progress scroll-clearance fixes.
+- Preserve save/cancel, nutrition, privacy and independent snapshot assertions
+  while integrating the existing navigation/lazy-row/keyboard QA corrections.
+- Add the owner-approved gold-on-black aura icon at 1024² with provenance.
+- Verify 260 app tests and 20 distinct focused UI cases; retain the historical
+  broad-run failures and the still-unattributed layout warnings.
+- Expand CI to all 24 reviewed fixture suites in four balanced shards. Each
+  runner creates its own disposable simulator; six regression guards cover
+  coverage/selection/cleanup. CI uses separate result artifacts and a hardware
+  Release packaging job. Cloud results remain pending.
+- Hardware Release archive with the approved icon succeeds and passes 10/10
+  compile-only packaging checks. All 149 Python script tests pass. The artifact
+  remains unsigned; physical-device and complete fixture regression are open.
+
 ## 2026-11-02 — Hardware archive and beta packaging
 
 - Verify an unsigned iPhone hardware Release archive of integrated code.
