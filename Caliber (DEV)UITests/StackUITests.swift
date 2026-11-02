@@ -17,9 +17,21 @@ final class StackUITests: XCTestCase {
     module.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
     let scope = app.switches["stackScopeConfirmation"]
     XCTAssertTrue(scope.waitForExistence(timeout: 5))
-    XCTAssertFalse(app.buttons["stackTurnOn"].isEnabled)
+    let consentForm = app.collectionViews.containing(
+      .switch, identifier: "stackScopeConfirmation").firstMatch
+    XCTAssertTrue(consentForm.waitForExistence(timeout: 5))
+    // Bring both the consent switch and the disabled action into the visible form area first.
+    consentForm.swipeUp()
+    let turnOn = app.buttons["stackTurnOn"]
+    XCTAssertTrue(turnOn.waitForExistence(timeout: 5))
+    XCTAssertTrue(scope.isHittable)
+    XCTAssertTrue(turnOn.isHittable)
+    XCTAssertFalse(turnOn.isEnabled)
     scope.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
-    app.buttons["stackTurnOn"].tap()
+    XCTAssertEqual(scope.value as? String, "1")
+    XCTAssertTrue(turnOn.isHittable)
+    XCTAssertTrue(turnOn.isEnabled)
+    turnOn.tap()
     XCTAssertTrue(app.switches["stackLockToggle"].waitForExistence(timeout: 5))
     app.leaveProfile()
 

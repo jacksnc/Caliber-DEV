@@ -59,12 +59,11 @@ final class ThemeIntegrationUITests: XCTestCase {
     capture("\(theme)-Restaurants", app: app)
     try audit(app, largeText: largeText)
 
-    app.tab("Today").tap()
-    app.buttons["quickLog"].tap()
-    app.buttons["quickLog-food"].tap()
+    let backToFoodLibrary = app.buttons["BackButton"]
+    XCTAssertTrue(backToFoodLibrary.waitForExistence(timeout: 10))
+    backToFoodLibrary.tap()
     let barcode = app.buttons["openBarcode"]
     XCTAssertTrue(barcode.waitForExistence(timeout: 10))
-    for _ in 0..<5 where !barcode.isHittable { app.swipeUp() }
     barcode.tap()
     let scan = app.buttons["barcodeOpenCamera"]
     XCTAssertTrue(scan.waitForExistence(timeout: 10))
@@ -96,10 +95,10 @@ final class ThemeIntegrationUITests: XCTestCase {
   /// A focused regression for the scanner header/modes when the system audits AX5.
   @MainActor func testScannerLargestTextLayout() throws {
     let app = launch(theme: "graphite", largeText: true)
-    app.buttons["quickLog"].tap()
-    app.buttons["quickLog-food"].tap()
+    app.tab("Fuel").tap()
+    app.buttons["openFoodLibrary"].tap()
     let barcode = app.buttons["openBarcode"]
-    reveal(barcode, app: app)
+    XCTAssertTrue(barcode.waitForExistence(timeout: 10))
     barcode.tap()
     app.buttons["barcodeOpenCamera"].tap()
     XCTAssertTrue(app.textFields["barcodeManualInput"].waitForExistence(timeout: 10))
@@ -158,6 +157,15 @@ final class ThemeIntegrationUITests: XCTestCase {
     search.tap()
     search.typeText("2 eggs, a banana\n")
     let banana = app.descendants(matching: .any)["listMatch-banana"]
+    // The typed-list section is below the search shortcuts and is lazy in a compact viewport.
+    for _ in 0..<16 where !banana.exists {
+      let list = app.collectionViews["foodSearchScreen"]
+      let start = list.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.8))
+      start.press(
+        forDuration: 0.05,
+        thenDragTo: list.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.25)))
+      _ = banana.waitForExistence(timeout: 1)
+    }
     XCTAssertTrue(banana.waitForExistence(timeout: 15))
     capture("graphite-SmartSearch", app: app)
     try audit(app, largeText: false)
@@ -224,8 +232,20 @@ final class ThemeIntegrationUITests: XCTestCase {
     try audit(app, largeText: false)
   }
 
-  @MainActor private func reveal(_ element: XCUIElement, app: XCUIApplication) {
-    for _ in 0..<8 where !element.isHittable { app.swipeUp() }
+  @MainActor private func reveal(
+    _ element: XCUIElement, app: XCUIApplication, towardTop: Bool = false
+  ) {
+    for _ in 0..<8 where !element.isHittable {
+      let foodSearch = app.collectionViews["foodSearchScreen"]
+      let collection = foodSearch.exists ? foodSearch : app.collectionViews.firstMatch
+      let scroll = collection.exists ? collection : app.scrollViews.firstMatch
+      let startY: CGFloat = towardTop ? 0.25 : 0.8
+      let endY: CGFloat = towardTop ? 0.8 : 0.25
+      let start = scroll.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: startY))
+      start.press(
+        forDuration: 0.05,
+        thenDragTo: scroll.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: endY)))
+    }
     XCTAssertTrue(element.isHittable)
   }
 

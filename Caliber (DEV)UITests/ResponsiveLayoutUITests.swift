@@ -4,6 +4,13 @@ import XCTest
 final class ResponsiveLayoutUITests: XCTestCase {
   override func setUpWithError() throws { continueAfterFailure = false }
 
+  override func tearDownWithError() throws {
+    // A failed assertion can stop a rotation test before its local `defer`
+    // runs. Restore the shared QA simulator so later UI suites start in portrait.
+    XCUIDevice.shared.orientation = .portrait
+    try super.tearDownWithError()
+  }
+
   @MainActor private func launch(workout: Bool = false, textSize: String? = nil) -> XCUIApplication
   {
     XCUIDevice.shared.orientation = .portrait

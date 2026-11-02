@@ -10,6 +10,12 @@ final class RestaurantCustomizationUITests: XCTestCase {
   private func openRestaurant(_ name: String, in app: XCUIApplication) {
     app.openFoodLibrary()
     app.buttons["Restaurants"].tap()
+    // Restaurant rows are lazy in the short/landscape QA viewport. Search for
+    // the target so the row is materialized before querying it by name.
+    let search = app.textFields["restaurantSearch"]
+    XCTAssertTrue(search.waitForExistence(timeout: 10))
+    search.tap()
+    search.typeText(name)
     let restaurant = app.buttons[name]
     XCTAssertTrue(restaurant.waitForExistence(timeout: 15))
     restaurant.tap()

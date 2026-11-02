@@ -3,6 +3,54 @@
 Branch `codex/integrated-iphone-qa`, baseline e5aaa04. Worktree:
 `/Users/jcrock/Documents/Codex/Caliber-integrated-iphone-qa`.
 
+## Full UI rerun after harness corrections — latest
+
+The serial iPhone SE (3rd generation), iOS 27.0, run completed in
+`/tmp/caliber-ui-full-after-harness-2026-11-01.xcresult`. It executed all 91 UI
+cases: **76 passed, 15 failed**. The run used fictional UI fixtures. No
+production source changed during this rerun.
+
+Test-only corrections now exercised by the full batch include restoring
+portrait orientation in teardown, opening the restaurant search before tapping
+a lazy restaurant row, scrolling Stack consent content before asserting the
+controls, and returning from Restaurants to the Food Library root before
+opening Barcode. The full run confirms the corrected Stack opt-in/logging flow
+and `ThemeIntegrationUITests.testLargestTextScreens` pass. A separate focused
+run also confirms the responsive-run teardown no longer contaminates following
+portrait cases; the workout fractional-draft rotation case itself still fails.
+
+The remaining failures are recorded without converting them into passing
+claims. They span food fixture/action discovery, modal/draft expectations,
+account fixture navigation, demo-chart targeting at the largest text size,
+one invalid-focus interaction, two Progress save journeys and one workout
+rotation journey:
+
+| Failing UI case | Evidence / next review |
+|---|---|
+| `FoodEntryPass2UITests.testBackdatedMealCarriesThroughNoResultsManualEntryAndRecipesWithoutInventingZeroMacros` | Empty-state “Show All” expectation not found after switching Recent scope; review current empty-search behavior and fixture. |
+| `FoodEntryPass2UITests.testFutureLoggingDateShowsFutureBadgeNeverPastDateAndRetainsSelectedMealAndDay` | Recent quick-review row not found in the selected future-date flow. |
+| `FoodEntryPass2UITests.testRecentQuickActionPrefillsLastPortionCancelsCleanlyAndKeepsLoggedSnapshotEditable` | Recent quick-review row not found after opening Dinner. |
+| `FoodEntryPass2UITests.testSubCalorieOverageUsesAnHonestBoundAndKeepsReportedTotal` | UI automation did not focus the Calories field before typing; this is an input/reveal failure, so its overage assertion was not reached. |
+| `FoodExperienceUITests.testOfflineFoodPortionAndPersonalMacroEditCanBeLogged` | Expected offline banana catalog identifier `1105073` was absent from this search result. |
+| `FoodShortcutsUITests.testRecentFavoriteAndFrequentFoodsReuseTheLatestPortion` | Recent fixture row was not discovered in the broad run; its three focused cases passed in `/tmp/caliber-foodshortcuts-final.xcresult`. |
+| `FoundationUITests.testAccountSignInAndDeviceSignOutUseOnlyFixture` | Consent control appeared, but the expected Continue button was absent after toggling; account fixture flow needs isolated review. |
+| `FoundationUITests.testDemoAndExitPreserveEmptyPersonalDiary` | Test could not tap the Body weight chart table action. |
+| `FoundationUITests.testDemoAtLargestTextSizeHasUsableChartRoutes` | Method/info route control was not tappable after returning from the chart table at AX5; review layout and test reveal. |
+| `FoundationUITests.testHostedDeletionKeepsLocalProgressNote` | Shared account fixture helper did not expose its Continue control. |
+| `FoundationUITests.testRecoveryUsesCodeWithoutSigningIn` | Shared account fixture helper did not expose its Continue control. |
+| `GoalSetupUITests.testInvalidAgeAndMissingEquationCannotAdvance` | Automation lost keyboard focus during replacement of the age value; validation assertion was not reached. |
+| `ProgressUITests.testDailyCheckInEditsSameDayAndCanBeDeleted` | Save tap failed after entering the note; timeline/edit/delete assertions were not reached. |
+| `ProgressUITests.testNotesOnlyCheckInDoesNotInventAWeight` | Save tap failed after entering notes; no-weight assertion was not reached. |
+| `ResponsiveLayoutUITests.testWorkoutFractionalDraftSurvivesRotationAndCardCollapse` | Could not reveal the workout exercise row after rotation at accessibility text size; remains an open responsive-layout issue. |
+
+The result bundle reports repeated SwiftUI runtime warnings for
+`Invalid frame dimension (negative or non-finite)` during UI execution. This
+batch does not isolate which view emitted them, so they remain an open runtime
+warning rather than an asserted root cause.
+
+The earlier “full broad UI regression — NOT RERUN” statements below describe
+the state before this run and are superseded by this section.
+
 ## Latest follow-up: saved kcal/kJ display and Frost review
 
 The saved energy preference now formats Diary totals/goals/balance, meal
@@ -22,7 +70,7 @@ migration was needed.
 | Dynamic Type strict lint | PASS | 242 files, 0 errors and 0 warnings |
 | Design-token accessibility lint | PASS | 54 contrast pairs; minimum text contrast 5.94:1; command `python3 scripts/check_tokens.py` exited 0 |
 | Focused food and energy regressions | PASS | Energy display UI/unit tests pass; all 3 corrected `FoodShortcutsUITests` pass in `/tmp/caliber-foodshortcuts-final.xcresult`; the Dinner/oats review path passes in `/tmp/caliber-food-entry-oats-lazyfavorite.xcresult`. All 244 app unit tests pass in `/tmp/caliber-unit-final.xcresult`. |
-| Full broad UI regression | NOT RERUN | The historical `/tmp/caliber-energy-regression.xcresult` used a stale Oikos assertion and preceded the focused lazy-list/picker corrections. Its failures are not treated as current source failures; all 22 UI cases were not rerun together. |
+| Full broad UI regression after harness corrections | FAIL (76/91) | `/tmp/caliber-ui-full-after-harness-2026-11-01.xcresult`; 76 pass and 15 are detailed above. The result does not establish that all failures are product defects; several stop at automation focus/route assertions. |
 | Original widget routing batch and user data boundaries | PASS | Prior evidence below; only Compact QA simulator and fictional fixtures were used in this follow-up |
 | Native model review | PASS | Claude Opus 5.5 Medium implemented and independently reviewed; Gemini 3.8 Flash Medium delivered read-only review after Gemini 4 Argon hit its existing quota. No overage enabled. |
 | Physical iPhone, Health permission/source and Home Screen widget sizing | NOT VERIFIED | This follow-up used Compact QA only and did not request Health access or edit the personal device |
@@ -42,7 +90,7 @@ migration was needed.
   Dinner/oats review test passes in `/tmp/caliber-food-entry-oats-lazyfavorite.xcresult`.
 - `/tmp/caliber-unit-final.xcresult`: all 244 app unit tests pass after the
   threshold correction.
-- The full broad UI batch was not rerun after the focused corrections.
+- The complete 91-case UI batch is now recorded above; it is not fully green.
 - No production build was copied into the owner's local preview, and no
   personal simulator, real Health data, provider, credential or permission was
   touched.
@@ -139,7 +187,8 @@ xcodebuild test -project 'Caliber (DEV).xcodeproj' -scheme 'Caliber (DEV)' \
   CODE_SIGNING_ALLOWED=NO
 ```
 
-No native test job remains at this checkpoint. Next: inspect/unlock the existing
-native model chats and send the prepared Claude/Gemini tasks once, using this
-published integration HEAD. Continue separate physical widget/Health QA without
-claiming those checks are satisfied by this batch. No release-readiness claim.
+The full UI job has completed with the partial result above. Next: review the
+remaining failures individually, especially the AX5 chart/workout layouts and
+the catalog lookup, then re-run only corrected failing cases before another
+broad batch. Native physical-device widget/Health checks remain separate and
+unverified. No release-readiness claim.

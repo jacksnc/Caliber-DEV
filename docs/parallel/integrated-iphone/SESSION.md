@@ -1,5 +1,22 @@
 # Integrated iPhone checkpoint — 2026-11-01
 
+## Latest follow-up — complete serial UI rerun
+
+The broad UI run after the focused harness corrections finished on the
+dedicated iPhone SE simulator: 76 of 91 cases passed and 15 failed. No
+production source changed in this pass. Failures and exact result bundle are in
+`VERIFICATION.md`; do not describe this UI batch as green. The corrected Stack
+opt-in and largest-text theme journeys pass in the full batch. The workout
+rotation case remains unresolved; several other failures stop at automation
+focus, fixture discovery, route assumptions, or chart access and need separate
+triage before any production fix is chosen.
+
+Four test files changed, all in the UI test target: portrait restoration on
+teardown, lazy restaurant-row materialization, scrolling the Stack consent
+form, and returning from Restaurants to the Food Library root before scanner
+navigation. No personal simulator or stored record was used. The full run's
+15 repeated invalid-frame runtime warnings were not traced to a specific view.
+
 ## Latest follow-up — Diary energy units and model review
 
 The Mac is unlocked and both existing native model chats were inspected before
