@@ -30,6 +30,16 @@
       "skippedTests": 0,
       "log": "/tmp/caliber-beta-runner-validation-20261102.log",
       "invalidFrameWarningCount": 0
+    },
+    {
+      "run": "helios-design-package-after-ci-compile-fix",
+      "result": "Passed",
+      "totalTestCount": 48,
+      "passedTests": 48,
+      "failedTests": 0,
+      "skippedTests": 0,
+      "command": "swift test --package-path Packages/HeliosDesign",
+      "xcodeVersion": "27.1"
     }
   ]
 }

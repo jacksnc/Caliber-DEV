@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-02 — Beta build compatibility
+
+- Split the celebration spark drawing into a private view after the first
+  published CI run found a SwiftUI type-check timeout on Xcode 26.6. Animation
+  values and behavior remain unchanged; local HeliosDesign tests pass 48/48.
+- Record the actual CI and signing-device blockers in the beta handoff.
+
 ## 2026-11-02 — Beta regression integration and approved Home Screen icon
 
 - Integrate reviewed Diary timezone, food-search ordering, recovery feedback,

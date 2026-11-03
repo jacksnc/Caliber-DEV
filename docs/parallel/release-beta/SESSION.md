@@ -69,8 +69,9 @@ keyboard, lazy-row and scroll discovery.
   is prepared outside the checkout in `/tmp/caliber-approved-icons-20261102/`;
   no redesign or crop. Gold-on-black is installed for normal/dark icons. Xcode's
   simulator build contains primary app-icon metadata for both iPhone and iPad.
-  Hardware re-archive succeeds at `/tmp/caliber-beta-20261102.xcarchive`, log
-  `/tmp/caliber-beta-archive-20261102.log`. All 10 compile-only packaging checks
+  Hardware re-archive after the CI compatibility fix succeeds at
+  `/tmp/caliber-beta-after-fix-20261102.xcarchive`, log
+  `/tmp/caliber-beta-after-fix-20261102.log`. All 10 compile-only packaging checks
   pass, including both executables, icon, root manifest, and widget identity/
   version. Hardware-generated iPhone/iPad icon metadata is present; the 120px
   phone icon was converted from Apple's optimized PNG and visually inspected.
@@ -98,7 +99,16 @@ conditional writer job; UI jobs have read-only repository permissions. The
 gallery represents shard 1; all four result artifacts retain complete evidence.
 The additional unsigned hardware archive job uses explicit bash pipefail so
 tee cannot mask a failed archive or checker. Ruby's YAML parser validates the
-workflow; cloud jobs have not yet run.
+workflow. The first cloud run reached the backend successfully, but the release
+archive and all four UI shards failed during compilation on the shared
+expression in `Packages/HeliosDesign/Sources/HeliosDesign/SwiftUI/Feedback.swift`
+(Xcode 26.6 could not type-check the spark's nested SwiftUI modifiers); UI tests
+did not start. The iOS unit job remained queued. The spark drawing is now
+isolated in a small private view without changing its values or animation. The
+HeliosDesign package suite passes 48/48 on local Xcode 27.1; a fresh cloud run
+is pending for this fix. The post-fix hardware archive at
+`/tmp/caliber-beta-after-fix-20261102.xcarchive` passes all 10 compile-only
+packaging checks.
 
 All Python script tests pass: **149/149**, including the six runner guards and
 eight archive checks. The lint-test fixtures deliberately emit lint errors to
@@ -111,5 +121,11 @@ validation and App Store validation are still required, not inferred from a
 successful archive or metadata check.
 
 The historical full suite remains 82/91; no green full-suite or distribution
-claim. No personal simulator, local-preview checkout, store, provider or account
-configuration changed. Signing, upload and physical-device checks remain open.
+claim. The owner confirms an active paid personal Developer membership, but
+Xcode currently exposes only “Personal Team”, with zero provisioned devices and
+no signing certificates; downloading manual profiles did not surface the
+enrolled team. The plugged iPhone still reports unavailable to Apple's device
+service. Do not change identifiers, App Groups, capabilities or account data to
+work around this. Signing, upload and physical-device checks remain open. No
+store/provider/account configuration changed. Opening this isolated project
+updated only its local per-user scheme ordering file; it is uncommitted.

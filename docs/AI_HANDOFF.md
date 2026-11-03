@@ -28,16 +28,24 @@ read-only shards, excluding only Xcode's two unasserting persistent-store
 template cases. It creates its own simulator, preserves separate artifacts,
 and compiles/checks a hardware Release archive. Screenshot publication retains
 its trusted branch-only writer job. Cloud CI and the complete fixture regression
-remain pending; the earlier full 82/91 run is not a green result. The current
-hardware re-archive succeeds at `/tmp/caliber-beta-20261102.xcarchive`, log
-`/tmp/caliber-beta-archive-20261102.log`. All 10 compile-only checks pass;
+remain pending; the earlier full 82/91 run is not a green result. The first CI
+attempt exposed a shared Xcode 26.6 type-check timeout at the spark modifiers
+in `HeliosDesign/SwiftUI/Feedback.swift`; no UI tests started, and the iOS unit
+job stayed queued. Drawing modifiers are now isolated in a private subview with
+unchanged animation math. The HeliosDesign package tests pass 48/48 locally on
+Xcode 27.1. The post-fix hardware Release archive succeeds at
+`/tmp/caliber-beta-after-fix-20261102.xcarchive`, log
+`/tmp/caliber-beta-after-fix-20261102.log`. All 10 compile-only checks pass;
 default distribution checks fail only absent app/widget signing material.
 Hardware phone/iPad icon metadata and the compiled small icon are verified.
 All 149 Python script tests pass; lint/diff checks pass.
 
-Physical signing remains blocked: zero valid local signing identities, no
-physical iPhone connected; owner confirms active personal membership. Mac unlock
-and an unlocked USB-connected phone requested for the next signing stage. No team,
+Physical signing remains blocked: zero valid local signing identities and no
+physical iPhone available to Apple's device service; owner confirms an active
+paid personal membership. The linked Xcode account currently shows only
+“Personal Team”, zero provisioned devices and no signing certificates; refreshing
+manual profiles did not surface the enrolled team. Do not change bundle or App
+Group identifiers or weaken the existing capabilities/privacy boundary. No team,
 identifier, account, provider, personal store, upload or public release changed.
 
 ## Hardware archive and beta packaging — 2026-11-02

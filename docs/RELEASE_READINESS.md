@@ -63,7 +63,8 @@ uploading a build do not establish feature completeness or review clearance.
 
 ## Beta follow-up verification
 
-- `/tmp/caliber-beta-20261102.xcarchive`: hardware Release archive succeeds;
+- `/tmp/caliber-beta-after-fix-20261102.xcarchive`: hardware Release archive
+  succeeds after the CI compiler fix;
   [compile-only packaging report](evidence/release-beta/archive-check.json)
   passes 10/10. The [distribution report](evidence/release-beta/distribution-check.json)
   fails missing app/widget signing material. It is not installable yet.
@@ -77,6 +78,12 @@ uploading a build do not establish feature completeness or review clearance.
   read-only shards, with a fresh disposable simulator per invocation. New source
   suites require review; only Xcode's two unasserting persistent-store template
   cases are excluded. Cloud results/full fixture regression remain pending.
+- The first published CI attempt reached the backend, but the release archive
+  and four UI shards failed before tests ran: Xcode 26.6 could not type-check
+  the spark drawing expression in `HeliosDesign/SwiftUI/Feedback.swift`. The
+  capsule modifiers now live in a small private subview, preserving the same
+  motion and appearance. The 48-test HeliosDesign package suite passes locally
+  on Xcode 27.1; hardware archive and a fresh cloud run are pending.
 - Focused UI logs retain 3 and 8 unattributed invalid-frame warnings. The
   historical broad 82/91 result remains partial; it is not replaced by these
   focused passes or by a successful compile.

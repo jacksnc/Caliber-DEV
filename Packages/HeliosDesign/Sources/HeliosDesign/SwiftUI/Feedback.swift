@@ -147,13 +147,8 @@ public struct HeliosCelebration<Trigger: Equatable>: View {
                                 ForEach(0..<heliosSparkCount, id: \.self) { index in
                                     let angle = Double(index) / Double(heliosSparkCount) * 2 * Double.pi
                                     let distance = radius * (0.45 + 0.75 * progress)
-                                    Capsule()
-                                        .fill(sparkColors.isEmpty ? accent : sparkColors[index % sparkColors.count])
-                                        .frame(width: 4, height: 11)
-                                        .rotationEffect(.radians(angle + Double.pi / 2))
-                                        .scaleEffect(1 - 0.5 * progress)
-                                        .offset(x: cos(angle) * distance, y: sin(angle) * distance)
-                                        .opacity(progress <= 0 || progress >= 1 ? 0 : 1 - progress)
+                                    let color = sparkColors.isEmpty ? accent : sparkColors[index % sparkColors.count]
+                                    HeliosCelebrationSpark(angle: angle, distance: distance, progress: progress, color: color)
                                 }
                             }
                             .frame(width: width, height: height)
@@ -178,6 +173,24 @@ public struct HeliosCelebration<Trigger: Equatable>: View {
         }
         .allowsHitTesting(false)
         .accessibilityHidden(true)
+    }
+}
+
+/// Keeps the spark's drawing modifiers out of the keyframe animator's large view-builder expression.
+private struct HeliosCelebrationSpark: View {
+    let angle: Double
+    let distance: Double
+    let progress: Double
+    let color: Color
+
+    var body: some View {
+        Capsule()
+            .fill(color)
+            .frame(width: 4, height: 11)
+            .rotationEffect(.radians(angle + Double.pi / 2))
+            .scaleEffect(1 - 0.5 * progress)
+            .offset(x: cos(angle) * distance, y: sin(angle) * distance)
+            .opacity(progress <= 0 || progress >= 1 ? 0 : 1 - progress)
     }
 }
 #endif

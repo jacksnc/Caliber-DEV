@@ -560,3 +560,10 @@ when Demo/number-free mode activates. Never persist navigation requests, insert
 records from a URL, dismiss an unsaved form to satisfy a link, or enable widget
 sharing as a side effect. Runtime evidence and limits are in
 parallel/integrated-iphone/VERIFICATION.md.
+
+## V218 — Split celebration sparks for older Swift compiler type checking
+
+Render each celebration spark through a private SwiftUI subview so Xcode 26.6
+can type-check the keyframe animator. Preserve the existing radius, color,
+rotation, scale, offset and opacity calculations exactly. This is a compile
+compatibility change only; it does not alter animation behavior or health data.
