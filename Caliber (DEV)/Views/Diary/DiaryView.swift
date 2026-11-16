@@ -3,6 +3,7 @@
 //  Caliber (DEV)
 //
 
+import CaliberCore
 import HeliosDesign
 import SwiftData
 import SwiftUI
