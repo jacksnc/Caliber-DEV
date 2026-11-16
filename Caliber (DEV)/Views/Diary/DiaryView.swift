@@ -42,37 +42,14 @@ struct DiaryView: View {
       List {
         Group {
           Section {
-            if typeSize.isAccessibilitySize {
-              // Seven days do not fit at these sizes; the picker and a full-width button do.
-              DatePicker("Diary date", selection: $selectedDate, displayedComponents: .date)
-                .accessibilityIdentifier("diaryDate")
-              Button {
-                copyRequest = DiaryCopyRequest(date: selectedDate, meal: nil)
-              } label: {
-                Label {
-                  Text("Copy a Day").fixedSize(horizontal: false, vertical: true)
-                } icon: {
-                  Image(systemName: "doc.on.doc")
-                }
-                .frame(minHeight: 48)
-              }
-              .accessibilityIdentifier("diaryCopyDay")
-            } else {
+            // Seven days do not fit at accessibility text sizes. The picker below is the same
+            // view at every size, so the accessibility audit never sees it rebuilt.
+            if !typeSize.isAccessibilitySize {
               DiaryWeekStrip(
                 selection: $selectedDate, loggedDays: loggedDays, calendar: calendar)
-              HStack {
-                DatePicker("Diary date", selection: $selectedDate, displayedComponents: .date)
-                  .accessibilityIdentifier("diaryDate")
-                Button {
-                  copyRequest = DiaryCopyRequest(date: selectedDate, meal: nil)
-                } label: {
-                  Image(systemName: "doc.on.doc").frame(minWidth: 48, minHeight: 48)
-                }
-                .buttonStyle(.borderless)
-                .accessibilityLabel("Copy a Day")
-                .accessibilityIdentifier("diaryCopyDay")
-              }
             }
+            DatePicker("Diary date", selection: $selectedDate, displayedComponents: .date)
+              .accessibilityIdentifier("diaryDate")
           } header: {
             CaliberHeader("Fuel", identifier: "Fuel", overline: Text("Diary"))
               .caliberSectionHeader()
@@ -98,6 +75,14 @@ struct DiaryView: View {
             Label("Food Library", systemImage: "books.vertical")
           }
           .accessibilityIdentifier("openFoodLibrary")
+        }
+        ToolbarItem(placement: .topBarLeading) {
+          Button {
+            copyRequest = DiaryCopyRequest(date: selectedDate, meal: nil)
+          } label: {
+            Label("Copy a Day", systemImage: "doc.on.doc")
+          }
+          .accessibilityIdentifier("diaryCopyDay")
         }
       }
       .sheet(item: $mealTypePresentingSheet) { meal in
