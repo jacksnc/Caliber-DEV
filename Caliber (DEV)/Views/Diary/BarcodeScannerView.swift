@@ -3,8 +3,10 @@ import HeliosDesign
 import SwiftUI
 import UIKit
 
-/// Present this view full screen, as the look book draws it. It returns one validated
-/// barcode for the caller's food lookup; neither camera frames nor photos leave this screen.
+/// Present this view full screen, as the look book draws it. With a coordinator the barcode is
+/// looked up here and the product opens as a sheet over the camera; otherwise, or when nothing
+/// is found, it returns the validated barcode for the caller's own lookup. Neither camera
+/// frames nor photos leave this screen.
 struct BarcodeScannerView: View {
   @Environment(\.heliosTheme) private var theme
   @Environment(\.dismiss) private var dismiss
@@ -14,12 +16,27 @@ struct BarcodeScannerView: View {
   @State private var manualValue = ""
   @State private var validationMessage: String?
   @State private var didFinish = false
+  /// The product a code found, shown as a sheet over the camera.
+  @State private var scanned: ScannedProduct?
+  @State private var isLookingUp = false
+  /// Set once this screen has used the coordinator, so closing it can clear its own result
+  /// and nothing the caller had before.
+  @State private var usedLookup = false
+  @State private var lookupTask: Task<Void, Never>?
   @FocusState private var isEditingManualCode: Bool
 
   let onScanned: (String) -> Void
   /// Look book: the camera's mode switcher. Picking another mode closes this camera and the
   /// caller opens that tool. Nil hides the switcher.
   var onSwitchMode: ((FoodCaptureMode) -> Void)?
+  /// Look book: the lookup that lets the product open over the camera. Nil hands every code
+  /// straight back through `onScanned`.
+  var coordinator: BarcodeLookupCoordinator?
+  /// Only names the meal on the sheet's button; the caller owns where the food is saved.
+  var mealType = MealType.snack
+  /// Called with the amount chosen on the sheet. The caller opens its editable review after
+  /// this camera has closed; nothing is saved from the camera.
+  var onReview: ((ScannedPortion?) -> Void)?
 
   var body: some View {
     NavigationStack {
@@ -30,6 +47,7 @@ struct BarcodeScannerView: View {
           // while the accessibility audit measures it.
           topBar
           VStack(alignment: .leading, spacing: 12) { cameraArea }
+            .overlay(alignment: .top) { scanStatus }
 
           VStack(alignment: .leading, spacing: 8) {
             Text("Enter Barcode")
@@ -76,6 +94,7 @@ struct BarcodeScannerView: View {
             .buttonStyle(.heliosPrimary)
             .disabled(
               manualValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || didFinish
+                || isLookingUp
             )
             .accessibilityIdentifier("barcodeConfirm")
 
@@ -101,9 +120,16 @@ struct BarcodeScannerView: View {
             .frame(minWidth: 48, minHeight: 48)
         }
       }
+      .sheet(item: $scanned, onDismiss: resumeScanning) { item in
+        ScannedProductSheet(product: item.product, mealType: mealType) { portion in
+          openReview(portion)
+        }
+      }
       .onAppear { capture.start() }
       .onDisappear {
-        didFinish = true
+        lookupTask?.cancel()
+        // A sheet over this screen is not leaving it.
+        if scanned == nil { didFinish = true }
         capture.stop()
       }
       .onChange(of: capture.scannedValue) { _, value in
@@ -249,6 +275,7 @@ struct BarcodeScannerView: View {
     Button {
       guard mode != .barcode else { return }
       didFinish = true
+      lookupTask?.cancel()
       capture.stop()
       onSwitchMode(mode)
       dismiss()
@@ -289,25 +316,97 @@ struct BarcodeScannerView: View {
       .accessibilityHidden(true)
   }
 
+  /// Both the camera and the manual button reach this gate.
   private func complete(with rawValue: String) {
-    guard !didFinish else { return }
+    guard !didFinish, !isLookingUp, scanned == nil else { return }
+    let code: String
     do {
-      let code = try BarcodeValue.normalize(rawValue)
-      // Both the camera and the manual button reach this gate. Stop the
-      // camera before the callback so a second frame cannot log twice.
-      didFinish = true
-      capture.stop()
-      onScanned(code)
-      dismiss()
+      code = try BarcodeValue.normalize(rawValue)
     } catch {
       validationMessage = error.localizedDescription
+      return
     }
+    guard let coordinator else {
+      handOff(code)
+      return
+    }
+    isEditingManualCode = false
+    isLookingUp = true
+    usedLookup = true
+    lookupTask = Task { @MainActor in
+      await coordinator.lookup(code)
+      isLookingUp = false
+      guard !Task.isCancelled, !didFinish else { return }
+      if let product = coordinator.product {
+        scanned = ScannedProduct(product: product)
+      } else {
+        // Nothing to show yet (not found, offline, or online lookup not allowed): the
+        // caller's lookup screen has the permission switch and says why.
+        handOff(code)
+      }
+    }
+  }
+
+  /// Returns the code to the caller's own lookup, as the camera always did.
+  private func handOff(_ code: String) {
+    // Stop the camera before the callback so a second frame cannot log twice.
+    didFinish = true
+    capture.stop()
+    onScanned(code)
+    dismiss()
+  }
+
+  /// The sheet's one action. The caller opens its editable review once this camera is gone.
+  private func openReview(_ portion: ScannedPortion?) {
+    didFinish = true
+    onReview?(portion)
+    scanned = nil
+    capture.stop()
+    dismiss()
+  }
+
+  /// The sheet was swiped away: forget its product and read the next barcode.
+  private func resumeScanning() {
+    guard !didFinish else { return }
+    if usedLookup { coordinator?.cancel() }
+    usedLookup = false
+    capture.retry()
   }
 
   private func cancel() {
     didFinish = true
+    lookupTask?.cancel()
+    if usedLookup { coordinator?.cancel() }
     capture.stop()
     dismiss()
+  }
+
+  /// Look book: the status that sits over the camera, "Barcode read" while the product sheet is up.
+  @ViewBuilder private var scanStatus: some View {
+    if isLookingUp {
+      statusPill {
+        Label {
+          Text("Looking up food…")
+        } icon: {
+          ProgressView().controlSize(.small)
+        }
+      }
+      .accessibilityIdentifier("barcodeLooking")
+    } else if scanned != nil {
+      statusPill { StatusBadge(.success, "Barcode read") }
+        .accessibilityIdentifier("barcodeRead")
+    }
+  }
+
+  private func statusPill<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
+    content()
+      .heliosFont(.footnote)
+      .fixedSize(horizontal: false, vertical: true)
+      .padding(.horizontal, HeliosTokens.space(3))
+      .padding(.vertical, HeliosTokens.space(2))
+      .background { GlassBackground(level: .overlay, cornerRadius: 20) }
+      .padding(.top, HeliosTokens.space(3))
+      .frame(maxWidth: .infinity)
   }
 }
 

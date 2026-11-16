@@ -25,15 +25,20 @@ struct FoodNutritionReviewView: View {
   @State private var convertedText: String?
   @FocusState private var amountHasFocus: Bool
 
-  /// `portion` starts the form on an amount the person typed in search ("2 slices"); it is
-  /// only ever grams, ounces or one of the source's listed servings.
+  /// `portion` starts the form on an amount chosen before the review (typed in search as
+  /// "2 slices", or picked on a scan result). It is only ever grams, ounces or one of the
+  /// source's listed servings, or portions of the stated serving when the source gives no
+  /// gram weight. The person can still change it here.
   init(
     reference: FoodNutritionReference, meal: MealType = .snack, date: Date = .now,
     portion: (choiceID: String, amount: Double)? = nil
   ) {
     self.reference = reference
     let typed = portion.flatMap { portion -> (String, Double)? in
-      guard reference.basisGrams != nil,
+      guard reference.basisGrams != nil else {
+        return portion.choiceID == "portions" ? (portion.choiceID, portion.amount) : nil
+      }
+      guard
         ["grams", "ounces"].contains(portion.choiceID)
           || reference.servings.contains(where: { $0.id == portion.choiceID && $0.isValid })
       else { return nil }

@@ -125,6 +125,20 @@ other's chat automatically, and there is no automatic credit-exhaustion trigger.
   licensed/current restaurant source was supplied. Keep FUEL-13 disabled.
 - The selected Supabase DEV project is deployed for the previously authorized
   foundation work. Email delivery setup remains pending at the owner's request.
+- Scanner result sheet (branch `claude/scanner-result-sheet`, from `astra/foundation`
+  `a265a25`; scanner flow only). A barcode read on the camera screen is looked up there
+  and the product opens as a sheet over the camera (`ScannedProductSheet.swift`): serving
+  chips (the label's serving, 100 g when the label gives a gram weight, Other), the
+  nutrition for the choice, a quantity stepper, the product record's own data warning and
+  "Review and Add to <meal>". That button only opens the existing editable
+  `FoodNutritionReviewView` on the chosen amount (grams, or portions when there is no
+  gram weight; millilitres are never converted); nothing is saved from the sheet. A code
+  that finds nothing still returns to the lookup form, which holds the online-lookup
+  switch and says why. The form's Product Found section uses the same panel. The look
+  book's "2 sources agree" and allergen lines are not drawn because the product record
+  carries neither. Written on Linux at the owner's request without building or testing:
+  only swift-format lint and the dynamic-type lint ran, and no tests were added. Not
+  drawn: the torch button and a full-bleed camera.
 - The working tree may include an unrelated Xcode scheme preference change;
   inspect it and leave it out of phase commits.
 

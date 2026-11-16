@@ -1,81 +1,6 @@
 import HeliosDesign
 import SwiftUI
 
-/// Look book: the scan result card. Values are the provider's, for its stated basis; the
-/// review screen is where the person checks them against the package and logs.
-private struct BarcodeProductCard: View {
-  let product: BarcodeNutritionProduct
-  @Environment(\.heliosTheme) private var theme
-  @Environment(\.locale) private var locale
-
-  var body: some View {
-    let data = theme.palette.data
-    VStack(alignment: .leading, spacing: HeliosTokens.space(3)) {
-      HStack(alignment: .top, spacing: HeliosTokens.space(3)) {
-        Image(systemName: "shippingbox")
-          .foregroundStyle(theme.palette.text.secondary.color)
-          .frame(width: 44, height: 44)
-          .background(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
-              .fill(theme.palette.opaque.raised.color)
-          )
-          .accessibilityHidden(true)
-        VStack(alignment: .leading, spacing: 2) {
-          Text(product.name).heliosFont(.section)
-            .fixedSize(horizontal: false, vertical: true)
-          Text(
-            [product.brand, product.sourceName].compactMap { $0 }.filter { !$0.isEmpty }
-              .joined(separator: " · ")
-          )
-          .heliosFont(.footnote)
-          .foregroundStyle(theme.palette.text.secondary.color)
-          .fixedSize(horizontal: false, vertical: true)
-        }
-      }
-      Text("Per \(product.basisDescription)")
-        .heliosFont(.caption)
-        .foregroundStyle(theme.palette.text.secondary.color)
-        .fixedSize(horizontal: false, vertical: true)
-      ViewThatFits(in: .horizontal) {
-        HStack(spacing: HeliosTokens.space(2)) { tiles(data) }
-        VStack(alignment: .leading, spacing: HeliosTokens.space(2)) { tiles(data) }
-      }
-      Label(product.sourceNote, systemImage: "exclamationmark.triangle.fill")
-        .heliosFont(.caption)
-        .foregroundStyle(theme.palette.text.secondary.color)
-        .fixedSize(horizontal: false, vertical: true)
-    }
-    .padding(.vertical, HeliosTokens.space(1))
-  }
-
-  @ViewBuilder private func tiles(_ data: DataColors) -> some View {
-    tile("Energy", value: product.calories, unit: "kcal", color: data.energy.color)
-    tile("Protein", value: product.proteinGrams, unit: "g", color: data.protein.color)
-    tile("Carbs", value: product.carbGrams, unit: "g", color: data.carbs.color)
-    tile("Fat", value: product.fatGrams, unit: "g", color: data.fat.color)
-  }
-
-  private func tile(_ title: String, value: Double, unit: String, color: Color) -> some View {
-    VStack(alignment: .leading, spacing: 2) {
-      HStack(spacing: 4) {
-        Circle().fill(color).frame(width: 7, height: 7).accessibilityHidden(true)
-        Text(title).heliosFont(.caption)
-          .foregroundStyle(theme.palette.text.secondary.color)
-          .fixedSize(horizontal: false, vertical: true)
-      }
-      Text(NutritionInput.format(value, locale: locale)).heliosFont(.bodyStrong)
-        .fixedSize(horizontal: false, vertical: true)
-      Text(unit).heliosFont(.caption)
-        .foregroundStyle(theme.palette.text.secondary.color)
-        .fixedSize(horizontal: false, vertical: true)
-    }
-    .frame(maxWidth: .infinity, alignment: .leading)
-    .padding(HeliosTokens.space(2))
-    .background { GlassBackground(level: .raised, cornerRadius: HeliosTokens.radius.tile) }
-    .accessibilityElement(children: .combine)
-  }
-}
-
 struct BarcodeFoodLookupView: View {
   @EnvironmentObject private var runtime: FoundationRuntime
   let mealType: MealType
@@ -110,6 +35,10 @@ private struct BarcodeLookupContent: View {
   @State private var showsScanner = false
   @State private var showsManualFood = false
   @State private var showsReview = false
+  /// The amount chosen on the result sheet or panel; nil opens the review on its default.
+  @State private var reviewPortion: ScannedPortion?
+  /// The camera's sheet asked for the review; it opens once the camera has closed.
+  @State private var reviewAfterScanner = false
   @State private var switchedMode: FoodCaptureMode?
   @Environment(\.dismiss) private var dismiss
   @State private var lookupTask: Task<Void, Never>?
@@ -185,20 +114,16 @@ private struct BarcodeLookupContent: View {
         }
         if let product = coordinator.product {
           Section("Product Found") {
-            // Look book: one primary action under the result card, in the same row as
-            // Train's session card, rather than a list row of its own.
-            VStack(spacing: 12) {
-              BarcodeProductCard(product: product)
-              Button {
-                showsReview = true
-              } label: {
-                Text("Review and Log")
-                  .fixedSize(horizontal: false, vertical: true)
-                  .frame(maxWidth: .infinity)
-              }
-              .buttonStyle(.heliosPrimary)
-              .accessibilityIdentifier("barcodeReview")
+            // Look book: the camera's product sheet, here as a card, so a typed code and a
+            // scanned one read alike. It only opens the editable review; saving happens there.
+            ScannedProductPanel(
+              product: product, mealType: mealType, idPrefix: "found",
+              reviewIdentifier: "barcodeReview"
+            ) { portion in
+              reviewPortion = portion
+              showsReview = true
             }
+            .id(product.barcode)
           }
         }
         Section {
@@ -217,15 +142,22 @@ private struct BarcodeLookupContent: View {
           .frame(minWidth: 48, minHeight: 48).accessibilityIdentifier("barcodeKeyboardDone")
       }
     }
-    .fullScreenCover(isPresented: $showsScanner) {
-      BarcodeScannerView(onScanned: { value in code = value }) { mode in
-        if mode == .search {
-          // Back to food search, which this screen was opened from.
-          Task { @MainActor in dismiss() }
-        } else {
-          switchedMode = mode
-        }
-      }
+    .fullScreenCover(isPresented: $showsScanner, onDismiss: openRequestedReview) {
+      BarcodeScannerView(
+        onScanned: { value in code = value },
+        onSwitchMode: { mode in
+          if mode == .search {
+            // Back to food search, which this screen was opened from.
+            Task { @MainActor in dismiss() }
+          } else {
+            switchedMode = mode
+          }
+        },
+        coordinator: coordinator, mealType: mealType,
+        onReview: { portion in
+          reviewPortion = portion
+          reviewAfterScanner = true
+        })
     }
     .sheet(isPresented: $showsManualFood) {
       AddFoodView(mealType: mealType, date: date)
@@ -239,7 +171,9 @@ private struct BarcodeLookupContent: View {
     }
     .navigationDestination(isPresented: $showsReview) {
       if let product = coordinator.product {
-        FoodNutritionReviewView(reference: .barcode(product), meal: mealType, date: date)
+        FoodNutritionReviewView(
+          reference: .barcode(product), meal: mealType, date: date,
+          portion: reviewPortion.map { (choiceID: $0.choiceID, amount: $0.amount) })
       }
     }
     .onChange(of: code) { _, _ in
@@ -251,5 +185,13 @@ private struct BarcodeLookupContent: View {
       // A found result stays while its review is open; every request still has a cancellation guard.
       if coordinator.isBusy { coordinator.cancel() }
     }
+  }
+
+  /// The camera's result sheet asked for the review. It opens here once the camera is gone,
+  /// on the same editable screen as a typed code.
+  private func openRequestedReview() {
+    guard reviewAfterScanner else { return }
+    reviewAfterScanner = false
+    showsReview = true
   }
 }
