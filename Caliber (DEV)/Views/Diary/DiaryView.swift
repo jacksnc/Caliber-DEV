@@ -14,6 +14,7 @@ struct DiaryView: View {
   @Environment(\.calendar) private var calendar
   @Environment(\.locale) private var locale
   @Environment(\.modelContext) private var modelContext
+  @Environment(\.dynamicTypeSize) private var typeSize
   @Query(sort: \DiaryEntry.date) private var allEntries: [DiaryEntry]
   @Query private var profiles: [UserProfile]
 
@@ -41,19 +42,36 @@ struct DiaryView: View {
       List {
         Group {
           Section {
-            DiaryWeekStrip(
-              selection: $selectedDate, loggedDays: loggedDays, calendar: calendar)
-            HStack {
+            if typeSize.isAccessibilitySize {
+              // Seven days do not fit at these sizes; the picker and a full-width button do.
               DatePicker("Diary date", selection: $selectedDate, displayedComponents: .date)
                 .accessibilityIdentifier("diaryDate")
               Button {
                 copyRequest = DiaryCopyRequest(date: selectedDate, meal: nil)
               } label: {
-                Image(systemName: "doc.on.doc").frame(minWidth: 48, minHeight: 48)
+                Label {
+                  Text("Copy a Day").fixedSize(horizontal: false, vertical: true)
+                } icon: {
+                  Image(systemName: "doc.on.doc")
+                }
+                .frame(minHeight: 48)
               }
-              .buttonStyle(.borderless)
-              .accessibilityLabel("Copy a Day")
               .accessibilityIdentifier("diaryCopyDay")
+            } else {
+              DiaryWeekStrip(
+                selection: $selectedDate, loggedDays: loggedDays, calendar: calendar)
+              HStack {
+                DatePicker("Diary date", selection: $selectedDate, displayedComponents: .date)
+                  .accessibilityIdentifier("diaryDate")
+                Button {
+                  copyRequest = DiaryCopyRequest(date: selectedDate, meal: nil)
+                } label: {
+                  Image(systemName: "doc.on.doc").frame(minWidth: 48, minHeight: 48)
+                }
+                .buttonStyle(.borderless)
+                .accessibilityLabel("Copy a Day")
+                .accessibilityIdentifier("diaryCopyDay")
+              }
             }
           } header: {
             CaliberHeader("Fuel", identifier: "Fuel", overline: Text("Diary"))
@@ -208,17 +226,13 @@ private struct DiaryWeekStrip: View {
   }
 
   var body: some View {
-    // Seven days need a row each of at least 44 points; larger text keeps the date picker
-    // below as the only control instead of squeezing the days.
-    ViewThatFits(in: .horizontal) {
-      HStack(spacing: 2) {
-        arrow("chevron.left", label: "Previous week", by: -7)
-        ForEach(days, id: \.self) { day in dayButton(day).fixedSize() }
-        arrow("chevron.right", label: "Next week", by: 7)
-      }
-      .frame(maxWidth: .infinity)
-      EmptyView()
+    // Shown below accessibility text sizes only; the caller keeps the date picker there.
+    HStack(spacing: 2) {
+      arrow("chevron.left", label: "Previous week", by: -7)
+      ForEach(days, id: \.self) { day in dayButton(day).fixedSize() }
+      arrow("chevron.right", label: "Next week", by: 7)
     }
+    .frame(maxWidth: .infinity)
     .listRowInsets(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
   }
 
@@ -305,13 +319,15 @@ private struct MacroTotalsSummaryView: View {
         .accessibilityHidden(true)
         VStack(alignment: .leading, spacing: 2) {
           // The total is shown exactly as logged; the label keeps its spoken form.
-          Text("\(NutritionInput.format(totals.calories, locale: locale)) kcal")
-            .heliosFont(.metricValue)
-            .fixedSize(horizontal: false, vertical: true)
-            .accessibilityLabel(
-              "\(NutritionInput.format(totals.calories, locale: locale)) calories"
-            )
-            .accessibilityIdentifier("diaryCalories")
+          Text(
+            "\(totals.calories.formatted(.number.precision(.fractionLength(0...2)).locale(locale))) kcal"
+          )
+          .heliosFont(.metricValue)
+          .fixedSize(horizontal: false, vertical: true)
+          .accessibilityLabel(
+            "\(NutritionInput.format(totals.calories, locale: locale)) calories"
+          )
+          .accessibilityIdentifier("diaryCalories")
           if let caption = energyCaption {
             Text(caption)
               .heliosFont(.footnote)

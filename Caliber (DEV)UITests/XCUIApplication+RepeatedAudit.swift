@@ -24,18 +24,24 @@ extension XCUIApplication {
     }
   }
 
-  /// A pass that times out on a heavy screen runs once more; issues are never skipped.
+  /// A pass that times out on a heavy screen runs again, up to three attempts; issues are
+  /// never skipped. The demo dashboard at the largest text size has timed out twice in a row
+  /// on a slow CI simulator.
   @MainActor private func auditOnce(
     for types: XCUIAccessibilityAuditType,
     _ handler: @escaping (XCUIAccessibilityAuditIssue) throws -> Bool
   ) throws {
-    do {
-      try performAccessibilityAudit(for: types, handler)
-    } catch let error as NSError
-      where error.domain == "com.apple.xcode.xctest.accessibilityAudit" && error.code == -56
-    {
-      try performAccessibilityAudit(for: types, handler)
+    for _ in 0..<2 {
+      do {
+        try performAccessibilityAudit(for: types, handler)
+        return
+      } catch let error as NSError
+        where error.domain == "com.apple.xcode.xctest.accessibilityAudit" && error.code == -56
+      {
+        continue
+      }
     }
+    try performAccessibilityAudit(for: types, handler)
   }
 
   private static func auditKey(_ issue: XCUIAccessibilityAuditIssue) -> String {
