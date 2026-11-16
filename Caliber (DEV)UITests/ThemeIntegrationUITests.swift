@@ -44,6 +44,12 @@ final class ThemeIntegrationUITests: XCTestCase {
     for tab in ["Today", "Train", "Fuel", "Stack", "Progress"] {
       app.tab(tab).tap()
       XCTAssertTrue(app.screenTitle(tab).waitForExistence(timeout: 5))
+      if tab == "Fuel" && !largeText {
+        // The week strip and the goal line are part of the default-size layout.
+        XCTAssertTrue(app.buttons["diaryDay-1"].exists)
+        XCTAssertTrue(app.staticTexts["diaryEnergyGoal"].exists)
+        XCTAssertTrue(app.buttons["diaryCopyDay"].exists)
+      }
       capture("\(theme)-\(tab)-\(largeText ? "AX5" : "default")", app: app)
       try audit(app, largeText: largeText)
     }
