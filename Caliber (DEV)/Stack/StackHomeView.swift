@@ -440,7 +440,7 @@ struct StackScopeNote: View {
 
 enum StackText {
   static func amount(_ compound: StackCompound) -> String {
-    "\(compound.amountText) \(compound.unit.symbol)"
+    "\(compound.amountText) \(compound.unit.symbol(forAmount: compound.amountText))"
   }
 
   static func number(_ value: Double) -> String {

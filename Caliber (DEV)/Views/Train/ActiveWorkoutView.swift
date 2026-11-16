@@ -2,6 +2,7 @@ import CaliberCore
 import HeliosDesign
 import SwiftData
 import SwiftUI
+import TrainingCore
 
 struct ActiveWorkoutView: View {
   @Environment(\.dynamicTypeSize) private var typeSize
@@ -189,6 +190,31 @@ struct ActiveWorkoutView: View {
       "\(best.enteredWeight.formatted(.number.precision(.fractionLength(0...1)))) \(best.enteredWeightUnitRawValue) × \(best.repetitions)"
   }
 
+  /// The highest estimated one-rep max from this exercise's earlier finished working sets
+  /// (Epley, D115: weight × (1 + reps ÷ 30)), in the unit that set was entered in.
+  private func bestEstimate(for workoutExercise: TrainingWorkoutExercise) -> String? {
+    guard let exerciseID = workoutExercise.exercise?.id else { return nil }
+    let estimates =
+      allWorkouts
+      .filter { $0.completedAt != nil && $0.id != workout.id }
+      .flatMap(\.sortedExercises)
+      .filter { $0.exercise?.id == exerciseID }
+      .flatMap(\.sortedSets)
+      // Above 12 repetitions the estimate is unreliable, so those sets are left out.
+      .filter { $0.completedAt != nil && !$0.isWarmup && $0.repetitions <= 12 }
+      .compactMap { set -> (kilograms: Double, entered: Double, unit: String)? in
+        guard
+          let kilograms = OneRepMax.estimate(
+            weight: set.weightKilograms, reps: set.repetitions, formula: .epley),
+          let entered = OneRepMax.estimate(
+            weight: set.enteredWeight, reps: set.repetitions, formula: .epley)
+        else { return nil }
+        return (kilograms, entered, set.enteredWeightUnitRawValue)
+      }
+    guard let best = estimates.max(by: { $0.kilograms < $1.kilograms }) else { return nil }
+    return "\(best.entered.formatted(.number.precision(.fractionLength(0)))) \(best.unit)"
+  }
+
   private func duration(since start: Date, now: Date) -> String {
     let seconds = max(0, Int(now.timeIntervalSince(start)))
     return String(format: "%02d:%02d:%02d", seconds / 3600, seconds / 60 % 60, seconds % 60)
@@ -252,9 +278,15 @@ struct ActiveWorkoutView: View {
             .heliosFont(.section)
             .accessibilityAddTraits(.isHeader)
           if let best = bestSet(for: workoutExercise) {
-            Text("Best set \(best)")
-              .heliosFont(.footnote)
-              .foregroundStyle(theme.palette.text.secondary.color)
+            Text(
+              bestEstimate(for: workoutExercise).map {
+                "Best set \(best) · est. 1RM \($0)"
+              } ?? "Best set \(best)"
+            )
+            .heliosFont(.footnote)
+            .foregroundStyle(theme.palette.text.secondary.color)
+            .fixedSize(horizontal: false, vertical: true)
+            .accessibilityIdentifier("exerciseBest")
           }
         }
         .frame(maxWidth: .infinity, alignment: .leading)

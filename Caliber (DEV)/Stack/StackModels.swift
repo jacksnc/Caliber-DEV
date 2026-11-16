@@ -21,6 +21,20 @@ enum StackUnit: String, CaseIterable, Identifiable, Codable {
     case .capsules: "capsules"
     }
   }
+
+  /// The unit as written after an amount: "1 capsule", "2 capsules".
+  func symbol(forAmount text: String) -> String {
+    guard Decimal(string: text, locale: Locale(identifier: "en_US_POSIX")) == 1 else {
+      return symbol
+    }
+    switch self {
+    case .units: return "unit"
+    case .clicks: return "pen click"
+    case .tablets: return "tablet"
+    case .capsules: return "capsule"
+    case .mcg, .mg, .iu, .ml: return symbol
+    }
+  }
 }
 
 /// How the product is supplied. Used for wording and icons only.

@@ -195,3 +195,7 @@ A meal photo's foods and gram weights are **estimates proposed by a vision model
 ## Nutrition labels (FUEL-11) and typed lists (FUEL-12)
 
 A label photo is read on the device; `LabelParser` cross-checks each amount with its % Daily Value and flags a calorie total that disagrees with 4P + 4C + 9F beyond label rounding. Values that were not read stay empty. In a typed list ("2 eggs, a banana"), an amount becomes a portion only as grams, ounces or one of the source's listed servings; otherwise the person chooses.
+
+## Estimated one-rep max on the workout card — implemented 2026-11-15
+
+Under each exercise the workout screen shows the best set from earlier finished workouts and, beside it, "est. 1RM": the highest Epley estimate, weight × (1 + reps ÷ 30), across those sets (D115). A single repetition counts as the weight itself. Warm-up sets and sets above 12 repetitions are left out. RPE is not used. It is an estimate from logged sets, not a suggestion to attempt that load.

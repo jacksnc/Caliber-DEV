@@ -68,16 +68,20 @@ struct WeightTrendChart: View {
     }
   }
 
+  /// A smoothed trend is shown to one decimal, as on Today; a single weigh-in is shown as
+  /// it was logged.
+  private var digits: NumberFormatStyleConfiguration.Precision {
+    summary.trend.count > 1 ? .fractionLength(1) : .fractionLength(0...2)
+  }
+
   private var latest: some View {
     VStack(alignment: .leading, spacing: 2) {
       Text("Trend weight").heliosFont(.metricLabel)
         .foregroundStyle(theme.palette.text.secondary.color)
       if let latest = summary.latestTrendInPounds ?? summary.latestWeightInPounds {
-        Text(
-          "\(unit.fromPounds(latest), format: .number.precision(.fractionLength(0...2))) \(unit.symbol)"
-        )
-        .heliosFont(.hero)
-        .accessibilityIdentifier("latestProgressWeight")
+        Text("\(unit.fromPounds(latest), format: .number.precision(digits)) \(unit.symbol)")
+          .heliosFont(.hero)
+          .accessibilityIdentifier("latestProgressWeight")
       }
       if let date = summary.readings.last?.date {
         Text("Last weigh-in: \(date.formatted(date: .abbreviated, time: .omitted))")
@@ -91,7 +95,7 @@ struct WeightTrendChart: View {
     if let change = summary.trendChangeInPounds ?? summary.changeInPounds {
       VStack(alignment: .trailing, spacing: 2) {
         Text(
-          "\(unit.fromPounds(change), format: .number.precision(.fractionLength(0...2)).sign(strategy: .always())) \(unit.symbol)"
+          "\(unit.fromPounds(change), format: .number.precision(digits).sign(strategy: .always())) \(unit.symbol)"
         )
         .heliosFont(.bodyStrong)
         Text(rangeName).heliosFont(.caption)
@@ -149,11 +153,13 @@ struct WeightTrendChart: View {
         }
       } else {
         // Automatic labels adapt as the history grows into months/years.
-        AxisMarks(values: .automatic(desiredCount: 4)) {
+        AxisMarks(values: .automatic(desiredCount: 3)) {
           AxisValueLabel()
         }
       }
     }
+    // Room for the last date label, which was cut to "O…" at the trailing edge.
+    .chartXScale(range: .plotDimension(endPadding: 28))
     .frame(height: chartHeight)
     .accessibilityLabel("Weight history in \(unit.symbol)")
   }
