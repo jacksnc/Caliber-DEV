@@ -81,6 +81,13 @@ class CommandTests(unittest.TestCase):
         self.assertNotIn('--permission-prompts', cmd)
         self.assertEqual(cmd[-2:], ['--resume', 'sid'])
 
+    def test_bundled_protocol_matches_docs_copy(self):
+        docs = Path(__file__).resolve().parents[1] / 'docs/parallel/DELEGATION.md'
+        self.assertEqual(subject.BUNDLED_PROTOCOL.read_text(), docs.read_text())
+        with mock.patch.object(subject, 'claude_version', return_value=(2, 1, 300)):
+            cmd = subject.build_command('claude', self.meta(), 'P')
+        self.assertEqual(cmd[cmd.index('--append-system-prompt-file') + 1], str(subject.BUNDLED_PROTOCOL))
+
 
 if __name__ == '__main__':
     unittest.main()

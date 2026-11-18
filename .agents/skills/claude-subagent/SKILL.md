@@ -17,6 +17,14 @@ from your own checkout; below, `$D` stands for that path:
 access and writes outside the workspace (the sibling worktree and `~/.claude`),
 so request sandbox escalation when you run it.
 
+Codex finds this skill in any checkout whose branch has `.agents/skills/`.
+For branches cut before it was added (most `codex/*` worktrees), install a
+user-level copy once, which works from every checkout:
+`git archive origin/astra/foundation .agents/skills/claude-subagent | tar -x -C /tmp && cp -R /tmp/.agents/skills/claude-subagent ~/.agents/skills/`.
+Then `$D` is `~/.agents/skills/claude-subagent/scripts/claude_delegate.py`.
+The script uses the protocol copy in `references/` when a branch has no
+`docs/parallel/DELEGATION.md`.
+
 ## When to delegate
 
 - Good: a self-contained slice with clear exclusive paths (a view and its UI

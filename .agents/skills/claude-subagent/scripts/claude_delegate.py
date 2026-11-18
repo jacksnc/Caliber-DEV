@@ -26,6 +26,7 @@ from pathlib import Path
 SKILL_DIR = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = SKILL_DIR / 'references' / 'result.schema.json'
 PROTOCOL_REL = Path('docs/parallel/DELEGATION.md')
+BUNDLED_PROTOCOL = SKILL_DIR / 'references' / 'DELEGATION.md'
 SLUG_RE = re.compile(r'^[a-z0-9][a-z0-9-]{1,48}$')
 PERMISSION_PROMPTS_MIN = (2, 1, 259)
 
@@ -211,6 +212,8 @@ def build_command(binary: str, meta: dict, prompt: str, resume_id: str | None = 
     if meta.get('fallback_model'):
         cmd += ['--fallback-model', meta['fallback_model']]
     protocol = Path(meta['worktree']) / PROTOCOL_REL
+    if not protocol.exists():  # branch predates the protocol: use the copy bundled with the skill
+        protocol = BUNDLED_PROTOCOL
     if protocol.exists():
         cmd += ['--append-system-prompt-file', str(protocol)]
     if claude_version(binary) >= PERMISSION_PROMPTS_MIN:
@@ -312,7 +315,7 @@ def cmd_doctor(args, cwd: Path) -> int:
         print(f'repo: {root} on {git("branch", "--show-current", cwd=root) or "(detached)"}')
         print(f'state: {state_root(root)}')
         if not (root / PROTOCOL_REL).exists():
-            print(f'  warning: {PROTOCOL_REL} missing at this checkout')
+            print(f'  note: {PROTOCOL_REL} not on this branch; using the copy bundled with the skill')
     except DelegateError as exc:
         ok = False
         print(exc)
