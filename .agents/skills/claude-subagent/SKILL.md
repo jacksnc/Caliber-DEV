@@ -11,9 +11,13 @@ committed handoff file plus a JSON result. The shared rulebook is
 `docs/parallel/DELEGATION.md`: read it once per session, because Claude is
 given the same file and you both have to follow it.
 
-Script: `.agents/skills/claude-subagent/scripts/claude_delegate.py`. Run it
+The same machinery works the other way round: Claude can lead and dispatch you
+with its `codex-subagent` skill. If your task says you are a delegated subagent,
+follow the subagent rules in that file and never delegate further.
+
+Script: `.agents/skills/claude-subagent/scripts/delegate.py`. Run it
 from your own checkout; below, `$D` stands for that path:
-`D=.agents/skills/claude-subagent/scripts/claude_delegate.py`. It needs network
+`D=.agents/skills/claude-subagent/scripts/delegate.py`. It needs network
 access and writes outside the workspace (the sibling worktree and `~/.claude`),
 so request sandbox escalation when you run it.
 
@@ -21,7 +25,7 @@ Codex finds this skill in any checkout whose branch has `.agents/skills/`.
 For branches cut before it was added (most `codex/*` worktrees), install a
 user-level copy once, which works from every checkout:
 `git archive origin/astra/foundation .agents/skills/claude-subagent | tar -x -C /tmp && cp -R /tmp/.agents/skills/claude-subagent ~/.agents/skills/`.
-Then `$D` is `~/.agents/skills/claude-subagent/scripts/claude_delegate.py`.
+Then `$D` is `~/.agents/skills/claude-subagent/scripts/delegate.py`.
 The script uses the protocol copy in `references/` when a branch has no
 `docs/parallel/DELEGATION.md`.
 
@@ -101,5 +105,6 @@ the spend shown in `status` (an estimate) when it is notable.
 - Claude was denied a tool it needed: it is listed in the result. Grant it
   narrowly next time with `--allow-tool 'Bash(<prefix> *)'`.
 - `stop <slug>` interrupts a run cleanly.
+- `claude_delegate.py` is the old name of the script and still works.
 - State lives in `$(git rev-parse --git-common-dir)/claude-delegate/<slug>/`
   (`meta.json`, `run-N.json`, `run-N.stderr`, `run-N.prompt.md`).
