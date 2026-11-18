@@ -576,8 +576,11 @@ def print_status(meta: dict, root: Path, as_json: bool) -> int:
     if as_json:
         print(json.dumps(info, indent=2))
     else:
+        spend = f"~${info['cost_usd_total']:.2f}" if info['agent'] == 'claude' else \
+            f"tokens {info.get('codex_usage_last_turn', {}).get('input_tokens', '?')} in / " \
+            f"{info.get('codex_usage_last_turn', {}).get('output_tokens', '?')} out (last turn)"
         print(f"{info['slug']} [{info['state']}] {info['branch']} @ {info.get('head', '?')} "
-              f"(seed {info['seed']}, runs {info['runs']}, ~${info['cost_usd_total']:.2f})")
+              f"(seed {info['seed']}, runs {info['runs']}, {spend})")
         print(f"  worktree: {info['worktree']}")
         for c in info.get('commits', []):
             print(f'  commit: {c}')
