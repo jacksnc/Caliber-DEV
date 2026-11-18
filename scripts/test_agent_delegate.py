@@ -8,7 +8,7 @@ import unittest
 
 SCRIPT_DIR = Path(__file__).resolve().parents[1] / '.agents/skills/claude-subagent/scripts'
 sys.path.insert(0, str(SCRIPT_DIR))
-import claude_delegate as subject  # noqa: E402
+import delegate as subject  # noqa: E402
 
 
 def git(cwd, *args):
@@ -87,6 +87,81 @@ class CommandTests(unittest.TestCase):
         with mock.patch.object(subject, 'claude_version', return_value=(2, 1, 300)):
             cmd = subject.build_command('claude', self.meta(), 'P')
         self.assertEqual(cmd[cmd.index('--append-system-prompt-file') + 1], str(subject.BUNDLED_PROTOCOL))
+
+
+class CodexTests(unittest.TestCase):
+    def make_repo(self, tmp):
+        repo = Path(tmp)
+        git(repo, 'init', '-q', '-b', 'main')
+        return repo
+
+    def test_codex_command_is_workspace_write_with_git_dir_and_schema(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = self.make_repo(tmp)
+            meta = CommandTests.meta(self, agent='codex', worktree=str(repo), model=None, effort='max')
+            cmd = subject.build_command('codex', meta, 'PROMPT', last_message=Path('/tmp/last.json'))
+            self.assertEqual(cmd[:2], ['codex', 'exec'])
+            self.assertEqual(cmd[-1], 'PROMPT')
+            self.assertIn('sandbox_mode="workspace-write"', cmd)
+            self.assertFalse(any('writable_roots' in part for part in cmd))
+            self.assertIn('model_reasoning_effort="xhigh"', cmd)
+            self.assertNotIn('-m', cmd)
+            self.assertEqual(cmd[cmd.index('-C') + 1], str(repo))
+            resumed = subject.build_command('codex', meta, 'MORE', resume_id='tid')
+            self.assertEqual(resumed[:4], ['codex', 'exec', 'resume', 'tid'])
+            self.assertNotIn('-C', resumed)
+
+    def test_codex_prompt_inlines_protocol(self):
+        meta = CommandTests.meta(self, agent='codex', handoff_path='docs/parallel/b/CODEX_HANDOFF.md')
+        prompt = subject.build_prompt(meta, 'Do it.')
+        self.assertIn('You are Codex working as a delegated subagent for Claude', prompt)
+        self.assertIn('Shared protocol', prompt)
+        self.assertIn('CODEX_HANDOFF.md', prompt)
+        self.assertIn('do NOT run git add/commit', prompt)
+        self.assertIn('Task from Claude', prompt)
+        self.assertNotIn('Task from Codex', prompt)
+
+    def test_lead_commit_takes_only_owned_uncommitted_paths(self):
+        with tempfile.TemporaryDirectory() as tmp, tempfile.TemporaryDirectory() as state:
+            repo = self.make_repo(tmp)
+            git(repo, 'config', 'user.email', 't@example.com')
+            git(repo, 'config', 'user.name', 't')
+            (repo / 'README.md').write_text('r')
+            git(repo, 'add', '.')
+            git(repo, 'commit', '-qm', 'seed')
+            seed = subject.git('rev-parse', 'HEAD', cwd=repo)
+            meta = CommandTests.meta(self, agent='codex', slug='units', worktree=str(repo), seed=seed,
+                                     owned=['notes/*'], handoff_path='docs/parallel/b/CODEX_HANDOFF.md', runs=[])
+            subject.save_meta(Path(state), meta)
+            (repo / 'notes').mkdir()
+            (repo / 'notes' / 'OK.md').write_text('OK')
+            (repo / 'docs/parallel/b').mkdir(parents=True)
+            (repo / 'docs/parallel/b/CODEX_HANDOFF.md').write_text('h')
+            args = type('A', (), {'slug': 'units', 'message': None})()
+            with mock.patch.object(subject, 'state_root', return_value=Path(state)):
+                self.assertEqual(subject.cmd_commit(args, repo), 0)
+                self.assertEqual(subject.git('status', '--porcelain', cwd=repo), '')
+                (repo / 'README.md').write_text('changed')
+                with self.assertRaises(subject.DelegateError):
+                    subject.cmd_commit(args, repo)
+
+    def test_reads_codex_events_and_last_message(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out, last = Path(tmp, 'run.json'), Path(tmp, 'last.json')
+            out.write_text('\n'.join([
+                json.dumps({'type': 'thread.started', 'thread_id': 'abc'}),
+                'not json',
+                json.dumps({'type': 'turn.completed', 'usage': {'input_tokens': 5, 'output_tokens': 2}})]))
+            last.write_text(json.dumps({'status': 'done'}))
+            result = subject.read_codex_result({'output': str(out), 'last_message': str(last)})
+            self.assertEqual(result['session_id'], 'abc')
+            self.assertEqual(result['structured_output'], {'status': 'done'})
+            self.assertFalse(result['is_error'])
+            last.unlink()
+            out.write_text(json.dumps({'type': 'turn.failed', 'error': {'message': 'quota'}}))
+            failed = subject.read_codex_result({'output': str(out), 'last_message': str(last)})
+            self.assertTrue(failed['is_error'])
+            self.assertEqual(failed['result'], 'quota')
 
 
 if __name__ == '__main__':

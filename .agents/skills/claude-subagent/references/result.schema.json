@@ -1,28 +1,93 @@
 {
   "type": "object",
   "additionalProperties": false,
-  "required": ["status", "summary", "head", "commits", "files_changed", "checks", "untested", "questions", "handoff_path"],
+  "required": [
+    "status",
+    "summary",
+    "head",
+    "commits",
+    "files_changed",
+    "checks",
+    "untested",
+    "questions",
+    "handoff_path"
+  ],
   "properties": {
-    "status": {"type": "string", "enum": ["done", "partial", "needs_input", "blocked"]},
-    "summary": {"type": "string", "description": "Two to five sentences on what changed and why."},
-    "head": {"type": "string", "description": "Commit SHA at the tip of claude/<slug> when you stopped."},
-    "commits": {"type": "array", "items": {"type": "string"}, "description": "Short SHA and subject of each commit you made."},
-    "files_changed": {"type": "array", "items": {"type": "string"}},
+    "status": {
+      "type": "string",
+      "enum": [
+        "done",
+        "partial",
+        "needs_input",
+        "blocked"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "description": "Two to five sentences on what changed and why."
+    },
+    "head": {
+      "type": "string",
+      "description": "Commit SHA at the tip of your <agent>/<slug> branch when you stopped."
+    },
+    "commits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Short SHA and subject of each commit you made."
+    },
+    "files_changed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "checks": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["command", "result"],
+        "required": [
+          "command",
+          "result",
+          "note"
+        ],
         "properties": {
-          "command": {"type": "string"},
-          "result": {"type": "string", "enum": ["pass", "fail", "error"]},
-          "note": {"type": "string"}
+          "command": {
+            "type": "string"
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "error"
+            ]
+          },
+          "note": {
+            "type": "string",
+            "description": "Short evidence, or empty string."
+          }
         }
       }
     },
-    "untested": {"type": "array", "items": {"type": "string"}, "description": "What you could not verify, e.g. Xcode build, simulator UI tests."},
-    "questions": {"type": "array", "items": {"type": "string"}, "description": "Decisions or path-ownership requests for Codex or the owner."},
-    "handoff_path": {"type": "string"}
+    "untested": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "What you could not verify, e.g. Xcode build, simulator UI tests."
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Decisions or path-ownership requests for the lead or the owner."
+    },
+    "handoff_path": {
+      "type": "string"
+    }
   }
 }

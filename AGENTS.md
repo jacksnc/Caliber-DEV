@@ -24,9 +24,10 @@ never edit the same checkout from two agents at once.
 
 ## Codex and Claude working together
 
-Codex can hand a bounded task to Claude Code with the repo skill
-`.agents/skills/claude-subagent` (headless `claude -p`, one worktree and
-`claude/<slug>` branch per task). Both agents follow
-`docs/parallel/DELEGATION.md`: Codex leads, owns shared files and integration,
-and runs simulator jobs; Claude edits only its assigned paths, never pushes or
-merges, and records its work in `docs/parallel/<batch>/CLAUDE_HANDOFF.md`.
+Either agent can lead and hand a bounded task to the other as a subagent:
+Codex uses `.agents/skills/claude-subagent` (headless `claude -p`), Claude uses
+`.claude/skills/codex-subagent` (headless `codex exec`). Both run the same
+script with one worktree and `<agent>/<slug>` branch per task, and both follow
+`docs/parallel/DELEGATION.md`: the lead owns shared files, integration and
+simulator jobs; the subagent edits only its assigned paths, never pushes or
+merges, and records its work in `docs/parallel/<batch>/<AGENT>_HANDOFF.md`.
