@@ -54,8 +54,8 @@ the delegation's saved state.
    ```
    This creates `../Caliber-codex-progress-units` on `codex/progress-units`,
    writes `CODEX_TASK.md` and `DISPATCH_LOG.md` in your checkout, and starts
-   Codex detached in `workspace-write` with the worktree's git dir writable so
-   it can commit. Network is off inside its sandbox; add `--network` only when
+   Codex detached in `workspace-write`. Its sandbox keeps `.git` read-only, so
+   Codex is told not to commit; you commit for it in step 6. Network is off inside its sandbox; add `--network` only when
    the task needs it (e.g. SwiftPM resolving packages). Other flags: `--seed`,
    `--read-only`, `--model <codex model>`, `--effort low|medium|high|max`,
    `--wait` for short tasks. Codex has no cost cap flag: usage counts against
@@ -66,10 +66,11 @@ the delegation's saved state.
 6. **Review:** `python3 "$D" status <slug>` (structured result, commits,
    uncommitted files, ownership violations), then `python3 "$D" check <slug>`
    must exit 0, then read the diff:
-   `git -C ../Caliber-codex-<slug> diff <seed>..HEAD`.
-   If Codex's sandbox blocked its commit, the changes are uncommitted in the
-   worktree: review them, then commit them on `codex/<slug>` yourself with
-   `git -C ../Caliber-codex-<slug> add <paths>` and a conventional commit.
+   `git -C ../Caliber-codex-<slug> diff` plus `git -C ../Caliber-codex-<slug> status`
+   for new files. Codex's work is uncommitted. Once it looks right, run
+   `python3 "$D" commit <slug> --message "feat(<scope>): ..."`, which commits only
+   owned paths and the handoff on `codex/<slug>` and refuses if anything is outside
+   ownership.
 7. **Correct:** `python3 "$D" resume <slug> --message-file fix.md` continues the
    same Codex thread.
 8. **Integrate** into your branch (`git cherry-pick <seed>..codex/<slug>`), re-run

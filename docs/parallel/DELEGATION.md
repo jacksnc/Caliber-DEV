@@ -78,8 +78,10 @@ file and its owned paths on its own branch.
    a time. Anything you could not run is **UNTESTED**. Say so, and never imply
    it passed.
 5. Commit with conventional commits on your branch. Stage paths by name; never
-   `git add -A`. If your sandbox refuses `git commit`, leave the changes in the
-   worktree and say so; the lead commits them on your branch.
+   `git add -A`. Codex's sandbox keeps `.git` read-only, so a Codex subagent
+   never commits: it leaves its changes and handoff in the worktree, and the lead
+   commits them on `codex/<slug>` after review (`delegate.py commit <slug>`).
+   Claude commits normally; if its commit is ever refused, it does the same.
 6. Write your handoff, commit it, then return the structured result. If you are
    blocked or need a decision, still commit what is safe, record the question in
    the handoff, and return `status: "needs_input"` or `"blocked"`. You cannot
@@ -111,7 +113,8 @@ file and its owned paths on its own branch.
 
 1. `delegate.py status <slug>` shows the run state, the structured result,
    commits since the seed, uncommitted files, and any path outside ownership.
-2. `delegate.py check <slug>` must pass before integration. A violation is
+2. `delegate.py check <slug>` must pass before integration. For a Codex
+   subagent, review the uncommitted diff, then `delegate.py commit <slug>`. A violation is
    either reverted on integration or explicitly accepted in `SESSION.md`.
 3. Read the diff, not only the summary. Re-run the checks in the lead's checkout.
 4. To send corrections, `delegate.py resume <slug> --message ...` continues the

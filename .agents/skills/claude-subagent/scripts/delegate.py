@@ -192,6 +192,16 @@ def build_prompt(meta: dict, task: str) -> str:
     sims = 'You MAY run xcodebuild / scripts/test_ios.py for this task.' if meta['allow_simulator'] \
         else 'Do NOT run xcodebuild, simulator, or scripts/test_ios.py; list them as UNTESTED.'
     info = AGENTS[agent_of(meta)]
+    codex = agent_of(meta) == 'codex'
+    if codex:  # Codex's sandbox keeps .git read-only, so the lead commits for it
+        commit_rule = ('Your sandbox cannot write git metadata: do NOT run git add/commit. Leave all changes '
+                       'in the worktree; the lead reviews and commits them on your branch. Report '
+                       'commits as [] and head as the seed.')
+        finish = 'writing your handoff (uncommitted)'
+    else:
+        commit_rule = ('If `git commit` is refused by your sandbox, leave the changes in the worktree, say so '
+                       'in `questions`, and the lead will commit them on your branch.')
+        finish = 'committing your work and the handoff'
     header = f"""You are {info['name']} working as a delegated subagent for {info['lead']} (the lead) on the
 Caliber iOS app. Follow docs/parallel/DELEGATION.md. Nobody can answer questions mid-run."""
     if agent_of(meta) == 'codex':  # codex has no append-system-prompt flag: inline the protocol
@@ -205,18 +215,17 @@ Assignment
 - Branch: {meta['branch']}  (seed {meta['seed']})
 - Owned paths (edit nothing else):
 {owned}
-- Handoff file you must write and commit: {meta['handoff_path']}
+- Handoff file you must write{'' if codex else ' and commit'}: {meta['handoff_path']}
 - Mode: {mode}
 - {sims}
 - Never push, merge, rebase, reset, switch branches, or touch other worktrees.
-- If `git commit` is refused by your sandbox, leave the changes in the worktree, say so in
-  `questions`, and the lead will commit them on your branch.
+- {commit_rule}
 
-Finish by committing your work and the handoff, then return the structured result
+Finish by {finish}, then return the structured result
 (status, summary, head, commits, files_changed, checks, untested, questions, handoff_path).
 
-Task from Codex
----------------
+Task from {info['lead']}
+{'-' * (10 + len(info['lead']))}
 {task.strip()}
 """
 
@@ -262,16 +271,13 @@ def build_command(binary: str, meta: dict, prompt: str, resume_id: str | None = 
 
 def build_codex_command(binary: str, meta: dict, prompt: str, resume_id: str | None,
                         last_message: Path | None) -> list[str]:
-    """`codex exec` in workspace-write. The worktree's git dir lives in the main repo's
-    common dir, so that is added as a writable root for commits; network stays off."""
-    common = git('rev-parse', '--git-common-dir', cwd=Path(meta['worktree']))
-    common = str((Path(meta['worktree']) / common).resolve()) if not Path(common).is_absolute() else common
+    """`codex exec` in workspace-write inside the worktree; network stays off unless asked.
+    Its sandbox keeps .git read-only (verified on macOS), so `commit` does that step for it."""
     cmd = [binary, 'exec']
     if resume_id:
         cmd += ['resume', resume_id]
     cmd += ['--json', '--skip-git-repo-check', '--output-schema', str(SCHEMA_PATH),
             '-c', 'sandbox_mode="workspace-write"',
-            '-c', f'sandbox_workspace_write.writable_roots={json.dumps([common])}',
             '-c', 'approval_policy="never"']
     if not resume_id:
         cmd += ['-C', meta['worktree']]
@@ -617,6 +623,31 @@ def cmd_wait(args, cwd: Path) -> int:
         time.sleep(min(15, max(1, deadline - time.monotonic())))
 
 
+def cmd_commit(args, cwd: Path) -> int:
+    """Lead-side: commit a subagent's uncommitted work on its own branch, owned paths only."""
+    root = state_root(repo_root(cwd))
+    meta = load_meta(root, args.slug)
+    finish_run(meta, root)
+    if meta['runs'] and not meta['runs'][-1].get('finished'):
+        raise DelegateError(f'{args.slug} is still running; wait first')
+    bad = ownership_violations(meta)
+    if bad:
+        raise DelegateError('refusing to commit, changes outside ownership: ' + ', '.join(bad))
+    worktree = Path(meta['worktree'])
+    owned = meta['owned'] + [meta['handoff_path']]
+    paths = [p for p in changed_paths(worktree, 'HEAD') if matches_owned(p, owned)]
+    if not paths:
+        print(f'{args.slug}: nothing uncommitted')
+        return 0
+    git('add', '--', *paths, cwd=worktree)
+    name = AGENTS[agent_of(meta)]['name']
+    message = args.message or f'feat({meta["batch"]}): {meta["slug"]} work by {name} (committed by the lead)'
+    git('commit', '-m', message, cwd=worktree)
+    print(f'committed {len(paths)} path(s) on {meta["branch"]}: '
+          + git('log', '-1', '--format=%h %s', cwd=worktree))
+    return 0
+
+
 def cmd_check(args, cwd: Path) -> int:
     root = state_root(repo_root(cwd))
     meta = load_meta(root, args.slug)
@@ -701,12 +732,15 @@ def parser() -> argparse.ArgumentParser:
     r.add_argument('--json', action='store_true')
 
     for name, helptext in (('status', 'show run state, result, commits, ownership'),
-                           ('check', 'exit 1 if Claude changed paths it does not own'),
+                           ('check', 'exit 1 if the subagent changed paths it does not own'),
                            ('stop', 'interrupt a running delegation')):
         c = sub.add_parser(name, help=helptext)
         c.add_argument('slug')
         if name == 'status':
             c.add_argument('--json', action='store_true')
+    m = sub.add_parser('commit', help="commit the subagent's uncommitted owned changes on its branch")
+    m.add_argument('slug')
+    m.add_argument('--message', help='conventional commit message (default names the slug and agent)')
     w = sub.add_parser('wait', help='block until the latest run finishes')
     w.add_argument('slug')
     w.add_argument('--timeout', type=int, default=540, help='seconds (default 540, under typical tool timeouts)')
@@ -718,7 +752,7 @@ def parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
     handlers = {'doctor': cmd_doctor, 'start': cmd_start, 'resume': cmd_resume, 'status': cmd_status,
-                'wait': cmd_wait, 'check': cmd_check, 'stop': cmd_stop, 'list': cmd_list}
+                'wait': cmd_wait, 'check': cmd_check, 'commit': cmd_commit, 'stop': cmd_stop, 'list': cmd_list}
     try:
         return handlers[args.command](args, Path.cwd())
     except DelegateError as exc:

@@ -103,7 +103,7 @@ class CodexTests(unittest.TestCase):
             self.assertEqual(cmd[:2], ['codex', 'exec'])
             self.assertEqual(cmd[-1], 'PROMPT')
             self.assertIn('sandbox_mode="workspace-write"', cmd)
-            self.assertIn(f'sandbox_workspace_write.writable_roots={json.dumps([str((repo / ".git").resolve())])}', cmd)
+            self.assertFalse(any('writable_roots' in part for part in cmd))
             self.assertIn('model_reasoning_effort="xhigh"', cmd)
             self.assertNotIn('-m', cmd)
             self.assertEqual(cmd[cmd.index('-C') + 1], str(repo))
@@ -117,6 +117,33 @@ class CodexTests(unittest.TestCase):
         self.assertIn('You are Codex working as a delegated subagent for Claude', prompt)
         self.assertIn('Shared protocol', prompt)
         self.assertIn('CODEX_HANDOFF.md', prompt)
+        self.assertIn('do NOT run git add/commit', prompt)
+        self.assertIn('Task from Claude', prompt)
+        self.assertNotIn('Task from Codex', prompt)
+
+    def test_lead_commit_takes_only_owned_uncommitted_paths(self):
+        with tempfile.TemporaryDirectory() as tmp, tempfile.TemporaryDirectory() as state:
+            repo = self.make_repo(tmp)
+            git(repo, 'config', 'user.email', 't@example.com')
+            git(repo, 'config', 'user.name', 't')
+            (repo / 'README.md').write_text('r')
+            git(repo, 'add', '.')
+            git(repo, 'commit', '-qm', 'seed')
+            seed = subject.git('rev-parse', 'HEAD', cwd=repo)
+            meta = CommandTests.meta(self, agent='codex', slug='units', worktree=str(repo), seed=seed,
+                                     owned=['notes/*'], handoff_path='docs/parallel/b/CODEX_HANDOFF.md', runs=[])
+            subject.save_meta(Path(state), meta)
+            (repo / 'notes').mkdir()
+            (repo / 'notes' / 'OK.md').write_text('OK')
+            (repo / 'docs/parallel/b').mkdir(parents=True)
+            (repo / 'docs/parallel/b/CODEX_HANDOFF.md').write_text('h')
+            args = type('A', (), {'slug': 'units', 'message': None})()
+            with mock.patch.object(subject, 'state_root', return_value=Path(state)):
+                self.assertEqual(subject.cmd_commit(args, repo), 0)
+                self.assertEqual(subject.git('status', '--porcelain', cwd=repo), '')
+                (repo / 'README.md').write_text('changed')
+                with self.assertRaises(subject.DelegateError):
+                    subject.cmd_commit(args, repo)
 
     def test_reads_codex_events_and_last_message(self):
         with tempfile.TemporaryDirectory() as tmp:
