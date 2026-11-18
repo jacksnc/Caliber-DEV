@@ -21,3 +21,12 @@ tests, and the relevant Xcode tests. Use a conventional commit per completed
 phase. Never stage unrelated files or use `git add -A` without inspecting every
 path first. If tasks are performed concurrently, use separate Git worktrees;
 never edit the same checkout from two agents at once.
+
+## Codex and Claude working together
+
+Codex can hand a bounded task to Claude Code with the repo skill
+`.agents/skills/claude-subagent` (headless `claude -p`, one worktree and
+`claude/<slug>` branch per task). Both agents follow
+`docs/parallel/DELEGATION.md`: Codex leads, owns shared files and integration,
+and runs simulator jobs; Claude edits only its assigned paths, never pushes or
+merges, and records its work in `docs/parallel/<batch>/CLAUDE_HANDOFF.md`.
