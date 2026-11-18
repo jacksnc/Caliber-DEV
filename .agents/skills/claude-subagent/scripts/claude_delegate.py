@@ -409,7 +409,7 @@ def status_dict(meta: dict, root: Path) -> dict:
     info = {'slug': meta['slug'], 'batch': meta['batch'], 'branch': meta['branch'],
             'worktree': meta['worktree'], 'seed': meta['seed'][:7], 'state': state,
             'session_id': meta.get('session_id'), 'runs': len(meta['runs']),
-            'cost_usd_total': sum(r.get('cost_usd') or 0 for r in meta['runs'])}
+            'cost_usd_total': max([r.get('cost_usd') or 0 for r in meta['runs']] or [0])}  # resume reports the running total
     if worktree.exists():
         info['head'] = git('rev-parse', '--short', 'HEAD', cwd=worktree)
         log = git('log', '--format=%h %s', f'{meta["seed"]}..HEAD', cwd=worktree)
