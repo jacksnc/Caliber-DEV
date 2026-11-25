@@ -448,7 +448,8 @@
   // ---------- Boot ----------
   loadPrefs();
   if (getToken()) el.token.placeholder = "Token saved";
-  const initial = new URLSearchParams(location.search).get("user") || store.get("rd:lastUser");
+  const DEFAULT_USER = "jacksnc"; // whose repos load when no ?user= is given
+  const initial = new URLSearchParams(location.search).get("user") || store.get("rd:lastUser") || DEFAULT_USER;
   el.form.addEventListener("submit", () => store.set("rd:lastUser", el.user.value.trim()));
   if (initial) loadOwner(initial);
 })();

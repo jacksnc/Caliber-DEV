@@ -22,7 +22,7 @@ Open `index.html` in a browser, or serve the folder:
 python3 -m http.server 8000
 ```
 
-Then visit `http://localhost:8000/?user=<github-username-or-org>`.
+It opens on **jacksnc**'s repositories by default (change `DEFAULT_USER` in `js/app.js`). To view another account, type it in the box or visit `http://localhost:8000/?user=<github-username-or-org>`.
 
 ### Host it on GitHub Pages
 
